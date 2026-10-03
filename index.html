@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<meta name="theme-color" content="#0B4F3A">
+
+<meta name="description"
+      content="Kayah — Business, Made Possible. A simple business management platform for modern businesses.">
+
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="default">
+
+<meta name="apple-mobile-web-app-title"
+      content="Kayah">
+
+<link rel="manifest" href="manifest.json">
+
+<title>Kayah — Business, Made Possible.</title>
+
+
+<style>
+
+/* =====================================================
+   KAYAH
+   BUSINESS MANAGEMENT PLATFORM
+===================================================== */
+
+:root{
+
+    --green:#16805C;
+    --deep-green:#0B4F3A;
+    --yellow:#F2B84B;
+    --beige:#F7F3E8;
+    --white:#FFFFFF;
+    --charcoal:#202A24;
+    --muted:#6F7D75;
+    --border:#E5EAE5;
+    --light-green:#EAF5F0;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    margin:0;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background:var(--beige);
+
+    color:var(--charcoal);
+
+    overflow-x:hidden;
+
+}
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding-left:20px;
+    padding-right:20px;
+
+}
+
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+button{
+
+    font-family:inherit;
+
+    border:0;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   APP INSTALL TOP BAR
+===================================================== */
+
+.install-bar{
+
+    background:var(--deep-green);
+
+    color:white;
+
+    padding:11px 16px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+
+.install-inner{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+
+.install-info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    min-width:0;
+
+}
+
+
+.install-small-logo{
+
+    width:34px;
+    height:34px;
+
+    background:white;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:5px;
+
+    flex-shrink:0;
+
+}
+
+
+.install-small-logo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+.install-text{
+
+    min-width:0;
+
+}
+
+
+.install-title{
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+
+.install-subtitle{
+
+    font-size:10px;
+
+    opacity:.75;
+
+    margin-top:2px;
+
+}
+
+
+.install-button{
+
+    background:var(--yellow);
+
+    color:var(--deep-green);
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+
+.install-button:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navbar{
+
+    background:rgba(247,243,232,.94);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(11,79,58,.07);
+
+    position:sticky;
+
+    top:57px;
+
+    z-index:900;
+
+}
+
+
+.nav-inner{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    height:68px;
+
+    padding:0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.logo img{
+
+    width:42px;
+    height:42px;
+
+    object-fit:contain;
+
+}
+
+
+.logo-name{
+
+    font-size:21px;
+
+    font-weight:800;
+
+    color:var(--deep-green);
+
+}
+
+
+.nav-links{
+
+    display:none;
+
+    align-items:center;
+
+    gap:24px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:var(--charcoal);
+
+}
+
+
+.nav-links a:hover{
+
+    color:var(--green);
+
+}
+
+
+.nav-login{
+
+    background:var(--green);
+
+    color:white;
+
+    padding:10px 17px;
+
+    border-radius:11px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        55px
+        20px
+        65px;
+
+}
+
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:330px;
+    height:330px;
+
+    border-radius:50%;
+
+    background:rgba(22,128,92,.08);
+
+    top:-150px;
+    right:-140px;
+
+}
+
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    border-radius:50%;
+
+    background:rgba(242,184,75,.10);
+
+    bottom:-130px;
+    left:-100px;
+
+}
+
+
+.hero-content{
+
+    max-width:760px;
+
+    margin:auto;
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.hero-logo{
+
+    width:110px;
+    height:110px;
+
+    margin:0 auto 24px;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:16px;
+
+    box-shadow:
+        0 15px 40px rgba(11,79,58,.10);
+
+}
+
+
+.hero-logo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+.hero h1{
+
+    font-size:
+        clamp(38px,10vw,68px);
+
+    line-height:1;
+
+    letter-spacing:-2px;
+
+    color:var(--deep-green);
+
+    margin-bottom:12px;
+
+    font-weight:850;
+
+}
+
+
+.hero-tagline{
+
+    font-size:
+        clamp(18px,4vw,24px);
+
+    font-weight:700;
+
+    color:var(--green);
+
+    margin-bottom:18px;
+
+}
+
+
+.hero-description{
+
+    max-width:620px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+    font-size:15px;
+
+}
+
+
+.hero-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:11px;
+
+    max-width:360px;
+
+    margin:30px auto 0;
+
+}
+
+
+.btn{
+
+    min-height:53px;
+
+    padding:0 22px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    transition:.2s;
+
+}
+
+
+.btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+.btn-primary{
+
+    background:var(--green);
+
+    color:white;
+
+    box-shadow:
+        0 10px 25px rgba(22,128,92,.20);
+
+}
+
+
+.btn-primary:hover{
+
+    background:var(--deep-green);
+
+}
+
+
+.btn-secondary{
+
+    background:white;
+
+    color:var(--deep-green);
+
+    border:1px solid var(--border);
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+section{
+
+    padding:
+        70px
+        0;
+
+}
+
+
+.section-header{
+
+    max-width:650px;
+
+    margin:0 auto 40px;
+
+    text-align:center;
+
+}
+
+
+.section-label{
+
+    display:inline-block;
+
+    background:var(--light-green);
+
+    color:var(--green);
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    margin-bottom:12px;
+
+}
+
+
+.section-title{
+
+    font-size:
+        clamp(27px,7vw,42px);
+
+    line-height:1.15;
+
+    color:var(--deep-green);
+
+    margin-bottom:13px;
+
+    letter-spacing:-.8px;
+
+}
+
+
+.section-description{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    line-height:1.7;
+
+}
+
+
+/* =====================================================
+   OVERVIEW
+===================================================== */
+
+.overview{
+
+    background:white;
+
+}
+
+
+.overview-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:18px;
+
+}
+
+
+.overview-card{
+
+    padding:24px;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    background:white;
+
+}
+
+
+.overview-icon{
+
+    width:46px;
+    height:46px;
+
+    border-radius:13px;
+
+    background:var(--light-green);
+
+    color:var(--green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    margin-bottom:16px;
+
+}
+
+
+.overview-card h3{
+
+    color:var(--deep-green);
+
+    font-size:18px;
+
+    margin-bottom:8px;
+
+}
+
+
+.overview-card p{
+
+    color:var(--muted);
+
+    line-height:1.65;
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features{
+
+    background:var(--beige);
+
+}
+
+
+.feature-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+
+}
+
+
+.feature-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:19px;
+
+    padding:21px;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+
+.feature-icon{
+
+    width:43px;
+    height:43px;
+
+    min-width:43px;
+
+    border-radius:12px;
+
+    background:var(--green);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+
+    font-weight:800;
+
+}
+
+
+.feature-card h3{
+
+    font-size:15px;
+
+    color:var(--deep-green);
+
+    margin-bottom:5px;
+
+}
+
+
+.feature-card p{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    line-height:1.55;
+
+}
+
+
+/* =====================================================
+   BUSINESS MANAGEMENT
+===================================================== */
+
+.management{
+
+    background:white;
+
+}
+
+
+.management-box{
+
+    max-width:900px;
+
+    margin:auto;
+
+    background:var(--deep-green);
+
+    color:white;
+
+    border-radius:28px;
+
+    padding:32px 23px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.management-box::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(242,184,75,.10);
+
+    right:-90px;
+
+    top:-90px;
+
+}
+
+
+.management-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.management-box h2{
+
+    font-size:28px;
+
+    line-height:1.2;
+
+    margin-bottom:13px;
+
+}
+
+
+.management-box p{
+
+    color:rgba(255,255,255,.76);
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    max-width:620px;
+
+}
+
+
+.management-list{
+
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:11px;
+
+}
+
+
+.management-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:13px;
+
+}
+
+
+.check{
+
+    width:24px;
+    height:24px;
+
+    min-width:24px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
+
+    color:var(--deep-green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:900;
+
+}
+
+
+/* =====================================================
+   HOW IT WORKS
+===================================================== */
+
+.how{
+
+    background:var(--beige);
+
+}
+
+
+.steps{
+
+    max-width:850px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+
+.step{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:19px;
+
+    padding:21px;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+
+.step-number{
+
+    width:42px;
+    height:42px;
+
+    min-width:42px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
+
+    color:var(--deep-green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:14px;
+
+    font-weight:900;
+
+}
+
+
+.step h3{
+
+    color:var(--deep-green);
+
+    font-size:15px;
+
+    margin-bottom:5px;
+
+}
+
+
+.step p{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.55;
+
+}
+
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.cta{
+
+    background:var(--green);
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+.cta h2{
+
+    font-size:
+        clamp(28px,7vw,42px);
+
+    margin-bottom:12px;
+
+    letter-spacing:-.8px;
+
+}
+
+
+.cta p{
+
+    max-width:560px;
+
+    margin:auto;
+
+    color:rgba(255,255,255,.80);
+
+    line-height:1.7;
+
+    font-size:14px;
+
+}
+
+
+.cta-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:11px;
+
+    max-width:350px;
+
+    margin:27px auto 0;
+
+}
+
+
+.cta .btn-primary{
+
+    background:white;
+
+    color:var(--deep-green);
+
+    box-shadow:none;
+
+}
+
+
+.cta .btn-secondary{
+
+    background:transparent;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.35);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    background:var(--deep-green);
+
+    color:white;
+
+    padding:30px 0;
+
+}
+
+
+.footer-content{
+
+    text-align:center;
+
+}
+
+
+.footer-logo{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:10px;
+
+}
+
+
+.footer-logo img{
+
+    width:34px;
+    height:34px;
+
+    object-fit:contain;
+
+}
+
+
+.footer-name{
+
+    font-size:19px;
+
+    font-weight:800;
+
+}
+
+
+.footer-tagline{
+
+    color:rgba(255,255,255,.65);
+
+    font-size:11px;
+
+    margin-bottom:15px;
+
+}
+
+
+.copyright{
+
+    font-size:10px;
+
+    color:rgba(255,255,255,.45);
+
+}
+
+
+/* =====================================================
+   INSTALL MODAL
+===================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(11,79,58,.48);
+
+    backdrop-filter:blur(5px);
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:15px;
+
+    z-index:2000;
+
+}
+
+
+.modal.hidden{
+
+    display:none;
+
+}
+
+
+.modal-card{
+
+    width:100%;
+
+    max-width:450px;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:25px 22px 22px;
+
+    box-shadow:
+        0 -10px 50px rgba(0,0,0,.20);
+
+}
+
+
+.modal-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+
+.modal-title{
+
+    color:var(--deep-green);
+
+    font-size:21px;
+
+    font-weight:800;
+
+}
+
+
+.close{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    background:var(--beige);
+
+    color:var(--charcoal);
+
+    font-size:20px;
+
+}
+
+
+.install-steps{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    margin-bottom:20px;
+
+}
+
+
+.install-step{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+
+.step-circle{
+
+    width:29px;
+    height:29px;
+
+    min-width:29px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:700px){
+
+    .nav-links{
+
+        display:flex;
+
+    }
+
+    .nav-menu-mobile{
+
+        display:none;
+
+    }
+
+    .hero{
+
+        padding:
+            85px
+            20px
+            95px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:row;
+
+        max-width:420px;
+
+    }
+
+    .overview-grid{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .feature-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .management-box{
+
+        padding:50px;
+
+    }
+
+    .management-list{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .steps{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .cta-buttons{
+
+        flex-direction:row;
+
+        max-width:430px;
+
+    }
+
+}
+
+
+@media(min-width:900px){
+
+    .install-bar{
+
+        padding:9px 20px;
+
+    }
+
+    .hero-logo{
+
+        width:125px;
+        height:125px;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+
+        scroll-behavior:auto;
+
+    }
+
+    *{
+
+        transition:none !important;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     APP INSTALL BAR
+===================================================== -->
+
+<div class="install-bar">
+
+    <div class="install-inner">
+
+
+        <div class="install-info">
+
+            <div class="install-small-logo">
+
+                <img
+                    src="kayah-logo.png"
+                    alt="Kayah"
+                    onerror="this.style.display='none';">
+
+            </div>
+
+
+            <div class="install-text">
+
+                <div class="install-title">
+                    Get Kayah on your phone
+                </div>
+
+                <div class="install-subtitle">
+                    Install the Kayah business app
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="installButton"
+            class="install-button">
+
+            INSTALL
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+
+        <a href="index.html" class="logo">
+
+            <img
+                src="kayah-logo.png"
+                alt="Kayah">
+
+            <span class="logo-name">
+                Kayah
+            </span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#overview">
+                Overview
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how">
+                How It Works
+            </a>
+
+            <a
+                href="login.html"
+                class="nav-login">
+
+                Log In
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+
+        <div class="hero-logo">
+
+            <img
+                src="kayah-logo.png"
+                alt="Kayah Logo">
+
+        </div>
+
+
+        <h1>
+            Kayah
+        </h1>
+
+
+        <div class="hero-tagline">
+            Business, Made Possible.
+        </div>
+
+
+        <p class="hero-description">
+
+            A simple business management platform
+            designed to bring your everyday business
+            tools together in one place.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <button
+                id="heroInstall"
+                class="btn btn-primary">
+
+                Install Kayah App
+
+            </button>
+
+
+            <a
+                href="signup.html"
+                class="btn btn-secondary">
+
+                Get Started
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OVERVIEW
+===================================================== -->
+
+<section
+    id="overview"
+    class="overview">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <span class="section-label">
+                Kayah Overview
+            </span>
+
+            <h2 class="section-title">
+                One platform for your business
+            </h2>
+
+            <p class="section-description">
+
+                Kayah brings important business operations
+                together so you can spend less time switching
+                between different tools and more time managing
+                your business.
+
+            </p>
+
+        </div>
+
+
+        <div class="overview-grid">
+
+
+            <div class="overview-card">
+
+                <div class="overview-icon">
+                    B
+                </div>
+
+                <h3>
+                    Business Management
+                </h3>
+
+                <p>
+
+                    Keep your business information,
+                    operations and important records
+                    organized in one place.
+
+                </p>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <div class="overview-icon">
+                    P
+                </div>
+
+                <h3>
+                    Products & Inventory
+                </h3>
+
+                <p>
+
+                    Manage products, monitor inventory
+                    and keep track of what is available
+                    for your business.
+
+                </p>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <div class="overview-icon">
+                    S
+                </div>
+
+                <h3>
+                    Sales & Expenses
+                </h3>
+
+                <p>
+
+                    Record business transactions and
+                    organize your sales and expenses
+                    for easier monitoring.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    id="features"
+    class="features">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <span class="section-label">
+                Features
+            </span>
+
+            <h2 class="section-title">
+                Everything organized in one place
+            </h2>
+
+            <p class="section-description">
+
+                Kayah is built around the everyday
+                needs of businesses.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        Business Profile
+                    </h3>
+
+                    <p>
+                        Keep your business details
+                        organized and accessible.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        Product Management
+                    </h3>
+
+                    <p>
+                        Create and manage your
+                        business products and services.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        Inventory
+                    </h3>
+
+                    <p>
+                        Monitor stock and keep your
+                        inventory information updated.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    04
+                </div>
+
+                <div>
+
+                    <h3>
+                        Sales
+                    </h3>
+
+                    <p>
+                        Record and organize business
+                        sales in one place.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    05
+                </div>
+
+                <div>
+
+                    <h3>
+                        Expenses
+                    </h3>
+
+                    <p>
+                        Keep track of business expenses
+                        and spending records.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    06
+                </div>
+
+                <div>
+
+                    <h3>
+                        Customers
+                    </h3>
+
+                    <p>
+                        Organize customer information
+                        and business relationships.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    07
+                </div>
+
+                <div>
+
+                    <h3>
+                        Reports
+                    </h3>
+
+                    <p>
+                        View organized business information
+                        to help monitor your operations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    08
+                </div>
+
+                <div>
+
+                    <h3>
+                        Business Settings
+                    </h3>
+
+                    <p>
+                        Customize your business profile
+                        and manage your account settings.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MANAGEMENT
+===================================================== -->
+
+<section class="management">
+
+    <div class="container">
+
+
+        <div class="management-box">
+
+
+            <div class="management-content">
+
+
+                <h2>
+                    Built for everyday business
+                </h2>
+
+
+                <p>
+
+                    Whether you are starting a small business
+                    or managing an established operation,
+                    Kayah gives you a central place to organize
+                    the information and activities that matter.
+
+                </p>
+
+
+                <div class="management-list">
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Organize business information
+
+                    </div>
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Manage products and inventory
+
+                    </div>
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Track sales and expenses
+
+                    </div>
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Keep customer records organized
+
+                    </div>
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Review business reports
+
+                    </div>
+
+
+                    <div class="management-item">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Access your business from one app
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section
+    id="how"
+    class="how">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <span class="section-label">
+                Getting Started
+            </span>
+
+            <h2 class="section-title">
+                Start managing your business
+            </h2>
+
+            <p class="section-description">
+
+                Getting started with Kayah is simple.
+
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+
+                    <h3>
+                        Install Kayah
+                    </h3>
+
+                    <p>
+                        Add Kayah to your phone so
+                        you can access it like an app.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+
+                    <h3>
+                        Create Your Account
+                    </h3>
+
+                    <p>
+                        Set up your account and
+                        provide your basic business details.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+
+                    <h3>
+                        Manage Your Business
+                    </h3>
+
+                    <p>
+                        Start using Kayah to organize
+                        your daily business operations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="container">
+
+
+        <h2>
+            Ready to get started?
+        </h2>
+
+
+        <p>
+
+            Create your Kayah account and bring
+            your business tools together in one place.
+
+        </p>
+
+
+        <div class="cta-buttons">
+
+
+            <a
+                href="signup.html"
+                class="btn btn-primary">
+
+                Create an Account
+
+            </a>
+
+
+            <a
+                href="login.html"
+                class="btn btn-secondary">
+
+                Log In
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-content">
+
+
+            <div class="footer-logo">
+
+                <img
+                    src="kayah-logo.png"
+                    alt="Kayah">
+
+                <span class="footer-name">
+                    Kayah
+                </span>
+
+            </div>
+
+
+            <div class="footer-tagline">
+                Business, Made Possible.
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 Kayah.
+                All rights reserved.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     INSTALL MODAL
+===================================================== -->
+
+<div
+    id="installModal"
+    class="modal hidden">
+
+
+    <div class="modal-card">
+
+
+        <div class="modal-top">
+
+            <div class="modal-title">
+                Install Kayah
+            </div>
+
+
+            <button
+                id="closeModal"
+                class="close">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="install-steps">
+
+
+            <div class="install-step">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <div>
+
+                    If your browser shows an
+                    <strong>Install</strong> option,
+                    choose it to install Kayah.
+
+                </div>
+
+            </div>
+
+
+            <div class="install-step">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <div>
+
+                    If no install prompt appears,
+                    open your browser menu and choose
+                    <strong>Add to Home screen</strong>
+                    or <strong>Install app</strong>.
+
+                </div>
+
+            </div>
+
+
+            <div class="install-step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+                <div>
+
+                    After installation, open Kayah
+                    from your phone's home screen.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            id="closeModalButton"
+            class="btn btn-primary">
+
+            Continue
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   KAYAH INDEX JAVASCRIPT
+===================================================== */
+
+
+/* -----------------------------------------------------
+   VARIABLES
+----------------------------------------------------- */
+
+let deferredPrompt = null;
+
+
+const installButton =
+    document.getElementById("installButton");
+
+const heroInstall =
+    document.getElementById("heroInstall");
+
+const installModal =
+    document.getElementById("installModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const closeModalButton =
+    document.getElementById("closeModalButton");
+
+
+/* -----------------------------------------------------
+   INSTALL PROMPT
+----------------------------------------------------- */
+
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event){
+
+        event.preventDefault();
+
+        deferredPrompt = event;
+
+    }
+);
+
+
+/* -----------------------------------------------------
+   INSTALL FUNCTION
+----------------------------------------------------- */
+
+async function installKayah(){
+
+    /*
+       If browser supports the native
+       installation prompt, use it.
+    */
+
+    if(deferredPrompt){
+
+        deferredPrompt.prompt();
+
+        const result =
+            await deferredPrompt.userChoice;
+
+        console.log(
+            "Install choice:",
+            result.outcome
+        );
+
+        deferredPrompt = null;
+
+        return;
+
+    }
+
+
+    /*
+       If browser does not provide the
+       automatic prompt, show instructions.
+    */
+
+    installModal.classList.remove("hidden");
+
+}
+
+
+/* -----------------------------------------------------
+   INSTALL BUTTONS
+----------------------------------------------------- */
+
+installButton.addEventListener(
+    "click",
+    installKayah
+);
+
+
+heroInstall.addEventListener(
+    "click",
+    installKayah
+);
+
+
+/* -----------------------------------------------------
+   APP INSTALLED
+----------------------------------------------------- */
+
+window.addEventListener(
+    "appinstalled",
+    function(){
+
+        installButton.textContent =
+            "INSTALLED";
+
+        installButton.style.opacity =
+            ".7";
+
+        heroInstall.textContent =
+            "Kayah Installed";
+
+        heroInstall.style.opacity =
+            ".7";
+
+    }
+);
+
+
+/* -----------------------------------------------------
+   CLOSE MODAL
+----------------------------------------------------- */
+
+function closeInstallModal(){
+
+    installModal.classList.add("hidden");
+
+}
+
+
+closeModal.addEventListener(
+    "click",
+    closeInstallModal
+);
+
+
+closeModalButton.addEventListener(
+    "click",
+    closeInstallModal
+);
+
+
+installModal.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === installModal){
+
+            closeInstallModal();
+
+        }
+
+    }
+);
+
+
+/* -----------------------------------------------------
+   SERVICE WORKER
+----------------------------------------------------- */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(function(){
+
+                    console.log(
+                        "Kayah service worker registered."
+                    );
+
+                })
+                .catch(function(error){
+
+                    console.log(
+                        "Service worker not ready:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>
