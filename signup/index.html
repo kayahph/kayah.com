@@ -1374,10 +1374,6 @@
 
 <script type="module">
 
-/* =====================================================
-   FIREBASE IMPORTS
-===================================================== */
-
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1397,11 +1393,10 @@ import {
 
 
 /* =====================================================
-   FIREBASE CONFIG
+   FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
-
     apiKey:
         "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
 
@@ -1419,13 +1414,8 @@ const firebaseConfig = {
 
     appId:
         "1:49853785143:web:23182e6e11696ac03dcbb2"
-
 };
 
-
-/* =====================================================
-   INITIALIZE FIREBASE
-===================================================== */
 
 const app = initializeApp(firebaseConfig);
 
@@ -1446,15 +1436,6 @@ const errorBox =
 
 const continueButton =
     document.getElementById("continueButton");
-
-const formContent =
-    document.getElementById("formContent");
-
-const successContent =
-    document.getElementById("successContent");
-
-const setupButton =
-    document.getElementById("setupButton");
 
 const password =
     document.getElementById("password");
@@ -1485,9 +1466,7 @@ document
             password.type = "password";
 
             this.textContent = "Show";
-
         }
-
     });
 
 
@@ -1506,14 +1485,12 @@ document
             confirmPassword.type = "password";
 
             this.textContent = "Show";
-
         }
-
     });
 
 
 /* =====================================================
-   PHONE INPUT
+   PHONE
 ===================================================== */
 
 phone.addEventListener("input", function(){
@@ -1554,7 +1531,7 @@ function clearError(){
 
 
 /* =====================================================
-   FIREBASE ERROR TRANSLATION
+   FIREBASE ERROR MESSAGE
 ===================================================== */
 
 function getFirebaseErrorMessage(error){
@@ -1594,22 +1571,13 @@ function getFirebaseErrorMessage(error){
 
         case "auth/invalid-api-key":
 
-            return "The Firebase API key is invalid. Please check your Firebase configuration.";
+            return "The Firebase API key is invalid.";
 
 
         case "permission-denied":
 
-            return "Firebase denied permission to save your business information. Please check your Firestore rules.";
+            return "Firebase denied permission to save your information.";
 
-
-        case "failed-precondition":
-
-            return "Firestore is not ready. Please check your Firestore database.";
-
-
-        case "unavailable":
-
-            return "Firestore is temporarily unavailable. Please try again.";
 
         default:
 
@@ -1617,14 +1585,13 @@ function getFirebaseErrorMessage(error){
                 error.message ||
                 "Something went wrong while creating your account."
             );
-
     }
 
 }
 
 
 /* =====================================================
-   FORM SUBMIT
+   SIGNUP
 ===================================================== */
 
 form.addEventListener(
@@ -1691,7 +1658,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1702,7 +1668,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1713,7 +1678,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1728,7 +1692,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1742,7 +1705,6 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1753,18 +1715,19 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
-        if(passwordValue !== confirmPasswordValue){
+        if(
+            passwordValue !==
+            confirmPasswordValue
+        ){
 
             showError(
                 "The passwords do not match."
             );
 
             return;
-
         }
 
 
@@ -1775,17 +1738,16 @@ form.addEventListener(
             );
 
             return;
-
         }
 
 
         /* ---------------------------------------------
-           LOADING STATE
+           LOCK BUTTON
         --------------------------------------------- */
 
-        continueButton.classList.add("loading");
-
         continueButton.disabled = true;
+
+        continueButton.classList.add("loading");
 
         continueButton.textContent =
             "Creating Account...";
@@ -1799,7 +1761,7 @@ form.addEventListener(
             ========================================= */
 
             console.log(
-                "KAYAH: Creating Firebase account..."
+                "KAYAH: Creating account..."
             );
 
 
@@ -1823,34 +1785,77 @@ form.addEventListener(
 
             /* =========================================
                STEP 2
-               UPDATE PROFILE
+               SAVE DISPLAY NAME
             ========================================= */
 
-            continueButton.textContent =
-                "Saving Profile...";
+            try{
 
+                await updateProfile(
+                    user,
+                    {
+                        displayName:
+                            fullName
+                    }
+                );
 
-            await updateProfile(
-                user,
-                {
-                    displayName:
-                        fullName
-                }
-            );
+            }catch(profileError){
 
+                console.warn(
+                    "KAYAH: Profile update failed:",
+                    profileError
+                );
 
-            console.log(
-                "KAYAH: Profile saved."
-            );
+            }
 
 
             /* =========================================
                STEP 3
-               FIRESTORE DATA
+               SAVE SIGNUP DATA LOCALLY FOR SETUP
+            ========================================= */
+
+            const signupData = {
+
+                uid:
+                    user.uid,
+
+                businessName:
+                    businessName,
+
+                fullName:
+                    fullName,
+
+                email:
+                    email,
+
+                phone:
+                    phoneNumber,
+
+                countryCode:
+                    "+63",
+
+                phoneFull:
+                    "+63" + phoneNumber
+
+            };
+
+
+            sessionStorage.setItem(
+                "kayahSignupData",
+                JSON.stringify(signupData)
+            );
+
+
+            /* =========================================
+               STEP 4
+               ATTEMPT FIRESTORE SAVE
+               
+               IMPORTANT:
+               We do NOT let this block the signup
+               screen indefinitely.
             ========================================= */
 
             continueButton.textContent =
-                "Saving Business...";
+                "Opening Setup...";
 
 
             const userData = {
@@ -1891,74 +1896,43 @@ form.addEventListener(
             };
 
 
-            console.log(
-                "KAYAH: Saving users/" +
-                user.uid
-            );
+            /*
+             * Start Firestore save.
+             *
+             * We intentionally do not await it here.
+             * The setup page will also be able to save/update
+             * the user's complete business information.
+             */
 
-
-            await setDoc(
+            setDoc(
                 doc(
                     db,
                     "users",
                     user.uid
                 ),
                 userData
-            );
+            )
+            .then(function(){
 
+                console.log(
+                    "KAYAH: Signup data saved to Firestore."
+                );
 
-            console.log(
-                "KAYAH: Firestore save completed."
-            );
+            })
+            .catch(function(error){
 
+                console.warn(
+                    "KAYAH: Initial Firestore save failed:",
+                    error
+                );
 
-            /* =========================================
-               STEP 4
-               SAVE SESSION DATA
-            ========================================= */
-
-            sessionStorage.setItem(
-                "kayahSignupData",
-                JSON.stringify({
-
-                    uid:
-                        user.uid,
-
-                    businessName:
-                        businessName,
-
-                    fullName:
-                        fullName,
-
-                    email:
-                        email,
-
-                    phone:
-                        phoneNumber,
-
-                    countryCode:
-                        "+63"
-
-                })
-            );
+            });
 
 
             /* =========================================
                STEP 5
-               MOVE TO SETUP
+               GO TO SETUP
             ========================================= */
-
-            continueButton.textContent =
-                "Opening Setup...";
-
-
-            /*
-             * The Firestore write has already completed
-             * before this point.
-             *
-             * Now move the new user directly to
-             * the Setup page.
-             */
 
             window.location.href =
                 "../setup/";
@@ -1976,7 +1950,10 @@ form.addEventListener(
                 "loading"
             );
 
-            continueButton.disabled = false;
+
+            continueButton.disabled =
+                false;
+
 
             continueButton.textContent =
                 "Continue";
@@ -2026,7 +2003,10 @@ if("serviceWorker" in navigator){
 }
 
 </script>
+
+
+
+
 </body>
 
 </html>
-
