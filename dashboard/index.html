@@ -12,10 +12,37 @@
 
 <meta
     name="theme-color"
-    content="#F7F3E8"
+    content="#0B4F3A"
+>
+
+<meta
+    name="description"
+    content="Kayah — Business, Made Possible."
 >
 
 <title>Dashboard — Kayah</title>
+
+
+<!-- =====================================================
+     PROFESSIONAL FONT
+===================================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
 
@@ -34,20 +61,25 @@ html{
 }
 
 body{
+
     margin:0;
 
     font-family:
+        "Inter",
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
         Arial,
         sans-serif;
 
     background:#F7F3E8;
+
     color:#202A24;
 
     min-height:100vh;
+
+    -webkit-font-smoothing:antialiased;
+
 }
 
 
@@ -56,15 +88,18 @@ body{
 ===================================================== */
 
 .app{
+
     min-height:100vh;
+
 }
 
 
 /* =====================================================
-   TOP BAR
+   TOP HEADER
 ===================================================== */
 
 .topbar{
+
     width:100%;
 
     background:#F7F3E8;
@@ -72,73 +107,106 @@ body{
     padding:
         18px
         18px
-        8px;
+        10px;
+
 }
 
 .topbar-inner{
-    max-width:760px;
+
+    max-width:820px;
+
     margin:0 auto;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
 }
 
 .brand{
+
     display:flex;
+
     align-items:center;
 
     text-decoration:none;
+
 }
 
 .brand img{
-    width:38px;
-    height:38px;
+
+    width:36px;
+    height:36px;
 
     object-fit:contain;
 
-    border-radius:10px;
 }
 
 .brand-name{
+
     margin-left:9px;
 
     font-size:18px;
+
     font-weight:800;
+
+    letter-spacing:-.5px;
 
     color:#0B4F3A;
 
-    letter-spacing:-.4px;
 }
 
 .top-actions{
+
     display:flex;
+
     align-items:center;
-    gap:9px;
+
+    gap:8px;
+
 }
 
 .icon-button{
+
     width:38px;
     height:38px;
 
-    border:none;
-
-    border-radius:11px;
+    border:1px solid #E5E7DF;
 
     background:#FFFFFF;
 
     color:#0B4F3A;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    font-size:17px;
+    border-radius:10px;
+
+    font-size:16px;
 
     cursor:pointer;
 
-    box-shadow:
-        0 3px 12px rgba(11,79,58,.06);
+    transition:
+        background .2s ease,
+        transform .2s ease;
+
+}
+
+.icon-button:active{
+
+    transform:scale(.95);
+
+}
+
+.icon-button:hover{
+
+    background:#FFF8E8;
+
 }
 
 
@@ -147,16 +215,18 @@ body{
 ===================================================== */
 
 .main{
+
     width:100%;
 
-    max-width:760px;
+    max-width:820px;
 
     margin:0 auto;
 
     padding:
-        5px
+        3px
         18px
-        100px;
+        110px;
+
 }
 
 
@@ -165,22 +235,28 @@ body{
 ===================================================== */
 
 .greeting{
-    margin-top:7px;
+
+    margin-top:4px;
+
     margin-bottom:17px;
+
 }
 
 .greeting-text{
-    font-size:14px;
+
+    font-size:13px;
+
     font-weight:500;
 
-    color:#6C776F;
+    color:#68746D;
 
-    line-height:1.5;
+    letter-spacing:-.05px;
+
 }
 
 
 /* =====================================================
-   BUSINESS HERO
+   BUSINESS HEADER
 ===================================================== */
 
 .business-card{
@@ -191,77 +267,99 @@ body{
 
     background:#FFFFFF;
 
-    border-radius:24px;
+    border:1px solid #E5E8E2;
 
-    padding:24px 21px 22px;
-
-    border:1px solid rgba(11,79,58,.07);
+    border-radius:14px;
 
     box-shadow:
-        0 10px 35px rgba(11,79,58,.07);
+        0 7px 28px rgba(11,79,58,.06);
+
 }
 
-.business-card::after{
 
-    content:"";
+/* =====================================================
+   YELLOW BUSINESS STRIPE
+===================================================== */
 
-    position:absolute;
+.business-accent{
 
-    width:120px;
-    height:120px;
+    height:7px;
 
-    border-radius:50%;
+    width:100%;
 
-    background:
-        rgba(242,184,75,.13);
+    background:#F2B84B;
 
-    right:-45px;
-    top:-48px;
+}
 
-    pointer-events:none;
+
+/* =====================================================
+   BUSINESS CONTENT
+===================================================== */
+
+.business-content{
+
+    padding:
+        22px
+        20px
+        19px;
+
 }
 
 .business-top{
-    position:relative;
-    z-index:1;
 
     display:flex;
+
     align-items:flex-start;
+
     justify-content:space-between;
 
-    gap:15px;
+    gap:18px;
+
+}
+
+.business-info{
+
+    min-width:0;
+
+    flex:1;
+
 }
 
 .business-label{
 
-    display:inline-flex;
+    display:flex;
+
     align-items:center;
+
     gap:7px;
 
     font-size:10px;
+
     font-weight:800;
 
-    letter-spacing:1.25px;
+    letter-spacing:1.5px;
 
     color:#16805C;
 
-    margin-bottom:8px;
+    margin-bottom:9px;
+
 }
 
-.business-label-dot{
+.business-label-line{
 
-    width:6px;
-    height:6px;
+    width:21px;
 
-    border-radius:50%;
+    height:2px;
 
     background:#F2B84B;
+
 }
 
 .business-name{
 
-    font-size:29px;
-    line-height:1.08;
+    font-size:27px;
+
+    line-height:1.12;
 
     font-weight:800;
 
@@ -269,9 +367,8 @@ body{
 
     color:#0B4F3A;
 
-    max-width:500px;
-
     overflow-wrap:anywhere;
+
 }
 
 .business-type{
@@ -279,72 +376,97 @@ body{
     margin-top:8px;
 
     font-size:13px;
+
     font-weight:600;
 
-    color:#68736C;
+    color:#58645D;
+
 }
 
 .business-location{
 
-    margin-top:5px;
+    margin-top:6px;
 
-    font-size:12px;
+    font-size:11px;
 
-    color:#89928D;
+    line-height:1.4;
+
+    color:#8A948E;
+
 }
+
+
+/* =====================================================
+   BUSINESS MONOGRAM
+===================================================== */
 
 .business-initial{
 
-    width:52px;
-    height:52px;
+    width:58px;
+    height:58px;
 
-    min-width:52px;
-
-    border-radius:16px;
+    min-width:58px;
 
     background:#0B4F3A;
 
     color:#FFFFFF;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    font-size:20px;
+    border-radius:12px;
+
+    font-size:21px;
+
     font-weight:800;
 
+    position:relative;
+
     box-shadow:
-        0 7px 18px rgba(11,79,58,.16);
+        5px 5px 0 #F2B84B;
+
 }
+
+
+/* =====================================================
+   BUSINESS FOOTER
+===================================================== */
 
 .business-footer{
 
-    position:relative;
-    z-index:1;
+    margin-top:21px;
 
-    margin-top:20px;
+    padding-top:14px;
 
-    padding-top:15px;
-
-    border-top:1px solid #EDF0ED;
+    border-top:1px solid #EDF0EB;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    gap:10px;
+    gap:12px;
+
 }
 
 .profile-status{
 
     display:flex;
+
     align-items:center;
+
     gap:7px;
 
-    font-size:11px;
-    font-weight:650;
+    font-size:10px;
 
-    color:#657069;
+    font-weight:600;
+
+    color:#69746E;
+
 }
 
 .status-dot{
@@ -352,29 +474,41 @@ body{
     width:7px;
     height:7px;
 
+    background:#16805C;
+
     border-radius:50%;
 
-    background:#16805C;
 }
 
 .profile-link{
 
-    color:#16805C;
+    color:#0B4F3A;
 
     text-decoration:none;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+.profile-link:hover{
+
+    color:#16805C;
+
 }
 
 
 /* =====================================================
-   SECTION
+   SECTIONS
 ===================================================== */
 
 .section{
-    margin-top:28px;
+
+    margin-top:30px;
+
 }
 
 .section-heading{
@@ -382,34 +516,42 @@ body{
     display:flex;
 
     align-items:flex-end;
+
     justify-content:space-between;
 
-    margin-bottom:13px;
+    margin-bottom:12px;
+
 }
 
 .section-title{
 
-    font-size:18px;
+    font-size:17px;
+
+    line-height:1.2;
 
     font-weight:800;
 
     color:#202A24;
 
-    letter-spacing:-.35px;
+    letter-spacing:-.45px;
+
 }
 
 .section-subtitle{
 
-    font-size:11px;
+    margin-top:4px;
+
+    font-size:10px;
+
+    font-weight:500;
 
     color:#8A938E;
 
-    margin-top:3px;
 }
 
 
 /* =====================================================
-   OVERVIEW
+   TODAY AT A GLANCE
 ===================================================== */
 
 .overview-grid{
@@ -417,118 +559,170 @@ body{
     display:grid;
 
     grid-template-columns:
-        1.25fr
-        .875fr
-        .875fr;
+        1.45fr
+        1fr
+        1fr;
 
-    gap:10px;
+    gap:9px;
+
 }
+
+
+/* =====================================================
+   OVERVIEW CARD
+===================================================== */
 
 .overview-card{
 
-    min-height:118px;
+    min-height:116px;
 
     background:#FFFFFF;
 
-    border-radius:18px;
+    border:1px solid #E5E8E2;
+
+    border-radius:12px;
 
     padding:16px;
 
-    border:1px solid rgba(11,79,58,.06);
+    position:relative;
 
-    box-shadow:
-        0 6px 22px rgba(11,79,58,.045);
+    overflow:hidden;
+
 }
 
 .overview-card.primary{
 
-    background:#16805C;
+    background:#0B4F3A;
 
-    color:#FFFFFF;
+    border-color:#0B4F3A;
 
     box-shadow:
-        0 9px 25px rgba(22,128,92,.16);
+        0 8px 20px rgba(11,79,58,.12);
+
 }
+
+.overview-card.primary::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-35px;
+
+    bottom:-45px;
+
+    width:105px;
+
+    height:105px;
+
+    border-radius:50%;
+
+    background:#F2B84B;
+
+    opacity:.95;
+
+}
+
+
+/* =====================================================
+   CARD ICON
+===================================================== */
 
 .card-icon{
 
-    width:34px;
-    height:34px;
+    width:32px;
+    height:32px;
 
-    border-radius:10px;
+    border-radius:8px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    font-size:15px;
+    background:#FFF6DE;
 
-    background:#F3F7F4;
+    color:#9B6811;
 
-    color:#16805C;
+    font-size:14px;
 
-    margin-bottom:15px;
+    font-weight:800;
+
+    margin-bottom:14px;
+
 }
 
 .primary .card-icon{
 
-    background:
-        rgba(255,255,255,.15);
+    background:#F2B84B;
 
-    color:#FFFFFF;
+    color:#0B4F3A;
+
 }
+
+
+/* =====================================================
+   CARD TEXT
+===================================================== */
 
 .card-label{
 
-    font-size:11px;
+    font-size:10px;
 
-    color:#7C8780;
+    font-weight:600;
 
-    font-weight:650;
+    color:#818B85;
 
     margin-bottom:5px;
+
 }
 
 .primary .card-label{
 
-    color:
-        rgba(255,255,255,.75);
+    color:rgba(255,255,255,.72);
+
 }
 
 .card-value{
 
-    font-size:21px;
+    font-size:20px;
 
     line-height:1.1;
 
     font-weight:800;
 
+    letter-spacing:-.5px;
+
     color:#0B4F3A;
+
 }
 
 .primary .card-value{
 
     color:#FFFFFF;
+
 }
 
 .card-note{
 
     margin-top:5px;
 
-    font-size:10px;
+    font-size:9px;
 
-    color:#929A95;
+    color:#9AA29D;
+
 }
 
 .primary .card-note{
 
-    color:
-        rgba(255,255,255,.72);
+    color:rgba(255,255,255,.62);
+
 }
 
 
 /* =====================================================
-   BUSINESS TOOLS
+   MANAGE BUSINESS
 ===================================================== */
 
 .tools-list{
@@ -539,18 +733,21 @@ body{
         1fr
         1fr;
 
-    gap:10px;
+    gap:9px;
+
 }
 
 .tool{
 
+    min-height:78px;
+
     background:#FFFFFF;
 
-    border:1px solid rgba(11,79,58,.07);
+    border:1px solid #E5E8E2;
 
-    border-radius:17px;
+    border-radius:11px;
 
-    padding:15px;
+    padding:14px;
 
     text-decoration:none;
 
@@ -560,16 +757,21 @@ body{
 
     align-items:center;
 
-    gap:13px;
-
-    min-height:73px;
-
-    box-shadow:
-        0 5px 18px rgba(11,79,58,.04);
+    gap:12px;
 
     transition:
         transform .15s ease,
-        border-color .15s ease;
+        border-color .15s ease,
+        background .15s ease;
+
+}
+
+.tool:hover{
+
+    border-color:#D2DCCF;
+
+    background:#FFFEFA;
+
 }
 
 .tool:active{
@@ -578,6 +780,11 @@ body{
 
 }
 
+
+/* =====================================================
+   TOOL ICON
+===================================================== */
+
 .tool-icon{
 
     width:39px;
@@ -585,113 +792,203 @@ body{
 
     min-width:39px;
 
-    border-radius:12px;
+    border-radius:9px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:17px;
-
-    background:#F1F7F3;
+    background:#EEF6F1;
 
     color:#16805C;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+
+    font-weight:700;
+
 }
 
-.tool:nth-child(2n) .tool-icon{
 
-    background:#FFF7E6;
+/* YELLOW ACCENTS */
 
-    color:#B77A18;
+.tool:nth-child(2) .tool-icon,
+.tool:nth-child(4) .tool-icon,
+.tool:nth-child(6) .tool-icon{
+
+    background:#FFF4D9;
+
+    color:#9A6814;
+
 }
+
+
+/* =====================================================
+   TOOL CONTENT
+===================================================== */
 
 .tool-content{
 
+    flex:1;
+
     min-width:0;
 
-    flex:1;
 }
 
 .tool-title{
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:800;
 
-    color:#27342D;
+    color:#26332C;
+
 }
 
 .tool-description{
 
     margin-top:3px;
 
-    font-size:10px;
+    font-size:9px;
 
-    color:#8A938E;
+    line-height:1.4;
 
-    line-height:1.35;
+    color:#8B948F;
+
 }
 
 .tool-arrow{
 
-    color:#A0A8A3;
-
     font-size:17px;
+
+    color:#A1A9A4;
+
 }
 
 
 /* =====================================================
-   BUSINESS PROFILE
+   BUSINESS INFORMATION
 ===================================================== */
 
 .profile-card{
 
     background:#FFFFFF;
 
-    border-radius:19px;
+    border:1px solid #E5E8E2;
 
-    padding:18px;
+    border-radius:12px;
 
-    border:1px solid rgba(11,79,58,.07);
+    overflow:hidden;
 
-    box-shadow:
-        0 6px 22px rgba(11,79,58,.04);
+}
+
+
+/* =====================================================
+   PROFILE HEADER
+===================================================== */
+
+.profile-card-header{
+
+    padding:
+        15px
+        17px;
+
+    background:#FBF8EF;
+
+    border-bottom:1px solid #E8EAE2;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.profile-header-mark{
+
+    width:31px;
+    height:31px;
+
+    background:#F2B84B;
+
+    color:#0B4F3A;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+.profile-header-text{
+
+    font-size:11px;
+
+    font-weight:700;
+
+    color:#344139;
+
+}
+
+
+/* =====================================================
+   PROFILE ROWS
+===================================================== */
+
+.profile-body{
+
+    padding:
+        3px
+        17px;
+
 }
 
 .profile-row{
 
     display:flex;
 
+    align-items:flex-start;
+
     justify-content:space-between;
 
     gap:18px;
 
-    padding:12px 0;
+    padding:
+        13px
+        0;
 
-    border-bottom:1px solid #EFF2F0;
-}
+    border-bottom:1px solid #EFF1ED;
 
-.profile-row:first-child{
-    padding-top:0;
 }
 
 .profile-row:last-child{
 
-    padding-bottom:0;
-
     border-bottom:none;
+
 }
 
 .profile-key{
 
-    font-size:11px;
+    font-size:10px;
+
+    font-weight:500;
 
     color:#8A938E;
+
 }
 
 .profile-value{
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:700;
 
@@ -699,14 +996,15 @@ body{
 
     text-align:right;
 
-    max-width:60%;
+    max-width:62%;
 
     overflow-wrap:anywhere;
+
 }
 
 
 /* =====================================================
-   EMPTY STATE
+   EMPTY / FUTURE
 ===================================================== */
 
 .empty-message{
@@ -715,22 +1013,23 @@ body{
 
     border:1px dashed #D6DED9;
 
-    border-radius:18px;
+    border-radius:12px;
 
-    padding:19px;
+    padding:18px;
 
     text-align:center;
 
     color:#7C8780;
 
-    font-size:12px;
+    font-size:11px;
 
     line-height:1.5;
+
 }
 
 
 /* =====================================================
-   LOADING
+   LOADING SCREEN
 ===================================================== */
 
 .loading{
@@ -746,11 +1045,13 @@ body{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     transition:
         opacity .3s ease,
         visibility .3s ease;
+
 }
 
 .loading.hide{
@@ -760,48 +1061,62 @@ body{
     visibility:hidden;
 
     pointer-events:none;
+
 }
 
 .loading-inner{
 
+    width:100%;
+
+    max-width:280px;
+
     text-align:center;
+
 }
 
 .loading-inner img{
 
-    width:65px;
-    height:65px;
+    width:62px;
+    height:62px;
 
     object-fit:contain;
 
-    border-radius:16px;
+    margin-bottom:17px;
 
-    margin-bottom:15px;
 }
 
 .spinner{
 
-    width:23px;
-    height:23px;
+    width:22px;
+    height:22px;
 
-    margin:0 auto 12px;
+    margin:
+        0
+        auto
+        13px;
 
-    border:3px solid #DCE8E0;
+    border:
+        2.5px solid #DCE8E0;
 
     border-top-color:#16805C;
 
+    border-right-color:#F2B84B;
+
     border-radius:50%;
 
-    animation:spin .8s linear infinite;
+    animation:
+        spin .8s linear infinite;
+
 }
 
 .loading-text{
 
-    font-size:13px;
-
-    color:#6B766F;
+    font-size:12px;
 
     font-weight:600;
+
+    color:#69746E;
+
 }
 
 @keyframes spin{
@@ -828,21 +1143,22 @@ body{
     z-index:100;
 
     padding:
-        8px
+        7px
         14px
-        calc(8px + env(safe-area-inset-bottom));
+        calc(7px + env(safe-area-inset-bottom));
 
     background:
-        rgba(255,255,255,.96);
+        rgba(255,255,255,.97);
 
-    border-top:1px solid rgba(11,79,58,.07);
+    border-top:1px solid #E3E7E1;
 
     backdrop-filter:blur(14px);
+
 }
 
 .bottom-nav-inner{
 
-    max-width:560px;
+    max-width:600px;
 
     margin:0 auto;
 
@@ -852,13 +1168,12 @@ body{
         repeat(4,1fr);
 
     gap:4px;
+
 }
 
 .nav-item{
 
-    text-decoration:none;
-
-    color:#8A938E;
+    min-height:50px;
 
     display:flex;
 
@@ -868,76 +1183,182 @@ body{
 
     justify-content:center;
 
-    min-height:49px;
+    text-decoration:none;
 
-    border-radius:13px;
+    color:#8A938E;
 
-    font-size:10px;
+    border-radius:9px;
+
+    font-size:9px;
 
     font-weight:700;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
 
 }
 
 .nav-icon{
 
-    font-size:17px;
+    font-size:16px;
 
     line-height:1;
 
     margin-bottom:4px;
+
 }
 
 .nav-item.active{
 
+    color:#0B4F3A;
+
+    background:#FFF4D9;
+
+}
+
+.nav-item.active .nav-icon{
+
     color:#16805C;
 
-    background:#EFF7F2;
 }
 
 
 /* =====================================================
-   RESPONSIVE
+   TABLET / DESKTOP
 ===================================================== */
 
-@media(max-width:520px){
+@media(min-width:700px){
+
+    .main{
+
+        padding-left:24px;
+
+        padding-right:24px;
+
+    }
+
+    .business-content{
+
+        padding:
+            25px
+            24px
+            22px;
+
+    }
 
     .business-name{
-        font-size:26px;
-    }
 
-    .overview-grid{
-        grid-template-columns:1fr 1fr;
-    }
+        font-size:31px;
 
-    .overview-card.primary{
-        grid-column:span 2;
-        min-height:120px;
     }
 
 }
 
-@media(max-width:380px){
 
-    .main{
-        padding-left:14px;
-        padding-right:14px;
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:520px){
+
+    .overview-grid{
+
+        grid-template-columns:
+            1fr
+            1fr;
+
     }
 
-    .topbar{
-        padding-left:14px;
-        padding-right:14px;
-    }
+    .overview-card.primary{
 
-    .business-card{
-        padding:21px 17px;
+        grid-column:
+            span 2;
+
+        min-height:120px;
+
     }
 
     .business-name{
-        font-size:24px;
+
+        font-size:25px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:380px){
+
+    .main{
+
+        padding-left:14px;
+
+        padding-right:14px;
+
+    }
+
+    .topbar{
+
+        padding-left:14px;
+
+        padding-right:14px;
+
+    }
+
+    .business-content{
+
+        padding:
+            20px
+            16px
+            18px;
+
+    }
+
+    .business-name{
+
+        font-size:23px;
+
+    }
+
+    .business-initial{
+
+        width:51px;
+        height:51px;
+
+        min-width:51px;
+
+        font-size:18px;
+
     }
 
     .tools-list{
+
         grid-template-columns:1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        scroll-behavior:auto !important;
+
+        transition:none !important;
+
+        animation:none !important;
+
     }
 
 }
@@ -1016,6 +1437,7 @@ body{
                 ♧
             </button>
 
+
             <button
                 class="icon-button"
                 type="button"
@@ -1039,7 +1461,9 @@ body{
 <main class="main">
 
 
-    <!-- GREETING -->
+    <!-- =================================================
+         GREETING
+    ================================================== -->
 
     <div class="greeting">
 
@@ -1059,72 +1483,82 @@ body{
 
     <section class="business-card">
 
-        <div class="business-top">
+        <!-- YELLOW BRAND ACCENT -->
 
-            <div>
+        <div class="business-accent"></div>
 
-                <div class="business-label">
 
-                    <span class="business-label-dot"></span>
+        <div class="business-content">
 
-                    YOUR BUSINESS
+            <div class="business-top">
+
+
+                <div class="business-info">
+
+                    <div class="business-label">
+
+                        <span class="business-label-line"></span>
+
+                        YOUR BUSINESS
+
+                    </div>
+
+
+                    <div
+                        class="business-name"
+                        id="businessName"
+                    >
+                        Your Business
+                    </div>
+
+
+                    <div
+                        class="business-type"
+                        id="businessType"
+                    >
+                        Business
+                    </div>
+
+
+                    <div
+                        class="business-location"
+                        id="businessLocation"
+                    >
+                        Location not provided
+                    </div>
 
                 </div>
 
 
                 <div
-                    class="business-name"
-                    id="businessName"
+                    class="business-initial"
+                    id="businessInitial"
                 >
-                    Your Business
-                </div>
-
-
-                <div
-                    class="business-type"
-                    id="businessType"
-                >
-                    Business
-                </div>
-
-
-                <div
-                    class="business-location"
-                    id="businessLocation"
-                >
-                    Location not provided
+                    B
                 </div>
 
             </div>
 
 
-            <div
-                class="business-initial"
-                id="businessInitial"
-            >
-                B
+            <div class="business-footer">
+
+                <div class="profile-status">
+
+                    <span class="status-dot"></span>
+
+                    Business profile active
+
+                </div>
+
+
+                <a
+                    href="../business/"
+                    class="profile-link"
+                >
+                    Manage profile →
+                </a>
+
             </div>
-
-        </div>
-
-
-        <div class="business-footer">
-
-            <div class="profile-status">
-
-                <span class="status-dot"></span>
-
-                Business profile active
-
-            </div>
-
-
-            <a
-                href="../business/"
-                class="profile-link"
-            >
-                Manage profile →
-            </a>
 
         </div>
 
@@ -1132,7 +1566,7 @@ body{
 
 
     <!-- =================================================
-         TODAY AT A GLANCE
+         TODAY
     ================================================== -->
 
     <section class="section">
@@ -1209,7 +1643,7 @@ body{
             </div>
 
 
-            <!-- STOCK -->
+            <!-- INVENTORY -->
 
             <div class="overview-card">
 
@@ -1234,14 +1668,13 @@ body{
 
             </div>
 
-
         </div>
 
     </section>
 
 
     <!-- =================================================
-         MANAGE BUSINESS
+         BUSINESS TOOLS
     ================================================== -->
 
     <section class="section">
@@ -1477,101 +1910,119 @@ body{
         <div class="profile-card">
 
 
-            <div class="profile-row">
+            <div class="profile-card-header">
 
-                <div class="profile-key">
-                    Business name
+                <div class="profile-header-mark">
+                    ✓
                 </div>
 
-                <div
-                    class="profile-value"
-                    id="profileBusinessName"
-                >
-                    —
+                <div class="profile-header-text">
+                    Business profile
                 </div>
 
             </div>
 
 
-            <div class="profile-row">
+            <div class="profile-body">
 
-                <div class="profile-key">
-                    Business type
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        Business name
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileBusinessName"
+                    >
+                        —
+                    </div>
+
                 </div>
 
-                <div
-                    class="profile-value"
-                    id="profileBusinessType"
-                >
-                    —
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        Business type
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileBusinessType"
+                    >
+                        —
+                    </div>
+
                 </div>
+
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        Address
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileAddress"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        City / Municipality
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileCity"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        Province
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileProvince"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <div class="profile-key">
+                        Currency
+                    </div>
+
+                    <div
+                        class="profile-value"
+                        id="profileCurrency"
+                    >
+                        PHP — ₱
+                    </div>
+
+                </div>
+
 
             </div>
-
-
-            <div class="profile-row">
-
-                <div class="profile-key">
-                    Address
-                </div>
-
-                <div
-                    class="profile-value"
-                    id="profileAddress"
-                >
-                    —
-                </div>
-
-            </div>
-
-
-            <div class="profile-row">
-
-                <div class="profile-key">
-                    City / Municipality
-                </div>
-
-                <div
-                    class="profile-value"
-                    id="profileCity"
-                >
-                    —
-                </div>
-
-            </div>
-
-
-            <div class="profile-row">
-
-                <div class="profile-key">
-                    Province
-                </div>
-
-                <div
-                    class="profile-value"
-                    id="profileProvince"
-                >
-                    —
-                </div>
-
-            </div>
-
-
-            <div class="profile-row">
-
-                <div class="profile-key">
-                    Currency
-                </div>
-
-                <div
-                    class="profile-value"
-                    id="profileCurrency"
-                >
-                    PHP — ₱
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -1704,7 +2155,7 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   FIREBASE
+   INITIALIZE FIREBASE
 ===================================================== */
 
 const app =
@@ -1770,14 +2221,21 @@ function updateGreeting(name){
     let greeting =
         "Good day";
 
-    if(hour >= 5 && hour < 12){
+
+    if(
+        hour >= 5 &&
+        hour < 12
+    ){
 
         greeting =
             "Good morning";
 
     }
 
-    else if(hour >= 12 && hour < 18){
+    else if(
+        hour >= 12 &&
+        hour < 18
+    ){
 
         greeting =
             "Good afternoon";
@@ -1795,9 +2253,13 @@ function updateGreeting(name){
     if(name){
 
         greetingText.textContent =
-            greeting + ", " + name;
+            greeting +
+            ", " +
+            name;
 
-    }else{
+    }
+
+    else{
 
         greetingText.textContent =
             greeting;
@@ -1808,10 +2270,13 @@ function updateGreeting(name){
 
 
 /* =====================================================
-   TEXT HELPER
+   SAFE TEXT
 ===================================================== */
 
-function safeText(value, fallback){
+function safeText(
+    value,
+    fallback
+){
 
     if(
         value === undefined ||
@@ -1829,7 +2294,7 @@ function safeText(value, fallback){
 
 
 /* =====================================================
-   INITIAL
+   INITIAL GREETING
 ===================================================== */
 
 updateGreeting("");
@@ -1842,6 +2307,10 @@ updateGreeting("");
 onAuthStateChanged(
     auth,
     async function(user){
+
+        /* ---------------------------------------------
+           NOT LOGGED IN
+        --------------------------------------------- */
 
         if(!user){
 
@@ -1862,7 +2331,7 @@ onAuthStateChanged(
 
 
             /* -----------------------------------------
-               GET USER DOCUMENT
+               USER DOCUMENT
             ----------------------------------------- */
 
             const userRef =
@@ -1872,9 +2341,14 @@ onAuthStateChanged(
                     user.uid
                 );
 
+
             const userSnapshot =
                 await getDoc(userRef);
 
+
+            /* -----------------------------------------
+               FIRESTORE DATA EXISTS
+            ----------------------------------------- */
 
             if(userSnapshot.exists()){
 
@@ -1900,7 +2374,7 @@ onAuthStateChanged(
 
 
                 /* -------------------------------------
-                   BUSINESS
+                   BUSINESS INFORMATION
                 ------------------------------------- */
 
                 const savedBusinessName =
@@ -1909,17 +2383,20 @@ onAuthStateChanged(
                         "Your Business"
                     );
 
+
                 const savedBusinessType =
                     safeText(
                         data.businessType,
                         "Business"
                     );
 
+
                 const savedCity =
                     safeText(
                         data.city,
                         ""
                     );
+
 
                 const savedProvince =
                     safeText(
@@ -1930,6 +2407,7 @@ onAuthStateChanged(
 
                 businessName.textContent =
                     savedBusinessName;
+
 
                 businessType.textContent =
                     savedBusinessType;
@@ -1992,11 +2470,12 @@ onAuthStateChanged(
 
 
                 /* -------------------------------------
-                   PROFILE INFORMATION
+                   BUSINESS PROFILE
                 ------------------------------------- */
 
                 profileBusinessName.textContent =
                     savedBusinessName;
+
 
                 profileBusinessType.textContent =
                     savedBusinessType;
@@ -2008,11 +2487,13 @@ onAuthStateChanged(
                         "Not provided"
                     );
 
+
                 const cityValue =
                     safeText(
                         data.city,
                         "Not provided"
                     );
+
 
                 const provinceValue =
                     safeText(
@@ -2024,18 +2505,25 @@ onAuthStateChanged(
                 profileAddress.textContent =
                     address;
 
+
                 profileCity.textContent =
                     cityValue;
+
 
                 profileProvince.textContent =
                     provinceValue;
 
+
+                /* -------------------------------------
+                   CURRENCY
+                ------------------------------------- */
 
                 const currency =
                     safeText(
                         data.currency,
                         "PHP"
                     );
+
 
                 const currencySymbol =
                     safeText(
@@ -2072,7 +2560,9 @@ onAuthStateChanged(
             }
 
 
-        }catch(error){
+        }
+
+        catch(error){
 
             console.error(
                 "Dashboard Firestore error:",
@@ -2081,9 +2571,9 @@ onAuthStateChanged(
 
 
             /*
-             * Authentication information can still
-             * be displayed even if Firestore temporarily
-             * cannot be reached.
+             * Firebase authentication information
+             * can still be displayed if Firestore
+             * is temporarily unavailable.
              */
 
             updateGreeting(
