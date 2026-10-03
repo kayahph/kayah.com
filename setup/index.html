@@ -1133,12 +1133,10 @@ import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
 import {
     getAuth,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 
 import {
     getFirestore,
@@ -1150,7 +1148,7 @@ import {
 
 
 /* =====================================================
-   FIREBASE CONFIG
+   FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
@@ -1176,17 +1174,11 @@ const firebaseConfig = {
 };
 
 
-/* =====================================================
-   INITIALIZE FIREBASE
-===================================================== */
-
 const app =
     initializeApp(firebaseConfig);
 
-
 const auth =
     getAuth(app);
-
 
 const db =
     getFirestore(app);
@@ -1196,122 +1188,82 @@ const db =
    ELEMENTS
 ===================================================== */
 
-const loadingScreen =
-    document.getElementById(
-        "loadingScreen"
-    );
-
-
 const form =
-    document.getElementById(
-        "setupForm"
-    );
+    document.getElementById("setupForm");
 
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const submitButton =
+    document.getElementById("submitButton");
 
 const errorBox =
-    document.getElementById(
-        "errorBox"
-    );
-
-
-const successBox =
-    document.getElementById(
-        "successBox"
-    );
-
-
-const completeButton =
-    document.getElementById(
-        "completeButton"
-    );
+    document.getElementById("errorMessage");
 
 
 /* =====================================================
-   SHOW ERROR
+   HIDE INITIAL LOADING
 ===================================================== */
 
-function showError(message){
+if(loadingScreen){
 
-    errorBox.textContent =
-        message;
-
-    errorBox.classList.add(
-        "show"
-    );
-
-    successBox.classList.remove(
-        "show"
-    );
-
-    errorBox.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
+    loadingScreen.classList.add("hide");
 
 }
 
 
 /* =====================================================
-   CLEAR ERROR
+   SESSION DATA
 ===================================================== */
 
-function clearMessages(){
+try{
 
-    errorBox.textContent = "";
+    const stored =
+        sessionStorage.getItem(
+            "kayahSignupData"
+        );
 
-    errorBox.classList.remove(
-        "show"
-    );
+    if(stored){
 
-    successBox.textContent = "";
-
-    successBox.classList.remove(
-        "show"
-    );
-
-}
+        const signupData =
+            JSON.parse(stored);
 
 
-/* =====================================================
-   FIREBASE ERROR
-===================================================== */
-
-function firebaseErrorMessage(error){
-
-    console.error(
-        "KAYAH SETUP ERROR:",
-        error
-    );
-
-
-    switch(error.code){
-
-        case "permission-denied":
-
-            return "Firebase denied permission to save your business information.";
-
-        case "unavailable":
-
-            return "Firebase is temporarily unavailable. Please try again.";
-
-        case "failed-precondition":
-
-            return "Firestore is not ready. Please check your Firebase database.";
-
-        case "auth/network-request-failed":
-
-            return "Please check your internet connection.";
-
-        default:
-
-            return (
-                error.message ||
-                "We could not save your business information."
+        const businessInput =
+            document.getElementById(
+                "businessName"
             );
+
+
+        if(
+            businessInput &&
+            signupData.businessName &&
+            !businessInput.value
+        ){
+
+            businessInput.value =
+                signupData.businessName;
+
+        }
 
     }
 
 }
+catch(error){
+
+    console.log(
+        "Signup session data could not be loaded.",
+        error
+    );
+
+}
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+let currentUser = null;
 
 
 /* =====================================================
@@ -1324,63 +1276,31 @@ onAuthStateChanged(
 
         if(!user){
 
-            /*
-             * No authenticated user.
-             * Send them back to login.
-             */
+            currentUser = null;
 
-            window.location.href =
-                "../login/";
+            console.log(
+                "No authenticated user yet."
+            );
 
             return;
+
         }
 
 
+        currentUser = user;
+
         console.log(
-            "KAYAH: Logged-in user:",
+            "Authenticated user:",
             user.uid
         );
 
 
+        /*
+         * Load existing business information
+         * without blocking the page.
+         */
+
         try{
-
-            /*
-             * First get any information already saved
-             * during signup.
-             */
-
-            const signupData =
-                sessionStorage.getItem(
-                    "kayahSignupData"
-                );
-
-
-            let savedSignupData = null;
-
-
-            if(signupData){
-
-                try{
-
-                    savedSignupData =
-                        JSON.parse(
-                            signupData
-                        );
-
-                }catch(parseError){
-
-                    console.warn(
-                        "KAYAH: Could not parse signup session data."
-                    );
-
-                }
-
-            }
-
-
-            /*
-             * Also check Firestore.
-             */
 
             const userRef =
                 doc(
@@ -1390,497 +1310,478 @@ onAuthStateChanged(
                 );
 
 
-            const userSnapshot =
-                await getDoc(
-                    userRef
-                );
+            const snapshot =
+                await getDoc(userRef);
 
-
-            if(userSnapshot.exists()){
-
-                const existingData =
-                    userSnapshot.data();
-
-
-                /*
-                 * If setup has already been completed,
-                 * don't make the user complete it again.
-                 */
-
-                if(
-                    existingData.setupCompleted === true
-                ){
-
-                    window.location.href =
-                        "../dashboard/";
-
-                    return;
-                }
-
-
-                /*
-                 * Fill the form using existing Firestore data.
-                 */
-
-                if(
-                    existingData.businessName
-                ){
-
-                    document
-                        .getElementById("businessName")
-                        .value =
-                            existingData.businessName;
-
-                }
-
-
-                if(
-                    existingData.businessType
-                ){
-
-                    document
-                        .getElementById("businessType")
-                        .value =
-                            existingData.businessType;
-
-                }
-
-
-                if(
-                    existingData.businessAddress
-                ){
-
-                    document
-                        .getElementById("businessAddress")
-                        .value =
-                            existingData.businessAddress;
-
-                }
-
-
-                if(
-                    existingData.city
-                ){
-
-                    document
-                        .getElementById("city")
-                        .value =
-                            existingData.city;
-
-                }
-
-
-                if(
-                    existingData.province
-                ){
-
-                    document
-                        .getElementById("province")
-                        .value =
-                            existingData.province;
-
-                }
-
-
-                if(
-                    existingData.businessDescription
-                ){
-
-                    document
-                        .getElementById("description")
-                        .value =
-                            existingData.businessDescription;
-
-                }
-
-            }
-
-
-            /*
-             * If Firestore didn't contain the values yet,
-             * use signup session information.
-             */
 
             if(
-                savedSignupData &&
-                savedSignupData.businessName
+                snapshot.exists()
             ){
+
+                const data =
+                    snapshot.data();
+
 
                 const businessNameInput =
                     document.getElementById(
                         "businessName"
                     );
 
+                const businessTypeInput =
+                    document.getElementById(
+                        "businessType"
+                    );
+
+                const addressInput =
+                    document.getElementById(
+                        "businessAddress"
+                    );
+
+                const cityInput =
+                    document.getElementById(
+                        "city"
+                    );
+
+                const provinceInput =
+                    document.getElementById(
+                        "province"
+                    );
+
+                const descriptionInput =
+                    document.getElementById(
+                        "businessDescription"
+                    );
+
 
                 if(
-                    !businessNameInput.value
+                    businessNameInput &&
+                    data.businessName
                 ){
 
                     businessNameInput.value =
-                        savedSignupData.businessName;
+                        data.businessName;
 
                 }
 
-            }
+
+                if(
+                    businessTypeInput &&
+                    data.businessType
+                ){
+
+                    businessTypeInput.value =
+                        data.businessType;
+
+                }
 
 
-        }catch(error){
+                if(
+                    addressInput &&
+                    data.businessAddress
+                ){
 
-            console.warn(
-                "KAYAH: Could not load existing business data:",
-                error
-            );
+                    addressInput.value =
+                        data.businessAddress;
 
-
-            /*
-             * Don't prevent setup if the initial read
-             * has a temporary problem.
-             *
-             * Signup session data can still be used.
-             */
-
-            const signupData =
-                sessionStorage.getItem(
-                    "kayahSignupData"
-                );
+                }
 
 
-            if(signupData){
+                if(
+                    cityInput &&
+                    data.city
+                ){
 
-                try{
+                    cityInput.value =
+                        data.city;
 
-                    const data =
-                        JSON.parse(
-                            signupData
-                        );
+                }
 
 
-                    if(data.businessName){
+                if(
+                    provinceInput &&
+                    data.province
+                ){
 
-                        document
-                            .getElementById(
-                                "businessName"
-                            )
-                            .value =
-                                data.businessName;
+                    provinceInput.value =
+                        data.province;
 
-                    }
+                }
 
-                }catch(e){
 
-                    console.warn(
-                        "KAYAH: Session data unavailable."
-                    );
+                if(
+                    descriptionInput &&
+                    data.businessDescription
+                ){
+
+                    descriptionInput.value =
+                        data.businessDescription;
 
                 }
 
             }
 
         }
+        catch(error){
 
+            console.log(
+                "Could not load existing business data:",
+                error
+            );
 
-        /*
-         * Hide initial loading screen.
-         */
-
-        setTimeout(
-            function(){
-
-                loadingScreen.classList.add(
-                    "hide"
-                );
-
-            },
-            250
-        );
+        }
 
     }
 );
 
 
 /* =====================================================
-   SUBMIT SETUP
+   SHOW ERROR
 ===================================================== */
 
-form.addEventListener(
-    "submit",
-    async function(event){
+function showError(message){
 
-        event.preventDefault();
+    if(!errorBox){
 
-        clearMessages();
+        alert(message);
 
+        return;
 
-        /* ---------------------------------------------
-           VALUES
-        --------------------------------------------- */
-
-        const businessName =
-            document
-                .getElementById(
-                    "businessName"
-                )
-                .value
-                .trim();
+    }
 
 
-        const businessType =
-            document
-                .getElementById(
-                    "businessType"
-                )
-                .value
-                .trim();
+    errorBox.textContent =
+        message;
+
+    errorBox.style.display =
+        "block";
+
+}
 
 
-        const businessAddress =
-            document
-                .getElementById(
-                    "businessAddress"
-                )
-                .value
-                .trim();
+/* =====================================================
+   CLEAR ERROR
+===================================================== */
+
+function clearError(){
+
+    if(errorBox){
+
+        errorBox.textContent = "";
+
+        errorBox.style.display =
+            "none";
+
+    }
+
+}
 
 
-        const city =
-            document
-                .getElementById(
-                    "city"
-                )
-                .value
-                .trim();
+/* =====================================================
+   BUTTON STATE
+===================================================== */
+
+function savingState(){
+
+    if(!submitButton){
+
+        return;
+
+    }
 
 
-        const province =
-            document
-                .getElementById(
-                    "province"
-                )
-                .value
-                .trim();
+    submitButton.disabled =
+        true;
+
+    submitButton.textContent =
+        "Saving your business...";
+}
 
 
-        const description =
-            document
-                .getElementById(
-                    "description"
-                )
-                .value
-                .trim();
+function normalState(){
+
+    if(!submitButton){
+
+        return;
+
+    }
 
 
-        /* ---------------------------------------------
-           VALIDATION
-        --------------------------------------------- */
+    submitButton.disabled =
+        false;
 
-        if(!businessName){
+    submitButton.textContent =
+        "Continue";
 
-            showError(
-                "Please enter your business name."
-            );
-
-            return;
-        }
+}
 
 
-        if(!businessType){
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
 
-            showError(
-                "Please select your business type."
-            );
+if(form){
 
-            return;
-        }
+    form.addEventListener(
+        "submit",
+        async function(event){
 
+            event.preventDefault();
 
-        /* ---------------------------------------------
-           AUTH USER
-        --------------------------------------------- */
-
-        const user =
-            auth.currentUser;
+            clearError();
 
 
-        if(!user){
+            /* -----------------------------------------
+               AUTH CHECK
+            ----------------------------------------- */
 
-            showError(
-                "Your session has expired. Please log in again."
-            );
+            if(!currentUser){
 
-            setTimeout(
-                function(){
+                showError(
+                    "Your account session is not ready yet. Please wait a moment and try again."
+                );
 
-                    window.location.href =
-                        "../login/";
+                return;
 
-                },
-                1500
-            );
-
-            return;
-        }
+            }
 
 
-        /* ---------------------------------------------
-           BUTTON
-        --------------------------------------------- */
+            /* -----------------------------------------
+               GET VALUES
+            ----------------------------------------- */
 
-        completeButton.disabled =
-            true;
-
-        completeButton.classList.add(
-            "loading"
-        );
-
-        completeButton.textContent =
-            "Saving Your Business...";
+            const businessName =
+                document
+                    .getElementById(
+                        "businessName"
+                    )
+                    .value
+                    .trim();
 
 
-        try{
+            const businessType =
+                document
+                    .getElementById(
+                        "businessType"
+                    )
+                    .value
+                    .trim();
 
-            console.log(
-                "KAYAH: Saving completed business profile..."
-            );
+
+            const businessAddress =
+                document
+                    .getElementById(
+                        "businessAddress"
+                    )
+                    .value
+                    .trim();
+
+
+            const city =
+                document
+                    .getElementById(
+                        "city"
+                    )
+                    .value
+                    .trim();
+
+
+            const province =
+                document
+                    .getElementById(
+                        "province"
+                    )
+                    .value
+                    .trim();
+
+
+            const businessDescription =
+                document
+                    .getElementById(
+                        "businessDescription"
+                    )
+                    .value
+                    .trim();
+
+
+            /* -----------------------------------------
+               VALIDATION
+            ----------------------------------------- */
+
+            if(!businessName){
+
+                showError(
+                    "Please enter your business name."
+                );
+
+                return;
+
+            }
+
+
+            if(!businessType){
+
+                showError(
+                    "Please select your business type."
+                );
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               SAVING
+            ----------------------------------------- */
+
+            savingState();
 
 
             const userRef =
                 doc(
                     db,
                     "users",
-                    user.uid
+                    currentUser.uid
                 );
 
 
-            /*
-             * Save the complete business profile.
-             *
-             * merge:true means we preserve the information
-             * already saved during signup.
-             */
+            const businessData = {
 
-            await setDoc(
-                userRef,
-                {
+                businessName:
+                    businessName,
 
-                    uid:
-                        user.uid,
+                businessType:
+                    businessType,
 
-                    businessName:
-                        businessName,
+                businessAddress:
+                    businessAddress,
 
-                    businessType:
-                        businessType,
+                city:
+                    city,
 
-                    businessAddress:
-                        businessAddress,
+                province:
+                    province,
 
-                    city:
-                        city,
+                currency:
+                    "PHP",
 
-                    province:
-                        province,
+                currencySymbol:
+                    "₱",
 
-                    businessDescription:
-                        description,
+                businessDescription:
+                    businessDescription,
 
-                    currency:
-                        "PHP",
+                setupCompleted:
+                    true,
 
-                    currencySymbol:
-                        "₱",
+                setupCompletedAt:
+                    serverTimestamp(),
 
-                    setupCompleted:
-                        true,
+                updatedAt:
+                    serverTimestamp()
 
-                    setupCompletedAt:
-                        serverTimestamp(),
-
-                    updatedAt:
-                        serverTimestamp()
-
-                },
-                {
-                    merge:true
-                }
-            );
+            };
 
 
-            console.log(
-                "KAYAH: Business setup saved."
-            );
+            try{
+
+                console.log(
+                    "Saving business information..."
+                );
 
 
-            /*
-             * Save a local copy of the completed setup.
-             */
+                /*
+                 * Wait for the actual Firebase
+                 * confirmation.
+                 *
+                 * No artificial timeout.
+                 */
 
-            sessionStorage.setItem(
-                "kayahSetupCompleted",
-                "true"
-            );
-
-
-            /*
-             * Show success briefly.
-             */
-
-            successBox.textContent =
-                "Your business is ready. Opening your Kayah workspace...";
+                await setDoc(
+                    userRef,
+                    businessData,
+                    {
+                        merge:true
+                    }
+                );
 
 
-            successBox.classList.add(
-                "show"
-            );
+                console.log(
+                    "Business information saved successfully."
+                );
 
 
-            completeButton.textContent =
-                "Business Ready ✓";
+                /*
+                 * Remove temporary signup data.
+                 */
+
+                sessionStorage.removeItem(
+                    "kayahSignupData"
+                );
 
 
-            /*
-             * Go to dashboard.
-             */
+                /*
+                 * Go to Dashboard.
+                 */
 
-            setTimeout(
-                function(){
-
-                    window.location.href =
-                        "../dashboard/";
-
-                },
-                700
-            );
+                window.location.href =
+                    "../dashboard/";
 
 
-        }catch(error){
+            }
+            catch(error){
 
-            console.error(
-                "KAYAH SETUP SAVE ERROR:",
-                error
-            );
-
-
-            completeButton.disabled =
-                false;
-
-            completeButton.classList.remove(
-                "loading"
-            );
-
-            completeButton.textContent =
-                "Complete Business Setup";
-
-
-            showError(
-                firebaseErrorMessage(
+                console.error(
+                    "Business save failed:",
                     error
-                )
-            );
+                );
+
+
+                normalState();
+
+
+                let message =
+                    "We couldn't save your business information.";
+
+
+                if(
+                    error &&
+                    error.code ===
+                    "permission-denied"
+                ){
+
+                    message =
+                        "Firebase denied access to your business profile. Please check your Firestore rules.";
+
+                }
+                else if(
+                    error &&
+                    error.code ===
+                    "unavailable"
+                ){
+
+                    message =
+                        "Firebase is temporarily unavailable. Please check your internet connection and try again.";
+
+                }
+                else if(
+                    error &&
+                    error.message
+                ){
+
+                    message =
+                        error.message;
+
+                }
+
+
+                showError(message);
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =====================================================
@@ -1891,35 +1792,20 @@ if(
     "serviceWorker" in navigator
 ){
 
-    window.addEventListener(
-        "load",
-        function(){
+    navigator.serviceWorker
+        .register("../sw.js")
+        .catch(function(error){
 
-            navigator.serviceWorker
-                .register("../sw.js")
-                .then(function(){
+            console.log(
+                "Service worker registration failed:",
+                error
+            );
 
-                    console.log(
-                        "Kayah Service Worker registered."
-                    );
-
-                })
-                .catch(function(error){
-
-                    console.log(
-                        "Service Worker registration failed:",
-                        error
-                    );
-
-                });
-
-        }
-    );
+        });
 
 }
 
 </script>
-
 </body>
 
 </html>
