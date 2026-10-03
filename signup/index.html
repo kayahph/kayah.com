@@ -20,8 +20,14 @@
         content="Set up your business with Kayah — Business, Made Possible."
     >
 
-    <!-- ROOT FILES -->
-    <link rel="manifest" href="../manifest.json">
+    <!-- =====================================================
+         ROOT FILES
+    ====================================================== -->
+
+    <link
+        rel="manifest"
+        href="../manifest.json"
+    >
 
     <link
         rel="icon"
@@ -44,9 +50,11 @@
             box-sizing:border-box;
         }
 
+
         html{
             scroll-behavior:smooth;
         }
+
 
         body{
 
@@ -67,14 +75,17 @@
             -webkit-font-smoothing:antialiased;
         }
 
+
         button,
         input{
             font:inherit;
         }
 
+
         button{
             cursor:pointer;
         }
+
 
         a{
             text-decoration:none;
@@ -1045,6 +1056,7 @@
                 <div
                     id="errorBox"
                     class="error"
+                    role="alert"
                 ></div>
 
 
@@ -1329,7 +1341,7 @@
 
 
                 <p>
-                    Your account details are ready.
+                    Your account has been created successfully.
                     Let's complete your business setup.
                 </p>
 
@@ -1356,7 +1368,84 @@
 
 
 
-<script>
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script type="module">
+
+    /* =====================================================
+       FIREBASE IMPORTS
+    ===================================================== */
+
+    import {
+        initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        updateProfile
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        serverTimestamp
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+    /* =====================================================
+       KAYAH FIREBASE CONFIGURATION
+    ===================================================== */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+        authDomain:
+            "kayah-ecosystem.firebaseapp.com",
+
+        projectId:
+            "kayah-ecosystem",
+
+        storageBucket:
+            "kayah-ecosystem.firebasestorage.app",
+
+        messagingSenderId:
+            "49853785143",
+
+        appId:
+            "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+    };
+
+
+
+    /* =====================================================
+       INITIALIZE FIREBASE
+    ===================================================== */
+
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getFirestore(app);
+
+
 
     /* =====================================================
        ELEMENTS
@@ -1365,26 +1454,37 @@
     const form =
         document.getElementById("signupForm");
 
+
     const errorBox =
         document.getElementById("errorBox");
+
 
     const continueButton =
         document.getElementById("continueButton");
 
+
     const formContent =
         document.getElementById("formContent");
+
 
     const successContent =
         document.getElementById("successContent");
 
+
     const setupButton =
         document.getElementById("setupButton");
+
 
     const password =
         document.getElementById("password");
 
+
     const confirmPassword =
         document.getElementById("confirmPassword");
+
+
+    const phone =
+        document.getElementById("phone");
 
 
 
@@ -1442,12 +1542,8 @@
 
 
     /* =====================================================
-       PHONE
+       PHONE INPUT
     ===================================================== */
-
-    const phone =
-        document.getElementById("phone");
-
 
     phone.addEventListener(
         "input",
@@ -1469,9 +1565,17 @@
 
     function showError(message){
 
-        errorBox.textContent = message;
+        errorBox.textContent =
+            message;
 
-        errorBox.classList.add("show");
+        errorBox.classList.add(
+            "show"
+        );
+
+        errorBox.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
 
     }
 
@@ -1480,7 +1584,62 @@
 
         errorBox.textContent = "";
 
-        errorBox.classList.remove("show");
+        errorBox.classList.remove(
+            "show"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       FIREBASE ERROR TRANSLATION
+    ===================================================== */
+
+    function getFirebaseErrorMessage(error){
+
+        switch(error.code){
+
+            case "auth/email-already-in-use":
+
+                return "An account with this email already exists. Please log in instead.";
+
+
+            case "auth/invalid-email":
+
+                return "The email address is not valid.";
+
+
+            case "auth/weak-password":
+
+                return "Your password is too weak. Please use at least 8 characters.";
+
+
+            case "auth/network-request-failed":
+
+                return "Network error. Please check your internet connection and try again.";
+
+
+            case "auth/operation-not-allowed":
+
+                return "Email and password registration is not enabled in Firebase Authentication.";
+
+
+            case "permission-denied":
+
+                return "Kayah could not save your business information. Please check your Firestore permissions.";
+
+
+            default:
+
+                console.error(
+                    "Firebase error:",
+                    error
+                );
+
+                return "Something went wrong while creating your account. Please try again.";
+
+        }
 
     }
 
@@ -1492,12 +1651,16 @@
 
     form.addEventListener(
         "submit",
-        function(event){
+        async function(event){
 
             event.preventDefault();
 
             clearError();
 
+
+            /* ---------------------------------------------
+               GET VALUES
+            --------------------------------------------- */
 
             const businessName =
                 document
@@ -1517,7 +1680,8 @@
                 document
                     .getElementById("email")
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const phoneNumber =
@@ -1539,15 +1703,25 @@
 
 
 
-            /* =================================================
+            /* ---------------------------------------------
                VALIDATION
-            ================================================= */
-
+            --------------------------------------------- */
 
             if(!businessName){
 
                 showError(
                     "Please enter your business name."
+                );
+
+                return;
+
+            }
+
+
+            if(businessName.length < 2){
+
+                showError(
+                    "Please enter a valid business name."
                 );
 
                 return;
@@ -1643,71 +1817,184 @@
 
 
 
-            /* =================================================
-               TEMPORARY SIGNUP DATA
-            ================================================= */
-
-            const signupData = {
-
-                businessName:
-                    businessName,
-
-                fullName:
-                    fullName,
-
-                email:
-                    email,
-
-                phone:
-                    phoneNumber,
-
-                countryCode:
-                    "+63",
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
-
-
-            /*
-             * Do NOT store the password here.
-             * Firebase Authentication will handle
-             * the password when we connect Firebase.
-             */
-
-            sessionStorage.setItem(
-                "kayahSignupData",
-                JSON.stringify(signupData)
-            );
-
-
-
-            /* =================================================
-               SUCCESS
-            ================================================= */
+            /* ---------------------------------------------
+               LOADING STATE
+            --------------------------------------------- */
 
             continueButton.classList.add(
                 "loading"
             );
 
             continueButton.textContent =
-                "Preparing...";
+                "Creating Account...";
 
 
-            setTimeout(
-                function(){
 
-                    formContent.style.display =
-                        "none";
+            try{
 
-                    successContent.classList.add(
-                        "show"
+
+                /* =========================================
+                   1. CREATE FIREBASE AUTH ACCOUNT
+                ========================================= */
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        passwordValue
                     );
 
-                },
-                500
-            );
+
+                const user =
+                    userCredential.user;
+
+
+                /* =========================================
+                   2. UPDATE AUTH PROFILE
+                ========================================= */
+
+                await updateProfile(
+                    user,
+                    {
+                        displayName:
+                            fullName
+                    }
+                );
+
+
+                /* =========================================
+                   3. SAVE USER TO FIRESTORE
+                ========================================= */
+
+                const userData = {
+
+                    uid:
+                        user.uid,
+
+                    businessName:
+                        businessName,
+
+                    fullName:
+                        fullName,
+
+                    email:
+                        email,
+
+                    phone:
+                        phoneNumber,
+
+                    countryCode:
+                        "+63",
+
+                    phoneFull:
+                        "+63" + phoneNumber,
+
+                    accountStatus:
+                        "active",
+
+                    setupCompleted:
+                        false,
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                };
+
+
+                await setDoc(
+
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    ),
+
+                    userData
+
+                );
+
+
+
+                /* =========================================
+                   4. SAVE TEMPORARY SETUP DATA
+                ========================================= */
+
+                sessionStorage.setItem(
+
+                    "kayahSignupData",
+
+                    JSON.stringify({
+
+                        uid:
+                            user.uid,
+
+                        businessName:
+                            businessName,
+
+                        fullName:
+                            fullName,
+
+                        email:
+                            email,
+
+                        phone:
+                            phoneNumber,
+
+                        countryCode:
+                            "+63"
+
+                    })
+
+                );
+
+
+
+                /* =========================================
+                   5. SHOW SUCCESS
+                ========================================= */
+
+                formContent.style.display =
+                    "none";
+
+                successContent.classList.add(
+                    "show"
+                );
+
+
+                continueButton.classList.remove(
+                    "loading"
+                );
+
+
+                continueButton.textContent =
+                    "Continue";
+
+
+            }catch(error){
+
+                console.error(
+                    "Kayah signup error:",
+                    error
+                );
+
+
+                continueButton.classList.remove(
+                    "loading"
+                );
+
+
+                continueButton.textContent =
+                    "Continue";
+
+
+                showError(
+                    getFirebaseErrorMessage(error)
+                );
+
+            }
 
         }
     );
@@ -1715,7 +2002,7 @@
 
 
     /* =====================================================
-       SETUP PAGE
+       GO TO SETUP
     ===================================================== */
 
     setupButton.addEventListener(
@@ -1736,7 +2023,10 @@
        ../sw.js
     ===================================================== */
 
-    if("serviceWorker" in navigator){
+    if(
+        "serviceWorker"
+        in navigator
+    ){
 
         window.addEventListener(
             "load",
