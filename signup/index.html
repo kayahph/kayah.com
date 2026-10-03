@@ -1374,235 +1374,231 @@
 
 <script type="module">
 
-    /* =====================================================
-       FIREBASE IMPORTS
-    ===================================================== */
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
 
-    import {
-        initializeApp
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        updateProfile
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-    import {
-        getFirestore,
-        doc,
-        setDoc,
-        serverTimestamp
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
 
+const firebaseConfig = {
 
+    apiKey:
+        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
 
-    /* =====================================================
-       KAYAH FIREBASE CONFIGURATION
-    ===================================================== */
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
 
-    const firebaseConfig = {
+    projectId:
+        "kayah-ecosystem",
 
-        apiKey:
-            "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
 
-        authDomain:
-            "kayah-ecosystem.firebaseapp.com",
+    messagingSenderId:
+        "49853785143",
 
-        projectId:
-            "kayah-ecosystem",
+    appId:
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
 
-        storageBucket:
-            "kayah-ecosystem.firebasestorage.app",
+};
 
-        messagingSenderId:
-            "49853785143",
 
-        appId:
-            "1:49853785143:web:23182e6e11696ac03dcbb2"
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
-    };
+const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
 
+const db = getFirestore(app);
 
-    /* =====================================================
-       INITIALIZE FIREBASE
-    ===================================================== */
 
-    const app =
-        initializeApp(firebaseConfig);
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
+const form =
+    document.getElementById("signupForm");
 
-    const auth =
-        getAuth(app);
+const errorBox =
+    document.getElementById("errorBox");
 
+const continueButton =
+    document.getElementById("continueButton");
 
-    const db =
-        getFirestore(app);
+const formContent =
+    document.getElementById("formContent");
 
+const successContent =
+    document.getElementById("successContent");
 
+const setupButton =
+    document.getElementById("setupButton");
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+const password =
+    document.getElementById("password");
 
-    const form =
-        document.getElementById("signupForm");
+const confirmPassword =
+    document.getElementById("confirmPassword");
 
+const phone =
+    document.getElementById("phone");
 
-    const errorBox =
-        document.getElementById("errorBox");
 
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
 
-    const continueButton =
-        document.getElementById("continueButton");
+document
+    .getElementById("showPassword")
+    .addEventListener("click", function(){
 
+        if(password.type === "password"){
 
-    const formContent =
-        document.getElementById("formContent");
+            password.type = "text";
 
+            this.textContent = "Hide";
 
-    const successContent =
-        document.getElementById("successContent");
+        }else{
 
+            password.type = "password";
 
-    const setupButton =
-        document.getElementById("setupButton");
-
-
-    const password =
-        document.getElementById("password");
-
-
-    const confirmPassword =
-        document.getElementById("confirmPassword");
-
-
-    const phone =
-        document.getElementById("phone");
-
-
-
-    /* =====================================================
-       PASSWORD VISIBILITY
-    ===================================================== */
-
-    document
-        .getElementById("showPassword")
-        .addEventListener(
-            "click",
-            function(){
-
-                if(password.type === "password"){
-
-                    password.type = "text";
-
-                    this.textContent = "Hide";
-
-                }else{
-
-                    password.type = "password";
-
-                    this.textContent = "Show";
-
-                }
-
-            }
-        );
-
-
-    document
-        .getElementById("showConfirmPassword")
-        .addEventListener(
-            "click",
-            function(){
-
-                if(confirmPassword.type === "password"){
-
-                    confirmPassword.type = "text";
-
-                    this.textContent = "Hide";
-
-                }else{
-
-                    confirmPassword.type = "password";
-
-                    this.textContent = "Show";
-
-                }
-
-            }
-        );
-
-
-
-    /* =====================================================
-       PHONE INPUT
-    ===================================================== */
-
-    phone.addEventListener(
-        "input",
-        function(){
-
-            this.value =
-                this.value
-                    .replace(/\D/g, "")
-                    .slice(0,10);
+            this.textContent = "Show";
 
         }
+
+    });
+
+
+document
+    .getElementById("showConfirmPassword")
+    .addEventListener("click", function(){
+
+        if(confirmPassword.type === "password"){
+
+            confirmPassword.type = "text";
+
+            this.textContent = "Hide";
+
+        }else{
+
+            confirmPassword.type = "password";
+
+            this.textContent = "Show";
+
+        }
+
+    });
+
+
+/* =====================================================
+   PHONE INPUT
+===================================================== */
+
+phone.addEventListener("input", function(){
+
+    this.value =
+        this.value
+            .replace(/\D/g, "")
+            .slice(0, 10);
+
+});
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message){
+
+    errorBox.textContent = message;
+
+    errorBox.classList.add("show");
+
+    errorBox.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+function clearError(){
+
+    errorBox.textContent = "";
+
+    errorBox.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   TIMEOUT HELPER
+===================================================== */
+
+function withTimeout(promise, milliseconds, message){
+
+    const timeout =
+        new Promise((resolve, reject) => {
+
+            setTimeout(() => {
+
+                reject(
+                    new Error(message)
+                );
+
+            }, milliseconds);
+
+        });
+
+    return Promise.race([
+        promise,
+        timeout
+    ]);
+
+}
+
+
+/* =====================================================
+   FIREBASE ERROR MESSAGE
+===================================================== */
+
+function getFirebaseErrorMessage(error){
+
+    console.error(
+        "FULL FIREBASE ERROR:",
+        error
     );
 
 
-
-    /* =====================================================
-       ERROR FUNCTIONS
-    ===================================================== */
-
-    function showError(message){
-
-        errorBox.textContent =
-            message;
-
-        errorBox.classList.add(
-            "show"
-        );
-
-        errorBox.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }
-
-
-    function clearError(){
-
-        errorBox.textContent = "";
-
-        errorBox.classList.remove(
-            "show"
-        );
-
-    }
-
-
-
-    /* =====================================================
-       FIREBASE ERROR TRANSLATION
-    ===================================================== */
-
-    function getFirebaseErrorMessage(error){
+    if(error && error.code){
 
         switch(error.code){
 
             case "auth/email-already-in-use":
 
-                return "An account with this email already exists. Please log in instead.";
+                return "This email is already registered. Please use Log In instead.";
 
 
             case "auth/invalid-email":
@@ -1612,261 +1608,348 @@
 
             case "auth/weak-password":
 
-                return "Your password is too weak. Please use at least 8 characters.";
+                return "The password is too weak. Please use at least 8 characters.";
 
 
             case "auth/network-request-failed":
 
-                return "Network error. Please check your internet connection and try again.";
+                return "Firebase could not connect to the internet. Please check your connection and try again.";
 
 
             case "auth/operation-not-allowed":
 
-                return "Email and password registration is not enabled in Firebase Authentication.";
+                return "Email/password registration is disabled in Firebase Authentication. Please enable it in Firebase Console.";
+
+
+            case "auth/api-key-not-valid.-please-pass-a-valid-api-key.":
+
+                return "The Firebase API key is not valid. Please check the Firebase configuration.";
 
 
             case "permission-denied":
 
-                return "Kayah could not save your business information. Please check your Firestore permissions.";
+                return "Firebase Authentication worked, but Firestore denied saving the user. Check your Firestore security rules.";
 
 
-            default:
+            case "failed-precondition":
 
-                console.error(
-                    "Firebase error:",
-                    error
-                );
+                return "Firestore is not ready. Please check that your Firestore database has been created.";
 
-                return "Something went wrong while creating your account. Please try again.";
+
+            case "unavailable":
+
+                return "Firestore is temporarily unavailable. Please check your internet connection and try again.";
 
         }
 
     }
 
 
+    return (
+        error?.message ||
+        "Something went wrong. Please try again."
+    );
 
-    /* =====================================================
-       FORM SUBMIT
-    ===================================================== */
+}
 
-    form.addEventListener(
-        "submit",
-        async function(event){
 
-            event.preventDefault();
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
 
-            clearError();
+form.addEventListener(
+    "submit",
+    async function(event){
 
+        event.preventDefault();
 
-            /* ---------------------------------------------
-               GET VALUES
-            --------------------------------------------- */
+        clearError();
 
-            const businessName =
-                document
-                    .getElementById("businessName")
-                    .value
-                    .trim();
 
+        /* ---------------------------------------------
+           GET VALUES
+        --------------------------------------------- */
 
-            const fullName =
-                document
-                    .getElementById("fullName")
-                    .value
-                    .trim();
+        const businessName =
+            document
+                .getElementById("businessName")
+                .value
+                .trim();
 
 
-            const email =
-                document
-                    .getElementById("email")
-                    .value
-                    .trim()
-                    .toLowerCase();
+        const fullName =
+            document
+                .getElementById("fullName")
+                .value
+                .trim();
 
 
-            const phoneNumber =
-                phone.value.trim();
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
 
 
-            const passwordValue =
-                password.value;
+        const phoneNumber =
+            phone.value.trim();
 
 
-            const confirmPasswordValue =
-                confirmPassword.value;
+        const passwordValue =
+            password.value;
 
 
-            const terms =
-                document
-                    .getElementById("terms")
-                    .checked;
+        const confirmPasswordValue =
+            confirmPassword.value;
 
 
+        const terms =
+            document
+                .getElementById("terms")
+                .checked;
 
-            /* ---------------------------------------------
-               VALIDATION
-            --------------------------------------------- */
 
-            if(!businessName){
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
 
-                showError(
-                    "Please enter your business name."
-                );
+        if(!businessName){
 
-                return;
-
-            }
-
-
-            if(businessName.length < 2){
-
-                showError(
-                    "Please enter a valid business name."
-                );
-
-                return;
-
-            }
-
-
-            if(!fullName){
-
-                showError(
-                    "Please enter your name."
-                );
-
-                return;
-
-            }
-
-
-            if(!email){
-
-                showError(
-                    "Please enter your business email."
-                );
-
-                return;
-
-            }
-
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            if(!emailPattern.test(email)){
-
-                showError(
-                    "Please enter a valid email address."
-                );
-
-                return;
-
-            }
-
-
-            if(
-                phoneNumber.length !== 10 ||
-                !phoneNumber.startsWith("9")
-            ){
-
-                showError(
-                    "Please enter a valid Philippine mobile number, for example 9171234567."
-                );
-
-                return;
-
-            }
-
-
-            if(passwordValue.length < 8){
-
-                showError(
-                    "Password must contain at least 8 characters."
-                );
-
-                return;
-
-            }
-
-
-            if(
-                passwordValue !==
-                confirmPasswordValue
-            ){
-
-                showError(
-                    "The passwords do not match."
-                );
-
-                return;
-
-            }
-
-
-            if(!terms){
-
-                showError(
-                    "Please agree to the Terms and Privacy Policy."
-                );
-
-                return;
-
-            }
-
-
-
-            /* ---------------------------------------------
-               LOADING STATE
-            --------------------------------------------- */
-
-            continueButton.classList.add(
-                "loading"
+            showError(
+                "Please enter your business name."
             );
+
+            return;
+        }
+
+
+        if(!fullName){
+
+            showError(
+                "Please enter your name."
+            );
+
+            return;
+        }
+
+
+        if(!email){
+
+            showError(
+                "Please enter your business email."
+            );
+
+            return;
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if(!emailPattern.test(email)){
+
+            showError(
+                "Please enter a valid email address."
+            );
+
+            return;
+        }
+
+
+        if(
+            phoneNumber.length !== 10 ||
+            !phoneNumber.startsWith("9")
+        ){
+
+            showError(
+                "Please enter a valid Philippine mobile number, for example 9171234567."
+            );
+
+            return;
+        }
+
+
+        if(passwordValue.length < 8){
+
+            showError(
+                "Password must contain at least 8 characters."
+            );
+
+            return;
+        }
+
+
+        if(passwordValue !== confirmPasswordValue){
+
+            showError(
+                "The passwords do not match."
+            );
+
+            return;
+        }
+
+
+        if(!terms){
+
+            showError(
+                "Please agree to the Terms and Privacy Policy."
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           LOADING
+        --------------------------------------------- */
+
+        continueButton.classList.add("loading");
+
+        continueButton.textContent =
+            "Creating Account...";
+
+
+        try{
+
+            console.log(
+                "KAYAH: Starting account creation..."
+            );
+
+
+            /* =========================================
+               1. FIREBASE AUTH
+            ========================================= */
 
             continueButton.textContent =
                 "Creating Account...";
 
 
-
-            try{
-
-
-                /* =========================================
-                   1. CREATE FIREBASE AUTH ACCOUNT
-                ========================================= */
-
-                const userCredential =
-                    await createUserWithEmailAndPassword(
+            const userCredential =
+                await withTimeout(
+                    createUserWithEmailAndPassword(
                         auth,
                         email,
                         passwordValue
-                    );
-
-
-                const user =
-                    userCredential.user;
-
-
-                /* =========================================
-                   2. UPDATE AUTH PROFILE
-                ========================================= */
-
-                await updateProfile(
-                    user,
-                    {
-                        displayName:
-                            fullName
-                    }
+                    ),
+                    20000,
+                    "Firebase Authentication took too long to respond. Please check your internet connection and Firebase Authentication settings."
                 );
 
 
-                /* =========================================
-                   3. SAVE USER TO FIRESTORE
-                ========================================= */
+            const user =
+                userCredential.user;
 
-                const userData = {
+
+            console.log(
+                "KAYAH: Authentication account created:",
+                user.uid
+            );
+
+
+            /* =========================================
+               2. UPDATE PROFILE
+            ========================================= */
+
+            continueButton.textContent =
+                "Saving Profile...";
+
+
+            await withTimeout(
+                updateProfile(
+                    user,
+                    {
+                        displayName: fullName
+                    }
+                ),
+                20000,
+                "Updating your Firebase profile took too long."
+            );
+
+
+            console.log(
+                "KAYAH: Profile updated."
+            );
+
+
+            /* =========================================
+               3. SAVE FIRESTORE
+            ========================================= */
+
+            continueButton.textContent =
+                "Saving Business...";
+
+
+            const userData = {
+
+                uid:
+                    user.uid,
+
+                businessName:
+                    businessName,
+
+                fullName:
+                    fullName,
+
+                email:
+                    email,
+
+                phone:
+                    phoneNumber,
+
+                countryCode:
+                    "+63",
+
+                phoneFull:
+                    "+63" + phoneNumber,
+
+                accountStatus:
+                    "active",
+
+                setupCompleted:
+                    false,
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            };
+
+
+            console.log(
+                "KAYAH: Saving Firestore document..."
+            );
+
+
+            await withTimeout(
+                setDoc(
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    ),
+                    userData
+                ),
+                20000,
+                "Saving your business information to Firestore took too long. Please check your Firestore security rules."
+            );
+
+
+            console.log(
+                "KAYAH: Firestore document saved successfully."
+            );
+
+
+            /* =========================================
+               4. SESSION DATA
+            ========================================= */
+
+            sessionStorage.setItem(
+                "kayahSignupData",
+                JSON.stringify({
 
                     uid:
                         user.uid,
@@ -1884,179 +1967,114 @@
                         phoneNumber,
 
                     countryCode:
-                        "+63",
+                        "+63"
 
-                    phoneFull:
-                        "+63" + phoneNumber,
-
-                    accountStatus:
-                        "active",
-
-                    setupCompleted:
-                        false,
-
-                    createdAt:
-                        serverTimestamp(),
-
-                    updatedAt:
-                        serverTimestamp()
-
-                };
+                })
+            );
 
 
-                await setDoc(
+            /* =========================================
+               5. SUCCESS
+            ========================================= */
 
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    ),
+            formContent.style.display =
+                "none";
 
-                    userData
-
-                );
-
+            successContent.classList.add(
+                "show"
+            );
 
 
-                /* =========================================
-                   4. SAVE TEMPORARY SETUP DATA
-                ========================================= */
-
-                sessionStorage.setItem(
-
-                    "kayahSignupData",
-
-                    JSON.stringify({
-
-                        uid:
-                            user.uid,
-
-                        businessName:
-                            businessName,
-
-                        fullName:
-                            fullName,
-
-                        email:
-                            email,
-
-                        phone:
-                            phoneNumber,
-
-                        countryCode:
-                            "+63"
-
-                    })
-
-                );
+            continueButton.classList.remove(
+                "loading"
+            );
 
 
-
-                /* =========================================
-                   5. SHOW SUCCESS
-                ========================================= */
-
-                formContent.style.display =
-                    "none";
-
-                successContent.classList.add(
-                    "show"
-                );
+            continueButton.textContent =
+                "Continue";
 
 
-                continueButton.classList.remove(
-                    "loading"
-                );
+            console.log(
+                "KAYAH: Signup completed successfully."
+            );
 
 
-                continueButton.textContent =
-                    "Continue";
+        }catch(error){
+
+            console.error(
+                "KAYAH SIGNUP ERROR:",
+                error
+            );
 
 
-            }catch(error){
-
-                console.error(
-                    "Kayah signup error:",
-                    error
-                );
+            continueButton.classList.remove(
+                "loading"
+            );
 
 
-                continueButton.classList.remove(
-                    "loading"
-                );
+            continueButton.textContent =
+                "Continue";
 
 
-                continueButton.textContent =
-                    "Continue";
-
-
-                showError(
-                    getFirebaseErrorMessage(error)
-                );
-
-            }
+            showError(
+                getFirebaseErrorMessage(error)
+            );
 
         }
-    );
-
-
-
-    /* =====================================================
-       GO TO SETUP
-    ===================================================== */
-
-    setupButton.addEventListener(
-        "click",
-        function(){
-
-            window.location.href =
-                "../setup/";
-
-        }
-    );
-
-
-
-    /* =====================================================
-       SERVICE WORKER
-       ROOT FILE:
-       ../sw.js
-    ===================================================== */
-
-    if(
-        "serviceWorker"
-        in navigator
-    ){
-
-        window.addEventListener(
-            "load",
-            function(){
-
-                navigator.serviceWorker
-                    .register("../sw.js")
-                    .then(function(){
-
-                        console.log(
-                            "Kayah Service Worker registered."
-                        );
-
-                    })
-                    .catch(function(error){
-
-                        console.log(
-                            "Service Worker registration failed:",
-                            error
-                        );
-
-                    });
-
-            }
-        );
 
     }
+);
+
+
+/* =====================================================
+   CONTINUE TO SETUP
+===================================================== */
+
+setupButton.addEventListener(
+    "click",
+    function(){
+
+        window.location.href =
+            "../setup/";
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("../sw.js")
+                .then(function(){
+
+                    console.log(
+                        "Kayah Service Worker registered."
+                    );
+
+                })
+                .catch(function(error){
+
+                    console.log(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
 
 </script>
-
 
 </body>
 
