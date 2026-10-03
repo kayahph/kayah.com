@@ -20,10 +20,8 @@
         content="Set up your business with Kayah — Business, Made Possible."
     >
 
-    <link
-        rel="manifest"
-        href="../manifest.json"
-    >
+    <!-- ROOT FILES -->
+    <link rel="manifest" href="../manifest.json">
 
     <link
         rel="icon"
@@ -31,7 +29,7 @@
         href="../kayah-logo.png"
     >
 
-    <title>Set Up Your Business — Kayah</title>
+    <title>Set Up Your Business | Kayah</title>
 
 
     <style>
@@ -46,11 +44,9 @@
             box-sizing:border-box;
         }
 
-
         html{
             scroll-behavior:smooth;
         }
-
 
         body{
 
@@ -71,21 +67,17 @@
             -webkit-font-smoothing:antialiased;
         }
 
-
         button,
         input{
             font:inherit;
         }
 
-
         button{
             cursor:pointer;
         }
 
-
         a{
             text-decoration:none;
-            color:inherit;
         }
 
 
@@ -103,23 +95,22 @@
 
 
         /* =====================================================
-           TOP BAR
+           HEADER
         ===================================================== */
 
         .topbar{
 
             width:100%;
 
-            padding:
-                18px
-                18px
-                12px;
-
             display:flex;
+
+            align-items:center;
 
             justify-content:space-between;
 
-            align-items:center;
+            padding:
+                16px
+                18px;
         }
 
 
@@ -129,18 +120,20 @@
 
             align-items:center;
 
-            gap:10px;
+            gap:9px;
+
+            color:#0B4F3A;
         }
 
 
         .brand img{
 
-            width:42px;
-            height:42px;
+            width:40px;
+            height:40px;
 
             object-fit:contain;
 
-            border-radius:12px;
+            border-radius:11px;
         }
 
 
@@ -150,40 +143,29 @@
 
             font-weight:800;
 
-            letter-spacing:-0.5px;
-
-            color:#0B4F3A;
+            letter-spacing:-.5px;
         }
 
 
         .login-link{
 
-            color:#16805C;
-
-            font-size:14px;
+            font-size:13px;
 
             font-weight:700;
 
-            padding:9px 13px;
+            color:#16805C;
+
+            padding:9px 12px;
 
             border-radius:10px;
 
-            transition:
-                background .2s ease,
-                transform .2s ease;
+            transition:.2s ease;
         }
 
 
         .login-link:hover{
 
             background:rgba(22,128,92,.08);
-
-        }
-
-
-        .login-link:active{
-
-            transform:scale(.97);
         }
 
 
@@ -195,16 +177,14 @@
 
             width:100%;
 
-            max-width:560px;
+            max-width:520px;
 
-            margin:0 auto;
+            margin:auto;
 
             padding:
-                18px
+                10px
                 18px
                 40px;
-
-            flex:1;
         }
 
 
@@ -217,25 +197,25 @@
             text-align:center;
 
             margin:
-                10px
+                8px
                 auto
-                24px;
+                22px;
         }
 
 
-        .logo-wrap{
+        .logo-box{
 
-            width:72px;
-            height:72px;
+            width:68px;
+            height:68px;
 
             margin:
                 0
                 auto
-                16px;
+                15px;
 
             background:#FFFFFF;
 
-            border-radius:20px;
+            border-radius:19px;
 
             display:flex;
 
@@ -247,10 +227,10 @@
         }
 
 
-        .logo-wrap img{
+        .logo-box img{
 
-            width:54px;
-            height:54px;
+            width:52px;
+            height:52px;
 
             object-fit:contain;
         }
@@ -258,46 +238,46 @@
 
         .eyebrow{
 
-            display:inline-block;
-
-            font-size:11px;
-
-            font-weight:800;
-
-            letter-spacing:1.2px;
+            display:block;
 
             color:#16805C;
 
-            margin-bottom:8px;
+            font-size:10px;
+
+            font-weight:800;
+
+            letter-spacing:1.1px;
+
+            margin-bottom:7px;
         }
 
 
         h1{
 
+            color:#0B4F3A;
+
             font-size:
-                clamp(27px, 7vw, 36px);
+                clamp(28px, 7vw, 35px);
 
             line-height:1.1;
 
             letter-spacing:-1px;
 
-            color:#0B4F3A;
-
-            margin-bottom:10px;
+            margin-bottom:9px;
         }
 
 
-        .intro p{
+        .intro-text{
 
-            max-width:420px;
+            color:#6F7973;
 
-            margin:0 auto;
-
-            color:#68736D;
-
-            font-size:14px;
+            font-size:13px;
 
             line-height:1.6;
+
+            max-width:400px;
+
+            margin:auto;
         }
 
 
@@ -313,35 +293,33 @@
 
             justify-content:center;
 
+            width:100%;
+
+            max-width:350px;
+
             margin:
                 0
                 auto
-                22px;
-
-            max-width:360px;
+                20px;
         }
 
 
-        .progress-item{
+        .step{
+
+            min-width:65px;
 
             display:flex;
 
             flex-direction:column;
 
             align-items:center;
-
-            min-width:72px;
-
-            position:relative;
-
-            z-index:2;
         }
 
 
-        .progress-circle{
+        .step-circle{
 
-            width:30px;
-            height:30px;
+            width:29px;
+            height:29px;
 
             border-radius:50%;
 
@@ -350,33 +328,33 @@
             align-items:center;
             justify-content:center;
 
-            background:#E4E9E4;
+            background:#E0E6E1;
 
-            color:#748078;
+            color:#7C8780;
 
-            font-size:12px;
+            font-size:11px;
 
             font-weight:800;
 
-            margin-bottom:7px;
+            margin-bottom:6px;
         }
 
 
-        .progress-item.active
-        .progress-circle{
+        .step.active
+        .step-circle{
 
             background:#16805C;
 
             color:#FFFFFF;
 
             box-shadow:
-                0 5px 15px rgba(22,128,92,.20);
+                0 5px 14px rgba(22,128,92,.20);
         }
 
 
-        .progress-label{
+        .step-label{
 
-            font-size:10px;
+            font-size:9px;
 
             font-weight:700;
 
@@ -384,67 +362,70 @@
         }
 
 
-        .progress-item.active
-        .progress-label{
+        .step.active
+        .step-label{
 
             color:#16805C;
         }
 
 
-        .progress-line{
-
-            height:2px;
+        .step-line{
 
             flex:1;
+
+            height:2px;
 
             background:#DCE2DD;
 
             margin:
-                14px -2px
+                14px -1px
                 0;
         }
 
 
         /* =====================================================
-           FORM CARD
+           CARD
         ===================================================== */
 
-        .form-card{
+        .card{
 
             background:#FFFFFF;
 
-            border-radius:22px;
+            border-radius:21px;
 
-            padding:22px 18px;
+            padding:
+                21px
+                18px;
 
             box-shadow:
                 0 12px 35px rgba(32,42,36,.08);
 
-            border:1px solid rgba(11,79,58,.05);
+            border:
+                1px solid rgba(11,79,58,.05);
         }
 
 
-        .card-heading{
+        .card-title{
 
-            margin-bottom:18px;
+            margin-bottom:17px;
         }
 
 
-        .card-heading h2{
-
-            color:#202A24;
+        .card-title h2{
 
             font-size:18px;
 
-            margin-bottom:5px;
+            color:#202A24;
+
+            margin-bottom:4px;
         }
 
 
-        .card-heading p{
+        .card-title p{
+
+            font-size:12px;
 
             color:#7A847E;
-
-            font-size:13px;
 
             line-height:1.5;
         }
@@ -454,13 +435,13 @@
            FORM
         ===================================================== */
 
-        .form-group{
+        .field{
 
-            margin-bottom:15px;
+            margin-bottom:14px;
         }
 
 
-        .form-label{
+        .field label{
 
             display:block;
 
@@ -470,7 +451,7 @@
 
             color:#39453E;
 
-            margin-bottom:7px;
+            margin-bottom:6px;
         }
 
 
@@ -480,95 +461,91 @@
         }
 
 
-        .input-wrap{
-
-            position:relative;
-        }
-
-
-        input{
+        .field input{
 
             width:100%;
 
-            height:48px;
-
-            border:1px solid #DCE2DD;
-
-            background:#FAFBF9;
-
-            border-radius:12px;
+            height:47px;
 
             padding:
                 0
                 13px;
 
-            outline:none;
+            border:
+                1px solid #DCE2DD;
+
+            border-radius:11px;
+
+            background:#FAFBF9;
 
             color:#202A24;
 
-            font-size:14px;
+            outline:none;
 
-            transition:
-                border-color .2s ease,
-                box-shadow .2s ease,
-                background .2s ease;
+            font-size:13px;
+
+            transition:.2s ease;
         }
 
 
-        input::placeholder{
+        .field input::placeholder{
 
             color:#A2AAA5;
         }
 
 
-        input:focus{
+        .field input:focus{
 
             border-color:#16805C;
 
             background:#FFFFFF;
 
             box-shadow:
-                0 0 0 3px rgba(22,128,92,.09);
+                0 0 0 3px rgba(22,128,92,.08);
         }
 
 
-        .phone-input{
+        /* =====================================================
+           PHONE
+        ===================================================== */
+
+        .phone-row{
 
             display:flex;
 
-            gap:8px;
+            gap:7px;
         }
 
 
         .country-code{
 
-            width:68px;
+            width:66px;
 
             flex-shrink:0;
 
-            height:48px;
-
-            border-radius:12px;
-
-            background:#F1F4F0;
-
-            border:1px solid #DCE2DD;
+            height:47px;
 
             display:flex;
 
             align-items:center;
-
             justify-content:center;
 
-            color:#526058;
+            background:#F1F4F0;
 
-            font-size:13px;
+            border:
+                1px solid #DCE2DD;
+
+            border-radius:11px;
+
+            color:#56625A;
+
+            font-size:12px;
 
             font-weight:700;
         }
 
 
-        .phone-input input{
+        .phone-row input{
 
             flex:1;
         }
@@ -578,23 +555,24 @@
            PASSWORD
         ===================================================== */
 
-        .password-input{
+        .password-wrap{
 
             position:relative;
         }
 
 
-        .password-input input{
+        .password-wrap input{
 
-            padding-right:50px;
+            padding-right:52px;
         }
 
 
-        .show-password{
+        .show-btn{
 
             position:absolute;
 
-            right:8px;
+            right:6px;
+
             top:50%;
 
             transform:translateY(-50%);
@@ -605,7 +583,7 @@
 
             color:#16805C;
 
-            font-size:12px;
+            font-size:11px;
 
             font-weight:700;
 
@@ -623,12 +601,12 @@
 
             align-items:flex-start;
 
-            gap:9px;
+            gap:8px;
 
             margin:
-                4px
+                3px
                 0
-                17px;
+                16px;
         }
 
 
@@ -637,21 +615,21 @@
             width:17px;
             height:17px;
 
+            flex-shrink:0;
+
             margin-top:1px;
 
             accent-color:#16805C;
-
-            flex-shrink:0;
         }
 
 
         .terms label{
 
-            color:#737E77;
-
-            font-size:11px;
+            font-size:10px;
 
             line-height:1.5;
+
+            color:#737E77;
         }
 
 
@@ -667,47 +645,50 @@
            ERROR
         ===================================================== */
 
-        .error-box{
+        .error{
 
             display:none;
 
-            background:#FFF1F0;
+            padding:
+                10px
+                11px;
 
-            border:1px solid #F2C7C3;
+            margin-bottom:13px;
+
+            background:#FFF2F1;
+
+            border:
+                1px solid #F0C7C3;
+
+            border-radius:10px;
 
             color:#A53A32;
 
-            border-radius:11px;
-
-            padding:11px 12px;
-
-            margin-bottom:15px;
-
-            font-size:12px;
+            font-size:11px;
 
             line-height:1.5;
         }
 
 
-        .error-box.show{
+        .error.show{
 
             display:block;
         }
 
 
         /* =====================================================
-           BUTTON
+           CONTINUE BUTTON
         ===================================================== */
 
-        .continue-btn{
+        .continue{
 
             width:100%;
 
-            min-height:50px;
+            min-height:49px;
 
             border:none;
 
-            border-radius:13px;
+            border-radius:12px;
 
             background:
                 linear-gradient(
@@ -718,7 +699,7 @@
 
             color:#FFFFFF;
 
-            font-size:14px;
+            font-size:13px;
 
             font-weight:800;
 
@@ -727,58 +708,50 @@
 
             transition:
                 transform .2s ease,
-                box-shadow .2s ease,
                 opacity .2s ease;
         }
 
 
-        .continue-btn:hover{
-
-            box-shadow:
-                0 10px 22px rgba(11,79,58,.22);
-        }
-
-
-        .continue-btn:active{
+        .continue:active{
 
             transform:scale(.985);
         }
 
 
-        .continue-btn.loading{
+        .continue.loading{
 
-            opacity:.75;
+            opacity:.65;
 
             pointer-events:none;
         }
 
 
         /* =====================================================
-           FOOT NOTE
+           FOOTER NOTE
         ===================================================== */
 
-        .bottom-note{
+        .note{
 
             text-align:center;
 
-            margin-top:17px;
-
             color:#8A938E;
 
-            font-size:11px;
+            font-size:10px;
 
             line-height:1.5;
+
+            margin-top:15px;
         }
 
 
-        .bottom-note strong{
+        .note strong{
 
             color:#16805C;
         }
 
 
         /* =====================================================
-           SUCCESS STATE
+           SUCCESS
         ===================================================== */
 
         .success{
@@ -788,9 +761,9 @@
             text-align:center;
 
             padding:
-                15px
-                5px
-                5px;
+                10px
+                4px
+                4px;
         }
 
 
@@ -804,6 +777,11 @@
 
             width:60px;
             height:60px;
+
+            margin:
+                0
+                auto
+                15px;
 
             border-radius:50%;
 
@@ -819,11 +797,6 @@
             font-size:27px;
 
             font-weight:800;
-
-            margin:
-                0
-                auto
-                16px;
         }
 
 
@@ -831,9 +804,9 @@
 
             color:#0B4F3A;
 
-            font-size:22px;
+            font-size:21px;
 
-            margin-bottom:8px;
+            margin-bottom:7px;
         }
 
 
@@ -841,7 +814,7 @@
 
             color:#737E77;
 
-            font-size:13px;
+            font-size:12px;
 
             line-height:1.6;
 
@@ -849,7 +822,7 @@
         }
 
 
-        .setup-btn{
+        .setup-button{
 
             width:100%;
 
@@ -863,9 +836,9 @@
 
             color:#FFFFFF;
 
-            font-weight:800;
+            font-size:13px;
 
-            font-size:14px;
+            font-weight:800;
         }
 
 
@@ -873,42 +846,27 @@
            DESKTOP
         ===================================================== */
 
-        @media (min-width:700px){
+        @media(min-width:700px){
 
             .topbar{
 
                 padding:
-                    24px
-                    30px
-                    15px;
+                    22px
+                    30px;
             }
 
 
             main{
 
-                padding-top:28px;
+                padding-top:25px;
             }
 
 
-            .form-card{
+            .card{
 
-                padding:28px 28px;
-            }
-
-        }
-
-
-        /* =====================================================
-           REDUCED MOTION
-        ===================================================== */
-
-        @media (prefers-reduced-motion:reduce){
-
-            *{
-
-                scroll-behavior:auto !important;
-
-                transition:none !important;
+                padding:
+                    26px
+                    27px;
             }
 
         }
@@ -925,15 +883,15 @@
 
 
     <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
+         HEADER
+    ===================================================== -->
 
     <header class="topbar">
+
 
         <a
             href="../"
             class="brand"
-            aria-label="Kayah Home"
         >
 
             <img
@@ -955,13 +913,14 @@
             Log In
         </a>
 
+
     </header>
 
 
 
     <!-- =====================================================
          MAIN
-    ====================================================== -->
+    ===================================================== -->
 
     <main>
 
@@ -970,7 +929,8 @@
 
         <section class="intro">
 
-            <div class="logo-wrap">
+
+            <div class="logo-box">
 
                 <img
                     src="../kayah-logo.png"
@@ -990,10 +950,11 @@
             </h1>
 
 
-            <p>
+            <p class="intro-text">
                 Create your Kayah account and get your
-                business workspace ready in just a few steps.
+                business workspace ready in a few simple steps.
             </p>
+
 
         </section>
 
@@ -1006,45 +967,45 @@
         <div class="progress">
 
 
-            <div class="progress-item active">
+            <div class="step active">
 
-                <div class="progress-circle">
+                <div class="step-circle">
                     1
                 </div>
 
-                <div class="progress-label">
+                <div class="step-label">
                     Account
                 </div>
 
             </div>
 
 
-            <div class="progress-line"></div>
+            <div class="step-line"></div>
 
 
-            <div class="progress-item">
+            <div class="step">
 
-                <div class="progress-circle">
+                <div class="step-circle">
                     2
                 </div>
 
-                <div class="progress-label">
+                <div class="step-label">
                     Business
                 </div>
 
             </div>
 
 
-            <div class="progress-line"></div>
+            <div class="step-line"></div>
 
 
-            <div class="progress-item">
+            <div class="step">
 
-                <div class="progress-circle">
+                <div class="step-circle">
                     3
                 </div>
 
-                <div class="progress-label">
+                <div class="step-label">
                     Start
                 </div>
 
@@ -1059,20 +1020,20 @@
              FORM CARD
         ================================================== -->
 
-        <section class="form-card">
+        <section class="card">
 
 
             <div id="formContent">
 
 
-                <div class="card-heading">
+                <div class="card-title">
 
                     <h2>
                         Your Account
                     </h2>
 
                     <p>
-                        Enter your basic details to begin.
+                        Enter your basic information to begin.
                     </p>
 
                 </div>
@@ -1083,8 +1044,7 @@
 
                 <div
                     id="errorBox"
-                    class="error-box"
-                    role="alert"
+                    class="error"
                 ></div>
 
 
@@ -1099,21 +1059,19 @@
 
                     <!-- BUSINESS NAME -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="businessName"
-                        >
+                        <label for="businessName">
+
                             Business Name
                             <span class="required">*</span>
+
                         </label>
 
 
                         <input
                             type="text"
                             id="businessName"
-                            name="businessName"
                             placeholder="e.g. Faris Mini Store"
                             autocomplete="organization"
                             required
@@ -1123,23 +1081,21 @@
 
 
 
-                    <!-- YOUR NAME -->
+                    <!-- NAME -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="fullName"
-                        >
+                        <label for="fullName">
+
                             Your Name
                             <span class="required">*</span>
+
                         </label>
 
 
                         <input
                             type="text"
                             id="fullName"
-                            name="fullName"
                             placeholder="Enter your full name"
                             autocomplete="name"
                             required
@@ -1151,21 +1107,19 @@
 
                     <!-- EMAIL -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="email"
-                        >
+                        <label for="email">
+
                             Business Email
                             <span class="required">*</span>
+
                         </label>
 
 
                         <input
                             type="email"
                             id="email"
-                            name="email"
                             placeholder="you@example.com"
                             autocomplete="email"
                             required
@@ -1177,18 +1131,17 @@
 
                     <!-- PHONE -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="phone"
-                        >
+                        <label for="phone">
+
                             Phone Number
                             <span class="required">*</span>
+
                         </label>
 
 
-                        <div class="phone-input">
+                        <div class="phone-row">
 
 
                             <div class="country-code">
@@ -1199,7 +1152,6 @@
                             <input
                                 type="tel"
                                 id="phone"
-                                name="phone"
                                 placeholder="9XXXXXXXXX"
                                 inputmode="numeric"
                                 autocomplete="tel"
@@ -1216,23 +1168,22 @@
 
                     <!-- PASSWORD -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="password"
-                        >
+                        <label for="password">
+
                             Password
                             <span class="required">*</span>
+
                         </label>
 
 
-                        <div class="password-input">
+                        <div class="password-wrap">
+
 
                             <input
                                 type="password"
                                 id="password"
-                                name="password"
                                 placeholder="Create a password"
                                 autocomplete="new-password"
                                 minlength="8"
@@ -1242,11 +1193,12 @@
 
                             <button
                                 type="button"
-                                class="show-password"
+                                class="show-btn"
                                 id="showPassword"
                             >
                                 Show
                             </button>
+
 
                         </div>
 
@@ -1256,24 +1208,23 @@
 
                     <!-- CONFIRM PASSWORD -->
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label
-                            class="form-label"
-                            for="confirmPassword"
-                        >
+                        <label for="confirmPassword">
+
                             Confirm Password
                             <span class="required">*</span>
+
                         </label>
 
 
-                        <div class="password-input">
+                        <div class="password-wrap">
+
 
                             <input
                                 type="password"
                                 id="confirmPassword"
-                                name="confirmPassword"
-                                placeholder="Enter your password again"
+                                placeholder="Enter password again"
                                 autocomplete="new-password"
                                 minlength="8"
                                 required
@@ -1282,11 +1233,12 @@
 
                             <button
                                 type="button"
-                                class="show-password"
+                                class="show-btn"
                                 id="showConfirmPassword"
                             >
                                 Show
                             </button>
+
 
                         </div>
 
@@ -1298,25 +1250,32 @@
 
                     <div class="terms">
 
+
                         <input
                             type="checkbox"
                             id="terms"
-                            name="terms"
                         >
 
 
                         <label for="terms">
 
                             I agree to Kayah's
-                            <a href="#" onclick="return false;">
+                            <a
+                                href="#"
+                                onclick="return false;"
+                            >
                                 Terms
                             </a>
                             and
-                            <a href="#" onclick="return false;">
+                            <a
+                                href="#"
+                                onclick="return false;"
+                            >
                                 Privacy Policy
                             </a>.
 
                         </label>
+
 
                     </div>
 
@@ -1326,8 +1285,8 @@
 
                     <button
                         type="submit"
-                        class="continue-btn"
-                        id="continueBtn"
+                        class="continue"
+                        id="continueButton"
                     >
                         Continue
                     </button>
@@ -1336,7 +1295,7 @@
                 </form>
 
 
-                <div class="bottom-note">
+                <div class="note">
 
                     <strong>Simple.</strong>
                     Organized.
@@ -1358,6 +1317,7 @@
                 class="success"
             >
 
+
                 <div class="success-icon">
                     ✓
                 </div>
@@ -1369,18 +1329,19 @@
 
 
                 <p>
-                    Your account information is ready.
+                    Your account details are ready.
                     Let's complete your business setup.
                 </p>
 
 
                 <button
                     type="button"
-                    class="setup-btn"
-                    id="setupBtn"
+                    class="setup-button"
+                    id="setupButton"
                 >
                     Continue Business Setup
                 </button>
+
 
             </div>
 
@@ -1401,14 +1362,14 @@
        ELEMENTS
     ===================================================== */
 
-    const signupForm =
+    const form =
         document.getElementById("signupForm");
 
     const errorBox =
         document.getElementById("errorBox");
 
-    const continueBtn =
-        document.getElementById("continueBtn");
+    const continueButton =
+        document.getElementById("continueButton");
 
     const formContent =
         document.getElementById("formContent");
@@ -1416,14 +1377,8 @@
     const successContent =
         document.getElementById("successContent");
 
-    const setupBtn =
-        document.getElementById("setupBtn");
-
-
-
-    /* =====================================================
-       PASSWORD SHOW / HIDE
-    ===================================================== */
+    const setupButton =
+        document.getElementById("setupButton");
 
     const password =
         document.getElementById("password");
@@ -1431,60 +1386,63 @@
     const confirmPassword =
         document.getElementById("confirmPassword");
 
-    const showPassword =
-        document.getElementById("showPassword");
-
-    const showConfirmPassword =
-        document.getElementById("showConfirmPassword");
 
 
-    showPassword.addEventListener(
-        "click",
-        function(){
+    /* =====================================================
+       PASSWORD VISIBILITY
+    ===================================================== */
 
-            if(password.type === "password"){
+    document
+        .getElementById("showPassword")
+        .addEventListener(
+            "click",
+            function(){
 
-                password.type = "text";
+                if(password.type === "password"){
 
-                showPassword.textContent = "Hide";
+                    password.type = "text";
 
-            }else{
+                    this.textContent = "Hide";
 
-                password.type = "password";
+                }else{
 
-                showPassword.textContent = "Show";
+                    password.type = "password";
 
-            }
+                    this.textContent = "Show";
 
-        }
-    );
-
-
-    showConfirmPassword.addEventListener(
-        "click",
-        function(){
-
-            if(confirmPassword.type === "password"){
-
-                confirmPassword.type = "text";
-
-                showConfirmPassword.textContent = "Hide";
-
-            }else{
-
-                confirmPassword.type = "password";
-
-                showConfirmPassword.textContent = "Show";
+                }
 
             }
+        );
 
-        }
-    );
+
+    document
+        .getElementById("showConfirmPassword")
+        .addEventListener(
+            "click",
+            function(){
+
+                if(confirmPassword.type === "password"){
+
+                    confirmPassword.type = "text";
+
+                    this.textContent = "Hide";
+
+                }else{
+
+                    confirmPassword.type = "password";
+
+                    this.textContent = "Show";
+
+                }
+
+            }
+        );
 
 
 
     /* =====================================================
-       PHONE INPUT
+       PHONE
     ===================================================== */
 
     const phone =
@@ -1498,7 +1456,7 @@
             this.value =
                 this.value
                     .replace(/\D/g, "")
-                    .slice(0, 10);
+                    .slice(0,10);
 
         }
     );
@@ -1506,7 +1464,7 @@
 
 
     /* =====================================================
-       ERROR
+       ERROR FUNCTIONS
     ===================================================== */
 
     function showError(message){
@@ -1515,15 +1473,10 @@
 
         errorBox.classList.add("show");
 
-        errorBox.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
     }
 
 
-    function hideError(){
+    function clearError(){
 
         errorBox.textContent = "";
 
@@ -1534,76 +1487,16 @@
 
 
     /* =====================================================
-       SAVE SIGNUP DATA
-    ===================================================== */
-
-    function saveSignupData(){
-
-        const businessName =
-            document.getElementById("businessName").value.trim();
-
-        const fullName =
-            document.getElementById("fullName").value.trim();
-
-        const email =
-            document.getElementById("email").value.trim();
-
-        const phoneNumber =
-            phone.value.trim();
-
-
-        const signupData = {
-
-            businessName:
-                businessName,
-
-            fullName:
-                fullName,
-
-            email:
-                email,
-
-            phone:
-                phoneNumber,
-
-            countryCode:
-                "+63",
-
-            createdAt:
-                new Date().toISOString()
-
-        };
-
-
-        /*
-         * Password is intentionally NOT stored
-         * in sessionStorage.
-         *
-         * When Firebase authentication is added,
-         * the password will be handled securely
-         * through Firebase Authentication.
-         */
-
-        sessionStorage.setItem(
-            "kayahSignupData",
-            JSON.stringify(signupData)
-        );
-
-    }
-
-
-
-    /* =====================================================
        FORM SUBMIT
     ===================================================== */
 
-    signupForm.addEventListener(
+    form.addEventListener(
         "submit",
         function(event){
 
             event.preventDefault();
 
-            hideError();
+            clearError();
 
 
             const businessName =
@@ -1640,13 +1533,16 @@
 
 
             const terms =
-                document.getElementById("terms").checked;
+                document
+                    .getElementById("terms")
+                    .checked;
 
 
 
-            /* ---------------------------------------------
+            /* =================================================
                VALIDATION
-            --------------------------------------------- */
+            ================================================= */
+
 
             if(!businessName){
 
@@ -1713,7 +1609,7 @@
             if(passwordValue.length < 8){
 
                 showError(
-                    "Your password must contain at least 8 characters."
+                    "Password must contain at least 8 characters."
                 );
 
                 return;
@@ -1738,7 +1634,7 @@
             if(!terms){
 
                 showError(
-                    "Please agree to the Terms and Privacy Policy to continue."
+                    "Please agree to the Terms and Privacy Policy."
                 );
 
                 return;
@@ -1747,49 +1643,67 @@
 
 
 
-            /* ---------------------------------------------
-               LOADING
-            --------------------------------------------- */
+            /* =================================================
+               TEMPORARY SIGNUP DATA
+            ================================================= */
 
-            continueBtn.classList.add("loading");
+            const signupData = {
 
-            continueBtn.textContent =
-                "Preparing...";
+                businessName:
+                    businessName,
 
+                fullName:
+                    fullName,
 
+                email:
+                    email,
 
-            /* ---------------------------------------------
-               SAVE TEMPORARY SIGNUP DATA
-            --------------------------------------------- */
+                phone:
+                    phoneNumber,
 
-            saveSignupData();
+                countryCode:
+                    "+63",
 
+                createdAt:
+                    new Date().toISOString()
+
+            };
 
 
             /*
-             * Small delay gives the user a smooth
-             * transition instead of an instant jump.
+             * Do NOT store the password here.
+             * Firebase Authentication will handle
+             * the password when we connect Firebase.
              */
+
+            sessionStorage.setItem(
+                "kayahSignupData",
+                JSON.stringify(signupData)
+            );
+
+
+
+            /* =================================================
+               SUCCESS
+            ================================================= */
+
+            continueButton.classList.add(
+                "loading"
+            );
+
+            continueButton.textContent =
+                "Preparing...";
+
 
             setTimeout(
                 function(){
 
-                    continueBtn.classList.remove(
-                        "loading"
-                    );
-
-                    continueBtn.textContent =
-                        "Continue";
-
-
                     formContent.style.display =
                         "none";
-
 
                     successContent.classList.add(
                         "show"
                     );
-
 
                 },
                 500
@@ -1801,10 +1715,10 @@
 
 
     /* =====================================================
-       GO TO BUSINESS SETUP
+       SETUP PAGE
     ===================================================== */
 
-    setupBtn.addEventListener(
+    setupButton.addEventListener(
         "click",
         function(){
 
@@ -1818,6 +1732,8 @@
 
     /* =====================================================
        SERVICE WORKER
+       ROOT FILE:
+       ../sw.js
     ===================================================== */
 
     if("serviceWorker" in navigator){
@@ -1828,6 +1744,13 @@
 
                 navigator.serviceWorker
                     .register("../sw.js")
+                    .then(function(){
+
+                        console.log(
+                            "Kayah Service Worker registered."
+                        );
+
+                    })
                     .catch(function(error){
 
                         console.log(
