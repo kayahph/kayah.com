@@ -17,7 +17,7 @@
 
 /* =========================================================
    KAYAH — BUSINESS DASHBOARD
-   ========================================================= */
+========================================================= */
 
 *{
     margin:0;
@@ -39,6 +39,7 @@ body{
 
     background:#F7F3E8;
     color:#202A24;
+
     min-height:100vh;
     padding-bottom:88px;
 }
@@ -60,12 +61,14 @@ a{
 
 /* =========================================================
    LOADING SCREEN
-   ========================================================= */
+========================================================= */
 
 .loading-screen{
     position:fixed;
     inset:0;
+
     background:#F7F3E8;
+
     z-index:9999;
 
     display:flex;
@@ -90,17 +93,23 @@ a{
 .loading-logo{
     width:72px;
     height:72px;
+
     object-fit:contain;
+
     margin-bottom:18px;
 }
 
 .loading-spinner{
     width:32px;
     height:32px;
+
     border:3px solid #D9E5DE;
     border-top-color:#16805C;
+
     border-radius:50%;
+
     animation:spin .8s linear infinite;
+
     margin:0 auto 14px;
 }
 
@@ -111,44 +120,51 @@ a{
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
 
 
 /* =========================================================
    PAGE
-   ========================================================= */
+========================================================= */
 
 .page{
     width:100%;
     max-width:720px;
+
     margin:0 auto;
+
     padding:18px 16px 30px;
 }
 
 
 /* =========================================================
    TOP BAR
-   ========================================================= */
+========================================================= */
 
 .topbar{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     margin-bottom:22px;
 }
 
 .brand{
     display:flex;
     align-items:center;
+
     gap:10px;
 }
 
 .brand img{
     width:42px;
     height:42px;
+
     object-fit:contain;
 }
 
@@ -160,15 +176,20 @@ a{
 .brand-name{
     font-size:20px;
     font-weight:900;
+
     letter-spacing:-.5px;
+
     color:#0B4F3A;
 }
 
 .brand-subtitle{
     font-size:9px;
     font-weight:800;
+
     letter-spacing:1.3px;
+
     color:#7B877F;
+
     text-transform:uppercase;
 }
 
@@ -185,13 +206,16 @@ a{
     border-radius:14px;
 
     background:#FFFFFF;
-    box-shadow:0 5px 18px rgba(11,79,58,.08);
+
+    box-shadow:
+        0 5px 18px rgba(11,79,58,.08);
 
     display:flex;
     align-items:center;
     justify-content:center;
 
     font-size:20px;
+
     cursor:pointer;
 
     transition:
@@ -206,7 +230,7 @@ a{
 
 /* =========================================================
    GREETING
-   ========================================================= */
+========================================================= */
 
 .greeting{
     margin-bottom:14px;
@@ -215,27 +239,32 @@ a{
 .greeting-label{
     font-size:13px;
     font-weight:600;
+
     color:#78827C;
+
     margin-bottom:3px;
 }
 
 .greeting-name{
     font-size:21px;
     font-weight:800;
+
     letter-spacing:-.4px;
+
     color:#202A24;
 }
 
 
 /* =========================================================
-   BUSINESS HERO CARD
-   ========================================================= */
+   BUSINESS HERO
+========================================================= */
 
 .business-card{
     position:relative;
     overflow:hidden;
 
     background:#FFFFFF;
+
     border-radius:26px;
 
     padding:24px 20px 21px;
@@ -246,14 +275,17 @@ a{
     margin-bottom:16px;
 }
 
-/* strong yellow stripe */
 .business-card::before{
     content:"";
+
     position:absolute;
+
     top:0;
     left:0;
     right:0;
+
     height:8px;
+
     background:#F2B84B;
 }
 
@@ -261,6 +293,7 @@ a{
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
+
     gap:14px;
 }
 
@@ -271,11 +304,14 @@ a{
 .business-label{
     display:flex;
     align-items:center;
+
     gap:7px;
 
     font-size:11px;
     font-weight:900;
+
     letter-spacing:1px;
+
     text-transform:uppercase;
 
     color:#16805C;
@@ -289,9 +325,13 @@ a{
 
 .business-name{
     font-size:27px;
+
     line-height:1.12;
+
     font-weight:900;
+
     letter-spacing:-.8px;
+
     color:#0B4F3A;
 
     word-break:break-word;
@@ -309,12 +349,14 @@ a{
 .business-location{
     display:flex;
     align-items:center;
+
     gap:6px;
 
     margin-top:8px;
 
     font-size:12px;
     font-weight:600;
+
     color:#8A938D;
 }
 
@@ -357,7 +399,9 @@ a{
 
 .currency-info{
     font-size:12px;
+
     color:#8A938D;
+
     font-weight:600;
 }
 
@@ -369,6 +413,7 @@ a{
 .status{
     display:flex;
     align-items:center;
+
     gap:6px;
 
     padding:7px 11px;
@@ -388,8 +433,8 @@ a{
 
 
 /* =========================================================
-   SECTION HEADINGS
-   ========================================================= */
+   SECTION
+========================================================= */
 
 .section{
     margin-top:24px;
@@ -406,19 +451,22 @@ a{
 .section-title{
     font-size:16px;
     font-weight:900;
+
     color:#202A24;
 }
 
 .section-caption{
     font-size:11px;
+
     color:#929A95;
+
     font-weight:600;
 }
 
 
 /* =========================================================
-   TODAY OVERVIEW
-   ========================================================= */
+   TODAY
+========================================================= */
 
 .today-card{
     background:#0B4F3A;
@@ -447,32 +495,44 @@ a{
 
 .today-date{
     font-size:11px;
+
     color:#BCD0C7;
+
     font-weight:600;
 }
 
 .today-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:9px;
 }
 
 .today-item{
     background:rgba(255,255,255,.09);
+
     border-radius:16px;
+
     padding:13px 9px;
+
     min-width:0;
 }
 
 .today-icon{
     font-size:23px;
+
     margin-bottom:8px;
+
     line-height:1;
 }
 
 .today-label{
     font-size:10px;
+
     color:#BCD0C7;
+
     font-weight:700;
 
     white-space:nowrap;
@@ -482,18 +542,23 @@ a{
 
 .today-value{
     font-size:17px;
+
     font-weight:900;
+
     margin-top:3px;
 }
 
 
 /* =========================================================
-   MANAGEMENT GRID
-   ========================================================= */
+   MANAGEMENT
+========================================================= */
 
 .management-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:11px;
 }
 
@@ -501,6 +566,7 @@ a{
     position:relative;
 
     background:#FFFFFF;
+
     border:1px solid #ECEFEA;
 
     border-radius:21px;
@@ -550,7 +616,8 @@ a{
     background:#EAF6F0;
 }
 
-.management-card:nth-child(even) .management-icon{
+.management-card:nth-child(even)
+.management-icon{
     background:#FFF4D9;
 }
 
@@ -560,12 +627,15 @@ a{
 
 .management-title{
     font-size:14px;
+
     font-weight:900;
+
     color:#202A24;
 }
 
 .management-description{
     font-size:10px;
+
     line-height:1.4;
 
     color:#89928C;
@@ -575,20 +645,23 @@ a{
 
 .management-arrow{
     position:absolute;
+
     right:14px;
     bottom:14px;
 
     font-size:15px;
+
     color:#A1AAA4;
 }
 
 
 /* =========================================================
    BUSINESS INFORMATION
-   ========================================================= */
+========================================================= */
 
 .info-card{
     background:#FFFFFF;
+
     border-radius:23px;
 
     padding:6px 18px;
@@ -600,6 +673,7 @@ a{
 .info-row{
     display:flex;
     align-items:center;
+
     gap:13px;
 
     padding:15px 0;
@@ -634,9 +708,13 @@ a{
 
 .info-label{
     font-size:10px;
+
     font-weight:800;
+
     color:#929A95;
+
     text-transform:uppercase;
+
     letter-spacing:.5px;
 }
 
@@ -644,7 +722,9 @@ a{
     margin-top:3px;
 
     font-size:13px;
+
     font-weight:800;
+
     color:#202A24;
 
     word-break:break-word;
@@ -652,8 +732,8 @@ a{
 
 
 /* =========================================================
-   QUICK NOTE
-   ========================================================= */
+   NOTE
+========================================================= */
 
 .note-card{
     background:#FFF4D9;
@@ -663,7 +743,9 @@ a{
     padding:17px;
 
     display:flex;
+
     gap:12px;
+
     align-items:flex-start;
 }
 
@@ -674,7 +756,9 @@ a{
 
 .note-title{
     font-size:13px;
+
     font-weight:900;
+
     color:#61491D;
 }
 
@@ -682,6 +766,7 @@ a{
     margin-top:4px;
 
     font-size:11px;
+
     line-height:1.5;
 
     color:#796334;
@@ -689,8 +774,8 @@ a{
 
 
 /* =========================================================
-   BOTTOM NAVIGATION
-   ========================================================= */
+   BOTTOM NAV
+========================================================= */
 
 .bottom-nav{
     position:fixed;
@@ -716,13 +801,16 @@ a{
     border-top:1px solid #E7ECE8;
 
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
 
     z-index:100;
 }
 
 .nav-item{
     border:none;
+
     background:transparent;
 
     min-height:55px;
@@ -730,8 +818,11 @@ a{
     border-radius:17px;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
 
     gap:3px;
@@ -753,6 +844,7 @@ a{
 
 .nav-item.active{
     background:#FFF4D9;
+
     color:#0B4F3A;
 }
 
@@ -762,8 +854,8 @@ a{
 
 
 /* =========================================================
-   COMING SOON
-   ========================================================= */
+   TOAST
+========================================================= */
 
 .toast{
     position:fixed;
@@ -775,6 +867,7 @@ a{
         translate(-50%,20px);
 
     background:#0B4F3A;
+
     color:#FFFFFF;
 
     padding:12px 17px;
@@ -784,9 +877,11 @@ a{
     font-size:12px;
     font-weight:800;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.16);
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.16);
 
     opacity:0;
+
     pointer-events:none;
 
     transition:
@@ -798,13 +893,15 @@ a{
 
 .toast.show{
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
 
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:390px){
 
@@ -820,6 +917,7 @@ a{
     .business-monogram{
         width:61px;
         height:61px;
+
         font-size:22px;
     }
 
@@ -836,7 +934,8 @@ a{
     }
 
     .management-grid{
-        grid-template-columns:repeat(3,1fr);
+        grid-template-columns:
+            repeat(3,1fr);
     }
 
     .today-grid{
@@ -847,9 +946,15 @@ a{
 
 </style>
 
-<!-- Professional font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
 
 <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -865,7 +970,9 @@ a{
      LOADING SCREEN
 ========================================================= -->
 
-<div class="loading-screen" id="loadingScreen">
+<div
+    class="loading-screen"
+    id="loadingScreen">
 
     <div class="loading-box">
 
@@ -876,8 +983,11 @@ a{
 
         <div class="loading-spinner"></div>
 
-        <div class="loading-text">
-            Loading your business...
+        <div class="loading-text"
+             id="loadingText">
+
+            Checking your account...
+
         </div>
 
     </div>
@@ -896,7 +1006,9 @@ a{
 
     <header class="topbar">
 
-        <a href="../dashboard/" class="brand">
+        <a
+            href="../dashboard/"
+            class="brand">
 
             <img
                 src="../kayah-logo.png"
@@ -949,8 +1061,12 @@ a{
 
     <section class="greeting">
 
-        <div class="greeting-label">
+        <div
+            class="greeting-label"
+            id="greetingLabel">
+
             Good morning
+
         </div>
 
         <div
@@ -964,9 +1080,7 @@ a{
     </section>
 
 
-    <!-- =====================================================
-         BUSINESS CARD
-    ====================================================== -->
+    <!-- BUSINESS CARD -->
 
     <section class="business-card">
 
@@ -976,7 +1090,9 @@ a{
 
                 <div class="business-label">
 
-                    <span class="emoji">🏢</span>
+                    <span class="emoji">
+                        🏢
+                    </span>
 
                     Your Business
 
@@ -1005,7 +1121,9 @@ a{
                     class="business-location"
                     id="businessLocation">
 
-                    <span class="emoji">📍</span>
+                    <span class="emoji">
+                        📍
+                    </span>
 
                     <span>
                         Location not set
@@ -1055,9 +1173,7 @@ a{
     </section>
 
 
-    <!-- =====================================================
-         TODAY
-    ====================================================== -->
+    <!-- TODAY -->
 
     <section class="section">
 
@@ -1096,8 +1212,6 @@ a{
             <div class="today-grid">
 
 
-                <!-- SALES -->
-
                 <div class="today-item">
 
                     <div class="today-icon">
@@ -1119,8 +1233,6 @@ a{
                 </div>
 
 
-                <!-- PRODUCTS -->
-
                 <div class="today-item">
 
                     <div class="today-icon">
@@ -1141,8 +1253,6 @@ a{
 
                 </div>
 
-
-                <!-- INVENTORY -->
 
                 <div class="today-item">
 
@@ -1171,9 +1281,7 @@ a{
     </section>
 
 
-    <!-- =====================================================
-         MANAGE BUSINESS
-    ====================================================== -->
+    <!-- MANAGE BUSINESS -->
 
     <section class="section">
 
@@ -1192,8 +1300,6 @@ a{
 
         <div class="management-grid">
 
-
-            <!-- PRODUCTS -->
 
             <a
                 href="../products/"
@@ -1222,8 +1328,6 @@ a{
             </a>
 
 
-            <!-- INVENTORY -->
-
             <a
                 href="../inventory/"
                 class="management-card">
@@ -1250,8 +1354,6 @@ a{
 
             </a>
 
-
-            <!-- SALES -->
 
             <a
                 href="../sales/"
@@ -1280,8 +1382,6 @@ a{
             </a>
 
 
-            <!-- EXPENSES -->
-
             <a
                 href="../expenses/"
                 class="management-card">
@@ -1309,8 +1409,6 @@ a{
             </a>
 
 
-            <!-- CUSTOMERS -->
-
             <a
                 href="../customers/"
                 class="management-card">
@@ -1337,8 +1435,6 @@ a{
 
             </a>
 
-
-            <!-- REPORTS -->
 
             <a
                 href="../reports/"
@@ -1372,9 +1468,7 @@ a{
     </section>
 
 
-    <!-- =====================================================
-         BUSINESS INFORMATION
-    ====================================================== -->
+    <!-- BUSINESS INFORMATION -->
 
     <section class="section">
 
@@ -1389,8 +1483,6 @@ a{
 
         <div class="info-card">
 
-
-            <!-- BUSINESS PROFILE -->
 
             <div class="info-row">
 
@@ -1417,8 +1509,6 @@ a{
             </div>
 
 
-            <!-- BUSINESS TYPE -->
-
             <div class="info-row">
 
                 <div class="info-icon">
@@ -1444,8 +1534,6 @@ a{
             </div>
 
 
-            <!-- LOCATION -->
-
             <div class="info-row">
 
                 <div class="info-icon">
@@ -1470,8 +1558,6 @@ a{
 
             </div>
 
-
-            <!-- OWNER -->
 
             <div class="info-row">
 
@@ -1503,9 +1589,7 @@ a{
     </section>
 
 
-    <!-- =====================================================
-         NOTE
-    ====================================================== -->
+    <!-- NOTE -->
 
     <section class="section">
 
@@ -1609,14 +1693,11 @@ a{
 </nav>
 
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+<!-- TOAST -->
 
 <div
     class="toast"
     id="toast">
-
 </div>
 
 
@@ -1631,7 +1712,9 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
-    onAuthStateChanged
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -1650,7 +1733,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyC_7nSwcfgoUXEE2yo9TJw0cp7XiwGF6w",
+        "AIzaSyC_7nSwcfgoUXEE2eyo9TJw0cp7XiwGF6w",
 
     authDomain:
         "kayah-ecosystem.firebaseapp.com",
@@ -1671,7 +1754,7 @@ const firebaseConfig = {
 
 
 /* =========================================================
-   INITIALIZE FIREBASE
+   INITIALIZE
 ========================================================= */
 
 const app =
@@ -1690,6 +1773,12 @@ const db =
 
 const loadingScreen =
     document.getElementById("loadingScreen");
+
+const loadingText =
+    document.getElementById("loadingText");
+
+const greetingLabel =
+    document.getElementById("greetingLabel");
 
 const greetingName =
     document.getElementById("greetingName");
@@ -1729,14 +1818,19 @@ const todayDate =
    SAFE TEXT
 ========================================================= */
 
-function safeText(value, fallback = "—"){
+function safeText(
+    value,
+    fallback = "—"
+){
 
     if(
         value === undefined ||
         value === null ||
         String(value).trim() === ""
     ){
+
         return fallback;
+
     }
 
     return String(value).trim();
@@ -1756,39 +1850,35 @@ function updateGreeting(name){
     let greeting =
         "Good morning";
 
-    if(hour >= 12 && hour < 18){
-        greeting = "Good afternoon";
+    if(
+        hour >= 12 &&
+        hour < 18
+    ){
+
+        greeting =
+            "Good afternoon";
+
     }
 
     if(hour >= 18){
-        greeting = "Good evening";
+
+        greeting =
+            "Good evening";
+
     }
 
     const firstName =
-        safeText(name, "there")
-        .split(" ")[0];
+        safeText(
+            name,
+            "there"
+        ).split(" ")[0];
 
-    document.querySelector(".greeting-label")
-        .textContent = greeting;
+
+    greetingLabel.textContent =
+        greeting;
 
     greetingName.textContent =
         firstName;
-
-}
-
-
-/* =========================================================
-   BUSINESS MONOGRAM
-========================================================= */
-
-function getInitial(name){
-
-    const value =
-        safeText(name, "K");
-
-    return value
-        .charAt(0)
-        .toUpperCase();
 
 }
 
@@ -1800,19 +1890,35 @@ function getInitial(name){
 function buildLocation(data){
 
     const city =
-        safeText(data.city, "");
+        safeText(
+            data.city,
+            ""
+        );
 
     const province =
-        safeText(data.province, "");
+        safeText(
+            data.province,
+            ""
+        );
 
     const address =
-        safeText(data.businessAddress, "");
+        safeText(
+            data.businessAddress,
+            ""
+        );
 
-    if(city && province){
 
-        return city + ", " + province;
+    if(
+        city &&
+        province
+    ){
+
+        return city +
+            ", " +
+            province;
 
     }
+
 
     if(city){
 
@@ -1820,17 +1926,20 @@ function buildLocation(data){
 
     }
 
+
     if(province){
 
         return province;
 
     }
 
+
     if(address){
 
         return address;
 
     }
+
 
     return "Location not set";
 
@@ -1844,61 +1953,66 @@ function buildLocation(data){
 function getCurrency(data){
 
     const currency =
-        safeText(data.currency, "PHP");
+        safeText(
+            data.currency,
+            "PHP"
+        );
 
     const symbol =
-        safeText(data.currencySymbol, "₱");
+        safeText(
+            data.currencySymbol,
+            "₱"
+        );
 
-    return currency + " (" + symbol + ")";
+
+    return currency +
+        " (" +
+        symbol +
+        ")";
 
 }
 
 
 /* =========================================================
-   LOAD USER
+   UPDATE DASHBOARD
 ========================================================= */
 
-onAuthStateChanged(auth, async (user) => {
-
-
-    /*
-       Hide loading immediately so the dashboard
-       does not remain stuck while Firebase loads.
-    */
-
-    loadingScreen.classList.add("hide");
-
-
-    if(!user){
-
-        window.location.href =
-            "../login/";
-
-        return;
-
-    }
-
-
-    /*
-       Basic information is available immediately
-       from Firebase Authentication.
-    */
-
-    updateGreeting(
-        user.displayName || "there"
-    );
-
+async function loadDashboard(user){
 
     try{
 
+        /*
+         * Authentication data is already available.
+         * Show the name immediately.
+         */
+
+        updateGreeting(
+            user.displayName ||
+            "there"
+        );
+
+
+        /*
+         * Load Firestore business data.
+         */
+
         const userRef =
-            doc(db, "users", user.uid);
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
 
         const userSnap =
             await getDoc(userRef);
 
 
         if(!userSnap.exists()){
+
+            console.warn(
+                "No user Firestore document found."
+            );
 
             return;
 
@@ -1910,7 +2024,7 @@ onAuthStateChanged(auth, async (user) => {
 
 
         /* =================================================
-           BUSINESS
+           BUSINESS DATA
         ================================================= */
 
         const name =
@@ -1919,11 +2033,13 @@ onAuthStateChanged(auth, async (user) => {
                 "Your Business"
             );
 
+
         const type =
             safeText(
                 data.businessType,
                 "Business"
             );
+
 
         const location =
             buildLocation(data);
@@ -1932,8 +2048,10 @@ onAuthStateChanged(auth, async (user) => {
         businessName.textContent =
             name;
 
+
         businessType.textContent =
             type;
+
 
         businessLocation.innerHTML =
             '<span class="emoji">📍</span>' +
@@ -1943,7 +2061,9 @@ onAuthStateChanged(auth, async (user) => {
 
 
         businessMonogram.textContent =
-            getInitial(name);
+            name
+                .charAt(0)
+                .toUpperCase();
 
 
         /* =================================================
@@ -1955,17 +2075,20 @@ onAuthStateChanged(auth, async (user) => {
 
 
         /* =================================================
-           BUSINESS INFORMATION
+           INFORMATION
         ================================================= */
 
         profileBusinessName.textContent =
             name;
 
+
         profileBusinessType.textContent =
             type;
 
+
         profileLocation.textContent =
             location;
+
 
         profileOwner.textContent =
             safeText(
@@ -1974,7 +2097,8 @@ onAuthStateChanged(auth, async (user) => {
             );
 
 
-    }catch(error){
+    }
+    catch(error){
 
         console.error(
             "Dashboard data error:",
@@ -1983,15 +2107,163 @@ onAuthStateChanged(auth, async (user) => {
 
     }
 
-});
+}
 
 
 /* =========================================================
-   TODAY'S DATE
+   AUTHENTICATION
+   ========================================================= */
+
+/*
+ * This is the important part.
+ *
+ * We first restore Firebase's local session.
+ * This prevents the dashboard from treating a temporary
+ * null authentication state as a real logout.
+ */
+
+async function startAuthentication(){
+
+    loadingText.textContent =
+        "Checking your account...";
+
+
+    try{
+
+        await setPersistence(
+            auth,
+            browserLocalPersistence
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Could not set authentication persistence:",
+            error
+        );
+
+    }
+
+
+    let authResolved =
+        false;
+
+
+    const authTimeout =
+        setTimeout(
+            function(){
+
+                /*
+                 * Only redirect if Firebase genuinely
+                 * has not restored a session after the
+                 * safety period.
+                 */
+
+                if(!authResolved){
+
+                    loadingText.textContent =
+                        "Please log in again...";
+
+                    setTimeout(
+                        function(){
+
+                            if(!authResolved){
+
+                                window.location.replace(
+                                    "../login/"
+                                );
+
+                            }
+
+                        },
+                        1200
+                    );
+
+                }
+
+            },
+            8000
+        );
+
+
+    onAuthStateChanged(
+        auth,
+        async function(user){
+
+            /*
+             * Firebase has now resolved the
+             * authentication state.
+             */
+
+            authResolved = true;
+
+            clearTimeout(authTimeout);
+
+
+            if(!user){
+
+                loadingText.textContent =
+                    "Please log in to continue.";
+
+
+                setTimeout(
+                    function(){
+
+                        window.location.replace(
+                            "../login/"
+                        );
+
+                    },
+                    500
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+             * User is authenticated.
+             */
+
+            loadingText.textContent =
+                "Loading your business...";
+
+
+            await loadDashboard(user);
+
+
+            /*
+             * Only hide the loading screen after
+             * authentication is confirmed.
+             */
+
+            loadingScreen.classList.add(
+                "hide"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   START AUTH
+========================================================= */
+
+startAuthentication();
+
+
+/* =========================================================
+   DATE
 ========================================================= */
 
 const now =
     new Date();
+
 
 todayDate.textContent =
     now.toLocaleDateString(
@@ -2008,7 +2280,9 @@ todayDate.textContent =
    SERVICE WORKER
 ========================================================= */
 
-if("serviceWorker" in navigator){
+if(
+    "serviceWorker" in navigator
+){
 
     window.addEventListener(
         "load",
@@ -2016,14 +2290,16 @@ if("serviceWorker" in navigator){
 
             navigator.serviceWorker
                 .register("../sw.js")
-                .catch(function(error){
+                .catch(
+                    function(error){
 
-                    console.log(
-                        "Service worker registration failed:",
-                        error
-                    );
+                        console.log(
+                            "Service worker registration failed:",
+                            error
+                        );
 
-                });
+                    }
+                );
 
         }
     );
@@ -2032,7 +2308,7 @@ if("serviceWorker" in navigator){
 
 
 /* =========================================================
-   GLOBAL FUNCTIONS
+   TOAST
 ========================================================= */
 
 window.showComingSoon =
@@ -2041,15 +2317,23 @@ window.showComingSoon =
         const toast =
             document.getElementById("toast");
 
-        toast.textContent =
-            feature + " will be available soon.";
 
-        toast.classList.add("show");
+        toast.textContent =
+            feature +
+            " will be available soon.";
+
+
+        toast.classList.add(
+            "show"
+        );
+
 
         setTimeout(
             function(){
 
-                toast.classList.remove("show");
+                toast.classList.remove(
+                    "show"
+                );
 
             },
             2200
@@ -2057,6 +2341,10 @@ window.showComingSoon =
 
     };
 
+
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 window.goSettings =
     function(){
