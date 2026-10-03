@@ -1,0 +1,26 @@
+{
+  "name": "Kayah — Business Management",
+  "short_name": "Kayah",
+  "description": "Kayah — Business, Made Possible. A simple business management platform.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F3E8",
+  "theme_color": "#0B4F3A",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./kayah-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./kayah-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
