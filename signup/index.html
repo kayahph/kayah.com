@@ -1424,7 +1424,7 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   INITIALIZE
+   INITIALIZE FIREBASE
 ===================================================== */
 
 const app = initializeApp(firebaseConfig);
@@ -1554,101 +1554,71 @@ function clearError(){
 
 
 /* =====================================================
-   TIMEOUT HELPER
-===================================================== */
-
-function withTimeout(promise, milliseconds, message){
-
-    const timeout =
-        new Promise((resolve, reject) => {
-
-            setTimeout(() => {
-
-                reject(
-                    new Error(message)
-                );
-
-            }, milliseconds);
-
-        });
-
-    return Promise.race([
-        promise,
-        timeout
-    ]);
-
-}
-
-
-/* =====================================================
-   FIREBASE ERROR MESSAGE
+   FIREBASE ERROR TRANSLATION
 ===================================================== */
 
 function getFirebaseErrorMessage(error){
 
     console.error(
-        "FULL FIREBASE ERROR:",
+        "KAYAH FIREBASE ERROR:",
         error
     );
 
 
-    if(error && error.code){
+    switch(error.code){
 
-        switch(error.code){
+        case "auth/email-already-in-use":
 
-            case "auth/email-already-in-use":
-
-                return "This email is already registered. Please use Log In instead.";
+            return "This email is already registered. Please use Log In instead.";
 
 
-            case "auth/invalid-email":
+        case "auth/invalid-email":
 
-                return "The email address is not valid.";
-
-
-            case "auth/weak-password":
-
-                return "The password is too weak. Please use at least 8 characters.";
+            return "The email address is not valid.";
 
 
-            case "auth/network-request-failed":
+        case "auth/weak-password":
 
-                return "Firebase could not connect to the internet. Please check your connection and try again.";
-
-
-            case "auth/operation-not-allowed":
-
-                return "Email/password registration is disabled in Firebase Authentication. Please enable it in Firebase Console.";
+            return "The password is too weak. Please use at least 8 characters.";
 
 
-            case "auth/api-key-not-valid.-please-pass-a-valid-api-key.":
+        case "auth/network-request-failed":
 
-                return "The Firebase API key is not valid. Please check the Firebase configuration.";
-
-
-            case "permission-denied":
-
-                return "Firebase Authentication worked, but Firestore denied saving the user. Check your Firestore security rules.";
+            return "Firebase could not connect. Please check your internet connection.";
 
 
-            case "failed-precondition":
+        case "auth/operation-not-allowed":
 
-                return "Firestore is not ready. Please check that your Firestore database has been created.";
+            return "Email/password registration is not enabled in Firebase Authentication.";
 
 
-            case "unavailable":
+        case "auth/invalid-api-key":
 
-                return "Firestore is temporarily unavailable. Please check your internet connection and try again.";
+            return "The Firebase API key is invalid. Please check your Firebase configuration.";
 
-        }
+
+        case "permission-denied":
+
+            return "Firebase denied permission to save your business information. Please check your Firestore rules.";
+
+
+        case "failed-precondition":
+
+            return "Firestore is not ready. Please check your Firestore database.";
+
+
+        case "unavailable":
+
+            return "Firestore is temporarily unavailable. Please try again.";
+
+        default:
+
+            return (
+                error.message ||
+                "Something went wrong while creating your account."
+            );
 
     }
-
-
-    return (
-        error?.message ||
-        "Something went wrong. Please try again."
-    );
 
 }
 
@@ -1721,6 +1691,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1731,6 +1702,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1741,6 +1713,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1755,6 +1728,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1768,6 +1742,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1778,6 +1753,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1788,6 +1764,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1798,14 +1775,17 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
         /* ---------------------------------------------
-           LOADING
+           LOADING STATE
         --------------------------------------------- */
 
         continueButton.classList.add("loading");
+
+        continueButton.disabled = true;
 
         continueButton.textContent =
             "Creating Account...";
@@ -1813,28 +1793,21 @@ form.addEventListener(
 
         try{
 
+            /* =========================================
+               STEP 1
+               CREATE AUTH ACCOUNT
+            ========================================= */
+
             console.log(
-                "KAYAH: Starting account creation..."
+                "KAYAH: Creating Firebase account..."
             );
 
 
-            /* =========================================
-               1. FIREBASE AUTH
-            ========================================= */
-
-            continueButton.textContent =
-                "Creating Account...";
-
-
             const userCredential =
-                await withTimeout(
-                    createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        passwordValue
-                    ),
-                    20000,
-                    "Firebase Authentication took too long to respond. Please check your internet connection and Firebase Authentication settings."
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    passwordValue
                 );
 
 
@@ -1843,38 +1816,37 @@ form.addEventListener(
 
 
             console.log(
-                "KAYAH: Authentication account created:",
+                "KAYAH: Account created:",
                 user.uid
             );
 
 
             /* =========================================
-               2. UPDATE PROFILE
+               STEP 2
+               UPDATE PROFILE
             ========================================= */
 
             continueButton.textContent =
                 "Saving Profile...";
 
 
-            await withTimeout(
-                updateProfile(
-                    user,
-                    {
-                        displayName: fullName
-                    }
-                ),
-                20000,
-                "Updating your Firebase profile took too long."
+            await updateProfile(
+                user,
+                {
+                    displayName:
+                        fullName
+                }
             );
 
 
             console.log(
-                "KAYAH: Profile updated."
+                "KAYAH: Profile saved."
             );
 
 
             /* =========================================
-               3. SAVE FIRESTORE
+               STEP 3
+               FIRESTORE DATA
             ========================================= */
 
             continueButton.textContent =
@@ -1920,31 +1892,29 @@ form.addEventListener(
 
 
             console.log(
-                "KAYAH: Saving Firestore document..."
+                "KAYAH: Saving users/" +
+                user.uid
             );
 
 
-            await withTimeout(
-                setDoc(
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    ),
-                    userData
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
                 ),
-                20000,
-                "Saving your business information to Firestore took too long. Please check your Firestore security rules."
+                userData
             );
 
 
             console.log(
-                "KAYAH: Firestore document saved successfully."
+                "KAYAH: Firestore save completed."
             );
 
 
             /* =========================================
-               4. SESSION DATA
+               STEP 4
+               SAVE SESSION DATA
             ========================================= */
 
             sessionStorage.setItem(
@@ -1974,29 +1944,24 @@ form.addEventListener(
 
 
             /* =========================================
-               5. SUCCESS
+               STEP 5
+               MOVE TO SETUP
             ========================================= */
 
-            formContent.style.display =
-                "none";
-
-            successContent.classList.add(
-                "show"
-            );
-
-
-            continueButton.classList.remove(
-                "loading"
-            );
-
-
             continueButton.textContent =
-                "Continue";
+                "Opening Setup...";
 
 
-            console.log(
-                "KAYAH: Signup completed successfully."
-            );
+            /*
+             * The Firestore write has already completed
+             * before this point.
+             *
+             * Now move the new user directly to
+             * the Setup page.
+             */
+
+            window.location.href =
+                "../setup/";
 
 
         }catch(error){
@@ -2011,6 +1976,7 @@ form.addEventListener(
                 "loading"
             );
 
+            continueButton.disabled = false;
 
             continueButton.textContent =
                 "Continue";
@@ -2021,21 +1987,6 @@ form.addEventListener(
             );
 
         }
-
-    }
-);
-
-
-/* =====================================================
-   CONTINUE TO SETUP
-===================================================== */
-
-setupButton.addEventListener(
-    "click",
-    function(){
-
-        window.location.href =
-            "../setup/";
 
     }
 );
@@ -2075,7 +2026,7 @@ if("serviceWorker" in navigator){
 }
 
 </script>
-
 </body>
 
 </html>
+
