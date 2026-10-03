@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<meta name="theme-color"
+      content="#0B4F3A">
+
+<meta name="description"
+      content="Set up your business with Kayah. Business, Made Possible.">
+
+<link rel="manifest"
+      href="./manifest.json">
+
+<link rel="icon"
+      type="image/png"
+      href="./kayah-logo.png">
+
+<title>
+    Set Up Your Business — Kayah
+</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#F7F3E8;
+
+    color:#202A24;
+
+    min-height:100vh;
+
+    -webkit-font-smoothing:antialiased;
+
+    overflow-x:hidden;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+:root{
+
+    --green:#16805C;
+
+    --dark-green:#0B4F3A;
+
+    --deep-green:#073B2C;
+
+    --yellow:#F2B84B;
+
+    --beige:#F7F3E8;
+
+    --white:#FFFFFF;
+
+    --text:#202A24;
+
+    --muted:#6B756F;
+
+    --border:
+        rgba(11,79,58,.12);
+
+    --shadow:
+        0 20px 55px
+        rgba(11,79,58,.10);
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+    width:100%;
+
+    height:65px;
+
+    padding:
+        0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid
+        rgba(11,79,58,.07);
+
+    background:
+        rgba(247,243,232,.92);
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+}
+
+.brand img{
+
+    width:38px;
+
+    height:38px;
+
+    object-fit:contain;
+
+    border-radius:10px;
+}
+
+.brand-name{
+
+    font-size:20px;
+
+    font-weight:850;
+
+    letter-spacing:-.5px;
+
+    color:var(--dark-green);
+}
+
+.login-top{
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:var(--dark-green);
+}
+
+.login-top span{
+
+    color:var(--green);
+
+    margin-left:4px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+        45px 17px
+        60px;
+}
+
+.container{
+
+    width:100%;
+
+    max-width:480px;
+
+    margin:auto;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+
+    text-align:center;
+
+    margin-bottom:27px;
+}
+
+.logo{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+
+    border-radius:18px;
+
+    margin:
+        0 auto 17px;
+
+    filter:
+        drop-shadow(
+            0 10px 20px
+            rgba(11,79,58,.12)
+        );
+}
+
+.label{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px 11px;
+
+    border-radius:30px;
+
+    background:
+        rgba(22,128,92,.08);
+
+    border:
+        1px solid
+        rgba(22,128,92,.11);
+
+    color:var(--green);
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:1.2px;
+
+    margin-bottom:13px;
+}
+
+.label-dot{
+
+    width:6px;
+
+    height:6px;
+
+    background:var(--yellow);
+
+    border-radius:50%;
+}
+
+.intro h1{
+
+    font-size:
+        clamp(
+            31px,
+            8vw,
+            42px
+        );
+
+    line-height:1.08;
+
+    letter-spacing:-1.6px;
+
+    color:var(--deep-green);
+
+    margin-bottom:11px;
+}
+
+.intro p{
+
+    max-width:390px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    margin-bottom:20px;
+}
+
+.progress-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#8A938E;
+
+    font-size:9px;
+
+    font-weight:800;
+}
+
+.progress-number{
+
+    width:24px;
+
+    height:24px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    background:#E7EBE7;
+
+    color:#7A847E;
+}
+
+.progress-item.active{
+
+    color:var(--green);
+}
+
+.progress-item.active
+.progress-number{
+
+    background:var(--dark-green);
+
+    color:white;
+}
+
+.progress-line{
+
+    width:32px;
+
+    height:1px;
+
+    background:
+        rgba(11,79,58,.12);
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.form-card{
+
+    background:white;
+
+    border:
+        1px solid
+        rgba(11,79,58,.09);
+
+    border-radius:23px;
+
+    padding:
+        25px 22px;
+
+    box-shadow:var(--shadow);
+}
+
+.form-header{
+
+    margin-bottom:21px;
+}
+
+.form-header h2{
+
+    color:var(--dark-green);
+
+    font-size:17px;
+
+    margin-bottom:5px;
+}
+
+.form-header p{
+
+    color:#7A847E;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+
+    margin-bottom:15px;
+}
+
+.form-group label{
+
+    display:block;
+
+    color:#39463F;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    margin-bottom:7px;
+}
+
+.required{
+
+    color:#C65D45;
+
+    margin-left:2px;
+}
+
+.input-wrap{
+
+    position:relative;
+}
+
+.input-icon{
+
+    position:absolute;
+
+    left:13px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:20px;
+
+    height:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#7D8982;
+
+    font-size:12px;
+
+    pointer-events:none;
+}
+
+input{
+
+    width:100%;
+
+    height:47px;
+
+    border:
+        1px solid
+        #DCE2DD;
+
+    border-radius:11px;
+
+    outline:none;
+
+    background:#FBFCFA;
+
+    color:var(--text);
+
+    font-size:12px;
+
+    padding:
+        0 13px
+        0 39px;
+
+    transition:
+        border .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+input::placeholder{
+
+    color:#A0A8A3;
+}
+
+input:focus{
+
+    border-color:
+        rgba(22,128,92,.65);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22,128,92,.08);
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-toggle{
+
+    position:absolute;
+
+    right:10px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    border:0;
+
+    background:transparent;
+
+    color:#7D8982;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    padding:7px;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+.phone-wrap{
+
+    display:flex;
+
+    gap:7px;
+}
+
+.country-code{
+
+    width:72px;
+
+    height:47px;
+
+    border:
+        1px solid
+        #DCE2DD;
+
+    border-radius:11px;
+
+    background:#FBFCFA;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    color:#39463F;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    flex-shrink:0;
+}
+
+.phone-input{
+
+    flex:1;
+}
+
+
+/* =====================================================
+   TERMS
+===================================================== */
+
+.terms{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:9px;
+
+    margin:
+        4px 0 18px;
+}
+
+.terms input{
+
+    width:16px;
+
+    height:16px;
+
+    min-width:16px;
+
+    margin-top:1px;
+
+    padding:0;
+
+    accent-color:var(--green);
+
+    box-shadow:none;
+}
+
+.terms label{
+
+    font-size:9px;
+
+    color:#7A847E;
+
+    line-height:1.55;
+
+    cursor:pointer;
+}
+
+.terms a{
+
+    color:var(--green);
+
+    font-weight:800;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.continue-btn{
+
+    width:100%;
+
+    height:49px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #16805C
+        );
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:850;
+
+    box-shadow:
+        0 10px 23px
+        rgba(11,79,58,.17);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+}
+
+.continue-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 28px
+        rgba(11,79,58,.22);
+}
+
+.continue-btn:active{
+
+    transform:translateY(0);
+}
+
+.continue-btn:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+
+/* =====================================================
+   BOTTOM LOGIN
+===================================================== */
+
+.bottom-login{
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:#7A847E;
+
+    font-size:10px;
+}
+
+.bottom-login a{
+
+    color:var(--green);
+
+    font-weight:850;
+
+    margin-left:4px;
+}
+
+
+/* =====================================================
+   SECURITY NOTE
+===================================================== */
+
+.security{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    margin-top:19px;
+
+    color:#8A938E;
+
+    font-size:9px;
+}
+
+.security-icon{
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:
+        rgba(22,128,92,.09);
+
+    color:var(--green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:9px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:
+        0 20px
+        24px;
+
+    color:#929B96;
+
+    font-size:8px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message{
+
+    display:none;
+
+    background:
+        #FFF1EE;
+
+    border:
+        1px solid
+        #F3D0C8;
+
+    color:#A94E3A;
+
+    border-radius:10px;
+
+    padding:
+        9px 11px;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+    margin-bottom:13px;
+}
+
+.error-message.show{
+
+    display:block;
+}
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+.success-message{
+
+    display:none;
+
+    text-align:center;
+
+    padding:25px 10px;
+}
+
+.success-icon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:#E8F4ED;
+
+    color:var(--green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:
+        0 auto 14px;
+
+    font-size:22px;
+
+    font-weight:900;
+}
+
+.success-message h3{
+
+    color:var(--dark-green);
+
+    font-size:18px;
+
+    margin-bottom:7px;
+}
+
+.success-message p{
+
+    color:#78827C;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+    .topbar{
+
+        height:61px;
+
+        padding:
+            0 15px;
+    }
+
+    .brand img{
+
+        width:34px;
+
+        height:34px;
+    }
+
+    .brand-name{
+
+        font-size:18px;
+    }
+
+    .login-top{
+
+        font-size:10px;
+    }
+
+    .main{
+
+        padding:
+            34px 14px
+            45px;
+    }
+
+    .logo{
+
+        width:63px;
+
+        height:63px;
+    }
+
+    .intro h1{
+
+        font-size:32px;
+    }
+
+    .form-card{
+
+        padding:
+            22px 17px;
+
+        border-radius:20px;
+    }
+
+    .progress-line{
+
+        width:22px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<header class="topbar">
+
+
+    <a
+        href="index.html"
+        class="brand">
+
+        <img
+            src="kayah-logo.png"
+            alt="Kayah">
+
+        <span class="brand-name">
+            Kayah
+        </span>
+
+    </a>
+
+
+    <a
+        href="login.html"
+        class="login-top">
+
+        Already have an account?
+
+        <span>
+            Log In
+        </span>
+
+    </a>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <div class="container">
+
+
+        <!-- =================================================
+             INTRO
+        ================================================== -->
+
+        <div class="intro">
+
+
+            <img
+                src="kayah-logo.png"
+                alt="Kayah Logo"
+                class="logo">
+
+
+            <div class="label">
+
+                <span class="label-dot"></span>
+
+                BUSINESS SETUP
+
+            </div>
+
+
+            <h1>
+                Set Up Your Business
+            </h1>
+
+
+            <p>
+
+                Create your Kayah business account
+                and take the first step toward
+                managing your business in one place.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="progress">
+
+
+            <div
+                class="progress-item active">
+
+                <span class="progress-number">
+                    1
+                </span>
+
+                Account
+
+            </div>
+
+
+            <div class="progress-line"></div>
+
+
+            <div class="progress-item">
+
+                <span class="progress-number">
+                    2
+                </span>
+
+                Business
+
+            </div>
+
+
+            <div class="progress-line"></div>
+
+
+            <div class="progress-item">
+
+                <span class="progress-number">
+                    3
+                </span>
+
+                Start
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM CARD
+        ================================================== -->
+
+        <div class="form-card">
+
+
+            <div class="form-header">
+
+                <h2>
+                    Create your business account
+                </h2>
+
+                <p>
+                    Start with your basic information.
+                    You can add more business details
+                    in the next step.
+                </p>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                class="error-message"
+                id="errorMessage">
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <form
+                id="signupForm"
+                novalidate>
+
+
+                <!-- BUSINESS NAME -->
+
+                <div class="form-group">
+
+                    <label for="businessName">
+
+                        Business Name
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <div class="input-icon">
+                            ▣
+                        </div>
+
+                        <input
+                            type="text"
+                            id="businessName"
+                            name="businessName"
+                            placeholder="Enter your business name"
+                            autocomplete="organization"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OWNER NAME -->
+
+                <div class="form-group">
+
+                    <label for="ownerName">
+
+                        Your Name
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <div class="input-icon">
+                            ◉
+                        </div>
+
+                        <input
+                            type="text"
+                            id="ownerName"
+                            name="ownerName"
+                            placeholder="Owner or manager name"
+                            autocomplete="name"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        Business Email
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <div class="input-icon">
+                            @
+                        </div>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+
+                        Phone Number
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="phone-wrap">
+
+
+                        <div class="country-code">
+
+                            🇵🇭
+
+                            +63
+
+                        </div>
+
+
+                        <div class="input-wrap phone-input">
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="9XXXXXXXXX"
+                                autocomplete="tel"
+                                inputmode="numeric"
+                                maxlength="10"
+                                required>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+
+                        Password
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <div class="input-icon">
+                            ●
+                        </div>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="password">
+
+                            SHOW
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+
+                        Confirm Password
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-wrap">
+
+                        <div class="input-icon">
+                            ●
+                        </div>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Enter your password again"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="confirmPassword">
+
+                            SHOW
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TERMS -->
+
+                <div class="terms">
+
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required>
+
+
+                    <label for="terms">
+
+                        I agree to Kayah's
+
+                        <a
+                            href="#"
+                            onclick="return false;">
+
+                            Terms of Service
+
+                        </a>
+
+                        and
+
+                        <a
+                            href="#"
+                            onclick="return false;">
+
+                            Privacy Policy
+
+                        </a>.
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="continue-btn"
+                    id="continueButton">
+
+                    Continue
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================================
+                 SUCCESS
+            ================================================== -->
+
+            <div
+                class="success-message"
+                id="successMessage">
+
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+
+                <h3>
+                    Account Ready
+                </h3>
+
+
+                <p>
+
+                    Your account information has been
+                    saved. Let's finish setting up
+                    your business.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOGIN
+        ================================================== -->
+
+        <div class="bottom-login">
+
+            Already have a Kayah account?
+
+            <a href="login.html">
+                Log In
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SECURITY
+        ================================================== -->
+
+        <div class="security">
+
+            <span class="security-icon">
+                ✓
+            </span>
+
+            Your information is kept secure.
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div>
+
+        © 2026 Kayah
+
+    </div>
+
+    <div>
+
+        Business, Made Possible.
+
+    </div>
+
+</footer>
+
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const signupForm =
+    document.getElementById(
+        "signupForm"
+    );
+
+const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+const continueButton =
+    document.getElementById(
+        "continueButton"
+    );
+
+const successMessage =
+    document.getElementById(
+        "successMessage"
+    );
+
+
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
+
+const passwordButtons =
+    document.querySelectorAll(
+        ".password-toggle"
+    );
+
+
+passwordButtons.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const targetId =
+                    button.getAttribute(
+                        "data-target"
+                    );
+
+                const input =
+                    document.getElementById(
+                        targetId
+                    );
+
+
+                if(
+                    input.type === "password"
+                ){
+
+                    input.type =
+                        "text";
+
+                    button.textContent =
+                        "HIDE";
+
+                }else{
+
+                    input.type =
+                        "password";
+
+                    button.textContent =
+                        "SHOW";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PHONE INPUT
+===================================================== */
+
+const phoneInput =
+    document.getElementById(
+        "phone"
+    );
+
+
+phoneInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+                .replace(
+                    /\D/g,
+                    ""
+                )
+                .slice(
+                    0,
+                    10
+                );
+
+    }
+);
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message){
+
+    errorMessage.textContent =
+        message;
+
+    errorMessage.classList.add(
+        "show"
+    );
+
+    errorMessage.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+function clearError(){
+
+    errorMessage.textContent =
+        "";
+
+    errorMessage.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   EMAIL VALIDATION
+===================================================== */
+
+function validEmail(email){
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
+
+signupForm.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+        clearError();
+
+
+        const businessName =
+            document.getElementById(
+                "businessName"
+            ).value.trim();
+
+
+        const ownerName =
+            document.getElementById(
+                "ownerName"
+            ).value.trim();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+
+        const phone =
+            phoneInput.value.trim();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        const confirmPassword =
+            document.getElementById(
+                "confirmPassword"
+            ).value;
+
+
+        const terms =
+            document.getElementById(
+                "terms"
+            ).checked;
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+
+        if(!businessName){
+
+            showError(
+                "Please enter your business name."
+            );
+
+            return;
+
+        }
+
+
+        if(!ownerName){
+
+            showError(
+                "Please enter your name."
+            );
+
+            return;
+
+        }
+
+
+        if(!email){
+
+            showError(
+                "Please enter your business email."
+            );
+
+            return;
+
+        }
+
+
+        if(!validEmail(email)){
+
+            showError(
+                "Please enter a valid email address."
+            );
+
+            return;
+
+        }
+
+
+        if(!phone){
+
+            showError(
+                "Please enter your phone number."
+            );
+
+            return;
+
+        }
+
+
+        if(phone.length !== 10){
+
+            showError(
+                "Please enter a valid Philippine mobile number."
+            );
+
+            return;
+
+        }
+
+
+        if(!password){
+
+            showError(
+                "Please create a password."
+            );
+
+            return;
+
+        }
+
+
+        if(password.length < 8){
+
+            showError(
+                "Your password must contain at least 8 characters."
+            );
+
+            return;
+
+        }
+
+
+        if(password !== confirmPassword){
+
+            showError(
+                "The passwords do not match."
+            );
+
+            return;
+
+        }
+
+
+        if(!terms){
+
+            showError(
+                "Please agree to the Terms of Service and Privacy Policy."
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           TEMPORARY ACCOUNT DATA
+           
+           Firebase will replace this later.
+        --------------------------------------------- */
+
+        const signupData = {
+
+            businessName:
+                businessName,
+
+            ownerName:
+                ownerName,
+
+            email:
+                email,
+
+            phone:
+                "+63" + phone,
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        /*
+         * Save only the non-sensitive setup data
+         * temporarily so setup.html can read it.
+         *
+         * Password is intentionally NOT saved
+         * in localStorage.
+         */
+
+        sessionStorage.setItem(
+            "kayahSignupData",
+            JSON.stringify(
+                signupData
+            )
+        );
+
+
+        /* ---------------------------------------------
+           LOADING STATE
+        --------------------------------------------- */
+
+        continueButton.disabled =
+            true;
+
+        continueButton.innerHTML =
+            `
+                <span>
+                    Preparing...
+                </span>
+            `;
+
+
+        /* ---------------------------------------------
+           NEXT STEP
+        --------------------------------------------- */
+
+        setTimeout(
+            function(){
+
+                successMessage.style.display =
+                    "block";
+
+                signupForm.style.display =
+                    "none";
+
+
+                setTimeout(
+                    function(){
+
+                        window.location.href =
+                            "setup.html";
+
+                    },
+                    700
+                );
+
+            },
+            500
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CLEAR ERROR WHILE TYPING
+===================================================== */
+
+document.querySelectorAll(
+    "input"
+).forEach(
+    function(input){
+
+        input.addEventListener(
+            "input",
+            function(){
+
+                clearError();
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(
+                    function(){
+
+                        console.log(
+                            "Kayah service worker registered."
+                        );
+
+                    }
+                )
+                .catch(
+                    function(error){
+
+                        console.log(
+                            "Service worker error:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
