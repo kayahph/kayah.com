@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#0B4F3A">
+
+<title>Dashboard — Kayah</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#F7F3E8;
+    color:#202A24;
+
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.header{
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(247,243,232,.96);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(11,79,58,.08);
+
+    padding:
+        14px
+        18px;
+}
+
+.header-inner{
+
+    max-width:700px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.brand img{
+
+    width:42px;
+    height:42px;
+
+    object-fit:contain;
+
+    border-radius:12px;
+}
+
+.brand-text{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.brand-name{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    color:#0B4F3A;
+
+    line-height:1.1;
+}
+
+.brand-label{
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    color:#16805C;
+
+    margin-top:3px;
+}
+
+
+/* PROFILE BUTTON */
+
+.profile-button{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#FFFFFF;
+
+    color:#0B4F3A;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 5px 18px rgba(11,79,58,.08);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    width:100%;
+
+    max-width:700px;
+
+    margin:auto;
+
+    padding:
+        22px
+        18px
+        30px;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome{
+
+    margin-bottom:22px;
+}
+
+.welcome-small{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#7A847E;
+
+    margin-bottom:5px;
+}
+
+.welcome h1{
+
+    font-size:27px;
+
+    line-height:1.15;
+
+    font-weight:900;
+
+    color:#0B4F3A;
+
+    letter-spacing:-.5px;
+}
+
+.welcome p{
+
+    margin-top:7px;
+
+    font-size:13px;
+
+    color:#68736D;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   BUSINESS CARD
+===================================================== */
+
+.business-card{
+
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #16805C
+        );
+
+    border-radius:24px;
+
+    padding:22px;
+
+    color:#FFFFFF;
+
+    box-shadow:
+        0 14px 35px rgba(11,79,58,.18);
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:18px;
+}
+
+.business-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.07);
+
+    right:-55px;
+    top:-55px;
+}
+
+.business-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:rgba(242,184,75,.10);
+
+    left:-45px;
+    bottom:-45px;
+}
+
+.business-content{
+
+    position:relative;
+
+    z-index:2;
+}
+
+.business-label{
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.3px;
+
+    opacity:.72;
+
+    text-transform:uppercase;
+
+    margin-bottom:7px;
+}
+
+.business-name{
+
+    font-size:21px;
+
+    font-weight:900;
+
+    line-height:1.25;
+
+    margin-bottom:5px;
+}
+
+.business-type{
+
+    font-size:12px;
+
+    opacity:.82;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.section-title{
+
+    font-size:16px;
+
+    font-weight:900;
+
+    color:#0B4F3A;
+
+    margin-bottom:11px;
+}
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:11px;
+
+    margin-bottom:23px;
+}
+
+.summary-card{
+
+    background:#FFFFFF;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    box-shadow:
+        0 7px 22px rgba(32,42,36,.06);
+
+    border:1px solid rgba(11,79,58,.05);
+}
+
+.summary-icon{
+
+    width:35px;
+    height:35px;
+
+    border-radius:11px;
+
+    background:#F7F3E8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    margin-bottom:12px;
+}
+
+.summary-label{
+
+    font-size:11px;
+
+    font-weight:700;
+
+    color:#7A847E;
+
+    margin-bottom:4px;
+}
+
+.summary-value{
+
+    font-size:19px;
+
+    font-weight:900;
+
+    color:#202A24;
+}
+
+
+/* PROFIT CARD */
+
+.summary-card.profit{
+
+    background:#FFF9EA;
+
+    border-color:rgba(242,184,75,.20);
+}
+
+.summary-card.profit .summary-icon{
+
+    background:#FFF0C9;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+
+    margin-bottom:24px;
+}
+
+.action-button{
+
+    background:#FFFFFF;
+
+    border-radius:17px;
+
+    padding:14px 8px;
+
+    min-height:91px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    color:#202A24;
+
+    box-shadow:
+        0 7px 20px rgba(32,42,36,.05);
+
+    border:1px solid rgba(11,79,58,.05);
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.action-button:active{
+
+    transform:scale(.96);
+}
+
+.action-icon{
+
+    width:35px;
+    height:35px;
+
+    border-radius:11px;
+
+    background:#E9F5EF;
+
+    color:#16805C;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    font-weight:900;
+}
+
+.action-button span{
+
+    font-size:11px;
+
+    font-weight:800;
+
+    color:#435048;
+
+    text-align:center;
+}
+
+
+/* =====================================================
+   BUSINESS TOOLS
+===================================================== */
+
+.tools{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:9px;
+
+    margin-bottom:24px;
+}
+
+.tool-card{
+
+    background:#FFFFFF;
+
+    border-radius:18px;
+
+    padding:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    box-shadow:
+        0 7px 20px rgba(32,42,36,.05);
+
+    border:1px solid rgba(11,79,58,.05);
+
+    text-decoration:none;
+
+    color:inherit;
+
+    transition:
+        transform .15s ease;
+}
+
+.tool-card:active{
+
+    transform:scale(.985);
+}
+
+.tool-icon{
+
+    width:43px;
+    height:43px;
+
+    flex-shrink:0;
+
+    border-radius:13px;
+
+    background:#E9F5EF;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+}
+
+.tool-content{
+
+    flex:1;
+}
+
+.tool-title{
+
+    font-size:13px;
+
+    font-weight:900;
+
+    color:#202A24;
+
+    margin-bottom:3px;
+}
+
+.tool-description{
+
+    font-size:10px;
+
+    color:#7A847E;
+
+    line-height:1.4;
+}
+
+.tool-arrow{
+
+    color:#9AA39E;
+
+    font-size:20px;
+
+    font-weight:700;
+}
+
+
+/* =====================================================
+   RECENT ACTIVITY
+===================================================== */
+
+.activity-card{
+
+    background:#FFFFFF;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 7px 22px rgba(32,42,36,.05);
+
+    overflow:hidden;
+
+    border:1px solid rgba(11,79,58,.05);
+
+    margin-bottom:24px;
+}
+
+.empty-activity{
+
+    padding:28px 20px;
+
+    text-align:center;
+}
+
+.empty-icon{
+
+    width:48px;
+    height:48px;
+
+    border-radius:15px;
+
+    background:#F7F3E8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:
+        0 auto
+        11px;
+
+    font-size:21px;
+}
+
+.empty-title{
+
+    font-size:13px;
+
+    font-weight:900;
+
+    color:#344039;
+
+    margin-bottom:4px;
+}
+
+.empty-text{
+
+    font-size:11px;
+
+    color:#8A938E;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:200;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(16px);
+
+    border-top:
+        1px solid
+        rgba(11,79,58,.08);
+
+    padding:
+        8px
+        10px
+        calc(8px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav-inner{
+
+    max-width:700px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:2px;
+}
+
+.nav-item{
+
+    text-decoration:none;
+
+    color:#8A938E;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    min-height:53px;
+
+    border-radius:14px;
+
+    font-size:9px;
+
+    font-weight:800;
+}
+
+.nav-icon{
+
+    font-size:18px;
+
+    line-height:1;
+}
+
+.nav-item.active{
+
+    color:#16805C;
+
+    background:#E9F5EF;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    background:#F7F3E8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.loading.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+}
+
+.loading-content{
+
+    text-align:center;
+
+    padding:30px;
+}
+
+.loading-logo{
+
+    width:70px;
+    height:70px;
+
+    object-fit:contain;
+
+    margin-bottom:18px;
+}
+
+.spinner{
+
+    width:28px;
+    height:28px;
+
+    border:
+        3px solid
+        rgba(22,128,92,.15);
+
+    border-top-color:#16805C;
+
+    border-radius:50%;
+
+    animation:
+        spin .8s linear infinite;
+
+    margin:
+        0 auto
+        15px;
+}
+
+.loading-text{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    color:#0B4F3A;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(min-width:600px){
+
+    .main{
+        padding-top:30px;
+    }
+
+    .summary-grid{
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .summary-card.profit{
+
+        grid-column:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+    class="loading"
+    id="loadingScreen"
+>
+
+    <div class="loading-content">
+
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah"
+            class="loading-logo"
+        >
+
+        <div class="spinner"></div>
+
+        <div class="loading-text">
+            Loading your dashboard...
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <img
+                src="../kayah-logo.png"
+                alt="Kayah"
+            >
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    Kayah
+                </div>
+
+                <div class="brand-label">
+                    BUSINESS MANAGEMENT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="profile-button"
+            id="profileButton"
+            aria-label="Profile"
+        >
+            👤
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <div class="welcome-small">
+            Welcome back 👋
+        </div>
+
+        <h1 id="welcomeName">
+            Your Business
+        </h1>
+
+        <p>
+            Here's your business overview for today.
+        </p>
+
+    </section>
+
+
+    <!-- BUSINESS -->
+
+    <section class="business-card">
+
+        <div class="business-content">
+
+            <div class="business-label">
+                Your Business
+            </div>
+
+            <div
+                class="business-name"
+                id="businessName"
+            >
+                Loading...
+            </div>
+
+            <div
+                class="business-type"
+                id="businessType"
+            >
+                Business
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section>
+
+        <div class="section-title">
+            Business Overview
+        </div>
+
+
+        <div class="summary-grid">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    💰
+                </div>
+
+                <div class="summary-label">
+                    Total Sales
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="totalSales"
+                >
+                    ₱0.00
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    💸
+                </div>
+
+                <div class="summary-label">
+                    Expenses
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="totalExpenses"
+                >
+                    ₱0.00
+                </div>
+
+            </div>
+
+
+            <div class="summary-card profit">
+
+                <div class="summary-icon">
+                    📈
+                </div>
+
+                <div class="summary-label">
+                    Net Profit
+                </div>
+
+                <div
+                    class="summary-value"
+                    id="netProfit"
+                >
+                    ₱0.00
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section>
+
+        <div class="section-title">
+            Quick Actions
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button
+                class="action-button"
+                onclick="goTo('../sales/')"
+            >
+
+                <div class="action-icon">
+                    +
+                </div>
+
+                <span>
+                    Add Sale
+                </span>
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="goTo('../products/')"
+            >
+
+                <div class="action-icon">
+                    📦
+                </div>
+
+                <span>
+                    Add Product
+                </span>
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="goTo('../expenses/')"
+            >
+
+                <div class="action-icon">
+                    ₱
+                </div>
+
+                <span>
+                    Add Expense
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- BUSINESS TOOLS -->
+
+    <section>
+
+        <div class="section-title">
+            Manage Your Business
+        </div>
+
+
+        <div class="tools">
+
+
+            <a
+                href="../products/"
+                class="tool-card"
+            >
+
+                <div class="tool-icon">
+                    📦
+                </div>
+
+                <div class="tool-content">
+
+                    <div class="tool-title">
+                        Products & Inventory
+                    </div>
+
+                    <div class="tool-description">
+                        Manage products, stock and inventory.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                href="../sales/"
+                class="tool-card"
+            >
+
+                <div class="tool-icon">
+                    🧾
+                </div>
+
+                <div class="tool-content">
+
+                    <div class="tool-title">
+                        Sales
+                    </div>
+
+                    <div class="tool-description">
+                        Record and manage your business sales.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                href="../expenses/"
+                class="tool-card"
+            >
+
+                <div class="tool-icon">
+                    💸
+                </div>
+
+                <div class="tool-content">
+
+                    <div class="tool-title">
+                        Expenses
+                    </div>
+
+                    <div class="tool-description">
+                        Keep track of your business expenses.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                href="../customers/"
+                class="tool-card"
+            >
+
+                <div class="tool-icon">
+                    👥
+                </div>
+
+                <div class="tool-content">
+
+                    <div class="tool-title">
+                        Customers
+                    </div>
+
+                    <div class="tool-description">
+                        Keep your customer information organized.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                href="../reports/"
+                class="tool-card"
+            >
+
+                <div class="tool-icon">
+                    📊
+                </div>
+
+                <div class="tool-content">
+
+                    <div class="tool-title">
+                        Reports
+                    </div>
+
+                    <div class="tool-description">
+                        Understand your business performance.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- RECENT ACTIVITY -->
+
+    <section>
+
+        <div class="section-title">
+            Recent Activity
+        </div>
+
+
+        <div class="activity-card">
+
+            <div class="empty-activity">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <div class="empty-title">
+                    No activity yet
+                </div>
+
+                <div class="empty-text">
+                    Your recent sales and expenses
+                    will appear here as you use Kayah.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <div class="bottom-nav-inner">
+
+
+        <a
+            href="../dashboard/"
+            class="nav-item active"
+        >
+
+            <div class="nav-icon">
+                🏠
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="../sales/"
+            class="nav-item"
+        >
+
+            <div class="nav-icon">
+                🧾
+            </div>
+
+            <span>
+                Sales
+            </span>
+
+        </a>
+
+
+        <a
+            href="../products/"
+            class="nav-item"
+        >
+
+            <div class="nav-icon">
+                📦
+            </div>
+
+            <span>
+                Products
+            </span>
+
+        </a>
+
+
+        <a
+            href="../reports/"
+            class="nav-item"
+        >
+
+            <div class="nav-icon">
+                📊
+            </div>
+
+            <span>
+                Reports
+            </span>
+
+        </a>
+
+
+        <a
+            href="../settings/"
+            class="nav-item"
+        >
+
+            <div class="nav-icon">
+                ⚙️
+            </div>
+
+            <span>
+                More
+            </span>
+
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
+
+    projectId:
+        "kayah-ecosystem",
+
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId:
+        "49853785143",
+
+    appId:
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+};
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const welcomeName =
+    document.getElementById("welcomeName");
+
+const businessName =
+    document.getElementById("businessName");
+
+const businessType =
+    document.getElementById("businessType");
+
+
+/* =====================================================
+   HIDE LOADING
+===================================================== */
+
+function hideLoading(){
+
+    loadingScreen.classList.add("hide");
+
+}
+
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            window.location.href =
+                "../login/";
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           BASIC AUTH DATA
+        --------------------------------------------- */
+
+        const displayName =
+            user.displayName || "Business Owner";
+
+
+        welcomeName.textContent =
+            displayName;
+
+
+        /* ---------------------------------------------
+           FIRESTORE BUSINESS DATA
+        --------------------------------------------- */
+
+        try{
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const userSnap =
+                await getDoc(userRef);
+
+
+            if(userSnap.exists()){
+
+                const data =
+                    userSnap.data();
+
+
+                if(data.businessName){
+
+                    businessName.textContent =
+                        data.businessName;
+
+                }
+                else{
+
+                    businessName.textContent =
+                        "Your Business";
+
+                }
+
+
+                if(data.businessType){
+
+                    businessType.textContent =
+                        data.businessType;
+
+                }
+                else{
+
+                    businessType.textContent =
+                        "Business";
+
+                }
+
+
+                /*
+                 * If setup has not been completed,
+                 * send the user back to setup.
+                 */
+
+                if(
+                    data.setupCompleted === false
+                    ||
+                    data.setupCompleted === undefined
+                ){
+
+                    window.location.href =
+                        "../setup/";
+
+                    return;
+
+                }
+
+            }
+            else{
+
+                /*
+                 * User exists in Authentication
+                 * but has no Firestore profile.
+                 */
+
+                window.location.href =
+                    "../setup/";
+
+                return;
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "Dashboard profile error:",
+                error
+            );
+
+            /*
+             * Do not block the dashboard if
+             * Firebase temporarily takes longer.
+             */
+
+            businessName.textContent =
+                "Your Business";
+
+            businessType.textContent =
+                "Business";
+
+        }
+
+
+        hideLoading();
+
+    }
+);
+
+
+/* =====================================================
+   NAVIGATION HELPER
+===================================================== */
+
+window.goTo = function(path){
+
+    window.location.href = path;
+
+};
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+document
+    .getElementById("profileButton")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "../settings/";
+
+        }
+    );
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if("serviceWorker" in navigator){
+
+    navigator.serviceWorker
+        .register("../sw.js")
+        .catch(function(error){
+
+            console.log(
+                "Service worker registration failed:",
+                error
+            );
+
+        });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
