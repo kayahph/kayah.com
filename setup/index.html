@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#0B4F3A"
+>
+
+<title>Set Up Your Business — Kayah</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#F7F3E8;
+    color:#202A24;
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    width:100%;
+    background:#FFFFFF;
+    border-bottom:1px solid rgba(11,79,58,.08);
+    padding:16px 20px;
+}
+
+.header-inner{
+    width:100%;
+    max-width:680px;
+    margin:0 auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+}
+
+.brand img{
+    width:42px;
+    height:42px;
+    object-fit:contain;
+    border-radius:10px;
+}
+
+.brand-name{
+    font-size:20px;
+    font-weight:800;
+    color:#0B4F3A;
+    letter-spacing:-.4px;
+}
+
+.header-link{
+    color:#16805C;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    width:100%;
+    flex:1;
+    padding:30px 18px 50px;
+}
+
+.container{
+    width:100%;
+    max-width:680px;
+    margin:0 auto;
+}
+
+
+/* =====================================================
+   TOP INTRO
+===================================================== */
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    color:#16805C;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.3px;
+
+    margin-bottom:10px;
+}
+
+.eyebrow-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#F2B84B;
+}
+
+h1{
+    font-size:31px;
+    line-height:1.12;
+    letter-spacing:-1px;
+    color:#0B4F3A;
+    margin-bottom:10px;
+}
+
+.intro{
+    font-size:15px;
+    line-height:1.65;
+    color:#66716B;
+    margin-bottom:24px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-card{
+    background:#FFFFFF;
+    border:1px solid rgba(11,79,58,.08);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:22px;
+    box-shadow:
+        0 8px 25px rgba(11,79,58,.05);
+}
+
+.progress{
+    display:flex;
+    align-items:center;
+    width:100%;
+}
+
+.progress-step{
+    display:flex;
+    align-items:center;
+    flex:1;
+}
+
+.progress-step:last-child{
+    flex:0;
+}
+
+.step-circle{
+    width:31px;
+    height:31px;
+    min-width:31px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+    font-weight:800;
+
+    background:#E8EEE9;
+    color:#758078;
+}
+
+.progress-step.active .step-circle{
+    background:#16805C;
+    color:#FFFFFF;
+}
+
+.progress-step.complete .step-circle{
+    background:#0B4F3A;
+    color:#FFFFFF;
+}
+
+.progress-line{
+    height:2px;
+    flex:1;
+    background:#E4E9E5;
+    margin:0 8px;
+}
+
+.progress-line.active{
+    background:#16805C;
+}
+
+.step-label{
+    margin-top:8px;
+    font-size:11px;
+    font-weight:700;
+    color:#7A847E;
+    text-align:center;
+}
+
+.progress-labels{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    margin-top:7px;
+}
+
+.progress-labels div{
+    font-size:11px;
+    font-weight:700;
+    color:#7A847E;
+}
+
+.progress-labels div:nth-child(1){
+    text-align:left;
+}
+
+.progress-labels div:nth-child(2){
+    text-align:center;
+}
+
+.progress-labels div:nth-child(3){
+    text-align:right;
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.form-card{
+    background:#FFFFFF;
+    border-radius:22px;
+    border:1px solid rgba(11,79,58,.08);
+    padding:22px;
+
+    box-shadow:
+        0 12px 35px rgba(11,79,58,.07);
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    color:#0B4F3A;
+    margin-bottom:5px;
+}
+
+.section-text{
+    font-size:13px;
+    line-height:1.55;
+    color:#758078;
+    margin-bottom:22px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:750;
+    color:#34423A;
+    margin-bottom:7px;
+}
+
+.required{
+    color:#C86C32;
+}
+
+.input,
+.select,
+.textarea{
+    width:100%;
+
+    border:1px solid #D9E1DB;
+    background:#FBFCFB;
+
+    border-radius:12px;
+
+    padding:13px 14px;
+
+    font-size:15px;
+    color:#202A24;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+    font-family:inherit;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+    border-color:#16805C;
+    background:#FFFFFF;
+
+    box-shadow:
+        0 0 0 3px rgba(22,128,92,.10);
+}
+
+.textarea{
+    min-height:105px;
+    resize:vertical;
+    line-height:1.5;
+}
+
+.select{
+    appearance:auto;
+}
+
+.help{
+    margin-top:6px;
+    font-size:11px;
+    color:#89928D;
+    line-height:1.45;
+}
+
+
+/* =====================================================
+   TWO COLUMN
+===================================================== */
+
+.two-column{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+
+/* =====================================================
+   CURRENCY
+===================================================== */
+
+.currency-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    border:1px solid #D9E1DB;
+    background:#F4F8F5;
+
+    border-radius:12px;
+    padding:12px 14px;
+}
+
+.currency-symbol{
+    width:34px;
+    height:34px;
+
+    border-radius:9px;
+
+    background:#16805C;
+    color:#FFFFFF;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+    font-weight:800;
+}
+
+.currency-info{
+    flex:1;
+}
+
+.currency-name{
+    font-size:14px;
+    font-weight:800;
+    color:#34423A;
+}
+
+.currency-code{
+    font-size:11px;
+    color:#7A847E;
+    margin-top:2px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box{
+    display:none;
+
+    background:#FFF3F0;
+    border:1px solid #F2C8BE;
+
+    color:#A83D2D;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    font-size:13px;
+    line-height:1.5;
+
+    margin-bottom:17px;
+}
+
+.error-box.show{
+    display:block;
+}
+
+
+/* =====================================================
+   SUCCESS MESSAGE
+===================================================== */
+
+.success-box{
+    display:none;
+
+    background:#EDF8F2;
+    border:1px solid #BFE2CE;
+
+    color:#176341;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    font-size:13px;
+    line-height:1.5;
+
+    margin-bottom:17px;
+}
+
+.success-box.show{
+    display:block;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.continue-button{
+    width:100%;
+
+    border:none;
+    border-radius:13px;
+
+    padding:15px 18px;
+
+    background:#16805C;
+    color:#FFFFFF;
+
+    font-size:15px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 18px rgba(22,128,92,.20);
+
+    transition:
+        transform .15s ease,
+        background .15s ease,
+        opacity .15s ease;
+}
+
+.continue-button:hover{
+    background:#0B4F3A;
+}
+
+.continue-button:active{
+    transform:scale(.985);
+}
+
+.continue-button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.continue-button.loading{
+    position:relative;
+}
+
+.continue-button.loading::before{
+    content:"";
+
+    display:inline-block;
+
+    width:14px;
+    height:14px;
+
+    border:2px solid rgba(255,255,255,.35);
+    border-top-color:#FFFFFF;
+
+    border-radius:50%;
+
+    margin-right:8px;
+
+    vertical-align:-2px;
+
+    animation:
+        spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =====================================================
+   FOOTER NOTE
+===================================================== */
+
+.form-note{
+    text-align:center;
+
+    font-size:11px;
+    line-height:1.5;
+
+    color:#89928D;
+
+    margin-top:17px;
+}
+
+.form-note strong{
+    color:#617068;
+}
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+
+    background:#F7F3E8;
+
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+}
+
+.loading-screen.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loading-content{
+    text-align:center;
+    padding:25px;
+}
+
+.loading-logo{
+    width:76px;
+    height:76px;
+
+    object-fit:contain;
+
+    border-radius:18px;
+
+    margin-bottom:17px;
+}
+
+.loading-spinner{
+    width:25px;
+    height:25px;
+
+    border:3px solid #DCE8E0;
+    border-top-color:#16805C;
+
+    border-radius:50%;
+
+    margin:0 auto 13px;
+
+    animation:
+        spin .8s linear infinite;
+}
+
+.loading-text{
+    font-size:13px;
+    font-weight:700;
+    color:#66716B;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:480px){
+
+    .main{
+        padding:
+            25px 14px 40px;
+    }
+
+    .header{
+        padding:
+            14px 16px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .form-card{
+        padding:19px 16px;
+        border-radius:19px;
+    }
+
+    .progress-card{
+        padding:15px;
+    }
+
+    .two-column{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     INITIAL LOADING
+===================================================== -->
+
+<div
+    class="loading-screen"
+    id="loadingScreen"
+>
+
+    <div class="loading-content">
+
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah"
+            class="loading-logo"
+        >
+
+        <div class="loading-spinner"></div>
+
+        <div class="loading-text">
+            Preparing your business setup...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="../"
+            class="brand"
+        >
+
+            <img
+                src="../kayah-logo.png"
+                alt="Kayah"
+            >
+
+            <span class="brand-name">
+                Kayah
+            </span>
+
+        </a>
+
+
+        <a
+            href="../"
+            class="header-link"
+        >
+            Home
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+<div class="container">
+
+
+    <!-- INTRO -->
+
+    <div class="eyebrow">
+
+        <span class="eyebrow-dot"></span>
+
+        BUSINESS MANAGEMENT PLATFORM
+
+    </div>
+
+
+    <h1>
+        Complete Your Business Setup
+    </h1>
+
+
+    <p class="intro">
+        You're almost ready. Add a few details about your
+        business so Kayah can organize your workspace for you.
+    </p>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-card">
+
+        <div class="progress">
+
+            <div class="progress-step complete">
+
+                <div class="step-circle">
+                    ✓
+                </div>
+
+                <div class="progress-line active"></div>
+
+            </div>
+
+
+            <div class="progress-step active">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <div class="progress-line"></div>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-labels">
+
+            <div>
+                Account
+            </div>
+
+            <div>
+                Business
+            </div>
+
+            <div>
+                Start
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORM CARD -->
+
+    <div class="form-card">
+
+        <div class="section-title">
+            Tell us about your business
+        </div>
+
+        <div class="section-text">
+            These details help personalize your Kayah workspace.
+            You can change them later in Settings.
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-box"
+            id="errorBox"
+        ></div>
+
+
+        <!-- SUCCESS -->
+
+        <div
+            class="success-box"
+            id="successBox"
+        ></div>
+
+
+        <form
+            id="setupForm"
+            novalidate
+        >
+
+
+            <!-- BUSINESS NAME -->
+
+            <div class="form-group">
+
+                <label for="businessName">
+                    Business Name
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="businessName"
+                    class="input"
+                    placeholder="Enter your business name"
+                    autocomplete="organization"
+                    required
+                >
+
+            </div>
+
+
+            <!-- BUSINESS TYPE -->
+
+            <div class="form-group">
+
+                <label for="businessType">
+                    Business Type
+                    <span class="required">*</span>
+                </label>
+
+                <select
+                    id="businessType"
+                    class="select"
+                    required
+                >
+
+                    <option value="">
+                        Select your business type
+                    </option>
+
+                    <option value="Retail">
+                        Retail
+                    </option>
+
+                    <option value="Food & Beverage">
+                        Food & Beverage
+                    </option>
+
+                    <option value="Wholesale">
+                        Wholesale
+                    </option>
+
+                    <option value="Services">
+                        Services
+                    </option>
+
+                    <option value="Online Business">
+                        Online Business
+                    </option>
+
+                    <option value="Manufacturing">
+                        Manufacturing
+                    </option>
+
+                    <option value="Agriculture">
+                        Agriculture
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="businessAddress">
+                    Business Address
+                </label>
+
+                <input
+                    type="text"
+                    id="businessAddress"
+                    class="input"
+                    placeholder="Street, building, barangay, etc."
+                    autocomplete="street-address"
+                >
+
+                <div class="help">
+                    Enter the address where your business operates.
+                </div>
+
+            </div>
+
+
+            <!-- CITY / PROVINCE -->
+
+            <div class="two-column">
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City / Municipality
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        class="input"
+                        placeholder="e.g. Butuan City"
+                        autocomplete="address-level2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="province">
+                        Province
+                    </label>
+
+                    <input
+                        type="text"
+                        id="province"
+                        class="input"
+                        placeholder="e.g. Agusan del Norte"
+                        autocomplete="address-level1"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CURRENCY -->
+
+            <div class="form-group">
+
+                <label>
+                    Business Currency
+                </label>
+
+                <div class="currency-box">
+
+                    <div class="currency-symbol">
+                        ₱
+                    </div>
+
+                    <div class="currency-info">
+
+                        <div class="currency-name">
+                            Philippine Peso
+                        </div>
+
+                        <div class="currency-code">
+                            PHP — ₱
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="help">
+                    Kayah currently uses Philippine Peso for your business.
+                </div>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Business Description
+                </label>
+
+                <textarea
+                    id="description"
+                    class="textarea"
+                    placeholder="Tell us briefly what your business does..."
+                ></textarea>
+
+                <div class="help">
+                    This is optional and can be changed later.
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="continue-button"
+                id="completeButton"
+            >
+                Complete Business Setup
+            </button>
+
+
+        </form>
+
+
+        <div class="form-note">
+
+            Your information is securely saved to your
+            <strong>Kayah business profile.</strong>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
+
+    projectId:
+        "kayah-ecosystem",
+
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId:
+        "49853785143",
+
+    appId:
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+};
+
+
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loadingScreen =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+
+const form =
+    document.getElementById(
+        "setupForm"
+    );
+
+
+const errorBox =
+    document.getElementById(
+        "errorBox"
+    );
+
+
+const successBox =
+    document.getElementById(
+        "successBox"
+    );
+
+
+const completeButton =
+    document.getElementById(
+        "completeButton"
+    );
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showError(message){
+
+    errorBox.textContent =
+        message;
+
+    errorBox.classList.add(
+        "show"
+    );
+
+    successBox.classList.remove(
+        "show"
+    );
+
+    errorBox.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =====================================================
+   CLEAR ERROR
+===================================================== */
+
+function clearMessages(){
+
+    errorBox.textContent = "";
+
+    errorBox.classList.remove(
+        "show"
+    );
+
+    successBox.textContent = "";
+
+    successBox.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   FIREBASE ERROR
+===================================================== */
+
+function firebaseErrorMessage(error){
+
+    console.error(
+        "KAYAH SETUP ERROR:",
+        error
+    );
+
+
+    switch(error.code){
+
+        case "permission-denied":
+
+            return "Firebase denied permission to save your business information.";
+
+        case "unavailable":
+
+            return "Firebase is temporarily unavailable. Please try again.";
+
+        case "failed-precondition":
+
+            return "Firestore is not ready. Please check your Firebase database.";
+
+        case "auth/network-request-failed":
+
+            return "Please check your internet connection.";
+
+        default:
+
+            return (
+                error.message ||
+                "We could not save your business information."
+            );
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            /*
+             * No authenticated user.
+             * Send them back to login.
+             */
+
+            window.location.href =
+                "../login/";
+
+            return;
+        }
+
+
+        console.log(
+            "KAYAH: Logged-in user:",
+            user.uid
+        );
+
+
+        try{
+
+            /*
+             * First get any information already saved
+             * during signup.
+             */
+
+            const signupData =
+                sessionStorage.getItem(
+                    "kayahSignupData"
+                );
+
+
+            let savedSignupData = null;
+
+
+            if(signupData){
+
+                try{
+
+                    savedSignupData =
+                        JSON.parse(
+                            signupData
+                        );
+
+                }catch(parseError){
+
+                    console.warn(
+                        "KAYAH: Could not parse signup session data."
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Also check Firestore.
+             */
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const userSnapshot =
+                await getDoc(
+                    userRef
+                );
+
+
+            if(userSnapshot.exists()){
+
+                const existingData =
+                    userSnapshot.data();
+
+
+                /*
+                 * If setup has already been completed,
+                 * don't make the user complete it again.
+                 */
+
+                if(
+                    existingData.setupCompleted === true
+                ){
+
+                    window.location.href =
+                        "../dashboard/";
+
+                    return;
+                }
+
+
+                /*
+                 * Fill the form using existing Firestore data.
+                 */
+
+                if(
+                    existingData.businessName
+                ){
+
+                    document
+                        .getElementById("businessName")
+                        .value =
+                            existingData.businessName;
+
+                }
+
+
+                if(
+                    existingData.businessType
+                ){
+
+                    document
+                        .getElementById("businessType")
+                        .value =
+                            existingData.businessType;
+
+                }
+
+
+                if(
+                    existingData.businessAddress
+                ){
+
+                    document
+                        .getElementById("businessAddress")
+                        .value =
+                            existingData.businessAddress;
+
+                }
+
+
+                if(
+                    existingData.city
+                ){
+
+                    document
+                        .getElementById("city")
+                        .value =
+                            existingData.city;
+
+                }
+
+
+                if(
+                    existingData.province
+                ){
+
+                    document
+                        .getElementById("province")
+                        .value =
+                            existingData.province;
+
+                }
+
+
+                if(
+                    existingData.businessDescription
+                ){
+
+                    document
+                        .getElementById("description")
+                        .value =
+                            existingData.businessDescription;
+
+                }
+
+            }
+
+
+            /*
+             * If Firestore didn't contain the values yet,
+             * use signup session information.
+             */
+
+            if(
+                savedSignupData &&
+                savedSignupData.businessName
+            ){
+
+                const businessNameInput =
+                    document.getElementById(
+                        "businessName"
+                    );
+
+
+                if(
+                    !businessNameInput.value
+                ){
+
+                    businessNameInput.value =
+                        savedSignupData.businessName;
+
+                }
+
+            }
+
+
+        }catch(error){
+
+            console.warn(
+                "KAYAH: Could not load existing business data:",
+                error
+            );
+
+
+            /*
+             * Don't prevent setup if the initial read
+             * has a temporary problem.
+             *
+             * Signup session data can still be used.
+             */
+
+            const signupData =
+                sessionStorage.getItem(
+                    "kayahSignupData"
+                );
+
+
+            if(signupData){
+
+                try{
+
+                    const data =
+                        JSON.parse(
+                            signupData
+                        );
+
+
+                    if(data.businessName){
+
+                        document
+                            .getElementById(
+                                "businessName"
+                            )
+                            .value =
+                                data.businessName;
+
+                    }
+
+                }catch(e){
+
+                    console.warn(
+                        "KAYAH: Session data unavailable."
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        /*
+         * Hide initial loading screen.
+         */
+
+        setTimeout(
+            function(){
+
+                loadingScreen.classList.add(
+                    "hide"
+                );
+
+            },
+            250
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SUBMIT SETUP
+===================================================== */
+
+form.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        clearMessages();
+
+
+        /* ---------------------------------------------
+           VALUES
+        --------------------------------------------- */
+
+        const businessName =
+            document
+                .getElementById(
+                    "businessName"
+                )
+                .value
+                .trim();
+
+
+        const businessType =
+            document
+                .getElementById(
+                    "businessType"
+                )
+                .value
+                .trim();
+
+
+        const businessAddress =
+            document
+                .getElementById(
+                    "businessAddress"
+                )
+                .value
+                .trim();
+
+
+        const city =
+            document
+                .getElementById(
+                    "city"
+                )
+                .value
+                .trim();
+
+
+        const province =
+            document
+                .getElementById(
+                    "province"
+                )
+                .value
+                .trim();
+
+
+        const description =
+            document
+                .getElementById(
+                    "description"
+                )
+                .value
+                .trim();
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+        if(!businessName){
+
+            showError(
+                "Please enter your business name."
+            );
+
+            return;
+        }
+
+
+        if(!businessType){
+
+            showError(
+                "Please select your business type."
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           AUTH USER
+        --------------------------------------------- */
+
+        const user =
+            auth.currentUser;
+
+
+        if(!user){
+
+            showError(
+                "Your session has expired. Please log in again."
+            );
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "../login/";
+
+                },
+                1500
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           BUTTON
+        --------------------------------------------- */
+
+        completeButton.disabled =
+            true;
+
+        completeButton.classList.add(
+            "loading"
+        );
+
+        completeButton.textContent =
+            "Saving Your Business...";
+
+
+        try{
+
+            console.log(
+                "KAYAH: Saving completed business profile..."
+            );
+
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            /*
+             * Save the complete business profile.
+             *
+             * merge:true means we preserve the information
+             * already saved during signup.
+             */
+
+            await setDoc(
+                userRef,
+                {
+
+                    uid:
+                        user.uid,
+
+                    businessName:
+                        businessName,
+
+                    businessType:
+                        businessType,
+
+                    businessAddress:
+                        businessAddress,
+
+                    city:
+                        city,
+
+                    province:
+                        province,
+
+                    businessDescription:
+                        description,
+
+                    currency:
+                        "PHP",
+
+                    currencySymbol:
+                        "₱",
+
+                    setupCompleted:
+                        true,
+
+                    setupCompletedAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                },
+                {
+                    merge:true
+                }
+            );
+
+
+            console.log(
+                "KAYAH: Business setup saved."
+            );
+
+
+            /*
+             * Save a local copy of the completed setup.
+             */
+
+            sessionStorage.setItem(
+                "kayahSetupCompleted",
+                "true"
+            );
+
+
+            /*
+             * Show success briefly.
+             */
+
+            successBox.textContent =
+                "Your business is ready. Opening your Kayah workspace...";
+
+
+            successBox.classList.add(
+                "show"
+            );
+
+
+            completeButton.textContent =
+                "Business Ready ✓";
+
+
+            /*
+             * Go to dashboard.
+             */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "../dashboard/";
+
+                },
+                700
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "KAYAH SETUP SAVE ERROR:",
+                error
+            );
+
+
+            completeButton.disabled =
+                false;
+
+            completeButton.classList.remove(
+                "loading"
+            );
+
+            completeButton.textContent =
+                "Complete Business Setup";
+
+
+            showError(
+                firebaseErrorMessage(
+                    error
+                )
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("../sw.js")
+                .then(function(){
+
+                    console.log(
+                        "Kayah Service Worker registered."
+                    );
+
+                })
+                .catch(function(error){
+
+                    console.log(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
