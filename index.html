@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -14,43 +13,18 @@
 <meta name="theme-color" content="#0B4F3A">
 
 <meta name="description"
-      content="Kayah — Business, Made Possible. A simple business management platform for modern businesses.">
+      content="Kayah — Business, Made Possible. A simple and professional platform for managing your business.">
 
-<meta name="apple-mobile-web-app-capable"
-      content="yes">
+<link rel="manifest" href="./manifest.json">
 
-<meta name="apple-mobile-web-app-status-bar-style"
-      content="default">
-
-<meta name="apple-mobile-web-app-title"
-      content="Kayah">
-
-<link rel="manifest" href="manifest.json">
+<link rel="icon"
+      type="image/png"
+      href="./kayah-logo.png">
 
 <title>Kayah — Business, Made Possible.</title>
 
 
 <style>
-
-/* =====================================================
-   KAYAH
-   BUSINESS MANAGEMENT PLATFORM
-===================================================== */
-
-:root{
-
-    --green:#16805C;
-    --deep-green:#0B4F3A;
-    --yellow:#F2B84B;
-    --beige:#F7F3E8;
-    --white:#FFFFFF;
-    --charcoal:#202A24;
-    --muted:#6F7D75;
-    --border:#E5EAE5;
-    --light-green:#EAF5F0;
-
-}
-
 
 /* =====================================================
    RESET
@@ -60,7 +34,6 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -68,73 +41,66 @@ html{
 }
 
 body{
-
-    margin:0;
-
     font-family:
+        Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
-        Helvetica,
         Arial,
         sans-serif;
 
-    background:var(--beige);
-
-    color:var(--charcoal);
+    background:#F7F3E8;
+    color:#202A24;
 
     overflow-x:hidden;
 
+    -webkit-font-smoothing:antialiased;
 }
-
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
-.container{
-
-    width:100%;
-
-    max-width:1100px;
-
-    margin:auto;
-
-    padding-left:20px;
-    padding-right:20px;
-
-}
-
 
 a{
     text-decoration:none;
     color:inherit;
 }
 
-
 button{
-
     font-family:inherit;
+}
 
-    border:0;
 
-    cursor:pointer;
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root{
+
+    --green:#16805C;
+    --dark-green:#0B4F3A;
+    --deep-green:#073B2C;
+
+    --yellow:#F2B84B;
+    --beige:#F7F3E8;
+
+    --white:#FFFFFF;
+    --text:#202A24;
+    --muted:#68736D;
+
+    --border:rgba(11,79,58,.10);
+
+    --shadow:
+        0 18px 45px rgba(11,79,58,.10);
+
+    --shadow-soft:
+        0 10px 30px rgba(11,79,58,.07);
 
 }
 
 
 /* =====================================================
-   APP INSTALL TOP BAR
+   APP INSTALL BAR
 ===================================================== */
 
 .install-bar{
-
-    background:var(--deep-green);
-
-    color:white;
-
-    padding:11px 16px;
 
     position:sticky;
 
@@ -142,14 +108,18 @@ button{
 
     z-index:1000;
 
-}
+    background:
+        linear-gradient(
+            90deg,
+            #0B4F3A,
+            #16805C
+        );
 
+    color:white;
 
-.install-inner{
-
-    max-width:1100px;
-
-    margin:auto;
+    padding:
+        9px
+        15px;
 
     display:flex;
 
@@ -159,10 +129,11 @@ button{
 
     gap:12px;
 
+    box-shadow:
+        0 4px 20px rgba(0,0,0,.10);
 }
 
-
-.install-info{
+.install-left{
 
     display:flex;
 
@@ -171,92 +142,76 @@ button{
     gap:10px;
 
     min-width:0;
-
 }
 
-
-.install-small-logo{
+.install-icon{
 
     width:34px;
     height:34px;
 
-    background:white;
+    border-radius:10px;
 
-    border-radius:9px;
+    background:rgba(255,255,255,.14);
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    padding:5px;
+    font-size:17px;
 
     flex-shrink:0;
-
 }
-
-
-.install-small-logo img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-}
-
 
 .install-text{
 
     min-width:0;
-
 }
 
+.install-text strong{
 
-.install-title{
+    display:block;
 
     font-size:13px;
 
-    font-weight:800;
-
+    line-height:1.2;
 }
 
+.install-text span{
 
-.install-subtitle{
+    display:block;
 
     font-size:10px;
 
     opacity:.75;
 
     margin-top:2px;
-
 }
 
+.install-btn{
 
-.install-button{
+    border:0;
 
-    background:var(--yellow);
+    background:#F2B84B;
 
-    color:var(--deep-green);
-
-    padding:10px 14px;
-
-    border-radius:10px;
-
-    font-size:12px;
+    color:#173F31;
 
     font-weight:800;
 
+    font-size:11px;
+
+    padding:
+        9px
+        14px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
     white-space:nowrap;
 
-}
-
-
-.install-button:active{
-
-    transform:scale(.97);
-
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.12);
 }
 
 
@@ -266,106 +221,139 @@ button{
 
 .navbar{
 
-    background:rgba(247,243,232,.94);
-
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid rgba(11,79,58,.07);
-
     position:sticky;
 
-    top:57px;
+    top:52px;
 
     z-index:900;
 
-}
+    background:
+        rgba(247,243,232,.94);
 
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    border-bottom:
+        1px solid
+        rgba(11,79,58,.08);
+}
 
 .nav-inner{
 
-    max-width:1100px;
+    max-width:1180px;
 
     margin:auto;
 
     height:68px;
 
-    padding:0 20px;
+    padding:
+        0
+        20px;
 
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
-
 }
 
-
-.logo{
+.brand{
 
     display:flex;
 
     align-items:center;
 
     gap:10px;
-
 }
 
+.brand img{
 
-.logo img{
-
-    width:42px;
-    height:42px;
+    width:39px;
+    height:39px;
 
     object-fit:contain;
 
+    border-radius:11px;
 }
 
-
-.logo-name{
+.brand-name{
 
     font-size:21px;
 
     font-weight:800;
 
-    color:var(--deep-green);
+    letter-spacing:-.5px;
 
+    color:var(--dark-green);
 }
-
 
 .nav-links{
 
-    display:none;
+    display:flex;
 
     align-items:center;
 
-    gap:24px;
+    gap:27px;
 
     font-size:13px;
 
     font-weight:600;
 
-    color:var(--charcoal);
-
+    color:#52615A;
 }
 
+.nav-links a{
+
+    transition:.25s ease;
+}
 
 .nav-links a:hover{
 
     color:var(--green);
-
 }
 
+.nav-actions{
 
-.nav-login{
+    display:flex;
 
-    background:var(--green);
+    align-items:center;
+
+    gap:9px;
+}
+
+.login-link{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:var(--dark-green);
+
+    padding:
+        9px
+        13px;
+}
+
+.nav-signup{
+
+    background:var(--dark-green);
 
     color:white;
 
-    padding:10px 17px;
+    padding:
+        10px
+        15px;
 
-    border-radius:11px;
+    border-radius:10px;
 
+    font-size:12px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 7px 18px
+        rgba(11,79,58,.16);
 }
 
 
@@ -380,12 +368,24 @@ button{
     overflow:hidden;
 
     padding:
-        55px
+        72px
         20px
-        65px;
+        85px;
 
+    background:
+
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(242,184,75,.20),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            180deg,
+            #F7F3E8 0%,
+            #F2EFE5 100%
+        );
 }
-
 
 .hero::before{
 
@@ -393,237 +393,63 @@ button{
 
     position:absolute;
 
-    width:330px;
-    height:330px;
+    width:360px;
+    height:360px;
 
     border-radius:50%;
 
-    background:rgba(22,128,92,.08);
+    background:
+        rgba(22,128,92,.07);
 
-    top:-150px;
-    right:-140px;
-
+    top:-170px;
+    right:-150px;
 }
 
+.hero-container{
 
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:240px;
-    height:240px;
-
-    border-radius:50%;
-
-    background:rgba(242,184,75,.10);
-
-    bottom:-130px;
-    left:-100px;
-
-}
-
-
-.hero-content{
-
-    max-width:760px;
+    max-width:1180px;
 
     margin:auto;
 
-    text-align:center;
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    align-items:center;
+
+    gap:55px;
 
     position:relative;
 
     z-index:2;
-
 }
 
+.hero-content{
 
-.hero-logo{
-
-    width:110px;
-    height:110px;
-
-    margin:0 auto 24px;
-
-    background:white;
-
-    border-radius:28px;
-
-    padding:16px;
-
-    box-shadow:
-        0 15px 40px rgba(11,79,58,.10);
-
+    max-width:590px;
 }
 
+.eyebrow{
 
-.hero-logo img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-}
-
-
-.hero h1{
-
-    font-size:
-        clamp(38px,10vw,68px);
-
-    line-height:1;
-
-    letter-spacing:-2px;
-
-    color:var(--deep-green);
-
-    margin-bottom:12px;
-
-    font-weight:850;
-
-}
-
-
-.hero-tagline{
-
-    font-size:
-        clamp(18px,4vw,24px);
-
-    font-weight:700;
-
-    color:var(--green);
-
-    margin-bottom:18px;
-
-}
-
-
-.hero-description{
-
-    max-width:620px;
-
-    margin:auto;
-
-    color:var(--muted);
-
-    line-height:1.7;
-
-    font-size:15px;
-
-}
-
-
-.hero-buttons{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:11px;
-
-    max-width:360px;
-
-    margin:30px auto 0;
-
-}
-
-
-.btn{
-
-    min-height:53px;
-
-    padding:0 22px;
-
-    border-radius:15px;
-
-    display:flex;
+    display:inline-flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:8px;
 
-    font-size:14px;
+    background:
+        rgba(22,128,92,.08);
 
-    font-weight:800;
-
-    transition:.2s;
-
-}
-
-
-.btn:active{
-
-    transform:scale(.98);
-
-}
-
-
-.btn-primary{
-
-    background:var(--green);
-
-    color:white;
-
-    box-shadow:
-        0 10px 25px rgba(22,128,92,.20);
-
-}
-
-
-.btn-primary:hover{
-
-    background:var(--deep-green);
-
-}
-
-
-.btn-secondary{
-
-    background:white;
-
-    color:var(--deep-green);
-
-    border:1px solid var(--border);
-
-}
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-section{
-
-    padding:
-        70px
-        0;
-
-}
-
-
-.section-header{
-
-    max-width:650px;
-
-    margin:0 auto 40px;
-
-    text-align:center;
-
-}
-
-
-.section-label{
-
-    display:inline-block;
-
-    background:var(--light-green);
+    border:
+        1px solid
+        rgba(22,128,92,.12);
 
     color:var(--green);
 
-    padding:7px 12px;
+    padding:
+        8px
+        12px;
 
     border-radius:30px;
 
@@ -631,87 +457,574 @@ section{
 
     font-weight:800;
 
-    text-transform:uppercase;
+    letter-spacing:.4px;
 
-    letter-spacing:.5px;
-
-    margin-bottom:12px;
-
+    margin-bottom:20px;
 }
 
+.eyebrow-dot{
 
-.section-title{
+    width:7px;
+    height:7px;
+
+    background:var(--yellow);
+
+    border-radius:50%;
+}
+
+.hero h1{
 
     font-size:
-        clamp(27px,7vw,42px);
+        clamp(
+            42px,
+            6vw,
+            68px
+        );
 
-    line-height:1.15;
+    line-height:1.02;
+
+    letter-spacing:-2.8px;
 
     color:var(--deep-green);
 
-    margin-bottom:13px;
-
-    letter-spacing:-.8px;
-
+    margin-bottom:20px;
 }
 
+.hero h1 span{
 
-.section-description{
+    color:var(--green);
+}
+
+.hero-description{
 
     color:var(--muted);
 
-    font-size:14px;
+    font-size:16px;
 
-    line-height:1.7;
+    line-height:1.75;
 
+    max-width:530px;
+
+    margin-bottom:28px;
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    background:var(--dark-green);
+
+    color:white;
+
+    padding:
+        14px
+        20px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 10px 25px
+        rgba(11,79,58,.18);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(11,79,58,.22);
+}
+
+.secondary-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+        13px
+        19px;
+
+    border:
+        1px solid
+        rgba(11,79,58,.18);
+
+    border-radius:12px;
+
+    color:var(--dark-green);
+
+    background:rgba(255,255,255,.55);
+
+    font-size:13px;
+
+    font-weight:800;
+
+    transition:.25s ease;
+}
+
+.secondary-btn:hover{
+
+    background:white;
+
+    transform:translateY(-2px);
+}
+
+.hero-note{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:19px;
+
+    font-size:11px;
+
+    color:#77817C;
+}
+
+.hero-note-icon{
+
+    width:19px;
+    height:19px;
+
+    border-radius:50%;
+
+    background:
+        rgba(22,128,92,.12);
+
+    color:var(--green);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:10px;
+
+    font-weight:900;
 }
 
 
 /* =====================================================
-   OVERVIEW
+   DASHBOARD PREVIEW
 ===================================================== */
 
-.overview{
+.dashboard-wrap{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+}
+
+.dashboard-card{
+
+    width:min(100%, 500px);
 
     background:white;
 
+    border-radius:24px;
+
+    border:
+        1px solid
+        rgba(11,79,58,.08);
+
+    box-shadow:
+        0 30px 70px
+        rgba(11,79,58,.14);
+
+    padding:17px;
+
+    transform:
+        perspective(1000px)
+        rotateY(-3deg);
+
+    transition:
+        transform .5s ease;
 }
 
+.dashboard-card:hover{
 
-.overview-grid{
+    transform:
+        perspective(1000px)
+        rotateY(0deg)
+        translateY(-5px);
+}
+
+.dashboard-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        4px
+        3px
+        15px;
+}
+
+.dash-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.dash-brand img{
+
+    width:31px;
+    height:31px;
+
+    border-radius:8px;
+}
+
+.dash-brand strong{
+
+    font-size:13px;
+
+    color:var(--dark-green);
+}
+
+.dash-profile{
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:#E8F0EB;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+
+    color:var(--green);
+
+    font-weight:800;
+}
+
+.balance-card{
+
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #16805C
+        );
+
+    border-radius:18px;
+
+    padding:22px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.balance-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    right:-60px;
+    top:-70px;
+}
+
+.balance-label{
+
+    font-size:10px;
+
+    opacity:.7;
+
+    margin-bottom:8px;
+}
+
+.balance-value{
+
+    font-size:29px;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+}
+
+.balance-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:22px;
+
+    font-size:10px;
+}
+
+.balance-status{
+
+    background:
+        rgba(242,184,75,.18);
+
+    color:#FFE5A4;
+
+    padding:
+        5px
+        8px;
+
+    border-radius:6px;
+
+    font-weight:700;
+}
+
+.dash-stats{
 
     display:grid;
 
-    grid-template-columns:1fr;
+    grid-template-columns:
+        repeat(3,1fr);
 
-    gap:18px;
+    gap:9px;
 
+    margin-top:12px;
 }
 
+.stat-box{
 
-.overview-card{
+    background:#FAFBF9;
 
-    padding:24px;
+    border:
+        1px solid
+        rgba(11,79,58,.07);
 
-    border:1px solid var(--border);
+    border-radius:12px;
 
-    border-radius:20px;
-
-    background:white;
-
+    padding:13px 10px;
 }
 
+.stat-label{
 
-.overview-icon{
+    color:#89938E;
 
-    width:46px;
-    height:46px;
+    font-size:8px;
+
+    margin-bottom:6px;
+}
+
+.stat-value{
+
+    color:var(--dark-green);
+
+    font-size:13px;
+
+    font-weight:800;
+}
+
+.activity{
+
+    margin-top:13px;
+
+    padding:
+        14px;
+
+    background:#FAFBF9;
 
     border-radius:13px;
 
-    background:var(--light-green);
+    border:
+        1px solid
+        rgba(11,79,58,.06);
+}
+
+.activity-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:11px;
+}
+
+.activity-head strong{
+
+    font-size:11px;
+
+    color:var(--dark-green);
+}
+
+.activity-head span{
+
+    font-size:8px;
 
     color:var(--green);
+
+    font-weight:700;
+}
+
+.activity-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        8px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(11,79,58,.06);
+}
+
+.activity-row:last-child{
+
+    border-bottom:0;
+}
+
+.activity-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.activity-icon{
+
+    width:25px;
+    height:25px;
+
+    border-radius:7px;
+
+    background:#E8F3ED;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:var(--green);
+
+    font-size:10px;
+}
+
+.activity-name{
+
+    font-size:9px;
+
+    font-weight:700;
+
+    color:#44534C;
+}
+
+.activity-date{
+
+    font-size:7px;
+
+    color:#9AA39E;
+
+    margin-top:2px;
+}
+
+.activity-amount{
+
+    font-size:9px;
+
+    font-weight:800;
+
+    color:var(--green);
+}
+
+
+/* =====================================================
+   TRUST STRIP
+===================================================== */
+
+.trust-strip{
+
+    background:white;
+
+    border-top:
+        1px solid var(--border);
+
+    border-bottom:
+        1px solid var(--border);
+
+    padding:
+        22px
+        20px;
+}
+
+.trust-inner{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.trust-item{
 
     display:flex;
 
@@ -719,34 +1032,192 @@ section{
 
     justify-content:center;
 
-    font-size:20px;
+    gap:10px;
 
-    font-weight:800;
+    color:#68746D;
 
-    margin-bottom:16px;
+    font-size:11px;
 
+    font-weight:700;
+
+    text-align:center;
+}
+
+.trust-icon{
+
+    width:31px;
+    height:31px;
+
+    background:#EEF5F0;
+
+    color:var(--green);
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:13px;
 }
 
 
-.overview-card h3{
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    padding:
+        85px
+        20px;
+}
+
+.section.white{
+
+    background:white;
+}
+
+.section-inner{
+
+    max-width:1100px;
+
+    margin:auto;
+}
+
+.section-heading{
+
+    text-align:center;
+
+    max-width:700px;
+
+    margin:
+        0
+        auto
+        45px;
+}
+
+.section-label{
+
+    color:var(--green);
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.section-heading h2{
+
+    font-size:
+        clamp(
+            30px,
+            4vw,
+            44px
+        );
+
+    line-height:1.1;
+
+    letter-spacing:-1.5px;
 
     color:var(--deep-green);
 
-    font-size:18px;
-
-    margin-bottom:8px;
-
+    margin-bottom:13px;
 }
 
-
-.overview-card p{
+.section-heading p{
 
     color:var(--muted);
 
-    line-height:1.65;
+    font-size:14px;
 
-    font-size:13px;
+    line-height:1.7;
+}
 
+
+/* =====================================================
+   OVERVIEW CARDS
+===================================================== */
+
+.overview-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.overview-card{
+
+    background:white;
+
+    border:
+        1px solid
+        rgba(11,79,58,.09);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow-soft);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.overview-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow);
+}
+
+.overview-icon{
+
+    width:48px;
+    height:48px;
+
+    border-radius:13px;
+
+    background:#EAF4EE;
+
+    color:var(--green);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+
+    margin-bottom:20px;
+}
+
+.overview-card h3{
+
+    font-size:18px;
+
+    color:var(--dark-green);
+
+    margin-bottom:9px;
+}
+
+.overview-card p{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    line-height:1.7;
 }
 
 
@@ -754,190 +1225,197 @@ section{
    FEATURES
 ===================================================== */
 
-.features{
-
-    background:var(--beige);
-
-}
-
-
-.feature-grid{
+.features-grid{
 
     display:grid;
 
-    grid-template-columns:1fr;
+    grid-template-columns:
+        repeat(4,1fr);
 
-    gap:14px;
-
+    gap:13px;
 }
 
+.feature{
 
-.feature-card{
+    background:#FAFBF9;
+
+    border:
+        1px solid
+        rgba(11,79,58,.07);
+
+    border-radius:15px;
+
+    padding:19px;
+
+    transition:.3s ease;
+}
+
+.feature:hover{
 
     background:white;
 
-    border:1px solid var(--border);
+    transform:translateY(-3px);
 
-    border-radius:19px;
-
-    padding:21px;
-
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:15px;
-
+    box-shadow:var(--shadow-soft);
 }
-
 
 .feature-icon{
 
-    width:43px;
-    height:43px;
+    width:36px;
+    height:36px;
 
-    min-width:43px;
+    border-radius:10px;
 
-    border-radius:12px;
-
-    background:var(--green);
-
-    color:white;
+    background:white;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    font-size:16px;
+    color:var(--green);
 
-    font-weight:800;
+    font-size:14px;
 
+    margin-bottom:13px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(11,79,58,.06);
 }
 
+.feature h3{
 
-.feature-card h3{
+    font-size:13px;
 
-    font-size:15px;
+    color:var(--dark-green);
 
-    color:var(--deep-green);
-
-    margin-bottom:5px;
-
+    margin-bottom:6px;
 }
 
+.feature p{
 
-.feature-card p{
+    font-size:10px;
 
-    font-size:12px;
+    line-height:1.6;
 
-    color:var(--muted);
-
-    line-height:1.55;
-
+    color:#7B8580;
 }
 
 
 /* =====================================================
-   BUSINESS MANAGEMENT
+   MANAGEMENT SECTION
 ===================================================== */
 
 .management{
 
-    background:white;
-
-}
-
-
-.management-box{
-
-    max-width:900px;
-
-    margin:auto;
-
-    background:var(--deep-green);
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #12664B
+        );
 
     color:white;
 
     border-radius:28px;
 
-    padding:32px 23px;
+    padding:
+        48px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:45px;
+
+    align-items:center;
 
     position:relative;
 
     overflow:hidden;
-
 }
 
-
-.management-box::after{
+.management::after{
 
     content:"";
 
     position:absolute;
 
-    width:220px;
-    height:220px;
+    width:280px;
+    height:280px;
 
     border-radius:50%;
 
-    background:rgba(242,184,75,.10);
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
-    right:-90px;
-
-    top:-90px;
-
+    right:-100px;
+    bottom:-120px;
 }
-
 
 .management-content{
 
     position:relative;
 
     z-index:2;
-
 }
 
+.management-label{
 
-.management-box h2{
+    color:#F2B84B;
 
-    font-size:28px;
+    font-size:10px;
 
-    line-height:1.2;
+    font-weight:900;
 
-    margin-bottom:13px;
+    letter-spacing:1.3px;
 
+    text-transform:uppercase;
+
+    margin-bottom:12px;
 }
 
+.management h2{
 
-.management-box p{
+    font-size:
+        clamp(
+            28px,
+            4vw,
+            40px
+        );
 
-    color:rgba(255,255,255,.76);
+    line-height:1.12;
 
-    font-size:14px;
+    letter-spacing:-1px;
 
-    line-height:1.7;
-
-    max-width:620px;
-
+    margin-bottom:15px;
 }
 
+.management p{
+
+    color:
+        rgba(255,255,255,.72);
+
+    font-size:13px;
+
+    line-height:1.75;
+
+    max-width:480px;
+}
 
 .management-list{
 
-    margin-top:25px;
+    margin-top:22px;
 
     display:grid;
 
-    grid-template-columns:1fr;
-
     gap:11px;
-
 }
 
-
-.management-item{
+.management-list div{
 
     display:flex;
 
@@ -945,32 +1423,149 @@ section{
 
     gap:10px;
 
-    font-size:13px;
+    font-size:11px;
 
+    color:rgba(255,255,255,.88);
 }
-
 
 .check{
 
-    width:24px;
-    height:24px;
-
-    min-width:24px;
+    width:20px;
+    height:20px;
 
     border-radius:50%;
 
-    background:var(--yellow);
+    background:
+        rgba(242,184,75,.16);
 
-    color:var(--deep-green);
+    color:#F2B84B;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    font-weight:900;
+    font-size:10px;
 
+    font-weight:900;
+}
+
+.management-visual{
+
+    position:relative;
+
+    z-index:2;
+}
+
+.mini-dashboard{
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    backdrop-filter:blur(10px);
+}
+
+.mini-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+}
+
+.mini-header span{
+
+    font-size:10px;
+
+    color:rgba(255,255,255,.65);
+}
+
+.mini-chart{
+
+    height:105px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.03)
+        );
+
+    border-radius:13px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.chart-line{
+
+    position:absolute;
+
+    left:8%;
+    right:8%;
+
+    bottom:25%;
+
+    height:45%;
+
+    border-top:
+        2px solid
+        #F2B84B;
+
+    transform:
+        skewY(-8deg);
+}
+
+.mini-bottom{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin-top:10px;
+}
+
+.mini-box{
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-radius:10px;
+
+    padding:10px;
+}
+
+.mini-box span{
+
+    display:block;
+
+    font-size:7px;
+
+    color:rgba(255,255,255,.55);
+
+    margin-bottom:5px;
+}
+
+.mini-box strong{
+
+    font-size:11px;
+
+    color:white;
 }
 
 
@@ -978,92 +1573,76 @@ section{
    HOW IT WORKS
 ===================================================== */
 
-.how{
-
-    background:var(--beige);
-
-}
-
-
 .steps{
-
-    max-width:850px;
-
-    margin:auto;
 
     display:grid;
 
-    grid-template-columns:1fr;
+    grid-template-columns:
+        repeat(3,1fr);
 
-    gap:15px;
+    gap:20px;
 
+    position:relative;
 }
-
 
 .step{
 
-    background:white;
+    text-align:center;
 
-    border:1px solid var(--border);
-
-    border-radius:19px;
-
-    padding:21px;
-
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:15px;
-
+    padding:25px;
 }
-
 
 .step-number{
 
-    width:42px;
-    height:42px;
+    width:48px;
+    height:48px;
 
-    min-width:42px;
+    margin:
+        0
+        auto
+        17px;
 
     border-radius:50%;
 
-    background:var(--yellow);
+    background:
+        #E8F3ED;
 
-    color:var(--deep-green);
+    color:var(--green);
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
-    font-size:14px;
 
     font-weight:900;
 
-}
+    font-size:15px;
 
+    border:
+        4px solid
+        white;
+
+    box-shadow:
+        0 0 0 1px
+        rgba(22,128,92,.12);
+}
 
 .step h3{
 
-    color:var(--deep-green);
-
     font-size:15px;
 
-    margin-bottom:5px;
+    color:var(--dark-green);
 
+    margin-bottom:8px;
 }
-
 
 .step p{
 
     color:var(--muted);
 
-    font-size:12px;
+    font-size:11px;
 
-    line-height:1.55;
-
+    line-height:1.65;
 }
 
 
@@ -1071,78 +1650,103 @@ section{
    CTA
 ===================================================== */
 
+.cta-section{
+
+    padding:
+        30px
+        20px
+        80px;
+
+    background:white;
+}
+
 .cta{
 
-    background:var(--green);
-
-    color:white;
-
-    text-align:center;
-
-}
-
-
-.cta h2{
-
-    font-size:
-        clamp(28px,7vw,42px);
-
-    margin-bottom:12px;
-
-    letter-spacing:-.8px;
-
-}
-
-
-.cta p{
-
-    max-width:560px;
+    max-width:1050px;
 
     margin:auto;
 
-    color:rgba(255,255,255,.80);
+    background:
+        linear-gradient(
+            135deg,
+            #F1E9D7,
+            #F8F4EA
+        );
 
-    line-height:1.7;
+    border:
+        1px solid
+        rgba(11,79,58,.08);
 
-    font-size:14px;
+    border-radius:26px;
 
+    padding:
+        50px
+        30px;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
 }
 
+.cta::before{
 
-.cta-buttons{
+    content:"";
 
-    display:flex;
+    position:absolute;
 
-    flex-direction:column;
+    width:180px;
+    height:180px;
 
-    gap:11px;
+    border-radius:50%;
 
-    max-width:350px;
+    background:
+        rgba(22,128,92,.06);
 
-    margin:27px auto 0;
-
+    left:-70px;
+    top:-80px;
 }
 
+.cta h2{
 
-.cta .btn-primary{
-
-    background:white;
+    position:relative;
 
     color:var(--deep-green);
 
-    box-shadow:none;
+    font-size:
+        clamp(
+            29px,
+            4vw,
+            42px
+        );
 
+    letter-spacing:-1.5px;
+
+    margin-bottom:12px;
 }
 
+.cta p{
 
-.cta .btn-secondary{
+    position:relative;
 
-    background:transparent;
+    color:var(--muted);
 
-    color:white;
+    font-size:13px;
 
-    border:1px solid rgba(255,255,255,.35);
+    line-height:1.7;
 
+    max-width:560px;
+
+    margin:
+        0
+        auto
+        23px;
+}
+
+.cta .primary-btn{
+
+    position:relative;
 }
 
 
@@ -1152,73 +1756,77 @@ section{
 
 footer{
 
-    background:var(--deep-green);
+    background:#073B2C;
 
     color:white;
 
-    padding:30px 0;
-
+    padding:
+        35px
+        20px;
 }
 
+.footer-inner{
 
-.footer-content{
+    max-width:1100px;
 
-    text-align:center;
-
-}
-
-
-.footer-logo{
+    margin:auto;
 
     display:flex;
 
-    justify-content:center;
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.footer-brand{
+
+    display:flex;
 
     align-items:center;
 
     gap:9px;
-
-    margin-bottom:10px;
-
 }
 
-
-.footer-logo img{
+.footer-brand img{
 
     width:34px;
     height:34px;
 
-    object-fit:contain;
-
+    border-radius:9px;
 }
 
+.footer-brand strong{
 
-.footer-name{
-
-    font-size:19px;
-
-    font-weight:800;
-
+    font-size:15px;
 }
 
+.footer-copy{
 
-.footer-tagline{
+    font-size:9px;
 
-    color:rgba(255,255,255,.65);
+    color:
+        rgba(255,255,255,.48);
 
-    font-size:11px;
-
-    margin-bottom:15px;
-
+    margin-top:4px;
 }
 
+.footer-links{
 
-.copyright{
+    display:flex;
+
+    gap:18px;
 
     font-size:10px;
 
-    color:rgba(255,255,255,.45);
+    color:
+        rgba(255,255,255,.65);
+}
 
+.footer-links a:hover{
+
+    color:white;
 }
 
 
@@ -1232,271 +1840,394 @@ footer{
 
     inset:0;
 
-    background:rgba(11,79,58,.48);
+    z-index:2000;
 
-    backdrop-filter:blur(5px);
+    background:
+        rgba(0,0,0,.48);
 
-    display:flex;
+    display:none;
 
     align-items:flex-end;
 
     justify-content:center;
 
     padding:15px;
-
-    z-index:2000;
-
 }
 
+.modal.show{
 
-.modal.hidden{
-
-    display:none;
-
+    display:flex;
 }
-
 
 .modal-card{
 
     width:100%;
 
-    max-width:450px;
+    max-width:460px;
 
     background:white;
 
-    border-radius:25px;
+    border-radius:
+        22px
+        22px
+        16px
+        16px;
 
-    padding:25px 22px 22px;
+    padding:24px;
 
     box-shadow:
-        0 -10px 50px rgba(0,0,0,.20);
+        0 30px 80px
+        rgba(0,0,0,.25);
 
+    animation:
+        modalUp .3s ease;
 }
 
+@keyframes modalUp{
 
-.modal-top{
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+.modal-head{
 
     display:flex;
-
-    justify-content:space-between;
 
     align-items:center;
 
+    justify-content:space-between;
+
     margin-bottom:18px;
-
 }
 
+.modal-head h3{
 
-.modal-title{
+    color:var(--dark-green);
 
-    color:var(--deep-green);
-
-    font-size:21px;
-
-    font-weight:800;
-
+    font-size:18px;
 }
 
+.close-btn{
 
-.close{
+    width:31px;
+    height:31px;
 
-    width:34px;
-    height:34px;
+    border:0;
 
     border-radius:50%;
 
-    background:var(--beige);
+    background:#F1F3F0;
 
-    color:var(--charcoal);
+    color:#59655F;
 
-    font-size:20px;
+    cursor:pointer;
 
+    font-size:16px;
 }
-
-
-.install-steps{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-    margin-bottom:20px;
-
-}
-
 
 .install-step{
 
     display:flex;
 
-    align-items:flex-start;
-
     gap:12px;
 
-    color:var(--muted);
-
-    font-size:13px;
-
-    line-height:1.5;
-
+    margin-bottom:14px;
 }
 
+.install-step-number{
 
-.step-circle{
+    width:27px;
+    height:27px;
 
-    width:29px;
-    height:29px;
+    border-radius:8px;
 
-    min-width:29px;
+    background:#EAF4EE;
 
-    border-radius:50%;
-
-    background:var(--green);
-
-    color:white;
+    color:var(--green);
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    flex-shrink:0;
+}
+
+.install-step p{
 
     font-size:11px;
 
-    font-weight:800;
+    line-height:1.55;
 
+    color:#69746E;
+}
+
+.install-step strong{
+
+    color:var(--dark-green);
 }
 
 
 /* =====================================================
-   HIDDEN
+   MOBILE
 ===================================================== */
 
-.hidden{
-
-    display:none !important;
-
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media(min-width:700px){
+@media(max-width:850px){
 
     .nav-links{
 
-        display:flex;
-
+        display:none;
     }
 
-    .nav-menu-mobile{
+    .nav-inner{
 
-        display:none;
+        height:62px;
 
+        padding:
+            0
+            15px;
+    }
+
+    .navbar{
+
+        top:52px;
     }
 
     .hero{
 
         padding:
-            85px
-            20px
-            95px;
+            52px
+            17px
+            65px;
+    }
 
+    .hero-container{
+
+        grid-template-columns:1fr;
+
+        gap:40px;
+    }
+
+    .hero-content{
+
+        text-align:center;
+
+        margin:auto;
+    }
+
+    .hero-description{
+
+        margin:
+            0
+            auto
+            25px;
     }
 
     .hero-buttons{
 
-        flex-direction:row;
+        justify-content:center;
+    }
 
-        max-width:420px;
+    .hero-note{
 
+        justify-content:center;
+    }
+
+    .dashboard-card{
+
+        transform:none;
+
+        max-width:460px;
     }
 
     .overview-grid{
 
-        grid-template-columns:
-            repeat(3,1fr);
-
+        grid-template-columns:1fr;
     }
 
-    .feature-grid{
+    .features-grid{
 
         grid-template-columns:
             repeat(2,1fr);
-
     }
 
-    .management-box{
+    .management{
 
-        padding:50px;
+        grid-template-columns:1fr;
 
-    }
+        padding:30px;
 
-    .management-list{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+        gap:30px;
     }
 
     .steps{
 
-        grid-template-columns:
-            repeat(3,1fr);
-
+        grid-template-columns:1fr;
     }
 
-    .cta-buttons{
+    .section{
 
-        flex-direction:row;
-
-        max-width:430px;
-
+        padding:
+            65px
+            17px;
     }
 
+    .trust-inner{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+    }
+
+    .footer-inner{
+
+        flex-direction:column;
+
+        text-align:center;
+    }
+
+    .footer-brand{
+
+        justify-content:center;
+    }
+
+    .footer-links{
+
+        justify-content:center;
+    }
 }
 
+@media(max-width:500px){
 
-@media(min-width:900px){
+    .install-text span{
 
-    .install-bar{
-
-        padding:9px 20px;
-
+        display:none;
     }
 
-    .hero-logo{
+    .install-btn{
 
-        width:125px;
-        height:125px;
+        padding:
+            8px
+            11px;
+    }
 
+    .brand-name{
+
+        font-size:19px;
+    }
+
+    .nav-actions .login-link{
+
+        display:none;
+    }
+
+    .hero h1{
+
+        font-size:43px;
+
+        letter-spacing:-2px;
+    }
+
+    .hero-description{
+
+        font-size:14px;
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+
+        width:100%;
+
+        max-width:300px;
+    }
+
+    .dashboard-card{
+
+        padding:11px;
+
+        border-radius:18px;
+    }
+
+    .balance-card{
+
+        padding:18px;
+    }
+
+    .balance-value{
+
+        font-size:25px;
+    }
+
+    .features-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .management{
+
+        border-radius:21px;
+
+        padding:26px 21px;
+    }
+
+    .cta{
+
+        padding:
+            38px
+            20px;
+
+        border-radius:21px;
     }
 
 }
 
 
 /* =====================================================
-   REDUCED MOTION
+   SCROLL REVEAL
 ===================================================== */
 
-@media(prefers-reduced-motion:reduce){
+.reveal{
 
-    html{
+    opacity:0;
 
-        scroll-behavior:auto;
+    transform:
+        translateY(22px);
 
-    }
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
 
-    *{
+.reveal.visible{
 
-        transition:none !important;
+    opacity:1;
 
-    }
-
+    transform:
+        translateY(0);
 }
 
 </style>
@@ -1508,54 +2239,40 @@ footer{
 
 
 <!-- =====================================================
-     APP INSTALL BAR
+     INSTALL BAR
 ===================================================== -->
 
 <div class="install-bar">
 
-    <div class="install-inner">
+    <div class="install-left">
 
+        <div class="install-icon">
+            ✦
+        </div>
 
-        <div class="install-info">
+        <div class="install-text">
 
-            <div class="install-small-logo">
+            <strong>
+                Get Kayah on your phone
+            </strong>
 
-                <img
-                    src="kayah-logo.png"
-                    alt="Kayah"
-                    onerror="this.style.display='none';">
-
-            </div>
-
-
-            <div class="install-text">
-
-                <div class="install-title">
-                    Get Kayah on your phone
-                </div>
-
-                <div class="install-subtitle">
-                    Install the Kayah business app
-                </div>
-
-            </div>
+            <span>
+                Install the Kayah business app
+            </span>
 
         </div>
 
-
-        <button
-            id="installButton"
-            class="install-button">
-
-            INSTALL
-
-        </button>
-
-
     </div>
 
-</div>
+    <button
+        class="install-btn"
+        id="installButton">
 
+        INSTALL
+
+    </button>
+
+</div>
 
 
 <!-- =====================================================
@@ -1566,14 +2283,15 @@ footer{
 
     <div class="nav-inner">
 
-
-        <a href="index.html" class="logo">
+        <a
+            href="#top"
+            class="brand">
 
             <img
                 src="kayah-logo.png"
                 alt="Kayah">
 
-            <span class="logo-name">
+            <span class="brand-name">
                 Kayah
             </span>
 
@@ -1594,83 +2312,363 @@ footer{
                 How It Works
             </a>
 
+        </div>
+
+
+        <div class="nav-actions">
+
             <a
                 href="login.html"
-                class="nav-login">
+                class="login-link">
 
                 Log In
 
             </a>
 
-        </div>
+            <a
+                href="signup.html"
+                class="nav-signup">
 
+                Get Started
+
+            </a>
+
+        </div>
 
     </div>
 
 </nav>
 
 
-
 <!-- =====================================================
      HERO
 ===================================================== -->
 
+<main id="top">
+
 <section class="hero">
 
-    <div class="hero-content">
+    <div class="hero-container">
 
 
-        <div class="hero-logo">
+        <div class="hero-content reveal">
 
-            <img
-                src="kayah-logo.png"
-                alt="Kayah Logo">
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                BUSINESS MANAGEMENT, SIMPLIFIED
+
+            </div>
+
+
+            <h1>
+
+                Business,
+                <span>
+                    Made Possible.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Kayah gives you one simple place to
+                manage your business, products,
+                inventory, sales, expenses, customers,
+                and reports — so you can spend less
+                time organizing and more time growing.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="signup.html"
+                    class="primary-btn">
+
+                    Get Started
+                    <span>→</span>
+
+                </a>
+
+
+                <a
+                    href="login.html"
+                    class="secondary-btn">
+
+                    Log In
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-note">
+
+                <span class="hero-note-icon">
+                    ✓
+                </span>
+
+                Built for everyday businesses
+
+            </div>
 
         </div>
 
 
-        <h1>
-            Kayah
-        </h1>
+
+        <!-- DASHBOARD PREVIEW -->
+
+        <div class="dashboard-wrap reveal">
+
+            <div class="dashboard-card">
 
 
-        <div class="hero-tagline">
-            Business, Made Possible.
+                <div class="dashboard-top">
+
+                    <div class="dash-brand">
+
+                        <img
+                            src="kayah-logo.png"
+                            alt="Kayah">
+
+                        <strong>
+                            Business Overview
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dash-profile">
+                        K
+                    </div>
+
+                </div>
+
+
+                <div class="balance-card">
+
+                    <div class="balance-label">
+                        BUSINESS BALANCE
+                    </div>
+
+                    <div class="balance-value">
+                        ₱128,450.00
+                    </div>
+
+                    <div class="balance-bottom">
+
+                        <span>
+                            This month
+                        </span>
+
+                        <span class="balance-status">
+                            +12.8%
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dash-stats">
+
+                    <div class="stat-box">
+
+                        <div class="stat-label">
+                            SALES
+                        </div>
+
+                        <div class="stat-value">
+                            ₱84.2K
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-box">
+
+                        <div class="stat-label">
+                            EXPENSES
+                        </div>
+
+                        <div class="stat-value">
+                            ₱21.8K
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-box">
+
+                        <div class="stat-label">
+                            PRODUCTS
+                        </div>
+
+                        <div class="stat-value">
+                            248
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity">
+
+                    <div class="activity-head">
+
+                        <strong>
+                            Recent Activity
+                        </strong>
+
+                        <span>
+                            View all
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity-row">
+
+                        <div class="activity-left">
+
+                            <div class="activity-icon">
+                                ↑
+                            </div>
+
+                            <div>
+
+                                <div class="activity-name">
+                                    New Sale
+                                </div>
+
+                                <div class="activity-date">
+                                    Today, 10:42 AM
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="activity-amount">
+                            +₱2,450
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-row">
+
+                        <div class="activity-left">
+
+                            <div class="activity-icon">
+                                ▣
+                            </div>
+
+                            <div>
+
+                                <div class="activity-name">
+                                    Inventory Updated
+                                </div>
+
+                                <div class="activity-date">
+                                    Today, 9:18 AM
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="activity-amount">
+                            24 items
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-row">
+
+                        <div class="activity-left">
+
+                            <div class="activity-icon">
+                                ₱
+                            </div>
+
+                            <div>
+
+                                <div class="activity-name">
+                                    Expense Recorded
+                                </div>
+
+                                <div class="activity-date">
+                                    Yesterday
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="activity-amount">
+                            -₱850
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST STRIP
+===================================================== -->
+
+<section class="trust-strip">
+
+    <div class="trust-inner">
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                ✓
+            </div>
+
+            Simple to use
+
         </div>
 
 
-        <p class="hero-description">
+        <div class="trust-item">
 
-            A simple business management platform
-            designed to bring your everyday business
-            tools together in one place.
+            <div class="trust-icon">
+                ◇
+            </div>
 
-        </p>
-
-
-        <div class="hero-buttons">
-
-
-            <button
-                id="heroInstall"
-                class="btn btn-primary">
-
-                Install Kayah App
-
-            </button>
-
-
-            <a
-                href="signup.html"
-                class="btn btn-secondary">
-
-                Get Started
-
-            </a>
-
+            All in one place
 
         </div>
 
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                ↗
+            </div>
+
+            Built to grow
+
+        </div>
 
     </div>
 
@@ -1683,29 +2681,27 @@ footer{
 ===================================================== -->
 
 <section
-    id="overview"
-    class="overview">
+    class="section"
+    id="overview">
 
-    <div class="container">
+    <div class="section-inner">
 
 
-        <div class="section-header">
+        <div class="section-heading reveal">
 
-            <span class="section-label">
-                Kayah Overview
-            </span>
+            <div class="section-label">
+                OVERVIEW
+            </div>
 
-            <h2 class="section-title">
-                One platform for your business
+            <h2>
+                Everything your business
+                needs in one place.
             </h2>
 
-            <p class="section-description">
-
-                Kayah brings important business operations
-                together so you can spend less time switching
-                between different tools and more time managing
-                your business.
-
+            <p>
+                Kayah brings the essential parts
+                of business management together
+                in one organized platform.
             </p>
 
         </div>
@@ -1714,10 +2710,10 @@ footer{
         <div class="overview-grid">
 
 
-            <div class="overview-card">
+            <div class="overview-card reveal">
 
                 <div class="overview-icon">
-                    B
+                    ◈
                 </div>
 
                 <h3>
@@ -1725,20 +2721,18 @@ footer{
                 </h3>
 
                 <p>
-
                     Keep your business information,
-                    operations and important records
-                    organized in one place.
-
+                    settings, and daily operations
+                    organized from one central place.
                 </p>
 
             </div>
 
 
-            <div class="overview-card">
+            <div class="overview-card reveal">
 
                 <div class="overview-icon">
-                    P
+                    ▣
                 </div>
 
                 <h3>
@@ -1746,20 +2740,18 @@ footer{
                 </h3>
 
                 <p>
-
-                    Manage products, monitor inventory
-                    and keep track of what is available
-                    for your business.
-
+                    Manage your products, stock levels,
+                    pricing, and inventory movements
+                    without complicated spreadsheets.
                 </p>
 
             </div>
 
 
-            <div class="overview-card">
+            <div class="overview-card reveal">
 
                 <div class="overview-icon">
-                    S
+                    ₱
                 </div>
 
                 <h3>
@@ -1767,11 +2759,9 @@ footer{
                 </h3>
 
                 <p>
-
-                    Record business transactions and
-                    organize your sales and expenses
-                    for easier monitoring.
-
+                    Record your sales and expenses
+                    so you have a clearer picture of
+                    your business activity and finances.
                 </p>
 
             </div>
@@ -1790,207 +2780,173 @@ footer{
 ===================================================== -->
 
 <section
-    id="features"
-    class="features">
+    class="section white"
+    id="features">
 
-    <div class="container">
+    <div class="section-inner">
 
 
-        <div class="section-header">
+        <div class="section-heading reveal">
 
-            <span class="section-label">
-                Features
-            </span>
+            <div class="section-label">
+                FEATURES
+            </div>
 
-            <h2 class="section-title">
-                Everything organized in one place
+            <h2>
+                The tools you need.
             </h2>
 
-            <p class="section-description">
-
-                Kayah is built around the everyday
-                needs of businesses.
-
+            <p>
+                Designed around the everyday tasks
+                that keep a business moving.
             </p>
 
         </div>
 
 
-        <div class="feature-grid">
+        <div class="features-grid">
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    01
+                    ◉
                 </div>
 
-                <div>
+                <h3>
+                    Business Profile
+                </h3>
 
-                    <h3>
-                        Business Profile
-                    </h3>
-
-                    <p>
-                        Keep your business details
-                        organized and accessible.
-                    </p>
-
-                </div>
+                <p>
+                    Keep your business information
+                    organized and accessible.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    02
+                    ▣
                 </div>
 
-                <div>
+                <h3>
+                    Products
+                </h3>
 
-                    <h3>
-                        Product Management
-                    </h3>
-
-                    <p>
-                        Create and manage your
-                        business products and services.
-                    </p>
-
-                </div>
+                <p>
+                    Add products, prices, categories
+                    and important details.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    03
+                    ◫
                 </div>
 
-                <div>
+                <h3>
+                    Inventory
+                </h3>
 
-                    <h3>
-                        Inventory
-                    </h3>
-
-                    <p>
-                        Monitor stock and keep your
-                        inventory information updated.
-                    </p>
-
-                </div>
+                <p>
+                    Keep track of stock and inventory
+                    changes with ease.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    04
+                    ₱
                 </div>
 
-                <div>
+                <h3>
+                    Sales
+                </h3>
 
-                    <h3>
-                        Sales
-                    </h3>
-
-                    <p>
-                        Record and organize business
-                        sales in one place.
-                    </p>
-
-                </div>
+                <p>
+                    Record sales and keep your
+                    business activity organized.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    05
+                    −
                 </div>
 
-                <div>
+                <h3>
+                    Expenses
+                </h3>
 
-                    <h3>
-                        Expenses
-                    </h3>
-
-                    <p>
-                        Keep track of business expenses
-                        and spending records.
-                    </p>
-
-                </div>
+                <p>
+                    Record business expenses and
+                    understand where money goes.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    06
+                    ♙
                 </div>
 
-                <div>
+                <h3>
+                    Customers
+                </h3>
 
-                    <h3>
-                        Customers
-                    </h3>
-
-                    <p>
-                        Organize customer information
-                        and business relationships.
-                    </p>
-
-                </div>
+                <p>
+                    Keep useful customer information
+                    available when you need it.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    07
+                    ◒
                 </div>
 
-                <div>
+                <h3>
+                    Reports
+                </h3>
 
-                    <h3>
-                        Reports
-                    </h3>
-
-                    <p>
-                        View organized business information
-                        to help monitor your operations.
-                    </p>
-
-                </div>
+                <p>
+                    Turn your business activity into
+                    useful information and insights.
+                </p>
 
             </div>
 
 
-            <div class="feature-card">
+            <div class="feature reveal">
 
                 <div class="feature-icon">
-                    08
+                    ⚙
                 </div>
 
-                <div>
+                <h3>
+                    Settings
+                </h3>
 
-                    <h3>
-                        Business Settings
-                    </h3>
-
-                    <p>
-                        Customize your business profile
-                        and manage your account settings.
-                    </p>
-
-                </div>
+                <p>
+                    Configure your business and
+                    manage your Kayah experience.
+                </p>
 
             </div>
 
@@ -2007,58 +2963,60 @@ footer{
      MANAGEMENT
 ===================================================== -->
 
-<section class="management">
+<section class="section">
 
-    <div class="container">
+    <div class="section-inner">
 
 
-        <div class="management-box">
+        <div class="management reveal">
 
 
             <div class="management-content">
 
+                <div class="management-label">
+                    BUILT FOR EVERYDAY BUSINESS
+                </div>
 
                 <h2>
-                    Built for everyday business
+                    Spend less time
+                    organizing.
                 </h2>
 
-
                 <p>
-
-                    Whether you are starting a small business
-                    or managing an established operation,
-                    Kayah gives you a central place to organize
-                    the information and activities that matter.
-
+                    Your business shouldn't depend on
+                    scattered notes, spreadsheets, and
+                    disconnected tools. Kayah brings
+                    the important pieces together so
+                    you can manage your day with more
+                    clarity.
                 </p>
 
 
                 <div class="management-list">
 
-
-                    <div class="management-item">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Organize business information
-
-                    </div>
-
-
-                    <div class="management-item">
+                    <div>
 
                         <span class="check">
                             ✓
                         </span>
 
-                        Manage products and inventory
+                        Manage your business from one place
 
                     </div>
 
 
-                    <div class="management-item">
+                    <div>
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        Keep products and inventory organized
+
+                    </div>
+
+
+                    <div>
 
                         <span class="check">
                             ✓
@@ -2069,43 +3027,92 @@ footer{
                     </div>
 
 
-                    <div class="management-item">
+                    <div>
 
                         <span class="check">
                             ✓
                         </span>
 
-                        Keep customer records organized
+                        Understand your business with reports
 
                     </div>
-
-
-                    <div class="management-item">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Review business reports
-
-                    </div>
-
-
-                    <div class="management-item">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Access your business from one app
-
-                    </div>
-
 
                 </div>
 
+            </div>
+
+
+
+            <div class="management-visual">
+
+                <div class="mini-dashboard">
+
+                    <div class="mini-header">
+
+                        <span>
+                            Business Performance
+                        </span>
+
+                        <span>
+                            This Month
+                        </span>
+
+                    </div>
+
+
+                    <div class="mini-chart">
+
+                        <div class="chart-line"></div>
+
+                    </div>
+
+
+                    <div class="mini-bottom">
+
+                        <div class="mini-box">
+
+                            <span>
+                                SALES
+                            </span>
+
+                            <strong>
+                                ₱84.2K
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-box">
+
+                            <span>
+                                ORDERS
+                            </span>
+
+                            <strong>
+                                326
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-box">
+
+                            <span>
+                                STOCK
+                            </span>
+
+                            <strong>
+                                92%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
+
 
         </div>
 
@@ -2120,26 +3127,25 @@ footer{
 ===================================================== -->
 
 <section
-    id="how"
-    class="how">
+    class="section white"
+    id="how">
 
-    <div class="container">
+    <div class="section-inner">
 
 
-        <div class="section-header">
+        <div class="section-heading reveal">
 
-            <span class="section-label">
-                Getting Started
-            </span>
+            <div class="section-label">
+                GETTING STARTED
+            </div>
 
-            <h2 class="section-title">
-                Start managing your business
+            <h2>
+                Start managing your
+                business in three steps.
             </h2>
 
-            <p class="section-description">
-
+            <p>
                 Getting started with Kayah is simple.
-
             </p>
 
         </div>
@@ -2148,68 +3154,59 @@ footer{
         <div class="steps">
 
 
-            <div class="step">
+            <div class="step reveal">
 
                 <div class="step-number">
                     1
                 </div>
 
-                <div>
+                <h3>
+                    Create Your Account
+                </h3>
 
-                    <h3>
-                        Install Kayah
-                    </h3>
-
-                    <p>
-                        Add Kayah to your phone so
-                        you can access it like an app.
-                    </p>
-
-                </div>
+                <p>
+                    Sign up and create your Kayah
+                    business account in just a few
+                    simple steps.
+                </p>
 
             </div>
 
 
-            <div class="step">
+            <div class="step reveal">
 
                 <div class="step-number">
                     2
                 </div>
 
-                <div>
+                <h3>
+                    Set Up Your Business
+                </h3>
 
-                    <h3>
-                        Create Your Account
-                    </h3>
-
-                    <p>
-                        Set up your account and
-                        provide your basic business details.
-                    </p>
-
-                </div>
+                <p>
+                    Add your business details and
+                    configure the information you
+                    need to get started.
+                </p>
 
             </div>
 
 
-            <div class="step">
+            <div class="step reveal">
 
                 <div class="step-number">
                     3
                 </div>
 
-                <div>
+                <h3>
+                    Manage Your Business
+                </h3>
 
-                    <h3>
-                        Manage Your Business
-                    </h3>
-
-                    <p>
-                        Start using Kayah to organize
-                        your daily business operations.
-                    </p>
-
-                </div>
+                <p>
+                    Use Kayah to organize products,
+                    inventory, sales, expenses,
+                    customers, and reports.
+                </p>
 
             </div>
 
@@ -2226,51 +3223,35 @@ footer{
      CTA
 ===================================================== -->
 
-<section class="cta">
+<section class="cta-section">
 
-    <div class="container">
-
+    <div class="cta reveal">
 
         <h2>
-            Ready to get started?
+            Your business.
+            One place.
         </h2>
 
-
         <p>
-
-            Create your Kayah account and bring
-            your business tools together in one place.
-
+            Start building a simpler way to
+            manage your business with Kayah.
         </p>
 
+        <a
+            href="signup.html"
+            class="primary-btn">
 
-        <div class="cta-buttons">
+            Create Your Account
+            <span>→</span>
 
-
-            <a
-                href="signup.html"
-                class="btn btn-primary">
-
-                Create an Account
-
-            </a>
-
-
-            <a
-                href="login.html"
-                class="btn btn-secondary">
-
-                Log In
-
-            </a>
-
-
-        </div>
-
+        </a>
 
     </div>
 
 </section>
+
+
+</main>
 
 
 
@@ -2280,36 +3261,49 @@ footer{
 
 <footer>
 
-    <div class="container">
-
-        <div class="footer-content">
+    <div class="footer-inner">
 
 
-            <div class="footer-logo">
+        <div>
+
+            <div class="footer-brand">
 
                 <img
                     src="kayah-logo.png"
                     alt="Kayah">
 
-                <span class="footer-name">
+                <strong>
                     Kayah
-                </span>
+                </strong>
 
             </div>
 
+            <div class="footer-copy">
 
-            <div class="footer-tagline">
                 Business, Made Possible.
-            </div>
-
-
-            <div class="copyright">
-
-                © 2026 Kayah.
-                All rights reserved.
 
             </div>
 
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#overview">
+                Overview
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="login.html">
+                Log In
+            </a>
+
+            <a href="signup.html">
+                Sign Up
+            </a>
 
         </div>
 
@@ -2324,23 +3318,21 @@ footer{
 ===================================================== -->
 
 <div
-    id="installModal"
-    class="modal hidden">
-
+    class="modal"
+    id="installModal">
 
     <div class="modal-card">
 
 
-        <div class="modal-top">
+        <div class="modal-head">
 
-            <div class="modal-title">
+            <h3>
                 Install Kayah
-            </div>
-
+            </h3>
 
             <button
-                id="closeModal"
-                class="close">
+                class="close-btn"
+                id="closeModal">
 
                 ×
 
@@ -2349,70 +3341,67 @@ footer{
         </div>
 
 
-        <div class="install-steps">
+        <div class="install-step">
 
-
-            <div class="install-step">
-
-                <div class="step-circle">
-                    1
-                </div>
-
-                <div>
-
-                    If your browser shows an
-                    <strong>Install</strong> option,
-                    choose it to install Kayah.
-
-                </div>
-
+            <div class="install-step-number">
+                1
             </div>
 
-
-            <div class="install-step">
-
-                <div class="step-circle">
-                    2
-                </div>
-
-                <div>
-
-                    If no install prompt appears,
-                    open your browser menu and choose
-                    <strong>Add to Home screen</strong>
-                    or <strong>Install app</strong>.
-
-                </div>
-
-            </div>
-
-
-            <div class="install-step">
-
-                <div class="step-circle">
-                    3
-                </div>
-
-                <div>
-
-                    After installation, open Kayah
-                    from your phone's home screen.
-
-                </div>
-
-            </div>
-
+            <p>
+                Open this website using
+                <strong>Google Chrome</strong>.
+            </p>
 
         </div>
 
 
-        <button
-            id="closeModalButton"
-            class="btn btn-primary">
+        <div class="install-step">
 
-            Continue
+            <div class="install-step-number">
+                2
+            </div>
 
-        </button>
+            <p>
+                Tap the
+                <strong>three-dot menu</strong>
+                in Chrome.
+            </p>
+
+        </div>
+
+
+        <div class="install-step">
+
+            <div class="install-step-number">
+                3
+            </div>
+
+            <p>
+                Select
+                <strong>
+                    Install app
+                </strong>
+                or
+                <strong>
+                    Add to Home screen
+                </strong>.
+            </p>
+
+        </div>
+
+
+        <div class="install-step">
+
+            <div class="install-step-number">
+                4
+            </div>
+
+            <p>
+                Kayah will appear on your
+                phone like an app.
+            </p>
+
+        </div>
 
 
     </div>
@@ -2424,36 +3413,26 @@ footer{
 <script>
 
 /* =====================================================
-   KAYAH INDEX JAVASCRIPT
+   PWA INSTALL
 ===================================================== */
-
-
-/* -----------------------------------------------------
-   VARIABLES
------------------------------------------------------ */
 
 let deferredPrompt = null;
 
-
 const installButton =
-    document.getElementById("installButton");
-
-const heroInstall =
-    document.getElementById("heroInstall");
+    document.getElementById(
+        "installButton"
+    );
 
 const installModal =
-    document.getElementById("installModal");
+    document.getElementById(
+        "installModal"
+    );
 
 const closeModal =
-    document.getElementById("closeModal");
+    document.getElementById(
+        "closeModal"
+    );
 
-const closeModalButton =
-    document.getElementById("closeModalButton");
-
-
-/* -----------------------------------------------------
-   INSTALL PROMPT
------------------------------------------------------ */
 
 window.addEventListener(
     "beforeinstallprompt",
@@ -2463,120 +3442,38 @@ window.addEventListener(
 
         deferredPrompt = event;
 
+        installButton.textContent =
+            "INSTALL";
+
     }
 );
 
-
-/* -----------------------------------------------------
-   INSTALL FUNCTION
------------------------------------------------------ */
-
-async function installKayah(){
-
-    /*
-       If browser supports the native
-       installation prompt, use it.
-    */
-
-    if(deferredPrompt){
-
-        deferredPrompt.prompt();
-
-        const result =
-            await deferredPrompt.userChoice;
-
-        console.log(
-            "Install choice:",
-            result.outcome
-        );
-
-        deferredPrompt = null;
-
-        return;
-
-    }
-
-
-    /*
-       If browser does not provide the
-       automatic prompt, show instructions.
-    */
-
-    installModal.classList.remove("hidden");
-
-}
-
-
-/* -----------------------------------------------------
-   INSTALL BUTTONS
------------------------------------------------------ */
 
 installButton.addEventListener(
     "click",
-    installKayah
-);
+    async function(){
 
+        if(deferredPrompt){
 
-heroInstall.addEventListener(
-    "click",
-    installKayah
-);
+            deferredPrompt.prompt();
 
+            const result =
+                await deferredPrompt.userChoice;
 
-/* -----------------------------------------------------
-   APP INSTALLED
------------------------------------------------------ */
+            if(
+                result.outcome ===
+                "accepted"
+            ){
 
-window.addEventListener(
-    "appinstalled",
-    function(){
+                deferredPrompt = null;
 
-        installButton.textContent =
-            "INSTALLED";
+            }
 
-        installButton.style.opacity =
-            ".7";
+        }else{
 
-        heroInstall.textContent =
-            "Kayah Installed";
-
-        heroInstall.style.opacity =
-            ".7";
-
-    }
-);
-
-
-/* -----------------------------------------------------
-   CLOSE MODAL
------------------------------------------------------ */
-
-function closeInstallModal(){
-
-    installModal.classList.add("hidden");
-
-}
-
-
-closeModal.addEventListener(
-    "click",
-    closeInstallModal
-);
-
-
-closeModalButton.addEventListener(
-    "click",
-    closeInstallModal
-);
-
-
-installModal.addEventListener(
-    "click",
-    function(event){
-
-        if(event.target === installModal){
-
-            closeInstallModal();
+            installModal.classList.add(
+                "show"
+            );
 
         }
 
@@ -2584,18 +3481,70 @@ installModal.addEventListener(
 );
 
 
-/* -----------------------------------------------------
-   SERVICE WORKER
------------------------------------------------------ */
+closeModal.addEventListener(
+    "click",
+    function(){
 
-if("serviceWorker" in navigator){
+        installModal.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+installModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            installModal
+        ){
+
+            installModal.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+window.addEventListener(
+    "appinstalled",
+    function(){
+
+        deferredPrompt = null;
+
+        installButton.textContent =
+            "INSTALLED";
+
+        installButton.disabled =
+            true;
+
+        installButton.style.opacity =
+            ".7";
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
 
     window.addEventListener(
         "load",
         function(){
 
             navigator.serviceWorker
-                .register("sw.js")
+                .register("./sw.js")
                 .then(function(){
 
                     console.log(
@@ -2606,7 +3555,7 @@ if("serviceWorker" in navigator){
                 .catch(function(error){
 
                     console.log(
-                        "Service worker not ready:",
+                        "Service worker error:",
                         error
                     );
 
@@ -2616,6 +3565,80 @@ if("serviceWorker" in navigator){
     );
 
 }
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+
+const revealObserver =
+    new IntersectionObserver(
+        function(entries){
+
+            entries.forEach(
+                function(entry){
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+revealElements.forEach(
+    function(element){
+
+        revealObserver.observe(
+            element
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE MODAL WITH ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            installModal.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
 
 </script>
 
