@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
-<meta name="theme-color" content="#0B4F3A">
+<meta name="theme-color"
+      content="#0B4F3A">
 
 <meta name="description"
       content="Kayah — Business, Made Possible. A simple and professional platform for managing your business.">
 
-<link rel="manifest" href="./manifest.json">
+<link rel="manifest"
+      href="./manifest.json">
 
 <link rel="icon"
       type="image/png"
       href="./kayah-logo.png">
 
-<title>Kayah — Business, Made Possible.</title>
+<title>
+    Kayah — Business, Made Possible.
+</title>
 
 
 <style>
@@ -69,35 +74,41 @@ button{
 
 
 /* =====================================================
-   VARIABLES
+   COLORS
 ===================================================== */
 
 :root{
 
     --green:#16805C;
+
     --dark-green:#0B4F3A;
+
     --deep-green:#073B2C;
 
     --yellow:#F2B84B;
+
     --beige:#F7F3E8;
 
     --white:#FFFFFF;
+
     --text:#202A24;
+
     --muted:#68736D;
 
     --border:rgba(11,79,58,.10);
 
     --shadow:
-        0 18px 45px rgba(11,79,58,.10);
+        0 18px 45px
+        rgba(11,79,58,.09);
 
     --shadow-soft:
-        0 10px 30px rgba(11,79,58,.07);
-
+        0 10px 30px
+        rgba(11,79,58,.06);
 }
 
 
 /* =====================================================
-   APP INSTALL BAR
+   INSTALL BAR
 ===================================================== */
 
 .install-bar{
@@ -118,8 +129,7 @@ button{
     color:white;
 
     padding:
-        9px
-        15px;
+        9px 15px;
 
     display:flex;
 
@@ -130,7 +140,8 @@ button{
     gap:12px;
 
     box-shadow:
-        0 4px 20px rgba(0,0,0,.10);
+        0 4px 20px
+        rgba(0,0,0,.10);
 }
 
 .install-left{
@@ -151,7 +162,8 @@ button{
 
     border-radius:10px;
 
-    background:rgba(255,255,255,.14);
+    background:
+        rgba(255,255,255,.14);
 
     display:flex;
 
@@ -183,7 +195,7 @@ button{
 
     font-size:10px;
 
-    opacity:.75;
+    opacity:.72;
 
     margin-top:2px;
 }
@@ -201,8 +213,7 @@ button{
     font-size:11px;
 
     padding:
-        9px
-        14px;
+        9px 14px;
 
     border-radius:9px;
 
@@ -211,7 +222,8 @@ button{
     white-space:nowrap;
 
     box-shadow:
-        0 5px 15px rgba(0,0,0,.12);
+        0 5px 15px
+        rgba(0,0,0,.12);
 }
 
 
@@ -248,8 +260,7 @@ button{
     height:68px;
 
     padding:
-        0
-        20px;
+        0 20px;
 
     display:flex;
 
@@ -319,7 +330,7 @@ button{
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 }
 
 .login-link{
@@ -331,8 +342,7 @@ button{
     color:var(--dark-green);
 
     padding:
-        9px
-        13px;
+        9px 13px;
 }
 
 .nav-signup{
@@ -342,8 +352,7 @@ button{
     color:white;
 
     padding:
-        10px
-        15px;
+        10px 15px;
 
     border-radius:10px;
 
@@ -358,7 +367,7 @@ button{
 
 
 /* =====================================================
-   HERO
+   HERO / OPENING
 ===================================================== */
 
 .hero{
@@ -367,17 +376,29 @@ button{
 
     overflow:hidden;
 
+    min-height:
+        calc(100vh - 120px);
+
+    display:flex;
+
+    align-items:center;
+
     padding:
-        72px
-        20px
-        85px;
+        75px 20px
+        90px;
 
     background:
 
         radial-gradient(
-            circle at 80% 15%,
-            rgba(242,184,75,.20),
-            transparent 28%
+            circle at 82% 18%,
+            rgba(242,184,75,.17),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 12% 80%,
+            rgba(22,128,92,.07),
+            transparent 30%
         ),
 
         linear-gradient(
@@ -393,44 +414,88 @@ button{
 
     position:absolute;
 
-    width:360px;
-    height:360px;
+    width:440px;
+    height:440px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(22,128,92,.07);
+
+    right:-210px;
+
+    top:-180px;
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
 
     border-radius:50%;
 
     background:
-        rgba(22,128,92,.07);
+        rgba(242,184,75,.06);
 
-    top:-170px;
-    right:-150px;
+    left:-130px;
+
+    bottom:-120px;
 }
 
 .hero-container{
 
-    max-width:1180px;
+    width:100%;
+
+    max-width:900px;
 
     margin:auto;
 
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    align-items:center;
-
-    gap:55px;
+    text-align:center;
 
     position:relative;
 
     z-index:2;
 }
 
-.hero-content{
+.hero-logo{
 
-    max-width:590px;
+    width:92px;
+    height:92px;
+
+    object-fit:contain;
+
+    margin:
+        0 auto 23px;
+
+    border-radius:23px;
+
+    filter:
+        drop-shadow(
+            0 15px 25px
+            rgba(11,79,58,.13)
+        );
+
+    animation:
+        logoFloat 4s ease-in-out infinite;
 }
 
-.eyebrow{
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+}
+
+.hero-badge{
 
     display:inline-flex;
 
@@ -448,21 +513,20 @@ button{
     color:var(--green);
 
     padding:
-        8px
-        12px;
+        8px 13px;
 
     border-radius:30px;
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:800;
+    font-weight:900;
 
-    letter-spacing:.4px;
+    letter-spacing:1px;
 
-    margin-bottom:20px;
+    margin-bottom:21px;
 }
 
-.eyebrow-dot{
+.hero-badge-dot{
 
     width:7px;
     height:7px;
@@ -476,14 +540,14 @@ button{
 
     font-size:
         clamp(
-            42px,
-            6vw,
-            68px
+            44px,
+            8vw,
+            76px
         );
 
     line-height:1.02;
 
-    letter-spacing:-2.8px;
+    letter-spacing:-3.5px;
 
     color:var(--deep-green);
 
@@ -492,25 +556,30 @@ button{
 
 .hero h1 span{
 
+    display:block;
+
     color:var(--green);
 }
 
 .hero-description{
 
+    max-width:650px;
+
+    margin:
+        0 auto 30px;
+
     color:var(--muted);
 
     font-size:16px;
 
-    line-height:1.75;
-
-    max-width:530px;
-
-    margin-bottom:28px;
+    line-height:1.8;
 }
 
 .hero-buttons{
 
     display:flex;
+
+    justify-content:center;
 
     align-items:center;
 
@@ -527,15 +596,14 @@ button{
 
     justify-content:center;
 
-    gap:8px;
+    gap:9px;
 
     background:var(--dark-green);
 
     color:white;
 
     padding:
-        14px
-        20px;
+        14px 22px;
 
     border-radius:12px;
 
@@ -557,7 +625,7 @@ button{
     transform:translateY(-2px);
 
     box-shadow:
-        0 14px 30px
+        0 15px 30px
         rgba(11,79,58,.22);
 }
 
@@ -570,8 +638,7 @@ button{
     justify-content:center;
 
     padding:
-        13px
-        19px;
+        13px 21px;
 
     border:
         1px solid
@@ -581,7 +648,8 @@ button{
 
     color:var(--dark-green);
 
-    background:rgba(255,255,255,.55);
+    background:
+        rgba(255,255,255,.55);
 
     font-size:13px;
 
@@ -603,13 +671,15 @@ button{
 
     align-items:center;
 
+    justify-content:center;
+
     gap:8px;
 
-    margin-top:19px;
+    margin-top:20px;
 
-    font-size:11px;
+    font-size:10px;
 
-    color:#77817C;
+    color:#7B8580;
 }
 
 .hero-note-icon{
@@ -620,7 +690,7 @@ button{
     border-radius:50%;
 
     background:
-        rgba(22,128,92,.12);
+        rgba(22,128,92,.11);
 
     color:var(--green);
 
@@ -636,430 +706,46 @@ button{
 
 
 /* =====================================================
-   DASHBOARD PREVIEW
+   BRAND STATEMENT
 ===================================================== */
 
-.dashboard-wrap{
-
-    position:relative;
-
-    display:flex;
-
-    justify-content:center;
-}
-
-.dashboard-card{
-
-    width:min(100%, 500px);
-
-    background:white;
-
-    border-radius:24px;
-
-    border:
-        1px solid
-        rgba(11,79,58,.08);
-
-    box-shadow:
-        0 30px 70px
-        rgba(11,79,58,.14);
-
-    padding:17px;
-
-    transform:
-        perspective(1000px)
-        rotateY(-3deg);
-
-    transition:
-        transform .5s ease;
-}
-
-.dashboard-card:hover{
-
-    transform:
-        perspective(1000px)
-        rotateY(0deg)
-        translateY(-5px);
-}
-
-.dashboard-top{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:
-        4px
-        3px
-        15px;
-}
-
-.dash-brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-}
-
-.dash-brand img{
-
-    width:31px;
-    height:31px;
-
-    border-radius:8px;
-}
-
-.dash-brand strong{
-
-    font-size:13px;
-
-    color:var(--dark-green);
-}
-
-.dash-profile{
-
-    width:30px;
-    height:30px;
-
-    border-radius:50%;
-
-    background:#E8F0EB;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:12px;
-
-    color:var(--green);
-
-    font-weight:800;
-}
-
-.balance-card{
-
-    background:
-        linear-gradient(
-            135deg,
-            #0B4F3A,
-            #16805C
-        );
-
-    border-radius:18px;
-
-    padding:22px;
-
-    color:white;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.balance-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    right:-60px;
-    top:-70px;
-}
-
-.balance-label{
-
-    font-size:10px;
-
-    opacity:.7;
-
-    margin-bottom:8px;
-}
-
-.balance-value{
-
-    font-size:29px;
-
-    font-weight:800;
-
-    letter-spacing:-1px;
-}
-
-.balance-bottom{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:22px;
-
-    font-size:10px;
-}
-
-.balance-status{
-
-    background:
-        rgba(242,184,75,.18);
-
-    color:#FFE5A4;
-
-    padding:
-        5px
-        8px;
-
-    border-radius:6px;
-
-    font-weight:700;
-}
-
-.dash-stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:9px;
-
-    margin-top:12px;
-}
-
-.stat-box{
-
-    background:#FAFBF9;
-
-    border:
-        1px solid
-        rgba(11,79,58,.07);
-
-    border-radius:12px;
-
-    padding:13px 10px;
-}
-
-.stat-label{
-
-    color:#89938E;
-
-    font-size:8px;
-
-    margin-bottom:6px;
-}
-
-.stat-value{
-
-    color:var(--dark-green);
-
-    font-size:13px;
-
-    font-weight:800;
-}
-
-.activity{
-
-    margin-top:13px;
-
-    padding:
-        14px;
-
-    background:#FAFBF9;
-
-    border-radius:13px;
-
-    border:
-        1px solid
-        rgba(11,79,58,.06);
-}
-
-.activity-head{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:11px;
-}
-
-.activity-head strong{
-
-    font-size:11px;
-
-    color:var(--dark-green);
-}
-
-.activity-head span{
-
-    font-size:8px;
-
-    color:var(--green);
-
-    font-weight:700;
-}
-
-.activity-row{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:
-        8px
-        0;
-
-    border-bottom:
-        1px solid
-        rgba(11,79,58,.06);
-}
-
-.activity-row:last-child{
-
-    border-bottom:0;
-}
-
-.activity-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-}
-
-.activity-icon{
-
-    width:25px;
-    height:25px;
-
-    border-radius:7px;
-
-    background:#E8F3ED;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    color:var(--green);
-
-    font-size:10px;
-}
-
-.activity-name{
-
-    font-size:9px;
-
-    font-weight:700;
-
-    color:#44534C;
-}
-
-.activity-date{
-
-    font-size:7px;
-
-    color:#9AA39E;
-
-    margin-top:2px;
-}
-
-.activity-amount{
-
-    font-size:9px;
-
-    font-weight:800;
-
-    color:var(--green);
-}
-
-
-/* =====================================================
-   TRUST STRIP
-===================================================== */
-
-.trust-strip{
+.brand-statement{
 
     background:white;
 
     border-top:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
     border-bottom:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
     padding:
-        22px
-        20px;
+        26px 20px;
 }
 
-.trust-inner{
+.statement-inner{
 
-    max-width:1000px;
+    max-width:850px;
 
     margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.trust-item{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    color:#68746D;
-
-    font-size:11px;
-
-    font-weight:700;
 
     text-align:center;
 }
 
-.trust-icon{
-
-    width:31px;
-    height:31px;
-
-    background:#EEF5F0;
-
-    color:var(--green);
-
-    border-radius:9px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
+.statement-inner p{
 
     font-size:13px;
+
+    line-height:1.8;
+
+    color:#66716B;
+}
+
+.statement-inner strong{
+
+    color:var(--dark-green);
 }
 
 
@@ -1070,8 +756,7 @@ button{
 .section{
 
     padding:
-        85px
-        20px;
+        85px 20px;
 }
 
 .section.white{
@@ -1093,9 +778,7 @@ button{
     max-width:700px;
 
     margin:
-        0
-        auto
-        45px;
+        0 auto 45px;
 }
 
 .section-label{
@@ -1142,7 +825,7 @@ button{
 
 
 /* =====================================================
-   OVERVIEW CARDS
+   OVERVIEW
 ===================================================== */
 
 .overview-grid{
@@ -1165,7 +848,7 @@ button{
 
     border-radius:18px;
 
-    padding:25px;
+    padding:27px;
 
     box-shadow:var(--shadow-soft);
 
@@ -1183,8 +866,8 @@ button{
 
 .overview-icon{
 
-    width:48px;
-    height:48px;
+    width:49px;
+    height:49px;
 
     border-radius:13px;
 
@@ -1245,7 +928,7 @@ button{
 
     border-radius:15px;
 
-    padding:19px;
+    padding:20px;
 
     transition:.3s ease;
 }
@@ -1304,7 +987,7 @@ button{
 
 
 /* =====================================================
-   MANAGEMENT SECTION
+   BUSINESS SECTION
 ===================================================== */
 
 .management{
@@ -1320,21 +1003,31 @@ button{
 
     border-radius:28px;
 
-    padding:
-        48px;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:45px;
-
-    align-items:center;
+    padding:48px;
 
     position:relative;
 
     overflow:hidden;
+}
+
+.management::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:330px;
+    height:330px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    right:-130px;
+
+    top:-150px;
 }
 
 .management::after{
@@ -1343,20 +1036,26 @@ button{
 
     position:absolute;
 
-    width:280px;
-    height:280px;
+    width:180px;
+    height:180px;
 
     border-radius:50%;
 
-    border:
-        1px solid
-        rgba(255,255,255,.08);
+    background:
+        rgba(242,184,75,.05);
 
-    right:-100px;
-    bottom:-120px;
+    left:-100px;
+
+    bottom:-90px;
 }
 
 .management-content{
+
+    max-width:720px;
+
+    margin:auto;
+
+    text-align:center;
 
     position:relative;
 
@@ -1371,7 +1070,7 @@ button{
 
     font-weight:900;
 
-    letter-spacing:1.3px;
+    letter-spacing:1.4px;
 
     text-transform:uppercase;
 
@@ -1382,14 +1081,14 @@ button{
 
     font-size:
         clamp(
-            28px,
+            29px,
             4vw,
-            40px
+            42px
         );
 
     line-height:1.12;
 
-    letter-spacing:-1px;
+    letter-spacing:-1.2px;
 
     margin-bottom:15px;
 }
@@ -1403,16 +1102,23 @@ button{
 
     line-height:1.75;
 
-    max-width:480px;
+    max-width:620px;
+
+    margin:auto;
 }
 
 .management-list{
 
-    margin-top:22px;
+    margin-top:25px;
 
     display:grid;
 
-    gap:11px;
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+
+    text-align:left;
 }
 
 .management-list div{
@@ -1425,7 +1131,19 @@ button{
 
     font-size:11px;
 
-    color:rgba(255,255,255,.88);
+    color:
+        rgba(255,255,255,.88);
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius:11px;
+
+    padding:12px;
 }
 
 .check{
@@ -1448,124 +1166,8 @@ button{
     font-size:10px;
 
     font-weight:900;
-}
 
-.management-visual{
-
-    position:relative;
-
-    z-index:2;
-}
-
-.mini-dashboard{
-
-    background:
-        rgba(255,255,255,.09);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    border-radius:20px;
-
-    padding:18px;
-
-    backdrop-filter:blur(10px);
-}
-
-.mini-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:15px;
-}
-
-.mini-header span{
-
-    font-size:10px;
-
-    color:rgba(255,255,255,.65);
-}
-
-.mini-chart{
-
-    height:105px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.08),
-            rgba(255,255,255,.03)
-        );
-
-    border-radius:13px;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.chart-line{
-
-    position:absolute;
-
-    left:8%;
-    right:8%;
-
-    bottom:25%;
-
-    height:45%;
-
-    border-top:
-        2px solid
-        #F2B84B;
-
-    transform:
-        skewY(-8deg);
-}
-
-.mini-bottom{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:8px;
-
-    margin-top:10px;
-}
-
-.mini-box{
-
-    background:
-        rgba(255,255,255,.08);
-
-    border-radius:10px;
-
-    padding:10px;
-}
-
-.mini-box span{
-
-    display:block;
-
-    font-size:7px;
-
-    color:rgba(255,255,255,.55);
-
-    margin-bottom:5px;
-}
-
-.mini-box strong{
-
-    font-size:11px;
-
-    color:white;
+    flex-shrink:0;
 }
 
 
@@ -1581,8 +1183,6 @@ button{
         repeat(3,1fr);
 
     gap:20px;
-
-    position:relative;
 }
 
 .step{
@@ -1598,14 +1198,11 @@ button{
     height:48px;
 
     margin:
-        0
-        auto
-        17px;
+        0 auto 17px;
 
     border-radius:50%;
 
-    background:
-        #E8F3ED;
+    background:#E8F3ED;
 
     color:var(--green);
 
@@ -1653,9 +1250,7 @@ button{
 .cta-section{
 
     padding:
-        30px
-        20px
-        80px;
+        30px 20px 80px;
 
     background:white;
 }
@@ -1680,8 +1275,7 @@ button{
     border-radius:26px;
 
     padding:
-        50px
-        30px;
+        52px 30px;
 
     text-align:center;
 
@@ -1705,6 +1299,7 @@ button{
         rgba(22,128,92,.06);
 
     left:-70px;
+
     top:-80px;
 }
 
@@ -1739,9 +1334,7 @@ button{
     max-width:560px;
 
     margin:
-        0
-        auto
-        23px;
+        0 auto 23px;
 }
 
 .cta .primary-btn{
@@ -1761,8 +1354,7 @@ footer{
     color:white;
 
     padding:
-        35px
-        20px;
+        35px 20px;
 }
 
 .footer-inner{
@@ -1868,10 +1460,8 @@ footer{
     background:white;
 
     border-radius:
-        22px
-        22px
-        16px
-        16px;
+        22px 22px
+        16px 16px;
 
     padding:24px;
 
@@ -1886,19 +1476,13 @@ footer{
 @keyframes modalUp{
 
     from{
-
         opacity:0;
-
-        transform:
-            translateY(30px);
+        transform:translateY(30px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-            translateY(0);
+        transform:translateY(0);
     }
 }
 
@@ -1986,228 +1570,7 @@ footer{
 
 
 /* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:850px){
-
-    .nav-links{
-
-        display:none;
-    }
-
-    .nav-inner{
-
-        height:62px;
-
-        padding:
-            0
-            15px;
-    }
-
-    .navbar{
-
-        top:52px;
-    }
-
-    .hero{
-
-        padding:
-            52px
-            17px
-            65px;
-    }
-
-    .hero-container{
-
-        grid-template-columns:1fr;
-
-        gap:40px;
-    }
-
-    .hero-content{
-
-        text-align:center;
-
-        margin:auto;
-    }
-
-    .hero-description{
-
-        margin:
-            0
-            auto
-            25px;
-    }
-
-    .hero-buttons{
-
-        justify-content:center;
-    }
-
-    .hero-note{
-
-        justify-content:center;
-    }
-
-    .dashboard-card{
-
-        transform:none;
-
-        max-width:460px;
-    }
-
-    .overview-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .features-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .management{
-
-        grid-template-columns:1fr;
-
-        padding:30px;
-
-        gap:30px;
-    }
-
-    .steps{
-
-        grid-template-columns:1fr;
-    }
-
-    .section{
-
-        padding:
-            65px
-            17px;
-    }
-
-    .trust-inner{
-
-        grid-template-columns:1fr;
-
-        gap:12px;
-    }
-
-    .footer-inner{
-
-        flex-direction:column;
-
-        text-align:center;
-    }
-
-    .footer-brand{
-
-        justify-content:center;
-    }
-
-    .footer-links{
-
-        justify-content:center;
-    }
-}
-
-@media(max-width:500px){
-
-    .install-text span{
-
-        display:none;
-    }
-
-    .install-btn{
-
-        padding:
-            8px
-            11px;
-    }
-
-    .brand-name{
-
-        font-size:19px;
-    }
-
-    .nav-actions .login-link{
-
-        display:none;
-    }
-
-    .hero h1{
-
-        font-size:43px;
-
-        letter-spacing:-2px;
-    }
-
-    .hero-description{
-
-        font-size:14px;
-    }
-
-    .hero-buttons{
-
-        flex-direction:column;
-
-        width:100%;
-    }
-
-    .primary-btn,
-    .secondary-btn{
-
-        width:100%;
-
-        max-width:300px;
-    }
-
-    .dashboard-card{
-
-        padding:11px;
-
-        border-radius:18px;
-    }
-
-    .balance-card{
-
-        padding:18px;
-    }
-
-    .balance-value{
-
-        font-size:25px;
-    }
-
-    .features-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .management{
-
-        border-radius:21px;
-
-        padding:26px 21px;
-    }
-
-    .cta{
-
-        padding:
-            38px
-            20px;
-
-        border-radius:21px;
-    }
-
-}
-
-
-/* =====================================================
-   SCROLL REVEAL
+   REVEAL ANIMATION
 ===================================================== */
 
 .reveal{
@@ -2228,6 +1591,184 @@ footer{
 
     transform:
         translateY(0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .nav-inner{
+
+        height:62px;
+
+        padding:
+            0 15px;
+    }
+
+    .navbar{
+
+        top:52px;
+    }
+
+    .hero{
+
+        min-height:
+            calc(100vh - 114px);
+
+        padding:
+            65px 17px
+            70px;
+    }
+
+    .hero-logo{
+
+        width:78px;
+        height:78px;
+
+        border-radius:19px;
+    }
+
+    .hero h1{
+
+        letter-spacing:-2.4px;
+    }
+
+    .hero-description{
+
+        font-size:14px;
+
+        line-height:1.75;
+    }
+
+    .overview-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .features-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .management{
+
+        padding:32px 25px;
+    }
+
+    .management-list{
+
+        grid-template-columns:1fr;
+    }
+
+    .steps{
+
+        grid-template-columns:1fr;
+    }
+
+    .section{
+
+        padding:
+            65px 17px;
+    }
+
+    .footer-inner{
+
+        flex-direction:column;
+
+        text-align:center;
+    }
+
+    .footer-brand{
+
+        justify-content:center;
+    }
+
+    .footer-links{
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+    }
+}
+
+@media(max-width:500px){
+
+    .install-text span{
+
+        display:none;
+    }
+
+    .install-btn{
+
+        padding:
+            8px 11px;
+    }
+
+    .brand-name{
+
+        font-size:19px;
+    }
+
+    .nav-actions .login-link{
+
+        display:none;
+    }
+
+    .hero{
+
+        padding-top:55px;
+    }
+
+    .hero h1{
+
+        font-size:43px;
+
+        letter-spacing:-2px;
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+
+        width:100%;
+
+        max-width:300px;
+    }
+
+    .features-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .management{
+
+        border-radius:21px;
+
+        padding:
+            29px 20px;
+    }
+
+    .cta{
+
+        padding:
+            40px 20px;
+
+        border-radius:21px;
+    }
 }
 
 </style>
@@ -2264,6 +1805,7 @@ footer{
 
     </div>
 
+
     <button
         class="install-btn"
         id="installButton">
@@ -2275,6 +1817,7 @@ footer{
 </div>
 
 
+
 <!-- =====================================================
      NAVIGATION
 ===================================================== -->
@@ -2282,6 +1825,7 @@ footer{
 <nav class="navbar">
 
     <div class="nav-inner">
+
 
         <a
             href="#top"
@@ -2325,6 +1869,7 @@ footer{
 
             </a>
 
+
             <a
                 href="signup.html"
                 class="nav-signup">
@@ -2340,289 +1885,98 @@ footer{
 </nav>
 
 
+
 <!-- =====================================================
-     HERO
+     MAIN
 ===================================================== -->
 
 <main id="top">
 
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
-    <div class="hero-container">
+
+    <div class="hero-container reveal">
 
 
-        <div class="hero-content reveal">
-
-            <div class="eyebrow">
-
-                <span class="eyebrow-dot"></span>
-
-                BUSINESS MANAGEMENT, SIMPLIFIED
-
-            </div>
+        <img
+            src="kayah-logo.png"
+            alt="Kayah Logo"
+            class="hero-logo">
 
 
-            <h1>
+        <div class="hero-badge">
 
-                Business,
+            <span class="hero-badge-dot"></span>
+
+            BUSINESS MANAGEMENT PLATFORM
+
+        </div>
+
+
+        <h1>
+
+            Business,
+            <span>
+                Made Possible.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Kayah brings the essential tools for
+            managing your business into one simple,
+            organized platform — helping you manage
+            your everyday operations with clarity
+            and confidence.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="signup.html"
+                class="primary-btn">
+
+                Get Started
+
                 <span>
-                    Made Possible.
+                    →
                 </span>
 
-            </h1>
+            </a>
 
 
-            <p class="hero-description">
+            <a
+                href="login.html"
+                class="secondary-btn">
 
-                Kayah gives you one simple place to
-                manage your business, products,
-                inventory, sales, expenses, customers,
-                and reports — so you can spend less
-                time organizing and more time growing.
+                Log In
 
-            </p>
+            </a>
 
-
-            <div class="hero-buttons">
-
-                <a
-                    href="signup.html"
-                    class="primary-btn">
-
-                    Get Started
-                    <span>→</span>
-
-                </a>
-
-
-                <a
-                    href="login.html"
-                    class="secondary-btn">
-
-                    Log In
-
-                </a>
-
-            </div>
-
-
-            <div class="hero-note">
-
-                <span class="hero-note-icon">
-                    ✓
-                </span>
-
-                Built for everyday businesses
-
-            </div>
 
         </div>
 
 
+        <div class="hero-note">
 
-        <!-- DASHBOARD PREVIEW -->
+            <span class="hero-note-icon">
+                ✓
+            </span>
 
-        <div class="dashboard-wrap reveal">
-
-            <div class="dashboard-card">
-
-
-                <div class="dashboard-top">
-
-                    <div class="dash-brand">
-
-                        <img
-                            src="kayah-logo.png"
-                            alt="Kayah">
-
-                        <strong>
-                            Business Overview
-                        </strong>
-
-                    </div>
-
-
-                    <div class="dash-profile">
-                        K
-                    </div>
-
-                </div>
-
-
-                <div class="balance-card">
-
-                    <div class="balance-label">
-                        BUSINESS BALANCE
-                    </div>
-
-                    <div class="balance-value">
-                        ₱128,450.00
-                    </div>
-
-                    <div class="balance-bottom">
-
-                        <span>
-                            This month
-                        </span>
-
-                        <span class="balance-status">
-                            +12.8%
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="dash-stats">
-
-                    <div class="stat-box">
-
-                        <div class="stat-label">
-                            SALES
-                        </div>
-
-                        <div class="stat-value">
-                            ₱84.2K
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-box">
-
-                        <div class="stat-label">
-                            EXPENSES
-                        </div>
-
-                        <div class="stat-value">
-                            ₱21.8K
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-box">
-
-                        <div class="stat-label">
-                            PRODUCTS
-                        </div>
-
-                        <div class="stat-value">
-                            248
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="activity">
-
-                    <div class="activity-head">
-
-                        <strong>
-                            Recent Activity
-                        </strong>
-
-                        <span>
-                            View all
-                        </span>
-
-                    </div>
-
-
-                    <div class="activity-row">
-
-                        <div class="activity-left">
-
-                            <div class="activity-icon">
-                                ↑
-                            </div>
-
-                            <div>
-
-                                <div class="activity-name">
-                                    New Sale
-                                </div>
-
-                                <div class="activity-date">
-                                    Today, 10:42 AM
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="activity-amount">
-                            +₱2,450
-                        </div>
-
-                    </div>
-
-
-                    <div class="activity-row">
-
-                        <div class="activity-left">
-
-                            <div class="activity-icon">
-                                ▣
-                            </div>
-
-                            <div>
-
-                                <div class="activity-name">
-                                    Inventory Updated
-                                </div>
-
-                                <div class="activity-date">
-                                    Today, 9:18 AM
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="activity-amount">
-                            24 items
-                        </div>
-
-                    </div>
-
-
-                    <div class="activity-row">
-
-                        <div class="activity-left">
-
-                            <div class="activity-icon">
-                                ₱
-                            </div>
-
-                            <div>
-
-                                <div class="activity-name">
-                                    Expense Recorded
-                                </div>
-
-                                <div class="activity-date">
-                                    Yesterday
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="activity-amount">
-                            -₱850
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            Simple. Organized. Built for business.
 
         </div>
+
 
     </div>
 
@@ -2631,44 +1985,24 @@ footer{
 
 
 <!-- =====================================================
-     TRUST STRIP
+     BRAND STATEMENT
 ===================================================== -->
 
-<section class="trust-strip">
+<section class="brand-statement">
 
-    <div class="trust-inner">
+    <div class="statement-inner">
 
-        <div class="trust-item">
+        <p>
 
-            <div class="trust-icon">
-                ✓
-            </div>
+            <strong>
+                Kayah
+            </strong>
+            is designed to bring your
+            everyday business activities together
+            so you can spend less time organizing
+            and more time focusing on your business.
 
-            Simple to use
-
-        </div>
-
-
-        <div class="trust-item">
-
-            <div class="trust-icon">
-                ◇
-            </div>
-
-            All in one place
-
-        </div>
-
-
-        <div class="trust-item">
-
-            <div class="trust-icon">
-                ↗
-            </div>
-
-            Built to grow
-
-        </div>
+        </p>
 
     </div>
 
@@ -2683,6 +2017,7 @@ footer{
 <section
     class="section"
     id="overview">
+
 
     <div class="section-inner">
 
@@ -2699,12 +2034,15 @@ footer{
             </h2>
 
             <p>
+
                 Kayah brings the essential parts
                 of business management together
                 in one organized platform.
+
             </p>
 
         </div>
+
 
 
         <div class="overview-grid">
@@ -2721,12 +2059,15 @@ footer{
                 </h3>
 
                 <p>
+
                     Keep your business information,
                     settings, and daily operations
                     organized from one central place.
+
                 </p>
 
             </div>
+
 
 
             <div class="overview-card reveal">
@@ -2740,12 +2081,15 @@ footer{
                 </h3>
 
                 <p>
-                    Manage your products, stock levels,
+
+                    Manage products, stock levels,
                     pricing, and inventory movements
                     without complicated spreadsheets.
+
                 </p>
 
             </div>
+
 
 
             <div class="overview-card reveal">
@@ -2759,9 +2103,11 @@ footer{
                 </h3>
 
                 <p>
+
                     Record your sales and expenses
-                    so you have a clearer picture of
-                    your business activity and finances.
+                    so you have a clearer picture
+                    of your business activity.
+
                 </p>
 
             </div>
@@ -2783,6 +2129,7 @@ footer{
     class="section white"
     id="features">
 
+
     <div class="section-inner">
 
 
@@ -2797,11 +2144,14 @@ footer{
             </h2>
 
             <p>
+
                 Designed around the everyday tasks
                 that keep a business moving.
+
             </p>
 
         </div>
+
 
 
         <div class="features-grid">
@@ -2960,10 +2310,11 @@ footer{
 
 
 <!-- =====================================================
-     MANAGEMENT
+     BUSINESS MANAGEMENT
 ===================================================== -->
 
 <section class="section">
+
 
     <div class="section-inner">
 
@@ -2973,26 +2324,31 @@ footer{
 
             <div class="management-content">
 
+
                 <div class="management-label">
                     BUILT FOR EVERYDAY BUSINESS
                 </div>
 
+
                 <h2>
-                    Spend less time
-                    organizing.
+                    Spend less time organizing.
                 </h2>
 
+
                 <p>
+
                     Your business shouldn't depend on
                     scattered notes, spreadsheets, and
                     disconnected tools. Kayah brings
                     the important pieces together so
                     you can manage your day with more
                     clarity.
+
                 </p>
 
 
                 <div class="management-list">
+
 
                     <div>
 
@@ -3037,79 +2393,9 @@ footer{
 
                     </div>
 
-                </div>
-
-            </div>
-
-
-
-            <div class="management-visual">
-
-                <div class="mini-dashboard">
-
-                    <div class="mini-header">
-
-                        <span>
-                            Business Performance
-                        </span>
-
-                        <span>
-                            This Month
-                        </span>
-
-                    </div>
-
-
-                    <div class="mini-chart">
-
-                        <div class="chart-line"></div>
-
-                    </div>
-
-
-                    <div class="mini-bottom">
-
-                        <div class="mini-box">
-
-                            <span>
-                                SALES
-                            </span>
-
-                            <strong>
-                                ₱84.2K
-                            </strong>
-
-                        </div>
-
-
-                        <div class="mini-box">
-
-                            <span>
-                                ORDERS
-                            </span>
-
-                            <strong>
-                                326
-                            </strong>
-
-                        </div>
-
-
-                        <div class="mini-box">
-
-                            <span>
-                                STOCK
-                            </span>
-
-                            <strong>
-                                92%
-                            </strong>
-
-                        </div>
-
-                    </div>
 
                 </div>
+
 
             </div>
 
@@ -3129,6 +2415,7 @@ footer{
 <section
     class="section white"
     id="how">
+
 
     <div class="section-inner">
 
@@ -3151,6 +2438,7 @@ footer{
         </div>
 
 
+
         <div class="steps">
 
 
@@ -3165,12 +2453,15 @@ footer{
                 </h3>
 
                 <p>
+
                     Sign up and create your Kayah
-                    business account in just a few
+                    business account in a few
                     simple steps.
+
                 </p>
 
             </div>
+
 
 
             <div class="step reveal">
@@ -3184,12 +2475,15 @@ footer{
                 </h3>
 
                 <p>
+
                     Add your business details and
                     configure the information you
                     need to get started.
+
                 </p>
 
             </div>
+
 
 
             <div class="step reveal">
@@ -3203,9 +2497,11 @@ footer{
                 </h3>
 
                 <p>
+
                     Use Kayah to organize products,
                     inventory, sales, expenses,
                     customers, and reports.
+
                 </p>
 
             </div>
@@ -3220,31 +2516,41 @@ footer{
 
 
 <!-- =====================================================
-     CTA
+     FINAL CTA
 ===================================================== -->
 
 <section class="cta-section">
 
+
     <div class="cta reveal">
+
 
         <h2>
             Your business.
             One place.
         </h2>
 
+
         <p>
+
             Start building a simpler way to
             manage your business with Kayah.
+
         </p>
+
 
         <a
             href="signup.html"
             class="primary-btn">
 
             Create Your Account
-            <span>→</span>
+
+            <span>
+                →
+            </span>
 
         </a>
+
 
     </div>
 
@@ -3261,10 +2567,12 @@ footer{
 
 <footer>
 
+
     <div class="footer-inner">
 
 
         <div>
+
 
             <div class="footer-brand">
 
@@ -3278,13 +2586,16 @@ footer{
 
             </div>
 
+
             <div class="footer-copy">
 
                 Business, Made Possible.
 
             </div>
 
+
         </div>
+
 
 
         <div class="footer-links">
@@ -3307,6 +2618,7 @@ footer{
 
         </div>
 
+
     </div>
 
 </footer>
@@ -3321,6 +2633,7 @@ footer{
     class="modal"
     id="installModal">
 
+
     <div class="modal-card">
 
 
@@ -3329,6 +2642,7 @@ footer{
             <h3>
                 Install Kayah
             </h3>
+
 
             <button
                 class="close-btn"
@@ -3348,8 +2662,10 @@ footer{
             </div>
 
             <p>
+
                 Open this website using
                 <strong>Google Chrome</strong>.
+
             </p>
 
         </div>
@@ -3362,9 +2678,11 @@ footer{
             </div>
 
             <p>
+
                 Tap the
                 <strong>three-dot menu</strong>
                 in Chrome.
+
             </p>
 
         </div>
@@ -3377,14 +2695,12 @@ footer{
             </div>
 
             <p>
+
                 Select
-                <strong>
-                    Install app
-                </strong>
+                <strong>Install app</strong>
                 or
-                <strong>
-                    Add to Home screen
-                </strong>.
+                <strong>Add to Home screen</strong>.
+
             </p>
 
         </div>
@@ -3397,8 +2713,10 @@ footer{
             </div>
 
             <p>
+
                 Kayah will appear on your
                 phone like an app.
+
             </p>
 
         </div>
@@ -3418,15 +2736,18 @@ footer{
 
 let deferredPrompt = null;
 
+
 const installButton =
     document.getElementById(
         "installButton"
     );
 
+
 const installModal =
     document.getElementById(
         "installModal"
     );
+
 
 const closeModal =
     document.getElementById(
@@ -3441,9 +2762,6 @@ window.addEventListener(
         event.preventDefault();
 
         deferredPrompt = event;
-
-        installButton.textContent =
-            "INSTALL";
 
     }
 );
@@ -3620,7 +2938,7 @@ revealElements.forEach(
 
 
 /* =====================================================
-   CLOSE MODAL WITH ESC
+   ESCAPE CLOSE
 ===================================================== */
 
 document.addEventListener(
