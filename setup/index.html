@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -610,6 +609,8 @@ label{
     opacity:0;
     visibility:hidden;
 
+    pointer-events:none;
+
 }
 
 .loading-content{
@@ -1175,6 +1176,10 @@ label{
 
 <script type="module">
 
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1197,58 +1202,105 @@ import {
 ===================================================== */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
-    authDomain: "kayah-ecosystem.firebaseapp.com",
-    projectId: "kayah-ecosystem",
-    storageBucket: "kayah-ecosystem.firebasestorage.app",
-    messagingSenderId: "49853785143",
-    appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+    apiKey:
+        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
+
+    projectId:
+        "kayah-ecosystem",
+
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId:
+        "49853785143",
+
+    appId:
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
+
 };
 
 
 /* =====================================================
-   FIREBASE
+   INITIALIZE FIREBASE
 ===================================================== */
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
 
 
 /* =====================================================
    ELEMENTS
 ===================================================== */
 
-const form = document.getElementById("setupForm");
-const button = document.getElementById("completeButton");
-const errorBox = document.getElementById("errorBox");
-const successBox = document.getElementById("successBox");
+const loadingScreen =
+    document.getElementById("loadingScreen");
 
-const businessName = document.getElementById("businessName");
-const businessType = document.getElementById("businessType");
-const businessAddress = document.getElementById("businessAddress");
-const city = document.getElementById("city");
-const province = document.getElementById("province");
-const description = document.getElementById("description");
+const form =
+    document.getElementById("setupForm");
+
+const button =
+    document.getElementById("completeButton");
+
+const errorBox =
+    document.getElementById("errorBox");
+
+const successBox =
+    document.getElementById("successBox");
+
+const businessName =
+    document.getElementById("businessName");
+
+const businessType =
+    document.getElementById("businessType");
+
+const businessAddress =
+    document.getElementById("businessAddress");
+
+const city =
+    document.getElementById("city");
+
+const province =
+    document.getElementById("province");
+
+const description =
+    document.getElementById("description");
 
 
 /* =====================================================
-   CURRENT USER
+   HIDE LOADING SCREEN
 ===================================================== */
 
-let currentUser = null;
+if(loadingScreen){
+
+    loadingScreen.classList.add("hide");
+
+}
 
 
 /* =====================================================
-   SHOW ERROR
+   ERROR FUNCTIONS
 ===================================================== */
 
 function showError(message){
 
     if(errorBox){
 
-        errorBox.textContent = message;
-        errorBox.classList.add("show");
+        errorBox.textContent =
+            message;
+
+        errorBox.classList.add(
+            "show"
+        );
 
     }else{
 
@@ -1259,16 +1311,15 @@ function showError(message){
 }
 
 
-/* =====================================================
-   HIDE ERROR
-===================================================== */
-
 function hideError(){
 
     if(errorBox){
 
         errorBox.textContent = "";
-        errorBox.classList.remove("show");
+
+        errorBox.classList.remove(
+            "show"
+        );
 
     }
 
@@ -1276,321 +1327,407 @@ function hideError(){
 
 
 /* =====================================================
-   AUTH
+   PREFILL BUSINESS NAME
 ===================================================== */
 
-onAuthStateChanged(auth, function(user){
+try{
 
-    if(user){
+    const saved =
+        sessionStorage.getItem(
+            "kayahSignupData"
+        );
 
-        currentUser = user;
+    if(saved){
 
-        console.log("Kayah user authenticated:", user.uid);
+        const data =
+            JSON.parse(saved);
 
-        /* Prefill business name from signup session */
+        if(
+            businessName &&
+            !businessName.value &&
+            data.businessName
+        ){
 
-        try{
+            businessName.value =
+                data.businessName;
 
-            const saved =
-                sessionStorage.getItem("kayahSignupData");
+        }
 
-            if(saved){
+    }
 
-                const data = JSON.parse(saved);
+}catch(error){
 
-                if(
-                    businessName &&
-                    !businessName.value &&
-                    data.businessName
-                ){
+    console.log(
+        "Signup session data unavailable:",
+        error
+    );
 
-                    businessName.value =
-                        data.businessName;
+}
 
-                }
 
-            }
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
 
-        }catch(error){
+let authenticatedUser = null;
+
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(user){
+
+            authenticatedUser =
+                user;
 
             console.log(
-                "Session data unavailable:",
-                error
+                "Kayah user authenticated:",
+                user.uid
+            );
+
+        }else{
+
+            authenticatedUser =
+                null;
+
+            console.log(
+                "No authenticated Kayah user."
             );
 
         }
 
-    }else{
-
-        currentUser = null;
-
-        console.log("No authenticated Kayah user.");
-
     }
-
-});
+);
 
 
 /* =====================================================
    FORM SUBMIT
 ===================================================== */
 
-form.addEventListener("submit", async function(event){
+form.addEventListener(
+    "submit",
+    async function(event){
 
-    event.preventDefault();
+        event.preventDefault();
 
-    hideError();
+        hideError();
 
 
-    /* ---------------------------------------------
-       CHECK LOGIN
-    --------------------------------------------- */
+        /* ---------------------------------------------
+           GET CURRENT USER
+        --------------------------------------------- */
 
-    if(!currentUser){
+        const user =
+            auth.currentUser ||
+            authenticatedUser;
 
-        showError(
-            "Your account session is not ready yet. Please wait a moment and try again."
+
+        if(!user){
+
+            showError(
+                "Your Kayah account session is not ready yet. Please wait a moment and try again."
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           FORM VALUES
+        --------------------------------------------- */
+
+        const nameValue =
+            businessName.value.trim();
+
+        const typeValue =
+            businessType.value.trim();
+
+        const addressValue =
+            businessAddress.value.trim();
+
+        const cityValue =
+            city.value.trim();
+
+        const provinceValue =
+            province.value.trim();
+
+        const descriptionValue =
+            description.value.trim();
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+        if(!nameValue){
+
+            showError(
+                "Please enter your business name."
+            );
+
+            businessName.focus();
+
+            return;
+
+        }
+
+
+        if(!typeValue){
+
+            showError(
+                "Please select your business type."
+            );
+
+            businessType.focus();
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           BUTTON LOADING
+        --------------------------------------------- */
+
+        button.disabled =
+            true;
+
+        button.classList.add(
+            "loading"
         );
 
-        return;
-
-    }
-
-
-    /* ---------------------------------------------
-       VALIDATION
-    --------------------------------------------- */
-
-    const nameValue =
-        businessName.value.trim();
-
-    const typeValue =
-        businessType.value.trim();
-
-    const addressValue =
-        businessAddress.value.trim();
-
-    const cityValue =
-        city.value.trim();
-
-    const provinceValue =
-        province.value.trim();
-
-    const descriptionValue =
-        description.value.trim();
+        button.textContent =
+            "Saving your business...";
 
 
-    if(!nameValue){
+        /* ---------------------------------------------
+           BUSINESS DATA
+        --------------------------------------------- */
 
-        showError("Please enter your business name.");
-        businessName.focus();
-        return;
+        const businessData = {
 
-    }
+            businessName:
+                nameValue,
 
+            businessType:
+                typeValue,
 
-    if(!typeValue){
+            businessAddress:
+                addressValue,
 
-        showError("Please select your business type.");
-        businessType.focus();
-        return;
+            city:
+                cityValue,
 
-    }
+            province:
+                provinceValue,
 
+            currency:
+                "PHP",
 
-    /* ---------------------------------------------
-       BUTTON STATE
-    --------------------------------------------- */
+            currencySymbol:
+                "₱",
 
-    button.disabled = true;
+            businessDescription:
+                descriptionValue,
 
-    button.textContent =
-        "Saving your business...";
+            setupCompleted:
+                true,
 
+            setupCompletedAt:
+                serverTimestamp(),
 
-    /* ---------------------------------------------
-       DATA
-    --------------------------------------------- */
+            updatedAt:
+                serverTimestamp()
 
-    const businessData = {
-
-        businessName: nameValue,
-
-        businessType: typeValue,
-
-        businessAddress: addressValue,
-
-        city: cityValue,
-
-        province: provinceValue,
-
-        currency: "PHP",
-
-        currencySymbol: "₱",
-
-        businessDescription:
-            descriptionValue,
-
-        setupCompleted: true,
-
-        setupCompletedAt:
-            serverTimestamp(),
-
-        updatedAt:
-            serverTimestamp()
-
-    };
+        };
 
 
-    console.log(
-        "Saving business data:",
-        businessData
-    );
+        console.log(
+            "Kayah business data:",
+            businessData
+        );
 
 
-    /* ---------------------------------------------
-       SAVE TO FIRESTORE
-    --------------------------------------------- */
-
-    try{
+        /* ---------------------------------------------
+           FIRESTORE REFERENCE
+        --------------------------------------------- */
 
         const userRef =
             doc(
                 db,
                 "users",
-                currentUser.uid
+                user.uid
             );
 
 
-        await setDoc(
-            userRef,
-            businessData,
-            {
-                merge: true
+        /* ---------------------------------------------
+           SAVE TO FIRESTORE
+        --------------------------------------------- */
+
+        try{
+
+            await setDoc(
+                userRef,
+                businessData,
+                {
+                    merge:true
+                }
+            );
+
+
+            console.log(
+                "SUCCESS: Business saved to Firestore."
+            );
+
+
+            /* -----------------------------------------
+               SUCCESS STATE
+            ----------------------------------------- */
+
+            button.classList.remove(
+                "loading"
+            );
+
+            button.textContent =
+                "Setup Complete ✓";
+
+
+            if(successBox){
+
+                successBox.textContent =
+                    "Your business setup has been saved successfully.";
+
+                successBox.classList.add(
+                    "show"
+                );
+
             }
-        );
 
 
-        console.log(
-            "Business setup saved successfully."
-        );
+            /* -----------------------------------------
+               REMOVE TEMP SIGNUP DATA
+            ----------------------------------------- */
+
+            sessionStorage.removeItem(
+                "kayahSignupData"
+            );
 
 
-        /* -----------------------------------------
-           REMOVE TEMP SIGNUP DATA
-        ----------------------------------------- */
+            /* -----------------------------------------
+               DASHBOARD
+            ----------------------------------------- */
 
-        sessionStorage.removeItem(
-            "kayahSignupData"
-        );
+            setTimeout(
+                function(){
 
+                    window.location.href =
+                        "../dashboard/";
 
-        /* -----------------------------------------
-           SUCCESS
-        ----------------------------------------- */
-
-        button.textContent =
-            "Setup Complete ✓";
+                },
+                800
+            );
 
 
-        button.disabled = true;
+        }catch(error){
+
+            console.error(
+                "KAYAH FIRESTORE ERROR:",
+                error
+            );
 
 
-        if(successBox){
+            button.disabled =
+                false;
 
-            successBox.textContent =
-                "Your business setup has been completed successfully.";
+            button.classList.remove(
+                "loading"
+            );
 
-            successBox.classList.add("show");
-
-        }
-
-
-        /* -----------------------------------------
-           GO TO DASHBOARD
-        ----------------------------------------- */
-
-        setTimeout(function(){
-
-            window.location.href =
-                "../dashboard/";
-
-        }, 700);
+            button.textContent =
+                "Complete Business Setup";
 
 
-    }catch(error){
-
-        console.error(
-            "SETUP FIREBASE ERROR:",
-            error
-        );
+            let message =
+                "We couldn't save your business setup.";
 
 
-        button.disabled = false;
+            if(
+                error.code ===
+                "permission-denied"
+            ){
 
-        button.textContent =
-            "Complete Business Setup";
+                message =
+                    "Firebase denied permission to save your information. Please check your Firestore security rules.";
+
+            }
+
+            else if(
+                error.code ===
+                "unavailable"
+            ){
+
+                message =
+                    "Firebase is temporarily unavailable. Please check your internet connection.";
+
+            }
+
+            else if(
+                error.message
+            ){
+
+                message =
+                    error.message;
+
+            }
 
 
-        let message =
-            "We couldn't save your business setup.";
-
-
-        if(error.code === "permission-denied"){
-
-            message =
-                "Firebase denied permission to save your business information.";
-
-        }
-
-        else if(error.code === "unavailable"){
-
-            message =
-                "Firebase is temporarily unavailable. Please check your internet connection and try again.";
-
-        }
-
-        else if(error.message){
-
-            message =
-                error.message;
+            showError(
+                message
+            );
 
         }
-
-
-        showError(message);
 
     }
-
-});
+);
 
 
 /* =====================================================
    SERVICE WORKER
 ===================================================== */
 
-if("serviceWorker" in navigator){
+if(
+    "serviceWorker" in navigator
+){
 
-    navigator.serviceWorker.register("../sw.js")
-        .then(function(){
+    navigator.serviceWorker
+        .register("../sw.js")
+        .then(
+            function(){
 
-            console.log(
-                "Kayah service worker registered."
-            );
+                console.log(
+                    "Kayah service worker registered."
+                );
 
-        })
-        .catch(function(error){
+            }
+        )
+        .catch(
+            function(error){
 
-            console.log(
-                "Service worker error:",
-                error
-            );
+                console.log(
+                    "Service worker error:",
+                    error
+                );
 
-        });
+            }
+        );
 
 }
 
 </script>
+
+
 </body>
 
 </html>
