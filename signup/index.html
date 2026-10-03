@@ -3,1025 +3,917 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="theme-color"
-      content="#0B4F3A">
+    <meta
+        name="theme-color"
+        content="#0B4F3A"
+    >
 
-<meta name="description"
-      content="Set up your business with Kayah. Business, Made Possible.">
+    <meta
+        name="description"
+        content="Set up your business with Kayah — Business, Made Possible."
+    >
 
-<link rel="manifest"
-      href="./manifest.json">
+    <link
+        rel="manifest"
+        href="../manifest.json"
+    >
 
-<link rel="icon"
-      type="image/png"
-      href="./kayah-logo.png">
+    <link
+        rel="icon"
+        type="image/png"
+        href="../kayah-logo.png"
+    >
 
-<title>
-    Set Up Your Business — Kayah
-</title>
+    <title>Set Up Your Business — Kayah</title>
 
 
-<style>
+    <style>
 
-/* =====================================================
-   RESET
-===================================================== */
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-html{
-    scroll-behavior:smooth;
-}
 
-body{
+        html{
+            scroll-behavior:smooth;
+        }
 
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
 
-    background:#F7F3E8;
+        body{
 
-    color:#202A24;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
 
-    min-height:100vh;
+            background:#F7F3E8;
 
-    -webkit-font-smoothing:antialiased;
+            color:#202A24;
 
-    overflow-x:hidden;
-}
+            min-height:100vh;
 
-button,
-input{
-    font-family:inherit;
-}
+            -webkit-font-smoothing:antialiased;
+        }
 
-button{
-    cursor:pointer;
-}
 
-a{
-    text-decoration:none;
-    color:inherit;
-}
+        button,
+        input{
+            font:inherit;
+        }
 
 
-/* =====================================================
-   COLORS
-===================================================== */
+        button{
+            cursor:pointer;
+        }
 
-:root{
 
-    --green:#16805C;
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
 
-    --dark-green:#0B4F3A;
 
-    --deep-green:#073B2C;
+        /* =====================================================
+           PAGE
+        ===================================================== */
 
-    --yellow:#F2B84B;
+        .page{
 
-    --beige:#F7F3E8;
+            min-height:100vh;
 
-    --white:#FFFFFF;
+            display:flex;
+            flex-direction:column;
+        }
 
-    --text:#202A24;
 
-    --muted:#6B756F;
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
 
-    --border:
-        rgba(11,79,58,.12);
+        .topbar{
 
-    --shadow:
-        0 20px 55px
-        rgba(11,79,58,.10);
-}
+            width:100%;
 
+            padding:
+                18px
+                18px
+                12px;
 
-/* =====================================================
-   PAGE
-===================================================== */
+            display:flex;
 
-.page{
+            justify-content:space-between;
 
-    min-height:100vh;
+            align-items:center;
+        }
 
-    display:flex;
 
-    flex-direction:column;
-}
+        .brand{
 
+            display:flex;
 
-/* =====================================================
-   TOP BAR
-===================================================== */
+            align-items:center;
 
-.topbar{
+            gap:10px;
+        }
 
-    width:100%;
 
-    height:65px;
+        .brand img{
 
-    padding:
-        0 20px;
+            width:42px;
+            height:42px;
 
-    display:flex;
+            object-fit:contain;
 
-    align-items:center;
+            border-radius:12px;
+        }
 
-    justify-content:space-between;
 
-    border-bottom:
-        1px solid
-        rgba(11,79,58,.07);
+        .brand-name{
 
-    background:
-        rgba(247,243,232,.92);
+            font-size:20px;
 
-    backdrop-filter:
-        blur(15px);
+            font-weight:800;
 
-    -webkit-backdrop-filter:
-        blur(15px);
-}
+            letter-spacing:-0.5px;
 
-.brand{
+            color:#0B4F3A;
+        }
 
-    display:flex;
 
-    align-items:center;
+        .login-link{
 
-    gap:9px;
-}
+            color:#16805C;
 
-.brand img{
+            font-size:14px;
 
-    width:38px;
+            font-weight:700;
 
-    height:38px;
+            padding:9px 13px;
 
-    object-fit:contain;
+            border-radius:10px;
 
-    border-radius:10px;
-}
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
 
-.brand-name{
 
-    font-size:20px;
+        .login-link:hover{
 
-    font-weight:850;
+            background:rgba(22,128,92,.08);
 
-    letter-spacing:-.5px;
+        }
 
-    color:var(--dark-green);
-}
 
-.login-top{
+        .login-link:active{
 
-    font-size:12px;
+            transform:scale(.97);
+        }
 
-    font-weight:700;
 
-    color:var(--dark-green);
-}
+        /* =====================================================
+           MAIN
+        ===================================================== */
 
-.login-top span{
+        main{
 
-    color:var(--green);
+            width:100%;
 
-    margin-left:4px;
-}
+            max-width:560px;
 
+            margin:0 auto;
 
-/* =====================================================
-   MAIN
-===================================================== */
+            padding:
+                18px
+                18px
+                40px;
 
-.main{
+            flex:1;
+        }
 
-    flex:1;
 
-    display:flex;
+        /* =====================================================
+           INTRO
+        ===================================================== */
 
-    align-items:center;
+        .intro{
 
-    justify-content:center;
+            text-align:center;
 
-    padding:
-        45px 17px
-        60px;
-}
+            margin:
+                10px
+                auto
+                24px;
+        }
 
-.container{
 
-    width:100%;
+        .logo-wrap{
 
-    max-width:480px;
+            width:72px;
+            height:72px;
 
-    margin:auto;
-}
+            margin:
+                0
+                auto
+                16px;
 
+            background:#FFFFFF;
 
-/* =====================================================
-   INTRO
-===================================================== */
+            border-radius:20px;
 
-.intro{
+            display:flex;
 
-    text-align:center;
+            align-items:center;
+            justify-content:center;
 
-    margin-bottom:27px;
-}
+            box-shadow:
+                0 8px 25px rgba(11,79,58,.10);
+        }
 
-.logo{
 
-    width:70px;
+        .logo-wrap img{
 
-    height:70px;
+            width:54px;
+            height:54px;
 
-    object-fit:contain;
+            object-fit:contain;
+        }
 
-    border-radius:18px;
 
-    margin:
-        0 auto 17px;
+        .eyebrow{
 
-    filter:
-        drop-shadow(
-            0 10px 20px
-            rgba(11,79,58,.12)
-        );
-}
+            display:inline-block;
 
-.label{
+            font-size:11px;
 
-    display:inline-flex;
+            font-weight:800;
 
-    align-items:center;
+            letter-spacing:1.2px;
 
-    gap:7px;
+            color:#16805C;
 
-    padding:
-        7px 11px;
+            margin-bottom:8px;
+        }
 
-    border-radius:30px;
 
-    background:
-        rgba(22,128,92,.08);
+        h1{
 
-    border:
-        1px solid
-        rgba(22,128,92,.11);
+            font-size:
+                clamp(27px, 7vw, 36px);
 
-    color:var(--green);
+            line-height:1.1;
 
-    font-size:9px;
+            letter-spacing:-1px;
 
-    font-weight:900;
+            color:#0B4F3A;
 
-    letter-spacing:1.2px;
+            margin-bottom:10px;
+        }
 
-    margin-bottom:13px;
-}
 
-.label-dot{
+        .intro p{
 
-    width:6px;
+            max-width:420px;
 
-    height:6px;
+            margin:0 auto;
 
-    background:var(--yellow);
+            color:#68736D;
 
-    border-radius:50%;
-}
+            font-size:14px;
 
-.intro h1{
+            line-height:1.6;
+        }
 
-    font-size:
-        clamp(
-            31px,
-            8vw,
-            42px
-        );
 
-    line-height:1.08;
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
 
-    letter-spacing:-1.6px;
+        .progress{
 
-    color:var(--deep-green);
+            display:flex;
 
-    margin-bottom:11px;
-}
+            align-items:flex-start;
 
-.intro p{
+            justify-content:center;
 
-    max-width:390px;
+            margin:
+                0
+                auto
+                22px;
 
-    margin:auto;
+            max-width:360px;
+        }
 
-    color:var(--muted);
 
-    font-size:12px;
+        .progress-item{
 
-    line-height:1.7;
-}
+            display:flex;
 
+            flex-direction:column;
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+            align-items:center;
 
-.progress{
+            min-width:72px;
 
-    display:flex;
+            position:relative;
 
-    align-items:center;
+            z-index:2;
+        }
 
-    justify-content:center;
 
-    gap:8px;
+        .progress-circle{
 
-    margin-bottom:20px;
-}
+            width:30px;
+            height:30px;
 
-.progress-item{
+            border-radius:50%;
 
-    display:flex;
+            display:flex;
 
-    align-items:center;
+            align-items:center;
+            justify-content:center;
 
-    gap:7px;
+            background:#E4E9E4;
 
-    color:#8A938E;
+            color:#748078;
 
-    font-size:9px;
+            font-size:12px;
 
-    font-weight:800;
-}
+            font-weight:800;
 
-.progress-number{
+            margin-bottom:7px;
+        }
 
-    width:24px;
 
-    height:24px;
+        .progress-item.active
+        .progress-circle{
 
-    border-radius:50%;
+            background:#16805C;
 
-    display:flex;
+            color:#FFFFFF;
 
-    align-items:center;
+            box-shadow:
+                0 5px 15px rgba(22,128,92,.20);
+        }
 
-    justify-content:center;
 
-    font-size:9px;
+        .progress-label{
 
-    font-weight:900;
+            font-size:10px;
 
-    background:#E7EBE7;
+            font-weight:700;
 
-    color:#7A847E;
-}
+            color:#8A948E;
+        }
 
-.progress-item.active{
 
-    color:var(--green);
-}
+        .progress-item.active
+        .progress-label{
 
-.progress-item.active
-.progress-number{
+            color:#16805C;
+        }
 
-    background:var(--dark-green);
 
-    color:white;
-}
+        .progress-line{
 
-.progress-line{
+            height:2px;
 
-    width:32px;
+            flex:1;
 
-    height:1px;
+            background:#DCE2DD;
 
-    background:
-        rgba(11,79,58,.12);
-}
+            margin:
+                14px -2px
+                0;
+        }
 
 
-/* =====================================================
-   FORM CARD
-===================================================== */
+        /* =====================================================
+           FORM CARD
+        ===================================================== */
 
-.form-card{
+        .form-card{
 
-    background:white;
+            background:#FFFFFF;
 
-    border:
-        1px solid
-        rgba(11,79,58,.09);
+            border-radius:22px;
 
-    border-radius:23px;
+            padding:22px 18px;
 
-    padding:
-        25px 22px;
+            box-shadow:
+                0 12px 35px rgba(32,42,36,.08);
 
-    box-shadow:var(--shadow);
-}
+            border:1px solid rgba(11,79,58,.05);
+        }
 
-.form-header{
 
-    margin-bottom:21px;
-}
+        .card-heading{
 
-.form-header h2{
+            margin-bottom:18px;
+        }
 
-    color:var(--dark-green);
 
-    font-size:17px;
+        .card-heading h2{
 
-    margin-bottom:5px;
-}
+            color:#202A24;
 
-.form-header p{
+            font-size:18px;
 
-    color:#7A847E;
+            margin-bottom:5px;
+        }
 
-    font-size:10px;
 
-    line-height:1.5;
-}
+        .card-heading p{
 
+            color:#7A847E;
 
-/* =====================================================
-   FORM
-===================================================== */
+            font-size:13px;
 
-.form-group{
+            line-height:1.5;
+        }
 
-    margin-bottom:15px;
-}
 
-.form-group label{
+        /* =====================================================
+           FORM
+        ===================================================== */
 
-    display:block;
+        .form-group{
 
-    color:#39463F;
+            margin-bottom:15px;
+        }
 
-    font-size:10px;
 
-    font-weight:800;
+        .form-label{
 
-    margin-bottom:7px;
-}
+            display:block;
 
-.required{
+            font-size:12px;
 
-    color:#C65D45;
+            font-weight:700;
 
-    margin-left:2px;
-}
+            color:#39453E;
 
-.input-wrap{
+            margin-bottom:7px;
+        }
 
-    position:relative;
-}
 
-.input-icon{
+        .required{
 
-    position:absolute;
+            color:#16805C;
+        }
 
-    left:13px;
 
-    top:50%;
+        .input-wrap{
 
-    transform:
-        translateY(-50%);
+            position:relative;
+        }
 
-    width:20px;
 
-    height:20px;
+        input{
 
-    display:flex;
+            width:100%;
 
-    align-items:center;
+            height:48px;
 
-    justify-content:center;
+            border:1px solid #DCE2DD;
 
-    color:#7D8982;
+            background:#FAFBF9;
 
-    font-size:12px;
+            border-radius:12px;
 
-    pointer-events:none;
-}
+            padding:
+                0
+                13px;
 
-input{
+            outline:none;
 
-    width:100%;
+            color:#202A24;
 
-    height:47px;
+            font-size:14px;
 
-    border:
-        1px solid
-        #DCE2DD;
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
 
-    border-radius:11px;
 
-    outline:none;
+        input::placeholder{
 
-    background:#FBFCFA;
+            color:#A2AAA5;
+        }
 
-    color:var(--text);
 
-    font-size:12px;
+        input:focus{
 
-    padding:
-        0 13px
-        0 39px;
+            border-color:#16805C;
 
-    transition:
-        border .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
-}
+            background:#FFFFFF;
 
-input::placeholder{
+            box-shadow:
+                0 0 0 3px rgba(22,128,92,.09);
+        }
 
-    color:#A0A8A3;
-}
 
-input:focus{
+        .phone-input{
 
-    border-color:
-        rgba(22,128,92,.65);
+            display:flex;
 
-    background:white;
+            gap:8px;
+        }
 
-    box-shadow:
-        0 0 0 3px
-        rgba(22,128,92,.08);
-}
 
+        .country-code{
 
-/* =====================================================
-   PASSWORD
-===================================================== */
+            width:68px;
 
-.password-toggle{
+            flex-shrink:0;
 
-    position:absolute;
+            height:48px;
 
-    right:10px;
+            border-radius:12px;
 
-    top:50%;
+            background:#F1F4F0;
 
-    transform:
-        translateY(-50%);
+            border:1px solid #DCE2DD;
 
-    border:0;
+            display:flex;
 
-    background:transparent;
+            align-items:center;
 
-    color:#7D8982;
+            justify-content:center;
 
-    font-size:10px;
+            color:#526058;
 
-    font-weight:800;
+            font-size:13px;
 
-    padding:7px;
+            font-weight:700;
+        }
 
-    cursor:pointer;
-}
 
+        .phone-input input{
 
-/* =====================================================
-   PHONE
-===================================================== */
+            flex:1;
+        }
 
-.phone-wrap{
 
-    display:flex;
+        /* =====================================================
+           PASSWORD
+        ===================================================== */
 
-    gap:7px;
-}
+        .password-input{
 
-.country-code{
+            position:relative;
+        }
 
-    width:72px;
 
-    height:47px;
+        .password-input input{
 
-    border:
-        1px solid
-        #DCE2DD;
+            padding-right:50px;
+        }
 
-    border-radius:11px;
 
-    background:#FBFCFA;
+        .show-password{
 
-    display:flex;
+            position:absolute;
 
-    align-items:center;
+            right:8px;
+            top:50%;
 
-    justify-content:center;
+            transform:translateY(-50%);
 
-    gap:5px;
+            border:none;
 
-    color:#39463F;
+            background:transparent;
 
-    font-size:11px;
+            color:#16805C;
 
-    font-weight:800;
+            font-size:12px;
 
-    flex-shrink:0;
-}
+            font-weight:700;
 
-.phone-input{
+            padding:7px;
+        }
 
-    flex:1;
-}
 
+        /* =====================================================
+           TERMS
+        ===================================================== */
 
-/* =====================================================
-   TERMS
-===================================================== */
+        .terms{
 
-.terms{
+            display:flex;
 
-    display:flex;
+            align-items:flex-start;
 
-    align-items:flex-start;
+            gap:9px;
 
-    gap:9px;
+            margin:
+                4px
+                0
+                17px;
+        }
 
-    margin:
-        4px 0 18px;
-}
 
-.terms input{
+        .terms input{
 
-    width:16px;
+            width:17px;
+            height:17px;
 
-    height:16px;
+            margin-top:1px;
 
-    min-width:16px;
+            accent-color:#16805C;
 
-    margin-top:1px;
+            flex-shrink:0;
+        }
 
-    padding:0;
 
-    accent-color:var(--green);
+        .terms label{
 
-    box-shadow:none;
-}
+            color:#737E77;
 
-.terms label{
+            font-size:11px;
 
-    font-size:9px;
+            line-height:1.5;
+        }
 
-    color:#7A847E;
 
-    line-height:1.55;
+        .terms a{
 
-    cursor:pointer;
-}
+            color:#16805C;
 
-.terms a{
+            font-weight:700;
+        }
 
-    color:var(--green);
 
-    font-weight:800;
-}
+        /* =====================================================
+           ERROR
+        ===================================================== */
 
+        .error-box{
 
-/* =====================================================
-   BUTTON
-===================================================== */
+            display:none;
 
-.continue-btn{
+            background:#FFF1F0;
 
-    width:100%;
+            border:1px solid #F2C7C3;
 
-    height:49px;
+            color:#A53A32;
 
-    border:0;
+            border-radius:11px;
 
-    border-radius:12px;
+            padding:11px 12px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0B4F3A,
-            #16805C
-        );
+            margin-bottom:15px;
 
-    color:white;
+            font-size:12px;
 
-    font-size:12px;
+            line-height:1.5;
+        }
 
-    font-weight:850;
 
-    box-shadow:
-        0 10px 23px
-        rgba(11,79,58,.17);
+        .error-box.show{
 
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        opacity .2s ease;
+            display:block;
+        }
 
-    display:flex;
 
-    align-items:center;
+        /* =====================================================
+           BUTTON
+        ===================================================== */
 
-    justify-content:center;
+        .continue-btn{
 
-    gap:8px;
-}
+            width:100%;
 
-.continue-btn:hover{
+            min-height:50px;
 
-    transform:translateY(-2px);
+            border:none;
 
-    box-shadow:
-        0 14px 28px
-        rgba(11,79,58,.22);
-}
+            border-radius:13px;
 
-.continue-btn:active{
+            background:
+                linear-gradient(
+                    135deg,
+                    #16805C,
+                    #0B4F3A
+                );
 
-    transform:translateY(0);
-}
+            color:#FFFFFF;
 
-.continue-btn:disabled{
+            font-size:14px;
 
-    opacity:.65;
+            font-weight:800;
 
-    cursor:not-allowed;
+            box-shadow:
+                0 8px 18px rgba(11,79,58,.18);
 
-    transform:none;
-}
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
+        }
 
 
-/* =====================================================
-   BOTTOM LOGIN
-===================================================== */
+        .continue-btn:hover{
 
-.bottom-login{
+            box-shadow:
+                0 10px 22px rgba(11,79,58,.22);
+        }
 
-    text-align:center;
 
-    margin-top:18px;
+        .continue-btn:active{
 
-    color:#7A847E;
+            transform:scale(.985);
+        }
 
-    font-size:10px;
-}
 
-.bottom-login a{
+        .continue-btn.loading{
 
-    color:var(--green);
+            opacity:.75;
 
-    font-weight:850;
+            pointer-events:none;
+        }
 
-    margin-left:4px;
-}
 
+        /* =====================================================
+           FOOT NOTE
+        ===================================================== */
 
-/* =====================================================
-   SECURITY NOTE
-===================================================== */
+        .bottom-note{
 
-.security{
+            text-align:center;
 
-    display:flex;
+            margin-top:17px;
 
-    align-items:center;
+            color:#8A938E;
 
-    justify-content:center;
+            font-size:11px;
 
-    gap:7px;
+            line-height:1.5;
+        }
 
-    margin-top:19px;
 
-    color:#8A938E;
+        .bottom-note strong{
 
-    font-size:9px;
-}
+            color:#16805C;
+        }
 
-.security-icon{
 
-    width:18px;
+        /* =====================================================
+           SUCCESS STATE
+        ===================================================== */
 
-    height:18px;
+        .success{
 
-    border-radius:50%;
+            display:none;
 
-    background:
-        rgba(22,128,92,.09);
+            text-align:center;
 
-    color:var(--green);
+            padding:
+                15px
+                5px
+                5px;
+        }
 
-    display:flex;
 
-    align-items:center;
+        .success.show{
 
-    justify-content:center;
+            display:block;
+        }
 
-    font-size:9px;
-}
 
+        .success-icon{
 
-/* =====================================================
-   FOOTER
-===================================================== */
+            width:60px;
+            height:60px;
 
-.footer{
+            border-radius:50%;
 
-    text-align:center;
+            background:#E7F5EE;
 
-    padding:
-        0 20px
-        24px;
+            color:#16805C;
 
-    color:#929B96;
+            display:flex;
 
-    font-size:8px;
+            align-items:center;
+            justify-content:center;
 
-    line-height:1.6;
-}
+            font-size:27px;
 
+            font-weight:800;
 
-/* =====================================================
-   ERROR
-===================================================== */
+            margin:
+                0
+                auto
+                16px;
+        }
 
-.error-message{
 
-    display:none;
+        .success h2{
 
-    background:
-        #FFF1EE;
+            color:#0B4F3A;
 
-    border:
-        1px solid
-        #F3D0C8;
+            font-size:22px;
 
-    color:#A94E3A;
+            margin-bottom:8px;
+        }
 
-    border-radius:10px;
 
-    padding:
-        9px 11px;
+        .success p{
 
-    font-size:9px;
+            color:#737E77;
 
-    line-height:1.5;
+            font-size:13px;
 
-    margin-bottom:13px;
-}
+            line-height:1.6;
 
-.error-message.show{
+            margin-bottom:18px;
+        }
 
-    display:block;
-}
 
+        .setup-btn{
 
-/* =====================================================
-   SUCCESS
-===================================================== */
+            width:100%;
 
-.success-message{
+            min-height:48px;
 
-    display:none;
+            border:none;
 
-    text-align:center;
+            border-radius:12px;
 
-    padding:25px 10px;
-}
+            background:#16805C;
 
-.success-icon{
+            color:#FFFFFF;
 
-    width:55px;
+            font-weight:800;
 
-    height:55px;
+            font-size:14px;
+        }
 
-    border-radius:50%;
 
-    background:#E8F4ED;
+        /* =====================================================
+           DESKTOP
+        ===================================================== */
 
-    color:var(--green);
+        @media (min-width:700px){
 
-    display:flex;
+            .topbar{
 
-    align-items:center;
+                padding:
+                    24px
+                    30px
+                    15px;
+            }
 
-    justify-content:center;
 
-    margin:
-        0 auto 14px;
+            main{
 
-    font-size:22px;
+                padding-top:28px;
+            }
 
-    font-weight:900;
-}
 
-.success-message h3{
+            .form-card{
 
-    color:var(--dark-green);
+                padding:28px 28px;
+            }
 
-    font-size:18px;
+        }
 
-    margin-bottom:7px;
-}
 
-.success-message p{
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
 
-    color:#78827C;
+        @media (prefers-reduced-motion:reduce){
 
-    font-size:11px;
+            *{
 
-    line-height:1.6;
-}
+                scroll-behavior:auto !important;
 
+                transition:none !important;
+            }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+        }
 
-@media(max-width:480px){
-
-    .topbar{
-
-        height:61px;
-
-        padding:
-            0 15px;
-    }
-
-    .brand img{
-
-        width:34px;
-
-        height:34px;
-    }
-
-    .brand-name{
-
-        font-size:18px;
-    }
-
-    .login-top{
-
-        font-size:10px;
-    }
-
-    .main{
-
-        padding:
-            34px 14px
-            45px;
-    }
-
-    .logo{
-
-        width:63px;
-
-        height:63px;
-    }
-
-    .intro h1{
-
-        font-size:32px;
-    }
-
-    .form-card{
-
-        padding:
-            22px 17px;
-
-        border-radius:20px;
-    }
-
-    .progress-line{
-
-        width:22px;
-    }
-}
-
-</style>
+    </style>
 
 </head>
 
@@ -1032,75 +924,65 @@ input:focus{
 <div class="page">
 
 
-<!-- =====================================================
-     TOP BAR
-===================================================== -->
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
 
-<header class="topbar">
+    <header class="topbar">
 
-
-    <a
-        href="index.html"
-        class="brand">
-
-        <img
-            src="kayah-logo.png"
-            alt="Kayah">
-
-        <span class="brand-name">
-            Kayah
-        </span>
-
-    </a>
-
-
-    <a
-        href="login.html"
-        class="login-top">
-
-        Already have an account?
-
-        <span>
-            Log In
-        </span>
-
-    </a>
-
-
-</header>
-
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
-
-
-    <div class="container">
-
-
-        <!-- =================================================
-             INTRO
-        ================================================== -->
-
-        <div class="intro">
-
+        <a
+            href="../"
+            class="brand"
+            aria-label="Kayah Home"
+        >
 
             <img
-                src="kayah-logo.png"
-                alt="Kayah Logo"
-                class="logo">
+                src="../kayah-logo.png"
+                alt="Kayah"
+            >
+
+            <span class="brand-name">
+                Kayah
+            </span>
+
+        </a>
 
 
-            <div class="label">
+        <a
+            href="../login/"
+            class="login-link"
+        >
+            Log In
+        </a>
 
-                <span class="label-dot"></span>
+    </header>
 
-                BUSINESS SETUP
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- INTRO -->
+
+        <section class="intro">
+
+            <div class="logo-wrap">
+
+                <img
+                    src="../kayah-logo.png"
+                    alt="Kayah Logo"
+                >
 
             </div>
+
+
+            <span class="eyebrow">
+                BUSINESS MANAGEMENT PLATFORM
+            </span>
 
 
             <h1>
@@ -1109,15 +991,11 @@ input:focus{
 
 
             <p>
-
-                Create your Kayah business account
-                and take the first step toward
-                managing your business in one place.
-
+                Create your Kayah account and get your
+                business workspace ready in just a few steps.
             </p>
 
-
-        </div>
+        </section>
 
 
 
@@ -1128,14 +1006,15 @@ input:focus{
         <div class="progress">
 
 
-            <div
-                class="progress-item active">
+            <div class="progress-item active">
 
-                <span class="progress-number">
+                <div class="progress-circle">
                     1
-                </span>
+                </div>
 
-                Account
+                <div class="progress-label">
+                    Account
+                </div>
 
             </div>
 
@@ -1145,11 +1024,13 @@ input:focus{
 
             <div class="progress-item">
 
-                <span class="progress-number">
+                <div class="progress-circle">
                     2
-                </span>
+                </div>
 
-                Business
+                <div class="progress-label">
+                    Business
+                </div>
 
             </div>
 
@@ -1159,11 +1040,13 @@ input:focus{
 
             <div class="progress-item">
 
-                <span class="progress-number">
+                <div class="progress-circle">
                     3
-                </span>
+                </div>
 
-                Start
+                <div class="progress-label">
+                    Start
+                </div>
 
             </div>
 
@@ -1176,134 +1059,108 @@ input:focus{
              FORM CARD
         ================================================== -->
 
-        <div class="form-card">
+        <section class="form-card">
 
 
-            <div class="form-header">
-
-                <h2>
-                    Create your business account
-                </h2>
-
-                <p>
-                    Start with your basic information.
-                    You can add more business details
-                    in the next step.
-                </p>
-
-            </div>
+            <div id="formContent">
 
 
+                <div class="card-heading">
 
-            <!-- ERROR -->
+                    <h2>
+                        Your Account
+                    </h2>
 
-            <div
-                class="error-message"
-                id="errorMessage">
+                    <p>
+                        Enter your basic details to begin.
+                    </p>
 
-            </div>
+                </div>
 
 
 
-            <!-- =================================================
-                 FORM
-            ================================================== -->
+                <!-- ERROR -->
 
-            <form
-                id="signupForm"
-                novalidate>
-
-
-                <!-- BUSINESS NAME -->
-
-                <div class="form-group">
-
-                    <label for="businessName">
-
-                        Business Name
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
+                <div
+                    id="errorBox"
+                    class="error-box"
+                    role="alert"
+                ></div>
 
 
-                    <div class="input-wrap">
 
-                        <div class="input-icon">
-                            ▣
-                        </div>
+                <!-- FORM -->
+
+                <form
+                    id="signupForm"
+                    novalidate
+                >
+
+
+                    <!-- BUSINESS NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="businessName"
+                        >
+                            Business Name
+                            <span class="required">*</span>
+                        </label>
+
 
                         <input
                             type="text"
                             id="businessName"
                             name="businessName"
-                            placeholder="Enter your business name"
+                            placeholder="e.g. Faris Mini Store"
                             autocomplete="organization"
-                            required>
+                            required
+                        >
 
                     </div>
 
-                </div>
 
 
+                    <!-- YOUR NAME -->
 
-                <!-- OWNER NAME -->
+                    <div class="form-group">
 
-                <div class="form-group">
+                        <label
+                            class="form-label"
+                            for="fullName"
+                        >
+                            Your Name
+                            <span class="required">*</span>
+                        </label>
 
-                    <label for="ownerName">
-
-                        Your Name
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <div class="input-wrap">
-
-                        <div class="input-icon">
-                            ◉
-                        </div>
 
                         <input
                             type="text"
-                            id="ownerName"
-                            name="ownerName"
-                            placeholder="Owner or manager name"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
                             autocomplete="name"
-                            required>
+                            required
+                        >
 
                     </div>
 
-                </div>
 
 
+                    <!-- EMAIL -->
 
-                <!-- EMAIL -->
+                    <div class="form-group">
 
-                <div class="form-group">
+                        <label
+                            class="form-label"
+                            for="email"
+                        >
+                            Business Email
+                            <span class="required">*</span>
+                        </label>
 
-                    <label for="email">
-
-                        Business Email
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <div class="input-wrap">
-
-                        <div class="input-icon">
-                            @
-                        </div>
 
                         <input
                             type="email"
@@ -1311,211 +1168,184 @@ input:focus{
                             name="email"
                             placeholder="you@example.com"
                             autocomplete="email"
-                            required>
+                            required
+                        >
 
                     </div>
 
-                </div>
 
 
+                    <!-- PHONE -->
 
-                <!-- PHONE -->
+                    <div class="form-group">
 
-                <div class="form-group">
-
-                    <label for="phone">
-
-                        Phone Number
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
+                        <label
+                            class="form-label"
+                            for="phone"
+                        >
+                            Phone Number
+                            <span class="required">*</span>
+                        </label>
 
 
-                    <div class="phone-wrap">
+                        <div class="phone-input">
 
 
-                        <div class="country-code">
+                            <div class="country-code">
+                                +63
+                            </div>
 
-                            🇵🇭
-
-                            +63
-
-                        </div>
-
-
-                        <div class="input-wrap phone-input">
 
                             <input
                                 type="tel"
                                 id="phone"
                                 name="phone"
                                 placeholder="9XXXXXXXXX"
-                                autocomplete="tel"
                                 inputmode="numeric"
+                                autocomplete="tel"
                                 maxlength="10"
-                                required>
+                                required
+                            >
+
 
                         </div>
-
 
                     </div>
 
-                </div>
 
 
+                    <!-- PASSWORD -->
 
-                <!-- PASSWORD -->
+                    <div class="form-group">
 
-                <div class="form-group">
-
-                    <label for="password">
-
-                        Password
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
+                        <label
+                            class="form-label"
+                            for="password"
+                        >
+                            Password
+                            <span class="required">*</span>
+                        </label>
 
 
-                    <div class="input-wrap">
+                        <div class="password-input">
 
-                        <div class="input-icon">
-                            ●
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="showPassword"
+                            >
+                                Show
+                            </button>
+
                         </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="confirmPassword"
+                        >
+                            Confirm Password
+                            <span class="required">*</span>
+                        </label>
+
+
+                        <div class="password-input">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Enter your password again"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="showConfirmPassword"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TERMS -->
+
+                    <div class="terms">
 
                         <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Create a password"
-                            autocomplete="new-password"
-                            minlength="8"
-                            required>
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                        >
 
 
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            data-target="password">
+                        <label for="terms">
 
-                            SHOW
+                            I agree to Kayah's
+                            <a href="#" onclick="return false;">
+                                Terms
+                            </a>
+                            and
+                            <a href="#" onclick="return false;">
+                                Privacy Policy
+                            </a>.
 
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CONFIRM PASSWORD -->
-
-                <div class="form-group">
-
-                    <label for="confirmPassword">
-
-                        Confirm Password
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-
-                    <div class="input-wrap">
-
-                        <div class="input-icon">
-                            ●
-                        </div>
-
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            placeholder="Enter your password again"
-                            autocomplete="new-password"
-                            minlength="8"
-                            required>
-
-
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            data-target="confirmPassword">
-
-                            SHOW
-
-                        </button>
+                        </label>
 
                     </div>
 
-                </div>
 
 
+                    <!-- BUTTON -->
 
-                <!-- TERMS -->
-
-                <div class="terms">
-
-
-                    <input
-                        type="checkbox"
-                        id="terms"
-                        required>
+                    <button
+                        type="submit"
+                        class="continue-btn"
+                        id="continueBtn"
+                    >
+                        Continue
+                    </button>
 
 
-                    <label for="terms">
+                </form>
 
-                        I agree to Kayah's
 
-                        <a
-                            href="#"
-                            onclick="return false;">
+                <div class="bottom-note">
 
-                            Terms of Service
-
-                        </a>
-
-                        and
-
-                        <a
-                            href="#"
-                            onclick="return false;">
-
-                            Privacy Policy
-
-                        </a>.
-
-                    </label>
-
+                    <strong>Simple.</strong>
+                    Organized.
+                    Built for business.
 
                 </div>
 
 
-
-                <!-- BUTTON -->
-
-                <button
-                    type="submit"
-                    class="continue-btn"
-                    id="continueButton">
-
-                    Continue
-
-                    <span>
-                        →
-                    </span>
-
-                </button>
-
-
-            </form>
+            </div>
 
 
 
@@ -1524,93 +1354,41 @@ input:focus{
             ================================================== -->
 
             <div
-                class="success-message"
-                id="successMessage">
-
+                id="successContent"
+                class="success"
+            >
 
                 <div class="success-icon">
                     ✓
                 </div>
 
 
-                <h3>
-                    Account Ready
-                </h3>
+                <h2>
+                    Account Created
+                </h2>
 
 
                 <p>
-
-                    Your account information has been
-                    saved. Let's finish setting up
-                    your business.
-
+                    Your account information is ready.
+                    Let's complete your business setup.
                 </p>
 
+
+                <button
+                    type="button"
+                    class="setup-btn"
+                    id="setupBtn"
+                >
+                    Continue Business Setup
+                </button>
 
             </div>
 
 
-        </div>
+        </section>
 
 
-
-        <!-- =================================================
-             LOGIN
-        ================================================== -->
-
-        <div class="bottom-login">
-
-            Already have a Kayah account?
-
-            <a href="login.html">
-                Log In
-            </a>
-
-        </div>
-
-
-
-        <!-- =================================================
-             SECURITY
-        ================================================== -->
-
-        <div class="security">
-
-            <span class="security-icon">
-                ✓
-            </span>
-
-            Your information is kept secure.
-
-        </div>
-
-
-    </div>
-
-</main>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-    <div>
-
-        © 2026 Kayah
-
-    </div>
-
-    <div>
-
-        Business, Made Possible.
-
-    </div>
-
-</footer>
-
+    </main>
 
 
 </div>
@@ -1619,347 +1397,177 @@ input:focus{
 
 <script>
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-const signupForm =
-    document.getElementById(
-        "signupForm"
-    );
+    const signupForm =
+        document.getElementById("signupForm");
 
-const errorMessage =
-    document.getElementById(
-        "errorMessage"
-    );
+    const errorBox =
+        document.getElementById("errorBox");
 
-const continueButton =
-    document.getElementById(
-        "continueButton"
-    );
+    const continueBtn =
+        document.getElementById("continueBtn");
 
-const successMessage =
-    document.getElementById(
-        "successMessage"
-    );
+    const formContent =
+        document.getElementById("formContent");
+
+    const successContent =
+        document.getElementById("successContent");
+
+    const setupBtn =
+        document.getElementById("setupBtn");
 
 
-/* =====================================================
-   PASSWORD SHOW / HIDE
-===================================================== */
 
-const passwordButtons =
-    document.querySelectorAll(
-        ".password-toggle"
-    );
+    /* =====================================================
+       PASSWORD SHOW / HIDE
+    ===================================================== */
 
+    const password =
+        document.getElementById("password");
 
-passwordButtons.forEach(
-    function(button){
+    const confirmPassword =
+        document.getElementById("confirmPassword");
 
-        button.addEventListener(
-            "click",
-            function(){
+    const showPassword =
+        document.getElementById("showPassword");
 
-                const targetId =
-                    button.getAttribute(
-                        "data-target"
-                    );
-
-                const input =
-                    document.getElementById(
-                        targetId
-                    );
+    const showConfirmPassword =
+        document.getElementById("showConfirmPassword");
 
 
-                if(
-                    input.type === "password"
-                ){
+    showPassword.addEventListener(
+        "click",
+        function(){
 
-                    input.type =
-                        "text";
+            if(password.type === "password"){
 
-                    button.textContent =
-                        "HIDE";
+                password.type = "text";
 
-                }else{
+                showPassword.textContent = "Hide";
 
-                    input.type =
-                        "password";
+            }else{
 
-                    button.textContent =
-                        "SHOW";
+                password.type = "password";
 
-                }
+                showPassword.textContent = "Show";
 
             }
-        );
+
+        }
+    );
+
+
+    showConfirmPassword.addEventListener(
+        "click",
+        function(){
+
+            if(confirmPassword.type === "password"){
+
+                confirmPassword.type = "text";
+
+                showConfirmPassword.textContent = "Hide";
+
+            }else{
+
+                confirmPassword.type = "password";
+
+                showConfirmPassword.textContent = "Show";
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       PHONE INPUT
+    ===================================================== */
+
+    const phone =
+        document.getElementById("phone");
+
+
+    phone.addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+
+        }
+    );
+
+
+
+    /* =====================================================
+       ERROR
+    ===================================================== */
+
+    function showError(message){
+
+        errorBox.textContent = message;
+
+        errorBox.classList.add("show");
+
+        errorBox.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
 
     }
-);
 
 
-/* =====================================================
-   PHONE INPUT
-===================================================== */
+    function hideError(){
 
-const phoneInput =
-    document.getElementById(
-        "phone"
-    );
+        errorBox.textContent = "";
 
-
-phoneInput.addEventListener(
-    "input",
-    function(){
-
-        this.value =
-            this.value
-                .replace(
-                    /\D/g,
-                    ""
-                )
-                .slice(
-                    0,
-                    10
-                );
+        errorBox.classList.remove("show");
 
     }
-);
 
 
-/* =====================================================
-   ERROR
-===================================================== */
 
-function showError(message){
+    /* =====================================================
+       SAVE SIGNUP DATA
+    ===================================================== */
 
-    errorMessage.textContent =
-        message;
-
-    errorMessage.classList.add(
-        "show"
-    );
-
-    errorMessage.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
-
-}
-
-
-function clearError(){
-
-    errorMessage.textContent =
-        "";
-
-    errorMessage.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =====================================================
-   EMAIL VALIDATION
-===================================================== */
-
-function validEmail(email){
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
-
-}
-
-
-/* =====================================================
-   FORM SUBMIT
-===================================================== */
-
-signupForm.addEventListener(
-    "submit",
-    function(event){
-
-        event.preventDefault();
-
-        clearError();
-
+    function saveSignupData(){
 
         const businessName =
-            document.getElementById(
-                "businessName"
-            ).value.trim();
+            document.getElementById("businessName").value.trim();
 
-
-        const ownerName =
-            document.getElementById(
-                "ownerName"
-            ).value.trim();
-
+        const fullName =
+            document.getElementById("fullName").value.trim();
 
         const email =
-            document.getElementById(
-                "email"
-            ).value.trim();
+            document.getElementById("email").value.trim();
 
+        const phoneNumber =
+            phone.value.trim();
 
-        const phone =
-            phoneInput.value.trim();
-
-
-        const password =
-            document.getElementById(
-                "password"
-            ).value;
-
-
-        const confirmPassword =
-            document.getElementById(
-                "confirmPassword"
-            ).value;
-
-
-        const terms =
-            document.getElementById(
-                "terms"
-            ).checked;
-
-
-        /* ---------------------------------------------
-           VALIDATION
-        --------------------------------------------- */
-
-
-        if(!businessName){
-
-            showError(
-                "Please enter your business name."
-            );
-
-            return;
-
-        }
-
-
-        if(!ownerName){
-
-            showError(
-                "Please enter your name."
-            );
-
-            return;
-
-        }
-
-
-        if(!email){
-
-            showError(
-                "Please enter your business email."
-            );
-
-            return;
-
-        }
-
-
-        if(!validEmail(email)){
-
-            showError(
-                "Please enter a valid email address."
-            );
-
-            return;
-
-        }
-
-
-        if(!phone){
-
-            showError(
-                "Please enter your phone number."
-            );
-
-            return;
-
-        }
-
-
-        if(phone.length !== 10){
-
-            showError(
-                "Please enter a valid Philippine mobile number."
-            );
-
-            return;
-
-        }
-
-
-        if(!password){
-
-            showError(
-                "Please create a password."
-            );
-
-            return;
-
-        }
-
-
-        if(password.length < 8){
-
-            showError(
-                "Your password must contain at least 8 characters."
-            );
-
-            return;
-
-        }
-
-
-        if(password !== confirmPassword){
-
-            showError(
-                "The passwords do not match."
-            );
-
-            return;
-
-        }
-
-
-        if(!terms){
-
-            showError(
-                "Please agree to the Terms of Service and Privacy Policy."
-            );
-
-            return;
-
-        }
-
-
-        /* ---------------------------------------------
-           TEMPORARY ACCOUNT DATA
-           
-           Firebase will replace this later.
-        --------------------------------------------- */
 
         const signupData = {
 
             businessName:
                 businessName,
 
-            ownerName:
-                ownerName,
+            fullName:
+                fullName,
 
             email:
                 email,
 
             phone:
-                "+63" + phone,
+                phoneNumber,
+
+            countryCode:
+                "+63",
 
             createdAt:
                 new Date().toISOString()
@@ -1968,128 +1576,271 @@ signupForm.addEventListener(
 
 
         /*
-         * Save only the non-sensitive setup data
-         * temporarily so setup.html can read it.
+         * Password is intentionally NOT stored
+         * in sessionStorage.
          *
-         * Password is intentionally NOT saved
-         * in localStorage.
+         * When Firebase authentication is added,
+         * the password will be handled securely
+         * through Firebase Authentication.
          */
 
         sessionStorage.setItem(
             "kayahSignupData",
-            JSON.stringify(
-                signupData
-            )
-        );
-
-
-        /* ---------------------------------------------
-           LOADING STATE
-        --------------------------------------------- */
-
-        continueButton.disabled =
-            true;
-
-        continueButton.innerHTML =
-            `
-                <span>
-                    Preparing...
-                </span>
-            `;
-
-
-        /* ---------------------------------------------
-           NEXT STEP
-        --------------------------------------------- */
-
-        setTimeout(
-            function(){
-
-                successMessage.style.display =
-                    "block";
-
-                signupForm.style.display =
-                    "none";
-
-
-                setTimeout(
-                    function(){
-
-                        window.location.href =
-                            "setup.html";
-
-                    },
-                    700
-                );
-
-            },
-            500
+            JSON.stringify(signupData)
         );
 
     }
-);
 
 
-/* =====================================================
-   CLEAR ERROR WHILE TYPING
-===================================================== */
 
-document.querySelectorAll(
-    "input"
-).forEach(
-    function(input){
+    /* =====================================================
+       FORM SUBMIT
+    ===================================================== */
 
-        input.addEventListener(
-            "input",
+    signupForm.addEventListener(
+        "submit",
+        function(event){
+
+            event.preventDefault();
+
+            hideError();
+
+
+            const businessName =
+                document
+                    .getElementById("businessName")
+                    .value
+                    .trim();
+
+
+            const fullName =
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+
+            const phoneNumber =
+                phone.value.trim();
+
+
+            const passwordValue =
+                password.value;
+
+
+            const confirmPasswordValue =
+                confirmPassword.value;
+
+
+            const terms =
+                document.getElementById("terms").checked;
+
+
+
+            /* ---------------------------------------------
+               VALIDATION
+            --------------------------------------------- */
+
+            if(!businessName){
+
+                showError(
+                    "Please enter your business name."
+                );
+
+                return;
+
+            }
+
+
+            if(!fullName){
+
+                showError(
+                    "Please enter your name."
+                );
+
+                return;
+
+            }
+
+
+            if(!email){
+
+                showError(
+                    "Please enter your business email."
+                );
+
+                return;
+
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if(!emailPattern.test(email)){
+
+                showError(
+                    "Please enter a valid email address."
+                );
+
+                return;
+
+            }
+
+
+            if(
+                phoneNumber.length !== 10 ||
+                !phoneNumber.startsWith("9")
+            ){
+
+                showError(
+                    "Please enter a valid Philippine mobile number, for example 9171234567."
+                );
+
+                return;
+
+            }
+
+
+            if(passwordValue.length < 8){
+
+                showError(
+                    "Your password must contain at least 8 characters."
+                );
+
+                return;
+
+            }
+
+
+            if(
+                passwordValue !==
+                confirmPasswordValue
+            ){
+
+                showError(
+                    "The passwords do not match."
+                );
+
+                return;
+
+            }
+
+
+            if(!terms){
+
+                showError(
+                    "Please agree to the Terms and Privacy Policy to continue."
+                );
+
+                return;
+
+            }
+
+
+
+            /* ---------------------------------------------
+               LOADING
+            --------------------------------------------- */
+
+            continueBtn.classList.add("loading");
+
+            continueBtn.textContent =
+                "Preparing...";
+
+
+
+            /* ---------------------------------------------
+               SAVE TEMPORARY SIGNUP DATA
+            --------------------------------------------- */
+
+            saveSignupData();
+
+
+
+            /*
+             * Small delay gives the user a smooth
+             * transition instead of an instant jump.
+             */
+
+            setTimeout(
+                function(){
+
+                    continueBtn.classList.remove(
+                        "loading"
+                    );
+
+                    continueBtn.textContent =
+                        "Continue";
+
+
+                    formContent.style.display =
+                        "none";
+
+
+                    successContent.classList.add(
+                        "show"
+                    );
+
+
+                },
+                500
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       GO TO BUSINESS SETUP
+    ===================================================== */
+
+    setupBtn.addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "../setup/";
+
+        }
+    );
+
+
+
+    /* =====================================================
+       SERVICE WORKER
+    ===================================================== */
+
+    if("serviceWorker" in navigator){
+
+        window.addEventListener(
+            "load",
             function(){
 
-                clearError();
+                navigator.serviceWorker
+                    .register("../sw.js")
+                    .catch(function(error){
+
+                        console.log(
+                            "Service Worker registration failed:",
+                            error
+                        );
+
+                    });
 
             }
         );
 
     }
-);
-
-
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
-
-if(
-    "serviceWorker" in navigator
-){
-
-    window.addEventListener(
-        "load",
-        function(){
-
-            navigator.serviceWorker
-                .register("./sw.js")
-                .then(
-                    function(){
-
-                        console.log(
-                            "Kayah service worker registered."
-                        );
-
-                    }
-                )
-                .catch(
-                    function(error){
-
-                        console.log(
-                            "Service worker error:",
-                            error
-                        );
-
-                    }
-                );
-
-        }
-    );
-
-}
 
 </script>
 
