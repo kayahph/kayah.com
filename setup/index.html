@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -16,6 +17,7 @@
 >
 
 <title>Set Up Your Business — Kayah</title>
+
 
 <style>
 
@@ -177,6 +179,7 @@ h1{
     border-radius:18px;
     padding:18px;
     margin-bottom:22px;
+
     box-shadow:
         0 8px 25px rgba(11,79,58,.05);
 }
@@ -234,14 +237,6 @@ h1{
 
 .progress-line.active{
     background:#16805C;
-}
-
-.step-label{
-    margin-top:8px;
-    font-size:11px;
-    font-weight:700;
-    color:#7A847E;
-    text-align:center;
 }
 
 .progress-labels{
@@ -441,7 +436,6 @@ label{
 
     background:#FFF3F0;
     border:1px solid #F2C8BE;
-
     color:#A83D2D;
 
     border-radius:12px;
@@ -460,7 +454,7 @@ label{
 
 
 /* =====================================================
-   SUCCESS MESSAGE
+   SUCCESS
 ===================================================== */
 
 .success-box{
@@ -468,7 +462,6 @@ label{
 
     background:#EDF8F2;
     border:1px solid #BFE2CE;
-
     color:#176341;
 
     border-radius:12px;
@@ -530,7 +523,7 @@ label{
 
 
 /* =====================================================
-   LOADING
+   BUTTON LOADING
 ===================================================== */
 
 .continue-button.loading{
@@ -538,6 +531,7 @@ label{
 }
 
 .continue-button.loading::before{
+
     content:"";
 
     display:inline-block;
@@ -559,9 +553,11 @@ label{
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
 
 
@@ -590,7 +586,9 @@ label{
 ===================================================== */
 
 .loading-screen{
+
     position:fixed;
+
     inset:0;
 
     background:#F7F3E8;
@@ -598,6 +596,7 @@ label{
     z-index:9999;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -607,16 +606,21 @@ label{
 }
 
 .loading-screen.hide{
+
     opacity:0;
     visibility:hidden;
+
 }
 
 .loading-content{
+
     text-align:center;
     padding:25px;
+
 }
 
 .loading-logo{
+
     width:76px;
     height:76px;
 
@@ -625,9 +629,11 @@ label{
     border-radius:18px;
 
     margin-bottom:17px;
+
 }
 
 .loading-spinner{
+
     width:25px;
     height:25px;
 
@@ -642,10 +648,31 @@ label{
         spin .8s linear infinite;
 }
 
+.loading-title{
+
+    font-size:17px;
+    font-weight:800;
+
+    color:#0B4F3A;
+
+    margin-bottom:5px;
+}
+
 .loading-text{
+
     font-size:13px;
-    font-weight:700;
+    font-weight:600;
+
     color:#66716B;
+}
+
+.loading-subtext{
+
+    font-size:11px;
+
+    color:#929A95;
+
+    margin-top:5px;
 }
 
 
@@ -704,27 +731,27 @@ label{
 
     <div class="loading-content">
 
-    <img
-        src="../kayah-logo.png"
-        alt="Kayah"
-        class="loading-logo"
-    >
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah"
+            class="loading-logo"
+        >
 
-    <div class="loading-spinner"></div>
+        <div class="loading-spinner"></div>
 
-    <div class="loading-title">
-        Please wait...
+        <div class="loading-title">
+            Please wait...
+        </div>
+
+        <div class="loading-text">
+            We're preparing your business setup.
+        </div>
+
+        <div class="loading-subtext">
+            This may take a few seconds.
+        </div>
+
     </div>
-
-    <div class="loading-text">
-        We're preparing your business setup.
-    </div>
-
-    <div class="loading-subtext">
-        This may take a few seconds.
-    </div>
-
-</div>
 
 </div>
 
@@ -795,8 +822,10 @@ label{
 
 
     <p class="intro">
+
         You're almost ready. Add a few details about your
         business so Kayah can organize your workspace for you.
+
     </p>
 
 
@@ -867,8 +896,10 @@ label{
         </div>
 
         <div class="section-text">
+
             These details help personalize your Kayah workspace.
             You can change them later in Settings.
+
         </div>
 
 
@@ -888,6 +919,8 @@ label{
         ></div>
 
 
+        <!-- FORM -->
+
         <form
             id="setupForm"
             novalidate
@@ -899,8 +932,13 @@ label{
             <div class="form-group">
 
                 <label for="businessName">
+
                     Business Name
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
 
                 <input
@@ -920,8 +958,13 @@ label{
             <div class="form-group">
 
                 <label for="businessType">
+
                     Business Type
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
 
                 <select
@@ -1109,7 +1152,10 @@ label{
         <div class="form-note">
 
             Your information is securely saved to your
-            <strong>Kayah business profile.</strong>
+
+            <strong>
+                Kayah business profile.
+            </strong>
 
         </div>
 
@@ -1148,7 +1194,7 @@ import {
 
 
 /* =====================================================
-   FIREBASE
+   FIREBASE CONFIG
 ===================================================== */
 
 const firebaseConfig = {
@@ -1174,6 +1220,10 @@ const firebaseConfig = {
 };
 
 
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
 const app =
     initializeApp(firebaseConfig);
 
@@ -1194,11 +1244,14 @@ const form =
 const loadingScreen =
     document.getElementById("loadingScreen");
 
-const submitButton =
-    document.getElementById("submitButton");
+const completeButton =
+    document.getElementById("completeButton");
 
 const errorBox =
-    document.getElementById("errorMessage");
+    document.getElementById("errorBox");
+
+const successBox =
+    document.getElementById("successBox");
 
 
 /* =====================================================
@@ -1213,7 +1266,7 @@ if(loadingScreen){
 
 
 /* =====================================================
-   SESSION DATA
+   PREFILL BUSINESS NAME
 ===================================================== */
 
 try{
@@ -1222,6 +1275,7 @@ try{
         sessionStorage.getItem(
             "kayahSignupData"
         );
+
 
     if(stored){
 
@@ -1252,7 +1306,7 @@ try{
 catch(error){
 
     console.log(
-        "Signup session data could not be loaded.",
+        "Could not load signup data:",
         error
     );
 
@@ -1274,13 +1328,17 @@ onAuthStateChanged(
     auth,
     async function(user){
 
+        console.log(
+            "Auth state:",
+            user
+                ? user.uid
+                : "No user"
+        );
+
+
         if(!user){
 
             currentUser = null;
-
-            console.log(
-                "No authenticated user yet."
-            );
 
             return;
 
@@ -1289,16 +1347,16 @@ onAuthStateChanged(
 
         currentUser = user;
 
+
         console.log(
             "Authenticated user:",
-            user.uid
+            currentUser.uid
         );
 
 
-        /*
-         * Load existing business information
-         * without blocking the page.
-         */
+        /* ---------------------------------------------
+           LOAD EXISTING USER DATA
+        --------------------------------------------- */
 
         try{
 
@@ -1315,115 +1373,134 @@ onAuthStateChanged(
 
 
             if(
-                snapshot.exists()
+                !snapshot.exists()
             ){
 
-                const data =
-                    snapshot.data();
+                console.log(
+                    "No Firestore user document found."
+                );
 
-
-                const businessNameInput =
-                    document.getElementById(
-                        "businessName"
-                    );
-
-                const businessTypeInput =
-                    document.getElementById(
-                        "businessType"
-                    );
-
-                const addressInput =
-                    document.getElementById(
-                        "businessAddress"
-                    );
-
-                const cityInput =
-                    document.getElementById(
-                        "city"
-                    );
-
-                const provinceInput =
-                    document.getElementById(
-                        "province"
-                    );
-
-                const descriptionInput =
-                    document.getElementById(
-                        "businessDescription"
-                    );
-
-
-                if(
-                    businessNameInput &&
-                    data.businessName
-                ){
-
-                    businessNameInput.value =
-                        data.businessName;
-
-                }
-
-
-                if(
-                    businessTypeInput &&
-                    data.businessType
-                ){
-
-                    businessTypeInput.value =
-                        data.businessType;
-
-                }
-
-
-                if(
-                    addressInput &&
-                    data.businessAddress
-                ){
-
-                    addressInput.value =
-                        data.businessAddress;
-
-                }
-
-
-                if(
-                    cityInput &&
-                    data.city
-                ){
-
-                    cityInput.value =
-                        data.city;
-
-                }
-
-
-                if(
-                    provinceInput &&
-                    data.province
-                ){
-
-                    provinceInput.value =
-                        data.province;
-
-                }
-
-
-                if(
-                    descriptionInput &&
-                    data.businessDescription
-                ){
-
-                    descriptionInput.value =
-                        data.businessDescription;
-
-                }
+                return;
 
             }
+
+
+            const data =
+                snapshot.data();
+
+
+            /* BUSINESS NAME */
+
+            const businessNameInput =
+                document.getElementById(
+                    "businessName"
+                );
+
+            if(
+                businessNameInput &&
+                data.businessName
+            ){
+
+                businessNameInput.value =
+                    data.businessName;
+
+            }
+
+
+            /* BUSINESS TYPE */
+
+            const businessTypeInput =
+                document.getElementById(
+                    "businessType"
+                );
+
+            if(
+                businessTypeInput &&
+                data.businessType
+            ){
+
+                businessTypeInput.value =
+                    data.businessType;
+
+            }
+
+
+            /* ADDRESS */
+
+            const addressInput =
+                document.getElementById(
+                    "businessAddress"
+                );
+
+            if(
+                addressInput &&
+                data.businessAddress
+            ){
+
+                addressInput.value =
+                    data.businessAddress;
+
+            }
+
+
+            /* CITY */
+
+            const cityInput =
+                document.getElementById(
+                    "city"
+                );
+
+            if(
+                cityInput &&
+                data.city
+            ){
+
+                cityInput.value =
+                    data.city;
+
+            }
+
+
+            /* PROVINCE */
+
+            const provinceInput =
+                document.getElementById(
+                    "province"
+                );
+
+            if(
+                provinceInput &&
+                data.province
+            ){
+
+                provinceInput.value =
+                    data.province;
+
+            }
+
+
+            /* DESCRIPTION */
+
+            const descriptionInput =
+                document.getElementById(
+                    "description"
+                );
+
+            if(
+                descriptionInput &&
+                data.businessDescription
+            ){
+
+                descriptionInput.value =
+                    data.businessDescription;
+
+            }
+
 
         }
         catch(error){
 
-            console.log(
+            console.error(
                 "Could not load existing business data:",
                 error
             );
@@ -1452,24 +1529,39 @@ function showError(message){
     errorBox.textContent =
         message;
 
-    errorBox.style.display =
-        "block";
+    errorBox.classList.add(
+        "show"
+    );
 
 }
 
 
 /* =====================================================
-   CLEAR ERROR
+   CLEAR MESSAGES
 ===================================================== */
 
-function clearError(){
+function clearMessages(){
 
     if(errorBox){
 
-        errorBox.textContent = "";
+        errorBox.textContent =
+            "";
 
-        errorBox.style.display =
-            "none";
+        errorBox.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    if(successBox){
+
+        successBox.textContent =
+            "";
+
+        successBox.classList.remove(
+            "show"
+        );
 
     }
 
@@ -1477,40 +1569,53 @@ function clearError(){
 
 
 /* =====================================================
-   BUTTON STATE
+   SAVING STATE
 ===================================================== */
 
 function savingState(){
 
-    if(!submitButton){
+    if(!completeButton){
 
         return;
 
     }
 
 
-    submitButton.disabled =
+    completeButton.disabled =
         true;
 
-    submitButton.textContent =
+    completeButton.classList.add(
+        "loading"
+    );
+
+    completeButton.textContent =
         "Saving your business...";
+
 }
 
 
+/* =====================================================
+   NORMAL STATE
+===================================================== */
+
 function normalState(){
 
-    if(!submitButton){
+    if(!completeButton){
 
         return;
 
     }
 
 
-    submitButton.disabled =
+    completeButton.disabled =
         false;
 
-    submitButton.textContent =
-        "Continue";
+    completeButton.classList.remove(
+        "loading"
+    );
+
+    completeButton.textContent =
+        "Complete Business Setup";
 
 }
 
@@ -1527,17 +1632,27 @@ if(form){
 
             event.preventDefault();
 
-            clearError();
+
+            console.log(
+                "Setup form submitted."
+            );
+
+
+            clearMessages();
 
 
             /* -----------------------------------------
-               AUTH CHECK
+               CHECK AUTH
             ----------------------------------------- */
 
             if(!currentUser){
 
                 showError(
-                    "Your account session is not ready yet. Please wait a moment and try again."
+                    "Your account is still loading. Please wait a moment and try again."
+                );
+
+                console.log(
+                    "No authenticated Firebase user."
                 );
 
                 return;
@@ -1594,10 +1709,10 @@ if(form){
                     .trim();
 
 
-            const businessDescription =
+            const description =
                 document
                     .getElementById(
-                        "businessDescription"
+                        "description"
                     )
                     .value
                     .trim();
@@ -1630,10 +1745,16 @@ if(form){
 
 
             /* -----------------------------------------
-               SAVING
+               START SAVING
             ----------------------------------------- */
 
             savingState();
+
+
+            console.log(
+                "Saving business for UID:",
+                currentUser.uid
+            );
 
 
             const userRef =
@@ -1668,7 +1789,7 @@ if(form){
                     "₱",
 
                 businessDescription:
-                    businessDescription,
+                    description,
 
                 setupCompleted:
                     true,
@@ -1682,19 +1803,16 @@ if(form){
             };
 
 
+            /* -----------------------------------------
+               SAVE TO FIRESTORE
+            ----------------------------------------- */
+
             try{
 
                 console.log(
-                    "Saving business information..."
+                    "Sending business data to Firestore..."
                 );
 
-
-                /*
-                 * Wait for the actual Firebase
-                 * confirmation.
-                 *
-                 * No artificial timeout.
-                 */
 
                 await setDoc(
                     userRef,
@@ -1710,28 +1828,51 @@ if(form){
                 );
 
 
-                /*
-                 * Remove temporary signup data.
-                 */
+                /* -------------------------------------
+                   SUCCESS MESSAGE
+                ------------------------------------- */
+
+                if(successBox){
+
+                    successBox.textContent =
+                        "Your business has been set up successfully.";
+
+                    successBox.classList.add(
+                        "show"
+                    );
+
+                }
+
+
+                /* -------------------------------------
+                   REMOVE TEMPORARY SIGNUP DATA
+                ------------------------------------- */
 
                 sessionStorage.removeItem(
                     "kayahSignupData"
                 );
 
 
-                /*
-                 * Go to Dashboard.
-                 */
+                /* -------------------------------------
+                   GO TO DASHBOARD
+                ------------------------------------- */
 
-                window.location.href =
-                    "../dashboard/";
+                setTimeout(
+                    function(){
+
+                        window.location.href =
+                            "../dashboard/";
+
+                    },
+                    500
+                );
 
 
             }
             catch(error){
 
                 console.error(
-                    "Business save failed:",
+                    "FIRESTORE SAVE ERROR:",
                     error
                 );
 
@@ -1739,9 +1880,9 @@ if(form){
                 normalState();
 
 
-                let message =
-                    "We couldn't save your business information.";
-
+                /* -------------------------------------
+                   ERROR MESSAGE
+                ------------------------------------- */
 
                 if(
                     error &&
@@ -1749,36 +1890,46 @@ if(form){
                     "permission-denied"
                 ){
 
-                    message =
-                        "Firebase denied access to your business profile. Please check your Firestore rules.";
+                    showError(
+                        "Firebase denied permission to save your business information."
+                    );
 
                 }
+
                 else if(
                     error &&
                     error.code ===
                     "unavailable"
                 ){
 
-                    message =
-                        "Firebase is temporarily unavailable. Please check your internet connection and try again.";
-
-                }
-                else if(
-                    error &&
-                    error.message
-                ){
-
-                    message =
-                        error.message;
+                    showError(
+                        "Firebase is temporarily unavailable. Please check your internet connection and try again."
+                    );
 
                 }
 
+                else{
 
-                showError(message);
+                    showError(
+                        "Unable to save your business information: " +
+                        (
+                            error.message ||
+                            "Unknown error"
+                        )
+                    );
+
+                }
 
             }
 
         }
+    );
+
+}
+else{
+
+    console.error(
+        "ERROR: setupForm was not found."
     );
 
 }
@@ -1794,18 +1945,31 @@ if(
 
     navigator.serviceWorker
         .register("../sw.js")
-        .catch(function(error){
+        .then(
+            function(){
 
-            console.log(
-                "Service worker registration failed:",
-                error
-            );
+                console.log(
+                    "Kayah service worker registered."
+                );
 
-        });
+            }
+        )
+        .catch(
+            function(error){
+
+                console.log(
+                    "Service worker registration failed:",
+                    error
+                );
+
+            }
+        );
 
 }
 
 </script>
+
+
 </body>
 
 </html>
