@@ -23,10 +23,6 @@
 <title>Dashboard — Kayah</title>
 
 
-<!-- =====================================================
-     PROFESSIONAL FONT
-===================================================== -->
-
 <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -35,6 +31,11 @@
 <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
     crossorigin
 >
 
@@ -88,9 +89,7 @@ body{
 ===================================================== */
 
 .app{
-
     min-height:100vh;
-
 }
 
 
@@ -276,11 +275,6 @@ body{
 
 }
 
-
-/* =====================================================
-   YELLOW BUSINESS STRIPE
-===================================================== */
-
 .business-accent{
 
     height:7px;
@@ -290,11 +284,6 @@ body{
     background:#F2B84B;
 
 }
-
-
-/* =====================================================
-   BUSINESS CONTENT
-===================================================== */
 
 .business-content{
 
@@ -397,7 +386,7 @@ body{
 
 
 /* =====================================================
-   BUSINESS MONOGRAM
+   BUSINESS INITIAL
 ===================================================== */
 
 .business-initial{
@@ -551,6 +540,195 @@ body{
 
 
 /* =====================================================
+   PLAN CARD
+===================================================== */
+
+.plan-card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E8E2;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 20px rgba(11,79,58,.04);
+
+}
+
+.plan-card-top{
+
+    padding:
+        17px
+        17px
+        15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+}
+
+.plan-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-width:0;
+
+}
+
+.plan-icon{
+
+    width:42px;
+    height:42px;
+
+    min-width:42px;
+
+    border-radius:10px;
+
+    background:#0B4F3A;
+
+    color:#F2B84B;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+.plan-name{
+
+    font-size:13px;
+
+    font-weight:800;
+
+    color:#0B4F3A;
+
+}
+
+.plan-description{
+
+    margin-top:3px;
+
+    font-size:9px;
+
+    color:#8A938E;
+
+    line-height:1.4;
+
+}
+
+.plan-badge{
+
+    padding:
+        6px
+        9px;
+
+    border-radius:20px;
+
+    background:#FFF4D9;
+
+    color:#94630F;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+.plan-card-bottom{
+
+    padding:
+        13px
+        17px;
+
+    background:#FBF8EF;
+
+    border-top:1px solid #EAECE5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+.plan-trial-label{
+
+    font-size:9px;
+
+    font-weight:600;
+
+    color:#7D877F;
+
+}
+
+.plan-trial-value{
+
+    margin-top:3px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    color:#344139;
+
+}
+
+.plan-status{
+
+    font-size:9px;
+
+    font-weight:800;
+
+    text-align:right;
+
+    color:#16805C;
+
+}
+
+
+/* =====================================================
+   TRIAL EXPIRED
+===================================================== */
+
+.plan-badge.expired{
+
+    background:#FDECEC;
+
+    color:#A33A3A;
+
+}
+
+.plan-status.expired{
+
+    color:#A33A3A;
+
+}
+
+
+/* =====================================================
    TODAY AT A GLANCE
 ===================================================== */
 
@@ -623,11 +801,6 @@ body{
 
 }
 
-
-/* =====================================================
-   CARD ICON
-===================================================== */
-
 .card-icon{
 
     width:32px;
@@ -660,11 +833,6 @@ body{
     color:#0B4F3A;
 
 }
-
-
-/* =====================================================
-   CARD TEXT
-===================================================== */
 
 .card-label{
 
@@ -780,11 +948,6 @@ body{
 
 }
 
-
-/* =====================================================
-   TOOL ICON
-===================================================== */
-
 .tool-icon{
 
     width:39px;
@@ -810,9 +973,6 @@ body{
 
 }
 
-
-/* YELLOW ACCENTS */
-
 .tool:nth-child(2) .tool-icon,
 .tool:nth-child(4) .tool-icon,
 .tool:nth-child(6) .tool-icon{
@@ -822,11 +982,6 @@ body{
     color:#9A6814;
 
 }
-
-
-/* =====================================================
-   TOOL CONTENT
-===================================================== */
 
 .tool-content{
 
@@ -883,11 +1038,6 @@ body{
 
 }
 
-
-/* =====================================================
-   PROFILE HEADER
-===================================================== */
-
 .profile-card-header{
 
     padding:
@@ -938,11 +1088,6 @@ body{
     color:#344139;
 
 }
-
-
-/* =====================================================
-   PROFILE ROWS
-===================================================== */
 
 .profile-body{
 
@@ -1004,7 +1149,72 @@ body{
 
 
 /* =====================================================
-   EMPTY / FUTURE
+   ACCOUNT INFORMATION
+===================================================== */
+
+.account-card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E8E2;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.account-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+    padding:
+        13px
+        17px;
+
+    border-bottom:1px solid #EFF1ED;
+
+}
+
+.account-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.account-label{
+
+    font-size:10px;
+
+    color:#8A938E;
+
+}
+
+.account-value{
+
+    font-size:10px;
+
+    font-weight:700;
+
+    color:#344139;
+
+    text-align:right;
+
+    max-width:62%;
+
+    overflow-wrap:anywhere;
+
+}
+
+
+/* =====================================================
+   EMPTY
 ===================================================== */
 
 .empty-message{
@@ -1124,6 +1334,33 @@ body{
     to{
         transform:rotate(360deg);
     }
+
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+
+.dashboard-error{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    background:#FFF0F0;
+
+    border:1px solid #F0CCCC;
+
+    border-radius:12px;
+
+    color:#9B3B3B;
+
+    font-size:11px;
+
+    line-height:1.5;
 
 }
 
@@ -1285,6 +1522,12 @@ body{
 
     }
 
+    .plan-card-top{
+
+        align-items:flex-start;
+
+    }
+
 }
 
 
@@ -1339,6 +1582,14 @@ body{
     .tools-list{
 
         grid-template-columns:1fr;
+
+    }
+
+    .plan-card-top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
 
     }
 
@@ -1483,8 +1734,6 @@ body{
 
     <section class="business-card">
 
-        <!-- YELLOW BRAND ACCENT -->
-
         <div class="business-accent"></div>
 
 
@@ -1498,7 +1747,8 @@ body{
                     <div class="business-label">
 
                         <span class="business-label-line"></span>
-🏢 YOUR BUSINESS
+
+                        🏢 YOUR BUSINESS
 
                     </div>
 
@@ -1543,9 +1793,14 @@ body{
 
                 <div class="profile-status">
 
-                    <span class="status-dot"></span>
+                    <span
+                        class="status-dot"
+                        id="profileStatusDot"
+                    ></span>
 
-✅ Business profile active
+                    <span id="profileStatusText">
+                        Business profile active
+                    </span>
 
                 </div>
 
@@ -1556,6 +1811,104 @@ body{
                 >
                     Manage profile →
                 </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PLAN
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <div class="section-title">
+                    Your plan
+                </div>
+
+                <div class="section-subtitle">
+                    Your current Kayah access
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="plan-card">
+
+
+            <div class="plan-card-top">
+
+                <div class="plan-left">
+
+                    <div class="plan-icon">
+                        ★
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="plan-name"
+                            id="planName"
+                        >
+                            Free Plan
+                        </div>
+
+                        <div
+                            class="plan-description"
+                            id="planDescription"
+                        >
+                            Basic business management
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="plan-badge"
+                    id="planBadge"
+                >
+                    30-DAY TRIAL
+                </div>
+
+            </div>
+
+
+            <div class="plan-card-bottom">
+
+                <div>
+
+                    <div class="plan-trial-label">
+                        Trial ends
+                    </div>
+
+                    <div
+                        class="plan-trial-value"
+                        id="trialEndDate"
+                    >
+                        Calculating...
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="plan-status"
+                    id="planStatus"
+                >
+                    Trial active
+                </div>
 
             </div>
 
@@ -1609,7 +1962,10 @@ body{
                     ₱0.00
                 </div>
 
-                <div class="card-note">
+                <div
+                    class="card-note"
+                    id="todaySalesNote"
+                >
                     No sales recorded yet
                 </div>
 
@@ -1621,8 +1977,9 @@ body{
             <div class="overview-card">
 
                 <div class="card-icon">
-    📦
-</div>
+                    📦
+                </div>
+
                 <div class="card-label">
                     Products
                 </div>
@@ -1646,8 +2003,8 @@ body{
             <div class="overview-card">
 
                 <div class="card-icon">
-    📋
-</div>
+                    📋
+                </div>
 
                 <div class="card-label">
                     Inventory
@@ -1697,16 +2054,14 @@ body{
         <div class="tools-list">
 
 
-            <!-- PRODUCTS -->
-
             <a
                 href="../products/"
                 class="tool"
             >
 
                 <div class="tool-icon">
-    📦
-</div>
+                    📦
+                </div>
 
                 <div class="tool-content">
 
@@ -1727,16 +2082,14 @@ body{
             </a>
 
 
-            <!-- INVENTORY -->
-
             <a
                 href="../inventory/"
                 class="tool"
             >
 
                 <div class="tool-icon">
-    📋
-</div>
+                    📋
+                </div>
 
                 <div class="tool-content">
 
@@ -1756,8 +2109,6 @@ body{
 
             </a>
 
-
-            <!-- SALES -->
 
             <a
                 href="../sales/"
@@ -1787,16 +2138,14 @@ body{
             </a>
 
 
-            <!-- EXPENSES -->
-
             <a
                 href="../expenses/"
                 class="tool"
             >
 
                 <div class="tool-icon">
-    💸
-</div>
+                    💸
+                </div>
 
                 <div class="tool-content">
 
@@ -1817,16 +2166,14 @@ body{
             </a>
 
 
-            <!-- CUSTOMERS -->
-
             <a
                 href="../customers/"
                 class="tool"
             >
 
                 <div class="tool-icon">
-    👥
-</div>
+                    👥
+                </div>
 
                 <div class="tool-content">
 
@@ -1847,16 +2194,14 @@ body{
             </a>
 
 
-            <!-- REPORTS -->
-
             <a
                 href="../reports/"
                 class="tool"
             >
 
                 <div class="tool-icon">
-    📊
-</div>
+                    📊
+                </div>
 
                 <div class="tool-content">
 
@@ -1910,9 +2255,9 @@ body{
 
             <div class="profile-card-header">
 
-               <div class="profile-header-mark">
-    🏢
-</div>
+                <div class="profile-header-mark">
+                    🏢
+                </div>
 
                 <div class="profile-header-text">
                     Business profile
@@ -2027,6 +2372,95 @@ body{
     </section>
 
 
+    <!-- =================================================
+         ACCOUNT INFORMATION
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <div class="section-title">
+                    Account
+                </div>
+
+                <div class="section-subtitle">
+                    Your Kayah account information
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="account-card">
+
+
+            <div class="account-row">
+
+                <div class="account-label">
+                    Email
+                </div>
+
+                <div
+                    class="account-value"
+                    id="accountEmail"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="account-row">
+
+                <div class="account-label">
+                    Account status
+                </div>
+
+                <div
+                    class="account-value"
+                    id="accountStatus"
+                >
+                    Active
+                </div>
+
+            </div>
+
+
+            <div class="account-row">
+
+                <div class="account-label">
+                    Subscription
+                </div>
+
+                <div
+                    class="account-value"
+                    id="subscriptionStatus"
+                >
+                    Trial
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ERROR
+    ================================================== -->
+
+    <div
+        class="dashboard-error"
+        id="dashboardError"
+    ></div>
+
+
 </main>
 
 
@@ -2045,8 +2479,9 @@ body{
         >
 
             <span class="nav-icon">
-    🏠
-</span>
+                🏠
+            </span>
+
             Home
 
         </a>
@@ -2072,8 +2507,8 @@ body{
         >
 
             <span class="nav-icon">
-    📋
-</span>
+                📋
+            </span>
 
             Inventory
 
@@ -2205,6 +2640,60 @@ const profileProvince =
 const profileCurrency =
     document.getElementById("profileCurrency");
 
+const planName =
+    document.getElementById("planName");
+
+const planDescription =
+    document.getElementById("planDescription");
+
+const planBadge =
+    document.getElementById("planBadge");
+
+const trialEndDate =
+    document.getElementById("trialEndDate");
+
+const planStatus =
+    document.getElementById("planStatus");
+
+const accountEmail =
+    document.getElementById("accountEmail");
+
+const accountStatus =
+    document.getElementById("accountStatus");
+
+const subscriptionStatus =
+    document.getElementById("subscriptionStatus");
+
+const dashboardError =
+    document.getElementById("dashboardError");
+
+const profileStatusText =
+    document.getElementById("profileStatusText");
+
+
+/* =====================================================
+   SAFE TEXT
+===================================================== */
+
+function safeText(
+    value,
+    fallback
+){
+
+    if(
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ){
+
+        return fallback;
+
+    }
+
+    return String(value).trim();
+
+}
+
 
 /* =====================================================
    GREETING
@@ -2267,34 +2756,615 @@ function updateGreeting(name){
 
 
 /* =====================================================
-   SAFE TEXT
+   PLAN NAME
 ===================================================== */
 
-function safeText(
-    value,
-    fallback
-){
+function getPlanName(plan){
 
-    if(
-        value === undefined ||
-        value === null ||
-        String(value).trim() === ""
-    ){
+    const plans = {
 
-        return fallback;
+        free:
+            "Free Plan",
 
-    }
+        starter:
+            "Starter Plan",
 
-    return String(value).trim();
+        business:
+            "Business Plan",
+
+        pro:
+            "Pro Plan"
+
+    };
+
+
+    return plans[
+        String(plan || "free").toLowerCase()
+    ] || "Free Plan";
 
 }
 
 
 /* =====================================================
-   INITIAL GREETING
+   PLAN DESCRIPTION
 ===================================================== */
 
-updateGreeting("");
+function getPlanDescription(plan){
+
+    const descriptions = {
+
+        free:
+            "Basic business management",
+
+        starter:
+            "More tools for growing businesses",
+
+        business:
+            "Advanced tools for established businesses",
+
+        pro:
+            "Full business management access"
+
+    };
+
+
+    return descriptions[
+        String(plan || "free").toLowerCase()
+    ] || "Basic business management";
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(date){
+
+    if(!date){
+
+        return "Not available";
+
+    }
+
+
+    try{
+
+        return new Intl.DateTimeFormat(
+            "en-PH",
+            {
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+            }
+        ).format(date);
+
+    }
+
+    catch(error){
+
+        return date.toLocaleDateString();
+
+    }
+
+}
+
+
+/* =====================================================
+   FIRESTORE TIMESTAMP → DATE
+===================================================== */
+
+function timestampToDate(value){
+
+    if(!value){
+
+        return null;
+
+    }
+
+
+    if(
+        typeof value.toDate === "function"
+    ){
+
+        return value.toDate();
+
+    }
+
+
+    if(
+        value instanceof Date
+    ){
+
+        return value;
+
+    }
+
+
+    if(
+        typeof value === "string" ||
+        typeof value === "number"
+    ){
+
+        const date =
+            new Date(value);
+
+
+        if(
+            !isNaN(date.getTime())
+        ){
+
+            return date;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showDashboardError(message){
+
+    if(!dashboardError){
+
+        return;
+
+    }
+
+
+    dashboardError.textContent =
+        message;
+
+    dashboardError.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   UPDATE PLAN DISPLAY
+===================================================== */
+
+function updatePlanDisplay(data){
+
+    const currentPlan =
+        safeText(
+            data.plan,
+            "free"
+        ).toLowerCase();
+
+
+    const currentPlanStatus =
+        safeText(
+            data.planStatus,
+            "active"
+        ).toLowerCase();
+
+
+    const trialActiveFlag =
+        data.trialActive === true;
+
+
+    const subscription =
+        safeText(
+            data.subscriptionStatus,
+            "trial"
+        ).toLowerCase();
+
+
+    planName.textContent =
+        getPlanName(currentPlan);
+
+
+    planDescription.textContent =
+        getPlanDescription(currentPlan);
+
+
+    /*
+     * Paid / normal plan
+     */
+
+    if(currentPlan !== "free"){
+
+        planBadge.textContent =
+            currentPlanStatus === "active"
+                ? "ACTIVE"
+                : currentPlanStatus.toUpperCase();
+
+        planBadge.classList.remove(
+            "expired"
+        );
+
+
+        trialEndDate.textContent =
+            "Not applicable";
+
+
+        planStatus.textContent =
+            currentPlanStatus === "active"
+                ? "Plan active"
+                : "Plan " + currentPlanStatus;
+
+
+        planStatus.classList.remove(
+            "expired"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Free plan with trial
+     */
+
+    const trialEnd =
+        timestampToDate(
+            data.trialEndsAt
+        );
+
+
+    const now =
+        new Date();
+
+
+    const trialCurrentlyActive =
+        trialEnd &&
+        trialEnd.getTime() > now.getTime();
+
+
+    /*
+     * Trial is active
+     */
+
+    if(
+        trialActiveFlag &&
+        trialCurrentlyActive
+    ){
+
+        planBadge.textContent =
+            "30-DAY TRIAL";
+
+
+        planBadge.classList.remove(
+            "expired"
+        );
+
+
+        trialEndDate.textContent =
+            formatDate(trialEnd);
+
+
+        planStatus.textContent =
+            "Trial active";
+
+
+        planStatus.classList.remove(
+            "expired"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Trial expired
+     */
+
+    if(trialEnd){
+
+        planBadge.textContent =
+            "TRIAL ENDED";
+
+
+        planBadge.classList.add(
+            "expired"
+        );
+
+
+        trialEndDate.textContent =
+            formatDate(trialEnd);
+
+
+        planStatus.textContent =
+            "Trial ended";
+
+
+        planStatus.classList.add(
+            "expired"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Free plan without a valid trial date
+     */
+
+    planBadge.textContent =
+        "FREE PLAN";
+
+
+    planBadge.classList.remove(
+        "expired"
+    );
+
+
+    trialEndDate.textContent =
+        "Not available";
+
+
+    planStatus.textContent =
+        subscription === "trial"
+            ? "Trial information unavailable"
+            : "Free plan active";
+
+
+    planStatus.classList.remove(
+        "expired"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD BUSINESS DATA
+===================================================== */
+
+function loadBusinessProfile(
+    data,
+    user
+){
+
+    /* -----------------------------------------------
+       NAME
+    ----------------------------------------------- */
+
+    const fullName =
+        safeText(
+            data.fullName ||
+            data.name ||
+            user.displayName,
+            "there"
+        );
+
+
+    updateGreeting(
+        fullName
+    );
+
+
+    /* -----------------------------------------------
+       BUSINESS
+    ----------------------------------------------- */
+
+    const savedBusinessName =
+        safeText(
+            data.businessName,
+            "Your Business"
+        );
+
+
+    const savedBusinessType =
+        safeText(
+            data.businessType,
+            "Business"
+        );
+
+
+    businessName.textContent =
+        savedBusinessName;
+
+
+    businessType.textContent =
+        savedBusinessType;
+
+
+    /* -----------------------------------------------
+       LOCATION
+    ----------------------------------------------- */
+
+    const savedCity =
+        safeText(
+            data.city,
+            ""
+        );
+
+
+    const savedProvince =
+        safeText(
+            data.province,
+            ""
+        );
+
+
+    let locationText =
+        "Location not provided";
+
+
+    if(
+        savedCity &&
+        savedProvince
+    ){
+
+        locationText =
+            "📍 " +
+            savedCity +
+            ", " +
+            savedProvince;
+
+    }
+
+    else if(savedCity){
+
+        locationText =
+            "📍 " +
+            savedCity;
+
+    }
+
+    else if(savedProvince){
+
+        locationText =
+            "📍 " +
+            savedProvince;
+
+    }
+
+
+    businessLocation.textContent =
+        locationText;
+
+
+    /* -----------------------------------------------
+       INITIAL
+    ----------------------------------------------- */
+
+    const initial =
+        savedBusinessName
+            .charAt(0)
+            .toUpperCase();
+
+
+    businessInitial.textContent =
+        initial || "B";
+
+
+    /* -----------------------------------------------
+       BUSINESS STATUS
+    ----------------------------------------------- */
+
+    if(
+        data.setupCompleted === true
+    ){
+
+        profileStatusText.textContent =
+            "Business profile active";
+
+    }
+
+    else{
+
+        profileStatusText.textContent =
+            "Business profile incomplete";
+
+    }
+
+
+    /* -----------------------------------------------
+       PROFILE INFORMATION
+    ----------------------------------------------- */
+
+    profileBusinessName.textContent =
+        savedBusinessName;
+
+
+    profileBusinessType.textContent =
+        savedBusinessType;
+
+
+    profileAddress.textContent =
+        safeText(
+            data.businessAddress,
+            "Not provided"
+        );
+
+
+    profileCity.textContent =
+        safeText(
+            data.city,
+            "Not provided"
+        );
+
+
+    profileProvince.textContent =
+        safeText(
+            data.province,
+            "Not provided"
+        );
+
+
+    const currency =
+        safeText(
+            data.currency,
+            "PHP"
+        );
+
+
+    const currencySymbol =
+        safeText(
+            data.currencySymbol,
+            "₱"
+        );
+
+
+    profileCurrency.textContent =
+        currency +
+        " — " +
+        currencySymbol;
+
+
+    /* -----------------------------------------------
+       ACCOUNT
+    ----------------------------------------------- */
+
+    accountEmail.textContent =
+        safeText(
+            data.email ||
+            user.email,
+            "Not available"
+        );
+
+
+    accountStatus.textContent =
+        safeText(
+            data.accountStatus,
+            "active"
+        )
+        .replace(
+            /^./,
+            function(character){
+                return character.toUpperCase();
+            }
+        );
+
+
+    subscriptionStatus.textContent =
+        safeText(
+            data.subscriptionStatus,
+            "trial"
+        )
+        .replace(
+            /^./,
+            function(character){
+                return character.toUpperCase();
+            }
+        );
+
+
+    /* -----------------------------------------------
+       PLAN
+    ----------------------------------------------- */
+
+    updatePlanDisplay(
+        data
+    );
+
+}
 
 
 /* =====================================================
@@ -2322,7 +3392,7 @@ onAuthStateChanged(
         try{
 
             console.log(
-                "Kayah dashboard user:",
+                "Kayah dashboard UID:",
                 user.uid
             );
 
@@ -2340,243 +3410,175 @@ onAuthStateChanged(
 
 
             const userSnapshot =
-                await getDoc(userRef);
+                await getDoc(
+                    userRef
+                );
 
 
             /* -----------------------------------------
-               FIRESTORE DATA EXISTS
+               DOCUMENT DOES NOT EXIST
             ----------------------------------------- */
 
-            if(userSnapshot.exists()){
+            if(
+                !userSnapshot.exists()
+            ){
 
-                const data =
-                    userSnapshot.data();
-
-
-                /* -------------------------------------
-                   USER NAME
-                ------------------------------------- */
-
-                const fullName =
-                    safeText(
-                        data.fullName ||
-                        user.displayName,
-                        "there"
-                    );
-
-
-                updateGreeting(
-                    fullName
+                console.error(
+                    "No Kayah user document found for UID:",
+                    user.uid
                 );
 
 
-                /* -------------------------------------
-                   BUSINESS INFORMATION
-                ------------------------------------- */
-
-                const savedBusinessName =
-                    safeText(
-                        data.businessName,
-                        "Your Business"
-                    );
-
-
-                const savedBusinessType =
-                    safeText(
-                        data.businessType,
-                        "Business"
-                    );
-
-
-                const savedCity =
-                    safeText(
-                        data.city,
-                        ""
-                    );
-
-
-                const savedProvince =
-                    safeText(
-                        data.province,
-                        ""
-                    );
-
-
-                businessName.textContent =
-                    savedBusinessName;
-
-
-                businessType.textContent =
-                    savedBusinessType;
-
-
-                /* -------------------------------------
-                   LOCATION
-                ------------------------------------- */
-
-                let locationText =
-                    "Location not provided";
-
-
-                if(
-                    savedCity &&
-                    savedProvince
-                ){
-
-                    locationText =
-                        "📍 " +
-                        savedCity +
-                        ", " +
-                        savedProvince;
-
-                }
-
-                else if(savedCity){
-
-                    locationText =
-                        "📍 " +
-                        savedCity;
-
-                }
-
-                else if(savedProvince){
-
-                    locationText =
-                        "📍 " +
-                        savedProvince;
-
-                }
-
-
-                businessLocation.textContent =
-                    locationText;
-
-
-                /* -------------------------------------
-                   BUSINESS INITIAL
-                ------------------------------------- */
-
-                const initial =
-                    savedBusinessName
-                        .charAt(0)
-                        .toUpperCase();
-
-
-                businessInitial.textContent =
-                    initial || "B";
-
-
-                /* -------------------------------------
-                   BUSINESS PROFILE
-                ------------------------------------- */
-
-                profileBusinessName.textContent =
-                    savedBusinessName;
-
-
-                profileBusinessType.textContent =
-                    savedBusinessType;
-
-
-                const address =
-                    safeText(
-                        data.businessAddress,
-                        "Not provided"
-                    );
-
-
-                const cityValue =
-                    safeText(
-                        data.city,
-                        "Not provided"
-                    );
-
-
-                const provinceValue =
-                    safeText(
-                        data.province,
-                        "Not provided"
-                    );
-
-
-                profileAddress.textContent =
-                    address;
-
-
-                profileCity.textContent =
-                    cityValue;
-
-
-                profileProvince.textContent =
-                    provinceValue;
-
-
-                /* -------------------------------------
-                   CURRENCY
-                ------------------------------------- */
-
-                const currency =
-                    safeText(
-                        data.currency,
-                        "PHP"
-                    );
-
-
-                const currencySymbol =
-                    safeText(
-                        data.currencySymbol,
-                        "₱"
-                    );
-
-
-                profileCurrency.textContent =
-                    currency +
-                    " — " +
-                    currencySymbol;
-
-
-                console.log(
-                    "Kayah business profile loaded:",
-                    data
+                showDashboardError(
+                    "Your Kayah account profile could not be found. Please sign in again."
                 );
+
+
+                setTimeout(
+                    function(){
+
+                        window.location.href =
+                            "../login/";
+
+                    },
+                    1800
+                );
+
+
+                return;
 
             }
 
-            else{
+
+            /* -----------------------------------------
+               FIRESTORE DATA
+            ----------------------------------------- */
+
+            const data =
+                userSnapshot.data();
+
+
+            console.log(
+                "Kayah user profile:",
+                data
+            );
+
+
+            /* -----------------------------------------
+               SETUP CHECK
+            ----------------------------------------- */
+
+            if(
+                data.setupCompleted !== true
+            ){
 
                 console.log(
-                    "No Firestore user profile found."
+                    "Business setup is incomplete. Redirecting..."
                 );
 
 
-                updateGreeting(
-                    user.displayName ||
-                    "there"
-                );
+                window.location.href =
+                    "../setup/";
+
+                return;
 
             }
 
+
+            /* -----------------------------------------
+               LOAD DASHBOARD
+            ----------------------------------------- */
+
+            loadBusinessProfile(
+                data,
+                user
+            );
+
+
+            /* -----------------------------------------
+               FUTURE STATS
+            ----------------------------------------- */
+
+            /*
+             * These remain 0 for now.
+             *
+             * Later they will read from:
+             *
+             * products/{productId}
+             * inventory/{itemId}
+             * sales/{saleId}
+             *
+             * and will still use the same
+             * Firebase Authentication UID.
+             */
+
+            document.getElementById(
+                "productCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "inventoryCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "todaySales"
+            ).textContent =
+                "₱0.00";
+
+
+            document.getElementById(
+                "todaySalesNote"
+            ).textContent =
+                "No sales recorded yet";
+
+
+            console.log(
+                "Kayah dashboard loaded successfully."
+            );
 
         }
 
         catch(error){
 
             console.error(
-                "Dashboard Firestore error:",
+                "Kayah dashboard error:",
                 error
             );
 
 
-            /*
-             * Firebase authentication information
-             * can still be displayed if Firestore
-             * is temporarily unavailable.
-             */
+            if(
+                error.code ===
+                "permission-denied"
+            ){
 
-            updateGreeting(
-                user.displayName ||
-                "there"
-            );
+                showDashboardError(
+                    "Kayah could not access your business profile. Please check your Firebase Firestore rules."
+                );
+
+            }
+
+            else if(
+                error.code ===
+                "unavailable"
+            ){
+
+                showDashboardError(
+                    "Kayah is temporarily unable to connect to Firebase. Please check your internet connection and try again."
+                );
+
+            }
+
+            else{
+
+                showDashboardError(
+                    "Something went wrong while loading your business dashboard."
+                );
+
+            }
 
         }
 
