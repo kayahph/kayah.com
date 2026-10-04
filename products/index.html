@@ -1297,18 +1297,20 @@ const firebaseConfig = {
         "49853785143",
 
     appId:
-        "1:49853785143:web:23182e6e11696ac03dcbb2"
-
+        "1:49853785143:web:23182e6e11696ac03bb2"
 };
 
-const app =
-    initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(app);
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
 
-const db =
-    getFirestore(app);
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
 
 
 /* =====================================================
@@ -3089,11 +3091,6 @@ onAuthStateChanged(
     }
 );
 
-/* =====================================================
-   START AUTHENTICATION
-===================================================== */
-
-startAuthentication();
 
 
 </script>
