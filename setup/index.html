@@ -17,7 +17,6 @@
 
 <title>Set Up Your Business — Kayah</title>
 
-
 <style>
 
 /* =====================================================
@@ -47,11 +46,6 @@ body{
     color:#202A24;
     min-height:100vh;
 }
-
-
-/* =====================================================
-   PAGE
-===================================================== */
 
 .page{
     width:100%;
@@ -129,7 +123,7 @@ body{
 
 
 /* =====================================================
-   TOP INTRO
+   INTRO
 ===================================================== */
 
 .eyebrow{
@@ -522,7 +516,7 @@ label{
 
 
 /* =====================================================
-   BUTTON LOADING
+   LOADING BUTTON
 ===================================================== */
 
 .continue-button.loading{
@@ -561,7 +555,7 @@ label{
 
 
 /* =====================================================
-   FOOTER NOTE
+   FORM NOTE
 ===================================================== */
 
 .form-note{
@@ -610,14 +604,11 @@ label{
     visibility:hidden;
 
     pointer-events:none;
-
 }
 
 .loading-content{
-
     text-align:center;
     padding:25px;
-
 }
 
 .loading-logo{
@@ -630,7 +621,6 @@ label{
     border-radius:18px;
 
     margin-bottom:17px;
-
 }
 
 .loading-spinner{
@@ -806,8 +796,6 @@ label{
 <div class="container">
 
 
-    <!-- INTRO -->
-
     <div class="eyebrow">
 
         <span class="eyebrow-dot"></span>
@@ -830,7 +818,9 @@ label{
     </p>
 
 
-    <!-- PROGRESS -->
+    <!-- =================================================
+         PROGRESS
+    ================================================== -->
 
     <div class="progress-card">
 
@@ -888,7 +878,9 @@ label{
     </div>
 
 
-    <!-- FORM CARD -->
+    <!-- =================================================
+         FORM
+    ================================================== -->
 
     <div class="form-card">
 
@@ -904,23 +896,17 @@ label{
         </div>
 
 
-        <!-- ERROR -->
-
         <div
             class="error-box"
             id="errorBox"
         ></div>
 
 
-        <!-- SUCCESS -->
-
         <div
             class="success-box"
             id="successBox"
         ></div>
 
-
-        <!-- FORM -->
 
         <form
             id="setupForm"
@@ -1042,7 +1028,6 @@ label{
 
             <div class="two-column">
 
-
                 <div class="form-group">
 
                     <label for="city">
@@ -1075,7 +1060,6 @@ label{
                     >
 
                 </div>
-
 
             </div>
 
@@ -1176,6 +1160,7 @@ label{
 
 <script type="module">
 
+
 /* =====================================================
    FIREBASE IMPORTS
 ===================================================== */
@@ -1192,6 +1177,7 @@ import {
 import {
     getFirestore,
     doc,
+    getDoc,
     setDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1243,52 +1229,71 @@ const db =
 ===================================================== */
 
 const loadingScreen =
-    document.getElementById("loadingScreen");
+    document.getElementById(
+        "loadingScreen"
+    );
 
 const form =
-    document.getElementById("setupForm");
+    document.getElementById(
+        "setupForm"
+    );
 
 const button =
-    document.getElementById("completeButton");
+    document.getElementById(
+        "completeButton"
+    );
 
 const errorBox =
-    document.getElementById("errorBox");
+    document.getElementById(
+        "errorBox"
+    );
 
 const successBox =
-    document.getElementById("successBox");
+    document.getElementById(
+        "successBox"
+    );
 
 const businessName =
-    document.getElementById("businessName");
+    document.getElementById(
+        "businessName"
+    );
 
 const businessType =
-    document.getElementById("businessType");
+    document.getElementById(
+        "businessType"
+    );
 
 const businessAddress =
-    document.getElementById("businessAddress");
+    document.getElementById(
+        "businessAddress"
+    );
 
 const city =
-    document.getElementById("city");
+    document.getElementById(
+        "city"
+    );
 
 const province =
-    document.getElementById("province");
+    document.getElementById(
+        "province"
+    );
 
 const description =
-    document.getElementById("description");
+    document.getElementById(
+        "description"
+    );
 
 
 /* =====================================================
-   HIDE LOADING SCREEN
+   STATE
 ===================================================== */
 
-if(loadingScreen){
-
-    loadingScreen.classList.add("hide");
-
-}
+let authenticatedUser = null;
+let userDocument = null;
 
 
 /* =====================================================
-   ERROR FUNCTIONS
+   ERROR
 ===================================================== */
 
 function showError(message){
@@ -1302,10 +1307,6 @@ function showError(message){
             "show"
         );
 
-    }else{
-
-        alert(message);
-
     }
 
 }
@@ -1315,7 +1316,8 @@ function hideError(){
 
     if(errorBox){
 
-        errorBox.textContent = "";
+        errorBox.textContent =
+            "";
 
         errorBox.classList.remove(
             "show"
@@ -1327,25 +1329,56 @@ function hideError(){
 
 
 /* =====================================================
-   PREFILL BUSINESS NAME
+   SUCCESS
 ===================================================== */
 
-try{
+function showSuccess(message){
 
-    const saved =
-        sessionStorage.getItem(
-            "kayahSignupData"
+    if(successBox){
+
+        successBox.textContent =
+            message;
+
+        successBox.classList.add(
+            "show"
         );
 
-    if(saved){
+    }
+
+}
+
+
+/* =====================================================
+   PREFILL SIGNUP DATA
+===================================================== */
+
+function loadSignupData(){
+
+    try{
+
+        const saved =
+            sessionStorage.getItem(
+                "kayahSignupData"
+            );
+
+        if(!saved){
+
+            return;
+
+        }
 
         const data =
             JSON.parse(saved);
 
+
+        /*
+         * Signup page already collected
+         * the business name.
+         */
+
         if(
-            businessName &&
-            !businessName.value &&
-            data.businessName
+            data.businessName &&
+            !businessName.value
         ){
 
             businessName.value =
@@ -1353,47 +1386,238 @@ try{
 
         }
 
+    }catch(error){
+
+        console.log(
+            "Signup session data unavailable:",
+            error
+        );
+
     }
-
-}catch(error){
-
-    console.log(
-        "Signup session data unavailable:",
-        error
-    );
 
 }
 
 
 /* =====================================================
-   AUTHENTICATION
+   PREFILL EXISTING FIRESTORE DATA
 ===================================================== */
 
-let authenticatedUser = null;
+function loadExistingBusinessData(data){
 
+    if(!data){
+
+        return;
+
+    }
+
+
+    if(data.businessName){
+
+        businessName.value =
+            data.businessName;
+
+    }
+
+
+    if(data.businessType){
+
+        businessType.value =
+            data.businessType;
+
+    }
+
+
+    if(data.businessAddress){
+
+        businessAddress.value =
+            data.businessAddress;
+
+    }
+
+
+    if(data.city){
+
+        city.value =
+            data.city;
+
+    }
+
+
+    if(data.province){
+
+        province.value =
+            data.province;
+
+    }
+
+
+    if(data.businessDescription){
+
+        description.value =
+            data.businessDescription;
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTHENTICATION + LOAD USER
+===================================================== */
 
 onAuthStateChanged(
     auth,
-    function(user){
+    async function(user){
 
-        if(user){
+        try{
+
+            if(!user){
+
+                /*
+                 * No authenticated account.
+                 * Do not allow setup to continue.
+                 */
+
+                window.location.href =
+                    "../login/";
+
+                return;
+
+            }
+
 
             authenticatedUser =
                 user;
 
+
             console.log(
-                "Kayah user authenticated:",
+                "Kayah UID:",
                 user.uid
             );
 
-        }else{
 
-            authenticatedUser =
-                null;
+            /*
+             * IMPORTANT:
+             *
+             * We use the Firebase Auth UID
+             * as the Firestore document ID.
+             */
 
-            console.log(
-                "No authenticated Kayah user."
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            /*
+             * Read the existing user document.
+             */
+
+            const snapshot =
+                await getDoc(
+                    userRef
+                );
+
+
+            if(snapshot.exists()){
+
+                userDocument =
+                    snapshot.data();
+
+
+                console.log(
+                    "Existing Kayah user:",
+                    userDocument
+                );
+
+
+                /*
+                 * Prefill any existing
+                 * business information.
+                 */
+
+                loadExistingBusinessData(
+                    userDocument
+                );
+
+
+                /*
+                 * If setup is already complete,
+                 * don't unnecessarily create
+                 * another profile.
+                 */
+
+                if(
+                    userDocument.setupCompleted === true
+                ){
+
+                    console.log(
+                        "Business setup already completed."
+                    );
+
+                    /*
+                     * We still allow the user
+                     * to edit the information.
+                     *
+                     * This makes the Setup page
+                     * safe to revisit.
+                     */
+
+                }
+
+            }else{
+
+                console.log(
+                    "No Firestore user document found yet."
+                );
+
+                /*
+                 * Signup should normally have
+                 * already created this document.
+                 *
+                 * We do NOT create a second user
+                 * automatically here.
+                 */
+
+            }
+
+
+            /*
+             * Also load temporary signup data.
+             */
+
+            loadSignupData();
+
+
+        }catch(error){
+
+            console.error(
+                "USER LOAD ERROR:",
+                error
             );
+
+
+            showError(
+                "We couldn't load your Kayah account. Please refresh the page and try again."
+            );
+
+        }finally{
+
+            /*
+             * Hide loading screen only
+             * after authentication/user
+             * loading has finished.
+             */
+
+            if(loadingScreen){
+
+                loadingScreen.classList.add(
+                    "hide"
+                );
+
+            }
 
         }
 
@@ -1415,7 +1639,7 @@ form.addEventListener(
 
 
         /* ---------------------------------------------
-           GET CURRENT USER
+           CURRENT USER
         --------------------------------------------- */
 
         const user =
@@ -1426,7 +1650,7 @@ form.addEventListener(
         if(!user){
 
             showError(
-                "Your Kayah account session is not ready yet. Please wait a moment and try again."
+                "Your Kayah account session is not available. Please log in again."
             );
 
             return;
@@ -1488,7 +1712,7 @@ form.addEventListener(
 
 
         /* ---------------------------------------------
-           BUTTON LOADING
+           LOADING STATE
         --------------------------------------------- */
 
         button.disabled =
@@ -1503,10 +1727,26 @@ form.addEventListener(
 
 
         /* ---------------------------------------------
+           USER DOCUMENT
+        --------------------------------------------- */
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+
+        /* ---------------------------------------------
            BUSINESS DATA
         --------------------------------------------- */
 
         const businessData = {
+
+            /*
+             * Business information
+             */
 
             businessName:
                 nameValue,
@@ -1532,6 +1772,11 @@ form.addEventListener(
             businessDescription:
                 descriptionValue,
 
+
+            /*
+             * Setup status
+             */
+
             setupCompleted:
                 true,
 
@@ -1544,29 +1789,29 @@ form.addEventListener(
         };
 
 
-        console.log(
-            "Kayah business data:",
-            businessData
-        );
-
-
-        /* ---------------------------------------------
-           FIRESTORE REFERENCE
-        --------------------------------------------- */
-
-        const userRef =
-            doc(
-                db,
-                "users",
-                user.uid
-            );
-
-
-        /* ---------------------------------------------
-           SAVE TO FIRESTORE
-        --------------------------------------------- */
-
         try{
+
+            /*
+             * IMPORTANT:
+             *
+             * merge:true means we update
+             * the existing users/{uid}
+             * document without deleting
+             * the Signup fields.
+             *
+             * For example:
+             *
+             * plan
+             * planStatus
+             * trialActive
+             * trialStartedAt
+             * trialEndsAt
+             * subscriptionStatus
+             * accountStatus
+             * createdAt
+             *
+             * will remain untouched.
+             */
 
             await setDoc(
                 userRef,
@@ -1578,12 +1823,12 @@ form.addEventListener(
 
 
             console.log(
-                "SUCCESS: Business saved to Firestore."
+                "Business setup successfully saved."
             );
 
 
             /* -----------------------------------------
-               SUCCESS STATE
+               SUCCESS
             ----------------------------------------- */
 
             button.classList.remove(
@@ -1594,25 +1839,29 @@ form.addEventListener(
                 "Setup Complete ✓";
 
 
-            if(successBox){
+            showSuccess(
+                "Your business setup has been saved successfully."
+            );
 
-                successBox.textContent =
-                    "Your business setup has been saved successfully.";
 
-                successBox.classList.add(
-                    "show"
+            /*
+             * Remove temporary signup data.
+             */
+
+            try{
+
+                sessionStorage.removeItem(
+                    "kayahSignupData"
+                );
+
+            }catch(error){
+
+                console.log(
+                    "Session cleanup skipped:",
+                    error
                 );
 
             }
-
-
-            /* -----------------------------------------
-               REMOVE TEMP SIGNUP DATA
-            ----------------------------------------- */
-
-            sessionStorage.removeItem(
-                "kayahSignupData"
-            );
 
 
             /* -----------------------------------------
@@ -1626,7 +1875,7 @@ form.addEventListener(
                         "../dashboard/";
 
                 },
-                800
+                900
             );
 
 
@@ -1659,7 +1908,7 @@ form.addEventListener(
             ){
 
                 message =
-                    "Firebase denied permission to save your information. Please check your Firestore security rules.";
+                    "Firebase denied permission to save your business profile. Please check your Firestore security rules.";
 
             }
 
@@ -1669,7 +1918,17 @@ form.addEventListener(
             ){
 
                 message =
-                    "Firebase is temporarily unavailable. Please check your internet connection.";
+                    "Firebase is temporarily unavailable. Please check your internet connection and try again.";
+
+            }
+
+            else if(
+                error.code ===
+                "unauthenticated"
+            ){
+
+                message =
+                    "Your login session has expired. Please log in again.";
 
             }
 
@@ -1726,7 +1985,6 @@ if(
 }
 
 </script>
-
 
 </body>
 
