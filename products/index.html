@@ -1259,7 +1259,9 @@ import {
 
 import {
     getAuth,
-    onAuthStateChanged
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -2856,242 +2858,317 @@ productModal.addEventListener(
    AUTHENTICATION
 ===================================================== */
 
-onAuthStateChanged(
-    auth,
-    async user => {
+async function startAuthentication(){
+
+    try{
 
         /*
-         * IMPORTANT:
-         * Do NOT redirect to dashboard here.
+         * Force Firebase to keep the login session
+         * in this browser.
          */
 
-        if(!user){
+        await setPersistence(
+            auth,
+            browserLocalPersistence
+        );
 
-            window.location.href =
-                "../login/";
 
-            return;
+        /*
+         * Wait until Firebase finishes restoring
+         * the existing authentication session.
+         */
+
+        if(
+            typeof auth.authStateReady === "function"
+        ){
+
+            await auth.authStateReady();
 
         }
 
 
-        currentUser =
-            user;
+        onAuthStateChanged(
+            auth,
+            async user => {
+
+                /*
+                 * Firebase has now finished checking
+                 * the existing session.
+                 */
+
+                if(!user){
+
+                    console.log(
+                        "Products: No authenticated user."
+                    );
+
+                    window.location.href =
+                        "../login/";
+
+                    return;
+
+                }
 
 
-        try{
-
-            /*
-             * Read the SAME central user
-             * document used by Dashboard.
-             */
-
-            const userRef =
-                doc(
-                    db,
-                    "users",
+                console.log(
+                    "Products: Logged in as",
                     user.uid
                 );
 
 
-            const userSnap =
-                await getDoc(
-                    userRef
-                );
+                currentUser =
+                    user;
 
 
-            /*
-             * User document doesn't exist.
-             * Do not bounce to Dashboard.
-             */
+                try{
 
-            if(
-                !userSnap.exists()
-            ){
+                    /*
+                     * Read the SAME central user
+                     * document used by Dashboard.
+                     */
 
-                loadingScreen.innerHTML = `
+                    const userRef =
+                        doc(
+                            db,
+                            "users",
+                            user.uid
+                        );
 
-                    <div style="
-                        text-align:center;
-                        padding:25px;
-                    ">
 
-                        <div style="
-                            font-size:40px;
-                            margin-bottom:15px;
-                        ">
-                            ⚠️
-                        </div>
+                    const userSnap =
+                        await getDoc(
+                            userRef
+                        );
 
-                        <div style="
-                            font-size:18px;
-                            font-weight:800;
-                            margin-bottom:8px;
-                        ">
-                            Account data not found
-                        </div>
 
-                        <div style="
-                            font-size:13px;
-                            opacity:.8;
-                            line-height:1.5;
-                        ">
-                            We could not find your Kayah
-                            account information.
-                        </div>
+                    /*
+                     * User document doesn't exist.
+                     */
 
-                        <button
-                            onclick="location.reload()"
-                            style="
-                                margin-top:18px;
-                                padding:11px 18px;
-                                border:none;
-                                border-radius:10px;
-                                background:white;
-                                color:#0B4F3A;
-                                font-weight:800;
+                    if(
+                        !userSnap.exists()
+                    ){
+
+                        loadingScreen.innerHTML = `
+
+                            <div style="
+                                text-align:center;
+                                padding:25px;
                             ">
 
-                            Try Again
+                                <div style="
+                                    font-size:40px;
+                                    margin-bottom:15px;
+                                ">
+                                    ⚠️
+                                </div>
 
-                        </button>
+                                <div style="
+                                    font-size:18px;
+                                    font-weight:800;
+                                    margin-bottom:8px;
+                                ">
+                                    Account data not found
+                                </div>
 
-                    </div>
+                                <div style="
+                                    font-size:13px;
+                                    opacity:.8;
+                                    line-height:1.5;
+                                ">
+                                    We could not find your Kayah
+                                    account information.
+                                </div>
 
-                `;
+                                <button
+                                    onclick="location.reload()"
+                                    style="
+                                        margin-top:18px;
+                                        padding:11px 18px;
+                                        border:none;
+                                        border-radius:10px;
+                                        background:white;
+                                        color:#0B4F3A;
+                                        font-weight:800;
+                                    ">
 
-                return;
+                                    Try Again
 
-            }
+                                </button>
 
+                            </div>
 
-            userData =
-                userSnap.data();
+                        `;
 
+                        return;
 
-            /*
-             * We deliberately DO NOT check
-             * setupCompleted here.
-             *
-             * The Dashboard already handles
-             * the initial setup flow.
-             */
-
-
-            effectivePlan =
-                getEffectivePlan(
-                    userData
-                );
-
-
-            updatePlanDisplay();
-
-
-            /*
-             * Start products listener.
-             */
-
-            listenToProducts();
-
-
-            /*
-             * Everything is ready.
-             */
-
-            loadingScreen.style.display =
-                "none";
-
-
-        }catch(error){
-
-            console.error(
-                "Products page error:",
-                error
-            );
+                    }
 
 
-            loadingScreen.innerHTML = `
+                    userData =
+                        userSnap.data();
 
-                <div style="
-                    text-align:center;
-                    padding:25px;
-                ">
 
-                    <div style="
-                        font-size:40px;
-                        margin-bottom:15px;
-                    ">
-                        ⚠️
-                    </div>
+                    /*
+                     * Calculate the user's effective plan.
+                     */
 
-                    <div style="
-                        font-size:18px;
-                        font-weight:800;
-                        margin-bottom:8px;
-                    ">
-                        Unable to load Products
-                    </div>
+                    effectivePlan =
+                        getEffectivePlan(
+                            userData
+                        );
 
-                    <div style="
-                        font-size:13px;
-                        opacity:.8;
-                        line-height:1.5;
-                    ">
-                        Please refresh the page and try again.
-                    </div>
 
-                    <button
-                        onclick="location.reload()"
-                        style="
-                            margin-top:18px;
-                            padding:11px 18px;
-                            border:none;
-                            border-radius:10px;
-                            background:white;
-                            color:#0B4F3A;
-                            font-weight:800;
+                    updatePlanDisplay();
+
+
+                    /*
+                     * Start the products listener.
+                     */
+
+                    listenToProducts();
+
+
+                    /*
+                     * Products page is ready.
+                     */
+
+                    loadingScreen.style.display =
+                        "none";
+
+
+                }catch(error){
+
+                    console.error(
+                        "Products page error:",
+                        error
+                    );
+
+
+                    loadingScreen.innerHTML = `
+
+                        <div style="
+                            text-align:center;
+                            padding:25px;
                         ">
 
-                        Refresh
+                            <div style="
+                                font-size:40px;
+                                margin-bottom:15px;
+                            ">
+                                ⚠️
+                            </div>
 
-                    </button>
+                            <div style="
+                                font-size:18px;
+                                font-weight:800;
+                                margin-bottom:8px;
+                            ">
+                                Unable to load Products
+                            </div>
 
+                            <div style="
+                                font-size:13px;
+                                opacity:.8;
+                                line-height:1.5;
+                            ">
+                                Please refresh the page and try again.
+                            </div>
+
+                            <button
+                                onclick="location.reload()"
+                                style="
+                                    margin-top:18px;
+                                    padding:11px 18px;
+                                    border:none;
+                                    border-radius:10px;
+                                    background:white;
+                                    color:#0B4F3A;
+                                    font-weight:800;
+                                ">
+
+                                Refresh
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+        );
+
+    }catch(error){
+
+        console.error(
+            "Firebase authentication startup error:",
+            error
+        );
+
+
+        loadingScreen.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:25px;
+            ">
+
+                <div style="
+                    font-size:40px;
+                    margin-bottom:15px;
+                ">
+                    ⚠️
                 </div>
 
-            `;
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:8px;
+                ">
+                    Authentication Error
+                </div>
 
-        }
+                <div style="
+                    font-size:13px;
+                    opacity:.8;
+                    line-height:1.5;
+                ">
+                    Firebase could not restore your login session.
+                </div>
+
+                <button
+                    onclick="location.reload()"
+                    style="
+                        margin-top:18px;
+                        padding:11px 18px;
+                        border:none;
+                        border-radius:10px;
+                        background:white;
+                        color:#0B4F3A;
+                        font-weight:800;
+                    ">
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+        `;
 
     }
-);
+
+}
 
 
 /* =====================================================
-   SERVICE WORKER
+   START AUTHENTICATION
 ===================================================== */
 
-if(
-    "serviceWorker" in navigator
-){
+startAuthentication();
 
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator.serviceWorker
-                .register("../sw.js")
-                .catch(
-                    error =>
-                        console.log(
-                            "Service worker:",
-                            error
-                        )
-                );
-
-        }
-    );
-
-}
 
 </script>
 
