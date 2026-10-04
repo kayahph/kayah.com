@@ -1258,8 +1258,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    getAuth,
-    onAuthStateChanged
+    initializeAuth,
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -1297,7 +1297,8 @@ const firebaseConfig = {
         "49853785143",
 
     appId:
-        "1:49853785143:web:23182e6e11696ac03bb2"
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
+
 };
 
 
@@ -1305,12 +1306,35 @@ const firebaseConfig = {
    INITIALIZE FIREBASE
 ===================================================== */
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
-const auth = getAuth(app);
 
-const db = getFirestore(app);
+/*
+ * IMPORTANT:
+ * Use explicit browser-local persistence.
+ *
+ * This keeps the Firebase login session available
+ * when moving between Dashboard, Products and the
+ * other Kayah pages.
+ */
 
+const auth =
+    initializeAuth(
+        app,
+        {
+            persistence:
+                browserLocalPersistence
+        }
+    );
+
+
+const db =
+    getFirestore(
+        app
+    );
 
 
 /* =====================================================
@@ -1555,8 +1579,8 @@ function getEffectivePlan(
 
 
     /*
-       Paid plans
-    */
+     * Paid plans
+     */
 
     if(
         plan === "starter" ||
@@ -1570,8 +1594,8 @@ function getEffectivePlan(
 
 
     /*
-       Free account with active trial
-    */
+     * Free account with active trial
+     */
 
     const trialEnd =
         getDate(
@@ -1591,8 +1615,8 @@ function getEffectivePlan(
 
 
     /*
-       Trial expired / normal free
-    */
+     * Trial expired / normal free
+     */
 
     return "free";
 
@@ -2001,11 +2025,11 @@ async function(productId){
 
     const confirmed =
         confirm(
-            "Delete \"" +
+            'Delete "' +
             safeText(
                 product.name
             ) +
-            "\"?\n\nThis cannot be undone."
+            '"?\n\nThis cannot be undone.'
         );
 
 
@@ -2039,6 +2063,7 @@ async function(productId){
     }catch(error){
 
         console.error(
+            "Delete product error:",
             error
         );
 
@@ -2779,7 +2804,7 @@ function listenToProducts(){
             error => {
 
                 console.error(
-                    "Products error:",
+                    "Products Firestore error:",
                     error
                 );
 
@@ -2857,183 +2882,122 @@ productModal.addEventListener(
    AUTHENTICATION
 ===================================================== */
 
-onAuthStateChanged(
-    auth,
-    async function(user){
+async function startProductsPage(){
+
+    console.log(
+        "================================="
+    );
+
+    console.log(
+        "KAYAH PRODUCTS AUTH CHECK"
+    );
+
+    console.log(
+        "Origin:",
+        window.location.origin
+    );
+
+    console.log(
+        "URL:",
+        window.location.href
+    );
+
+    console.log(
+        "Firebase project:",
+        firebaseConfig.projectId
+    );
+
+    console.log(
+        "================================="
+    );
+
+
+    try{
+
+        /*
+         * Wait for Firebase to finish restoring
+         * the saved authentication session.
+         */
+
+        await auth.authStateReady();
+
+
+        const user =
+            auth.currentUser;
+
 
         console.log(
-            "PRODUCTS AUTH STATE:",
+            "PRODUCTS RESTORED USER:",
             user
         );
 
-        /* ---------------------------------------------
-           NO USER
-        --------------------------------------------- */
+
+        /*
+         * Only redirect if Firebase has completely
+         * finished restoring authentication AND there
+         * is genuinely no authenticated user.
+         */
 
         if(!user){
 
             console.log(
-                "PRODUCTS: Firebase returned NULL user."
+                "PRODUCTS: No authenticated user after Firebase finished restoring session."
             );
 
-            /*
-             * Give Firebase a moment in case the
-             * browser is still restoring persistence.
-             */
 
-            setTimeout(function(){
+            window.location.replace(
+                "../login/"
+            );
 
-                if(!auth.currentUser){
-
-                    console.log(
-                        "PRODUCTS: Still no authenticated user."
-                    );
-
-                    window.location.replace(
-                        "../login/"
-                    );
-
-                }
-
-            },1500);
 
             return;
 
         }
 
 
-        /* ---------------------------------------------
-           USER FOUND
-        --------------------------------------------- */
+        /*
+         * USER FOUND
+         */
 
         console.log(
             "PRODUCTS: Logged in as:",
             user.uid
         );
 
-        currentUser = user;
+
+        currentUser =
+            user;
 
 
-        try{
+        /*
+         * LOAD CENTRAL USER DOCUMENT
+         */
 
-            /* -----------------------------------------
-               LOAD CENTRAL USER DOCUMENT
-            ----------------------------------------- */
-
-            const userRef = doc(
+        const userRef =
+            doc(
                 db,
                 "users",
                 user.uid
             );
 
 
-            const userSnap = await getDoc(
+        const userSnap =
+            await getDoc(
                 userRef
             );
 
 
-            if(!userSnap.exists()){
+        /*
+         * USER DOCUMENT NOT FOUND
+         */
 
-                console.error(
-                    "PRODUCTS: User document does not exist."
-                );
-
-                loadingScreen.innerHTML = `
-
-                    <div style="
-                        text-align:center;
-                        padding:25px;
-                    ">
-
-                        <div style="
-                            font-size:40px;
-                            margin-bottom:15px;
-                        ">
-                            ⚠️
-                        </div>
-
-                        <div style="
-                            font-size:18px;
-                            font-weight:800;
-                            margin-bottom:8px;
-                        ">
-                            Account data not found
-                        </div>
-
-                        <div style="
-                            font-size:13px;
-                            opacity:.8;
-                            line-height:1.5;
-                        ">
-                            We could not find your Kayah
-                            account information.
-                        </div>
-
-                        <button
-                            onclick="location.reload()"
-                            style="
-                                margin-top:18px;
-                                padding:11px 18px;
-                                border:none;
-                                border-radius:10px;
-                                background:white;
-                                color:#0B4F3A;
-                                font-weight:800;
-                            "
-                        >
-                            Try Again
-                        </button>
-
-                    </div>
-
-                `;
-
-                return;
-
-            }
-
-
-            /* -----------------------------------------
-               STORE USER DATA
-            ----------------------------------------- */
-
-            userData =
-                userSnap.data();
-
-
-            /* -----------------------------------------
-               DETERMINE EFFECTIVE PLAN
-            ----------------------------------------- */
-
-            effectivePlan =
-                getEffectivePlan(
-                    userData
-                );
-
-
-            updatePlanDisplay();
-
-
-            /* -----------------------------------------
-               START PRODUCTS LISTENER
-            ----------------------------------------- */
-
-            listenToProducts();
-
-
-            /* -----------------------------------------
-               SHOW PAGE
-            ----------------------------------------- */
-
-            loadingScreen.style.display =
-                "none";
-
-
-        }catch(error){
+        if(
+            !userSnap.exists()
+        ){
 
             console.error(
-                "Products page error:",
-                error
+                "PRODUCTS: User document does not exist for UID:",
+                user.uid
             );
 
 
@@ -3056,7 +3020,7 @@ onAuthStateChanged(
                         font-weight:800;
                         margin-bottom:8px;
                     ">
-                        Unable to load Products
+                        Account data not found
                     </div>
 
                     <div style="
@@ -3064,7 +3028,9 @@ onAuthStateChanged(
                         opacity:.8;
                         line-height:1.5;
                     ">
-                        Please refresh the page and try again.
+                        Your Firebase login exists,
+                        but your Kayah account profile
+                        could not be found.
                     </div>
 
                     <button
@@ -3079,19 +3045,142 @@ onAuthStateChanged(
                             font-weight:800;
                         "
                     >
-                        Refresh
+                        Try Again
                     </button>
 
                 </div>
 
             `;
 
+
+            return;
+
         }
 
+
+        /*
+         * STORE USER DATA
+         */
+
+        userData =
+            userSnap.data();
+
+
+        console.log(
+            "PRODUCTS USER DATA:",
+            userData
+        );
+
+
+        /*
+         * DETERMINE EFFECTIVE PLAN
+         */
+
+        effectivePlan =
+            getEffectivePlan(
+                userData
+            );
+
+
+        console.log(
+            "PRODUCTS EFFECTIVE PLAN:",
+            effectivePlan
+        );
+
+
+        updatePlanDisplay();
+
+
+        /*
+         * START PRODUCTS LISTENER
+         */
+
+        listenToProducts();
+
+
+        /*
+         * SHOW PAGE
+         */
+
+        loadingScreen.style.display =
+            "none";
+
+
+        console.log(
+            "PRODUCTS PAGE LOADED SUCCESSFULLY"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "PRODUCTS INITIALIZATION ERROR:",
+            error
+        );
+
+
+        loadingScreen.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:25px;
+            ">
+
+                <div style="
+                    font-size:40px;
+                    margin-bottom:15px;
+                ">
+                    ⚠️
+                </div>
+
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:8px;
+                ">
+                    Unable to load Products
+                </div>
+
+                <div style="
+                    font-size:13px;
+                    opacity:.8;
+                    line-height:1.5;
+                ">
+                    ${escapeHtml(
+                        error.message ||
+                        "Something went wrong while loading your account."
+                    )}
+                </div>
+
+                <button
+                    onclick="location.reload()"
+                    style="
+                        margin-top:18px;
+                        padding:11px 18px;
+                        border:none;
+                        border-radius:10px;
+                        background:white;
+                        color:#0B4F3A;
+                        font-weight:800;
+                    "
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+        `;
+
     }
-);
+
+}
 
 
+/* =====================================================
+   START
+===================================================== */
+
+startProductsPage();
 
 </script>
 
