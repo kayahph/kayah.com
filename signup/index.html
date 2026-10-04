@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +21,6 @@
         content="Set up your business with Kayah — Business, Made Possible."
     >
 
-    <!-- =====================================================
-         ROOT FILES
-    ====================================================== -->
-
     <link
         rel="manifest"
         href="../manifest.json"
@@ -38,9 +35,258 @@
     <title>Set Up Your Business | Kayah</title>
 
 
-    <style>
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 
+html{
+    scroll-behavior:smooth;
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#F7F3E8;
+
+    color:#202A24;
+
+    min-height:100vh;
+
+    -webkit-font-smoothing:antialiased;
+}
+
+
+button,
+input{
+    font:inherit;
+}
+
+
+button{
+    cursor:pointer;
+}
+
+
+a{
+    text-decoration:none;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.topbar{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        16px
+        18px;
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    color:#0B4F3A;
+}
+
+
+.brand img{
+
+    width:40px;
+    height:40px;
+
+    object-fit:contain;
+
+    border-radius:11px;
+}
+
+
+.brand-name{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    letter-spacing:-.5px;
+}
+
+
+.login-link{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#16805C;
+
+    padding:9px 12px;
+
+    border-radius:10px;
+
+    transition:.2s ease;
+}
+
+
+.login-link:hover{
+
+    background:rgba(22,128,92,.08);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+
+    width:100%;
+
+    max-width:520px;
+
+    margin:auto;
+
+    padding:
+        10px
+        18px
+        40px;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+
+    text-align:center;
+
+    margin:
+        8px
+        auto
+        22px;
+}
+
+
+.logo-box{
+
+    width:68px;
+    height:68px;
+
+    margin:
+        0
+        auto
+        15px;
+
+    background:#FFFFFF;
+
+    border-radius:19px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 8px 25px rgba(11,79,58,.10);
+}
+
+
+.logo-box img{
+
+    width:52px;
+    height:52px;
+
+    object-fit:contain;
+}
+
+
+.eyebrow{
+
+    display:block;
+
+    color:#16805C;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.1px;
+
+    margin-bottom:7px;
+}
+
+
+h1{
+
+    color:#0B4F3A;
+
+    font-size:
+        clamp(28px, 7vw, 35px);
+
+    line-height:1.1;
+
+    letter-spacing:-1px;
+
+    margin-bottom:9px;
+}
+
+
+.intro-text{
+
+    color:#6F7973;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    max-width:400px;
+
+    margin:auto;
+}
 
 
 /* =====================================================
@@ -119,852 +365,597 @@
 }
 
 
+/* =====================================================
+   PROGRESS
+===================================================== */
 
+.progress{
 
+    display:flex;
 
-        /* =====================================================
-           RESET
-        ===================================================== */
+    align-items:flex-start;
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+    justify-content:center;
 
+    width:100%;
 
-        html{
-            scroll-behavior:smooth;
-        }
+    max-width:350px;
 
+    margin:
+        0
+        auto
+        20px;
+}
 
-        body{
 
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Arial,
-                sans-serif;
+.step{
 
-            background:#F7F3E8;
+    min-width:65px;
 
-            color:#202A24;
+    display:flex;
 
-            min-height:100vh;
+    flex-direction:column;
 
-            -webkit-font-smoothing:antialiased;
-        }
+    align-items:center;
+}
 
 
-        button,
-        input{
-            font:inherit;
-        }
+.step-circle{
 
+    width:29px;
+    height:29px;
 
-        button{
-            cursor:pointer;
-        }
+    border-radius:50%;
 
+    display:flex;
 
-        a{
-            text-decoration:none;
-        }
+    align-items:center;
+    justify-content:center;
 
+    background:#E0E6E1;
 
-        /* =====================================================
-           PAGE
-        ===================================================== */
+    color:#7C8780;
 
-        .page{
+    font-size:11px;
 
-            min-height:100vh;
+    font-weight:800;
 
-            display:flex;
-            flex-direction:column;
-        }
+    margin-bottom:6px;
+}
 
 
-        /* =====================================================
-           HEADER
-        ===================================================== */
+.step.active
+.step-circle{
 
-        .topbar{
+    background:#16805C;
 
-            width:100%;
+    color:#FFFFFF;
 
-            display:flex;
+    box-shadow:
+        0 5px 14px rgba(22,128,92,.20);
+}
 
-            align-items:center;
 
-            justify-content:space-between;
+.step-label{
 
-            padding:
-                16px
-                18px;
-        }
+    font-size:9px;
 
+    font-weight:700;
 
-        .brand{
+    color:#8A948E;
+}
 
-            display:flex;
 
-            align-items:center;
+.step.active
+.step-label{
 
-            gap:9px;
+    color:#16805C;
+}
 
-            color:#0B4F3A;
-        }
 
+.step-line{
 
-        .brand img{
+    flex:1;
 
-            width:40px;
-            height:40px;
+    height:2px;
 
-            object-fit:contain;
+    background:#DCE2DD;
 
-            border-radius:11px;
-        }
+    margin:
+        14px -1px
+        0;
+}
 
 
-        .brand-name{
+/* =====================================================
+   CARD
+===================================================== */
 
-            font-size:20px;
+.card{
 
-            font-weight:800;
+    background:#FFFFFF;
 
-            letter-spacing:-.5px;
-        }
+    border-radius:21px;
 
+    padding:
+        21px
+        18px;
 
-        .login-link{
+    box-shadow:
+        0 12px 35px rgba(32,42,36,.08);
 
-            font-size:13px;
+    border:
+        1px solid rgba(11,79,58,.05);
+}
 
-            font-weight:700;
 
-            color:#16805C;
+.card-title{
 
-            padding:9px 12px;
+    margin-bottom:17px;
+}
 
-            border-radius:10px;
 
-            transition:.2s ease;
-        }
+.card-title h2{
 
+    font-size:18px;
 
-        .login-link:hover{
+    color:#202A24;
 
-            background:rgba(22,128,92,.08);
-        }
+    margin-bottom:4px;
+}
 
 
-        /* =====================================================
-           MAIN
-        ===================================================== */
+.card-title p{
 
-        main{
+    font-size:12px;
 
-            width:100%;
+    color:#7A847E;
 
-            max-width:520px;
+    line-height:1.5;
+}
 
-            margin:auto;
 
-            padding:
-                10px
-                18px
-                40px;
-        }
+/* =====================================================
+   FORM
+===================================================== */
 
+.field{
 
-        /* =====================================================
-           INTRO
-        ===================================================== */
+    margin-bottom:14px;
+}
 
-        .intro{
 
-            text-align:center;
+.field label{
 
-            margin:
-                8px
-                auto
-                22px;
-        }
+    display:block;
 
+    font-size:12px;
 
-        .logo-box{
+    font-weight:700;
 
-            width:68px;
-            height:68px;
+    color:#39453E;
 
-            margin:
-                0
-                auto
-                15px;
+    margin-bottom:6px;
+}
 
-            background:#FFFFFF;
 
-            border-radius:19px;
+.required{
 
-            display:flex;
+    color:#16805C;
+}
 
-            align-items:center;
-            justify-content:center;
 
-            box-shadow:
-                0 8px 25px rgba(11,79,58,.10);
-        }
+.field input{
 
+    width:100%;
 
-        .logo-box img{
+    height:47px;
 
-            width:52px;
-            height:52px;
+    padding:
+        0
+        13px;
 
-            object-fit:contain;
-        }
+    border:
+        1px solid #DCE2DD;
 
+    border-radius:11px;
 
-        .eyebrow{
+    background:#FAFBF9;
 
-            display:block;
+    color:#202A24;
 
-            color:#16805C;
+    outline:none;
 
-            font-size:10px;
+    font-size:13px;
 
-            font-weight:800;
+    transition:.2s ease;
+}
 
-            letter-spacing:1.1px;
 
-            margin-bottom:7px;
-        }
+.field input::placeholder{
 
+    color:#A2AAA5;
+}
 
-        h1{
 
-            color:#0B4F3A;
+.field input:focus{
 
-            font-size:
-                clamp(28px, 7vw, 35px);
+    border-color:#16805C;
 
-            line-height:1.1;
+    background:#FFFFFF;
 
-            letter-spacing:-1px;
+    box-shadow:
+        0 0 0 3px rgba(22,128,92,.08);
+}
 
-            margin-bottom:9px;
-        }
 
+/* =====================================================
+   PHONE
+===================================================== */
 
-        .intro-text{
+.phone-row{
 
-            color:#6F7973;
+    display:flex;
 
-            font-size:13px;
+    gap:7px;
+}
 
-            line-height:1.6;
 
-            max-width:400px;
+.country-code{
 
-            margin:auto;
-        }
+    width:66px;
 
+    flex-shrink:0;
 
-        /* =====================================================
-           PROGRESS
-        ===================================================== */
+    height:47px;
 
-        .progress{
+    display:flex;
 
-            display:flex;
+    align-items:center;
+    justify-content:center;
 
-            align-items:flex-start;
+    background:#F1F4F0;
 
-            justify-content:center;
+    border:
+        1px solid #DCE2DD;
 
-            width:100%;
+    border-radius:11px;
 
-            max-width:350px;
+    color:#56625A;
 
-            margin:
-                0
-                auto
-                20px;
-        }
+    font-size:12px;
 
+    font-weight:700;
+}
 
-        .step{
 
-            min-width:65px;
+.phone-row input{
 
-            display:flex;
+    flex:1;
+}
 
-            flex-direction:column;
 
-            align-items:center;
-        }
+/* =====================================================
+   PASSWORD
+===================================================== */
 
+.password-wrap{
 
-        .step-circle{
+    position:relative;
+}
 
-            width:29px;
-            height:29px;
 
-            border-radius:50%;
+.password-wrap input{
 
-            display:flex;
+    padding-right:52px;
+}
 
-            align-items:center;
-            justify-content:center;
 
-            background:#E0E6E1;
+.show-btn{
 
-            color:#7C8780;
+    position:absolute;
 
-            font-size:11px;
+    right:6px;
 
-            font-weight:800;
+    top:50%;
 
-            margin-bottom:6px;
-        }
+    transform:translateY(-50%);
 
+    border:none;
 
-        .step.active
-        .step-circle{
+    background:transparent;
 
-            background:#16805C;
+    color:#16805C;
 
-            color:#FFFFFF;
+    font-size:11px;
 
-            box-shadow:
-                0 5px 14px rgba(22,128,92,.20);
-        }
+    font-weight:700;
 
+    padding:7px;
+}
 
-        .step-label{
 
-            font-size:9px;
+/* =====================================================
+   TERMS
+===================================================== */
 
-            font-weight:700;
+.terms{
 
-            color:#8A948E;
-        }
+    display:flex;
 
+    align-items:flex-start;
 
-        .step.active
-        .step-label{
+    gap:8px;
 
-            color:#16805C;
-        }
+    margin:
+        3px
+        0
+        16px;
+}
 
 
-        .step-line{
+.terms input{
 
-            flex:1;
+    width:17px;
+    height:17px;
 
-            height:2px;
+    flex-shrink:0;
 
-            background:#DCE2DD;
+    margin-top:1px;
 
-            margin:
-                14px -1px
-                0;
-        }
+    accent-color:#16805C;
+}
 
 
-        /* =====================================================
-           CARD
-        ===================================================== */
+.terms label{
 
-        .card{
+    font-size:10px;
 
-            background:#FFFFFF;
+    line-height:1.5;
 
-            border-radius:21px;
+    color:#737E77;
+}
 
-            padding:
-                21px
-                18px;
 
-            box-shadow:
-                0 12px 35px rgba(32,42,36,.08);
+.terms a{
 
-            border:
-                1px solid rgba(11,79,58,.05);
-        }
+    color:#16805C;
 
+    font-weight:700;
+}
 
-        .card-title{
 
-            margin-bottom:17px;
-        }
+/* =====================================================
+   ERROR
+===================================================== */
 
+.error{
 
-        .card-title h2{
+    display:none;
 
-            font-size:18px;
+    padding:
+        10px
+        11px;
 
-            color:#202A24;
+    margin-bottom:13px;
 
-            margin-bottom:4px;
-        }
+    background:#FFF2F1;
 
+    border:
+        1px solid #F0C7C3;
 
-        .card-title p{
+    border-radius:10px;
 
-            font-size:12px;
+    color:#A53A32;
 
-            color:#7A847E;
+    font-size:11px;
 
-            line-height:1.5;
-        }
+    line-height:1.5;
+}
 
 
-        /* =====================================================
-           FORM
-        ===================================================== */
+.error.show{
 
-        .field{
+    display:block;
+}
 
-            margin-bottom:14px;
-        }
 
+/* =====================================================
+   CONTINUE BUTTON
+===================================================== */
 
-        .field label{
+.continue{
 
-            display:block;
+    width:100%;
 
-            font-size:12px;
+    min-height:49px;
 
-            font-weight:700;
+    border:none;
 
-            color:#39453E;
+    border-radius:12px;
 
-            margin-bottom:6px;
-        }
+    background:
+        linear-gradient(
+            135deg,
+            #16805C,
+            #0B4F3A
+        );
 
+    color:#FFFFFF;
 
-        .required{
+    font-size:13px;
 
-            color:#16805C;
-        }
+    font-weight:800;
 
+    box-shadow:
+        0 8px 18px rgba(11,79,58,.18);
 
-        .field input{
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
 
-            width:100%;
 
-            height:47px;
+.continue:active{
 
-            padding:
-                0
-                13px;
+    transform:scale(.985);
+}
 
-            border:
-                1px solid #DCE2DD;
 
-            border-radius:11px;
+.continue.loading{
 
-            background:#FAFBF9;
+    opacity:.65;
 
-            color:#202A24;
+    pointer-events:none;
+}
 
-            outline:none;
 
-            font-size:13px;
+/* =====================================================
+   FOOTER NOTE
+===================================================== */
 
-            transition:.2s ease;
-        }
+.note{
 
+    text-align:center;
 
-        .field input::placeholder{
+    color:#8A938E;
 
-            color:#A2AAA5;
-        }
+    font-size:10px;
 
+    line-height:1.5;
 
-        .field input:focus{
+    margin-top:15px;
+}
 
-            border-color:#16805C;
 
-            background:#FFFFFF;
+.note strong{
 
-            box-shadow:
-                0 0 0 3px rgba(22,128,92,.08);
-        }
+    color:#16805C;
+}
 
 
-        /* =====================================================
-           PHONE
-        ===================================================== */
+/* =====================================================
+   SUCCESS
+===================================================== */
 
-        .phone-row{
+.success{
 
-            display:flex;
+    display:none;
 
-            gap:7px;
-        }
+    text-align:center;
 
+    padding:
+        10px
+        4px
+        4px;
+}
 
-        .country-code{
 
-            width:66px;
+.success.show{
 
-            flex-shrink:0;
+    display:block;
+}
 
-            height:47px;
 
-            display:flex;
+.success-icon{
 
-            align-items:center;
-            justify-content:center;
+    width:60px;
+    height:60px;
 
-            background:#F1F4F0;
+    margin:
+        0
+        auto
+        15px;
 
-            border:
-                1px solid #DCE2DD;
+    border-radius:50%;
 
-            border-radius:11px;
+    background:#E7F5EE;
 
-            color:#56625A;
+    color:#16805C;
 
-            font-size:12px;
+    display:flex;
 
-            font-weight:700;
-        }
+    align-items:center;
+    justify-content:center;
 
+    font-size:27px;
 
-        .phone-row input{
+    font-weight:800;
+}
 
-            flex:1;
-        }
 
+.success h2{
 
-        /* =====================================================
-           PASSWORD
-        ===================================================== */
+    color:#0B4F3A;
 
-        .password-wrap{
+    font-size:21px;
 
-            position:relative;
-        }
+    margin-bottom:7px;
+}
 
 
-        .password-wrap input{
+.success p{
 
-            padding-right:52px;
-        }
+    color:#737E77;
 
+    font-size:12px;
 
-        .show-btn{
+    line-height:1.6;
 
-            position:absolute;
+    margin-bottom:18px;
+}
 
-            right:6px;
 
-            top:50%;
+.setup-button{
 
-            transform:translateY(-50%);
+    width:100%;
 
-            border:none;
+    min-height:48px;
 
-            background:transparent;
+    border:none;
 
-            color:#16805C;
+    border-radius:12px;
 
-            font-size:11px;
+    background:#16805C;
 
-            font-weight:700;
+    color:#FFFFFF;
 
-            padding:7px;
-        }
+    font-size:13px;
 
+    font-weight:800;
+}
 
-        /* =====================================================
-           TERMS
-        ===================================================== */
 
-        .terms{
+/* =====================================================
+   DESKTOP
+===================================================== */
 
-            display:flex;
+@media(min-width:700px){
 
-            align-items:flex-start;
+    .topbar{
 
-            gap:8px;
+        padding:
+            22px
+            30px;
+    }
 
-            margin:
-                3px
-                0
-                16px;
-        }
 
+    main{
 
-        .terms input{
+        padding-top:25px;
+    }
 
-            width:17px;
-            height:17px;
 
-            flex-shrink:0;
+    .card{
 
-            margin-top:1px;
+        padding:
+            26px
+            27px;
+    }
 
-            accent-color:#16805C;
-        }
+}
 
-
-        .terms label{
-
-            font-size:10px;
-
-            line-height:1.5;
-
-            color:#737E77;
-        }
-
-
-        .terms a{
-
-            color:#16805C;
-
-            font-weight:700;
-        }
-
-
-        /* =====================================================
-           ERROR
-        ===================================================== */
-
-        .error{
-
-            display:none;
-
-            padding:
-                10px
-                11px;
-
-            margin-bottom:13px;
-
-            background:#FFF2F1;
-
-            border:
-                1px solid #F0C7C3;
-
-            border-radius:10px;
-
-            color:#A53A32;
-
-            font-size:11px;
-
-            line-height:1.5;
-        }
-
-
-        .error.show{
-
-            display:block;
-        }
-
-
-        /* =====================================================
-           CONTINUE BUTTON
-        ===================================================== */
-
-        .continue{
-
-            width:100%;
-
-            min-height:49px;
-
-            border:none;
-
-            border-radius:12px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #16805C,
-                    #0B4F3A
-                );
-
-            color:#FFFFFF;
-
-            font-size:13px;
-
-            font-weight:800;
-
-            box-shadow:
-                0 8px 18px rgba(11,79,58,.18);
-
-            transition:
-                transform .2s ease,
-                opacity .2s ease;
-        }
-
-
-        .continue:active{
-
-            transform:scale(.985);
-        }
-
-
-        .continue.loading{
-
-            opacity:.65;
-
-            pointer-events:none;
-        }
-
-
-        /* =====================================================
-           FOOTER NOTE
-        ===================================================== */
-
-        .note{
-
-            text-align:center;
-
-            color:#8A938E;
-
-            font-size:10px;
-
-            line-height:1.5;
-
-            margin-top:15px;
-        }
-
-
-        .note strong{
-
-            color:#16805C;
-        }
-
-
-        /* =====================================================
-           SUCCESS
-        ===================================================== */
-
-        .success{
-
-            display:none;
-
-            text-align:center;
-
-            padding:
-                10px
-                4px
-                4px;
-        }
-
-
-        .success.show{
-
-            display:block;
-        }
-
-
-        .success-icon{
-
-            width:60px;
-            height:60px;
-
-            margin:
-                0
-                auto
-                15px;
-
-            border-radius:50%;
-
-            background:#E7F5EE;
-
-            color:#16805C;
-
-            display:flex;
-
-            align-items:center;
-            justify-content:center;
-
-            font-size:27px;
-
-            font-weight:800;
-        }
-
-
-        .success h2{
-
-            color:#0B4F3A;
-
-            font-size:21px;
-
-            margin-bottom:7px;
-        }
-
-
-        .success p{
-
-            color:#737E77;
-
-            font-size:12px;
-
-            line-height:1.6;
-
-            margin-bottom:18px;
-        }
-
-
-        .setup-button{
-
-            width:100%;
-
-            min-height:48px;
-
-            border:none;
-
-            border-radius:12px;
-
-            background:#16805C;
-
-            color:#FFFFFF;
-
-            font-size:13px;
-
-            font-weight:800;
-        }
-
-
-        /* =====================================================
-           DESKTOP
-        ===================================================== */
-
-        @media(min-width:700px){
-
-            .topbar{
-
-                padding:
-                    22px
-                    30px;
-            }
-
-
-            main{
-
-                padding-top:25px;
-            }
-
-
-            .card{
-
-                padding:
-                    26px
-                    27px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -975,152 +966,143 @@
 <div class="page">
 
 
-    <!-- =====================================================
-         HEADER
-    ===================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    <header class="topbar">
+<header class="topbar">
 
+    <a
+        href="../"
+        class="brand"
+    >
 
-        <a
-            href="../"
-            class="brand"
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah"
         >
 
-            <img
-                src="../kayah-logo.png"
-                alt="Kayah"
-            >
+        <span class="brand-name">
+            Kayah
+        </span>
 
-            <span class="brand-name">
-                Kayah
-            </span>
-
-        </a>
+    </a>
 
 
-        <a
-            href="../login/"
-            class="login-link"
+    <a
+        href="../login/"
+        class="login-link"
+    >
+        Log In
+    </a>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<section class="intro">
+
+    <div class="logo-box">
+
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah Logo"
         >
-            Log In
-        </a>
+
+    </div>
 
 
-    </header>
+    <span class="eyebrow">
+        BUSINESS MANAGEMENT PLATFORM
+    </span>
 
 
-
-    <!-- =====================================================
-         MAIN
-    ===================================================== -->
-
-    <main>
+    <h1>
+        Set Up Your Business
+    </h1>
 
 
-        <!-- INTRO -->
+    <p class="intro-text">
 
-        <section class="intro">
+        Sign up for free and enjoy 30 days of full access
+        to Kayah. Explore everything Kayah has to offer
+        and manage your business with ease.
+        No payment required to get started.
 
+    </p>
 
-            <div class="logo-box">
-
-                <img
-                    src="../kayah-logo.png"
-                    alt="Kayah Logo"
-                >
-
-            </div>
+</section>
 
 
-            <span class="eyebrow">
-                BUSINESS MANAGEMENT PLATFORM
-            </span>
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div class="progress">
 
 
-            <h1>
-                Set Up Your Business
-            </h1>
+    <div class="step active">
 
-
-            <div class="trial-banner">
-    <div class="trial-icon">🎁</div>
-
-   <p class="intro-text">
-    Sign up for free and enjoy 30 days of full access to Kayah.
-    Explore everything Kayah has to offer and manage your business
-    with ease. No payment required to get started.
-</p>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             PROGRESS
-        ================================================== -->
-
-        <div class="progress">
-
-
-            <div class="step active">
-
-                <div class="step-circle">
-                    1
-                </div>
-
-                <div class="step-label">
-                    Account
-                </div>
-
-            </div>
-
-
-            <div class="step-line"></div>
-
-
-            <div class="step">
-
-                <div class="step-circle">
-                    2
-                </div>
-
-                <div class="step-label">
-                    Business
-                </div>
-
-            </div>
-
-
-            <div class="step-line"></div>
-
-
-            <div class="step">
-
-                <div class="step-circle">
-                    3
-                </div>
-
-                <div class="step-label">
-                    Start
-                </div>
-
-            </div>
-
-
+        <div class="step-circle">
+            1
         </div>
 
+        <div class="step-label">
+            Account
+        </div>
+
+    </div>
 
 
-        <!-- =================================================
-             FORM CARD
-        ================================================== -->
-
-        <section class="card">
+    <div class="step-line"></div>
 
 
-            <div id="formContent">
+    <div class="step">
+
+        <div class="step-circle">
+            2
+        </div>
+
+        <div class="step-label">
+            Business
+        </div>
+
+    </div>
+
+
+    <div class="step-line"></div>
+
+
+    <div class="step">
+
+        <div class="step-circle">
+            3
+        </div>
+
+        <div class="step-label">
+            Start
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     FORM CARD
+===================================================== -->
+
+<section class="card">
+
+
+<div id="formContent">
 
 
 <div class="trial-banner">
@@ -1136,7 +1118,8 @@
         </strong>
 
         <span>
-            Enjoy full access to Kayah for 30 days.
+            Your account starts on the Free Plan with
+            30 days of full trial access.
             No payment required.
         </span>
 
@@ -1145,369 +1128,375 @@
 </div>
 
 
+<div class="card-title">
 
-                <div class="card-title">
+    <h2>
+        Your Account
+    </h2>
 
-                    <h2>
-                        Your Account
-                    </h2>
+    <p>
+        Enter your basic information to begin.
+    </p>
 
-                    <p>
-                        Enter your basic information to begin.
-                    </p>
+</div>
 
-                </div>
 
+<!-- ERROR -->
 
+<div
+    id="errorBox"
+    class="error"
+    role="alert"
+></div>
 
-                <!-- ERROR -->
 
-                <div
-                    id="errorBox"
-                    class="error"
-                    role="alert"
-                ></div>
+<!-- FORM -->
 
+<form
+    id="signupForm"
+    novalidate
+>
 
 
-                <!-- FORM -->
+<!-- BUSINESS NAME -->
 
-                <form
-                    id="signupForm"
-                    novalidate
-                >
+<div class="field">
 
+    <label for="businessName">
 
-                    <!-- BUSINESS NAME -->
+        Business Name
+        <span class="required">*</span>
 
-                    <div class="field">
+    </label>
 
-                        <label for="businessName">
 
-                            Business Name
-                            <span class="required">*</span>
+    <input
+        type="text"
+        id="businessName"
+        placeholder="e.g. Faris Mini Store"
+        autocomplete="organization"
+        required
+    >
 
-                        </label>
+</div>
 
 
-                        <input
-                            type="text"
-                            id="businessName"
-                            placeholder="e.g. Faris Mini Store"
-                            autocomplete="organization"
-                            required
-                        >
+<!-- NAME -->
 
-                    </div>
+<div class="field">
 
+    <label for="fullName">
 
+        Your Name
+        <span class="required">*</span>
 
-                    <!-- NAME -->
+    </label>
 
-                    <div class="field">
 
-                        <label for="fullName">
+    <input
+        type="text"
+        id="fullName"
+        placeholder="Enter your full name"
+        autocomplete="name"
+        required
+    >
 
-                            Your Name
-                            <span class="required">*</span>
+</div>
 
-                        </label>
 
+<!-- EMAIL -->
 
-                        <input
-                            type="text"
-                            id="fullName"
-                            placeholder="Enter your full name"
-                            autocomplete="name"
-                            required
-                        >
+<div class="field">
 
-                    </div>
+    <label for="email">
 
+        Business Email
+        <span class="required">*</span>
 
+    </label>
 
-                    <!-- EMAIL -->
 
-                    <div class="field">
+    <input
+        type="email"
+        id="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+    >
 
-                        <label for="email">
+</div>
 
-                            Business Email
-                            <span class="required">*</span>
 
-                        </label>
+<!-- PHONE -->
 
+<div class="field">
 
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="you@example.com"
-                            autocomplete="email"
-                            required
-                        >
+    <label for="phone">
 
-                    </div>
+        Phone Number
+        <span class="required">*</span>
 
+    </label>
 
 
-                    <!-- PHONE -->
+    <div class="phone-row">
 
-                    <div class="field">
+        <div class="country-code">
+            +63
+        </div>
 
-                        <label for="phone">
 
-                            Phone Number
-                            <span class="required">*</span>
+        <input
+            type="tel"
+            id="phone"
+            placeholder="9XXXXXXXXX"
+            inputmode="numeric"
+            autocomplete="tel"
+            maxlength="10"
+            required
+        >
 
-                        </label>
+    </div>
 
+</div>
 
-                        <div class="phone-row">
 
+<!-- PASSWORD -->
 
-                            <div class="country-code">
-                                +63
-                            </div>
+<div class="field">
 
+    <label for="password">
 
-                            <input
-                                type="tel"
-                                id="phone"
-                                placeholder="9XXXXXXXXX"
-                                inputmode="numeric"
-                                autocomplete="tel"
-                                maxlength="10"
-                                required
-                            >
+        Password
+        <span class="required">*</span>
 
+    </label>
 
-                        </div>
 
-                    </div>
+    <div class="password-wrap">
 
+        <input
+            type="password"
+            id="password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+        >
 
 
-                    <!-- PASSWORD -->
+        <button
+            type="button"
+            class="show-btn"
+            id="showPassword"
+        >
+            Show
+        </button>
 
-                    <div class="field">
+    </div>
 
-                        <label for="password">
+</div>
 
-                            Password
-                            <span class="required">*</span>
 
-                        </label>
+<!-- CONFIRM PASSWORD -->
 
+<div class="field">
 
-                        <div class="password-wrap">
+    <label for="confirmPassword">
 
+        Confirm Password
+        <span class="required">*</span>
 
-                            <input
-                                type="password"
-                                id="password"
-                                placeholder="Create a password"
-                                autocomplete="new-password"
-                                minlength="8"
-                                required
-                            >
+    </label>
 
 
-                            <button
-                                type="button"
-                                class="show-btn"
-                                id="showPassword"
-                            >
-                                Show
-                            </button>
+    <div class="password-wrap">
 
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Enter password again"
+            autocomplete="new-password"
+            minlength="8"
+            required
+        >
 
-                        </div>
 
-                    </div>
+        <button
+            type="button"
+            class="show-btn"
+            id="showConfirmPassword"
+        >
+            Show
+        </button>
 
+    </div>
 
+</div>
 
-                    <!-- CONFIRM PASSWORD -->
 
-                    <div class="field">
+<!-- TERMS -->
 
-                        <label for="confirmPassword">
+<div class="terms">
 
-                            Confirm Password
-                            <span class="required">*</span>
+    <input
+        type="checkbox"
+        id="terms"
+    >
 
-                        </label>
 
+    <label for="terms">
 
-                        <div class="password-wrap">
+        I agree to Kayah's
 
+        <a
+            href="#"
+            onclick="return false;"
+        >
+            Terms
+        </a>
 
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                placeholder="Enter password again"
-                                autocomplete="new-password"
-                                minlength="8"
-                                required
-                            >
+        and
 
+        <a
+            href="#"
+            onclick="return false;"
+        >
+            Privacy Policy
+        </a>.
 
-                            <button
-                                type="button"
-                                class="show-btn"
-                                id="showConfirmPassword"
-                            >
-                                Show
-                            </button>
+    </label>
 
+</div>
 
-                        </div>
 
-                    </div>
+<!-- BUTTON -->
 
+<button
+    type="submit"
+    class="continue"
+    id="continueButton"
+>
+    Continue
+</button>
 
 
-                    <!-- TERMS -->
+</form>
 
-                    <div class="terms">
 
+<div class="note">
 
-                        <input
-                            type="checkbox"
-                            id="terms"
-                        >
+    <strong>Simple.</strong>
+    Organized.
+    Built for business.
 
-
-                        <label for="terms">
-
-                            I agree to Kayah's
-                            <a
-                                href="#"
-                                onclick="return false;"
-                            >
-                                Terms
-                            </a>
-                            and
-                            <a
-                                href="#"
-                                onclick="return false;"
-                            >
-                                Privacy Policy
-                            </a>.
-
-                        </label>
-
-
-                    </div>
-
-
-
-                    <!-- BUTTON -->
-
-                    <button
-                        type="submit"
-                        class="continue"
-                        id="continueButton"
-                    >
-                        Continue
-                    </button>
-
-
-                </form>
-
-
-                <div class="note">
-
-                    <strong>Simple.</strong>
-                    Organized.
-                    Built for business.
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- =================================================
-                 SUCCESS
-            ================================================== -->
-
-            <div
-                id="successContent"
-                class="success"
-            >
-
-
-                <div class="success-icon">
-                    ✓
-                </div>
-
-
-               <h2>
-    🎉 Welcome to Kayah!
-</h2>
-
-<p>
-    Your 30-day free trial has started.
-    After your trial, you can continue with the
-    <strong>Free Plan</strong> or choose a paid plan
-    whenever you need more.
-</p>
-
-
-                <button
-                    type="button"
-                    class="setup-button"
-                    id="setupButton"
-                >
-                    Continue Business Setup
-                </button>
-
-
-            </div>
-
-
-        </section>
-
-
-    </main>
+</div>
 
 
 </div>
 
 
+<!-- =====================================================
+     SUCCESS
+===================================================== -->
 
-<!-- =========================================================
+<div
+    id="successContent"
+    class="success"
+>
+
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+
+    <h2>
+        🎉 Welcome to Kayah!
+    </h2>
+
+
+    <p>
+
+        Your 30-day free trial has started.
+        You are currently on the
+        <strong>Free Plan</strong>.
+        No payment is required.
+
+    </p>
+
+
+    <button
+        type="button"
+        class="setup-button"
+        id="setupButton"
+    >
+        Continue Business Setup
+    </button>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+</div>
+
+
+<!-- =====================================================
      FIREBASE
-========================================================= -->
+===================================================== -->
 
 <script type="module">
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
 
 import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+
     getAuth,
     createUserWithEmailAndPassword,
     updateProfile
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
+
     getFirestore,
     doc,
     setDoc,
     serverTimestamp,
     Timestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 /* =====================================================
-   FIREBASE
+   FIREBASE CONFIGURATION
 ===================================================== */
 
 const firebaseConfig = {
+
     apiKey:
         "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
 
@@ -1525,14 +1514,24 @@ const firebaseConfig = {
 
     appId:
         "1:49853785143:web:23182e6e11696ac03dcbb2"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
 
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
 
 
 /* =====================================================
@@ -1540,22 +1539,39 @@ const db = getFirestore(app);
 ===================================================== */
 
 const form =
-    document.getElementById("signupForm");
+    document.getElementById(
+        "signupForm"
+    );
+
 
 const errorBox =
-    document.getElementById("errorBox");
+    document.getElementById(
+        "errorBox"
+    );
+
 
 const continueButton =
-    document.getElementById("continueButton");
+    document.getElementById(
+        "continueButton"
+    );
+
 
 const password =
-    document.getElementById("password");
+    document.getElementById(
+        "password"
+    );
+
 
 const confirmPassword =
-    document.getElementById("confirmPassword");
+    document.getElementById(
+        "confirmPassword"
+    );
+
 
 const phone =
-    document.getElementById("phone");
+    document.getElementById(
+        "phone"
+    );
 
 
 /* =====================================================
@@ -1564,69 +1580,105 @@ const phone =
 
 document
     .getElementById("showPassword")
-    .addEventListener("click", function(){
+    .addEventListener(
+        "click",
+        function(){
 
-        if(password.type === "password"){
+            if(
+                password.type ===
+                "password"
+            ){
 
-            password.type = "text";
+                password.type =
+                    "text";
 
-            this.textContent = "Hide";
+                this.textContent =
+                    "Hide";
 
-        }else{
+            }else{
 
-            password.type = "password";
+                password.type =
+                    "password";
 
-            this.textContent = "Show";
+                this.textContent =
+                    "Show";
+
+            }
+
         }
-    });
+    );
 
 
 document
     .getElementById("showConfirmPassword")
-    .addEventListener("click", function(){
+    .addEventListener(
+        "click",
+        function(){
 
-        if(confirmPassword.type === "password"){
+            if(
+                confirmPassword.type ===
+                "password"
+            ){
 
-            confirmPassword.type = "text";
+                confirmPassword.type =
+                    "text";
 
-            this.textContent = "Hide";
+                this.textContent =
+                    "Hide";
 
-        }else{
+            }else{
 
-            confirmPassword.type = "password";
+                confirmPassword.type =
+                    "password";
 
-            this.textContent = "Show";
+                this.textContent =
+                    "Show";
+
+            }
+
         }
-    });
+    );
 
 
 /* =====================================================
-   PHONE
+   PHONE INPUT
 ===================================================== */
 
-phone.addEventListener("input", function(){
+phone.addEventListener(
+    "input",
+    function(){
 
-    this.value =
-        this.value
-            .replace(/\D/g, "")
-            .slice(0, 10);
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
 
-});
+    }
+);
 
 
 /* =====================================================
-   ERROR
+   ERROR DISPLAY
 ===================================================== */
 
 function showError(message){
 
-    errorBox.textContent = message;
+    errorBox.textContent =
+        message;
 
-    errorBox.classList.add("show");
+    errorBox.classList.add(
+        "show"
+    );
+
 
     errorBox.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+
+        behavior:
+            "smooth",
+
+        block:
+            "center"
+
     });
 
 }
@@ -1634,9 +1686,12 @@ function showError(message){
 
 function clearError(){
 
-    errorBox.textContent = "";
+    errorBox.textContent =
+        "";
 
-    errorBox.classList.remove("show");
+    errorBox.classList.remove(
+        "show"
+    );
 
 }
 
@@ -1687,7 +1742,12 @@ function getFirebaseErrorMessage(error){
 
         case "permission-denied":
 
-            return "Firebase denied permission to save your information.";
+            return "Firebase denied permission to save your account. Please check your Firestore rules.";
+
+
+        case "failed-precondition":
+
+            return "Firebase could not complete the request. Please check your Firestore configuration.";
 
 
         default:
@@ -1696,6 +1756,7 @@ function getFirebaseErrorMessage(error){
                 error.message ||
                 "Something went wrong while creating your account."
             );
+
     }
 
 }
@@ -1714,27 +1775,33 @@ form.addEventListener(
         clearError();
 
 
-        /* ---------------------------------------------
+        /* =============================================
            GET VALUES
-        --------------------------------------------- */
+        ============================================= */
 
         const businessName =
             document
-                .getElementById("businessName")
+                .getElementById(
+                    "businessName"
+                )
                 .value
                 .trim();
 
 
         const fullName =
             document
-                .getElementById("fullName")
+                .getElementById(
+                    "fullName"
+                )
                 .value
                 .trim();
 
 
         const email =
             document
-                .getElementById("email")
+                .getElementById(
+                    "email"
+                )
                 .value
                 .trim()
                 .toLowerCase();
@@ -1754,13 +1821,15 @@ form.addEventListener(
 
         const terms =
             document
-                .getElementById("terms")
+                .getElementById(
+                    "terms"
+                )
                 .checked;
 
 
-        /* ---------------------------------------------
+        /* =============================================
            VALIDATION
-        --------------------------------------------- */
+        ============================================= */
 
         if(!businessName){
 
@@ -1769,6 +1838,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1779,6 +1849,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1789,6 +1860,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1796,13 +1868,16 @@ form.addEventListener(
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-        if(!emailPattern.test(email)){
+        if(
+            !emailPattern.test(email)
+        ){
 
             showError(
                 "Please enter a valid email address."
             );
 
             return;
+
         }
 
 
@@ -1816,16 +1891,20 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
-        if(passwordValue.length < 8){
+        if(
+            passwordValue.length < 8
+        ){
 
             showError(
                 "Password must contain at least 8 characters."
             );
 
             return;
+
         }
 
 
@@ -1839,6 +1918,7 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1849,16 +1929,22 @@ form.addEventListener(
             );
 
             return;
+
         }
 
 
-        /* ---------------------------------------------
+        /* =============================================
            LOCK BUTTON
-        --------------------------------------------- */
+        ============================================= */
 
-        continueButton.disabled = true;
+        continueButton.disabled =
+            true;
 
-        continueButton.classList.add("loading");
+
+        continueButton.classList.add(
+            "loading"
+        );
+
 
         continueButton.textContent =
             "Creating Account...";
@@ -1866,13 +1952,14 @@ form.addEventListener(
 
         try{
 
+
             /* =========================================
                STEP 1
-               CREATE AUTH ACCOUNT
+               CREATE FIREBASE AUTH ACCOUNT
             ========================================= */
 
             console.log(
-                "KAYAH: Creating account..."
+                "KAYAH: Creating Firebase account..."
             );
 
 
@@ -1889,39 +1976,205 @@ form.addEventListener(
 
 
             console.log(
-                "KAYAH: Account created:",
+                "KAYAH: Firebase UID:",
                 user.uid
             );
 
 
             /* =========================================
                STEP 2
-               SAVE DISPLAY NAME
+               UPDATE AUTH PROFILE
             ========================================= */
 
-            try{
+            await updateProfile(
 
-                await updateProfile(
-                    user,
-                    {
-                        displayName:
-                            fullName
-                    }
-                );
+                user,
 
-            }catch(profileError){
+                {
 
-                console.warn(
-                    "KAYAH: Profile update failed:",
-                    profileError
-                );
+                    displayName:
+                        fullName
 
-            }
+                }
+
+            );
 
 
             /* =========================================
                STEP 3
-               SAVE SIGNUP DATA LOCALLY FOR SETUP
+               CREATE TRIAL DATES
+            ========================================= */
+
+            const trialStartedAt =
+                new Date();
+
+
+            const trialEndsAt =
+                new Date(
+                    trialStartedAt
+                );
+
+
+            trialEndsAt.setDate(
+                trialEndsAt.getDate() + 30
+            );
+
+
+            /* =========================================
+               STEP 4
+               ACCOUNT / PLAN STRUCTURE
+               
+               IMPORTANT:
+               
+               The user's BASE PLAN is FREE.
+               
+               The 30-day trial is an enhanced
+               period inside the Free Plan.
+            ========================================= */
+
+            const userData = {
+
+                /* -------------------------------------
+                   IDENTIFIER
+                ------------------------------------- */
+
+                uid:
+                    user.uid,
+
+
+                /* -------------------------------------
+                   BASIC ACCOUNT INFORMATION
+                ------------------------------------- */
+
+                businessName:
+                    businessName,
+
+                fullName:
+                    fullName,
+
+                email:
+                    email,
+
+                phone:
+                    phoneNumber,
+
+                countryCode:
+                    "+63",
+
+                phoneFull:
+                    "+63" + phoneNumber,
+
+
+                /* -------------------------------------
+                   ACCOUNT STATUS
+                ------------------------------------- */
+
+                accountStatus:
+                    "active",
+
+                setupCompleted:
+                    false,
+
+
+                /* -------------------------------------
+                   PLAN
+                   
+                   IMPORTANT:
+                   Base plan = FREE
+                ------------------------------------- */
+
+                plan:
+                    "free",
+
+                planStatus:
+                    "active",
+
+
+                /* -------------------------------------
+                   30-DAY FREE TRIAL
+                ------------------------------------- */
+
+                trialActive:
+                    true,
+
+                trialStartedAt:
+                    Timestamp.fromDate(
+                        trialStartedAt
+                    ),
+
+                trialEndsAt:
+                    Timestamp.fromDate(
+                        trialEndsAt
+                    ),
+
+
+                /* -------------------------------------
+                   SUBSCRIPTION
+                   
+                   No payment is required.
+                ------------------------------------- */
+
+                subscriptionStatus:
+                    "trial",
+
+
+                /* -------------------------------------
+                   TIMESTAMPS
+                ------------------------------------- */
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            };
+
+
+            /* =========================================
+               STEP 5
+               SAVE TO FIRESTORE
+               
+               IMPORTANT:
+               
+               We WAIT for this operation to finish
+               before redirecting to setup.
+            ========================================= */
+
+            continueButton.textContent =
+                "Saving Your Account...";
+
+
+            console.log(
+                "KAYAH: Saving user document..."
+            );
+
+
+            await setDoc(
+
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                ),
+
+                userData
+
+            );
+
+
+            console.log(
+                "KAYAH: User document saved successfully."
+            );
+
+
+            /* =========================================
+               STEP 6
+               SAVE TEMPORARY SETUP INFORMATION
+               
+               This is only for the setup flow.
+               The permanent account information
+               is already in Firestore.
             ========================================= */
 
             const signupData = {
@@ -1951,141 +2204,63 @@ form.addEventListener(
 
 
             sessionStorage.setItem(
+
                 "kayahSignupData",
-                JSON.stringify(signupData)
+
+                JSON.stringify(
+                    signupData
+                )
+
             );
 
 
             /* =========================================
-               STEP 4
-               ATTEMPT FIRESTORE SAVE
-               
-               IMPORTANT:
-               We do NOT let this block the signup
-               screen indefinitely.
+               STEP 7
+               SUCCESS
             ========================================= */
 
-            continueButton.textContent =
-                "Opening Setup...";
+            document
+                .getElementById(
+                    "formContent"
+                )
+                .style.display =
+                    "none";
 
 
-const trialStartedAt = new Date();
-
-const trialEndsAt = new Date(
-    trialStartedAt
-);
-
-trialEndsAt.setDate(
-    trialEndsAt.getDate() + 30
-);
-
-
-
-
-
-
-            const userData = {
-
-                uid:
-                    user.uid,
-
-                businessName:
-                    businessName,
-
-                fullName:
-                    fullName,
-
-                email:
-                    email,
-
-                phone:
-                    phoneNumber,
-
-                countryCode:
-                    "+63",
-
-                phoneFull:
-                    "+63" + phoneNumber,
-
-                accountStatus:
-                    "active",
-
-                setupCompleted:
-                    false,
-
-
-subscriptionStatus:
-    "trial",
-
-plan:
-    "free-trial",
-
-trialStartedAt:
-    Timestamp.fromDate(
-        trialStartedAt
-    ),
-
-trialEndsAt:
-    Timestamp.fromDate(
-        trialEndsAt
-    ),
-
-
-
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-                    
-
-            };
-
-
-            /*
-             * Start Firestore save.
-             *
-             * We intentionally do not await it here.
-             * The setup page will also be able to save/update
-             * the user's complete business information.
-             */
-
-            setDoc(
-                doc(
-                    db,
-                    "users",
-                    user.uid
-                ),
-                userData
-            )
-            .then(function(){
-
-                console.log(
-                    "KAYAH: Signup data saved to Firestore."
+            document
+                .getElementById(
+                    "successContent"
+                )
+                .classList.add(
+                    "show"
                 );
-
-            })
-            .catch(function(error){
-
-                console.warn(
-                    "KAYAH: Initial Firestore save failed:",
-                    error
-                );
-
-            });
 
 
             /* =========================================
-               STEP 5
-               GO TO SETUP
+               CONTINUE BUTTON
             ========================================= */
 
-            window.location.href =
-                "../setup/";
+            document
+                .getElementById(
+                    "setupButton"
+                )
+                .addEventListener(
+                    "click",
+                    function(){
+
+                        window.location.href =
+                            "../setup/";
+
+                    }
+                );
 
 
         }catch(error){
+
+
+            /* =========================================
+               ERROR
+            ========================================= */
 
             console.error(
                 "KAYAH SIGNUP ERROR:",
@@ -2093,21 +2268,31 @@ trialEndsAt:
             );
 
 
+            continueButton.disabled =
+                false;
+
+
             continueButton.classList.remove(
                 "loading"
             );
-
-
-            continueButton.disabled =
-                false;
 
 
             continueButton.textContent =
                 "Continue";
 
 
+            /*
+             * IMPORTANT:
+             *
+             * If the Firebase Auth account was created
+             * but Firestore failed, we show the error
+             * instead of pretending signup completed.
+             */
+
             showError(
-                getFirebaseErrorMessage(error)
+                getFirebaseErrorMessage(
+                    error
+                )
             );
 
         }
@@ -2120,29 +2305,38 @@ trialEndsAt:
    SERVICE WORKER
 ===================================================== */
 
-if("serviceWorker" in navigator){
+if(
+    "serviceWorker" in navigator
+){
 
     window.addEventListener(
         "load",
         function(){
 
-            navigator.serviceWorker
-                .register("../sw.js")
-                .then(function(){
+            navigator
+                .serviceWorker
+                .register(
+                    "../sw.js"
+                )
+                .then(
+                    function(){
 
-                    console.log(
-                        "Kayah Service Worker registered."
-                    );
+                        console.log(
+                            "Kayah Service Worker registered."
+                        );
 
-                })
-                .catch(function(error){
+                    }
+                )
+                .catch(
+                    function(error){
 
-                    console.log(
-                        "Service Worker registration failed:",
-                        error
-                    );
+                        console.log(
+                            "Service Worker registration failed:",
+                            error
+                        );
 
-                });
+                    }
+                );
 
         }
     );
@@ -2152,8 +2346,7 @@ if("serviceWorker" in navigator){
 </script>
 
 
-
-
 </body>
 
 </html>
+
