@@ -1820,104 +1820,6 @@ body{
 
 
     <!-- =================================================
-         PLAN
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Your plan
-                </div>
-
-                <div class="section-subtitle">
-                    Your current Kayah access
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="plan-card">
-
-
-            <div class="plan-card-top">
-
-                <div class="plan-left">
-
-                    <div class="plan-icon">
-                        ★
-                    </div>
-
-
-                    <div>
-
-                        <div
-                            class="plan-name"
-                            id="planName"
-                        >
-                            Free Plan
-                        </div>
-
-                        <div
-                            class="plan-description"
-                            id="planDescription"
-                        >
-                            Basic business management
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="plan-badge"
-                    id="planBadge"
-                >
-                    30-DAY TRIAL
-                </div>
-
-            </div>
-
-
-            <div class="plan-card-bottom">
-
-                <div>
-
-                    <div class="plan-trial-label">
-                        Trial ends
-                    </div>
-
-                    <div
-                        class="plan-trial-value"
-                        id="trialEndDate"
-                    >
-                        Calculating...
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="plan-status"
-                    id="planStatus"
-                >
-                    Trial active
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
          TODAY
     ================================================== -->
 
@@ -2445,6 +2347,104 @@ body{
 
             </div>
 
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PLAN — MOVED TO BOTTOM
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <div class="section-title">
+                    Your plan
+                </div>
+
+                <div class="section-subtitle">
+                    Your current Kayah access
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="plan-card">
+
+
+            <div class="plan-card-top">
+
+                <div class="plan-left">
+
+                    <div class="plan-icon">
+                        ★
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="plan-name"
+                            id="planName"
+                        >
+                            Free Plan
+                        </div>
+
+                        <div
+                            class="plan-description"
+                            id="planDescription"
+                        >
+                            Basic business management
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="plan-badge"
+                    id="planBadge"
+                >
+                    30-DAY TRIAL
+                </div>
+
+            </div>
+
+
+            <div class="plan-card-bottom">
+
+                <div>
+
+                    <div class="plan-trial-label">
+                        Trial ends
+                    </div>
+
+                    <div
+                        class="plan-trial-value"
+                        id="trialEndDate"
+                    >
+                        Calculating...
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="plan-status"
+                    id="planStatus"
+                >
+                    Trial active
+                </div>
+
+            </div>
 
         </div>
 
@@ -3498,19 +3498,6 @@ onAuthStateChanged(
             /* -----------------------------------------
                FUTURE STATS
             ----------------------------------------- */
-
-            /*
-             * These remain 0 for now.
-             *
-             * Later they will read from:
-             *
-             * products/{productId}
-             * inventory/{itemId}
-             * sales/{saleId}
-             *
-             * and will still use the same
-             * Firebase Authentication UID.
-             */
 
             document.getElementById(
                 "productCount"
