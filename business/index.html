@@ -1,0 +1,2734 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#0B4F3A"
+>
+
+<meta
+    name="description"
+    content="Manage your business profile in Kayah."
+>
+
+<title>Business — Kayah</title>
+
+
+<!-- =====================================================
+     FONT
+===================================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    margin:0;
+
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:#F7F3E8;
+
+    color:#202A24;
+
+    min-height:100vh;
+
+    -webkit-font-smoothing:antialiased;
+
+}
+
+button,
+input,
+select,
+textarea{
+
+    font-family:inherit;
+
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+
+    min-height:100vh;
+
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+    width:100%;
+
+    background:#F7F3E8;
+
+    padding:
+        18px
+        18px
+        12px;
+
+}
+
+.topbar-inner{
+
+    max-width:820px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+}
+
+.back-button{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid #E5E7DF;
+
+    background:#FFFFFF;
+
+    border-radius:10px;
+
+    color:#0B4F3A;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:
+        transform .15s ease,
+        background .15s ease;
+
+}
+
+.back-button:active{
+
+    transform:scale(.95);
+
+}
+
+.back-button:hover{
+
+    background:#FFF8E8;
+
+}
+
+.topbar-title{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.topbar-title-main{
+
+    font-size:16px;
+
+    font-weight:800;
+
+    color:#0B4F3A;
+
+}
+
+.topbar-title-sub{
+
+    margin-top:2px;
+
+    font-size:9px;
+
+    font-weight:500;
+
+    color:#8A938E;
+
+}
+
+.topbar-spacer{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    width:100%;
+
+    max-width:820px;
+
+    margin:0 auto;
+
+    padding:
+        8px
+        18px
+        110px;
+
+}
+
+
+/* =====================================================
+   PAGE INTRO
+===================================================== */
+
+.page-intro{
+
+    margin-top:8px;
+
+    margin-bottom:20px;
+
+}
+
+.page-label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.4px;
+
+    color:#16805C;
+
+    margin-bottom:8px;
+
+}
+
+.page-label-line{
+
+    width:21px;
+    height:2px;
+
+    background:#F2B84B;
+
+}
+
+.page-title{
+
+    font-size:28px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+    letter-spacing:-.8px;
+
+    color:#0B4F3A;
+
+}
+
+.page-description{
+
+    margin-top:7px;
+
+    max-width:620px;
+
+    font-size:11px;
+
+    line-height:1.55;
+
+    color:#737D77;
+
+}
+
+
+/* =====================================================
+   PROFILE HERO
+===================================================== */
+
+.profile-hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E8E2;
+
+    border-radius:14px;
+
+    box-shadow:
+        0 7px 28px rgba(11,79,58,.06);
+
+    margin-bottom:20px;
+
+}
+
+.profile-accent{
+
+    height:7px;
+
+    width:100%;
+
+    background:#F2B84B;
+
+}
+
+.profile-hero-content{
+
+    padding:
+        21px
+        20px
+        20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.profile-monogram{
+
+    width:58px;
+    height:58px;
+
+    min-width:58px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#0B4F3A;
+
+    color:#FFFFFF;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    box-shadow:
+        5px 5px 0 #F2B84B;
+
+}
+
+.profile-hero-info{
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.profile-hero-label{
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    color:#16805C;
+
+    margin-bottom:4px;
+
+}
+
+.profile-hero-name{
+
+    font-size:19px;
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    color:#0B4F3A;
+
+    overflow-wrap:anywhere;
+
+}
+
+.profile-hero-type{
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    color:#7D8781;
+
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section{
+
+    margin-top:22px;
+
+}
+
+.section-heading{
+
+    margin-bottom:11px;
+
+}
+
+.section-title{
+
+    font-size:16px;
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    color:#202A24;
+
+    letter-spacing:-.3px;
+
+}
+
+.section-subtitle{
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    line-height:1.4;
+
+    color:#8A938E;
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E8E2;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-body{
+
+    padding:
+        17px;
+
+}
+
+.form-group{
+
+    margin-bottom:16px;
+
+}
+
+.form-group:last-child{
+
+    margin-bottom:0;
+
+}
+
+.form-label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    color:#4C5951;
+
+}
+
+.required{
+
+    color:#16805C;
+
+}
+
+.form-input,
+.form-select,
+.form-textarea{
+
+    width:100%;
+
+    border:1px solid #DDE3DD;
+
+    background:#FFFFFF;
+
+    color:#202A24;
+
+    border-radius:9px;
+
+    outline:none;
+
+    font-size:12px;
+
+    font-weight:500;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+.form-input,
+.form-select{
+
+    height:44px;
+
+    padding:
+        0
+        12px;
+
+}
+
+.form-textarea{
+
+    min-height:95px;
+
+    padding:
+        11px
+        12px;
+
+    resize:vertical;
+
+    line-height:1.5;
+
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus{
+
+    border-color:#16805C;
+
+    box-shadow:
+        0 0 0 3px rgba(22,128,92,.09);
+
+    background:#FFFEFA;
+
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder{
+
+    color:#A0A8A3;
+
+}
+
+.form-select{
+
+    appearance:none;
+
+    -webkit-appearance:none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #7D8781 50%),
+        linear-gradient(135deg, #7D8781 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 16px) 18px,
+        calc(100% - 11px) 18px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat:no-repeat;
+
+    padding-right:35px;
+
+}
+
+.form-row{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:10px;
+
+}
+
+
+/* =====================================================
+   READ ONLY OWNER INFORMATION
+===================================================== */
+
+.info-list{
+
+    padding:
+        3px
+        17px;
+
+}
+
+.info-row{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:18px;
+
+    padding:
+        13px
+        0;
+
+    border-bottom:1px solid #EFF1ED;
+
+}
+
+.info-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.info-key{
+
+    font-size:10px;
+
+    font-weight:500;
+
+    color:#8A938E;
+
+}
+
+.info-value{
+
+    max-width:62%;
+
+    text-align:right;
+
+    overflow-wrap:anywhere;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    color:#344139;
+
+}
+
+
+/* =====================================================
+   PLAN PREVIEW
+===================================================== */
+
+.plan-card{
+
+    padding:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.plan-icon{
+
+    width:42px;
+    height:42px;
+
+    min-width:42px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:#FFF4D9;
+
+    font-size:19px;
+
+}
+
+.plan-content{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.plan-label{
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    color:#8A938E;
+
+    margin-bottom:3px;
+
+}
+
+.plan-name{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    color:#0B4F3A;
+
+}
+
+.plan-description{
+
+    margin-top:3px;
+
+    font-size:9px;
+
+    line-height:1.4;
+
+    color:#7D8781;
+
+}
+
+.plan-arrow{
+
+    font-size:18px;
+
+    color:#9AA39E;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.actions{
+
+    margin-top:20px;
+
+    display:flex;
+
+    gap:9px;
+
+}
+
+.button{
+
+    min-height:45px;
+
+    border-radius:9px;
+
+    padding:
+        0
+        16px;
+
+    border:1px solid transparent;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+        transform .15s ease,
+        opacity .15s ease,
+        background .15s ease;
+
+}
+
+.button:active{
+
+    transform:scale(.985);
+
+}
+
+.button-primary{
+
+    flex:1;
+
+    background:#0B4F3A;
+
+    color:#FFFFFF;
+
+}
+
+.button-primary:hover{
+
+    background:#083D2D;
+
+}
+
+.button-secondary{
+
+    background:#FFFFFF;
+
+    color:#0B4F3A;
+
+    border-color:#DDE3DD;
+
+}
+
+.button-secondary:hover{
+
+    background:#FFF8E8;
+
+}
+
+.button:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+}
+
+
+/* =====================================================
+   STATUS MESSAGE
+===================================================== */
+
+.message{
+
+    display:none;
+
+    margin-bottom:14px;
+
+    padding:
+        11px
+        12px;
+
+    border-radius:9px;
+
+    font-size:10px;
+
+    line-height:1.45;
+
+    font-weight:600;
+
+}
+
+.message.show{
+
+    display:block;
+
+}
+
+.message.success{
+
+    background:#EEF8F2;
+
+    border:1px solid #CFE7D7;
+
+    color:#17643F;
+
+}
+
+.message.error{
+
+    background:#FFF0EF;
+
+    border:1px solid #F0D0CD;
+
+    color:#A33A32;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    background:#F7F3E8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+
+}
+
+.loading.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+
+}
+
+.loading-inner{
+
+    width:100%;
+
+    max-width:280px;
+
+    text-align:center;
+
+}
+
+.loading-inner img{
+
+    width:62px;
+    height:62px;
+
+    object-fit:contain;
+
+    margin-bottom:17px;
+
+}
+
+.spinner{
+
+    width:22px;
+    height:22px;
+
+    margin:
+        0
+        auto
+        13px;
+
+    border:
+        2.5px solid #DCE8E0;
+
+    border-top-color:#16805C;
+
+    border-right-color:#F2B84B;
+
+    border-radius:50%;
+
+    animation:
+        spin .8s linear infinite;
+
+}
+
+.loading-text{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:#69746E;
+
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:100;
+
+    padding:
+        7px
+        14px
+        calc(7px + env(safe-area-inset-bottom));
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-top:1px solid #E3E7E1;
+
+    backdrop-filter:blur(14px);
+
+}
+
+.bottom-nav-inner{
+
+    max-width:600px;
+
+    margin:0 auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:4px;
+
+}
+
+.nav-item{
+
+    min-height:50px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    color:#8A938E;
+
+    border-radius:9px;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+.nav-icon{
+
+    font-size:16px;
+
+    line-height:1;
+
+    margin-bottom:4px;
+
+}
+
+.nav-item.active{
+
+    color:#0B4F3A;
+
+    background:#FFF4D9;
+
+}
+
+.nav-item.active .nav-icon{
+
+    color:#16805C;
+
+}
+
+
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
+
+@media(min-width:700px){
+
+    .main{
+
+        padding-left:24px;
+        padding-right:24px;
+
+    }
+
+    .profile-hero-content{
+
+        padding:
+            24px;
+
+    }
+
+    .form-body{
+
+        padding:
+            20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:520px){
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+        gap:0;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:380px){
+
+    .main{
+
+        padding-left:14px;
+        padding-right:14px;
+
+    }
+
+    .topbar{
+
+        padding-left:14px;
+        padding-right:14px;
+
+    }
+
+    .page-title{
+
+        font-size:25px;
+
+    }
+
+    .profile-hero-content{
+
+        padding:
+            19px
+            16px;
+
+    }
+
+    .profile-monogram{
+
+        width:51px;
+        height:51px;
+
+        min-width:51px;
+
+        font-size:18px;
+
+    }
+
+    .actions{
+
+        flex-direction:column;
+
+    }
+
+    .button{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        scroll-behavior:auto !important;
+
+        transition:none !important;
+
+        animation:none !important;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+    class="loading"
+    id="loadingScreen"
+>
+
+    <div class="loading-inner">
+
+        <img
+            src="../kayah-logo.png"
+            alt="Kayah"
+        >
+
+        <div class="spinner"></div>
+
+        <div class="loading-text">
+            Loading your business profile...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <a
+            href="../dashboard/"
+            class="back-button"
+            aria-label="Back to dashboard"
+        >
+            ←
+        </a>
+
+
+        <div class="topbar-title">
+
+            <div class="topbar-title-main">
+                Business
+            </div>
+
+            <div class="topbar-title-sub">
+                Manage your business profile
+            </div>
+
+        </div>
+
+
+        <div class="topbar-spacer"></div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- =================================================
+         PAGE INTRO
+    ================================================== -->
+
+    <div class="page-intro">
+
+        <div class="page-label">
+
+            <span class="page-label-line"></span>
+
+            🏢 BUSINESS PROFILE
+
+        </div>
+
+        <h1 class="page-title">
+            Your business
+        </h1>
+
+        <p class="page-description">
+            Keep your business information accurate and up to date.
+            These details are used throughout your Kayah workspace.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         PROFILE HERO
+    ================================================== -->
+
+    <section class="profile-hero">
+
+        <div class="profile-accent"></div>
+
+
+        <div class="profile-hero-content">
+
+            <div
+                class="profile-monogram"
+                id="businessInitial"
+            >
+                B
+            </div>
+
+
+            <div class="profile-hero-info">
+
+                <div class="profile-hero-label">
+                    YOUR BUSINESS
+                </div>
+
+                <div
+                    class="profile-hero-name"
+                    id="heroBusinessName"
+                >
+                    Your Business
+                </div>
+
+                <div
+                    class="profile-hero-type"
+                    id="heroBusinessType"
+                >
+                    Business
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MESSAGE
+    ================================================== -->
+
+    <div
+        class="message"
+        id="message"
+    ></div>
+
+
+    <!-- =================================================
+         BUSINESS INFORMATION
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div class="section-title">
+                Business information
+            </div>
+
+            <div class="section-subtitle">
+                Update the details of your business
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <form
+                id="businessForm"
+                class="form-body"
+            >
+
+
+                <!-- BUSINESS NAME -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="businessName"
+                    >
+                        Business Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="text"
+                        id="businessName"
+                        placeholder="Enter your business name"
+                        autocomplete="organization"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- BUSINESS TYPE -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="businessType"
+                    >
+                        Business Type
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="businessType"
+                        required
+                    >
+
+                        <option value="">
+                            Select business type
+                        </option>
+
+                        <option value="Retail">
+                            Retail
+                        </option>
+
+                        <option value="Food & Beverage">
+                            Food & Beverage
+                        </option>
+
+                        <option value="Wholesale">
+                            Wholesale
+                        </option>
+
+                        <option value="Services">
+                            Services
+                        </option>
+
+                        <option value="Online Business">
+                            Online Business
+                        </option>
+
+                        <option value="Manufacturing">
+                            Manufacturing
+                        </option>
+
+                        <option value="Agriculture">
+                            Agriculture
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="businessAddress"
+                    >
+                        Business Address
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="text"
+                        id="businessAddress"
+                        placeholder="Street, barangay, building, etc."
+                        autocomplete="street-address"
+                    >
+
+                </div>
+
+
+                <!-- CITY / PROVINCE -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="city"
+                        >
+                            City / Municipality
+                        </label>
+
+                        <input
+                            class="form-input"
+                            type="text"
+                            id="city"
+                            placeholder="City or municipality"
+                            autocomplete="address-level2"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="province"
+                        >
+                            Province
+                        </label>
+
+                        <input
+                            class="form-input"
+                            type="text"
+                            id="province"
+                            placeholder="Province"
+                            autocomplete="address-level1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- CURRENCY -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="currency"
+                    >
+                        Currency
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="currency"
+                    >
+
+                        <option value="PHP">
+                            PHP — ₱ Philippine Peso
+                        </option>
+
+                        <option value="USD">
+                            USD — $ US Dollar
+                        </option>
+
+                        <option value="AED">
+                            AED — د.إ UAE Dirham
+                        </option>
+
+                        <option value="SAR">
+                            SAR — ﷼ Saudi Riyal
+                        </option>
+
+                        <option value="SGD">
+                            SGD — S$ Singapore Dollar
+                        </option>
+
+                        <option value="MYR">
+                            MYR — RM Malaysian Ringgit
+                        </option>
+
+                        <option value="GBP">
+                            GBP — £ British Pound
+                        </option>
+
+                        <option value="EUR">
+                            EUR — € Euro
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="businessDescription"
+                    >
+                        Business Description
+                    </label>
+
+                    <textarea
+                        class="form-textarea"
+                        id="businessDescription"
+                        placeholder="Tell us a little about your business..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="actions">
+
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="cancelButton"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="button button-primary"
+                        id="saveButton"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         OWNER INFORMATION
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div class="section-title">
+                Owner information
+            </div>
+
+            <div class="section-subtitle">
+                Information connected to your Kayah account
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="info-list">
+
+
+                <!-- OWNER NAME -->
+
+                <div class="info-row">
+
+                    <div class="info-key">
+                        Owner
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="ownerName"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="info-row">
+
+                    <div class="info-key">
+                        Email
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="ownerEmail"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="info-row">
+
+                    <div class="info-key">
+                        Phone
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="ownerPhone"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PLAN
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div class="section-title">
+                Plan & subscription
+            </div>
+
+            <div class="section-subtitle">
+                Manage your Kayah plan
+            </div>
+
+        </div>
+
+
+        <a
+            href="../subscription/"
+            class="card plan-card"
+            style="text-decoration:none;"
+        >
+
+            <div class="plan-icon">
+                🎁
+            </div>
+
+            <div class="plan-content">
+
+                <div class="plan-label">
+                    CURRENT PLAN
+                </div>
+
+                <div
+                    class="plan-name"
+                    id="planName"
+                >
+                    Free Trial
+                </div>
+
+                <div class="plan-description">
+                    View your trial, plans and upgrade options
+                </div>
+
+            </div>
+
+            <div class="plan-arrow">
+                ›
+            </div>
+
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <div class="bottom-nav-inner">
+
+
+        <a
+            href="../dashboard/"
+            class="nav-item"
+        >
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            Home
+
+        </a>
+
+
+        <a
+            href="../sales/"
+            class="nav-item"
+        >
+
+            <span class="nav-icon">
+                ₱
+            </span>
+
+            Sales
+
+        </a>
+
+
+        <a
+            href="../inventory/"
+            class="nav-item"
+        >
+
+            <span class="nav-icon">
+                📋
+            </span>
+
+            Inventory
+
+        </a>
+
+
+        <a
+            href="../settings/"
+            class="nav-item"
+        >
+
+            <span class="nav-icon">
+                ⋯
+            </span>
+
+            More
+
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
+
+    projectId:
+        "kayah-ecosystem",
+
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId:
+        "49853785143",
+
+    appId:
+        "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+};
+
+
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const businessForm =
+    document.getElementById("businessForm");
+
+const businessNameInput =
+    document.getElementById("businessName");
+
+const businessTypeInput =
+    document.getElementById("businessType");
+
+const businessAddressInput =
+    document.getElementById("businessAddress");
+
+const cityInput =
+    document.getElementById("city");
+
+const provinceInput =
+    document.getElementById("province");
+
+const currencyInput =
+    document.getElementById("currency");
+
+const businessDescriptionInput =
+    document.getElementById("businessDescription");
+
+const heroBusinessName =
+    document.getElementById("heroBusinessName");
+
+const heroBusinessType =
+    document.getElementById("heroBusinessType");
+
+const businessInitial =
+    document.getElementById("businessInitial");
+
+const ownerName =
+    document.getElementById("ownerName");
+
+const ownerEmail =
+    document.getElementById("ownerEmail");
+
+const ownerPhone =
+    document.getElementById("ownerPhone");
+
+const planName =
+    document.getElementById("planName");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+const cancelButton =
+    document.getElementById("cancelButton");
+
+const message =
+    document.getElementById("message");
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+let currentUser = null;
+
+let originalData = {};
+
+
+/* =====================================================
+   SAFE TEXT
+===================================================== */
+
+function safeText(
+    value,
+    fallback
+){
+
+    if(
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ){
+
+        return fallback;
+
+    }
+
+    return String(value).trim();
+
+}
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message show " +
+        type;
+
+}
+
+
+/* =====================================================
+   HIDE MESSAGE
+===================================================== */
+
+function hideMessage(){
+
+    message.textContent = "";
+
+    message.className =
+        "message";
+
+}
+
+
+/* =====================================================
+   UPDATE HERO
+===================================================== */
+
+function updateHero(){
+
+    const name =
+        safeText(
+            businessNameInput.value,
+            "Your Business"
+        );
+
+    const type =
+        safeText(
+            businessTypeInput.value,
+            "Business"
+        );
+
+
+    heroBusinessName.textContent =
+        name;
+
+    heroBusinessType.textContent =
+        type;
+
+
+    businessInitial.textContent =
+        name
+            .charAt(0)
+            .toUpperCase() ||
+        "B";
+
+}
+
+
+/* =====================================================
+   POPULATE FORM
+===================================================== */
+
+function populateForm(data){
+
+    const savedBusinessName =
+        safeText(
+            data.businessName,
+            ""
+        );
+
+    const savedBusinessType =
+        safeText(
+            data.businessType,
+            ""
+        );
+
+    const savedAddress =
+        safeText(
+            data.businessAddress,
+            ""
+        );
+
+    const savedCity =
+        safeText(
+            data.city,
+            ""
+        );
+
+    const savedProvince =
+        safeText(
+            data.province,
+            ""
+        );
+
+    const savedCurrency =
+        safeText(
+            data.currency,
+            "PHP"
+        );
+
+    const savedDescription =
+        safeText(
+            data.businessDescription,
+            ""
+        );
+
+
+    businessNameInput.value =
+        savedBusinessName;
+
+    businessTypeInput.value =
+        savedBusinessType;
+
+    businessAddressInput.value =
+        savedAddress;
+
+    cityInput.value =
+        savedCity;
+
+    provinceInput.value =
+        savedProvince;
+
+    currencyInput.value =
+        savedCurrency;
+
+    businessDescriptionInput.value =
+        savedDescription;
+
+
+    ownerName.textContent =
+        safeText(
+            data.fullName ||
+            currentUser.displayName,
+            "Not provided"
+        );
+
+
+    ownerEmail.textContent =
+        safeText(
+            data.email ||
+            currentUser.email,
+            "Not provided"
+        );
+
+
+    const phone =
+        safeText(
+            data.phoneFull ||
+            (
+                data.countryCode &&
+                data.phone
+                    ? data.countryCode + data.phone
+                    : data.phone
+            ),
+            "Not provided"
+        );
+
+
+    ownerPhone.textContent =
+        phone;
+
+
+    const plan =
+        safeText(
+            data.plan,
+            "free-trial"
+        );
+
+
+    if(plan === "free"){
+
+        planName.textContent =
+            "Free Plan";
+
+    }
+
+    else if(plan === "starter"){
+
+        planName.textContent =
+            "Starter Plan";
+
+    }
+
+    else if(plan === "professional"){
+
+        planName.textContent =
+            "Professional Plan";
+
+    }
+
+    else if(plan === "business"){
+
+        planName.textContent =
+            "Business Plan";
+
+    }
+
+    else{
+
+        planName.textContent =
+            "Free Trial";
+
+    }
+
+
+    updateHero();
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            window.location.href =
+                "../login/";
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        try{
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const snapshot =
+                await getDoc(userRef);
+
+
+            if(snapshot.exists()){
+
+                originalData =
+                    snapshot.data();
+
+                populateForm(
+                    originalData
+                );
+
+            }
+
+            else{
+
+                originalData = {
+
+                    fullName:
+                        user.displayName || "",
+
+                    email:
+                        user.email || ""
+
+                };
+
+                populateForm(
+                    originalData
+                );
+
+            }
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Business profile loading error:",
+                error
+            );
+
+
+            showMessage(
+                "We couldn't load your business information. Please try again.",
+                "error"
+            );
+
+        }
+
+
+        if(loadingScreen){
+
+            loadingScreen.classList.add(
+                "hide"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LIVE HERO UPDATE
+===================================================== */
+
+businessNameInput.addEventListener(
+    "input",
+    updateHero
+);
+
+businessTypeInput.addEventListener(
+    "change",
+    updateHero
+);
+
+
+/* =====================================================
+   CANCEL
+===================================================== */
+
+cancelButton.addEventListener(
+    "click",
+    function(){
+
+        hideMessage();
+
+        populateForm(
+            originalData
+        );
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =====================================================
+   SAVE BUSINESS INFORMATION
+===================================================== */
+
+businessForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        hideMessage();
+
+
+        if(!currentUser){
+
+            showMessage(
+                "Your session has expired. Please log in again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const businessName =
+            businessNameInput.value.trim();
+
+        const businessType =
+            businessTypeInput.value.trim();
+
+
+        if(!businessName){
+
+            showMessage(
+                "Please enter your business name.",
+                "error"
+            );
+
+            businessNameInput.focus();
+
+            return;
+
+        }
+
+
+        if(!businessType){
+
+            showMessage(
+                "Please select your business type.",
+                "error"
+            );
+
+            businessTypeInput.focus();
+
+            return;
+
+        }
+
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try{
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid
+                );
+
+
+            await setDoc(
+                userRef,
+                {
+
+                    businessName:
+                        businessName,
+
+                    businessType:
+                        businessType,
+
+                    businessAddress:
+                        businessAddressInput
+                            .value
+                            .trim(),
+
+                    city:
+                        cityInput
+                            .value
+                            .trim(),
+
+                    province:
+                        provinceInput
+                            .value
+                            .trim(),
+
+                    currency:
+                        currencyInput
+                            .value,
+
+                    currencySymbol:
+                        getCurrencySymbol(
+                            currencyInput.value
+                        ),
+
+                    businessDescription:
+                        businessDescriptionInput
+                            .value
+                            .trim(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                },
+                {
+                    merge:true
+                }
+            );
+
+
+            originalData = {
+
+                ...originalData,
+
+                businessName:
+                    businessName,
+
+                businessType:
+                    businessType,
+
+                businessAddress:
+                    businessAddressInput
+                        .value
+                        .trim(),
+
+                city:
+                    cityInput
+                        .value
+                        .trim(),
+
+                province:
+                    provinceInput
+                        .value
+                        .trim(),
+
+                currency:
+                    currencyInput
+                        .value,
+
+                currencySymbol:
+                    getCurrencySymbol(
+                        currencyInput.value
+                    ),
+
+                businessDescription:
+                    businessDescriptionInput
+                        .value
+                        .trim()
+
+            };
+
+
+            updateHero();
+
+
+            showMessage(
+                "Your business information has been saved successfully.",
+                "success"
+            );
+
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Business save error:",
+                error
+            );
+
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                showMessage(
+                    "Firebase denied permission to save your business information. Please check your Firestore security rules.",
+                    "error"
+                );
+
+            }
+
+            else{
+
+                showMessage(
+                    "We couldn't save your changes. Please try again.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        saveButton.disabled =
+            false;
+
+        saveButton.textContent =
+            "Save Changes";
+
+    }
+);
+
+
+/* =====================================================
+   CURRENCY SYMBOL
+===================================================== */
+
+function getCurrencySymbol(
+    currency
+){
+
+    const symbols = {
+
+        PHP:"₱",
+
+        USD:"$",
+
+        AED:"د.إ",
+
+        SAR:"﷼",
+
+        SGD:"S$",
+
+        MYR:"RM",
+
+        GBP:"£",
+
+        EUR:"€"
+
+    };
+
+
+    return symbols[currency] ||
+        currency;
+
+}
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
+
+    navigator.serviceWorker
+        .register("../sw.js")
+        .then(
+            function(){
+
+                console.log(
+                    "Kayah service worker registered."
+                );
+
+            }
+        )
+        .catch(
+            function(error){
+
+                console.log(
+                    "Service worker error:",
+                    error
+                );
+
+            }
+        );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+
