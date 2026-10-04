@@ -40,6 +40,88 @@
 
     <style>
 
+
+
+
+/* =====================================================
+   TRIAL BANNER
+===================================================== */
+
+.trial-banner{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:11px;
+
+    padding:13px;
+
+    margin-bottom:18px;
+
+    border-radius:13px;
+
+    background:#FFF8E8;
+
+    border:
+        1px solid
+        rgba(242,184,75,.40);
+}
+
+
+.trial-icon{
+
+    width:35px;
+    height:35px;
+
+    flex-shrink:0;
+
+    border-radius:10px;
+
+    background:#F2B84B;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+}
+
+
+.trial-content{
+
+    flex:1;
+}
+
+
+.trial-content strong{
+
+    display:block;
+
+    color:#0B4F3A;
+
+    font-size:12px;
+
+    margin-bottom:4px;
+}
+
+
+.trial-content span{
+
+    display:block;
+
+    color:#737E77;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+
+
+
         /* =====================================================
            RESET
         ===================================================== */
@@ -961,10 +1043,14 @@
             </h1>
 
 
-            <p class="intro-text">
-                Create your Kayah account and get your
-                business workspace ready in a few simple steps.
-            </p>
+            <div class="trial-banner">
+    <div class="trial-icon">🎁</div>
+
+   <p class="intro-text">
+    Sign up for free and enjoy 30 days of full access to Kayah.
+    Explore everything Kayah has to offer and manage your business
+    with ease. No payment required to get started.
+</p>
 
 
         </section>
@@ -1035,6 +1121,29 @@
 
 
             <div id="formContent">
+
+
+<div class="trial-banner">
+
+    <div class="trial-icon">
+        🎁
+    </div>
+
+    <div class="trial-content">
+
+        <strong>
+            30-Day Free Trial
+        </strong>
+
+        <span>
+            Enjoy full access to Kayah for 30 days.
+            No payment required.
+        </span>
+
+    </div>
+
+</div>
+
 
 
                 <div class="card-title">
@@ -1335,15 +1444,16 @@
                 </div>
 
 
-                <h2>
-                    Account Created
-                </h2>
+               <h2>
+    🎉 Welcome to Kayah!
+</h2>
 
-
-                <p>
-                    Your account has been created successfully.
-                    Let's complete your business setup.
-                </p>
+<p>
+    Your 30-day free trial has started.
+    After your trial, you can continue with the
+    <strong>Free Plan</strong> or choose a paid plan
+    whenever you need more.
+</p>
 
 
                 <button
@@ -1388,7 +1498,8 @@ import {
     getFirestore,
     doc,
     setDoc,
-    serverTimestamp
+    serverTimestamp,
+    Timestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -1858,6 +1969,21 @@ form.addEventListener(
                 "Opening Setup...";
 
 
+const trialStartedAt = new Date();
+
+const trialEndsAt = new Date(
+    trialStartedAt
+);
+
+trialEndsAt.setDate(
+    trialEndsAt.getDate() + 30
+);
+
+
+
+
+
+
             const userData = {
 
                 uid:
@@ -1887,11 +2013,32 @@ form.addEventListener(
                 setupCompleted:
                     false,
 
+
+subscriptionStatus:
+    "trial",
+
+plan:
+    "free-trial",
+
+trialStartedAt:
+    Timestamp.fromDate(
+        trialStartedAt
+    ),
+
+trialEndsAt:
+    Timestamp.fromDate(
+        trialEndsAt
+    ),
+
+
+
+
                 createdAt:
                     serverTimestamp(),
 
                 updatedAt:
                     serverTimestamp()
+                    
 
             };
 
