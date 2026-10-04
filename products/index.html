@@ -2,15 +2,18 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Kayah Products</title>
+<title>Kayah - Products</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     margin:0;
@@ -21,7 +24,7 @@
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#F7F3E8;
-    color:#17352D;
+    color:#18352B;
     min-height:100vh;
 }
 
@@ -30,278 +33,276 @@ body{
 ===================================================== */
 
 .header{
-    background:#0B4F3A;
+    background:linear-gradient(135deg,#0B4F3A,#16805C);
     color:white;
-    padding:28px 20px 32px;
-    border-radius:0 0 32px 32px;
+    padding:22px 18px 25px;
+    border-radius:0 0 24px 24px;
 }
 
-.header h1{
-    font-size:28px;
-    margin-bottom:6px;
-}
-
-.header p{
-    font-size:14px;
-    opacity:.85;
-}
-
-/* =====================================================
-   CONTAINER
-===================================================== */
-
-.container{
-    width:100%;
-    max-width:700px;
-    margin:auto;
-    padding:20px 16px 100px;
-}
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.status{
-    background:white;
-    border-radius:18px;
-    padding:15px;
-    margin-bottom:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.06);
-}
-
-.status-title{
-    font-size:13px;
-    color:#777;
-    margin-bottom:5px;
-}
-
-.status-value{
-    font-size:20px;
-    font-weight:bold;
-    color:#0B4F3A;
-}
-
-/* =====================================================
-   PLAN CARD
-===================================================== */
-
-.plan-card{
-    background:#0B4F3A;
-    color:white;
-    border-radius:22px;
-    padding:20px;
-    margin-bottom:18px;
-}
-
-.plan-top{
+.header-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
 }
 
-.plan-name{
-    font-size:21px;
-    font-weight:bold;
+.header h1{
+    font-size:24px;
+    font-weight:800;
+}
+
+.header p{
+    margin-top:5px;
+    font-size:13px;
+    opacity:.9;
 }
 
 .plan-badge{
     background:#F2B84B;
-    color:#17352D;
-    padding:6px 10px;
+    color:#173528;
+    padding:7px 11px;
     border-radius:20px;
     font-size:11px;
-    font-weight:bold;
+    font-weight:800;
 }
 
-.plan-description{
-    margin-top:8px;
-    font-size:14px;
-    opacity:.9;
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:0 auto;
+    padding:18px;
 }
 
-.product-limit{
-    margin-top:15px;
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 5px 18px rgba(11,79,58,.08);
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.card-subtitle{
+    color:#718078;
+    font-size:13px;
+    margin-bottom:16px;
+}
+
+/* =====================================================
+   PRODUCT LIMIT
+===================================================== */
+
+.limit-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.limit-label{
     font-size:14px;
+    font-weight:700;
+}
+
+.limit-count{
+    font-size:14px;
+    font-weight:800;
+    color:#0B4F3A;
 }
 
 .progress{
-    height:8px;
-    background:rgba(255,255,255,.2);
+    height:9px;
+    width:100%;
+    background:#E6E9E5;
     border-radius:20px;
-    margin-top:8px;
     overflow:hidden;
 }
 
 .progress-bar{
     height:100%;
     width:0%;
-    background:#F2B84B;
+    background:#16805C;
     border-radius:20px;
-}
-
-/* =====================================================
-   CARD
-===================================================== */
-
-.card{
-    background:white;
-    border-radius:22px;
-    padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 18px rgba(0,0,0,.06);
-}
-
-.card h2{
-    font-size:19px;
-    margin-bottom:16px;
+    transition:.3s;
 }
 
 /* =====================================================
    FORM
 ===================================================== */
 
-.form-group{
-    margin-bottom:13px;
-}
-
 label{
     display:block;
     font-size:13px;
-    font-weight:bold;
+    font-weight:700;
     margin-bottom:6px;
-    color:#496058;
+    color:#355046;
 }
 
-input,
-select{
+input{
     width:100%;
-    padding:13px;
-    border:1px solid #ddd;
+    border:1px solid #D9DED9;
     border-radius:12px;
-    background:#fff;
-    font-size:15px;
+    padding:13px;
+    font-size:14px;
     outline:none;
+    margin-bottom:14px;
+    background:#FCFCFA;
 }
 
-input:focus,
-select:focus{
+input:focus{
     border-color:#16805C;
+    box-shadow:0 0 0 3px rgba(22,128,92,.08);
 }
+
+/* =====================================================
+   BUTTON
+===================================================== */
 
 button{
     width:100%;
     border:none;
     border-radius:13px;
     padding:14px;
-    font-size:15px;
-    font-weight:bold;
+    font-size:14px;
+    font-weight:800;
     cursor:pointer;
 }
 
-.add-button{
-    background:#16805C;
+.add-btn{
+    background:#0B4F3A;
     color:white;
 }
 
-.add-button:disabled{
-    background:#aaa;
+.add-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
 
 /* =====================================================
-   PRODUCTS
+   MESSAGES
 ===================================================== */
 
-.product-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+.message{
+    display:none;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:15px;
+    font-size:13px;
+    line-height:1.5;
 }
 
-.product{
-    border:1px solid #eee;
-    border-radius:17px;
+.message.success{
+    display:block;
+    background:#E8F7EF;
+    color:#17643F;
+}
+
+.message.error{
+    display:block;
+    background:#FDECEC;
+    color:#A52C2C;
+}
+
+.message.info{
+    display:block;
+    background:#EEF5F2;
+    color:#31594C;
+}
+
+/* =====================================================
+   PRODUCT LIST
+===================================================== */
+
+.product-item{
+    border:1px solid #E4E8E3;
+    border-radius:15px;
     padding:15px;
+    margin-bottom:12px;
+    background:#FFF;
 }
 
 .product-top{
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
     gap:10px;
 }
 
 .product-name{
-    font-weight:bold;
-    font-size:17px;
+    font-size:16px;
+    font-weight:800;
+    color:#173B2F;
 }
 
 .product-sku{
     font-size:12px;
-    color:#888;
+    color:#7B8983;
     margin-top:3px;
 }
 
 .product-details{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px;
+    gap:9px;
     margin-top:13px;
 }
 
 .detail{
-    background:#F7F3E8;
+    background:#F7F8F5;
+    padding:10px;
     border-radius:10px;
-    padding:9px;
 }
 
-.detail-label{
+.detail span{
+    display:block;
     font-size:11px;
-    color:#888;
+    color:#7C8983;
 }
 
-.detail-value{
-    font-size:14px;
-    font-weight:bold;
-    margin-top:2px;
+.detail strong{
+    display:block;
+    margin-top:3px;
+    font-size:13px;
 }
 
-.delete-button{
+.delete-btn{
     width:auto;
-    background:#fff0f0;
-    color:#c0392b;
     padding:7px 10px;
-    font-size:12px;
-}
-
-.empty{
-    text-align:center;
-    padding:30px 15px;
-    color:#888;
+    background:#FCEAEA;
+    color:#A72C2C;
+    font-size:11px;
 }
 
 /* =====================================================
-   MESSAGE
+   EMPTY
 ===================================================== */
 
-.message{
-    display:none;
-    padding:13px;
-    border-radius:13px;
-    margin-bottom:15px;
-    font-size:14px;
+.empty{
+    text-align:center;
+    padding:28px 15px;
+    color:#78847F;
 }
 
-.message.success{
-    display:block;
-    background:#e8f7ef;
-    color:#146c43;
+.empty-icon{
+    font-size:35px;
+    margin-bottom:10px;
 }
 
-.message.error{
+.empty strong{
     display:block;
-    background:#fff0f0;
-    color:#a33;
+    color:#385449;
+    margin-bottom:5px;
 }
 
 /* =====================================================
@@ -310,23 +311,36 @@ button{
 
 .loading{
     text-align:center;
-    padding:30px;
-    color:#777;
+    padding:35px 15px;
+    color:#65766E;
+    font-size:14px;
 }
 
 /* =====================================================
-   USER INFO
+   ACCOUNT INFO
 ===================================================== */
 
-.user-info{
+.account-info{
     font-size:12px;
-    color:#888;
-    margin-top:8px;
+    color:#77847E;
     word-break:break-all;
+    margin-top:8px;
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.back-btn{
+    display:inline-block;
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+    margin-top:12px;
+    opacity:.9;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -337,245 +351,213 @@ button{
 
 <div class="header">
 
-    <h1>Products</h1>
+    <div class="header-top">
 
-    <p>
-        Manage your products and inventory
-    </p>
+        <div>
+            <h1>Products</h1>
+            <p>Manage your store products</p>
+        </div>
+
+        <div
+            class="plan-badge"
+            id="planBadge">
+            LOADING
+        </div>
+
+    </div>
+
+    <a
+        href="../dashboard/"
+        class="back-btn">
+        ← Back to Dashboard
+    </a>
 
 </div>
 
 
 <div class="container">
 
-    <!-- MESSAGE -->
+    <!-- =================================================
+         MESSAGE
+    ================================================== -->
 
-    <div id="message"
-         class="message">
+    <div
+        id="message"
+        class="message">
     </div>
 
 
-    <!-- ACCOUNT STATUS -->
+    <!-- =================================================
+         ACCOUNT / PLAN
+    ================================================== -->
 
-    <div class="status">
+    <div class="card">
 
-        <div class="status-title">
-            Signed in as
+        <div class="card-title">
+            Your Product Limit
         </div>
 
-        <div id="userEmail"
-             class="status-value">
-            Loading...
+        <div class="card-subtitle">
+            Your current plan determines how many products you can add.
         </div>
 
-        <div id="userUid"
-             class="user-info">
-        </div>
+        <div class="limit-box">
 
-    </div>
-
-
-    <!-- PLAN -->
-
-    <div class="plan-card">
-
-        <div class="plan-top">
-
-            <div id="planName"
-                 class="plan-name">
+            <div
+                class="limit-label"
+                id="planName">
                 Loading plan...
             </div>
 
-            <div id="planBadge"
-                 class="plan-badge">
-                ...
+            <div
+                class="limit-count"
+                id="productCount">
+                0 / 0
             </div>
-
-        </div>
-
-        <div id="planDescription"
-             class="plan-description">
-            Loading...
-        </div>
-
-        <div class="product-limit">
-
-            Products:
-            <strong>
-                <span id="productCount">0</span>
-                /
-                <span id="productLimit">0</span>
-            </strong>
 
         </div>
 
         <div class="progress">
 
-            <div id="progressBar"
-                 class="progress-bar">
+            <div
+                id="progressBar"
+                class="progress-bar">
             </div>
 
+        </div>
+
+        <div
+            id="accountInfo"
+            class="account-info">
         </div>
 
     </div>
 
 
-    <!-- ADD PRODUCT -->
+    <!-- =================================================
+         ADD PRODUCT
+    ================================================== -->
 
     <div class="card">
 
-        <h2>
+        <div class="card-title">
             Add Product
-        </h2>
+        </div>
 
-        <form id="productForm">
-
-            <div class="form-group">
-
-                <label>
-                    Product Name
-                </label>
-
-                <input
-                    type="text"
-                    id="productName"
-                    placeholder="Example: Shawarma"
-                    required
-                >
-
-            </div>
+        <div class="card-subtitle">
+            Enter the details of your product below.
+        </div>
 
 
-            <div class="form-group">
+        <label for="productName">
+            Product Name
+        </label>
 
-                <label>
-                    SKU
-                </label>
-
-                <input
-                    type="text"
-                    id="productSku"
-                    placeholder="Optional"
-                >
-
-            </div>
+        <input
+            id="productName"
+            type="text"
+            placeholder="Example: Shawarma"
+            autocomplete="off">
 
 
-            <div class="form-group">
+        <label for="sku">
+            SKU
+        </label>
 
-                <label>
-                    Category
-                </label>
-
-                <input
-                    type="text"
-                    id="productCategory"
-                    placeholder="Example: Food"
-                >
-
-            </div>
+        <input
+            id="sku"
+            type="text"
+            placeholder="Example: SHW-001"
+            autocomplete="off">
 
 
-            <div class="form-group">
+        <label for="category">
+            Category
+        </label>
 
-                <label>
-                    Selling Price
-                </label>
-
-                <input
-                    type="number"
-                    id="sellingPrice"
-                    placeholder="0.00"
-                    min="0"
-                    step="0.01"
-                    required
-                >
-
-            </div>
+        <input
+            id="category"
+            type="text"
+            placeholder="Example: Food"
+            autocomplete="off">
 
 
-            <div class="form-group">
+        <label for="sellingPrice">
+            Selling Price
+        </label>
 
-                <label>
-                    Cost Price
-                </label>
-
-                <input
-                    type="number"
-                    id="costPrice"
-                    placeholder="0.00"
-                    min="0"
-                    step="0.01"
-                >
-
-            </div>
+        <input
+            id="sellingPrice"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00">
 
 
-            <div class="form-group">
+        <label for="costPrice">
+            Cost Price
+        </label>
 
-                <label>
-                    Stock Quantity
-                </label>
-
-                <input
-                    type="number"
-                    id="stockQuantity"
-                    placeholder="0"
-                    min="0"
-                    step="1"
-                    value="0"
-                >
-
-            </div>
+        <input
+            id="costPrice"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00">
 
 
-            <div class="form-group">
+        <label for="stockQuantity">
+            Stock Quantity
+        </label>
 
-                <label>
-                    Low Stock Alert At
-                </label>
-
-                <input
-                    type="number"
-                    id="lowStockThreshold"
-                    placeholder="5"
-                    min="0"
-                    step="1"
-                    value="5"
-                >
-
-            </div>
+        <input
+            id="stockQuantity"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="0">
 
 
-            <button
-                type="submit"
-                id="addButton"
-                class="add-button">
+        <label for="lowStockThreshold">
+            Low Stock Alert At
+        </label>
 
-                Add Product
+        <input
+            id="lowStockThreshold"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Example: 5">
 
-            </button>
 
-        </form>
+        <button
+            id="addProductBtn"
+            class="add-btn"
+            disabled>
+            Add Product
+        </button>
 
     </div>
 
 
-    <!-- PRODUCT LIST -->
+    <!-- =================================================
+         PRODUCTS
+    ================================================== -->
 
     <div class="card">
 
-        <h2>
+        <div class="card-title">
             My Products
-        </h2>
+        </div>
 
-        <div id="productList"
-             class="product-list">
+        <div class="card-subtitle">
+            Products saved to your Kayah account.
+        </div>
 
-            <div class="loading">
-                Loading products...
-            </div>
-
+        <div
+            id="productsList"
+            class="loading">
+            Waiting for Firebase authentication...
         </div>
 
     </div>
@@ -589,6 +571,10 @@ button{
 
 <script type="module">
 
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -600,11 +586,11 @@ import {
 
 import {
     getFirestore,
-    collection,
     doc,
     getDoc,
-    getDocs,
+    collection,
     addDoc,
+    getDocs,
     deleteDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -638,21 +624,18 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   SAME INITIALIZATION AS DASHBOARD
+   FIREBASE INITIALIZATION
 ===================================================== */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(app);
+const auth = getAuth(app);
 
-const db =
-    getFirestore(app);
+const db = getFirestore(app);
 
 
 /* =====================================================
-   PLAN CONFIG
+   PLAN CONFIGURATION
 ===================================================== */
 
 const PLAN_CONFIG = {
@@ -696,48 +679,7 @@ const PLAN_CONFIG = {
 
 
 /* =====================================================
-   ELEMENTS
-===================================================== */
-
-const userEmail =
-    document.getElementById("userEmail");
-
-const userUid =
-    document.getElementById("userUid");
-
-const planName =
-    document.getElementById("planName");
-
-const planBadge =
-    document.getElementById("planBadge");
-
-const planDescription =
-    document.getElementById("planDescription");
-
-const productCount =
-    document.getElementById("productCount");
-
-const productLimit =
-    document.getElementById("productLimit");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-const productList =
-    document.getElementById("productList");
-
-const productForm =
-    document.getElementById("productForm");
-
-const addButton =
-    document.getElementById("addButton");
-
-const message =
-    document.getElementById("message");
-
-
-/* =====================================================
-   GLOBAL STATE
+   VARIABLES
 ===================================================== */
 
 let currentUser = null;
@@ -746,17 +688,64 @@ let currentUserData = null;
 
 let currentPlan = "free";
 
-let currentProducts = [];
+let products = [];
 
 
 /* =====================================================
-   MESSAGE
+   ELEMENTS
 ===================================================== */
 
-function showMessage(
-    text,
-    type = "success"
-){
+const message =
+    document.getElementById("message");
+
+const planBadge =
+    document.getElementById("planBadge");
+
+const planName =
+    document.getElementById("planName");
+
+const productCount =
+    document.getElementById("productCount");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const productsList =
+    document.getElementById("productsList");
+
+const accountInfo =
+    document.getElementById("accountInfo");
+
+const addProductBtn =
+    document.getElementById("addProductBtn");
+
+const productName =
+    document.getElementById("productName");
+
+const sku =
+    document.getElementById("sku");
+
+const category =
+    document.getElementById("category");
+
+const sellingPrice =
+    document.getElementById("sellingPrice");
+
+const costPrice =
+    document.getElementById("costPrice");
+
+const stockQuantity =
+    document.getElementById("stockQuantity");
+
+const lowStockThreshold =
+    document.getElementById("lowStockThreshold");
+
+
+/* =====================================================
+   MESSAGE FUNCTION
+===================================================== */
+
+function showMessage(text,type){
 
     message.textContent = text;
 
@@ -767,7 +756,7 @@ function showMessage(
 
 
 /* =====================================================
-   EFFECTIVE PLAN
+   GET EFFECTIVE PLAN
 ===================================================== */
 
 function getEffectivePlan(data){
@@ -777,7 +766,8 @@ function getEffectivePlan(data){
 
 
     /*
-       PAID PLANS
+       Paid plans always remain the
+       effective plan.
     */
 
     if(
@@ -792,7 +782,7 @@ function getEffectivePlan(data){
 
 
     /*
-       FREE + ACTIVE TRIAL
+       Check 30-day free trial.
     */
 
     if(
@@ -838,83 +828,72 @@ function getEffectivePlan(data){
 
 
 /* =====================================================
-   UPDATE PLAN DISPLAY
+   FORMAT PRICE
 ===================================================== */
 
-function updatePlanDisplay(){
+function formatPrice(value){
 
-    const config =
-        PLAN_CONFIG[currentPlan];
+    const number =
+        Number(value || 0);
 
-
-    planName.textContent =
-        config.name;
-
-    planBadge.textContent =
-        config.badge;
-
-    planDescription.textContent =
-        config.description;
-
-
-    if(
-        config.limit === Infinity
-    ){
-
-        productLimit.textContent =
-            "∞";
-
-    }
-
-    else{
-
-        productLimit.textContent =
-            config.limit;
-
-    }
-
-
-    updateProductCount();
+    return number.toLocaleString(
+        "en-PH",
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    );
 
 }
 
 
 /* =====================================================
-   PRODUCT COUNT
+   UPDATE PLAN UI
 ===================================================== */
 
-function updateProductCount(){
-
-    const count =
-        currentProducts.length;
+function updatePlanUI(){
 
     const config =
-        PLAN_CONFIG[currentPlan];
+        PLAN_CONFIG[currentPlan] ||
+        PLAN_CONFIG.free;
 
 
-    productCount.textContent =
-        count;
+    planBadge.textContent =
+        config.badge;
 
 
-    if(
-        config.limit === Infinity
-    ){
+    planName.textContent =
+        config.name;
+
+
+    const count =
+        products.length;
+
+
+    if(config.limit === Infinity){
+
+        productCount.textContent =
+            count + " / Unlimited";
 
         progressBar.style.width =
-            "10%";
+            count > 0 ? "100%" : "0%";
 
     }
 
     else{
 
+        productCount.textContent =
+            count + " / " + config.limit;
+
+
         let percentage =
             (count / config.limit) * 100;
 
-        percentage =
-            Math.min(
-                percentage,
-                100
-            );
+
+        if(percentage > 100){
+            percentage = 100;
+        }
+
 
         progressBar.style.width =
             percentage + "%";
@@ -922,31 +901,50 @@ function updateProductCount(){
     }
 
 
-    /*
-       DISABLE ADD BUTTON
-       WHEN LIMIT IS REACHED
-    */
+    updateAddButton();
+
+}
+
+
+/* =====================================================
+   UPDATE ADD BUTTON
+===================================================== */
+
+function updateAddButton(){
+
+    if(!currentUser){
+
+        addProductBtn.disabled = true;
+
+        return;
+
+    }
+
+
+    const config =
+        PLAN_CONFIG[currentPlan] ||
+        PLAN_CONFIG.free;
+
 
     if(
         config.limit !== Infinity &&
-        count >= config.limit
+        products.length >= config.limit
     ){
 
-        addButton.disabled = true;
+        addProductBtn.disabled = true;
 
-        addButton.textContent =
+        addProductBtn.textContent =
             "Product Limit Reached";
 
-    }
-
-    else{
-
-        addButton.disabled = false;
-
-        addButton.textContent =
-            "Add Product";
+        return;
 
     }
+
+
+    addProductBtn.disabled = false;
+
+    addProductBtn.textContent =
+        "Add Product";
 
 }
 
@@ -964,8 +962,7 @@ async function loadProducts(){
     }
 
 
-    productList.innerHTML =
-
+    productsList.innerHTML =
         '<div class="loading">Loading products...</div>';
 
 
@@ -984,12 +981,12 @@ async function loadProducts(){
             await getDocs(productsRef);
 
 
-        currentProducts = [];
+        products = [];
 
 
         snapshot.forEach(function(item){
 
-            currentProducts.push({
+            products.push({
 
                 id:item.id,
 
@@ -1001,18 +998,20 @@ async function loadProducts(){
 
 
         /*
-           NEWEST FIRST
+           Newest products first.
         */
 
-        currentProducts.sort(function(a,b){
+        products.sort(function(a,b){
 
             const aTime =
-                a.createdAt?.toMillis
+                a.createdAt &&
+                typeof a.createdAt.toMillis === "function"
                     ? a.createdAt.toMillis()
                     : 0;
 
             const bTime =
-                b.createdAt?.toMillis
+                b.createdAt &&
+                typeof b.createdAt.toMillis === "function"
                     ? b.createdAt.toMillis()
                     : 0;
 
@@ -1021,9 +1020,9 @@ async function loadProducts(){
         });
 
 
-        renderProducts();
+        updatePlanUI();
 
-        updateProductCount();
+        renderProducts();
 
     }
 
@@ -1035,14 +1034,15 @@ async function loadProducts(){
         );
 
 
-        productList.innerHTML =
-            '<div class="empty">Unable to load products.</div>';
-
-
-        showMessage(
-            "Could not load your products. Please check your Firestore rules.",
-            "error"
-        );
+        productsList.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <strong>Could not load products</strong>
+                <div>
+                    ${error.message}
+                </div>
+            </div>
+        `;
 
     }
 
@@ -1055,179 +1055,142 @@ async function loadProducts(){
 
 function renderProducts(){
 
-    if(
-        currentProducts.length === 0
-    ){
+    if(products.length === 0){
 
-        productList.innerHTML =
+        productsList.innerHTML = `
 
-            '<div class="empty">' +
+            <div class="empty">
 
-            'No products yet.<br>' +
+                <div class="empty-icon">
+                    📦
+                </div>
 
-            'Add your first product above.' +
+                <strong>
+                    No products yet
+                </strong>
 
-            '</div>';
+                Add your first product above.
+
+            </div>
+
+        `;
 
         return;
 
     }
 
 
-    productList.innerHTML = "";
+    productsList.innerHTML = "";
 
 
-    currentProducts.forEach(function(product){
+    products.forEach(function(product){
 
         const item =
             document.createElement("div");
 
         item.className =
-            "product";
+            "product-item";
 
 
-        const sellingPrice =
-            Number(
-                product.sellingPrice || 0
-            ).toFixed(2);
+        item.innerHTML = `
+
+            <div class="product-top">
+
+                <div>
+
+                    <div class="product-name">
+                        ${escapeHtml(product.name || "Unnamed Product")}
+                    </div>
+
+                    <div class="product-sku">
+                        SKU:
+                        ${escapeHtml(product.sku || "No SKU")}
+                    </div>
+
+                </div>
+
+                <button
+                    class="delete-btn"
+                    data-id="${product.id}">
+                    Delete
+                </button>
+
+            </div>
 
 
-        const costPrice =
-            Number(
-                product.costPrice || 0
-            ).toFixed(2);
+            <div class="product-details">
+
+                <div class="detail">
+
+                    <span>
+                        Category
+                    </span>
+
+                    <strong>
+                        ${escapeHtml(product.category || "—")}
+                    </strong>
+
+                </div>
 
 
-        const stock =
-            Number(
-                product.stockQuantity || 0
-            );
+                <div class="detail">
+
+                    <span>
+                        Selling Price
+                    </span>
+
+                    <strong>
+                        ₱${formatPrice(product.sellingPrice)}
+                    </strong>
+
+                </div>
 
 
-        item.innerHTML =
+                <div class="detail">
 
-            '<div class="product-top">' +
+                    <span>
+                        Cost Price
+                    </span>
 
-                '<div>' +
+                    <strong>
+                        ₱${formatPrice(product.costPrice)}
+                    </strong>
 
-                    '<div class="product-name">' +
-
-                        escapeHtml(
-                            product.name ||
-                            "Unnamed Product"
-                        ) +
-
-                    '</div>' +
-
-                    '<div class="product-sku">' +
-
-                        escapeHtml(
-                            product.sku ||
-                            "No SKU"
-                        ) +
-
-                    '</div>' +
-
-                '</div>' +
-
-                '<button class="delete-button">' +
-
-                    'Delete' +
-
-                '</button>' +
-
-            '</div>' +
+                </div>
 
 
-            '<div class="product-details">' +
+                <div class="detail">
 
-                '<div class="detail">' +
+                    <span>
+                        Stock
+                    </span>
 
-                    '<div class="detail-label">' +
-                        'Category' +
-                    '</div>' +
+                    <strong>
+                        ${Number(product.stockQuantity || 0)}
+                    </strong>
 
-                    '<div class="detail-value">' +
+                </div>
 
-                        escapeHtml(
-                            product.category ||
-                            "Uncategorized"
-                        ) +
+            </div>
 
-                    '</div>' +
-
-                '</div>' +
-
-
-                '<div class="detail">' +
-
-                    '<div class="detail-label">' +
-                        'Selling Price' +
-                    '</div>' +
-
-                    '<div class="detail-value">' +
-
-                        '₱' +
-                        sellingPrice +
-
-                    '</div>' +
-
-                '</div>' +
-
-
-                '<div class="detail">' +
-
-                    '<div class="detail-label">' +
-                        'Cost Price' +
-                    '</div>' +
-
-                    '<div class="detail-value">' +
-
-                        '₱' +
-                        costPrice +
-
-                    '</div>' +
-
-                '</div>' +
-
-
-                '<div class="detail">' +
-
-                    '<div class="detail-label">' +
-                        'Stock' +
-                    '</div>' +
-
-                    '<div class="detail-value">' +
-
-                        stock +
-
-                    '</div>' +
-
-                '</div>' +
-
-            '</div>';
+        `;
 
 
         const deleteButton =
-            item.querySelector(
-                ".delete-button"
-            );
+            item.querySelector(".delete-btn");
 
 
         deleteButton.addEventListener(
             "click",
             function(){
 
-                deleteProduct(
-                    product.id,
-                    product.name
-                );
+                deleteProduct(product.id);
 
             }
         );
 
 
-        productList.appendChild(item);
+        productsList.appendChild(item);
 
     });
 
@@ -1241,31 +1204,11 @@ function renderProducts(){
 function escapeHtml(value){
 
     return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1274,17 +1217,14 @@ function escapeHtml(value){
    ADD PRODUCT
 ===================================================== */
 
-productForm.addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
-
+addProductBtn.addEventListener(
+    "click",
+    async function(){
 
         if(!currentUser){
 
             showMessage(
-                "No signed-in user was found.",
+                "No Firebase user is signed in.",
                 "error"
             );
 
@@ -1294,16 +1234,17 @@ productForm.addEventListener(
 
 
         const config =
-            PLAN_CONFIG[currentPlan];
+            PLAN_CONFIG[currentPlan] ||
+            PLAN_CONFIG.free;
 
 
         /*
-           CHECK LIMIT
+           Check product limit.
         */
 
         if(
             config.limit !== Infinity &&
-            currentProducts.length >= config.limit
+            products.length >= config.limit
         ){
 
             showMessage(
@@ -1317,56 +1258,25 @@ productForm.addEventListener(
 
 
         const name =
-            document
-                .getElementById("productName")
-                .value
-                .trim();
+            productName.value.trim();
 
+        const skuValue =
+            sku.value.trim();
 
-        const sku =
-            document
-                .getElementById("productSku")
-                .value
-                .trim();
+        const categoryValue =
+            category.value.trim();
 
+        const sellingPriceValue =
+            Number(sellingPrice.value || 0);
 
-        const category =
-            document
-                .getElementById("productCategory")
-                .value
-                .trim();
+        const costPriceValue =
+            Number(costPrice.value || 0);
 
+        const stockQuantityValue =
+            Number(stockQuantity.value || 0);
 
-        const sellingPrice =
-            Number(
-                document
-                    .getElementById("sellingPrice")
-                    .value || 0
-            );
-
-
-        const costPrice =
-            Number(
-                document
-                    .getElementById("costPrice")
-                    .value || 0
-            );
-
-
-        const stockQuantity =
-            Number(
-                document
-                    .getElementById("stockQuantity")
-                    .value || 0
-            );
-
-
-        const lowStockThreshold =
-            Number(
-                document
-                    .getElementById("lowStockThreshold")
-                    .value || 5
-            );
+        const lowStockThresholdValue =
+            Number(lowStockThreshold.value || 0);
 
 
         if(!name){
@@ -1376,14 +1286,52 @@ productForm.addEventListener(
                 "error"
             );
 
+            productName.focus();
+
             return;
 
         }
 
 
-        addButton.disabled = true;
+        if(sellingPriceValue < 0){
 
-        addButton.textContent =
+            showMessage(
+                "Selling price cannot be negative.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(costPriceValue < 0){
+
+            showMessage(
+                "Cost price cannot be negative.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(stockQuantityValue < 0){
+
+            showMessage(
+                "Stock quantity cannot be negative.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        addProductBtn.disabled = true;
+
+        addProductBtn.textContent =
             "Saving...";
 
 
@@ -1409,22 +1357,22 @@ productForm.addEventListener(
                         name,
 
                     sku:
-                        sku,
+                        skuValue,
 
                     category:
-                        category,
+                        categoryValue,
 
                     sellingPrice:
-                        sellingPrice,
+                        sellingPriceValue,
 
                     costPrice:
-                        costPrice,
+                        costPriceValue,
 
                     stockQuantity:
-                        stockQuantity,
+                        stockQuantityValue,
 
                     lowStockThreshold:
-                        lowStockThreshold,
+                        lowStockThresholdValue,
 
                     createdAt:
                         serverTimestamp(),
@@ -1436,21 +1384,23 @@ productForm.addEventListener(
             );
 
 
-            productForm.reset();
+            /*
+               Clear form.
+            */
 
+            productName.value = "";
 
-            document
-                .getElementById(
-                    "stockQuantity"
-                )
-                .value = "0";
+            sku.value = "";
 
+            category.value = "";
 
-            document
-                .getElementById(
-                    "lowStockThreshold"
-                )
-                .value = "5";
+            sellingPrice.value = "";
+
+            costPrice.value = "";
+
+            stockQuantity.value = "";
+
+            lowStockThreshold.value = "";
 
 
             showMessage(
@@ -1472,15 +1422,13 @@ productForm.addEventListener(
 
 
             showMessage(
-                "Could not add the product. Please check your Firestore rules.",
+                "Could not add product: " +
+                error.message,
                 "error"
             );
 
-        }
 
-        finally{
-
-            updateProductCount();
+            updateAddButton();
 
         }
 
@@ -1492,12 +1440,14 @@ productForm.addEventListener(
    DELETE PRODUCT
 ===================================================== */
 
-async function deleteProduct(
-    productId,
-    productName
-){
+async function deleteProduct(productId){
 
     if(!currentUser){
+
+        showMessage(
+            "No Firebase user is signed in.",
+            "error"
+        );
 
         return;
 
@@ -1506,9 +1456,7 @@ async function deleteProduct(
 
     const confirmed =
         confirm(
-            "Delete " +
-            productName +
-            "?"
+            "Are you sure you want to delete this product?"
         );
 
 
@@ -1521,21 +1469,21 @@ async function deleteProduct(
 
     try{
 
-        await deleteDoc(
-
+        const productRef =
             doc(
                 db,
                 "users",
                 currentUser.uid,
                 "products",
                 productId
-            )
+            );
 
-        );
+
+        await deleteDoc(productRef);
 
 
         showMessage(
-            "Product deleted.",
+            "Product deleted successfully.",
             "success"
         );
 
@@ -1553,7 +1501,8 @@ async function deleteProduct(
 
 
         showMessage(
-            "Could not delete the product.",
+            "Could not delete product: " +
+            error.message,
             "error"
         );
 
@@ -1563,29 +1512,64 @@ async function deleteProduct(
 
 
 /* =====================================================
-   SAME AUTH PATTERN AS DASHBOARD
+   AUTHENTICATION
 ===================================================== */
 
 onAuthStateChanged(
     auth,
     async function(user){
 
+        console.log(
+            "Kayah Products auth state:",
+            user
+        );
+
+
         /*
-           NOT LOGGED IN
+           IMPORTANT:
+           Do not redirect immediately.
+
+           Firebase needs to finish restoring
+           the existing login session.
         */
 
         if(!user){
 
-            userEmail.textContent =
+            currentUser = null;
+
+            accountInfo.textContent =
+                "Firebase is not showing a signed-in user on this page.";
+
+            planBadge.textContent =
+                "NOT SIGNED IN";
+
+            planName.textContent =
                 "No signed-in user";
 
-            userUid.textContent =
-                "";
+            productCount.textContent =
+                "—";
 
-            showMessage(
-                "No signed-in Firebase user was found. Please sign in first.",
-                "error"
-            );
+            productsList.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔐
+                    </div>
+
+                    <strong>
+                        No Firebase user found
+                    </strong>
+
+                    <div>
+                        Please sign in first, then open Products again.
+                    </div>
+
+                </div>
+
+            `;
+
+            updateAddButton();
 
             return;
 
@@ -1593,20 +1577,17 @@ onAuthStateChanged(
 
 
         /*
-           SAVE CURRENT USER
+           User found.
         */
 
         currentUser =
             user;
 
 
-        userEmail.textContent =
-            user.email ||
-            "Email not available";
-
-
-        userUid.textContent =
-            "Firebase UID: " +
+        accountInfo.textContent =
+            "Signed in as: " +
+            user.email +
+            " | UID: " +
             user.uid;
 
 
@@ -1619,7 +1600,7 @@ onAuthStateChanged(
 
 
             /*
-               USER DOCUMENT
+               Get user's main Firestore document.
             */
 
             const userRef =
@@ -1631,45 +1612,46 @@ onAuthStateChanged(
 
 
             const userSnapshot =
-                await getDoc(
-                    userRef
-                );
+                await getDoc(userRef);
 
 
-            /*
-               USER DOCUMENT MISSING
-            */
-
-            if(
-                !userSnapshot.exists()
-            ){
+            if(!userSnapshot.exists()){
 
                 showMessage(
-                    "Your Kayah user profile was not found in Firestore.",
+                    "Your Firebase account exists, but your Kayah user profile was not found.",
                     "error"
                 );
+
+
+                planBadge.textContent =
+                    "NO PROFILE";
+
+
+                planName.textContent =
+                    "User profile not found";
+
+
+                addProductBtn.disabled =
+                    true;
+
 
                 return;
 
             }
 
 
-            /*
-               USER DATA
-            */
-
             currentUserData =
                 userSnapshot.data();
 
 
             console.log(
-                "Kayah user profile:",
+                "Kayah user data:",
                 currentUserData
             );
 
 
             /*
-               DETERMINE PLAN
+               Determine effective plan.
             */
 
             currentPlan =
@@ -1679,27 +1661,22 @@ onAuthStateChanged(
 
 
             console.log(
-                "Effective Kayah plan:",
+                "Kayah effective plan:",
                 currentPlan
             );
 
 
             /*
-               DISPLAY PLAN
-            */
-
-            updatePlanDisplay();
-
-
-            /*
-               LOAD PRODUCTS
+               Load products belonging
+               to this exact UID.
             */
 
             await loadProducts();
 
 
-            console.log(
-                "Kayah Products loaded successfully."
+            showMessage(
+                "Firebase account connected successfully.",
+                "success"
             );
 
         }
@@ -1707,39 +1684,71 @@ onAuthStateChanged(
         catch(error){
 
             console.error(
-                "Kayah Products error:",
+                "Products authentication error:",
                 error
             );
 
 
-            if(
-                error.code ===
-                "permission-denied"
-            ){
+            showMessage(
+                "Firebase error: " +
+                error.message,
+                "error"
+            );
 
-                showMessage(
-                    "Firebase denied access to your account or products. Check your Firestore rules.",
-                    "error"
-                );
 
-            }
+            productsList.innerHTML = `
 
-            else{
+                <div class="empty">
 
-                showMessage(
-                    "Something went wrong while loading your Kayah account.",
-                    "error"
-                );
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
 
-            }
+                    <strong>
+                        Could not load your account
+                    </strong>
+
+                    <div>
+                        ${escapeHtml(error.message)}
+                    </div>
+
+                </div>
+
+            `;
 
         }
 
     }
 );
 
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if("serviceWorker" in navigator){
+
+    navigator.serviceWorker
+        .register("../sw.js")
+        .then(function(){
+
+            console.log(
+                "Kayah service worker registered."
+            );
+
+        })
+        .catch(function(error){
+
+            console.log(
+                "Service worker registration failed:",
+                error
+            );
+
+        });
+
+}
+
 </script>
 
 </body>
-
 </html>
