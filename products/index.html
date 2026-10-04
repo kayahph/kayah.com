@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -6,14 +7,12 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+   content="width=device-width, initial-scale=1.0">
 
 <meta name="theme-color"
-      content="#0B4F3A">
+   content="#0B4F3A">
 
 <title>Products - Kayah</title>
-
-<link rel="manifest" href="../manifest.json">
 
 <style>
 
@@ -27,48 +26,86 @@
     box-sizing:border-box;
 }
 
+html,
 body{
-    font-family:Arial,Helvetica,sans-serif;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
     background:#F7F3E8;
     color:#17352C;
-    min-height:100vh;
-}
 
-button,
-input,
-select{
-    font-family:inherit;
+    padding-bottom:88px;
 }
-
-button{
-    cursor:pointer;
-}
-
 
 /* =====================================================
    LOADING
 ===================================================== */
 
-#loadingScreen{
+.loading-screen{
     position:fixed;
     inset:0;
-    background:#0B4F3A;
-    color:white;
+    z-index:9999;
+
+    background:#F7F3E8;
+
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    z-index:9999;
+
+    transition:opacity .25s ease;
 }
 
-.loadingSpinner{
-    width:38px;
-    height:38px;
-    border:4px solid rgba(255,255,255,.25);
-    border-top-color:white;
+.loading-logo{
+    width:76px;
+    height:76px;
+
+    border-radius:20px;
+
+    background:#0B4F3A;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#F2B84B;
+    font-size:32px;
+    font-weight:900;
+
+    box-shadow:0 12px 30px rgba(11,79,58,.20);
+}
+
+.loading-text{
+    margin-top:16px;
+
+    color:#0B4F3A;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.loading-spinner{
+    width:30px;
+    height:30px;
+
+    border:3px solid #D8E5DF;
+    border-top-color:#16805C;
+
     border-radius:50%;
+
+    margin-top:14px;
+
     animation:spin .8s linear infinite;
-    margin-bottom:16px;
 }
 
 @keyframes spin{
@@ -77,54 +114,69 @@ button{
     }
 }
 
-.loadingText{
-    font-size:14px;
-    opacity:.85;
-}
-
-
 /* =====================================================
    HEADER
 ===================================================== */
 
 .header{
-    background:#0B4F3A;
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #16805C
+        );
+
     color:white;
-    padding:18px 16px 21px;
-    position:sticky;
-    top:0;
-    z-index:100;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
+
+    padding:
+        18px
+        16px
+        22px;
+
+    border-radius:
+        0
+        0
+        24px
+        24px;
+
+    box-shadow:
+        0 8px 24px rgba(11,79,58,.16);
 }
 
-.headerTop{
+.header-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:12px;
 }
 
-.headerTitle{
+.header-title{
     font-size:24px;
-    font-weight:800;
+    font-weight:900;
 }
 
-.headerSubtitle{
-    font-size:13px;
-    opacity:.78;
+.header-subtitle{
     margin-top:4px;
+
+    font-size:13px;
+
+    color:rgba(255,255,255,.78);
 }
 
-.headerIcon{
-    width:43px;
-    height:43px;
+.header-icon{
+    width:44px;
+    height:44px;
+
     border-radius:14px;
+
     background:rgba(255,255,255,.13);
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:21px;
 }
-
 
 /* =====================================================
    MAIN
@@ -133,490 +185,656 @@ button{
 .main{
     width:100%;
     max-width:900px;
-    margin:auto;
-    padding:18px 15px 100px;
+
+    margin:0 auto;
+
+    padding:16px;
 }
 
-
 /* =====================================================
-   LIMIT CARD
+   PLAN CARD
 ===================================================== */
 
-.limitCard{
+.plan-card{
     background:white;
-    border-radius:18px;
+
+    border-radius:20px;
+
     padding:17px;
-    box-shadow:0 5px 18px rgba(19,63,49,.07);
+
+    box-shadow:
+        0 7px 24px rgba(24,53,44,.07);
+
+    border:1px solid #E7E0D1;
+
     margin-bottom:16px;
 }
 
-.limitTop{
+.plan-top{
     display:flex;
-    justify-content:space-between;
     align-items:flex-start;
+    justify-content:space-between;
     gap:12px;
 }
 
-.limitLabel{
-    font-size:11px;
-    color:#7B8983;
-    margin-bottom:5px;
-    font-weight:700;
-}
-
-.limitPlan{
-    font-size:18px;
-    font-weight:800;
+.plan-name{
     color:#0B4F3A;
+
+    font-size:17px;
+    font-weight:900;
 }
 
-.limitDescription{
-    font-size:12px;
-    color:#7B8983;
+.plan-description{
     margin-top:4px;
+
+    color:#7A877F;
+
+    font-size:12px;
 }
 
-.planBadge{
-    background:#F2B84B;
-    color:#4E3510;
-    padding:7px 10px;
-    border-radius:20px;
+.plan-badge{
+    flex-shrink:0;
+
+    padding:6px 10px;
+
+    background:#EAF5EF;
+    color:#0B4F3A;
+
+    border-radius:999px;
+
     font-size:10px;
-    font-weight:800;
-    white-space:nowrap;
+    font-weight:900;
 }
 
-.progressArea{
-    margin-top:15px;
-}
-
-.progressInfo{
+.limit-row{
     display:flex;
     justify-content:space-between;
+    align-items:center;
+
+    margin-top:16px;
+
     font-size:12px;
-    color:#65756E;
-    margin-bottom:7px;
 }
 
-.progressBar{
-    height:8px;
-    width:100%;
-    background:#E8ECE8;
-    border-radius:20px;
+.limit-label{
+    color:#6D7B74;
+}
+
+.limit-number{
+    color:#0B4F3A;
+    font-weight:900;
+}
+
+.progress{
+    height:9px;
+
+    margin-top:8px;
+
+    background:#E8EEE9;
+
+    border-radius:999px;
+
     overflow:hidden;
 }
 
-.progressFill{
+.progress-fill{
+    width:0;
     height:100%;
-    width:0%;
-    background:#16805C;
-    border-radius:20px;
-    transition:.3s;
+
+    background:
+        linear-gradient(
+            90deg,
+            #16805C,
+            #49A77F
+        );
+
+    border-radius:999px;
+
+    transition:width .3s ease;
 }
 
-.progressFill.full{
-    background:#D65C4A;
-}
+.limit-message{
+    margin-top:9px;
 
-.limitMessage{
-    margin-top:10px;
+    color:#8A5A12;
+
     font-size:12px;
-    color:#D65C4A;
+    font-weight:700;
+
     display:none;
 }
 
-
 /* =====================================================
-   SEARCH / ADD
+   SEARCH
 ===================================================== */
 
-.actionBar{
+.toolbar{
     display:flex;
     gap:10px;
+
     margin-bottom:12px;
 }
 
-.searchBox{
-    flex:1;
+.search-wrap{
     position:relative;
+    flex:1;
 }
 
-.searchBox input{
-    width:100%;
-    height:48px;
-    border:none;
-    outline:none;
-    background:white;
-    border-radius:14px;
-    padding:0 15px 0 42px;
-    font-size:14px;
-    color:#17352C;
-    box-shadow:0 4px 15px rgba(19,63,49,.06);
-}
-
-.searchIcon{
+.search-icon{
     position:absolute;
-    left:15px;
+    left:13px;
     top:50%;
+
     transform:translateY(-50%);
-    color:#84918B;
+
+    color:#8A958F;
+
+    font-size:17px;
+
+    pointer-events:none;
 }
 
-.addButton{
+.search-input{
+    width:100%;
+
     height:48px;
-    border:none;
-    border-radius:14px;
-    padding:0 17px;
-    background:#16805C;
-    color:white;
-    font-weight:800;
+
+    border:1px solid #DDD8CC;
+
+    border-radius:15px;
+
+    background:white;
+
+    padding:
+        0
+        14px
+        0
+        40px;
+
+    outline:none;
+
+    color:#17352C;
+
     font-size:14px;
-    box-shadow:0 5px 14px rgba(22,128,92,.2);
 }
 
+.search-input:focus{
+    border-color:#16805C;
+
+    box-shadow:
+        0 0 0 3px rgba(22,128,92,.10);
+}
+
+.add-button{
+    width:50px;
+    height:48px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:#0B4F3A;
+    color:white;
+
+    font-size:25px;
+    font-weight:500;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 6px 16px rgba(11,79,58,.18);
+}
+
+.add-button:active{
+    transform:scale(.96);
+}
 
 /* =====================================================
    FILTER
 ===================================================== */
 
-.filterRow{
-    margin-bottom:18px;
-}
-
-.filterRow select{
-    width:100%;
-    height:45px;
-    border:none;
-    outline:none;
-    background:white;
-    border-radius:13px;
-    padding:0 13px;
-    color:#40554C;
-    font-size:13px;
-    box-shadow:0 4px 15px rgba(19,63,49,.05);
-}
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-.sectionHeader{
+.filter-row{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-bottom:11px;
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:15px;
 }
 
-.sectionTitle{
-    font-size:17px;
-    font-weight:800;
+.product-count{
+    color:#6D7B74;
+
+    font-size:13px;
+    font-weight:700;
 }
 
-.productCount{
+.category-select{
+    max-width:170px;
+
+    height:38px;
+
+    border:1px solid #DDD8CC;
+
+    border-radius:11px;
+
+    background:white;
+
+    padding:0 10px;
+
+    color:#315046;
+
+    outline:none;
+
     font-size:12px;
-    color:#7A8982;
 }
-
 
 /* =====================================================
    PRODUCT LIST
 ===================================================== */
 
-.productsList{
+.products-list{
     display:flex;
     flex-direction:column;
+
     gap:11px;
 }
 
-.productCard{
+.product-card{
     background:white;
-    border-radius:17px;
-    padding:15px;
-    box-shadow:0 4px 15px rgba(19,63,49,.06);
+
+    border-radius:18px;
+
+    padding:16px;
+
+    border:1px solid #E7E0D1;
+
+    box-shadow:
+        0 5px 18px rgba(24,53,44,.055);
 }
 
-.productTop{
+.product-main{
     display:flex;
-    align-items:flex-start;
+
     justify-content:space-between;
+
     gap:12px;
 }
 
-.productInfo{
+.product-info{
     min-width:0;
     flex:1;
 }
 
-.productName{
+.product-name{
+    color:#17352C;
+
     font-size:16px;
-    font-weight:800;
+    font-weight:900;
+
     word-break:break-word;
 }
 
-.productSku{
+.product-sku{
+    margin-top:3px;
+
+    color:#8A958F;
+
     font-size:11px;
-    color:#8A9690;
-    margin-top:4px;
 }
 
-.productCategory{
+.product-category{
     display:inline-block;
-    margin-top:7px;
+
+    margin-top:8px;
+
     padding:5px 8px;
-    border-radius:8px;
-    background:#EDF6F1;
+
+    background:#EEF6F1;
     color:#16805C;
+
+    border-radius:8px;
+
     font-size:10px;
-    font-weight:700;
+    font-weight:800;
 }
 
-.productPrices{
+.product-price{
     text-align:right;
+
     flex-shrink:0;
 }
 
-.sellingPrice{
-    font-size:17px;
-    font-weight:800;
+.selling-price{
     color:#0B4F3A;
+
+    font-size:17px;
+    font-weight:900;
 }
 
-.costPrice{
-    font-size:11px;
-    color:#8A9690;
+.cost-price{
     margin-top:3px;
+
+    color:#9A9F9B;
+
+    font-size:10px;
 }
 
-.productBottom{
-    border-top:1px solid #EEF1EE;
-    margin-top:13px;
-    padding-top:12px;
+.product-divider{
+    height:1px;
+
+    background:#F0ECE3;
+
+    margin:14px 0;
+}
+
+.product-bottom{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
+
     gap:10px;
 }
 
-.stockInfo{
-    font-size:12px;
-    color:#65756E;
+.stock-info{
+    display:flex;
+    flex-direction:column;
+
+    gap:3px;
 }
 
-.stockNumber{
-    font-weight:800;
+.stock-label{
+    color:#8A958F;
+
+    font-size:10px;
 }
 
-.lowStock{
-    color:#D68A22;
-    font-weight:700;
+.stock-value{
+    color:#314B41;
+
+    font-size:13px;
+    font-weight:900;
 }
 
-.outStock{
-    color:#D65C4A;
-    font-weight:700;
+.stock-low{
+    color:#C46D14;
 }
 
-.productActions{
+.stock-out{
+    color:#C63D3D;
+}
+
+.product-actions{
     display:flex;
     gap:7px;
 }
 
-.smallButton{
-    border:none;
-    border-radius:9px;
-    padding:8px 10px;
+.action-button{
+    border:0;
+
+    border-radius:10px;
+
+    padding:8px 11px;
+
     font-size:11px;
-    font-weight:700;
+    font-weight:800;
+
+    cursor:pointer;
 }
 
-.editButton{
-    background:#EDF4F1;
+.edit-button{
+    background:#EDF5F1;
     color:#0B4F3A;
 }
 
-.deleteButton{
-    background:#FDEDEC;
-    color:#C64E41;
+.delete-button{
+    background:#FFF0EF;
+    color:#C43E3E;
 }
-
 
 /* =====================================================
    EMPTY
 ===================================================== */
 
-.emptyState{
+.empty-state{
     background:white;
-    border-radius:18px;
-    padding:38px 20px;
+
+    border-radius:20px;
+
+    padding:40px 20px;
+
     text-align:center;
-    box-shadow:0 4px 15px rgba(19,63,49,.05);
+
+    border:1px solid #E7E0D1;
+
+    box-shadow:
+        0 5px 18px rgba(24,53,44,.05);
 }
 
-.emptyIcon{
+.empty-icon{
     width:62px;
     height:62px;
-    border-radius:20px;
-    background:#EDF6F1;
-    color:#16805C;
+
+    margin:0 auto 14px;
+
+    border-radius:18px;
+
+    background:#EDF5F1;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:0 auto 15px;
-    font-size:27px;
+
+    font-size:28px;
 }
 
-.emptyTitle{
-    font-size:17px;
-    font-weight:800;
+.empty-title{
+    color:#0B4F3A;
+
+    font-size:18px;
+    font-weight:900;
 }
 
-.emptyText{
-    font-size:13px;
-    color:#7B8983;
+.empty-text{
     margin-top:7px;
+
+    color:#7B8780;
+
+    font-size:13px;
+
     line-height:1.5;
 }
 
-.emptyButton{
+.empty-add-button{
     margin-top:17px;
-    background:#16805C;
+
+    border:0;
+
+    background:#0B4F3A;
     color:white;
-    border:none;
+
     border-radius:12px;
-    padding:11px 17px;
+
+    padding:11px 18px;
+
+    font-size:13px;
     font-weight:800;
 }
-
 
 /* =====================================================
    MODAL
 ===================================================== */
 
-.modalOverlay{
+.modal{
     position:fixed;
     inset:0;
-    background:rgba(10,31,24,.58);
+
+    z-index:5000;
+
+    background:rgba(0,0,0,.48);
+
     display:none;
+
     align-items:flex-end;
     justify-content:center;
-    z-index:500;
+
+    padding:0;
 }
 
-.modalOverlay.show{
+.modal.show{
     display:flex;
 }
 
-.modal{
+.modal-box{
     width:100%;
     max-width:600px;
-    background:#F7F3E8;
-    border-radius:25px 25px 0 0;
-    padding:20px 16px 25px;
+
     max-height:92vh;
+
     overflow-y:auto;
+
+    background:#F7F3E8;
+
+    border-radius:
+        24px
+        24px
+        0
+        0;
+
+    padding:20px;
+
+    animation:modalUp .22s ease;
 }
 
-.modalHandle{
-    width:42px;
-    height:4px;
-    border-radius:10px;
-    background:#CCD4CE;
-    margin:0 auto 17px;
+@keyframes modalUp{
+    from{
+        transform:translateY(30px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
 }
 
-.modalHeader{
+.modal-header{
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
+    justify-content:space-between;
+
     margin-bottom:18px;
 }
 
-.modalTitle{
+.modal-title{
+    color:#0B4F3A;
+
     font-size:20px;
-    font-weight:800;
+    font-weight:900;
 }
 
-.closeButton{
-    width:35px;
-    height:35px;
-    border:none;
-    border-radius:50%;
-    background:white;
-    color:#52625A;
-    font-size:19px;
-}
+.close-modal{
+    width:38px;
+    height:38px;
 
-.formGroup{
-    margin-bottom:14px;
-}
+    border:0;
 
-.formLabel{
-    display:block;
-    font-size:12px;
-    font-weight:700;
-    color:#4E6259;
-    margin-bottom:6px;
-}
-
-.formInput{
-    width:100%;
-    height:47px;
-    border:1px solid #E0E5E0;
-    outline:none;
-    background:white;
     border-radius:12px;
-    padding:0 13px;
-    font-size:14px;
-    color:#17352C;
+
+    background:#EAE6DC;
+
+    color:#496158;
+
+    font-size:20px;
 }
 
-.formInput:focus{
-    border-color:#16805C;
+.form-group{
+    margin-bottom:13px;
 }
 
-.formGrid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
-}
+.form-label{
+    display:block;
 
-.formHint{
-    font-size:10px;
-    color:#8A9690;
-    margin-top:5px;
-}
+    margin-bottom:6px;
 
-.modalButtons{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-}
+    color:#40584F;
 
-.cancelButton,
-.saveButton{
-    flex:1;
-    height:48px;
-    border:none;
-    border-radius:13px;
+    font-size:12px;
     font-weight:800;
-    font-size:14px;
 }
 
-.cancelButton{
+.form-input{
+    width:100%;
+
+    height:47px;
+
+    border:1px solid #DCD7CC;
+
+    border-radius:13px;
+
     background:white;
-    color:#52625A;
+
+    padding:0 13px;
+
+    color:#17352C;
+
+    font-size:14px;
+
+    outline:none;
 }
 
-.saveButton{
-    background:#16805C;
+.form-input:focus{
+    border-color:#16805C;
+
+    box-shadow:
+        0 0 0 3px rgba(22,128,92,.10);
+}
+
+.form-row{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+}
+
+.modal-buttons{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.modal-button{
+    flex:1;
+
+    height:47px;
+
+    border:0;
+
+    border-radius:13px;
+
+    font-size:13px;
+    font-weight:900;
+}
+
+.cancel-button{
+    background:#E9E5DB;
+    color:#53645D;
+}
+
+.save-button{
+    background:#0B4F3A;
     color:white;
 }
 
-.saveButton:disabled{
+.save-button:disabled{
     opacity:.6;
 }
-
 
 /* =====================================================
    TOAST
@@ -624,83 +842,116 @@ button{
 
 .toast{
     position:fixed;
-    left:15px;
-    right:15px;
-    bottom:82px;
-    max-width:500px;
-    margin:auto;
+
+    left:50%;
+
+    bottom:92px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    z-index:8000;
+
+    width:calc(100% - 32px);
+
+    max-width:420px;
+
+    padding:13px 15px;
+
+    border-radius:13px;
+
     background:#17352C;
     color:white;
-    padding:13px 15px;
-    border-radius:13px;
+
     font-size:13px;
+    font-weight:700;
+
     text-align:center;
+
     opacity:0;
-    transform:translateY(15px);
+
     pointer-events:none;
-    transition:.25s;
-    z-index:1000;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
 }
 
 .toast.show{
     opacity:1;
-    transform:translateY(0);
+
+    transform:
+        translateX(-50%)
+        translateY(0);
 }
 
 .toast.error{
-    background:#B94135;
+    background:#B83232;
 }
 
 .toast.success{
-    background:#16805C;
+    background:#0B4F3A;
 }
-
 
 /* =====================================================
    BOTTOM NAV
 ===================================================== */
 
-.bottomNav{
+.bottom-nav{
     position:fixed;
+
     left:0;
     right:0;
     bottom:0;
-    height:67px;
-    background:white;
-    border-top:1px solid #E8ECE8;
-    display:flex;
-    justify-content:center;
-    z-index:200;
-    box-shadow:0 -3px 15px rgba(0,0,0,.06);
-}
 
-.navInner{
-    width:100%;
-    max-width:600px;
+    z-index:3000;
+
+    height:76px;
+
+    background:white;
+
+    border-top:1px solid #E5E0D5;
+
     display:flex;
+
     justify-content:space-around;
     align-items:center;
+
+    box-shadow:
+        0 -6px 22px rgba(20,50,40,.08);
 }
 
-.navItem{
+.nav-item{
+    min-width:58px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:4px;
+
     text-decoration:none;
-    color:#89958F;
+
+    color:#8A958F;
+
     font-size:10px;
-    text-align:center;
-    min-width:65px;
+    font-weight:700;
 }
 
-.navIcon{
+.nav-icon{
     font-size:20px;
-    display:block;
-    margin-bottom:3px;
+
+    line-height:1;
 }
 
-.navItem.active{
-    color:#16805C;
-    font-weight:800;
+.nav-item.active{
+    color:#0B4F3A;
 }
 
+.nav-item.active .nav-icon{
+    transform:translateY(-1px);
+}
 
 /* =====================================================
    DESKTOP
@@ -708,19 +959,39 @@ button{
 
 @media(min-width:700px){
 
-    .main{
-        padding-left:25px;
-        padding-right:25px;
-    }
-
-    .modalOverlay{
-        align-items:center;
+    .header{
+        border-radius:
+            0
+            0
+            28px
+            28px;
     }
 
     .modal{
-        border-radius:22px;
+        align-items:center;
+
+        padding:20px;
+    }
+
+    .modal-box{
+        border-radius:24px;
+
         max-height:90vh;
-        box-shadow:0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .bottom-nav{
+        left:50%;
+        right:auto;
+
+        width:min(700px,100%);
+
+        transform:translateX(-50%);
+
+        border-radius:
+            18px
+            18px
+            0
+            0;
     }
 
 }
@@ -729,24 +1000,30 @@ button{
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      LOADING SCREEN
 ===================================================== -->
 
-<div id="loadingScreen">
+<div
+    id="loadingScreen"
+    class="loading-screen"
+>
 
-    <div class="loadingSpinner"></div>
-
-    <div class="loadingText">
-        Checking your account...
-    </div>
-
+```
+<div class="loading-logo">
+    K
 </div>
 
+<div class="loading-text">
+    Loading your products...
+</div>
+
+<div class="loading-spinner"></div>
+```
+
+</div>
 
 <!-- =====================================================
      HEADER
@@ -754,28 +1031,29 @@ button{
 
 <header class="header">
 
-    <div class="headerTop">
+```
+<div class="header-top">
 
-        <div>
+    <div>
 
-            <div class="headerTitle">
-                Products
-            </div>
-
-            <div class="headerSubtitle">
-                Manage your products and prices
-            </div>
-
+        <div class="header-title">
+            Products
         </div>
 
-        <div class="headerIcon">
-            📦
+        <div class="header-subtitle">
+            Manage your store products
         </div>
 
     </div>
 
-</header>
+    <div class="header-icon">
+        📦
+    </div>
 
+</div>
+```
+
+</header>
 
 <!-- =====================================================
      MAIN
@@ -783,469 +1061,494 @@ button{
 
 <main class="main">
 
+```
+<!-- PLAN -->
 
-    <!-- PRODUCT LIMIT -->
+<section class="plan-card">
 
-    <section class="limitCard">
+    <div class="plan-top">
 
-        <div class="limitTop">
+        <div>
 
-            <div>
-
-                <div class="limitLabel">
-                    PRODUCT LIMIT
-                </div>
-
-                <div
-                    class="limitPlan"
-                    id="limitPlan">
-                    Free Plan
-                </div>
-
-                <div
-                    class="limitDescription"
-                    id="limitDescription">
-                    Up to 30 products
-                </div>
-
+            <div
+                id="limitPlan"
+                class="plan-name"
+            >
+                Free Plan
             </div>
 
             <div
-                class="planBadge"
-                id="planBadge">
-                FREE
+                id="limitDescription"
+                class="plan-description"
+            >
+                Up to 30 products
             </div>
 
-        </div>
-
-
-        <div class="progressArea">
-
-            <div class="progressInfo">
-
-                <span>
-                    Products
-                </span>
-
-                <span id="productLimitText">
-                    0 / 30
-                </span>
-
-            </div>
-
-            <div class="progressBar">
-
-                <div
-                    class="progressFill"
-                    id="progressFill">
-                </div>
-
-            </div>
-
-            <div
-                class="limitMessage"
-                id="limitMessage">
-
-                You have reached your product limit.
-                Upgrade your plan to add more products.
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SEARCH -->
-
-    <div class="actionBar">
-
-        <div class="searchBox">
-
-            <span class="searchIcon">
-                🔍
-            </span>
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search products...">
-
-        </div>
-
-        <button
-            class="addButton"
-            id="addProductButton">
-
-            + Add
-
-        </button>
-
-    </div>
-
-
-    <!-- CATEGORY -->
-
-    <div class="filterRow">
-
-        <select id="categoryFilter">
-
-            <option value="all">
-                All categories
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <!-- SECTION -->
-
-    <div class="sectionHeader">
-
-        <div class="sectionTitle">
-            Your Products
         </div>
 
         <div
-            class="productCount"
-            id="productCount">
-
-            0 products
-
+            id="planBadge"
+            class="plan-badge"
+        >
+            FREE
         </div>
 
     </div>
 
+
+    <div class="limit-row">
+
+        <span class="limit-label">
+            Products used
+        </span>
+
+        <span
+            id="productLimitText"
+            class="limit-number"
+        >
+            0 / 30
+        </span>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+            id="progressFill"
+            class="progress-fill"
+        ></div>
+
+    </div>
 
     <div
-        class="productsList"
-        id="productsList">
+        id="limitMessage"
+        class="limit-message"
+    >
+        You have reached your product limit.
     </div>
 
+</section>
 
-    <!-- EMPTY -->
+
+<!-- SEARCH -->
+
+<div class="toolbar">
+
+    <div class="search-wrap">
+
+        <span class="search-icon">
+            🔍
+        </span>
+
+        <input
+            id="searchInput"
+            class="search-input"
+            type="search"
+            placeholder="Search products..."
+            autocomplete="off"
+        >
+
+    </div>
+
+    <button
+        id="addProductButton"
+        class="add-button"
+        type="button"
+        aria-label="Add product"
+    >
+        +
+    </button>
+
+</div>
+
+
+<!-- FILTER -->
+
+<div class="filter-row">
 
     <div
-        class="emptyState"
-        id="emptyState"
-        style="display:none;">
-
-        <div class="emptyIcon">
-            📦
-        </div>
-
-        <div
-            class="emptyTitle"
-            id="emptyTitle">
-
-            No products yet
-
-        </div>
-
-        <div
-            class="emptyText"
-            id="emptyText">
-
-            Add your first product to start
-            managing your inventory.
-
-        </div>
-
-        <button
-            class="emptyButton"
-            id="emptyAddButton">
-
-            Add First Product
-
-        </button>
-
+        id="productCount"
+        class="product-count"
+    >
+        0 products
     </div>
 
+    <select
+        id="categoryFilter"
+        class="category-select"
+    >
+
+        <option value="">
+            All categories
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div
+    id="productsList"
+    class="products-list"
+></div>
+
+
+<!-- EMPTY -->
+
+<div
+    id="emptyState"
+    class="empty-state"
+    style="display:none;"
+>
+
+    <div class="empty-icon">
+        📦
+    </div>
+
+    <div
+        id="emptyTitle"
+        class="empty-title"
+    >
+        No products yet
+    </div>
+
+    <div
+        id="emptyText"
+        class="empty-text"
+    >
+        Add your first product to start managing your inventory.
+    </div>
+
+    <button
+        id="emptyAddButton"
+        class="empty-add-button"
+        type="button"
+    >
+        Add Product
+    </button>
+
+</div>
+```
 
 </main>
-
 
 <!-- =====================================================
      PRODUCT MODAL
 ===================================================== -->
 
 <div
-    class="modalOverlay"
-    id="productModal">
+    id="productModal"
+    class="modal"
+>
 
-    <div class="modal">
+```
+<div class="modal-box">
 
-        <div class="modalHandle"></div>
+    <div class="modal-header">
+
+        <div
+            id="modalTitle"
+            class="modal-title"
+        >
+            Add Product
+        </div>
+
+        <button
+            id="closeModalButton"
+            class="close-modal"
+            type="button"
+        >
+            ×
+        </button>
+
+    </div>
 
 
-        <div class="modalHeader">
+    <form id="productForm">
 
-            <div
-                class="modalTitle"
-                id="modalTitle">
+        <div class="form-group">
 
-                Add Product
+            <label
+                class="form-label"
+                for="productName"
+            >
+                Product Name *
+            </label>
 
-            </div>
-
-            <button
-                class="closeButton"
-                id="closeModalButton">
-
-                ×
-
-            </button>
+            <input
+                id="productName"
+                class="form-input"
+                type="text"
+                maxlength="100"
+                required
+                placeholder="Example: Coca-Cola 1.5L"
+            >
 
         </div>
 
 
-        <form id="productForm">
+        <div class="form-row">
 
+            <div class="form-group">
 
-            <div class="formGroup">
-
-                <label class="formLabel">
-                    Product Name *
+                <label
+                    class="form-label"
+                    for="productSku"
+                >
+                    SKU
                 </label>
 
                 <input
-                    class="formInput"
-                    type="text"
-                    id="productName"
-                    placeholder="e.g. Rice 5kg"
-                    required>
-
-            </div>
-
-
-            <div class="formGroup">
-
-                <label class="formLabel">
-                    SKU / Product Code
-                </label>
-
-                <input
-                    class="formInput"
-                    type="text"
                     id="productSku"
-                    placeholder="e.g. RICE-5KG">
-
-                <div class="formHint">
-                    Optional product code.
-                </div>
+                    class="form-input"
+                    type="text"
+                    maxlength="50"
+                    placeholder="SKU-001"
+                >
 
             </div>
 
 
-            <div class="formGroup">
+            <div class="form-group">
 
-                <label class="formLabel">
+                <label
+                    class="form-label"
+                    for="productCategory"
+                >
                     Category
                 </label>
 
                 <input
-                    class="formInput"
-                    type="text"
                     id="productCategory"
-                    placeholder="e.g. Grocery">
+                    class="form-input"
+                    type="text"
+                    maxlength="50"
+                    placeholder="Beverages"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="sellingPrice"
+                >
+                    Selling Price
+                </label>
+
+                <input
+                    id="sellingPrice"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                >
 
             </div>
 
 
-            <div class="formGrid">
+            <div class="form-group">
 
-                <div class="formGroup">
+                <label
+                    class="form-label"
+                    for="costPrice"
+                >
+                    Cost Price
+                </label>
 
-                    <label class="formLabel">
-                        Selling Price *
-                    </label>
+                <input
+                    id="costPrice"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                >
 
-                    <input
-                        class="formInput"
-                        type="number"
-                        id="sellingPrice"
-                        min="0"
-                        step="0.01"
-                        placeholder="0.00"
-                        required>
+            </div>
 
-                </div>
+        </div>
 
 
-                <div class="formGroup">
+        <div class="form-row">
 
-                    <label class="formLabel">
-                        Cost Price
-                    </label>
+            <div class="form-group">
 
-                    <input
-                        class="formInput"
-                        type="number"
-                        id="costPrice"
-                        min="0"
-                        step="0.01"
-                        placeholder="0.00">
+                <label
+                    class="form-label"
+                    for="stockQuantity"
+                >
+                    Stock Quantity
+                </label>
 
-                </div>
+                <input
+                    id="stockQuantity"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                >
 
             </div>
 
 
-            <div class="formGrid">
+            <div class="form-group">
 
-                <div class="formGroup">
+                <label
+                    class="form-label"
+                    for="lowStockThreshold"
+                >
+                    Low Stock Alert
+                </label>
 
-                    <label class="formLabel">
-                        Stock Quantity
-                    </label>
-
-                    <input
-                        class="formInput"
-                        type="number"
-                        id="stockQuantity"
-                        min="0"
-                        step="1"
-                        value="0">
-
-                </div>
-
-
-                <div class="formGroup">
-
-                    <label class="formLabel">
-                        Low Stock Alert
-                    </label>
-
-                    <input
-                        class="formInput"
-                        type="number"
-                        id="lowStockThreshold"
-                        min="0"
-                        step="1"
-                        value="5">
-
-                </div>
+                <input
+                    id="lowStockThreshold"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="5"
+                >
 
             </div>
 
-
-            <div class="modalButtons">
-
-                <button
-                    type="button"
-                    class="cancelButton"
-                    id="cancelModalButton">
-
-                    Cancel
-
-                </button>
-
-                <button
-                    type="submit"
-                    class="saveButton"
-                    id="saveButton">
-
-                    Save Product
-
-                </button>
-
-            </div>
+        </div>
 
 
-        </form>
+        <div class="modal-buttons">
 
-    </div>
+            <button
+                id="cancelModalButton"
+                class="modal-button cancel-button"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="saveButton"
+                class="modal-button save-button"
+                type="submit"
+            >
+                Save Product
+            </button>
+
+        </div>
+
+    </form>
 
 </div>
+```
 
+</div>
 
 <!-- =====================================================
      TOAST
 ===================================================== -->
 
 <div
+    id="toast"
     class="toast"
-    id="toast">
-</div>
-
+></div>
 
 <!-- =====================================================
      BOTTOM NAV
 ===================================================== -->
 
-<nav class="bottomNav">
+<nav class="bottom-nav">
 
-    <div class="navInner">
+```
+<a
+    href="../dashboard/"
+    class="nav-item"
+>
 
-        <a
-            href="../dashboard/"
-            class="navItem">
+    <span class="nav-icon">
+        🏠
+    </span>
 
-            <span class="navIcon">
-                🏠
-            </span>
+    <span>
+        Home
+    </span>
 
-            Home
-
-        </a>
-
-
-        <a
-            href="../products/"
-            class="navItem active">
-
-            <span class="navIcon">
-                📦
-            </span>
-
-            Products
-
-        </a>
+</a>
 
 
-        <a
-            href="../inventory/"
-            class="navItem">
+<a
+    href="../products/"
+    class="nav-item active"
+>
 
-            <span class="navIcon">
-                📊
-            </span>
+    <span class="nav-icon">
+        📦
+    </span>
 
-            Inventory
+    <span>
+        Products
+    </span>
 
-        </a>
-
-
-        <a
-            href="../sales/"
-            class="navItem">
-
-            <span class="navIcon">
-                🧾
-            </span>
-
-            Sales
-
-        </a>
+</a>
 
 
-        <a
-            href="../settings/"
-            class="navItem">
+<a
+    href="../inventory/"
+    class="nav-item"
+>
 
-            <span class="navIcon">
-                ⚙️
-            </span>
+    <span class="nav-icon">
+        🏷️
+    </span>
 
-            More
+    <span>
+        Inventory
+    </span>
 
-        </a>
+</a>
 
-    </div>
+
+<a
+    href="../sales/"
+    class="nav-item"
+>
+
+    <span class="nav-icon">
+        🧾
+    </span>
+
+    <span>
+        Sales
+    </span>
+
+</a>
+
+
+<a
+    href="../settings/"
+    class="nav-item"
+>
+
+    <span class="nav-icon">
+        ⚙️
+    </span>
+
+    <span>
+        Settings
+    </span>
+
+</a>
+```
 
 </nav>
-
 
 <!-- =====================================================
      FIREBASE
@@ -1258,8 +1561,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    initializeAuth,
-    browserLocalPersistence
+    getAuth,
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -1282,7 +1585,7 @@ import {
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyC_7nSwcfgoUXEe2yo9TJw0cp7XiwGF6w",
+        "AIzaSyC7_nSwcfgoUXEe2yo9TJw0cp7XiwGF6w",
 
     authDomain:
         "kayah-ecosystem.firebaseapp.com",
@@ -1303,177 +1606,19 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   INITIALIZE FIREBASE
+   FIREBASE INITIALIZATION
+   IMPORTANT:
+   ONLY ONE app/auth/db
 ===================================================== */
 
 const app =
-    initializeApp(
-        firebaseConfig
-    );
-
-
-/*
- * IMPORTANT:
- * Use explicit browser-local persistence.
- *
- * This keeps the Firebase login session available
- * when moving between Dashboard, Products and the
- * other Kayah pages.
- */
+    initializeApp(firebaseConfig);
 
 const auth =
-    initializeAuth(
-        app,
-        {
-            persistence:
-                browserLocalPersistence
-        }
-    );
-
+    getAuth(app);
 
 const db =
-    getFirestore(
-        app
-    );
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-let currentUser = null;
-
-let userData = null;
-
-let products = [];
-
-let editingProductId = null;
-
-let unsubscribeProducts = null;
-
-let productLimit = 30;
-
-let effectivePlan = "free";
-
-
-/* =====================================================
-   DOM
-===================================================== */
-
-const loadingScreen =
-    document.getElementById(
-        "loadingScreen"
-    );
-
-const productsList =
-    document.getElementById(
-        "productsList"
-    );
-
-const emptyState =
-    document.getElementById(
-        "emptyState"
-    );
-
-const emptyTitle =
-    document.getElementById(
-        "emptyTitle"
-    );
-
-const emptyText =
-    document.getElementById(
-        "emptyText"
-    );
-
-const emptyAddButton =
-    document.getElementById(
-        "emptyAddButton"
-    );
-
-const productCount =
-    document.getElementById(
-        "productCount"
-    );
-
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
-
-const categoryFilter =
-    document.getElementById(
-        "categoryFilter"
-    );
-
-const productModal =
-    document.getElementById(
-        "productModal"
-    );
-
-const productForm =
-    document.getElementById(
-        "productForm"
-    );
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-const saveButton =
-    document.getElementById(
-        "saveButton"
-    );
-
-const addProductButton =
-    document.getElementById(
-        "addProductButton"
-    );
-
-const closeModalButton =
-    document.getElementById(
-        "closeModalButton"
-    );
-
-const cancelModalButton =
-    document.getElementById(
-        "cancelModalButton"
-    );
-
-const limitPlan =
-    document.getElementById(
-        "limitPlan"
-    );
-
-const limitDescription =
-    document.getElementById(
-        "limitDescription"
-    );
-
-const planBadge =
-    document.getElementById(
-        "planBadge"
-    );
-
-const productLimitText =
-    document.getElementById(
-        "productLimitText"
-    );
-
-const progressFill =
-    document.getElementById(
-        "progressFill"
-    );
-
-const limitMessage =
-    document.getElementById(
-        "limitMessage"
-    );
-
-const toast =
-    document.getElementById(
-        "toast"
-    );
+    getFirestore(app);
 
 
 /* =====================================================
@@ -1521,20 +1666,129 @@ const PLAN_CONFIG = {
 
 
 /* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let userData = null;
+
+let products = [];
+
+let editingProductId = null;
+
+let unsubscribeProducts = null;
+
+let productLimit = 30;
+
+let effectivePlan = "free";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const limitPlan =
+    document.getElementById("limitPlan");
+
+const limitDescription =
+    document.getElementById("limitDescription");
+
+const planBadge =
+    document.getElementById("planBadge");
+
+const productLimitText =
+    document.getElementById("productLimitText");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const limitMessage =
+    document.getElementById("limitMessage");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const addProductButton =
+    document.getElementById("addProductButton");
+
+const categoryFilter =
+    document.getElementById("categoryFilter");
+
+const productCount =
+    document.getElementById("productCount");
+
+const productsList =
+    document.getElementById("productsList");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+const emptyTitle =
+    document.getElementById("emptyTitle");
+
+const emptyText =
+    document.getElementById("emptyText");
+
+const emptyAddButton =
+    document.getElementById("emptyAddButton");
+
+const productModal =
+    document.getElementById("productModal");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const closeModalButton =
+    document.getElementById("closeModalButton");
+
+const productForm =
+    document.getElementById("productForm");
+
+const productName =
+    document.getElementById("productName");
+
+const productSku =
+    document.getElementById("productSku");
+
+const productCategory =
+    document.getElementById("productCategory");
+
+const sellingPrice =
+    document.getElementById("sellingPrice");
+
+const costPrice =
+    document.getElementById("costPrice");
+
+const stockQuantity =
+    document.getElementById("stockQuantity");
+
+const lowStockThreshold =
+    document.getElementById("lowStockThreshold");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+const cancelModalButton =
+    document.getElementById("cancelModalButton");
+
+const toast =
+    document.getElementById("toast");
+
+
+/* =====================================================
    HELPERS
 ===================================================== */
 
-function safeText(
-    value,
-    fallback = ""
-){
+function safeText(value){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+    if(value === null ||
+       value === undefined){
 
-        return fallback;
+        return "";
 
     }
 
@@ -1543,44 +1797,76 @@ function safeText(
 }
 
 
-function getDate(
-    value
-){
+function escapeHtml(value){
 
-    if(!value){
-
-        return null;
-
-    }
-
-    if(
-        typeof value.toDate ===
-        "function"
-    ){
-
-        return value.toDate();
-
-    }
-
-    return null;
+    return safeText(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-function getEffectivePlan(
-    data
-){
+function getDate(value){
+
+    if(!value){
+        return null;
+    }
+
+    if(
+        typeof value.toDate === "function"
+    ){
+        return value.toDate();
+    }
+
+    if(value instanceof Date){
+        return value;
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+        return null;
+    }
+
+    return date;
+
+}
+
+
+function formatMoney(value){
+
+    const number =
+        Number(value || 0);
+
+    return "₱" +
+        number.toLocaleString(
+            "en-PH",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+/* =====================================================
+   EFFECTIVE PLAN
+===================================================== */
+
+function getEffectivePlan(data){
 
     const plan =
-        safeText(
-            data.plan,
-            "free"
-        ).toLowerCase();
-
-
-    /*
-     * Paid plans
-     */
+        safeText(data?.plan)
+            .toLowerCase();
 
     if(
         plan === "starter" ||
@@ -1593,68 +1879,29 @@ function getEffectivePlan(
     }
 
 
-    /*
-     * Free account with active trial
-     */
-
-    const trialEnd =
-        getDate(
-            data.trialEndsAt
-        );
-
-
     if(
-        data.trialActive === true &&
-        trialEnd &&
-        trialEnd.getTime() > Date.now()
+        plan === "free" &&
+        data?.trialActive === true
     ){
 
-        return "trial";
+        const trialEnds =
+            getDate(
+                data.trialEndsAt
+            );
+
+        if(
+            trialEnds &&
+            trialEnds.getTime() > Date.now()
+        ){
+
+            return "trial";
+
+        }
 
     }
 
 
-    /*
-     * Trial expired / normal free
-     */
-
     return "free";
-
-}
-
-
-function formatMoney(
-    value
-){
-
-    const amount =
-        Number(value || 0);
-
-
-    return "₱" +
-        amount.toLocaleString(
-            "en-PH",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
-}
-
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
 
 }
 
@@ -1662,6 +1909,8 @@ function escapeHtml(
 /* =====================================================
    TOAST
 ===================================================== */
+
+let toastTimer = null;
 
 function showToast(
     message,
@@ -1672,18 +1921,21 @@ function showToast(
         message;
 
     toast.className =
-        "toast show " + type;
+        "toast show " +
+        type;
 
+    clearTimeout(toastTimer);
 
-    setTimeout(
-        () => {
+    toastTimer =
+        setTimeout(
+            function(){
 
-            toast.className =
-                "toast";
+                toast.className =
+                    "toast";
 
-        },
-        3000
-    );
+            },
+            2800
+        );
 
 }
 
@@ -1697,25 +1949,19 @@ function updatePlanDisplay(){
     const config =
         PLAN_CONFIG[
             effectivePlan
-        ] ||
-        PLAN_CONFIG.free;
-
+        ] || PLAN_CONFIG.free;
 
     productLimit =
         config.limit;
 
-
     limitPlan.textContent =
         config.name;
-
 
     limitDescription.textContent =
         config.description;
 
-
     planBadge.textContent =
         config.badge;
-
 
     updateProductLimit();
 
@@ -1731,27 +1977,18 @@ function updateProductLimit(){
     const count =
         products.length;
 
-
     if(
         productLimit === Infinity
     ){
 
         productLimitText.textContent =
-            count + " products";
-
+            count + " / Unlimited";
 
         progressFill.style.width =
-            "100%";
-
-
-        progressFill.classList.remove(
-            "full"
-        );
-
+            "0%";
 
         limitMessage.style.display =
             "none";
-
 
         return;
 
@@ -1765,10 +2002,12 @@ function updateProductLimit(){
 
 
     const percentage =
-        Math.min(
-            (count / productLimit) * 100,
-            100
-        );
+        productLimit > 0
+            ? Math.min(
+                100,
+                (count / productLimit) * 100
+            )
+            : 100;
 
 
     progressFill.style.width =
@@ -1779,18 +2018,25 @@ function updateProductLimit(){
         count >= productLimit
     ){
 
-        progressFill.classList.add(
-            "full"
-        );
+        limitMessage.textContent =
+            "You have reached your product limit. Upgrade your plan to add more products.";
 
         limitMessage.style.display =
             "block";
 
-    }else{
+    }
+    else if(
+        count >= productLimit * .8
+    ){
 
-        progressFill.classList.remove(
-            "full"
-        );
+        limitMessage.textContent =
+            "You are getting close to your product limit.";
+
+        limitMessage.style.display =
+            "block";
+
+    }
+    else{
 
         limitMessage.style.display =
             "none";
@@ -1799,10 +2045,6 @@ function updateProductLimit(){
 
 }
 
-
-/* =====================================================
-   CAN ADD
-===================================================== */
 
 function canAddProduct(){
 
@@ -1814,7 +2056,6 @@ function canAddProduct(){
 
     }
 
-
     return products.length <
         productLimit;
 
@@ -1822,7 +2063,7 @@ function canAddProduct(){
 
 
 /* =====================================================
-   OPEN ADD
+   MODAL
 ===================================================== */
 
 function openAddModal(){
@@ -1832,7 +2073,7 @@ function openAddModal(){
     ){
 
         showToast(
-            "You have reached your product limit.",
+            "You have reached your product limit. Upgrade your plan to add more.",
             "error"
         );
 
@@ -1840,56 +2081,38 @@ function openAddModal(){
 
     }
 
-
     editingProductId =
         null;
-
 
     modalTitle.textContent =
         "Add Product";
 
-
     saveButton.textContent =
         "Save Product";
 
-
     productForm.reset();
 
-
-    document.getElementById(
-        "stockQuantity"
-    ).value =
+    stockQuantity.value =
         "0";
 
-
-    document.getElementById(
-        "lowStockThreshold"
-    ).value =
+    lowStockThreshold.value =
         "5";
-
 
     productModal.classList.add(
         "show"
     );
 
-
     setTimeout(
-        () => {
+        function(){
 
-            document.getElementById(
-                "productName"
-            ).focus();
+            productName.focus();
 
         },
-        200
+        100
     );
 
 }
 
-
-/* =====================================================
-   CLOSE
-===================================================== */
 
 function closeProductModal(){
 
@@ -1897,194 +2120,141 @@ function closeProductModal(){
         "show"
     );
 
-
     editingProductId =
         null;
+
+    productForm.reset();
+
+    stockQuantity.value =
+        "0";
+
+    lowStockThreshold.value =
+        "5";
 
 }
 
 
-/* =====================================================
-   EDIT
-===================================================== */
-
 window.editProduct =
-function(productId){
+    function(id){
 
-    const product =
-        products.find(
-            item =>
-                item.id ===
-                productId
+        const product =
+            products.find(
+                function(item){
+                    return item.id === id;
+                }
+            );
+
+        if(!product){
+            return;
+        }
+
+        editingProductId =
+            id;
+
+        modalTitle.textContent =
+            "Edit Product";
+
+        saveButton.textContent =
+            "Update Product";
+
+        productName.value =
+            safeText(product.name);
+
+        productSku.value =
+            safeText(product.sku);
+
+        productCategory.value =
+            safeText(product.category);
+
+        sellingPrice.value =
+            product.sellingPrice ?? "";
+
+        costPrice.value =
+            product.costPrice ?? "";
+
+        stockQuantity.value =
+            product.stockQuantity ?? 0;
+
+        lowStockThreshold.value =
+            product.lowStockThreshold ?? 5;
+
+        productModal.classList.add(
+            "show"
         );
 
+    };
 
-    if(!product){
-
-        return;
-
-    }
-
-
-    editingProductId =
-        productId;
-
-
-    modalTitle.textContent =
-        "Edit Product";
-
-
-    saveButton.textContent =
-        "Update Product";
-
-
-    document.getElementById(
-        "productName"
-    ).value =
-        safeText(
-            product.name
-        );
-
-
-    document.getElementById(
-        "productSku"
-    ).value =
-        safeText(
-            product.sku
-        );
-
-
-    document.getElementById(
-        "productCategory"
-    ).value =
-        safeText(
-            product.category
-        );
-
-
-    document.getElementById(
-        "sellingPrice"
-    ).value =
-        Number(
-            product.sellingPrice || 0
-        );
-
-
-    document.getElementById(
-        "costPrice"
-    ).value =
-        Number(
-            product.costPrice || 0
-        );
-
-
-    document.getElementById(
-        "stockQuantity"
-    ).value =
-        Number(
-            product.stockQuantity || 0
-        );
-
-
-    document.getElementById(
-        "lowStockThreshold"
-    ).value =
-        Number(
-            product.lowStockThreshold ?? 5
-        );
-
-
-    productModal.classList.add(
-        "show"
-    );
-
-};
-
-
-/* =====================================================
-   DELETE
-===================================================== */
 
 window.deleteProduct =
-async function(productId){
+    async function(id){
 
-    const product =
-        products.find(
-            item =>
-                item.id ===
-                productId
-        );
+        const product =
+            products.find(
+                function(item){
+                    return item.id === id;
+                }
+            );
 
-
-    if(!product){
-
-        return;
-
-    }
+        if(!product){
+            return;
+        }
 
 
-    const confirmed =
-        confirm(
-            'Delete "' +
-            safeText(
-                product.name
-            ) +
-            '"?\n\nThis cannot be undone.'
-        );
+        const confirmed =
+            window.confirm(
+                "Delete \"" +
+                safeText(product.name) +
+                "\"?"
+            );
 
 
-    if(!confirmed){
-
-        return;
-
-    }
+        if(!confirmed){
+            return;
+        }
 
 
-    try{
+        try{
 
-        await deleteDoc(
-
-            doc(
-                db,
-                "users",
-                currentUser.uid,
-                "products",
-                productId
-            )
-
-        );
+            await deleteDoc(
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid,
+                    "products",
+                    id
+                )
+            );
 
 
-        showToast(
-            "Product deleted successfully."
-        );
+            showToast(
+                "Product deleted successfully."
+            );
 
+        }
+        catch(error){
 
-    }catch(error){
+            console.error(
+                "Delete product error:",
+                error
+            );
 
-        console.error(
-            "Delete product error:",
-            error
-        );
+            showToast(
+                "Unable to delete product.",
+                "error"
+            );
 
+        }
 
-        showToast(
-            "Unable to delete product.",
-            "error"
-        );
-
-    }
-
-};
+    };
 
 
 /* =====================================================
-   SAVE PRODUCT
+   FORM SUBMIT
 ===================================================== */
 
 productForm.addEventListener(
     "submit",
-    async event => {
+    async function(event){
 
         event.preventDefault();
 
@@ -2092,7 +2262,7 @@ productForm.addEventListener(
         if(!currentUser){
 
             showToast(
-                "You are not logged in.",
+                "Your login session is still loading. Please wait.",
                 "error"
             );
 
@@ -2102,54 +2272,7 @@ productForm.addEventListener(
 
 
         const name =
-            document.getElementById(
-                "productName"
-            ).value.trim();
-
-
-        const sku =
-            document.getElementById(
-                "productSku"
-            ).value.trim();
-
-
-        const category =
-            document.getElementById(
-                "productCategory"
-            ).value.trim();
-
-
-        const sellingPrice =
-            Number(
-                document.getElementById(
-                    "sellingPrice"
-                ).value
-            );
-
-
-        const costPrice =
-            Number(
-                document.getElementById(
-                    "costPrice"
-                ).value || 0
-            );
-
-
-        const stockQuantity =
-            Number(
-                document.getElementById(
-                    "stockQuantity"
-                ).value || 0
-            );
-
-
-        const lowStockThreshold =
-            Number(
-                document.getElementById(
-                    "lowStockThreshold"
-                ).value || 0
-            );
-
+            productName.value.trim();
 
         if(!name){
 
@@ -2158,22 +2281,7 @@ productForm.addEventListener(
                 "error"
             );
 
-            return;
-
-        }
-
-
-        if(
-            !Number.isFinite(
-                sellingPrice
-            ) ||
-            sellingPrice < 0
-        ){
-
-            showToast(
-                "Please enter a valid selling price.",
-                "error"
-            );
+            productName.focus();
 
             return;
 
@@ -2186,7 +2294,7 @@ productForm.addEventListener(
         ){
 
             showToast(
-                "Your plan has reached its product limit.",
+                "You have reached your product limit.",
                 "error"
             );
 
@@ -2195,9 +2303,48 @@ productForm.addEventListener(
         }
 
 
+        const data = {
+
+            uid:
+                currentUser.uid,
+
+            name:
+                name,
+
+            sku:
+                productSku.value.trim(),
+
+            category:
+                productCategory.value.trim(),
+
+            sellingPrice:
+                Number(
+                    sellingPrice.value || 0
+                ),
+
+            costPrice:
+                Number(
+                    costPrice.value || 0
+                ),
+
+            stockQuantity:
+                Number(
+                    stockQuantity.value || 0
+                ),
+
+            lowStockThreshold:
+                Number(
+                    lowStockThreshold.value || 5
+                ),
+
+            updatedAt:
+                serverTimestamp()
+
+        };
+
+
         saveButton.disabled =
             true;
-
 
         saveButton.textContent =
             editingProductId
@@ -2207,54 +2354,21 @@ productForm.addEventListener(
 
         try{
 
-            const productData = {
+            if(editingProductId){
 
-                uid:
-                    currentUser.uid,
-
-                name:
-                    name,
-
-                sku:
-                    sku,
-
-                category:
-                    category,
-
-                sellingPrice:
-                    sellingPrice,
-
-                costPrice:
-                    costPrice,
-
-                stockQuantity:
-                    stockQuantity,
-
-                lowStockThreshold:
-                    lowStockThreshold,
-
-                updatedAt:
-                    serverTimestamp()
-
-            };
-
-
-            if(
-                editingProductId
-            ){
-
-                await updateDoc(
-
+                const productRef =
                     doc(
                         db,
                         "users",
                         currentUser.uid,
                         "products",
                         editingProductId
-                    ),
+                    );
 
-                    productData
 
+                await updateDoc(
+                    productRef,
+                    data
                 );
 
 
@@ -2262,24 +2376,21 @@ productForm.addEventListener(
                     "Product updated successfully."
                 );
 
+            }
+            else{
 
-            }else{
-
-                productData.createdAt =
+                data.createdAt =
                     serverTimestamp();
 
 
                 await addDoc(
-
                     collection(
                         db,
                         "users",
                         currentUser.uid,
                         "products"
                     ),
-
-                    productData
-
+                    data
                 );
 
 
@@ -2292,8 +2403,8 @@ productForm.addEventListener(
 
             closeProductModal();
 
-
-        }catch(error){
+        }
+        catch(error){
 
             console.error(
                 "Save product error:",
@@ -2301,17 +2412,31 @@ productForm.addEventListener(
             );
 
 
-            showToast(
-                "Unable to save product.",
-                "error"
-            );
+            if(
+                error.code ===
+                "permission-denied"
+            ){
 
+                showToast(
+                    "Firestore permission denied. Check your Firestore rules.",
+                    "error"
+                );
 
-        }finally{
+            }
+            else{
+
+                showToast(
+                    "Unable to save product. Please try again.",
+                    "error"
+                );
+
+            }
+
+        }
+        finally{
 
             saveButton.disabled =
                 false;
-
 
             saveButton.textContent =
                 editingProductId
@@ -2325,7 +2450,7 @@ productForm.addEventListener(
 
 
 /* =====================================================
-   RENDER
+   RENDER PRODUCTS
 ===================================================== */
 
 function renderProducts(){
@@ -2335,28 +2460,25 @@ function renderProducts(){
             .trim()
             .toLowerCase();
 
-
-    const selectedCategory =
+    const category =
         categoryFilter.value;
 
 
     const filtered =
         products.filter(
-            product => {
+            function(product){
 
                 const name =
                     safeText(
                         product.name
                     ).toLowerCase();
 
-
                 const sku =
                     safeText(
                         product.sku
                     ).toLowerCase();
 
-
-                const category =
+                const productCategory =
                     safeText(
                         product.category
                     );
@@ -2369,9 +2491,8 @@ function renderProducts(){
 
 
                 const matchesCategory =
-                    selectedCategory === "all" ||
-                    category ===
-                        selectedCategory;
+                    !category ||
+                    productCategory === category;
 
 
                 return (
@@ -2384,57 +2505,45 @@ function renderProducts(){
 
 
     productCount.textContent =
-        products.length +
+        filtered.length +
         (
-            products.length === 1
+            filtered.length === 1
                 ? " product"
                 : " products"
         );
 
 
-    productsList.innerHTML =
-        "";
+    if(filtered.length === 0){
 
-
-    if(
-        filtered.length === 0
-    ){
-
-        productsList.style.display =
-            "none";
-
+        productsList.innerHTML =
+            "";
 
         emptyState.style.display =
             "block";
 
 
-        if(
-            products.length > 0
-        ){
-
-            emptyTitle.textContent =
-                "No matching products";
-
-
-            emptyText.textContent =
-                "Try changing your search or category filter.";
-
-
-            emptyAddButton.style.display =
-                "none";
-
-        }else{
+        if(products.length === 0){
 
             emptyTitle.textContent =
                 "No products yet";
 
-
             emptyText.textContent =
                 "Add your first product to start managing your inventory.";
 
-
             emptyAddButton.style.display =
                 "inline-block";
+
+        }
+        else{
+
+            emptyTitle.textContent =
+                "No products found";
+
+            emptyText.textContent =
+                "Try changing your search or category filter.";
+
+            emptyAddButton.style.display =
+                "none";
 
         }
 
@@ -2450,169 +2559,158 @@ function renderProducts(){
         "none";
 
 
-    productsList.style.display =
-        "flex";
+    productsList.innerHTML =
+        filtered.map(
+            function(product){
+
+                const stock =
+                    Number(
+                        product.stockQuantity || 0
+                    );
+
+                const threshold =
+                    Number(
+                        product.lowStockThreshold || 0
+                    );
 
 
-    filtered.forEach(
-        product => {
+                let stockClass =
+                    "";
 
-            const stock =
-                Number(
-                    product.stockQuantity || 0
-                );
+                let stockLabel =
+                    "In stock";
 
 
-            const threshold =
-                Number(
-                    product.lowStockThreshold ?? 5
-                );
+                if(stock <= 0){
+
+                    stockClass =
+                        "stock-out";
+
+                    stockLabel =
+                        "Out of stock";
+
+                }
+                else if(
+                    stock <= threshold
+                ){
+
+                    stockClass =
+                        "stock-low";
+
+                    stockLabel =
+                        "Low stock";
+
+                }
 
 
-            let stockClass =
-                "";
+                const category =
+                    safeText(
+                        product.category
+                    );
 
 
-            let stockText =
-                "";
+                const sku =
+                    safeText(
+                        product.sku
+                    );
 
 
-            if(
-                stock <= 0
-            ){
+                return `
 
-                stockClass =
-                    "outStock";
+                    <div class="product-card">
 
-                stockText =
-                    "Out of stock";
+                        <div class="product-main">
 
-            }else if(
-                stock <= threshold
-            ){
+                            <div class="product-info">
 
-                stockClass =
-                    "lowStock";
+                                <div class="product-name">
+                                    ${escapeHtml(product.name)}
+                                </div>
 
-                stockText =
-                    "Low stock";
+                                ${
+                                    sku
+                                        ? `
+                                            <div class="product-sku">
+                                                SKU: ${escapeHtml(sku)}
+                                            </div>
+                                          `
+                                        : ""
+                                }
+
+                                ${
+                                    category
+                                        ? `
+                                            <div class="product-category">
+                                                ${escapeHtml(category)}
+                                            </div>
+                                          `
+                                        : ""
+                                }
+
+                            </div>
+
+
+                            <div class="product-price">
+
+                                <div class="selling-price">
+                                    ${formatMoney(product.sellingPrice)}
+                                </div>
+
+                                <div class="cost-price">
+                                    Cost: ${formatMoney(product.costPrice)}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="product-divider"></div>
+
+
+                        <div class="product-bottom">
+
+                            <div class="stock-info">
+
+                                <div class="stock-label">
+                                    ${stockLabel}
+                                </div>
+
+                                <div class="stock-value ${stockClass}">
+                                    ${stock} units
+                                </div>
+
+                            </div>
+
+
+                            <div class="product-actions">
+
+                                <button
+                                    class="action-button edit-button"
+                                    type="button"
+                                    onclick="editProduct('${product.id}')"
+                                >
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="action-button delete-button"
+                                    type="button"
+                                    onclick="deleteProduct('${product.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
 
             }
-
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "productCard";
-
-
-            card.innerHTML = `
-
-                <div class="productTop">
-
-                    <div class="productInfo">
-
-                        <div class="productName">
-                            ${escapeHtml(product.name)}
-                        </div>
-
-                        ${
-                            product.sku
-                            ? `
-                                <div class="productSku">
-                                    SKU: ${escapeHtml(product.sku)}
-                                </div>
-                              `
-                            : ""
-                        }
-
-                        ${
-                            product.category
-                            ? `
-                                <span class="productCategory">
-                                    ${escapeHtml(product.category)}
-                                </span>
-                              `
-                            : ""
-                        }
-
-                    </div>
-
-
-                    <div class="productPrices">
-
-                        <div class="sellingPrice">
-                            ${formatMoney(product.sellingPrice)}
-                        </div>
-
-                        <div class="costPrice">
-                            Cost: ${formatMoney(product.costPrice)}
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="productBottom">
-
-                    <div class="stockInfo">
-
-                        Stock:
-
-                        <span class="stockNumber">
-                            ${stock}
-                        </span>
-
-                        ${
-                            stockText
-                            ? `
-                                <span class="${stockClass}">
-                                    · ${stockText}
-                                </span>
-                              `
-                            : ""
-                        }
-
-                    </div>
-
-
-                    <div class="productActions">
-
-                        <button
-                            class="smallButton editButton"
-                            onclick="editProduct('${product.id}')">
-
-                            Edit
-
-                        </button>
-
-
-                        <button
-                            class="smallButton deleteButton"
-                            onclick="deleteProduct('${product.id}')">
-
-                            Delete
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            productsList.appendChild(
-                card
-            );
-
-        }
-    );
+        ).join("");
 
 
     updateProductLimit();
@@ -2626,55 +2724,51 @@ function renderProducts(){
 
 function updateCategoryFilter(){
 
-    const previous =
+    const currentValue =
         categoryFilter.value;
 
 
     const categories =
-        [
-            ...new Set(
-
+        Array.from(
+            new Set(
                 products
                     .map(
-                        product =>
-                            safeText(
+                        function(product){
+                            return safeText(
                                 product.category
-                            ).trim()
+                            ).trim();
+                        }
                     )
                     .filter(Boolean)
-
             )
-        ]
-        .sort(
-            (a,b) =>
-                a.localeCompare(b)
+        ).sort(
+            function(a,b){
+                return a.localeCompare(b);
+            }
         );
 
 
     categoryFilter.innerHTML =
         `
-        <option value="all">
-            All categories
-        </option>
+            <option value="">
+                All categories
+            </option>
         `;
 
 
     categories.forEach(
-        category => {
+        function(category){
 
             const option =
                 document.createElement(
                     "option"
                 );
 
-
             option.value =
                 category;
 
-
             option.textContent =
                 category;
-
 
             categoryFilter.appendChild(
                 option
@@ -2686,17 +2780,12 @@ function updateCategoryFilter(){
 
     if(
         categories.includes(
-            previous
+            currentValue
         )
     ){
 
         categoryFilter.value =
-            previous;
-
-    }else{
-
-        categoryFilter.value =
-            "all";
+            currentValue;
 
     }
 
@@ -2704,16 +2793,24 @@ function updateCategoryFilter(){
 
 
 /* =====================================================
-   FIREBASE PRODUCTS LISTENER
+   FIRESTORE PRODUCT LISTENER
 ===================================================== */
 
 function listenToProducts(){
 
-    if(
-        unsubscribeProducts
-    ){
+    if(unsubscribeProducts){
 
         unsubscribeProducts();
+
+        unsubscribeProducts =
+            null;
+
+    }
+
+
+    if(!currentUser){
+
+        return;
 
     }
 
@@ -2729,32 +2826,34 @@ function listenToProducts(){
 
     unsubscribeProducts =
         onSnapshot(
-
             productsRef,
 
-            snapshot => {
+            function(snapshot){
 
                 products =
                     snapshot.docs.map(
-                        item => ({
+                        function(item){
 
-                            id:
-                                item.id,
+                            return {
 
-                            ...item.data()
+                                id:
+                                    item.id,
 
-                        })
+                                ...item.data()
+
+                            };
+
+                        }
                     );
 
 
                 products.sort(
-                    (a,b) => {
+                    function(a,b){
 
                         const aDate =
                             getDate(
                                 a.createdAt
                             );
-
 
                         const bDate =
                             getDate(
@@ -2766,23 +2865,17 @@ function listenToProducts(){
                             !aDate &&
                             !bDate
                         ){
-
                             return 0;
-
                         }
 
 
                         if(!aDate){
-
                             return 1;
-
                         }
 
 
                         if(!bDate){
-
                             return -1;
-
                         }
 
 
@@ -2801,7 +2894,7 @@ function listenToProducts(){
 
             },
 
-            error => {
+            function(error){
 
                 console.error(
                     "Products Firestore error:",
@@ -2809,33 +2902,35 @@ function listenToProducts(){
                 );
 
 
-                showToast(
-                    "Unable to load products. Check your Firestore rules.",
-                    "error"
-                );
+                if(
+                    error.code ===
+                    "permission-denied"
+                ){
+
+                    showToast(
+                        "Products access was denied by Firestore rules.",
+                        "error"
+                    );
+
+                }
+                else{
+
+                    showToast(
+                        "Unable to load products. Please try again.",
+                        "error"
+                    );
+
+                }
 
             }
-
         );
 
 }
 
 
 /* =====================================================
-   EVENTS
+   EVENT LISTENERS
 ===================================================== */
-
-searchInput.addEventListener(
-    "input",
-    renderProducts
-);
-
-
-categoryFilter.addEventListener(
-    "change",
-    renderProducts
-);
-
 
 addProductButton.addEventListener(
     "click",
@@ -2863,7 +2958,7 @@ cancelModalButton.addEventListener(
 
 productModal.addEventListener(
     "click",
-    event => {
+    function(event){
 
         if(
             event.target ===
@@ -2878,309 +2973,216 @@ productModal.addEventListener(
 );
 
 
+searchInput.addEventListener(
+    "input",
+    renderProducts
+);
+
+
+categoryFilter.addEventListener(
+    "change",
+    renderProducts
+);
+
+
 /* =====================================================
    AUTHENTICATION
+   THIS IS THE IMPORTANT PART
 ===================================================== */
 
-async function startProductsPage(){
-
-    console.log(
-        "================================="
-    );
-
-    console.log(
-        "KAYAH PRODUCTS AUTH CHECK"
-    );
-
-    console.log(
-        "Origin:",
-        window.location.origin
-    );
-
-    console.log(
-        "URL:",
-        window.location.href
-    );
-
-    console.log(
-        "Firebase project:",
-        firebaseConfig.projectId
-    );
-
-    console.log(
-        "================================="
-    );
-
-
-    try{
+onAuthStateChanged(
+    auth,
+    async function(user){
 
         /*
-         * Wait for Firebase to finish restoring
-         * the saved authentication session.
-         */
-
-        await auth.authStateReady();
-
-
-        const user =
-            auth.currentUser;
-
-
-        console.log(
-            "PRODUCTS RESTORED USER:",
-            user
-        );
-
-
-        /*
-         * Only redirect if Firebase has completely
-         * finished restoring authentication AND there
-         * is genuinely no authenticated user.
+         * Firebase may initially return null while
+         * restoring the existing browser session.
+         *
+         * We only redirect after Firebase has actually
+         * determined that there is no authenticated user.
          */
 
         if(!user){
-
-            console.log(
-                "PRODUCTS: No authenticated user after Firebase finished restoring session."
-            );
-
 
             window.location.replace(
                 "../login/"
             );
 
-
             return;
 
         }
-
-
-        /*
-         * USER FOUND
-         */
-
-        console.log(
-            "PRODUCTS: Logged in as:",
-            user.uid
-        );
 
 
         currentUser =
             user;
 
 
-        /*
-         * LOAD CENTRAL USER DOCUMENT
-         */
+        try{
 
-        const userRef =
-            doc(
-                db,
-                "users",
-                user.uid
+            /*
+             * Load the SAME user document used by Dashboard.
+             */
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const userSnapshot =
+                await getDoc(
+                    userRef
+                );
+
+
+            if(
+                !userSnapshot.exists()
+            ){
+
+                console.error(
+                    "User document not found:",
+                    user.uid
+                );
+
+
+                showToast(
+                    "Your account information could not be found.",
+                    "error"
+                );
+
+
+                setTimeout(
+                    function(){
+
+                        window.location.replace(
+                            "../login/"
+                        );
+
+                    },
+                    1500
+                );
+
+
+                return;
+
+            }
+
+
+            userData =
+                userSnapshot.data();
+
+
+            /*
+             * Dashboard uses this same check.
+             */
+
+            if(
+                userData.setupCompleted !== true
+            ){
+
+                window.location.replace(
+                    "../setup/"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Determine the actual plan.
+             */
+
+            effectivePlan =
+                getEffectivePlan(
+                    userData
+                );
+
+
+            updatePlanDisplay();
+
+
+            /*
+             * Start real-time product listener.
+             */
+
+            listenToProducts();
+
+
+            /*
+             * Hide loading only after authentication
+             * and user data have been successfully loaded.
+             */
+
+            loadingScreen.style.opacity =
+                "0";
+
+
+            setTimeout(
+                function(){
+
+                    loadingScreen.style.display =
+                        "none";
+
+                },
+                250
             );
 
-
-        const userSnap =
-            await getDoc(
-                userRef
-            );
-
-
-        /*
-         * USER DOCUMENT NOT FOUND
-         */
-
-        if(
-            !userSnap.exists()
-        ){
+        }
+        catch(error){
 
             console.error(
-                "PRODUCTS: User document does not exist for UID:",
-                user.uid
+                "Products authentication error:",
+                error
             );
 
 
-            loadingScreen.innerHTML = `
-
-                <div style="
-                    text-align:center;
-                    padding:25px;
-                ">
-
-                    <div style="
-                        font-size:40px;
-                        margin-bottom:15px;
-                    ">
-                        ⚠️
-                    </div>
-
-                    <div style="
-                        font-size:18px;
-                        font-weight:800;
-                        margin-bottom:8px;
-                    ">
-                        Account data not found
-                    </div>
-
-                    <div style="
-                        font-size:13px;
-                        opacity:.8;
-                        line-height:1.5;
-                    ">
-                        Your Firebase login exists,
-                        but your Kayah account profile
-                        could not be found.
-                    </div>
-
-                    <button
-                        onclick="location.reload()"
-                        style="
-                            margin-top:18px;
-                            padding:11px 18px;
-                            border:none;
-                            border-radius:10px;
-                            background:white;
-                            color:#0B4F3A;
-                            font-weight:800;
-                        "
-                    >
-                        Try Again
-                    </button>
-
-                </div>
-
-            `;
+            loadingScreen.style.opacity =
+                "0";
 
 
-            return;
+            setTimeout(
+                function(){
+
+                    loadingScreen.style.display =
+                        "none";
+
+                },
+                250
+            );
+
+
+            showToast(
+                "Unable to load your account. Please refresh and try again.",
+                "error"
+            );
 
         }
 
-
-        /*
-         * STORE USER DATA
-         */
-
-        userData =
-            userSnap.data();
-
-
-        console.log(
-            "PRODUCTS USER DATA:",
-            userData
-        );
-
-
-        /*
-         * DETERMINE EFFECTIVE PLAN
-         */
-
-        effectivePlan =
-            getEffectivePlan(
-                userData
-            );
-
-
-        console.log(
-            "PRODUCTS EFFECTIVE PLAN:",
-            effectivePlan
-        );
-
-
-        updatePlanDisplay();
-
-
-        /*
-         * START PRODUCTS LISTENER
-         */
-
-        listenToProducts();
-
-
-        /*
-         * SHOW PAGE
-         */
-
-        loadingScreen.style.display =
-            "none";
-
-
-        console.log(
-            "PRODUCTS PAGE LOADED SUCCESSFULLY"
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "PRODUCTS INITIALIZATION ERROR:",
-            error
-        );
-
-
-        loadingScreen.innerHTML = `
-
-            <div style="
-                text-align:center;
-                padding:25px;
-            ">
-
-                <div style="
-                    font-size:40px;
-                    margin-bottom:15px;
-                ">
-                    ⚠️
-                </div>
-
-                <div style="
-                    font-size:18px;
-                    font-weight:800;
-                    margin-bottom:8px;
-                ">
-                    Unable to load Products
-                </div>
-
-                <div style="
-                    font-size:13px;
-                    opacity:.8;
-                    line-height:1.5;
-                ">
-                    ${escapeHtml(
-                        error.message ||
-                        "Something went wrong while loading your account."
-                    )}
-                </div>
-
-                <button
-                    onclick="location.reload()"
-                    style="
-                        margin-top:18px;
-                        padding:11px 18px;
-                        border:none;
-                        border-radius:10px;
-                        background:white;
-                        color:#0B4F3A;
-                        font-weight:800;
-                    "
-                >
-                    Refresh
-                </button>
-
-            </div>
-
-        `;
-
     }
-
-}
+);
 
 
 /* =====================================================
-   START
+   CLEANUP
 ===================================================== */
 
-startProductsPage();
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        if(
+            unsubscribeProducts
+        ){
+
+            unsubscribeProducts();
+
+        }
+
+    }
+);
 
 </script>
 
