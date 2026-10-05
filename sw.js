@@ -2,19 +2,13 @@
    KAYAH SERVICE WORKER
 ===================================================== */
 
-const CACHE_NAME = "kayah-v1";
-
+const CACHE_NAME = "kayah-v2";
 
 const APP_FILES = [
-
     "./",
-
     "./index.html",
-
     "./manifest.json",
-
     "./kayah-logo.png"
-
 ];
 
 
@@ -22,127 +16,132 @@ const APP_FILES = [
    INSTALL
 ===================================================== */
 
-self.addEventListener(
-    "install",
-    function(event){
+self.addEventListener("install", function(event){
 
-        event.waitUntil(
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(function(cache){
+                return cache.addAll(APP_FILES);
+            })
+    );
 
-            caches.open(CACHE_NAME)
-                .then(function(cache){
-
-                    return cache.addAll(APP_FILES);
-
-                })
-
-        );
-
-        self.skipWaiting();
-
-    }
-);
+    self.skipWaiting();
+});
 
 
 /* =====================================================
    ACTIVATE
 ===================================================== */
 
-self.addEventListener(
-    "activate",
-    function(event){
+self.addEventListener("activate", function(event){
 
-        event.waitUntil(
+    event.waitUntil(
 
-            caches.keys()
-                .then(function(cacheNames){
+        caches.keys()
+            .then(function(cacheNames){
 
-                    return Promise.all(
+                return Promise.all(
 
-                        cacheNames.map(
-                            function(cacheName){
+                    cacheNames.map(function(cacheName){
 
-                                if(
-                                    cacheName !== CACHE_NAME
-                                ){
+                        if(cacheName !== CACHE_NAME){
 
-                                    return caches.delete(
-                                        cacheName
-                                    );
+                            return caches.delete(cacheName);
 
-                                }
+                        }
 
-                            }
-                        )
+                    })
 
-                    );
+                );
 
-                })
+            })
 
-        );
+    );
 
-        self.clients.claim();
-
-    }
-);
+    self.clients.claim();
+});
 
 
 /* =====================================================
    FETCH
 ===================================================== */
 
-self.addEventListener(
-    "fetch",
-    function(event){
+self.addEventListener("fetch", function(event){
 
-        /*
-         * Use network first.
-         * If the network is unavailable,
-         * use the cached version.
-         */
+    /*
+       IMPORTANT:
+       Always use the network for HTML pages.
+
+       This prevents GitHub from showing an old
+       cached version of Dashboard, Products, etc.
+    */
+
+    if(event.request.method !== "GET"){
+        return;
+    }
+
+    const requestURL = new URL(event.request.url);
+
+    if(
+        event.request.mode === "navigate" ||
+        requestURL.pathname.endsWith(".html") ||
+        requestURL.pathname.endsWith("/")
+    ){
 
         event.respondWith(
 
             fetch(event.request)
-                .then(function(response){
-
-                    /*
-                     * Save a fresh copy.
-                     */
-
-                    if(
-                        response &&
-                        response.status === 200 &&
-                        response.type === "basic"
-                    ){
-
-                        const responseClone =
-                            response.clone();
-
-                        caches.open(CACHE_NAME)
-                            .then(function(cache){
-
-                                cache.put(
-                                    event.request,
-                                    responseClone
-                                );
-
-                            });
-
-                    }
-
-                    return response;
-
-                })
-
                 .catch(function(){
 
-                    return caches.match(
-                        event.request
-                    );
+                    return caches.match(event.request);
 
                 })
 
         );
 
+        return;
     }
-);
+
+
+    /*
+       Other assets:
+       Network first, then cache if offline.
+    */
+
+    event.respondWith(
+
+        fetch(event.request)
+            .then(function(response){
+
+                if(
+                    response &&
+                    response.status === 200 &&
+                    response.type === "basic"
+                ){
+
+                    const responseClone = response.clone();
+
+                    caches.open(CACHE_NAME)
+                        .then(function(cache){
+
+                            cache.put(
+                                event.request,
+                                responseClone
+                            );
+
+                        });
+
+                }
+
+                return response;
+
+            })
+            .catch(function(){
+
+                return caches.match(event.request);
+
+            })
+
+    );
+
+});
