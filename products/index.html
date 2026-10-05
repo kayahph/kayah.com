@@ -2309,7 +2309,8 @@ function renderProducts(){
                 "product-info";
 
 
-if(product.photoUrl){
+if (product.photoUrl) {
+
     const photo = document.createElement("img");
 
     photo.src = product.photoUrl;
@@ -2322,11 +2323,12 @@ if(product.photoUrl){
     photo.style.flexShrink = "0";
     photo.style.border = "1px solid #E5E8E2";
 
-    photo.onerror = function(){
+    photo.onerror = function () {
+        console.error("Unable to load product photo:", product.photoUrl);
         photo.style.display = "none";
     };
 
-    card.insertBefore(photo, info);
+    card.appendChild(photo);
 }
 
 
@@ -2712,11 +2714,9 @@ meta.appendChild(
 async function loadProducts(){
 
     if(!currentUser){
-
+        console.error("No current user.");
         return;
-
     }
-
 
     try{
 
@@ -2725,44 +2725,48 @@ async function loadProducts(){
             currentUser.uid
         );
 
-
-        const productsRef =
-            collection(
-                db,
-                "users",
-                currentUser.uid,
-                "products"
-            );
-
-
-        const snapshot =
-            await getDocs(
-                productsRef
-            );
-
-
-        currentProducts =
-            snapshot.docs.map(
-                function(productDoc){
-
-                    return {
-
-                        id:
-                            productDoc.id,
-
-                        ...productDoc.data()
-
-                    };
-
-                }
-            );
-
-
-        console.log(
-            "Products loaded:",
-            currentProducts
+        const productsRef = collection(
+            db,
+            "users",
+            currentUser.uid,
+            "products"
         );
 
+        console.log(
+            "Products path:",
+            "users/" +
+            currentUser.uid +
+            "/products"
+        );
+
+        const snapshot = await getDocs(productsRef);
+
+        console.log(
+            "Firestore product documents:",
+            snapshot.size
+        );
+
+        currentProducts = snapshot.docs.map(function(productDoc){
+
+            const data = productDoc.data();
+
+            console.log(
+                "Product document:",
+                productDoc.id,
+                data
+            );
+
+            return {
+                id: productDoc.id,
+                ...data
+            };
+
+        });
+
+        console.log(
+            "Products loaded successfully:",
+            currentProducts
+        );
 
         renderProducts();
 
@@ -2775,67 +2779,49 @@ async function loadProducts(){
             error
         );
 
+        console.error(
+            "Error code:",
+            error.code
+        );
 
-        if(
-            error.code ===
-            "permission-denied"
-        ){
+        console.error(
+            "Error message:",
+            error.message
+        );
 
-            productsList.innerHTML = `
-                <div
-                    class="empty-message"
-                    style="
-                        border-color:#F0CCCC;
-                        color:#9B3B3B;
-                    "
-                >
+        productsList.innerHTML = `
+            <div
+                class="empty-message"
+                style="
+                    border-color:#F0CCCC;
+                    color:#9B3B3B;
+                "
+            >
 
-                    ⚠️<br><br>
+                ⚠️<br><br>
 
-                    <strong>
-                        Unable to load your products
-                    </strong>
+                <strong>
+                    Unable to load your products
+                </strong>
 
-                    <br><br>
+                <br><br>
 
-                    Your account is connected,
-                    but Firebase is not allowing
-                    Kayah to read your product records.
+                ${safeText(
+                    error.message,
+                    "Unknown Firebase error."
+                )}
 
-                    <br><br>
+                <br><br>
 
-                    <small>
-                        permission-denied
-                    </small>
+                <small>
+                    ${safeText(
+                        error.code,
+                        "unknown-error"
+                    )}
+                </small>
 
-                </div>
-            `;
-
-        }
-
-        else{
-
-            productsList.innerHTML = `
-                <div
-                    class="empty-message"
-                    style="
-                        border-color:#F0CCCC;
-                        color:#9B3B3B;
-                    "
-                >
-
-                    ⚠️<br><br>
-
-                    Unable to load your products.
-
-                    <br><br>
-
-                    Please try again.
-
-                </div>
-            `;
-
-        }
+            </div>
+        `;
 
     }
 
