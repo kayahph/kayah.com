@@ -727,28 +727,61 @@ async function loadInvitation(){
 
 
     if(
-        invitation.expiresAt
-    ){
+    invitation.expiresAt
+){
 
-        const expiry =
-            new Date(
-                invitation.expiresAt
-            );
+    let expiry;
+
+    try{
 
         if(
-            !Number.isNaN(
-                expiry.getTime()
-            ) &&
-            expiry <= new Date()
+            typeof invitation.expiresAt.toDate === "function"
         ){
 
-            throw new Error(
-                "This staff invitation has expired."
-            );
+            expiry =
+                invitation.expiresAt.toDate();
+
+        }else{
+
+            expiry =
+                new Date(
+                    invitation.expiresAt
+                );
 
         }
 
+    }catch(error){
+
+        throw new Error(
+            "The invitation expiration date is invalid."
+        );
+
     }
+
+    if(
+        !expiry ||
+        Number.isNaN(
+            expiry.getTime()
+        )
+    ){
+
+        throw new Error(
+            "The invitation expiration date is invalid."
+        );
+
+    }
+
+    if(
+        expiry <= new Date()
+    ){
+
+        throw new Error(
+            "This staff invitation has expired."
+        );
+
+    }
+
+}
 
 
     invitedEmail.textContent =
