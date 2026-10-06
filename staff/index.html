@@ -1171,9 +1171,9 @@ import {
     getDoc,
     updateDoc,
     arrayUnion,
-    arrayRemove
+    arrayRemove,
+    setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 
 /* =====================================================
    FIREBASE CONFIG
@@ -2056,10 +2056,12 @@ window.saveStaff =
             "Saving...";
 
 
-      const staffRecord = {
+      const staffId = createStaffId();
+
+const staffRecord = {
 
     id:
-        createStaffId(),
+        staffId,
 
     uid:
         null,
@@ -2099,28 +2101,72 @@ window.saveStaff =
 
 };
 
-
         try{
 
-            const ownerRef =
-                doc(
-                    db,
-                    "users",
-                    currentUser.uid
-                );
+           const ownerRef =
+    doc(
+        db,
+        "users",
+        currentUser.uid
+    );
 
+const invitationRef =
+    doc(
+        db,
+        "staffInvitations",
+        staffId
+    );
 
-            await updateDoc(
-                ownerRef,
-                {
+await setDoc(
+    invitationRef,
+    {
+        invitationId:
+            staffId,
 
-                    staff:
-                        arrayUnion(
-                            staffRecord
-                        )
+        name:
+            name,
 
-                }
-            );
+        email:
+            email,
+
+        phone:
+            phone,
+
+        ownerUid:
+            currentUser.uid,
+
+        businessId:
+            currentUser.uid,
+
+        permissions:
+            permissions,
+
+        status:
+            "pending",
+
+        staffUid:
+            null,
+
+        createdAt:
+            new Date().toISOString(),
+
+        expiresAt:
+            new Date(
+                Date.now() +
+                (7 * 24 * 60 * 60 * 1000)
+            ).toISOString()
+    }
+);
+
+await updateDoc(
+    ownerRef,
+    {
+        staff:
+            arrayUnion(
+                staffRecord
+            )
+    }
+);
 
 
             currentStaff.push(
