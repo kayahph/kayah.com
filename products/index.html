@@ -59,6 +59,7 @@ body{
     -webkit-font-smoothing:antialiased;
 }
 
+
 /* =====================================================
    LOADING
 ===================================================== */
@@ -118,6 +119,7 @@ body{
     }
 }
 
+
 /* =====================================================
    TOP BAR
 ===================================================== */
@@ -173,6 +175,7 @@ body{
     color:#0B4F3A;
 }
 
+
 /* =====================================================
    MAIN
 ===================================================== */
@@ -183,6 +186,7 @@ body{
     margin:0 auto;
     padding:3px 18px 110px;
 }
+
 
 /* =====================================================
    PAGE HEADER
@@ -207,6 +211,7 @@ body{
     color:#8A938E;
 }
 
+
 /* =====================================================
    PLAN CARD
 ===================================================== */
@@ -218,7 +223,7 @@ body{
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 7px 28px rgba(11,79,58,.06);
-    margin-bottom:32px;
+    margin-bottom:22px;
 }
 
 .plan-top{
@@ -314,10 +319,6 @@ body{
     color:#16805C;
 }
 
-/* =====================================================
-   PROGRESS
-===================================================== */
-
 .progress-wrap{
     padding:0 20px 17px;
     background:#FBF8EF;
@@ -338,6 +339,49 @@ body{
     border-radius:20px;
     transition:width .3s ease;
 }
+
+
+/* =====================================================
+   PRODUCT ACTION BAR
+===================================================== */
+
+.product-action-bar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:28px;
+}
+
+.header-action{
+    min-height:50px;
+    border:1px solid #DDE2DD;
+    border-radius:11px;
+    background:#FFFFFF;
+    color:#0B4F3A;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 3px 12px rgba(11,79,58,.035);
+}
+
+.header-action.primary{
+    background:#0B4F3A;
+    border-color:#0B4F3A;
+    color:#FFFFFF;
+}
+
+.header-action.inventory{
+    background:#FFF4D9;
+    border-color:#F0E0B7;
+    color:#94630F;
+}
+
+.header-action:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
 
 /* =====================================================
    SECTION
@@ -360,6 +404,34 @@ body{
     font-size:11px;
     color:#8A938E;
 }
+
+
+/* =====================================================
+   ADD PRODUCT SECTION
+===================================================== */
+
+.add-product-section{
+    display:none;
+}
+
+.add-product-section.show{
+    display:block;
+}
+
+.back-products-button{
+    width:100%;
+    height:48px;
+    margin-bottom:14px;
+    border:1px solid #DDE2DD;
+    border-radius:10px;
+    background:#FFFFFF;
+    color:#0B4F3A;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+}
+
 
 /* =====================================================
    FORM
@@ -430,19 +502,11 @@ body{
     color:#9AA19D;
 }
 
-/* =====================================================
-   TWO COLUMN FORM
-===================================================== */
-
 .form-row{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
 }
-
-/* =====================================================
-   PRICE BOX
-===================================================== */
 
 .price-note{
     margin-top:-5px;
@@ -455,6 +519,7 @@ body{
     line-height:1.5;
     color:#7D877F;
 }
+
 
 /* =====================================================
    ADD BUTTON
@@ -485,115 +550,121 @@ body{
     cursor:not-allowed;
 }
 
+
 /* =====================================================
-   PRODUCTS
+   PRODUCTS LIST
 ===================================================== */
+
+.products-section{
+    display:block;
+}
 
 .products-list{
     display:grid;
     gap:10px;
 }
 
-.product-card{
+.product-list-item{
     background:#FFFFFF;
     border:1px solid #E5E8E2;
-    border-radius:12px;
-    padding:16px;
+    border-radius:14px;
+    padding:12px;
     display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:15px;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 3px 12px rgba(11,79,58,.035);
 }
 
-.product-info{
-    min-width:0;
+.product-list-photo{
+    width:64px;
+    height:64px;
+    min-width:64px;
+    border-radius:12px;
+    object-fit:cover;
+    border:1px solid #E5E8E2;
+    background:#F3F6F3;
+}
+
+.product-list-photo-placeholder{
+    width:64px;
+    height:64px;
+    min-width:64px;
+    border-radius:12px;
+    background:#F3F6F3;
+    border:1px solid #E5E8E2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.product-list-main{
     flex:1;
+    min-width:0;
 }
 
-.product-name{
+.product-list-name{
     font-size:14px;
     font-weight:800;
     color:#26332C;
     overflow-wrap:anywhere;
 }
 
-.product-price-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:7px;
+.product-list-category{
+    margin-top:3px;
+    font-size:10px;
+    color:#8A938E;
 }
 
-.price-item{
-    font-size:11px;
-    color:#7D877F;
-}
-
-.price-item strong{
-    display:block;
-    margin-top:2px;
-    font-size:14px;
-    color:#0B4F3A;
-}
-
-.price-item.cost strong{
-    color:#7B6A3D;
-}
-
-.product-meta{
+.product-list-meta{
     display:flex;
     flex-wrap:wrap;
     gap:6px;
-    margin-top:9px;
+    margin-top:7px;
 }
 
-.meta-badge{
-    display:inline-flex;
-    align-items:center;
-    padding:5px 7px;
-    border-radius:6px;
-    background:#F3F6F3;
+.product-list-meta-item{
+    font-size:10px;
     color:#526158;
-    font-size:9px;
+    background:#F3F6F3;
+    border-radius:7px;
+    padding:5px 7px;
     font-weight:700;
 }
 
-.meta-badge.stock{
+.product-list-price{
+    color:#0B4F3A;
+}
+
+.product-list-stock{
     background:#EEF8F2;
     color:#176B43;
 }
 
-.meta-badge.low-stock{
+.product-list-low{
     background:#FFF4D9;
     color:#94630F;
 }
 
-.meta-badge.inactive{
+.product-list-inactive{
     background:#FDECEC;
     color:#A33A3A;
 }
 
-.product-description{
-    margin-top:8px;
-    font-size:10px;
-    line-height:1.5;
-    color:#8A938E;
-    overflow-wrap:anywhere;
-}
-
-.product-date{
-    margin-top:8px;
+.product-list-date{
+    margin-top:7px;
     font-size:9px;
     color:#A0A8A3;
 }
 
-.product-actions{
+.product-list-actions{
     display:flex;
     flex-direction:column;
     gap:6px;
+    flex-shrink:0;
 }
 
-.small-button{
+.product-action-btn{
     border:1px solid #E0E5E0;
     background:#FFFFFF;
     color:#0B4F3A;
@@ -603,13 +674,21 @@ body{
     font-size:10px;
     font-weight:700;
     cursor:pointer;
+    white-space:nowrap;
 }
 
-.small-button.delete{
+.product-action-btn.inventory{
+    background:#FFF4D9;
+    border-color:#F0E0B7;
+    color:#94630F;
+}
+
+.product-action-btn.delete{
     color:#A33A3A;
     background:#FFF5F5;
     border-color:#F0D5D5;
 }
+
 
 /* =====================================================
    EMPTY
@@ -625,6 +704,7 @@ body{
     font-size:11px;
     line-height:1.5;
 }
+
 
 /* =====================================================
    ERROR / SUCCESS
@@ -653,6 +733,7 @@ body{
     font-size:11px;
     line-height:1.5;
 }
+
 
 /* =====================================================
    BOTTOM NAV
@@ -702,6 +783,7 @@ body{
     background:#FFF4D9;
 }
 
+
 /* =====================================================
    MOBILE
 ===================================================== */
@@ -717,8 +799,14 @@ body{
         padding:7px 9px;
     }
 
-    .product-card{
+    .product-list-item{
         align-items:flex-start;
+    }
+
+    .product-list-actions{
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:flex-end;
     }
 
 }
@@ -753,13 +841,40 @@ body{
         grid-template-columns:1fr;
     }
 
+    .product-action-bar{
+        grid-template-columns:1fr;
+    }
+
+    .product-list-item{
+        gap:9px;
+        padding:10px;
+    }
+
+    .product-list-photo,
+    .product-list-photo-placeholder{
+        width:55px;
+        height:55px;
+        min-width:55px;
+    }
+
+    .product-list-name{
+        font-size:13px;
+    }
+
+    .product-action-btn{
+        padding:6px 7px;
+        font-size:9px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      LOADING
@@ -830,6 +945,11 @@ body{
 
 <main class="main">
 
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
     <div class="page-header">
 
         <div class="page-title">
@@ -843,7 +963,9 @@ body{
     </div>
 
 
-    <!-- PLAN -->
+    <!-- =================================================
+         PLAN
+    ================================================== -->
 
     <section class="plan-card">
 
@@ -935,10 +1057,77 @@ body{
 
 
     <!-- =================================================
+         PRODUCT ACTION BUTTONS
+    ================================================== -->
+
+    <div class="product-action-bar">
+
+        <button
+            type="button"
+            class="header-action inventory"
+            id="openProductInventoryButton"
+        >
+            📦 Product Inventory
+        </button>
+
+        <button
+            type="button"
+            class="header-action primary"
+            id="openAddProductButton"
+        >
+            + Add Product
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         PRODUCTS LIST
+    ================================================== -->
+
+    <section
+        class="section products-section"
+        id="productsSection"
+    >
+
+        <div class="section-title">
+            Your products
+        </div>
+
+        <div class="section-subtitle">
+            Products saved to your Kayah account.
+        </div>
+
+        <div
+            class="products-list"
+            id="productsList"
+        >
+
+            <div class="empty-message">
+                Loading products...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
          ADD PRODUCT
     ================================================== -->
 
-    <section class="section">
+    <section
+        class="section add-product-section"
+        id="addProductSection"
+    >
+
+        <button
+            type="button"
+            class="back-products-button"
+            id="backToProductsButton"
+        >
+            ← Back to Products
+        </button>
 
         <div class="section-title">
             Add product
@@ -949,12 +1138,6 @@ body{
         </div>
 
         <div class="form-card">
-
-
-
-
-
-
 
 
             <!-- PRODUCT NAME -->
@@ -979,60 +1162,61 @@ body{
             </div>
 
 
-<!-- PRODUCT PHOTO -->
-<div class="form-group">
-    <label class="form-label">
-        Product Photo
-    </label>
+            <!-- PRODUCT PHOTO -->
 
-    <div
-        style="
-            border:2px dashed #DDE2DD;
-            border-radius:12px;
-            padding:16px;
-            text-align:center;
-            background:#FAFAF7;
-        "
-    >
+            <div class="form-group">
 
-        <input
-            type="file"
-            id="productPhoto"
-            accept="image/*"
-            style="width:100%;"
-        >
+                <label class="form-label">
+                    Product Photo
+                </label>
 
-        <div
-            id="photoPreview"
-            style="
-                display:none;
-                margin-top:12px;
-            "
-        >
-            <img
-                id="photoPreviewImage"
-                src=""
-                alt="Product preview"
-                style="
-                    width:100px;
-                    height:100px;
-                    object-fit:cover;
-                    border-radius:12px;
-                    border:1px solid #DDE2DD;
-                "
-            >
-        </div>
+                <div
+                    style="
+                        border:2px dashed #DDE2DD;
+                        border-radius:12px;
+                        padding:16px;
+                        text-align:center;
+                        background:#FAFAF7;
+                    "
+                >
 
-    </div>
+                    <input
+                        type="file"
+                        id="productPhoto"
+                        accept="image/*"
+                        style="width:100%;"
+                    >
 
-    <div class="form-help">
-        Optional. Add a clear photo of your product.
-    </div>
-</div>
+                    <div
+                        id="photoPreview"
+                        style="
+                            display:none;
+                            margin-top:12px;
+                        "
+                    >
 
+                        <img
+                            id="photoPreviewImage"
+                            src=""
+                            alt="Product preview"
+                            style="
+                                width:100px;
+                                height:100px;
+                                object-fit:cover;
+                                border-radius:12px;
+                                border:1px solid #DDE2DD;
+                            "
+                        >
 
+                    </div>
 
+                </div>
 
+                <div class="form-help">
+                    Optional. Add a clear photo of your product.
+                </div>
+
+            </div>
 
 
             <!-- COST + SELLING PRICE -->
@@ -1184,254 +1368,257 @@ body{
 
             </div>
 
-<!-- TRACK STOCK -->
 
-<div class="form-group">
+            <!-- TRACK STOCK -->
 
-    <label class="form-label">
-        Track Stock?
-    </label>
+            <div class="form-group">
 
-    <div style="
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    ">
+                <label class="form-label">
+                    Track Stock?
+                </label>
 
-        <label style="
-            border:1px solid #DDE2DD;
-            padding:14px;
-            border-radius:10px;
-            text-align:center;
-            cursor:pointer;
-        ">
+                <div
+                    style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr;
+                        gap:10px;
+                    "
+                >
 
-            <input
-                type="radio"
-                name="trackStock"
-                id="trackStockYes"
-                value="yes"
-            >
+                    <label
+                        style="
+                            border:1px solid #DDE2DD;
+                            padding:14px;
+                            border-radius:10px;
+                            text-align:center;
+                            cursor:pointer;
+                        "
+                    >
 
-            Yes — Track Stock
+                        <input
+                            type="radio"
+                            name="trackStock"
+                            id="trackStockYes"
+                            value="yes"
+                        >
 
-        </label>
+                        Yes — Track Stock
 
-
-        <label style="
-            border:1px solid #DDE2DD;
-            padding:14px;
-            border-radius:10px;
-            text-align:center;
-            cursor:pointer;
-        ">
-
-            <input
-                type="radio"
-                name="trackStock"
-                id="trackStockNo"
-                value="no"
-                checked
-            >
-
-            No — Don't Track
-
-        </label>
-
-    </div>
-
-    <div class="form-help">
-        Turn this off for services and made-to-order products.
-        Sales can still count quantity sold.
-    </div>
-
-</div>
+                    </label>
 
 
+                    <label
+                        style="
+                            border:1px solid #DDE2DD;
+                            padding:14px;
+                            border-radius:10px;
+                            text-align:center;
+                            cursor:pointer;
+                        "
+                    >
 
-            <!-- STOCK + UNIT -->
-<!-- STOCK + UNIT -->
+                        <input
+                            type="radio"
+                            name="trackStock"
+                            id="trackStockNo"
+                            value="no"
+                            checked
+                        >
 
-<div id="stockFields">
+                        No — Don't Track
 
-<div class="form-row">
+                    </label>
+
+                </div>
+
+                <div class="form-help">
+                    Turn this off for services and made-to-order products.
+                    Sales can still count quantity sold.
+                </div>
+
+            </div>
+
+
+            <!-- STOCK -->
+
+            <div id="stockFields">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="stockQuantity"
+                        >
+                            Stock Quantity
+                        </label>
+
+                        <input
+                            class="form-input"
+                            id="stockQuantity"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="productUnit"
+                        >
+                            Unit
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="productUnit"
+                        >
+
+                            <option value="piece">
+                                Piece
+                            </option>
+
+                            <option value="bottle">
+                                Bottle
+                            </option>
+
+                            <option value="box">
+                                Box
+                            </option>
+
+                            <option value="pack">
+                                Pack
+                            </option>
+
+                            <option value="kg">
+                                Kilogram
+                            </option>
+
+                            <option value="gram">
+                                Gram
+                            </option>
+
+                            <option value="liter">
+                                Liter
+                            </option>
+
+                            <option value="meter">
+                                Meter
+                            </option>
+
+                            <option value="service">
+                                Service
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOW STOCK -->
 
                 <div class="form-group">
 
                     <label
                         class="form-label"
-                        for="stockQuantity"
+                        for="lowStockAlert"
                     >
-                        Stock Quantity
+                        Low Stock Alert
                     </label>
 
                     <input
                         class="form-input"
-                        id="stockQuantity"
+                        id="lowStockAlert"
                         type="number"
                         min="0"
                         step="1"
-                        placeholder="0"
+                        value="5"
+                        placeholder="5"
                         inputmode="numeric"
                     >
 
                 </div>
 
+            </div>
 
-                <div class="form-group">
 
-                    <label
-                        class="form-label"
-                        for="productUnit"
-                    >
-                        Unit
-                    </label>
+            <!-- MATERIALS USED -->
 
-                    <select
-                        class="form-select"
-                        id="productUnit"
-                    >
+            <div class="form-group">
 
-                        <option value="piece">
-                            Piece
-                        </option>
+                <label class="form-label">
+                    Materials Used
+                </label>
 
-                        <option value="bottle">
-                            Bottle
-                        </option>
+                <div
+                    class="form-help"
+                    style="margin-bottom:10px;"
+                >
+                    Select the materials needed to make or provide one unit of this product.
+                </div>
 
-                        <option value="box">
-                            Box
-                        </option>
+                <div
+                    id="materialsUsedList"
+                    style="
+                        display:grid;
+                        gap:10px;
+                    "
+                ></div>
 
-                        <option value="pack">
-                            Pack
-                        </option>
+                <button
+                    type="button"
+                    id="addMaterialButton"
+                    style="
+                        width:100%;
+                        height:48px;
+                        margin-top:10px;
+                        border:1px dashed #16805C;
+                        border-radius:10px;
+                        background:#F3F9F5;
+                        color:#0B4F3A;
+                        font-family:inherit;
+                        font-size:12px;
+                        font-weight:800;
+                        cursor:pointer;
+                    "
+                >
+                    + Add Material
+                </button>
 
-                        <option value="kg">
-                            Kilogram
-                        </option>
-
-                        <option value="gram">
-                            Gram
-                        </option>
-
-                        <option value="liter">
-                            Liter
-                        </option>
-
-                        <option value="meter">
-                            Meter
-                        </option>
-
-                        <option value="service">
-                            Service
-                        </option>
-
-                        <option value="other">
-                            Other
-                        </option>
-
-                    </select>
-
+                <div
+                    id="materialsEmptyMessage"
+                    style="
+                        margin-top:9px;
+                        padding:10px;
+                        border-radius:9px;
+                        background:#FBF8EF;
+                        color:#8A938E;
+                        font-size:10px;
+                        line-height:1.5;
+                        display:none;
+                    "
+                >
+                    No materials have been added yet.
+                    Add your materials first from the Materials page.
                 </div>
 
             </div>
 
 
-            <!-- LOW STOCK -->
-
-            <div class="form-group">
-
-                <label
-                    class="form-label"
-                    for="lowStockAlert"
-                >
-                    Low Stock Alert
-                </label>
-
-                <input
-                    class="form-input"
-                    id="lowStockAlert"
-                    type="number"
-                    min="0"
-                    step="1"
-                    value="5"
-                    placeholder="5"
-                    inputmode="numeric"
-                >
-
-            </div>
-
-</div>
-
-<!-- =================================================
-     MATERIALS USED
-================================================== -->
-
-<div class="form-group">
-
-    <label class="form-label">
-        Materials Used
-    </label>
-
-    <div class="form-help" style="margin-bottom:10px;">
-        Select the materials needed to make or provide one unit of this product.
-    </div>
-
-    <div
-        id="materialsUsedList"
-        style="
-            display:grid;
-            gap:10px;
-        "
-    ></div>
-
-    <button
-        type="button"
-        id="addMaterialButton"
-        style="
-            width:100%;
-            height:48px;
-            margin-top:10px;
-            border:1px dashed #16805C;
-            border-radius:10px;
-            background:#F3F9F5;
-            color:#0B4F3A;
-            font-family:inherit;
-            font-size:12px;
-            font-weight:800;
-            cursor:pointer;
-        "
-    >
-        + Add Material
-    </button>
-
-    <div
-        id="materialsEmptyMessage"
-        style="
-            margin-top:9px;
-            padding:10px;
-            border-radius:9px;
-            background:#FBF8EF;
-            color:#8A938E;
-            font-size:10px;
-            line-height:1.5;
-            display:none;
-        "
-    >
-        No materials have been added yet.
-        Add your materials first from the Materials page.
-    </div>
-
-</div>
-
-
-
-
-
-
-<!-- STATUS -->
+            <!-- STATUS -->
 
             <div class="form-group">
 
@@ -1501,34 +1688,6 @@ body{
                 class="success-message"
                 id="successMessage"
             ></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         YOUR PRODUCTS
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-title">
-            Your products
-        </div>
-
-        <div class="section-subtitle">
-            Products saved to your Kayah account.
-        </div>
-
-        <div
-            class="products-list"
-            id="productsList"
-        >
-
-            <div class="empty-message">
-                Loading products...
-            </div>
 
         </div>
 
@@ -1657,15 +1816,19 @@ const firebaseConfig = {
 
     appId:
         "1:49853785143:web:23182e6e11696ac03dcbb2"
-        
-        };
 
-        
-        
-        const CLOUDINARY_CLOUD_NAME = "tfzuiwcp";
-const CLOUDINARY_UPLOAD_PRESET = "kayah_products";
-        
+};
 
+
+/* =====================================================
+   CLOUDINARY
+===================================================== */
+
+const CLOUDINARY_CLOUD_NAME =
+    "tfzuiwcp";
+
+const CLOUDINARY_UPLOAD_PRESET =
+    "kayah_products";
 
 
 /* =====================================================
@@ -1683,9 +1846,8 @@ const db =
 
 
 /* =====================================================
-   UPLOAD PHOTO FUNCTION 
+   UPLOAD PHOTO
 ===================================================== */
-
 
 async function uploadProductPhoto(file){
 
@@ -1694,33 +1856,50 @@ async function uploadProductPhoto(file){
     }
 
     if(!file.type.startsWith("image/")){
-        throw new Error("Please select an image file.");
+
+        throw new Error(
+            "Please select an image file."
+        );
+
     }
 
     if(file.size > 5 * 1024 * 1024){
-        throw new Error("Product photo must be 5 MB or smaller.");
+
+        throw new Error(
+            "Product photo must be 5 MB or smaller."
+        );
+
     }
 
-    const formData = new FormData();
+    const formData =
+        new FormData();
 
-    formData.append("file", file);
+    formData.append(
+        "file",
+        file
+    );
 
     formData.append(
         "upload_preset",
         CLOUDINARY_UPLOAD_PRESET
     );
 
-    const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-        {
-            method: "POST",
-            body: formData
-        }
-    );
+    const response =
+        await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+            {
+                method:"POST",
+                body:formData
+            }
+        );
 
-    const data = await response.json();
+    const data =
+        await response.json();
 
-    if(!response.ok || !data.secure_url){
+    if(
+        !response.ok ||
+        !data.secure_url
+    ){
 
         console.error(
             "Cloudinary upload error:",
@@ -1731,18 +1910,12 @@ async function uploadProductPhoto(file){
             data.error?.message ||
             "Photo upload failed."
         );
+
     }
 
     return data.secure_url;
+
 }
-
-
-
-
-
-
-
-
 
 
 /* =====================================================
@@ -1750,133 +1923,188 @@ async function uploadProductPhoto(file){
 ===================================================== */
 
 const loadingScreen =
-    document.getElementById("loadingScreen");
+    document.getElementById(
+        "loadingScreen"
+    );
 
 const productName =
-    document.getElementById("productName");
+    document.getElementById(
+        "productName"
+    );
 
 const costPrice =
-    document.getElementById("costPrice");
+    document.getElementById(
+        "costPrice"
+    );
 
 const sellingPrice =
-    document.getElementById("sellingPrice");
+    document.getElementById(
+        "sellingPrice"
+    );
 
 const productCategory =
-    document.getElementById("productCategory");
+    document.getElementById(
+        "productCategory"
+    );
 
 const productSku =
-    document.getElementById("productSku");
+    document.getElementById(
+        "productSku"
+    );
 
 const stockQuantity =
-    document.getElementById("stockQuantity");
+    document.getElementById(
+        "stockQuantity"
+    );
 
 const productUnit =
-    document.getElementById("productUnit");
+    document.getElementById(
+        "productUnit"
+    );
 
 const lowStockAlert =
-    document.getElementById("lowStockAlert");
-    
-    
-    const trackStockYes =
-    document.getElementById("trackStockYes");
+    document.getElementById(
+        "lowStockAlert"
+    );
+
+const trackStockYes =
+    document.getElementById(
+        "trackStockYes"
+    );
 
 const trackStockNo =
-    document.getElementById("trackStockNo");
+    document.getElementById(
+        "trackStockNo"
+    );
 
 const stockFields =
-    document.getElementById("stockFields");
-    
+    document.getElementById(
+        "stockFields"
+    );
 
 const productStatus =
-    document.getElementById("productStatus");
+    document.getElementById(
+        "productStatus"
+    );
 
 const productDescription =
-    document.getElementById("productDescription");
+    document.getElementById(
+        "productDescription"
+    );
 
 const addProductButton =
-    document.getElementById("addProductButton");
+    document.getElementById(
+        "addProductButton"
+    );
 
 const productsList =
-    document.getElementById("productsList");
+    document.getElementById(
+        "productsList"
+    );
 
 const productCount =
-    document.getElementById("productUsage");
+    document.getElementById(
+        "productUsage"
+    );
 
 const productLimit =
-    document.getElementById("productLimit");
+    document.getElementById(
+        "productLimit"
+    );
 
 const progressBar =
-    document.getElementById("progressBar");
+    document.getElementById(
+        "progressBar"
+    );
 
 const planName =
-    document.getElementById("planName");
+    document.getElementById(
+        "planName"
+    );
 
 const planDescription =
-    document.getElementById("planDescription");
+    document.getElementById(
+        "planDescription"
+    );
 
 const planBadge =
-    document.getElementById("planBadge");
+    document.getElementById(
+        "planBadge"
+    );
 
 const errorMessage =
-    document.getElementById("errorMessage");
+    document.getElementById(
+        "errorMessage"
+    );
 
 const successMessage =
-    document.getElementById("successMessage");
+    document.getElementById(
+        "successMessage"
+    );
 
+const productPhoto =
+    document.getElementById(
+        "productPhoto"
+    );
 
+const photoPreview =
+    document.getElementById(
+        "photoPreview"
+    );
 
-const productPhoto = document.getElementById("productPhoto");
-const photoPreview = document.getElementById("photoPreview");
-const photoPreviewImage = document.getElementById("photoPreviewImage");
+const photoPreviewImage =
+    document.getElementById(
+        "photoPreviewImage"
+    );
 
 const materialsUsedList =
-    document.getElementById("materialsUsedList");
+    document.getElementById(
+        "materialsUsedList"
+    );
 
 const addMaterialButton =
-    document.getElementById("addMaterialButton");
+    document.getElementById(
+        "addMaterialButton"
+    );
 
 const materialsEmptyMessage =
-    document.getElementById("materialsEmptyMessage");
-
-let currentMaterials = [];
-
-let selectedMaterials = [];
-
-
-
-
-productPhoto.addEventListener("change", function(){
-
-    const file = productPhoto.files[0];
-
-    if(!file){
-        photoPreview.style.display = "none";
-        photoPreviewImage.src = "";
-        return;
-    }
-
-    if(!file.type.startsWith("image/")){
-        alert("Please select an image file.");
-        productPhoto.value = "";
-        photoPreview.style.display = "none";
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-        photoPreviewImage.src = e.target.result;
-        photoPreview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-});
-
-
+    document.getElementById(
+        "materialsEmptyMessage"
+    );
 
 
 /* =====================================================
-   GLOBAL USER
+   PAGE SECTIONS / BUTTONS
+===================================================== */
+
+const productsSection =
+    document.getElementById(
+        "productsSection"
+    );
+
+const addProductSection =
+    document.getElementById(
+        "addProductSection"
+    );
+
+const openAddProductButton =
+    document.getElementById(
+        "openAddProductButton"
+    );
+
+const backToProductsButton =
+    document.getElementById(
+        "backToProductsButton"
+    );
+
+const openProductInventoryButton =
+    document.getElementById(
+        "openProductInventoryButton"
+    );
+
+
+/* =====================================================
+   GLOBAL DATA
 ===================================================== */
 
 let currentUser = null;
@@ -1885,6 +2113,191 @@ let currentProducts = [];
 
 let currentLimit = 100;
 
+let currentMaterials = [];
+
+let selectedMaterials = [];
+
+
+/* =====================================================
+   PRODUCT / FORM VIEW
+===================================================== */
+
+function showProductsView(){
+
+    productsSection.style.display =
+        "block";
+
+    addProductSection.classList.remove(
+        "show"
+    );
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function showAddProductView(){
+
+    if(
+        currentProducts.length >=
+        currentLimit
+    ){
+
+        showError(
+            "You have reached your product limit of " +
+            currentLimit +
+            " products."
+        );
+
+        return;
+
+    }
+
+    productsSection.style.display =
+        "none";
+
+    addProductSection.classList.add(
+        "show"
+    );
+
+    errorMessage.style.display =
+        "none";
+
+    successMessage.style.display =
+        "none";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   OPEN ADD PRODUCT
+===================================================== */
+
+openAddProductButton.addEventListener(
+    "click",
+    showAddProductView
+);
+
+
+/* =====================================================
+   BACK TO PRODUCTS
+===================================================== */
+
+backToProductsButton.addEventListener(
+    "click",
+    function(){
+
+        clearProductForm();
+
+        showProductsView();
+
+    }
+);
+
+
+/* =====================================================
+   PRODUCT INVENTORY
+===================================================== */
+
+openProductInventoryButton.addEventListener(
+    "click",
+    function(){
+
+        window.location.href =
+            "../inventory/";
+
+    }
+);
+
+
+/* =====================================================
+   PHOTO PREVIEW
+===================================================== */
+
+productPhoto.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            productPhoto.files[0];
+
+        if(!file){
+
+            photoPreview.style.display =
+                "none";
+
+            photoPreviewImage.src =
+                "";
+
+            return;
+
+        }
+
+        if(
+            !file.type.startsWith(
+                "image/"
+            )
+        ){
+
+            alert(
+                "Please select an image file."
+            );
+
+            productPhoto.value =
+                "";
+
+            photoPreview.style.display =
+                "none";
+
+            return;
+
+        }
+
+        if(
+            file.size >
+            5 * 1024 * 1024
+        ){
+
+            alert(
+                "Product photo must be 5 MB or smaller."
+            );
+
+            productPhoto.value =
+                "";
+
+            photoPreview.style.display =
+                "none";
+
+            return;
+
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(event){
+
+                photoPreviewImage.src =
+                    event.target.result;
+
+                photoPreview.style.display =
+                    "block";
+
+            };
+
+        reader.readAsDataURL(file);
+
+    }
+);
 
 
 /* =====================================================
@@ -1908,29 +2321,25 @@ async function loadMaterials(){
             );
 
         const snapshot =
-            await getDocs(materialsRef);
+            await getDocs(
+                materialsRef
+            );
 
         currentMaterials =
-            snapshot.docs.map(function(materialDoc){
+            snapshot.docs.map(
+                function(materialDoc){
 
-                const data =
-                    materialDoc.data();
+                    const data =
+                        materialDoc.data();
 
-                return {
+                    return {
+                        id:
+                            materialDoc.id,
+                        ...data
+                    };
 
-                    id:
-                        materialDoc.id,
-
-                    ...data
-
-                };
-
-            });
-
-        console.log(
-            "Kayah materials loaded:",
-            currentMaterials
-        );
+                }
+            );
 
         if(
             currentMaterials.length === 0
@@ -1976,13 +2385,16 @@ async function loadMaterials(){
 
 function renderMaterialRows(){
 
-    materialsUsedList.innerHTML = "";
+    materialsUsedList.innerHTML =
+        "";
 
     selectedMaterials.forEach(
-        function(item, index){
+        function(item,index){
 
             const row =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             row.style.cssText = `
                 display:grid;
@@ -1996,10 +2408,10 @@ function renderMaterialRows(){
             `;
 
 
-            /* MATERIAL SELECT */
-
             const select =
-                document.createElement("select");
+                document.createElement(
+                    "select"
+                );
 
             select.className =
                 "form-select";
@@ -2010,10 +2422,14 @@ function renderMaterialRows(){
             select.style.padding =
                 "10px";
 
-            const defaultOption =
-                document.createElement("option");
 
-            defaultOption.value = "";
+            const defaultOption =
+                document.createElement(
+                    "option"
+                );
+
+            defaultOption.value =
+                "";
 
             defaultOption.textContent =
                 "Select material";
@@ -2027,7 +2443,9 @@ function renderMaterialRows(){
                 function(material){
 
                     const option =
-                        document.createElement("option");
+                        document.createElement(
+                            "option"
+                        );
 
                     option.value =
                         material.id;
@@ -2068,10 +2486,10 @@ function renderMaterialRows(){
             );
 
 
-            /* QUANTITY */
-
             const quantity =
-                document.createElement("input");
+                document.createElement(
+                    "input"
+                );
 
             quantity.type =
                 "number";
@@ -2109,10 +2527,10 @@ function renderMaterialRows(){
             );
 
 
-            /* REMOVE */
-
             const removeButton =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
             removeButton.type =
                 "button";
@@ -2146,13 +2564,21 @@ function renderMaterialRows(){
             );
 
 
-            row.appendChild(select);
+            row.appendChild(
+                select
+            );
 
-            row.appendChild(quantity);
+            row.appendChild(
+                quantity
+            );
 
-            row.appendChild(removeButton);
+            row.appendChild(
+                removeButton
+            );
 
-            materialsUsedList.appendChild(row);
+            materialsUsedList.appendChild(
+                row
+            );
 
         }
     );
@@ -2179,11 +2605,8 @@ function addMaterialRow(){
 
     selectedMaterials.push({
 
-        materialId:
-            "",
-
-        quantity:
-            ""
+        materialId:"",
+        quantity:""
 
     });
 
@@ -2202,16 +2625,13 @@ addMaterialButton.addEventListener(
 );
 
 
-
-
-
 /* =====================================================
    SAFE TEXT
 ===================================================== */
 
 function safeText(
     value,
-    fallback = ""
+    fallback=""
 ){
 
     if(
@@ -2224,9 +2644,12 @@ function safeText(
 
     }
 
-    return String(value).trim();
+    return String(
+        value
+    ).trim();
 
 }
+
 
 /* =====================================================
    TRACK STOCK
@@ -2238,7 +2661,9 @@ function updateStockFields(){
         trackStockYes.checked;
 
     stockFields.style.display =
-        tracking ? "block" : "none";
+        tracking
+            ? "block"
+            : "none";
 
     stockQuantity.disabled =
         !tracking;
@@ -2248,6 +2673,7 @@ function updateStockFields(){
 
     lowStockAlert.disabled =
         !tracking;
+
 }
 
 
@@ -2256,19 +2682,12 @@ trackStockYes.addEventListener(
     updateStockFields
 );
 
-
 trackStockNo.addEventListener(
     "change",
     updateStockFields
 );
 
-
 updateStockFields();
-
-
-
-
-
 
 
 /* =====================================================
@@ -2285,6 +2704,7 @@ function showError(message){
 
     successMessage.style.display =
         "none";
+
 }
 
 
@@ -2348,45 +2768,35 @@ function getProductLimit(data){
         data.trialActive === true;
 
 
-    if(
-        trialActive
-    ){
+    if(trialActive){
 
         return 100;
 
     }
 
 
-    if(
-        plan === "free"
-    ){
+    if(plan === "free"){
 
         return 30;
 
     }
 
 
-    if(
-        plan === "starter"
-    ){
+    if(plan === "starter"){
 
         return 150;
 
     }
 
 
-    if(
-        plan === "business"
-    ){
+    if(plan === "business"){
 
         return 500;
 
     }
 
 
-    if(
-        plan === "pro"
-    ){
+    if(plan === "pro"){
 
         return 2000;
 
@@ -2417,15 +2827,19 @@ function updatePlanUI(data){
 
     const trialEnd =
         data.trialEndsAt &&
-        typeof data.trialEndsAt.toDate === "function"
+        typeof data.trialEndsAt.toDate ===
+            "function"
+
             ? data.trialEndsAt.toDate()
+
             : null;
 
 
     const trialStillActive =
         trialActive &&
         trialEnd &&
-        trialEnd.getTime() > Date.now();
+        trialEnd.getTime() >
+            Date.now();
 
 
     currentLimit =
@@ -2496,6 +2910,7 @@ function updatePlanUI(data){
         planBadge.textContent =
             "ACTIVE";
 
+
         planBadge.classList.remove(
             "expired"
         );
@@ -2530,10 +2945,12 @@ function updateUsageUI(){
 
 
     const percentage =
-        Math.min(
-            100,
-            (count / currentLimit) * 100
-        );
+        currentLimit > 0
+            ? Math.min(
+                100,
+                (count / currentLimit) * 100
+            )
+            : 0;
 
 
     progressBar.style.width =
@@ -2545,20 +2962,20 @@ function updateUsageUI(){
         count >= currentLimit
     ){
 
-        addProductButton.disabled =
+        openAddProductButton.disabled =
             true;
 
-        addProductButton.textContent =
+        openAddProductButton.textContent =
             "Product Limit Reached";
 
     }
 
     else{
 
-        addProductButton.disabled =
+        openAddProductButton.disabled =
             false;
 
-        addProductButton.textContent =
+        openAddProductButton.textContent =
             "+ Add Product";
 
     }
@@ -2604,9 +3021,7 @@ function formatPrice(price){
 function formatDate(value){
 
     if(!value){
-
         return "";
-
     }
 
 
@@ -2616,7 +3031,8 @@ function formatDate(value){
 
 
         if(
-            typeof value.toDate === "function"
+            typeof value.toDate ===
+            "function"
         ){
 
             date =
@@ -2633,7 +3049,9 @@ function formatDate(value){
 
 
         if(
-            isNaN(date.getTime())
+            isNaN(
+                date.getTime()
+            )
         ){
 
             return "";
@@ -2679,7 +3097,7 @@ function renderProducts(){
             <div class="empty-message">
                 📦<br><br>
                 You haven't added any products yet.<br>
-                Add your first product above.
+                Tap <strong>+ Add Product</strong> above to add your first product.
             </div>
         `;
 
@@ -2693,55 +3111,107 @@ function renderProducts(){
     currentProducts.forEach(
         function(product){
 
-            const card =
-                document.createElement("div");
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "product-list-item";
 
 
-            card.className =
-                "product-card";
+            /* =================================================
+               PHOTO
+            ================================================= */
+
+            let photoElement = null;
 
 
-            const info =
-                document.createElement("div");
+            if(product.photoUrl){
+
+                photoElement =
+                    document.createElement(
+                        "img"
+                    );
+
+                photoElement.className =
+                    "product-list-photo";
+
+                photoElement.src =
+                    product.photoUrl;
+
+                photoElement.alt =
+                    safeText(
+                        product.name,
+                        "Product"
+                    );
 
 
-            info.className =
-                "product-info";
+                photoElement.onerror =
+                    function(){
+
+                        const placeholder =
+                            document.createElement(
+                                "div"
+                            );
+
+                        placeholder.className =
+                            "product-list-photo-placeholder";
+
+                        placeholder.textContent =
+                            "📦";
+
+                        photoElement.replaceWith(
+                            placeholder
+                        );
+
+                    };
+
+            }
+
+            else{
+
+                photoElement =
+                    document.createElement(
+                        "div"
+                    );
+
+                photoElement.className =
+                    "product-list-photo-placeholder";
+
+                photoElement.textContent =
+                    "📦";
+
+            }
 
 
-if (product.photoUrl) {
+            item.appendChild(
+                photoElement
+            );
 
-    const photo = document.createElement("img");
 
-    photo.src = product.photoUrl;
-    photo.alt = safeText(product.name, "Product");
+            /* =================================================
+               MAIN
+            ================================================= */
 
-    photo.style.width = "70px";
-    photo.style.height = "70px";
-    photo.style.objectFit = "cover";
-    photo.style.borderRadius = "10px";
-    photo.style.flexShrink = "0";
-    photo.style.border = "1px solid #E5E8E2";
+            const main =
+                document.createElement(
+                    "div"
+                );
 
-    photo.onerror = function () {
-        console.error("Unable to load product photo:", product.photoUrl);
-        photo.style.display = "none";
-    };
-
-    card.appendChild(photo);
-}
-
+            main.className =
+                "product-list-main";
 
 
             /* PRODUCT NAME */
 
             const name =
-                document.createElement("div");
-
+                document.createElement(
+                    "div"
+                );
 
             name.className =
-                "product-name";
-
+                "product-list-name";
 
             name.textContent =
                 safeText(
@@ -2749,207 +3219,159 @@ if (product.photoUrl) {
                     "Unnamed Product"
                 );
 
-
-            /* PRICE ROW */
-
-            const priceRow =
-                document.createElement("div");
-
-
-            priceRow.className =
-                "product-price-row";
-
-
-            /* COST PRICE */
-
-            const costItem =
-                document.createElement("div");
-
-
-            costItem.className =
-                "price-item cost";
-
-
-            costItem.innerHTML = `
-                Cost Price
-                <strong>
-                    ${formatPrice(product.costPrice)}
-                </strong>
-            `;
-
-
-            /* SELLING PRICE */
-
-            const sellingItem =
-                document.createElement("div");
-
-
-            sellingItem.className =
-                "price-item";
-
-
-            sellingItem.innerHTML = `
-                Selling Price
-                <strong>
-                    ${formatPrice(product.sellingPrice)}
-                </strong>
-            `;
-
-
-            priceRow.appendChild(
-                costItem
+            main.appendChild(
+                name
             );
-
-            priceRow.appendChild(
-                sellingItem
-            );
-
-
-            /* META */
-
-            const meta =
-                document.createElement("div");
-
-
-            meta.className =
-                "product-meta";
 
 
             /* CATEGORY */
 
-            if(
-                safeText(product.category)
-            ){
-
-                const categoryBadge =
-                    document.createElement("span");
-
-                categoryBadge.className =
-                    "meta-badge";
-
-                categoryBadge.textContent =
-                    product.category;
-
-                meta.appendChild(
-                    categoryBadge
+            const category =
+                document.createElement(
+                    "div"
                 );
 
-            }
+            category.className =
+                "product-list-category";
 
-
-            /* SKU */
-
-            if(
-                safeText(product.sku)
-            ){
-
-                const skuBadge =
-                    document.createElement("span");
-
-                skuBadge.className =
-                    "meta-badge";
-
-                skuBadge.textContent =
-                    "SKU: " +
-                    product.sku;
-
-                meta.appendChild(
-                    skuBadge
+            category.textContent =
+                safeText(
+                    product.category,
+                    "No category"
                 );
 
-            }
+            main.appendChild(
+                category
+            );
+
+
+            /* =================================================
+               META
+            ================================================= */
+
+            const meta =
+                document.createElement(
+                    "div"
+                );
+
+            meta.className =
+                "product-list-meta";
+
+
+            /* SELLING PRICE */
+
+            const price =
+                document.createElement(
+                    "span"
+                );
+
+            price.className =
+                "product-list-meta-item product-list-price";
+
+            price.textContent =
+                formatPrice(
+                    product.sellingPrice
+                );
+
+            meta.appendChild(
+                price
+            );
 
 
             /* STOCK */
 
-const trackStock =
-    product.trackStock !== false;
+            const trackStock =
+                product.trackStock !== false;
+
+            const stockBadge =
+                document.createElement(
+                    "span"
+                );
+
+            stockBadge.className =
+                "product-list-meta-item";
 
 
-const stockBadge =
-    document.createElement("span");
+            if(!trackStock){
+
+                stockBadge.textContent =
+                    "Stock not tracked";
+
+            }
+
+            else{
+
+                const stock =
+                    Number(
+                        product.stockQuantity
+                    );
+
+                const unit =
+                    safeText(
+                        product.unit,
+                        "piece"
+                    );
+
+                const lowAlert =
+                    Number.isFinite(
+                        Number(
+                            product.lowStockAlert
+                        )
+                    )
+                    ? Number(
+                        product.lowStockAlert
+                    )
+                    : 5;
 
 
-stockBadge.className =
-    "meta-badge stock";
+                if(
+                    Number.isFinite(
+                        stock
+                    )
+                ){
+
+                    stockBadge.textContent =
+                        `Stock: ${stock} ${unit}`;
 
 
-if(!trackStock){
+                    if(
+                        stock <=
+                        lowAlert
+                    ){
 
-    stockBadge.textContent =
-        "Stock: Not tracked";
+                        stockBadge.classList.add(
+                            "product-list-low"
+                        );
 
-    stockBadge.classList.remove(
-        "stock"
-    );
+                        stockBadge.textContent =
+                            `Low: ${stock} ${unit}`;
 
-}
-else{
+                    }
 
-    const stock =
-        Number(product.stockQuantity);
+                    else{
 
+                        stockBadge.classList.add(
+                            "product-list-stock"
+                        );
 
-    const unit =
-        safeText(
-            product.unit,
-            "piece"
-        );
+                    }
 
+                }
 
-    const lowAlert =
-        Number.isFinite(
-            Number(product.lowStockAlert)
-        )
-            ? Number(product.lowStockAlert)
-            : 5;
+                else{
 
+                    stockBadge.textContent =
+                        "Stock not set";
 
-    if(
-        Number.isFinite(stock)
-    ){
+                }
 
-        stockBadge.textContent =
-            "Stock: " +
-            stock +
-            " " +
-            unit;
+            }
 
 
-        if(
-            stock <= lowAlert
-        ){
-
-            stockBadge.classList.remove(
-                "stock"
+            meta.appendChild(
+                stockBadge
             );
 
-            stockBadge.classList.add(
-                "low-stock"
-            );
-
-            stockBadge.textContent =
-                "LOW STOCK: " +
-                stock +
-                " " +
-                unit;
-
-        }
-
-    }
-    else{
-
-        stockBadge.textContent =
-            "Stock not set";
-
-    }
-
-}
-
-
-meta.appendChild(
-    stockBadge
-);
 
             /* STATUS */
 
@@ -2959,21 +3381,22 @@ meta.appendChild(
                     "active"
                 ).toLowerCase();
 
-
             const statusBadge =
-                document.createElement("span");
-
+                document.createElement(
+                    "span"
+                );
 
             statusBadge.className =
-                "meta-badge";
+                "product-list-meta-item";
 
 
             if(
-                status === "inactive"
+                status ===
+                "inactive"
             ){
 
                 statusBadge.classList.add(
-                    "inactive"
+                    "product-list-inactive"
                 );
 
                 statusBadge.textContent =
@@ -2994,85 +3417,96 @@ meta.appendChild(
             );
 
 
-            /* DESCRIPTION */
-
-            const description =
-                document.createElement("div");
-
-
-            description.className =
-                "product-description";
+            main.appendChild(
+                meta
+            );
 
 
-            description.textContent =
-                safeText(
-                    product.description,
-                    "No description"
+            /* =================================================
+               DATE
+            ================================================= */
+
+            if(product.createdAt){
+
+                const date =
+                    document.createElement(
+                        "div"
+                    );
+
+                date.className =
+                    "product-list-date";
+
+                date.textContent =
+                    "Added " +
+                    formatDate(
+                        product.createdAt
+                    );
+
+                main.appendChild(
+                    date
                 );
-
-
-            /* DATE */
-
-            const date =
-                document.createElement("div");
-
-
-            date.className =
-                "product-date";
-
-
-            date.textContent =
-                product.createdAt
-                    ? "Added " +
-                      formatDate(
-                          product.createdAt
-                      )
-                    : "";
-
-
-            info.appendChild(name);
-
-            info.appendChild(priceRow);
-
-            info.appendChild(meta);
-
-            info.appendChild(description);
-
-
-            if(
-                date.textContent
-            ){
-
-                info.appendChild(date);
 
             }
 
 
-            /* ACTIONS */
+            /* =================================================
+               ACTIONS
+            ================================================= */
 
             const actions =
-                document.createElement("div");
-
+                document.createElement(
+                    "div"
+                );
 
             actions.className =
-                "product-actions";
+                "product-list-actions";
 
+
+            /* INVENTORY */
+
+            const inventoryButton =
+                document.createElement(
+                    "button"
+                );
+
+            inventoryButton.type =
+                "button";
+
+            inventoryButton.className =
+                "product-action-btn inventory";
+
+            inventoryButton.textContent =
+                "Inventory";
+
+            inventoryButton.addEventListener(
+                "click",
+                function(){
+window.location.href =
+    "../inventory/";
+
+                }
+            );
+
+            actions.appendChild(
+                inventoryButton
+            );
+
+
+            /* DELETE */
 
             const deleteButton =
-                document.createElement("button");
-
+                document.createElement(
+                    "button"
+                );
 
             deleteButton.type =
                 "button";
 
-
             deleteButton.className =
-                "small-button delete";
-
+                "product-action-btn delete";
 
             deleteButton.textContent =
                 "Delete";
-
 
             deleteButton.addEventListener(
                 "click",
@@ -3085,18 +3519,24 @@ meta.appendChild(
                 }
             );
 
-
             actions.appendChild(
                 deleteButton
             );
 
 
-            card.appendChild(info);
+            /* FINAL */
 
-            card.appendChild(actions);
+            item.appendChild(
+                main
+            );
 
+            item.appendChild(
+                actions
+            );
 
-            productsList.appendChild(card);
+            productsList.appendChild(
+                item
+            );
 
         }
     );
@@ -3114,9 +3554,15 @@ meta.appendChild(
 async function loadProducts(){
 
     if(!currentUser){
-        console.error("No current user.");
+
+        console.error(
+            "No current user."
+        );
+
         return;
+
     }
+
 
     try{
 
@@ -3125,48 +3571,41 @@ async function loadProducts(){
             currentUser.uid
         );
 
-        const productsRef = collection(
-            db,
-            "users",
-            currentUser.uid,
-            "products"
-        );
 
-        console.log(
-            "Products path:",
-            "users/" +
-            currentUser.uid +
-            "/products"
-        );
-
-        const snapshot = await getDocs(productsRef);
-
-        console.log(
-            "Firestore product documents:",
-            snapshot.size
-        );
-
-        currentProducts = snapshot.docs.map(function(productDoc){
-
-            const data = productDoc.data();
-
-            console.log(
-                "Product document:",
-                productDoc.id,
-                data
+        const productsRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "products"
             );
 
-            return {
-                id: productDoc.id,
-                ...data
-            };
 
-        });
+        const snapshot =
+            await getDocs(
+                productsRef
+            );
 
-        console.log(
-            "Products loaded successfully:",
-            currentProducts
-        );
+
+        currentProducts =
+            snapshot.docs.map(
+                function(productDoc){
+
+                    const data =
+                        productDoc.data();
+
+                    return {
+
+                        id:
+                            productDoc.id,
+
+                        ...data
+
+                    };
+
+                }
+            );
+
 
         renderProducts();
 
@@ -3179,17 +3618,9 @@ async function loadProducts(){
             error
         );
 
-        console.error(
-            "Error code:",
-            error.code
-        );
-
-        console.error(
-            "Error message:",
-            error.message
-        );
 
         productsList.innerHTML = `
+
             <div
                 class="empty-message"
                 style="
@@ -3221,6 +3652,7 @@ async function loadProducts(){
                 </small>
 
             </div>
+
         `;
 
     }
@@ -3243,10 +3675,6 @@ function clearProductForm(){
     sellingPrice.value =
         "";
 
-
-
-
-
     productCategory.value =
         "";
 
@@ -3268,22 +3696,24 @@ function clearProductForm(){
     productDescription.value =
         "";
 
-trackStockNo.checked = true;
+    trackStockNo.checked =
+        true;
 
-updateStockFields();
+    updateStockFields();
 
-productPhoto.value = "";
+    productPhoto.value =
+        "";
 
-photoPreview.style.display = "none";
+    photoPreview.style.display =
+        "none";
 
-photoPreviewImage.src = "";
+    photoPreviewImage.src =
+        "";
 
-selectedMaterials = [];
+    selectedMaterials =
+        [];
 
-renderMaterialRows();
-
-
-
+    renderMaterialRows();
 
 }
 
@@ -3305,20 +3735,17 @@ async function addProduct(){
     }
 
 
-    /* NAME */
-
     const name =
         productName.value.trim();
 
 
-    /* COST PRICE */
-
     const cost =
-    costPrice.value === ""
-        ? null
-        : Number(costPrice.value);
+        costPrice.value === ""
+            ? null
+            : Number(
+                costPrice.value
+            );
 
-    /* SELLING PRICE */
 
     const selling =
         Number(
@@ -3326,132 +3753,114 @@ async function addProduct(){
         );
 
 
-    /* CATEGORY */
-
     const category =
         productCategory.value.trim();
 
-
-    /* SKU */
 
     const sku =
         productSku.value.trim();
 
 
+    const trackStock =
+        trackStockYes.checked;
 
 
+    const stock =
+        trackStock
+            ? (
+                stockQuantity.value === ""
+                    ? 0
+                    : Number(
+                        stockQuantity.value
+                    )
+            )
+            : 0;
 
 
-
-    /* TRACK STOCK */
-
-const trackStock =
-    trackStockYes.checked;
-
-
-/* STOCK */
-
-const stock =
-    trackStock
-        ? (
-            stockQuantity.value === ""
-                ? 0
-                : Number(
-                    stockQuantity.value
-                )
-        )
-        : 0;
+    const unit =
+        trackStock
+            ? productUnit.value
+            : "";
 
 
-/* UNIT */
+    const lowAlert =
+        trackStock
+            ? (
+                lowStockAlert.value === ""
+                    ? 5
+                    : Number(
+                        lowStockAlert.value
+                    )
+            )
+            : 0;
 
-const unit =
-    trackStock
-        ? productUnit.value
-        : "";
-
-
-/* LOW STOCK */
-
-const lowAlert =
-    trackStock
-        ? (
-            lowStockAlert.value === ""
-                ? 5
-                : Number(
-                    lowStockAlert.value
-                )
-        )
-        : 0;
-
-
-
-
-
-
-    /* STATUS */
 
     const status =
         productStatus.value;
 
-
-    /* DESCRIPTION */
 
     const description =
         productDescription.value.trim();
 
 
     /* =================================================
-   MATERIALS USED
-================================================= */
+       MATERIALS USED
+    ================================================= */
 
-const materials =
-    selectedMaterials
-        .filter(function(item){
+    const materials =
+        selectedMaterials
+            .filter(
+                function(item){
 
-            return (
-                item.materialId &&
-                Number(item.quantity) > 0
+                    return (
+                        item.materialId &&
+                        Number(item.quantity) > 0
+                    );
+
+                }
+            )
+            .map(
+                function(item){
+
+                    const material =
+                        currentMaterials.find(
+                            function(m){
+
+                                return (
+                                    m.id ===
+                                    item.materialId
+                                );
+
+                            }
+                        );
+
+
+                    return {
+
+                        materialId:
+                            item.materialId,
+
+                        materialName:
+                            safeText(
+                                material?.name,
+                                "Unnamed Material"
+                            ),
+
+                        quantity:
+                            Number(
+                                item.quantity
+                            ),
+
+                        unit:
+                            safeText(
+                                material?.unit,
+                                ""
+                            )
+
+                    };
+
+                }
             );
-
-        })
-        .map(function(item){
-
-            const material =
-                currentMaterials.find(
-                    function(m){
-                        return m.id === item.materialId;
-                    }
-                );
-
-            return {
-
-                materialId:
-                    item.materialId,
-
-                materialName:
-                    safeText(
-                        material?.name,
-                        "Unnamed Material"
-                    ),
-
-                quantity:
-                    Number(item.quantity),
-
-                unit:
-                    safeText(
-                        material?.unit,
-                        ""
-                    )
-
-            };
-
-        });
-    
-    
-    
-    
-
 
 
     /* =================================================
@@ -3472,27 +3881,30 @@ const materials =
 
 
     /* =================================================
-       VALIDATE COST PRICE
+       VALIDATE COST
     ================================================= */
 
     if(
-    cost !== null &&
-    (
-        !Number.isFinite(cost) ||
-        cost < 0
-    )
-){
-    showError(
-        "Please enter a valid cost price."
-    );
+        cost !== null &&
+        (
+            !Number.isFinite(cost) ||
+            cost < 0
+        )
+    ){
 
-    costPrice.focus();
-    return;
-}
+        showError(
+            "Please enter a valid cost price."
+        );
+
+        costPrice.focus();
+
+        return;
+
+    }
 
 
     /* =================================================
-       VALIDATE SELLING PRICE
+       VALIDATE SELLING
     ================================================= */
 
     if(
@@ -3515,13 +3927,13 @@ const materials =
        VALIDATE STOCK
     ================================================= */
 
-   if(
-    trackStock &&
-    (
-        !Number.isFinite(stock) ||
-        stock < 0
-    )
-){
+    if(
+        trackStock &&
+        (
+            !Number.isFinite(stock) ||
+            stock < 0
+        )
+    ){
 
         showError(
             "Please enter a valid stock quantity."
@@ -3539,12 +3951,12 @@ const materials =
     ================================================= */
 
     if(
-    trackStock &&
-    (
-        !Number.isFinite(lowAlert) ||
-        lowAlert < 0
-    )
-){
+        trackStock &&
+        (
+            !Number.isFinite(lowAlert) ||
+            lowAlert < 0
+        )
+    ){
 
         showError(
             "Please enter a valid low stock alert."
@@ -3579,20 +3991,6 @@ const materials =
 
     try{
 
-
-
-
-
-
-        
-
-
-        /* =================================================
-           FIREBASE PATH
-
-           users/{UID}/products
-        ================================================= */
-
         const productsRef =
             collection(
                 db,
@@ -3602,24 +4000,40 @@ const materials =
             );
 
 
+        /* =================================================
+           PHOTO
+        ================================================= */
+
+        const selectedPhoto =
+            productPhoto.files[0] ||
+            null;
+
+        let photoUrl =
+            "";
+
+
+        if(selectedPhoto){
+
+            addProductButton.textContent =
+                "Uploading photo...";
+
+            addProductButton.disabled =
+                true;
+
+            photoUrl =
+                await uploadProductPhoto(
+                    selectedPhoto
+                );
+
+        }
 
 
         /* =================================================
-           SAVE PRODUCT
+           SAVE
         ================================================= */
 
-const selectedPhoto = productPhoto.files[0] || null;
-
-let photoUrl = "";
-
-if(selectedPhoto){
-    addProductButton.textContent = "Uploading photo...";
-    photoUrl = await uploadProductPhoto(selectedPhoto);
-}
-
-addProductButton.textContent = "Saving...";
-
-
+        addProductButton.textContent =
+            "Saving...";
 
 
         await addDoc(
@@ -3639,42 +4053,40 @@ addProductButton.textContent = "Saving...";
                     category,
 
                 sku:
-    sku,
-    
-    
-    
+                    sku,
 
-trackStock:
-    trackStock,
+                trackStock:
+                    trackStock,
 
-stockQuantity:
-    trackStock
-        ? stock
-        : 0,
+                stockQuantity:
+                    trackStock
+                        ? stock
+                        : 0,
 
                 unit:
-    trackStock
-        ? unit
-        : "",
+                    trackStock
+                        ? unit
+                        : "",
 
-lowStockAlert:
-    trackStock
-        ? lowAlert
-        : 0,
+                lowStockAlert:
+                    trackStock
+                        ? lowAlert
+                        : 0,
+
                 status:
                     status,
 
                 description:
                     description,
-                    
-materials:
-    materials,
 
+                materials:
+                    materials,
 
                 ownerUid:
                     currentUser.uid,
 
-photoUrl: photoUrl,
+                photoUrl:
+                    photoUrl,
 
                 createdAt:
                     serverTimestamp(),
@@ -3682,33 +4094,19 @@ photoUrl: photoUrl,
                 updatedAt:
                     serverTimestamp()
 
-
-
-
             }
         );
 
 
-
-
-
-        /* =================================================
-           CLEAR FORM
-        ================================================= */
-
         clearProductForm();
 
+        await loadProducts();
+
+        showProductsView();
 
         showSuccess(
             "Product added successfully."
         );
-
-
-        /* =================================================
-           RELOAD
-        ================================================= */
-
-        await loadProducts();
 
     }
 
@@ -3734,6 +4132,7 @@ photoUrl: photoUrl,
         else{
 
             showError(
+                error.message ||
                 "Unable to save the product. Please try again."
             );
 
@@ -3742,6 +4141,12 @@ photoUrl: photoUrl,
     }
 
     finally{
+
+        addProductButton.disabled =
+            false;
+
+        addProductButton.textContent =
+            "+ Add Product";
 
         updateUsageUI();
 
@@ -3754,12 +4159,12 @@ photoUrl: photoUrl,
    DELETE PRODUCT
 ===================================================== */
 
-async function deleteProduct(productId){
+async function deleteProduct(
+    productId
+){
 
     if(!currentUser){
-
         return;
-
     }
 
 
@@ -3770,9 +4175,7 @@ async function deleteProduct(productId){
 
 
     if(!confirmed){
-
         return;
-
     }
 
 
@@ -3793,12 +4196,8 @@ async function deleteProduct(productId){
         );
 
 
-        showSuccess(
-            "Product deleted."
-        );
-
-
         await loadProducts();
+
 
     }
 
@@ -3848,19 +4247,20 @@ addProductButton.addEventListener(
    AUTH STATE
 ===================================================== */
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
 onAuthStateChanged(
     auth,
     async function(user){
 
-        console.log("KAYAH PRODUCTS AUTH CHECK");
+        console.log(
+            "KAYAH PRODUCTS AUTH CHECK"
+        );
+
 
         if(!user){
 
-            console.log("NO FIREBASE USER — REDIRECTING");
+            console.log(
+                "NO FIREBASE USER — REDIRECTING"
+            );
 
             window.location.href =
                 "../login/";
@@ -3870,19 +4270,14 @@ onAuthStateChanged(
         }
 
 
-        currentUser = user;
-
-
-        console.log(
-            "KAYAH PRODUCTS UID:",
-            user.uid
-        );
+        currentUser =
+            user;
 
 
         try{
 
             /* =================================================
-               READ USER DOCUMENT
+               USER DOCUMENT
             ================================================= */
 
             const userRef =
@@ -3893,23 +4288,15 @@ onAuthStateChanged(
                 );
 
 
-            console.log(
-                "READING USER:",
-                "users/" + user.uid
-            );
-
-
             const userSnapshot =
-                await getDoc(userRef);
+                await getDoc(
+                    userRef
+                );
 
 
-            console.log(
-                "USER DOCUMENT EXISTS:",
-                userSnapshot.exists()
-            );
-
-
-            if(!userSnapshot.exists()){
+            if(
+                !userSnapshot.exists()
+            ){
 
                 showError(
                     "Your Kayah account profile could not be found."
@@ -3924,12 +4311,6 @@ onAuthStateChanged(
                 userSnapshot.data();
 
 
-            console.log(
-                "KAYAH USER PROFILE:",
-                userData
-            );
-
-
             /* =================================================
                PLAN
             ================================================= */
@@ -3940,23 +4321,19 @@ onAuthStateChanged(
 
 
             /* =================================================
-               LOAD PRODUCTS
+               LOAD MATERIALS + PRODUCTS
             ================================================= */
 
-            console.log(
-                "NOW LOADING PRODUCTS..."
-            );
+            await loadMaterials();
+
+            await loadProducts();
 
 
-            
+            /* =================================================
+               ALWAYS START ON PRODUCT LIST
+            ================================================= */
 
-await loadMaterials(); 
-await loadProducts(); 
-
-
-            console.log(
-                "PRODUCT LOADING FINISHED."
-            );
+            showProductsView();
 
         }
 
@@ -3967,18 +4344,9 @@ await loadProducts();
                 error
             );
 
-            console.error(
-                "ERROR CODE:",
-                error.code
-            );
-
-            console.error(
-                "ERROR MESSAGE:",
-                error.message
-            );
-
 
             productsList.innerHTML = `
+
                 <div
                     class="empty-message"
                     style="
@@ -4000,16 +4368,8 @@ await loadProducts();
                         "Unknown error."
                     )}
 
-                    <br><br>
-
-                    <small>
-                        ${safeText(
-                            error.code,
-                            "unknown-error"
-                        )}
-                    </small>
-
                 </div>
+
             `;
 
         }
@@ -4029,10 +4389,8 @@ await loadProducts();
     }
 );
 
-
-
 </script>
 
 </body>
 
-</html> 
+</html>
