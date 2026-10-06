@@ -1,49 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<title>Kayah Dashboard</title>
 
-<meta
-    name="theme-color"
-    content="#0B4F3A"
->
-
-<meta
-    name="description"
-    content="Kayah — Business, Made Possible."
->
-
-<title>Dashboard — Kayah</title>
-
-
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -62,1586 +28,587 @@ html{
 }
 
 body{
-
-    margin:0;
-
-    font-family:
-        "Inter",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+    font-family:"Inter",sans-serif;
     background:#F7F3E8;
-
-    color:#202A24;
-
+    color:#26332C;
     min-height:100vh;
-
-    -webkit-font-smoothing:antialiased;
-
 }
 
+button{
+    font-family:inherit;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:#F7F3E8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.loading-box{
+    text-align:center;
+}
+
+.loading-logo{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.loading-spinner{
+    width:30px;
+    height:30px;
+    border:3px solid #DCE7E0;
+    border-top-color:#16805C;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 12px;
+}
+
+.loading-text{
+    font-size:12px;
+    color:#7B867F;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
 
 /* =====================================================
    APP
 ===================================================== */
 
 .app{
-    min-height:100vh;
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
+    padding-bottom:95px;
 }
 
-
 /* =====================================================
-   TOP HEADER
+   TOP BAR
 ===================================================== */
 
 .topbar{
-
-    width:100%;
-
-    background:#F7F3E8;
-
-    padding:
-        18px
-        18px
-        10px;
-
-}
-
-.topbar-inner{
-
-    max-width:820px;
-
-    margin:0 auto;
-
+    padding:18px 18px 10px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
 }
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
-    text-decoration:none;
-
+    gap:9px;
 }
 
-.brand img{
-
-    width:36px;
-    height:36px;
-
+.brand-logo{
+    width:38px;
+    height:38px;
     object-fit:contain;
-
 }
 
-.brand-name{
-
-    margin-left:9px;
-
+.brand-text{
     font-size:18px;
-
     font-weight:800;
-
-    letter-spacing:-.5px;
-
     color:#0B4F3A;
-
 }
 
 .top-actions{
-
     display:flex;
-
-    align-items:center;
-
     gap:8px;
-
 }
 
-.icon-button{
-
+.icon-btn{
     width:38px;
     height:38px;
-
-    border:1px solid #E5E7DF;
-
+    border-radius:11px;
+    border:1px solid #E3E8E2;
     background:#FFFFFF;
-
-    color:#0B4F3A;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    border-radius:10px;
-
-    font-size:16px;
-
     cursor:pointer;
-
-    transition:
-        background .2s ease,
-        transform .2s ease;
-
+    font-size:17px;
+    color:#0B4F3A;
 }
-
-.icon-button:active{
-
-    transform:scale(.95);
-
-}
-
-.icon-button:hover{
-
-    background:#FFF8E8;
-
-}
-
 
 /* =====================================================
    MAIN
 ===================================================== */
 
 .main{
-
-    width:100%;
-
-    max-width:820px;
-
-    margin:0 auto;
-
-    padding:
-        3px
-        18px
-        110px;
-
+    padding:0 16px;
 }
-
-
-/* =====================================================
-   GREETING
-===================================================== */
 
 .greeting{
-
-    margin-top:4px;
-
-    margin-bottom:17px;
-
+    padding:10px 3px 16px;
 }
 
-.greeting-text{
-
-    font-size:13px;
-
-    font-weight:500;
-
-    color:#68746D;
-
-    letter-spacing:-.05px;
-
+.greeting-small{
+    font-size:12px;
+    color:#7D8881;
+    margin-bottom:4px;
 }
 
+.greeting-name{
+    font-size:24px;
+    font-weight:800;
+    color:#173B2D;
+    overflow-wrap:anywhere;
+}
 
 /* =====================================================
-   BUSINESS HEADER
+   BUSINESS CARD
 ===================================================== */
 
 .business-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:14px;
-
-    box-shadow:
-        0 7px 28px rgba(11,79,58,.06);
-
-}
-
-.business-accent{
-
-    height:7px;
-
-    width:100%;
-
-    background:#F2B84B;
-
-}
-
-.business-content{
-
-    padding:
-        22px
-        20px
-        19px;
-
+    background:linear-gradient(135deg,#0B4F3A,#16805C);
+    border-radius:20px;
+    padding:18px;
+    color:white;
+    box-shadow:0 8px 25px rgba(11,79,58,.15);
+    margin-bottom:16px;
 }
 
 .business-top{
-
     display:flex;
+    align-items:center;
+    gap:13px;
+}
 
-    align-items:flex-start;
-
-    justify-content:space-between;
-
-    gap:18px;
-
+.business-initial{
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:800;
 }
 
 .business-info{
-
     min-width:0;
-
     flex:1;
-
-}
-
-.business-label{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    color:#16805C;
-
-    margin-bottom:9px;
-
-}
-
-.business-label-line{
-
-    width:21px;
-
-    height:2px;
-
-    background:#F2B84B;
-
 }
 
 .business-name{
-
-    font-size:27px;
-
-    line-height:1.12;
-
+    font-size:17px;
     font-weight:800;
-
-    letter-spacing:-1px;
-
-    color:#0B4F3A;
-
     overflow-wrap:anywhere;
-
 }
 
 .business-type{
-
-    margin-top:8px;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    color:#58645D;
-
-}
-
-.business-location{
-
-    margin-top:6px;
-
     font-size:11px;
-
-    line-height:1.4;
-
-    color:#8A948E;
-
-}
-
-
-/* =====================================================
-   BUSINESS INITIAL
-===================================================== */
-
-.business-initial{
-
-    width:58px;
-    height:58px;
-
-    min-width:58px;
-
-    background:#0B4F3A;
-
-    color:#FFFFFF;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:12px;
-
-    font-size:21px;
-
-    font-weight:800;
-
-    position:relative;
-
-    box-shadow:
-        5px 5px 0 #F2B84B;
-
-}
-
-
-/* =====================================================
-   BUSINESS FOOTER
-===================================================== */
-
-.business-footer{
-
-    margin-top:21px;
-
-    padding-top:14px;
-
-    border-top:1px solid #EDF0EB;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
-
+    opacity:.8;
+    margin-top:3px;
 }
 
 .profile-status{
+    display:inline-block;
+    margin-top:10px;
+    padding:5px 9px;
+    border-radius:20px;
+    background:rgba(255,255,255,.14);
+    font-size:9px;
+    font-weight:700;
+}
 
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
+.manage-profile{
+    display:inline-flex;
+    margin-top:15px;
+    padding:9px 12px;
+    border-radius:10px;
+    background:#F2B84B;
+    color:#173B2D;
     font-size:10px;
-
-    font-weight:600;
-
-    color:#69746E;
-
-}
-
-.status-dot{
-
-    width:7px;
-    height:7px;
-
-    background:#16805C;
-
-    border-radius:50%;
-
-}
-
-.profile-link{
-
-    color:#0B4F3A;
-
-    text-decoration:none;
-
-    font-size:11px;
-
     font-weight:800;
-
-    white-space:nowrap;
-
 }
-
-.profile-link:hover{
-
-    color:#16805C;
-
-}
-
 
 /* =====================================================
-   SECTIONS
+   OVERVIEW
 ===================================================== */
-
-.section{
-
-    margin-top:30px;
-
-}
-
-.section-heading{
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-
-    margin-bottom:12px;
-
-}
 
 .section-title{
-
-    font-size:17px;
-
-    line-height:1.2;
-
+    font-size:14px;
     font-weight:800;
-
-    color:#202A24;
-
-    letter-spacing:-.45px;
-
+    color:#26332C;
+    margin:20px 2px 10px;
 }
-
-.section-subtitle{
-
-    margin-top:4px;
-
-    font-size:10px;
-
-    font-weight:500;
-
-    color:#8A938E;
-
-}
-
-
-/* =====================================================
-   PLAN CARD
-===================================================== */
-
-.plan-card{
-
-    background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 5px 20px rgba(11,79,58,.04);
-
-}
-
-.plan-card-top{
-
-    padding:
-        17px
-        17px
-        15px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:14px;
-
-}
-
-.plan-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    min-width:0;
-
-}
-
-.plan-icon{
-
-    width:42px;
-    height:42px;
-
-    min-width:42px;
-
-    border-radius:10px;
-
-    background:#0B4F3A;
-
-    color:#F2B84B;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:18px;
-
-    font-weight:800;
-
-}
-
-.plan-name{
-
-    font-size:13px;
-
-    font-weight:800;
-
-    color:#0B4F3A;
-
-}
-
-.plan-description{
-
-    margin-top:3px;
-
-    font-size:9px;
-
-    color:#8A938E;
-
-    line-height:1.4;
-
-}
-
-.plan-badge{
-
-    padding:
-        6px
-        9px;
-
-    border-radius:20px;
-
-    background:#FFF4D9;
-
-    color:#94630F;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    white-space:nowrap;
-
-}
-
-.plan-card-bottom{
-
-    padding:
-        13px
-        17px;
-
-    background:#FBF8EF;
-
-    border-top:1px solid #EAECE5;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-}
-
-.plan-trial-label{
-
-    font-size:9px;
-
-    font-weight:600;
-
-    color:#7D877F;
-
-}
-
-.plan-trial-value{
-
-    margin-top:3px;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    color:#344139;
-
-}
-
-.plan-status{
-
-    font-size:9px;
-
-    font-weight:800;
-
-    text-align:right;
-
-    color:#16805C;
-
-}
-
-
-/* =====================================================
-   TRIAL EXPIRED
-===================================================== */
-
-.plan-badge.expired{
-
-    background:#FDECEC;
-
-    color:#A33A3A;
-
-}
-
-.plan-status.expired{
-
-    color:#A33A3A;
-
-}
-
-
-/* =====================================================
-   TODAY AT A GLANCE
-===================================================== */
 
 .overview-grid{
-
     display:grid;
-
-    grid-template-columns:
-        1.45fr
-        1fr
-        1fr;
-
+    grid-template-columns:repeat(3,1fr);
     gap:9px;
-
 }
-
-
-/* =====================================================
-   OVERVIEW CARD
-===================================================== */
 
 .overview-card{
-
-    min-height:116px;
-
     background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:12px;
-
-    padding:16px;
-
-    position:relative;
-
-    overflow:hidden;
-
+    border:1px solid #E6EAE5;
+    border-radius:15px;
+    padding:13px 11px;
+    box-shadow:0 3px 12px rgba(11,79,58,.035);
 }
 
-.overview-card.primary{
-
-    background:#0B4F3A;
-
-    border-color:#0B4F3A;
-
-    box-shadow:
-        0 8px 20px rgba(11,79,58,.12);
-
-}
-
-.overview-card.primary::after{
-
-    content:"";
-
-    position:absolute;
-
-    right:-35px;
-
-    bottom:-45px;
-
-    width:105px;
-
-    height:105px;
-
-    border-radius:50%;
-
-    background:#F2B84B;
-
-    opacity:.95;
-
-}
-
-.card-icon{
-
-    width:32px;
-    height:32px;
-
-    border-radius:8px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#FFF6DE;
-
-    color:#9B6811;
-
-    font-size:14px;
-
-    font-weight:800;
-
-    margin-bottom:14px;
-
-}
-
-.primary .card-icon{
-
-    background:#F2B84B;
-
-    color:#0B4F3A;
-
-}
-
-.card-label{
-
-    font-size:10px;
-
-    font-weight:600;
-
-    color:#818B85;
-
-    margin-bottom:5px;
-
-}
-
-.primary .card-label{
-
-    color:rgba(255,255,255,.72);
-
-}
-
-.card-value{
-
-    font-size:20px;
-
-    line-height:1.1;
-
-    font-weight:800;
-
-    letter-spacing:-.5px;
-
-    color:#0B4F3A;
-
-}
-
-.primary .card-value{
-
-    color:#FFFFFF;
-
-}
-
-.card-note{
-
-    margin-top:5px;
-
+.overview-label{
     font-size:9px;
-
-    color:#9AA29D;
-
+    color:#8A938E;
+    margin-bottom:6px;
 }
 
-.primary .card-note{
-
-    color:rgba(255,255,255,.62);
-
+.overview-value{
+    font-size:16px;
+    font-weight:800;
+    color:#0B4F3A;
 }
 
+.overview-sub{
+    font-size:8px;
+    color:#A0A8A3;
+    margin-top:4px;
+}
 
 /* =====================================================
-   MANAGE BUSINESS
+   TOOLS
 ===================================================== */
 
 .tools-list{
-
     display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
     gap:9px;
-
 }
 
-.tool{
-
-    min-height:78px;
-
+.tool-card{
     background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:11px;
-
-    padding:14px;
-
-    text-decoration:none;
-
-    color:#202A24;
-
+    border:1px solid #E6EAE5;
+    border-radius:15px;
+    padding:13px;
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
-    transition:
-        transform .15s ease,
-        border-color .15s ease,
-        background .15s ease;
-
+    box-shadow:0 3px 12px rgba(11,79,58,.035);
+    cursor:pointer;
+    transition:.15s;
 }
 
-.tool:hover{
-
-    border-color:#D2DCCF;
-
-    background:#FFFEFA;
-
-}
-
-.tool:active{
-
+.tool-card:active{
     transform:scale(.985);
-
 }
 
 .tool-icon{
-
-    width:39px;
-    height:39px;
-
-    min-width:39px;
-
-    border-radius:9px;
-
-    background:#EEF6F1;
-
-    color:#16805C;
-
+    width:42px;
+    height:42px;
+    min-width:42px;
+    border-radius:12px;
+    background:#EEF7F2;
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    font-size:16px;
-
-    font-weight:700;
-
+    font-size:20px;
 }
 
-.tool:nth-child(2) .tool-icon,
-.tool:nth-child(4) .tool-icon,
-.tool:nth-child(6) .tool-icon{
-
-    background:#FFF4D9;
-
-    color:#9A6814;
-
-}
-
-.tool-content{
-
+.tool-info{
     flex:1;
-
     min-width:0;
-
 }
 
-.tool-title{
-
+.tool-name{
     font-size:12px;
-
     font-weight:800;
-
     color:#26332C;
-
 }
 
 .tool-description{
-
-    margin-top:3px;
-
     font-size:9px;
-
+    color:#8A938E;
+    margin-top:3px;
     line-height:1.4;
-
-    color:#8B948F;
-
 }
 
 .tool-arrow{
-
-    font-size:17px;
-
-    color:#A1A9A4;
-
+    color:#A0A8A3;
+    font-size:16px;
 }
-
 
 /* =====================================================
-   BUSINESS INFORMATION
+   STAFF CARD
 ===================================================== */
 
-.profile-card{
-
-    background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-}
-
-.profile-card-header{
-
-    padding:
-        15px
-        17px;
-
-    background:#FBF8EF;
-
-    border-bottom:1px solid #E8EAE2;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-.profile-header-mark{
-
-    width:31px;
-    height:31px;
-
-    background:#F2B84B;
-
-    color:#0B4F3A;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:8px;
-
-    font-size:13px;
-
-    font-weight:800;
-
-}
-
-.profile-header-text{
-
-    font-size:11px;
-
-    font-weight:700;
-
-    color:#344139;
-
-}
-
-.profile-body{
-
-    padding:
-        3px
-        17px;
-
-}
-
-.profile-row{
-
-    display:flex;
-
-    align-items:flex-start;
-
-    justify-content:space-between;
-
-    gap:18px;
-
-    padding:
-        13px
-        0;
-
-    border-bottom:1px solid #EFF1ED;
-
-}
-
-.profile-row:last-child{
-
-    border-bottom:none;
-
-}
-
-.profile-key{
-
-    font-size:10px;
-
-    font-weight:500;
-
-    color:#8A938E;
-
-}
-
-.profile-value{
-
-    font-size:11px;
-
-    font-weight:700;
-
-    color:#344139;
-
-    text-align:right;
-
-    max-width:62%;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =====================================================
-   ACCOUNT INFORMATION
-===================================================== */
-
-.account-card{
-
-    background:#FFFFFF;
-
-    border:1px solid #E5E8E2;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-}
-
-.account-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-start;
-
-    gap:18px;
-
-    padding:
-        13px
-        17px;
-
-    border-bottom:1px solid #EFF1ED;
-
-}
-
-.account-row:last-child{
-
-    border-bottom:none;
-
-}
-
-.account-label{
-
-    font-size:10px;
-
-    color:#8A938E;
-
-}
-
-.account-value{
-
-    font-size:10px;
-
-    font-weight:700;
-
-    color:#344139;
-
-    text-align:right;
-
-    max-width:62%;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty-message{
-
-    background:#FFFFFF;
-
-    border:1px dashed #D6DED9;
-
-    border-radius:12px;
-
-    padding:18px;
-
-    text-align:center;
-
-    color:#7C8780;
-
-    font-size:11px;
-
-    line-height:1.5;
-
-}
-
-
-/* =====================================================
-   LOADING SCREEN
-===================================================== */
-
-.loading{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:1000;
-
-    background:#F7F3E8;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    transition:
-        opacity .3s ease,
-        visibility .3s ease;
-
-}
-
-.loading.hide{
-
-    opacity:0;
-
-    visibility:hidden;
-
-    pointer-events:none;
-
-}
-
-.loading-inner{
-
-    width:100%;
-
-    max-width:280px;
-
-    text-align:center;
-
-}
-
-.loading-inner img{
-
-    width:62px;
-    height:62px;
-
-    object-fit:contain;
-
-    margin-bottom:17px;
-
-}
-
-.spinner{
-
-    width:22px;
-    height:22px;
-
-    margin:
-        0
-        auto
-        13px;
-
-    border:
-        2.5px solid #DCE8E0;
-
-    border-top-color:#16805C;
-
-    border-right-color:#F2B84B;
-
-    border-radius:50%;
-
-    animation:
-        spin .8s linear infinite;
-
-}
-
-.loading-text{
-
-    font-size:12px;
-
-    font-weight:600;
-
-    color:#69746E;
-
-}
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =====================================================
-   ERROR MESSAGE
-===================================================== */
-
-.dashboard-error{
-
-    display:none;
-
-    margin-top:20px;
-
+.staff-card{
+    background:linear-gradient(135deg,#FFF8E7,#FFFFFF);
+    border:1px solid #EAD9AA;
+    border-radius:17px;
     padding:15px;
-
-    background:#FFF0F0;
-
-    border:1px solid #F0CCCC;
-
-    border-radius:12px;
-
-    color:#9B3B3B;
-
-    font-size:11px;
-
-    line-height:1.5;
-
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 4px 14px rgba(148,99,15,.05);
+    cursor:pointer;
 }
 
+.staff-icon{
+    width:45px;
+    height:45px;
+    min-width:45px;
+    border-radius:13px;
+    background:#F2B84B;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.staff-info{
+    flex:1;
+    min-width:0;
+}
+
+.staff-title{
+    font-size:13px;
+    font-weight:800;
+    color:#26332C;
+}
+
+.staff-description{
+    font-size:9px;
+    line-height:1.4;
+    color:#7D867F;
+    margin-top:3px;
+}
+
+.staff-arrow{
+    font-size:17px;
+    color:#94630F;
+}
 
 /* =====================================================
-   BOTTOM NAVIGATION
+   OWNER BADGE
+===================================================== */
+
+.owner-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-top:7px;
+    padding:5px 8px;
+    border-radius:8px;
+    background:#EEF7F2;
+    color:#176B43;
+    font-size:8px;
+    font-weight:800;
+}
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.profile-card,
+.account-card,
+.plan-card{
+    background:#FFFFFF;
+    border:1px solid #E6EAE5;
+    border-radius:16px;
+    padding:15px;
+    margin-top:10px;
+}
+
+.card-title{
+    font-size:12px;
+    font-weight:800;
+    color:#26332C;
+    margin-bottom:11px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:8px 0;
+    border-bottom:1px solid #F0F2EF;
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    font-size:9px;
+    color:#8A938E;
+}
+
+.info-value{
+    font-size:10px;
+    color:#26332C;
+    font-weight:700;
+    text-align:right;
+    overflow-wrap:anywhere;
+}
+
+/* =====================================================
+   PLAN
+===================================================== */
+
+.plan-card{
+    border-color:#D9E8DF;
+    background:linear-gradient(135deg,#F4FBF7,#FFFFFF);
+}
+
+.plan-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.plan-name{
+    font-size:14px;
+    font-weight:800;
+    color:#0B4F3A;
+}
+
+.plan-badge{
+    font-size:8px;
+    font-weight:800;
+    padding:5px 8px;
+    border-radius:20px;
+    background:#F2B84B;
+    color:#173B2D;
+}
+
+.plan-description{
+    font-size:9px;
+    color:#7D8881;
+    margin-top:5px;
+    line-height:1.4;
+}
+
+.plan-status{
+    margin-top:10px;
+    font-size:9px;
+    color:#176B43;
+    font-weight:700;
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box{
+    display:none;
+    background:#FFF2F2;
+    border:1px solid #EBCACA;
+    color:#A33A3A;
+    border-radius:14px;
+    padding:13px;
+    margin:10px 0;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =====================================================
+   BOTTOM NAV
 ===================================================== */
 
 .bottom-nav{
-
     position:fixed;
-
-    left:0;
-    right:0;
+    left:50%;
     bottom:0;
-
-    z-index:100;
-
-    padding:
-        7px
-        14px
-        calc(7px + env(safe-area-inset-bottom));
-
-    background:
-        rgba(255,255,255,.97);
-
-    border-top:1px solid #E3E7E1;
-
-    backdrop-filter:blur(14px);
-
-}
-
-.bottom-nav-inner{
-
-    max-width:600px;
-
-    margin:0 auto;
-
+    transform:translateX(-50%);
+    width:100%;
+    max-width:760px;
+    padding:9px 12px 11px;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    border-top:1px solid #E3E7E2;
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:4px;
-
+    grid-template-columns:repeat(4,1fr);
+    z-index:100;
 }
 
 .nav-item{
-
-    min-height:50px;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
-    justify-content:center;
-
-    text-decoration:none;
-
-    color:#8A938E;
-
-    border-radius:9px;
-
-    font-size:9px;
-
+    gap:3px;
+    color:#929B95;
+    font-size:8px;
     font-weight:700;
-
-    transition:
-        background .2s ease,
-        color .2s ease;
-
+    cursor:pointer;
 }
 
 .nav-icon{
-
-    font-size:16px;
-
-    line-height:1;
-
-    margin-bottom:4px;
-
+    font-size:18px;
 }
 
 .nav-item.active{
-
     color:#0B4F3A;
-
-    background:#FFF4D9;
-
 }
-
-.nav-item.active .nav-icon{
-
-    color:#16805C;
-
-}
-
-
-/* =====================================================
-   TABLET / DESKTOP
-===================================================== */
-
-@media(min-width:700px){
-
-    .main{
-
-        padding-left:24px;
-
-        padding-right:24px;
-
-    }
-
-    .business-content{
-
-        padding:
-            25px
-            24px
-            22px;
-
-    }
-
-    .business-name{
-
-        font-size:31px;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media(max-width:520px){
-
-    .overview-grid{
-
-        grid-template-columns:
-            1fr
-            1fr;
-
-    }
-
-    .overview-card.primary{
-
-        grid-column:
-            span 2;
-
-        min-height:120px;
-
-    }
-
-    .business-name{
-
-        font-size:25px;
-
-    }
-
-    .plan-card-top{
-
-        align-items:flex-start;
-
-    }
-
-}
-
-
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
 
 @media(max-width:380px){
 
     .main{
-
-        padding-left:14px;
-
-        padding-right:14px;
-
+        padding:0 12px;
     }
 
-    .topbar{
-
-        padding-left:14px;
-
-        padding-right:14px;
-
+    .overview-grid{
+        gap:6px;
     }
 
-    .business-content{
-
-        padding:
-            20px
-            16px
-            18px;
-
+    .overview-card{
+        padding:11px 8px;
     }
 
-    .business-name{
-
-        font-size:23px;
-
+    .overview-value{
+        font-size:14px;
     }
 
-    .business-initial{
-
-        width:51px;
-        height:51px;
-
-        min-width:51px;
-
-        font-size:18px;
-
+    .greeting-name{
+        font-size:21px;
     }
-
-    .tools-list{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .plan-card-top{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-}
-
-
-/* =====================================================
-   REDUCED MOTION
-===================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-    *{
-
-        scroll-behavior:auto !important;
-
-        transition:none !important;
-
-        animation:none !important;
-
-    }
-
 }
 
 </style>
-
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      LOADING
 ===================================================== -->
 
-<div
-    class="loading"
-    id="loadingScreen"
->
+<div class="loading-screen" id="loadingScreen">
 
-    <div class="loading-inner">
+    <div class="loading-box">
 
         <img
             src="../kayah-logo.png"
+            class="loading-logo"
             alt="Kayah"
+            onerror="this.style.display='none'"
         >
 
-        <div class="spinner"></div>
+        <div class="loading-spinner"></div>
 
         <div class="loading-text">
-            Preparing your business workspace...
+            Loading your business...
         </div>
 
     </div>
@@ -1649,51 +616,45 @@ body{
 </div>
 
 
-<div class="app">
-
-
 <!-- =====================================================
-     TOP BAR
+     APP
 ===================================================== -->
 
-<header class="topbar">
+<div class="app" id="app">
 
-    <div class="topbar-inner">
+    <!-- TOP BAR -->
 
-        <a
-            href="../dashboard/"
-            class="brand"
-        >
+    <div class="topbar">
+
+        <div class="brand">
 
             <img
-                src="../kayah-logo.png"
+                src="../skyrent.png"
+                class="brand-logo"
                 alt="Kayah"
+                onerror="this.style.display='none'"
             >
 
-            <span class="brand-name">
+            <div class="brand-text">
                 Kayah
-            </span>
+            </div>
 
-        </a>
-
+        </div>
 
         <div class="top-actions">
 
             <button
-                class="icon-button"
-                type="button"
-                title="Notifications"
-                onclick="showComingSoon('Notifications')"
+                class="icon-btn"
+                onclick="showNotificationMessage()"
+                aria-label="Notifications"
             >
                 🔔
             </button>
 
-
             <button
-                class="icon-button"
-                type="button"
-                title="Settings"
-                onclick="window.location.href='../settings/'"
+                class="icon-btn"
+                onclick="openSettings()"
+                aria-label="Settings"
             >
                 ⚙️
             </button>
@@ -1702,56 +663,43 @@ body{
 
     </div>
 
-</header>
 
+    <main class="main">
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+        <!-- GREETING -->
 
-<main class="main">
+        <div class="greeting">
 
+            <div class="greeting-small" id="greetingSmall">
+                Good day
+            </div>
 
-    <!-- =================================================
-         GREETING
-    ================================================== -->
+            <div class="greeting-name" id="greetingName">
+                Welcome
+            </div>
 
-    <div class="greeting">
-
-        <div
-            class="greeting-text"
-            id="greetingText"
-        >
-            Good day
         </div>
 
-    </div>
+
+        <!-- ERROR -->
+
+        <div class="error-box" id="errorBox"></div>
 
 
-    <!-- =================================================
-         BUSINESS IDENTITY
-    ================================================== -->
+        <!-- BUSINESS CARD -->
 
-    <section class="business-card">
-
-        <div class="business-accent"></div>
-
-
-        <div class="business-content">
+        <div class="business-card">
 
             <div class="business-top">
 
+                <div
+                    class="business-initial"
+                    id="businessInitial"
+                >
+                    K
+                </div>
 
                 <div class="business-info">
-
-                    <div class="business-label">
-
-                        <span class="business-label-line"></span>
-
-                        🏢 YOUR BUSINESS
-
-                    </div>
-
 
                     <div
                         class="business-name"
@@ -1760,7 +708,6 @@ body{
                         Your Business
                     </div>
 
-
                     <div
                         class="business-type"
                         id="businessType"
@@ -1768,243 +715,147 @@ body{
                         Business
                     </div>
 
-
-                    <div
-                        class="business-location"
-                        id="businessLocation"
-                    >
-                        Location not provided
+                    <div class="profile-status">
+                        ● Profile Active
                     </div>
 
                 </div>
 
-
-                <div
-                    class="business-initial"
-                    id="businessInitial"
-                >
-                    B
-                </div>
-
             </div>
 
-
-            <div class="business-footer">
-
-                <div class="profile-status">
-
-                    <span
-                        class="status-dot"
-                        id="profileStatusDot"
-                    ></span>
-
-                    <span id="profileStatusText">
-                        Business profile active
-                    </span>
-
-                </div>
-
-
-                <a
-                    href="../business/"
-                    class="profile-link"
-                >
-                    Manage profile →
-                </a>
-
-            </div>
+            <a
+                href="../profile/"
+                class="manage-profile"
+            >
+                Manage Profile
+            </a>
 
         </div>
 
-    </section>
 
+        <!-- TODAY AT A GLANCE -->
 
-    <!-- =================================================
-         TODAY
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Today at a glance
-                </div>
-
-                <div class="section-subtitle">
-                    Your business activity
-                </div>
-
-            </div>
-
+        <div class="section-title">
+            Today at a Glance
         </div>
-
 
         <div class="overview-grid">
 
+            <div class="overview-card">
 
-            <!-- SALES -->
-
-            <div class="overview-card primary">
-
-                <div class="card-icon">
-                    ₱
-                </div>
-
-                <div class="card-label">
-                    Today's sales
+                <div class="overview-label">
+                    Today's Sales
                 </div>
 
                 <div
-                    class="card-value"
+                    class="overview-value"
                     id="todaySales"
                 >
                     ₱0.00
                 </div>
 
-                <div
-                    class="card-note"
-                    id="todaySalesNote"
-                >
-                    No sales recorded yet
+                <div class="overview-sub">
+                    No sales yet
                 </div>
 
             </div>
 
 
-            <!-- PRODUCTS -->
-
             <div class="overview-card">
 
-                <div class="card-icon">
-                    📦
-                </div>
-
-                <div class="card-label">
+                <div class="overview-label">
                     Products
                 </div>
 
                 <div
-                    class="card-value"
+                    class="overview-value"
                     id="productCount"
                 >
                     0
                 </div>
 
-                <div class="card-note">
-                    Products added
+                <div class="overview-sub">
+                    Added products
                 </div>
 
             </div>
 
 
-            <!-- INVENTORY -->
-
             <div class="overview-card">
 
-                <div class="card-icon">
-                    📋
-                </div>
-
-                <div class="card-label">
+                <div class="overview-label">
                     Inventory
                 </div>
 
                 <div
-                    class="card-value"
+                    class="overview-value"
                     id="inventoryCount"
                 >
                     0
                 </div>
 
-                <div class="card-note">
-                    Stock items
+                <div class="overview-sub">
+                    Tracked items
                 </div>
 
             </div>
 
         </div>
 
-    </section>
 
+        <!-- MANAGE BUSINESS -->
 
-    <!-- =================================================
-         BUSINESS TOOLS
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Manage your business
-                </div>
-
-                <div class="section-subtitle">
-                    Everything you need in one place
-                </div>
-
-            </div>
-
+        <div class="section-title">
+            Manage Your Business
         </div>
-
 
         <div class="tools-list">
 
+            <div
+                class="tool-card"
+                onclick="openPage('../products/')"
+            >
 
-            <a
-                href="../products/"
-                class="tool"
+                <div class="tool-icon">
+                    🛍️
+                </div>
+
+                <div class="tool-info">
+
+                    <div class="tool-name">
+                        Products
+                    </div>
+
+                    <div class="tool-description">
+                        Add and manage the products your business sells.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="tool-card"
+                onclick="openPage('../inventory/')"
             >
 
                 <div class="tool-icon">
                     📦
                 </div>
 
-                <div class="tool-content">
+                <div class="tool-info">
 
-                    <div class="tool-title">
-                        Products
-                    </div>
-
-                    <div class="tool-description">
-                        Add and organize your products
-                    </div>
-
-                </div>
-
-                <div class="tool-arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <a
-                href="../inventory/"
-                class="tool"
-            >
-
-                <div class="tool-icon">
-                    📋
-                </div>
-
-                <div class="tool-content">
-
-
-
-
-
-                    <div class="tool-title">
+                    <div class="tool-name">
                         Inventory
                     </div>
 
                     <div class="tool-description">
-                        Keep track of your stock
+                        Monitor stock and adjust product quantities.
                     </div>
 
                 </div>
@@ -2013,30 +864,26 @@ body{
                     ›
                 </div>
 
-            </a>
+            </div>
 
 
-
-
-
-
-            <a
-                href="../sales/"
-                class="tool"
+            <div
+                class="tool-card"
+                onclick="openPage('../sales/')"
             >
 
                 <div class="tool-icon">
-                    ₱
+                    💰
                 </div>
 
-                <div class="tool-content">
+                <div class="tool-info">
 
-                    <div class="tool-title">
+                    <div class="tool-name">
                         Sales
                     </div>
 
                     <div class="tool-description">
-                        Record and manage sales
+                        Record sales and manage your transactions.
                     </div>
 
                 </div>
@@ -2045,26 +892,26 @@ body{
                     ›
                 </div>
 
-            </a>
+            </div>
 
 
-            <a
-                href="../expenses/"
-                class="tool"
+            <div
+                class="tool-card"
+                onclick="openPage('../expenses/')"
             >
 
                 <div class="tool-icon">
-                    💸
+                    🧾
                 </div>
 
-                <div class="tool-content">
+                <div class="tool-info">
 
-                    <div class="tool-title">
+                    <div class="tool-name">
                         Expenses
                     </div>
 
                     <div class="tool-description">
-                        Track business spending
+                        Track and organize your business expenses.
                     </div>
 
                 </div>
@@ -2073,26 +920,26 @@ body{
                     ›
                 </div>
 
-            </a>
+            </div>
 
 
-            <a
-                href="../customers/"
-                class="tool"
+            <div
+                class="tool-card"
+                onclick="openPage('../customers/')"
             >
 
                 <div class="tool-icon">
                     👥
                 </div>
 
-                <div class="tool-content">
+                <div class="tool-info">
 
-                    <div class="tool-title">
+                    <div class="tool-name">
                         Customers
                     </div>
 
                     <div class="tool-description">
-                        Keep your customer records organized
+                        Keep track of customers and business relationships.
                     </div>
 
                 </div>
@@ -2101,26 +948,26 @@ body{
                     ›
                 </div>
 
-            </a>
+            </div>
 
 
-            <a
-                href="../reports/"
-                class="tool"
+            <div
+                class="tool-card"
+                onclick="openPage('../reports/')"
             >
 
                 <div class="tool-icon">
                     📊
                 </div>
 
-                <div class="tool-content">
+                <div class="tool-info">
 
-                    <div class="tool-title">
+                    <div class="tool-name">
                         Reports
                     </div>
 
                     <div class="tool-description">
-                        Understand your business performance
+                        View useful information about your business.
                     </div>
 
                 </div>
@@ -2129,221 +976,211 @@ body{
                     ›
                 </div>
 
-            </a>
-
-<a
-    href="../materials/"
-    class="tool"
->
-
-    <div class="tool-icon">
-        🧂
-    </div>
-
-    <div class="tool-content">
-
-        <div class="tool-title">
-            Materials
-        </div>
-
-        <div class="tool-description">
-            Manage ingredients and supplies
-        </div>
-
-    </div>
-
-    <div class="tool-arrow">
-        ›
-    </div>
-
-</a>
+            </div>
 
 
+            <div
+                class="tool-card"
+                onclick="openPage('../materials/')"
+            >
 
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         BUSINESS INFORMATION
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Business information
+                <div class="tool-icon">
+                    🧰
                 </div>
 
-                <div class="section-subtitle">
-                    Your saved business details
+                <div class="tool-info">
+
+                    <div class="tool-name">
+                        Materials
+                    </div>
+
+                    <div class="tool-description">
+                        Manage ingredients, supplies and raw materials.
+                    </div>
+
+                </div>
+
+                <div class="tool-arrow">
+                    ›
                 </div>
 
             </div>
 
         </div>
 
+
+        <!-- =================================================
+             OWNER ONLY STAFF MANAGEMENT
+        ================================================== -->
+
+        <div
+            id="staffManagementSection"
+            style="display:none;"
+        >
+
+            <div class="section-title">
+                Team
+            </div>
+
+            <div
+                class="staff-card"
+                onclick="openStaffManagement()"
+            >
+
+                <div class="staff-icon">
+                    👤
+                </div>
+
+                <div class="staff-info">
+
+                    <div class="staff-title">
+                        Staff Management
+                    </div>
+
+                    <div class="staff-description">
+                        Add staff members and control which parts of your business they can access.
+                    </div>
+
+                    <div class="owner-badge">
+                        🔐 Business Owner
+                    </div>
+
+                </div>
+
+                <div class="staff-arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUSINESS INFORMATION -->
+
+        <div class="section-title">
+            Business Information
+        </div>
 
         <div class="profile-card">
 
+            <div class="card-title">
+                Business Details
+            </div>
 
-            <div class="profile-card-header">
+            <div class="info-row">
 
-                <div class="profile-header-mark">
-                    🏢
+                <div class="info-label">
+                    Business Name
                 </div>
 
-                <div class="profile-header-text">
-                    Business profile
+                <div
+                    class="info-value"
+                    id="infoBusinessName"
+                >
+                    —
                 </div>
 
             </div>
 
+            <div class="info-row">
 
-            <div class="profile-body">
-
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        Business name
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileBusinessName"
-                    >
-                        —
-                    </div>
-
+                <div class="info-label">
+                    Business Type
                 </div>
 
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        Business type
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileBusinessType"
-                    >
-                        —
-                    </div>
-
+                <div
+                    class="info-value"
+                    id="infoBusinessType"
+                >
+                    —
                 </div>
-
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        Address
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileAddress"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        City / Municipality
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileCity"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        Province
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileProvince"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <div class="profile-key">
-                        Currency
-                    </div>
-
-                    <div
-                        class="profile-value"
-                        id="profileCurrency"
-                    >
-                        PHP — ₱
-                    </div>
-
-                </div>
-
 
             </div>
 
-        </div>
+            <div class="info-row">
 
-    </section>
-
-
-    <!-- =================================================
-         ACCOUNT INFORMATION
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Account
+                <div class="info-label">
+                    Address
                 </div>
 
-                <div class="section-subtitle">
-                    Your Kayah account information
+                <div
+                    class="info-value"
+                    id="infoAddress"
+                >
+                    —
+                </div>
+
+            </div>
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    City / Municipality
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoCity"
+                >
+                    —
+                </div>
+
+            </div>
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    Province
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoProvince"
+                >
+                    —
+                </div>
+
+            </div>
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    Currency
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoCurrency"
+                >
+                    PHP
                 </div>
 
             </div>
 
         </div>
 
+
+        <!-- ACCOUNT -->
+
+        <div class="section-title">
+            Account
+        </div>
 
         <div class="account-card">
 
+            <div class="card-title">
+                Account Information
+            </div>
 
-            <div class="account-row">
+            <div class="info-row">
 
-                <div class="account-label">
+                <div class="info-label">
                     Email
                 </div>
 
                 <div
-                    class="account-value"
+                    class="info-value"
                     id="accountEmail"
                 >
                     —
@@ -2351,15 +1188,14 @@ body{
 
             </div>
 
+            <div class="info-row">
 
-            <div class="account-row">
-
-                <div class="account-label">
-                    Account status
+                <div class="info-label">
+                    Account Status
                 </div>
 
                 <div
-                    class="account-value"
+                    class="info-value"
                     id="accountStatus"
                 >
                     Active
@@ -2367,208 +1203,124 @@ body{
 
             </div>
 
+            <div class="info-row">
 
-            <div class="account-row">
-
-                <div class="account-label">
-                    Subscription
+                <div class="info-label">
+                    Account Type
                 </div>
 
                 <div
-                    class="account-value"
-                    id="subscriptionStatus"
+                    class="info-value"
+                    id="accountRole"
                 >
-                    Trial
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         PLAN — MOVED TO BOTTOM
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="section-title">
-                    Your plan
-                </div>
-
-                <div class="section-subtitle">
-                    Your current Kayah access
+                    Business Owner
                 </div>
 
             </div>
 
         </div>
 
+
+        <!-- PLAN -->
+
+        <div class="section-title">
+            Your Plan
+        </div>
 
         <div class="plan-card">
 
+            <div class="plan-header">
 
-            <div class="plan-card-top">
-
-                <div class="plan-left">
-
-                    <div class="plan-icon">
-                        ★
-                    </div>
-
-
-                    <div>
-
-                        <div
-                            class="plan-name"
-                            id="planName"
-                        >
-                            Free Plan
-                        </div>
-
-                        <div
-                            class="plan-description"
-                            id="planDescription"
-                        >
-                            Basic business management
-                        </div>
-
-                    </div>
-
+                <div
+                    class="plan-name"
+                    id="planName"
+                >
+                    Free Plan
                 </div>
-
 
                 <div
                     class="plan-badge"
                     id="planBadge"
                 >
-                    30-DAY TRIAL
+                    FREE
                 </div>
 
             </div>
 
+            <div
+                class="plan-description"
+                id="planDescription"
+            >
+                Your current Kayah plan.
+            </div>
 
-            <div class="plan-card-bottom">
-
-                <div>
-
-                    <div class="plan-trial-label">
-                        Trial ends
-                    </div>
-
-                    <div
-                        class="plan-trial-value"
-                        id="trialEndDate"
-                    >
-                        Calculating...
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="plan-status"
-                    id="planStatus"
-                >
-                    Trial active
-                </div>
-
+            <div
+                class="plan-status"
+                id="planStatus"
+            >
+                Active
             </div>
 
         </div>
 
-    </section>
+    </main>
 
 
     <!-- =================================================
-         ERROR
+         BOTTOM NAV
     ================================================== -->
 
-    <div
-        class="dashboard-error"
-        id="dashboardError"
-    ></div>
+    <nav class="bottom-nav">
 
-
-</main>
-
-
-<!-- =====================================================
-     BOTTOM NAVIGATION
-===================================================== -->
-
-<nav class="bottom-nav">
-
-    <div class="bottom-nav-inner">
-
-
-        <a
-            href="../dashboard/"
+        <div
             class="nav-item active"
+            onclick="openPage('../dashboard/')"
         >
-
-            <span class="nav-icon">
+            <div class="nav-icon">
                 🏠
-            </span>
+            </div>
+            <div>
+                Home
+            </div>
+        </div>
 
-            Home
-
-        </a>
-
-
-        <a
-            href="../sales/"
+        <div
             class="nav-item"
+            onclick="openPage('../sales/')"
         >
+            <div class="nav-icon">
+                💰
+            </div>
+            <div>
+                Sales
+            </div>
+        </div>
 
-            <span class="nav-icon">
-                ₱
-            </span>
-
-            Sales
-
-        </a>
-
-
-        <a
-            href="../inventory/"
+        <div
             class="nav-item"
+            onclick="openPage('../inventory/')"
         >
+            <div class="nav-icon">
+                📦
+            </div>
+            <div>
+                Inventory
+            </div>
+        </div>
 
-            <span class="nav-icon">
-                📋
-            </span>
-
-            Inventory
-
-        </a>
-
-
-        <a
-            href="../settings/"
+        <div
             class="nav-item"
+            onclick="openMore()"
         >
+            <div class="nav-icon">
+                ☰
+            </div>
+            <div>
+                More
+            </div>
+        </div>
 
-            <span class="nav-icon">
-                ⋯
-            </span>
-
-            More
-
-        </a>
-
-
-    </div>
-
-</nav>
-
+    </nav>
 
 </div>
 
@@ -2603,120 +1355,50 @@ import {
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+    apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
 
-    authDomain:
-        "kayah-ecosystem.firebaseapp.com",
+    authDomain: "kayah-ecosystem.firebaseapp.com",
 
-    projectId:
-        "kayah-ecosystem",
+    projectId: "kayah-ecosystem",
 
-    storageBucket:
-        "kayah-ecosystem.firebasestorage.app",
+    storageBucket: "kayah-ecosystem.firebasestorage.app",
 
-    messagingSenderId:
-        "49853785143",
+    messagingSenderId: "49853785143",
 
-    appId:
-        "1:49853785143:web:23182e6e11696ac03dcbb2"
+    appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
 
 };
 
 
 /* =====================================================
-   INITIALIZE FIREBASE
+   INITIALIZE
 ===================================================== */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(app);
+const auth = getAuth(app);
 
-const db =
-    getFirestore(app);
+const db = getFirestore(app);
 
 
 /* =====================================================
-   ELEMENTS
+   CURRENT ACCOUNT
 ===================================================== */
 
-const loadingScreen =
-    document.getElementById("loadingScreen");
+let currentUser = null;
 
-const greetingText =
-    document.getElementById("greetingText");
+let currentUserData = null;
 
-const businessName =
-    document.getElementById("businessName");
+let currentRole = "owner";
 
-const businessType =
-    document.getElementById("businessType");
-
-const businessLocation =
-    document.getElementById("businessLocation");
-
-const businessInitial =
-    document.getElementById("businessInitial");
-
-const profileBusinessName =
-    document.getElementById("profileBusinessName");
-
-const profileBusinessType =
-    document.getElementById("profileBusinessType");
-
-const profileAddress =
-    document.getElementById("profileAddress");
-
-const profileCity =
-    document.getElementById("profileCity");
-
-const profileProvince =
-    document.getElementById("profileProvince");
-
-const profileCurrency =
-    document.getElementById("profileCurrency");
-
-const planName =
-    document.getElementById("planName");
-
-const planDescription =
-    document.getElementById("planDescription");
-
-const planBadge =
-    document.getElementById("planBadge");
-
-const trialEndDate =
-    document.getElementById("trialEndDate");
-
-const planStatus =
-    document.getElementById("planStatus");
-
-const accountEmail =
-    document.getElementById("accountEmail");
-
-const accountStatus =
-    document.getElementById("accountStatus");
-
-const subscriptionStatus =
-    document.getElementById("subscriptionStatus");
-
-const dashboardError =
-    document.getElementById("dashboardError");
-
-const profileStatusText =
-    document.getElementById("profileStatusText");
+let currentBusinessId = null;
 
 
 /* =====================================================
    SAFE TEXT
 ===================================================== */
 
-function safeText(
-    value,
-    fallback
-){
+function safeText(value, fallback = "—"){
 
     if(
         value === undefined ||
@@ -2728,97 +1410,119 @@ function safeText(
 
     }
 
-    return String(value).trim();
+    return String(value);
 
 }
 
 
-/* =====================================================
-   GREETING
-===================================================== */
+function updateGreeting(userData){
 
-function updateGreeting(name){
+    const hour = new Date().getHours();
 
-    const hour =
-        new Date().getHours();
+    let greeting = "Good day";
 
-    let greeting =
-        "Good day";
-
-
-    if(
-        hour >= 5 &&
-        hour < 12
-    ){
-
-        greeting =
-            "Good morning";
-
+    if(hour >= 5 && hour < 12){
+        greeting = "Good morning";
+    }else if(hour >= 12 && hour < 18){
+        greeting = "Good afternoon";
+    }else{
+        greeting = "Good evening";
     }
 
-    else if(
-        hour >= 12 &&
-        hour < 18
-    ){
+    document.getElementById("greetingSmall").textContent =
+        greeting;
 
-        greeting =
-            "Good afternoon";
+    const name =
+        userData?.fullName ||
+        userData?.name ||
+        userData?.ownerName ||
+        currentUser?.displayName ||
+        "there";
 
-    }
-
-    else{
-
-        greeting =
-            "Good evening";
-
-    }
-
-
-    if(name){
-
-        greetingText.textContent =
-            greeting +
-            ", " +
-            name;
-
-    }
-
-    else{
-
-        greetingText.textContent =
-            greeting;
-
-    }
-
+    document.getElementById("greetingName").textContent =
+        name;
 }
-
 
 /* =====================================================
    PLAN NAME
 ===================================================== */
 
-function getPlanName(plan){
+function getPlanName(data){
 
-    const plans = {
+    const plan = String(
+        data?.plan || "free"
+    ).toLowerCase();
 
-        free:
-            "Free Plan",
+    const trialActive =
+        data?.trialActive === true;
 
-        starter:
-            "Starter Plan",
+    let trialEnd = null;
 
-        business:
-            "Business Plan",
+    if(data?.trialEndsAt){
 
-        pro:
-            "Pro Plan"
+        if(
+            typeof data.trialEndsAt.toDate === "function"
+        ){
 
-    };
+            trialEnd =
+                data.trialEndsAt.toDate();
 
+        }else if(
+            data.trialEndsAt instanceof Date
+        ){
 
-    return plans[
-        String(plan || "free").toLowerCase()
-    ] || "Free Plan";
+            trialEnd =
+                data.trialEndsAt;
+
+        }else{
+
+            trialEnd =
+                new Date(data.trialEndsAt);
+
+        }
+
+    }
+
+    if(
+        plan === "free" &&
+        trialActive &&
+        trialEnd &&
+        trialEnd > new Date()
+    ){
+
+        return "30-Day Free Trial";
+
+    }
+
+    if(
+        plan === "free" &&
+        trialEnd &&
+        trialEnd <= new Date()
+    ){
+
+        return "Trial Ended";
+
+    }
+
+    if(plan === "starter"){
+
+        return "Starter";
+
+    }
+
+    if(plan === "business"){
+
+        return "Business";
+
+    }
+
+    if(plan === "pro"){
+
+        return "Pro";
+
+    }
+
+    return "Free Plan";
 
 }
 
@@ -2827,28 +1531,75 @@ function getPlanName(plan){
    PLAN DESCRIPTION
 ===================================================== */
 
-function getPlanDescription(plan){
+function getPlanDescription(data){
 
-    const descriptions = {
+    const plan = String(
+        data?.plan || "free"
+    ).toLowerCase();
 
-        free:
-            "Basic business management",
+    const trialActive =
+        data?.trialActive === true;
 
-        starter:
-            "More tools for growing businesses",
+    let trialEnd = null;
 
-        business:
-            "Advanced tools for established businesses",
+    if(data?.trialEndsAt){
 
-        pro:
-            "Full business management access"
+        if(
+            typeof data.trialEndsAt.toDate === "function"
+        ){
 
-    };
+            trialEnd =
+                data.trialEndsAt.toDate();
 
+        }else{
 
-    return descriptions[
-        String(plan || "free").toLowerCase()
-    ] || "Basic business management";
+            trialEnd =
+                new Date(data.trialEndsAt);
+
+        }
+
+    }
+
+    if(
+        plan === "free" &&
+        trialActive &&
+        trialEnd &&
+        trialEnd > new Date()
+    ){
+
+        return "Full access during your 30-day free trial.";
+
+    }
+
+    if(plan === "starter"){
+
+        return "Tools for growing businesses.";
+
+    }
+
+    if(plan === "business"){
+
+        return "More capacity and tools for established businesses.";
+
+    }
+
+    if(plan === "pro"){
+
+        return "Advanced capacity for larger businesses.";
+
+    }
+
+    if(
+        plan === "free" &&
+        trialEnd &&
+        trialEnd <= new Date()
+    ){
+
+        return "Your free trial has ended.";
+
+    }
+
+    return "Start managing your business with Kayah.";
 
 }
 
@@ -2857,89 +1608,50 @@ function getPlanDescription(plan){
    FORMAT DATE
 ===================================================== */
 
-function formatDate(date){
-
-    if(!date){
-
-        return "Not available";
-
-    }
-
-
-    try{
-
-        return new Intl.DateTimeFormat(
-            "en-PH",
-            {
-                year:"numeric",
-                month:"long",
-                day:"numeric"
-            }
-        ).format(date);
-
-    }
-
-    catch(error){
-
-        return date.toLocaleDateString();
-
-    }
-
-}
-
-
-/* =====================================================
-   FIRESTORE TIMESTAMP → DATE
-===================================================== */
-
-function timestampToDate(value){
+function formatDate(value){
 
     if(!value){
 
-        return null;
+        return "—";
 
     }
 
+    let date;
 
-    if(
-        typeof value.toDate === "function"
-    ){
-
-        return value.toDate();
-
-    }
-
-
-    if(
-        value instanceof Date
-    ){
-
-        return value;
-
-    }
-
-
-    if(
-        typeof value === "string" ||
-        typeof value === "number"
-    ){
-
-        const date =
-            new Date(value);
-
+    try{
 
         if(
-            !isNaN(date.getTime())
+            typeof value.toDate === "function"
         ){
 
-            return date;
+            date = value.toDate();
+
+        }else{
+
+            date = new Date(value);
 
         }
 
+    }catch(error){
+
+        return "—";
+
     }
 
+    if(isNaN(date.getTime())){
 
-    return null;
+        return "—";
+
+    }
+
+    return date.toLocaleDateString(
+        "en-PH",
+        {
+            year:"numeric",
+            month:"short",
+            day:"numeric"
+        }
+    );
 
 }
 
@@ -2950,217 +1662,163 @@ function timestampToDate(value){
 
 function showDashboardError(message){
 
-    if(!dashboardError){
+    const box =
+        document.getElementById("errorBox");
 
-        return;
-
-    }
-
-
-    dashboardError.textContent =
+    box.textContent =
         message;
 
-    dashboardError.style.display =
+    box.style.display =
         "block";
 
 }
 
 
 /* =====================================================
-   UPDATE PLAN DISPLAY
+   ROLE
 ===================================================== */
 
-function updatePlanDisplay(data){
+function getUserRole(data){
 
-    const currentPlan =
-        safeText(
-            data.plan,
-            "free"
-        ).toLowerCase();
+    return safeText(
+        data?.role,
+        "owner"
+    ).toLowerCase();
 
+}
 
-    const currentPlanStatus =
-        safeText(
-            data.planStatus,
-            "active"
-        ).toLowerCase();
 
+/* =====================================================
+   BUSINESS ID
+===================================================== */
 
-    const trialActiveFlag =
-        data.trialActive === true;
+function getBusinessId(data,user){
 
+    return safeText(
 
-    const subscription =
-        safeText(
-            data.subscriptionStatus,
-            "trial"
-        ).toLowerCase();
+        data?.businessId ||
 
+        data?.ownerUid ||
 
-    planName.textContent =
-        getPlanName(currentPlan);
+        user.uid,
 
+        user.uid
 
-    planDescription.textContent =
-        getPlanDescription(currentPlan);
-
-
-    /*
-     * Paid / normal plan
-     */
-
-    if(currentPlan !== "free"){
-
-        planBadge.textContent =
-            currentPlanStatus === "active"
-                ? "ACTIVE"
-                : currentPlanStatus.toUpperCase();
-
-        planBadge.classList.remove(
-            "expired"
-        );
-
-
-        trialEndDate.textContent =
-            "Not applicable";
-
-
-        planStatus.textContent =
-            currentPlanStatus === "active"
-                ? "Plan active"
-                : "Plan " + currentPlanStatus;
-
-
-        planStatus.classList.remove(
-            "expired"
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * Free plan with trial
-     */
-
-    const trialEnd =
-        timestampToDate(
-            data.trialEndsAt
-        );
-
-
-    const now =
-        new Date();
-
-
-    const trialCurrentlyActive =
-        trialEnd &&
-        trialEnd.getTime() > now.getTime();
-
-
-    /*
-     * Trial is active
-     */
-
-    if(
-        trialActiveFlag &&
-        trialCurrentlyActive
-    ){
-
-        planBadge.textContent =
-            "30-DAY TRIAL";
-
-
-        planBadge.classList.remove(
-            "expired"
-        );
-
-
-        trialEndDate.textContent =
-            formatDate(trialEnd);
-
-
-        planStatus.textContent =
-            "Trial active";
-
-
-        planStatus.classList.remove(
-            "expired"
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * Trial expired
-     */
-
-    if(trialEnd){
-
-        planBadge.textContent =
-            "TRIAL ENDED";
-
-
-        planBadge.classList.add(
-            "expired"
-        );
-
-
-        trialEndDate.textContent =
-            formatDate(trialEnd);
-
-
-        planStatus.textContent =
-            "Trial ended";
-
-
-        planStatus.classList.add(
-            "expired"
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * Free plan without a valid trial date
-     */
-
-    planBadge.textContent =
-        "FREE PLAN";
-
-
-    planBadge.classList.remove(
-        "expired"
-    );
-
-
-    trialEndDate.textContent =
-        "Not available";
-
-
-    planStatus.textContent =
-        subscription === "trial"
-            ? "Trial information unavailable"
-            : "Free plan active";
-
-
-    planStatus.classList.remove(
-        "expired"
     );
 
 }
 
 
 /* =====================================================
-   LOAD BUSINESS DATA
+   PLAN DISPLAY
+===================================================== */
+
+function updatePlanDisplay(data){
+
+    const planName =
+        getPlanName(data);
+
+    document.getElementById(
+        "planName"
+    ).textContent =
+        planName;
+
+    document.getElementById(
+        "planDescription"
+    ).textContent =
+        getPlanDescription(data);
+
+
+    let badge =
+        "FREE";
+
+    if(
+        planName === "30-Day Free Trial"
+    ){
+
+        badge =
+            "TRIAL";
+
+    }else if(
+        planName === "Trial Ended"
+    ){
+
+        badge =
+            "ENDED";
+
+    }else if(
+        planName === "Starter"
+    ){
+
+        badge =
+            "STARTER";
+
+    }else if(
+        planName === "Business"
+    ){
+
+        badge =
+            "BUSINESS";
+
+    }else if(
+        planName === "Pro"
+    ){
+
+        badge =
+            "PRO";
+
+    }
+
+    document.getElementById(
+        "planBadge"
+    ).textContent =
+        badge;
+
+
+    let status =
+        safeText(
+            data?.planStatus,
+            "Active"
+        );
+
+
+    if(
+        data?.subscriptionStatus
+    ){
+
+        status =
+            safeText(
+                data.subscriptionStatus,
+                status
+            );
+
+    }
+
+
+    if(
+        planName === "30-Day Free Trial" &&
+        data?.trialEndsAt
+    ){
+
+        status =
+            "Trial ends " +
+            formatDate(
+                data.trialEndsAt
+            );
+
+    }
+
+
+    document.getElementById(
+        "planStatus"
+    ).textContent =
+        status;
+
+}
+
+
+/* =====================================================
+   BUSINESS PROFILE
 ===================================================== */
 
 function loadBusinessProfile(
@@ -3168,248 +1826,113 @@ function loadBusinessProfile(
     user
 ){
 
-    /* -----------------------------------------------
-       NAME
-    ----------------------------------------------- */
-
-    const fullName =
+    const businessName =
         safeText(
-            data.fullName ||
-            data.name ||
-            user.displayName,
-            "there"
-        );
-
-
-    updateGreeting(
-        fullName
-    );
-
-
-    /* -----------------------------------------------
-       BUSINESS
-    ----------------------------------------------- */
-
-    const savedBusinessName =
-        safeText(
-            data.businessName,
+            data?.businessName,
             "Your Business"
         );
 
-
-    const savedBusinessType =
+    const businessType =
         safeText(
-            data.businessType,
+            data?.businessType,
             "Business"
         );
 
+    document.getElementById(
+        "businessName"
+    ).textContent =
+        businessName;
 
-    businessName.textContent =
-        savedBusinessName;
-
-
-    businessType.textContent =
-        savedBusinessType;
-
-
-    /* -----------------------------------------------
-       LOCATION
-    ----------------------------------------------- */
-
-    const savedCity =
-        safeText(
-            data.city,
-            ""
-        );
+    document.getElementById(
+        "businessType"
+    ).textContent =
+        businessType;
 
 
-    const savedProvince =
-        safeText(
-            data.province,
-            ""
-        );
-
-
-    let locationText =
-        "Location not provided";
-
-
-    if(
-        savedCity &&
-        savedProvince
-    ){
-
-        locationText =
-            "📍 " +
-            savedCity +
-            ", " +
-            savedProvince;
-
-    }
-
-    else if(savedCity){
-
-        locationText =
-            "📍 " +
-            savedCity;
-
-    }
-
-    else if(savedProvince){
-
-        locationText =
-            "📍 " +
-            savedProvince;
-
-    }
-
-
-    businessLocation.textContent =
-        locationText;
-
-
-    /* -----------------------------------------------
-       INITIAL
-    ----------------------------------------------- */
-
-    const initial =
-        savedBusinessName
+    document.getElementById(
+        "businessInitial"
+    ).textContent =
+        businessName
+            .trim()
             .charAt(0)
-            .toUpperCase();
+            .toUpperCase() || "K";
 
 
-    businessInitial.textContent =
-        initial || "B";
+    document.getElementById(
+        "infoBusinessName"
+    ).textContent =
+        businessName;
+
+    document.getElementById(
+        "infoBusinessType"
+    ).textContent =
+        businessType;
 
 
-    /* -----------------------------------------------
-       BUSINESS STATUS
-    ----------------------------------------------- */
-
-    if(
-        data.setupCompleted === true
-    ){
-
-        profileStatusText.textContent =
-            "Business profile active";
-
-    }
-
-    else{
-
-        profileStatusText.textContent =
-            "Business profile incomplete";
-
-    }
-
-
-    /* -----------------------------------------------
-       PROFILE INFORMATION
-    ----------------------------------------------- */
-
-    profileBusinessName.textContent =
-        savedBusinessName;
-
-
-    profileBusinessType.textContent =
-        savedBusinessType;
-
-
-    profileAddress.textContent =
+    document.getElementById(
+        "infoAddress"
+    ).textContent =
         safeText(
-            data.businessAddress,
-            "Not provided"
+            data?.address,
+            "—"
         );
 
-
-    profileCity.textContent =
+    document.getElementById(
+        "infoCity"
+    ).textContent =
         safeText(
-            data.city,
-            "Not provided"
+            data?.city ||
+            data?.municipality,
+            "—"
         );
 
-
-    profileProvince.textContent =
+    document.getElementById(
+        "infoProvince"
+    ).textContent =
         safeText(
-            data.province,
-            "Not provided"
+            data?.province,
+            "—"
         );
 
-
-    const currency =
+    document.getElementById(
+        "infoCurrency"
+    ).textContent =
         safeText(
-            data.currency,
+            data?.currency,
             "PHP"
         );
 
 
-    const currencySymbol =
+    document.getElementById(
+        "accountEmail"
+    ).textContent =
         safeText(
-            data.currencySymbol,
-            "₱"
+            user?.email,
+            "—"
         );
 
 
-    profileCurrency.textContent =
-        currency +
-        " — " +
-        currencySymbol;
+    if(currentRole === "staff"){
 
+        document.getElementById(
+            "accountRole"
+        ).textContent =
+            "Staff";
 
-    /* -----------------------------------------------
-       ACCOUNT
-    ----------------------------------------------- */
+    }else{
 
-    accountEmail.textContent =
-        safeText(
-            data.email ||
-            user.email,
-            "Not available"
-        );
+        document.getElementById(
+            "accountRole"
+        ).textContent =
+            "Business Owner";
 
-
-    accountStatus.textContent =
-        safeText(
-            data.accountStatus,
-            "active"
-        )
-        .replace(
-            /^./,
-            function(character){
-                return character.toUpperCase();
-            }
-        );
-
-
-    subscriptionStatus.textContent =
-        safeText(
-            data.subscriptionStatus,
-            "trial"
-        )
-        .replace(
-            /^./,
-            function(character){
-                return character.toUpperCase();
-            }
-        );
-
-
-    /* -----------------------------------------------
-       PLAN
-    ----------------------------------------------- */
-
-    updatePlanDisplay(
-        data
-    );
+    }
 
 }
 
 
-
-
-
 /* =====================================================
-   LOAD PRODUCT & INVENTORY COUNTS
+   PRODUCT STATS
 ===================================================== */
 
 async function loadProductStats(uid){
@@ -3425,85 +1948,184 @@ async function loadProductStats(uid){
             );
 
         const snapshot =
-            await getDocs(productsRef);
+            await getDocs(
+                productsRef
+            );
 
-        let totalProducts = 0;
-        let inventoryProducts = 0;
 
-        snapshot.forEach(function(productDoc){
+        let totalProducts =
+            0;
 
-            const product =
-                productDoc.data();
+        let trackedInventory =
+            0;
 
-            totalProducts++;
 
-            /*
-             * Inventory count:
-             * Products with stock tracking enabled
-             */
+        snapshot.forEach(
+            (productDoc) => {
 
-            if(product.trackStock === true){
+                const product =
+                    productDoc.data();
 
-                inventoryProducts++;
+                totalProducts++;
+
+                if(
+                    product.trackStock === true
+                ){
+
+                    trackedInventory++;
+
+                }
 
             }
+        );
 
-        });
 
         document.getElementById(
             "productCount"
         ).textContent =
             totalProducts;
 
+
         document.getElementById(
             "inventoryCount"
         ).textContent =
-            inventoryProducts;
+            trackedInventory;
 
-        console.log(
-            "Kayah product count:",
-            totalProducts
-        );
-
-        console.log(
-            "Kayah inventory count:",
-            inventoryProducts
-        );
-
-    }
-
-    catch(error){
+    }catch(error){
 
         console.error(
-            "Unable to load product statistics:",
+            "Product stats error:",
             error
         );
 
         document.getElementById(
             "productCount"
         ).textContent =
-            "—";
+            "0";
 
         document.getElementById(
             "inventoryCount"
         ).textContent =
-            "—";
+            "0";
 
     }
 
 }
 
+
 /* =====================================================
-   AUTH STATE
+   OWNER / STAFF UI
+===================================================== */
+
+function updateRoleInterface(){
+
+    const staffSection =
+        document.getElementById(
+            "staffManagementSection"
+        );
+
+
+    /*
+       Only the Business Owner can see
+       Staff Management.
+
+       Staff accounts will NOT see this.
+    */
+
+    if(currentRole === "owner"){
+
+        staffSection.style.display =
+            "block";
+
+    }else{
+
+        staffSection.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+window.openPage = function(url){
+
+    window.location.href =
+        url;
+
+};
+
+
+/* =====================================================
+   STAFF MANAGEMENT
+===================================================== */
+
+window.openStaffManagement = function(){
+
+    if(currentRole !== "owner"){
+
+        alert(
+            "Only the Business Owner can manage staff."
+        );
+
+        return;
+
+    }
+
+    window.location.href =
+        "../staff/";
+
+};
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+window.openSettings = function(){
+
+    window.location.href =
+        "../settings/";
+
+};
+
+
+/* =====================================================
+   MORE
+===================================================== */
+
+window.openMore = function(){
+
+    alert(
+        "More business tools will be available here."
+    );
+
+};
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+window.showNotificationMessage = function(){
+
+    alert(
+        "No new notifications."
+    );
+
+};
+
+
+/* =====================================================
+   AUTH
 ===================================================== */
 
 onAuthStateChanged(
     auth,
-    async function(user){
-
-        /* ---------------------------------------------
-           NOT LOGGED IN
-        --------------------------------------------- */
+    async (user) => {
 
         if(!user){
 
@@ -3515,17 +2137,16 @@ onAuthStateChanged(
         }
 
 
+        currentUser =
+            user;
+
+
         try{
 
-            console.log(
-                "Kayah dashboard UID:",
-                user.uid
-            );
-
-
-            /* -----------------------------------------
-               USER DOCUMENT
-            ----------------------------------------- */
+            /*
+             * First read the logged-in user's
+             * own document.
+             */
 
             const userRef =
                 doc(
@@ -3534,34 +2155,20 @@ onAuthStateChanged(
                     user.uid
                 );
 
-
-            const userSnapshot =
+            const userSnap =
                 await getDoc(
                     userRef
                 );
 
 
-            /* -----------------------------------------
-               DOCUMENT DOES NOT EXIST
-            ----------------------------------------- */
-
-            if(
-                !userSnapshot.exists()
-            ){
-
-                console.error(
-                    "No Kayah user document found for UID:",
-                    user.uid
-                );
-
+            if(!userSnap.exists()){
 
                 showDashboardError(
-                    "Your Kayah account profile could not be found. Please sign in again."
+                    "Your account information could not be found."
                 );
 
-
                 setTimeout(
-                    function(){
+                    () => {
 
                         window.location.href =
                             "../login/";
@@ -3570,38 +2177,55 @@ onAuthStateChanged(
                     1800
                 );
 
-
                 return;
 
             }
 
 
-            /* -----------------------------------------
-               FIRESTORE DATA
-            ----------------------------------------- */
-
-            const data =
-                userSnapshot.data();
+            const userData =
+                userSnap.data();
 
 
-            console.log(
-                "Kayah user profile:",
-                data
-            );
+            currentUserData =
+                userData;
 
 
-            /* -----------------------------------------
-               SETUP CHECK
-            ----------------------------------------- */
+            /*
+             * Determine whether this account
+             * is an owner or staff account.
+             */
 
-            if(
-                data.setupCompleted !== true
-            ){
-
-                console.log(
-                    "Business setup is incomplete. Redirecting..."
+            currentRole =
+                getUserRole(
+                    userData
                 );
 
+
+            /*
+             * Determine the business this
+             * account belongs to.
+             *
+             * Owner:
+             *     businessId = own UID
+             *
+             * Staff:
+             *     businessId = owner's UID
+             */
+
+            currentBusinessId =
+                getBusinessId(
+                    userData,
+                    user
+                );
+
+
+            /*
+             * Setup must still be completed.
+             */
+
+            if(
+                userData.setupCompleted !== true
+            ){
 
                 window.location.href =
                     "../setup/";
@@ -3611,90 +2235,122 @@ onAuthStateChanged(
             }
 
 
-            /* -----------------------------------------
-               LOAD DASHBOARD
-            ----------------------------------------- */
+            /*
+             * Owner account:
+             *
+             * Use its own document as the
+             * business profile and plan.
+             */
 
-            loadBusinessProfile(
-                data,
-                user
-            );
+            if(
+                currentBusinessId === user.uid
+            ){
+
+                loadBusinessProfile(
+                    userData,
+                    user
+                );
+
+                updatePlanDisplay(
+                    userData
+                );
+
+                await loadProductStats(
+                    currentBusinessId
+                );
+
+            }else{
+
+                /*
+                 * Staff account:
+                 *
+                 * Load the owner's business
+                 * document.
+                 *
+                 * This is prepared now so the
+                 * dashboard can use the same
+                 * business data later.
+                 */
+
+                const businessRef =
+                    doc(
+                        db,
+                        "users",
+                        currentBusinessId
+                    );
+
+                const businessSnap =
+                    await getDoc(
+                        businessRef
+                    );
 
 
-            /* -----------------------------------------
-   FUTURE STATS
------------------------------------------ */
+                if(!businessSnap.exists()){
 
-await loadProductStats(user.uid);
+                    showDashboardError(
+                        "The business connected to this staff account could not be found."
+                    );
 
+                    return;
 
-document.getElementById(
-    "todaySales"
-).textContent =
-    "₱0.00";
+                }
 
 
-document.getElementById(
-    "todaySalesNote"
-).textContent =
-    "No sales recorded yet";
+                const businessData =
+                    businessSnap.data();
 
 
-console.log(
-    "Kayah dashboard loaded successfully."
-);
+                loadBusinessProfile(
+                    businessData,
+                    user
+                );
 
-        }
+                updatePlanDisplay(
+                    businessData
+                );
 
-        catch(error){
+
+                await loadProductStats(
+                    currentBusinessId
+                );
+
+            }
+
+
+            /*
+             * Show/hide Owner-only tools.
+             */
+
+            updateRoleInterface();
+
+
+            /*
+             * Greeting.
+             */
+
+            updateGreeting(userData);
+            
+
+
+            /*
+             * Remove loading screen.
+             */
+
+            document.getElementById(
+                "loadingScreen"
+            ).style.display =
+                "none";
+
+
+        }catch(error){
 
             console.error(
-                "Kayah dashboard error:",
+                "Dashboard error:",
                 error
             );
 
-
-            if(
-                error.code ===
-                "permission-denied"
-            ){
-
-                showDashboardError(
-                    "Kayah could not access your business profile. Please check your Firebase Firestore rules."
-                );
-
-            }
-
-            else if(
-                error.code ===
-                "unavailable"
-            ){
-
-                showDashboardError(
-                    "Kayah is temporarily unable to connect to Firebase. Please check your internet connection and try again."
-                );
-
-            }
-
-            else{
-
-                showDashboardError(
-                    "Something went wrong while loading your business dashboard."
-                );
-
-            }
-
-        }
-
-
-        /* ---------------------------------------------
-           HIDE LOADING
-        --------------------------------------------- */
-
-        if(loadingScreen){
-
-            loadingScreen.classList.add(
-                "hide"
+            showDashboardError(
+                "Unable to load your dashboard. Please try again."
             );
 
         }
@@ -3702,57 +2358,42 @@ console.log(
     }
 );
 
-
-/* =====================================================
-   COMING SOON
-===================================================== */
-
-window.showComingSoon =
-    function(name){
-
-        alert(
-            name +
-            " will be available soon."
-        );
-
-    };
+</script>
 
 
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
+<!-- =====================================================
+     SERVICE WORKER
+===================================================== -->
+
+<script>
 
 if(
     "serviceWorker" in navigator
 ){
 
-    navigator.serviceWorker
-        .register("../sw.js")
-        .then(
-            function(){
+    window.addEventListener(
+        "load",
+        () => {
 
-                console.log(
-                    "Kayah service worker registered."
+            navigator.serviceWorker
+                .register("../sw.js")
+                .catch(
+                    error => {
+
+                        console.log(
+                            "Service worker registration failed:",
+                            error
+                        );
+
+                    }
                 );
 
-            }
-        )
-        .catch(
-            function(error){
-
-                console.log(
-                    "Service worker error:",
-                    error
-                );
-
-            }
-        );
+        }
+    );
 
 }
 
 </script>
 
-
 </body>
-
 </html>
