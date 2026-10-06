@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Materials - Kayah</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f7f3e8;
+    color:#18352b;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    background:linear-gradient(
+        135deg,
+        #0b4f3a,
+        #16805c
+    );
+
+    color:white;
+    padding:22px 18px 26px;
+    border-radius:0 0 24px 24px;
+}
+
+.header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back-btn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    font-size:22px;
+    font-weight:700;
+}
+
+.add-header-btn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:12px;
+    background:#f2b84b;
+    color:#0b4f3a;
+    font-size:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.header-subtitle{
+    margin-top:10px;
+    font-size:13px;
+    opacity:.85;
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    padding:16px;
+}
+
+.summary-card{
+    background:white;
+    border-radius:16px;
+    padding:14px 8px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+.summary-number{
+    font-size:21px;
+    font-weight:700;
+    color:#0b4f3a;
+}
+
+.summary-label{
+    margin-top:5px;
+    font-size:11px;
+    color:#718078;
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-area{
+    padding:0 16px 12px;
+}
+
+.search-box{
+    width:100%;
+    border:1px solid #ddd8ca;
+    background:white;
+    border-radius:14px;
+    padding:13px 15px;
+    font-size:14px;
+    outline:none;
+}
+
+.search-box:focus{
+    border-color:#16805c;
+}
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:0 16px 14px;
+}
+
+.filter-btn{
+    white-space:nowrap;
+    border:1px solid #d9d4c7;
+    background:white;
+    color:#496158;
+    border-radius:20px;
+    padding:9px 14px;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.filter-btn.active{
+    background:#0b4f3a;
+    color:white;
+    border-color:#0b4f3a;
+}
+
+/* =====================================================
+   MATERIAL LIST
+===================================================== */
+
+.material-list{
+    padding:0 16px;
+}
+
+.material-card{
+    background:white;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.material-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.material-name{
+    font-size:16px;
+    font-weight:700;
+    color:#18352b;
+}
+
+.material-category{
+    margin-top:4px;
+    font-size:11px;
+    color:#7b8781;
+}
+
+.status{
+    white-space:nowrap;
+    height:max-content;
+    padding:6px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.status.in-stock{
+    background:#e3f5ea;
+    color:#16805c;
+}
+
+.status.low-stock{
+    background:#fff2d5;
+    color:#a96c00;
+}
+
+.status.out-stock{
+    background:#fde4e1;
+    color:#b3261e;
+}
+
+.material-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.info-box{
+    background:#f7f3e8;
+    border-radius:12px;
+    padding:10px;
+}
+
+.info-label{
+    font-size:10px;
+    color:#7a857f;
+}
+
+.info-value{
+    margin-top:3px;
+    font-size:14px;
+    font-weight:700;
+    color:#18352b;
+}
+
+.material-actions{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+}
+
+.action-btn{
+    flex:1;
+    border:none;
+    border-radius:11px;
+    padding:10px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:600;
+}
+
+.edit-btn{
+    background:#e7f3ed;
+    color:#0b4f3a;
+}
+
+.delete-btn{
+    background:#fde9e7;
+    color:#b3261e;
+}
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:#75817b;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.empty-title{
+    font-size:17px;
+    font-weight:700;
+    color:#31483f;
+}
+
+.empty-text{
+    margin-top:7px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    width:100%;
+    max-width:600px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:#f7f3e8;
+    border-radius:25px 25px 0 0;
+    padding:22px 18px 28px;
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.modal-title{
+    font-size:20px;
+    font-weight:700;
+    color:#0b4f3a;
+}
+
+.close-btn{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:12px;
+    background:#e9e5d9;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-label{
+    display:block;
+    margin-bottom:6px;
+    font-size:12px;
+    font-weight:600;
+    color:#42554d;
+}
+
+.form-input,
+.form-select,
+.form-textarea{
+    width:100%;
+    border:1px solid #d8d3c7;
+    background:white;
+    border-radius:12px;
+    padding:12px;
+    font-size:14px;
+    outline:none;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus{
+    border-color:#16805c;
+}
+
+.form-textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.two-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.save-btn{
+    width:100%;
+    border:none;
+    border-radius:14px;
+    padding:14px;
+    background:#0b4f3a;
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+    text-align:center;
+    padding:35px;
+    color:#718078;
+    font-size:13px;
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:white;
+    border-top:1px solid #e4dfd2;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:500;
+}
+
+.nav-item{
+    text-decoration:none;
+    color:#7a857f;
+    text-align:center;
+    font-size:10px;
+}
+
+.nav-icon{
+    font-size:21px;
+    display:block;
+    margin-bottom:3px;
+}
+
+.nav-item.active{
+    color:#0b4f3a;
+    font-weight:700;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(min-width:700px){
+
+    .modal{
+        align-items:center;
+    }
+
+    .modal-content{
+        border-radius:25px;
+    }
+
+    .material-list{
+        max-width:800px;
+        margin:auto;
+    }
+
+    .search-area,
+    .filters{
+        max-width:800px;
+        margin:auto;
+    }
+
+    .summary{
+        max-width:800px;
+        margin:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+            ‹
+        </button>
+
+        <div class="header-title">
+            Materials
+        </div>
+
+        <button
+            class="add-header-btn"
+            onclick="openAddMaterial()">
+            +
+        </button>
+
+    </div>
+
+    <div class="header-subtitle">
+        Manage your business materials and supplies
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<section class="summary">
+
+    <div class="summary-card">
+
+        <div
+            class="summary-number"
+            id="totalMaterials">
+            0
+        </div>
+
+        <div class="summary-label">
+            Total Materials
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <div
+            class="summary-number"
+            id="lowStockCount">
+            0
+        </div>
+
+        <div class="summary-label">
+            Low Stock
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <div
+            class="summary-number"
+            id="outStockCount">
+            0
+        </div>
+
+        <div class="summary-label">
+            Out of Stock
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<div class="search-area">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search materials..."
+        oninput="renderMaterials()">
+
+</div>
+
+
+<!-- =====================================================
+     FILTERS
+===================================================== -->
+
+<div class="filters">
+
+    <button
+        class="filter-btn active"
+        data-filter="all"
+        onclick="setFilter('all', this)">
+        All
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="in-stock"
+        onclick="setFilter('in-stock', this)">
+        In Stock
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="low-stock"
+        onclick="setFilter('low-stock', this)">
+        Low Stock
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="out-stock"
+        onclick="setFilter('out-stock', this)">
+        Out of Stock
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     MATERIAL LIST
+===================================================== -->
+
+<div
+    id="materialList"
+    class="material-list">
+
+    <div class="loading">
+        Loading materials...
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADD / EDIT MODAL
+===================================================== -->
+
+<div
+    id="materialModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div
+                id="modalTitle"
+                class="modal-title">
+                Add Material
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeMaterialModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Material Name *
+            </label>
+
+            <input
+                id="materialName"
+                class="form-input"
+                type="text"
+                placeholder="Example: Chicken">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Category
+            </label>
+
+            <input
+                id="materialCategory"
+                class="form-input"
+                type="text"
+                placeholder="Example: Raw Materials">
+
+        </div>
+
+
+        <div class="two-columns">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Quantity *
+                </label>
+
+                <input
+                    id="materialQuantity"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="any"
+                    placeholder="0">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Unit *
+                </label>
+
+                <input
+                    id="materialUnit"
+                    class="form-input"
+                    type="text"
+                    placeholder="kg, pcs, L">
+
+            </div>
+
+        </div>
+
+
+        <div class="two-columns">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Cost per Unit
+                </label>
+
+                <input
+                    id="materialCost"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Low Stock Alert
+                </label>
+
+                <input
+                    id="materialLowStock"
+                    class="form-input"
+                    type="number"
+                    min="0"
+                    step="any"
+                    placeholder="Example: 5">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Supplier
+            </label>
+
+            <input
+                id="materialSupplier"
+                class="form-input"
+                type="text"
+                placeholder="Optional">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Notes
+            </label>
+
+            <textarea
+                id="materialNotes"
+                class="form-textarea"
+                placeholder="Optional notes"></textarea>
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            id="saveMaterialBtn"
+            onclick="saveMaterial()">
+            Save Material
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <a
+        class="nav-item"
+        href="../dashboard/">
+
+        <span class="nav-icon">⌂</span>
+        Dashboard
+
+    </a>
+
+
+    <a
+        class="nav-item"
+        href="../products/">
+
+        <span class="nav-icon">📦</span>
+        Products
+
+    </a>
+
+
+    <a
+        class="nav-item"
+        href="../inventory/">
+
+        <span class="nav-icon">📋</span>
+        Inventory
+
+    </a>
+
+
+    <a
+        class="nav-item active"
+        href="./">
+
+        <span class="nav-icon">🧰</span>
+        Materials
+
+    </a>
+
+
+    <a
+        class="nav-item"
+        href="../settings/">
+
+        <span class="nav-icon">⚙️</span>
+        Settings
+
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "YOUR_EXISTING_KAYAH_API_KEY",
+
+    authDomain:
+        "kayah-ecosystem.firebaseapp.com",
+
+    projectId:
+        "kayah-ecosystem",
+
+    storageBucket:
+        "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId:
+        "YOUR_EXISTING_MESSAGING_SENDER_ID",
+
+    appId:
+        "YOUR_EXISTING_APP_ID"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+let currentUser = null;
+
+let materials = [];
+
+let currentFilter = "all";
+
+let editingMaterialId = null;
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            window.location.href =
+                "../login/";
+
+            return;
+
+        }
+
+        currentUser = user;
+
+        await loadMaterials();
+
+    }
+);
+
+
+/* =====================================================
+   LOAD MATERIALS
+===================================================== */
+
+async function loadMaterials(){
+
+    const list =
+        document.getElementById(
+            "materialList"
+        );
+
+    list.innerHTML = `
+        <div class="loading">
+            Loading materials...
+        </div>
+    `;
+
+    try{
+
+        const materialsRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "materials"
+            );
+
+        const snapshot =
+            await getDocs(
+                materialsRef
+            );
+
+        materials = [];
+
+        snapshot.forEach(
+            function(materialDoc){
+
+                materials.push({
+
+                    id:
+                        materialDoc.id,
+
+                    ...materialDoc.data()
+
+                });
+
+            }
+        );
+
+        renderMaterials();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to load materials:",
+            error
+        );
+
+        list.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <div class="empty-title">
+                    Unable to load materials
+                </div>
+
+                <div class="empty-text">
+                    Please check your Firebase connection and try again.
+                </div>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   GET STATUS
+===================================================== */
+
+function getMaterialStatus(material){
+
+    const quantity =
+        Number(material.quantity || 0);
+
+    const lowStock =
+        Number(material.lowStockAlert || 0);
+
+    if(quantity <= 0){
+
+        return "out-stock";
+
+    }
+
+    if(
+        lowStock > 0 &&
+        quantity <= lowStock
+    ){
+
+        return "low-stock";
+
+    }
+
+    return "in-stock";
+
+}
+
+
+/* =====================================================
+   STATUS TEXT
+===================================================== */
+
+function getStatusText(status){
+
+    if(status === "out-stock")
+        return "Out of Stock";
+
+    if(status === "low-stock")
+        return "Low Stock";
+
+    return "In Stock";
+
+}
+
+
+/* =====================================================
+   RENDER MATERIALS
+===================================================== */
+
+window.renderMaterials =
+function(){
+
+    const list =
+        document.getElementById(
+            "materialList"
+        );
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+         .trim()
+         .toLowerCase();
+
+
+    let filtered =
+        materials.filter(
+            function(material){
+
+                const name =
+                    String(
+                        material.name || ""
+                    ).toLowerCase();
+
+                const category =
+                    String(
+                        material.category || ""
+                    ).toLowerCase();
+
+                const matchesSearch =
+                    name.includes(search) ||
+                    category.includes(search);
+
+
+                const status =
+                    getMaterialStatus(
+                        material
+                    );
+
+                const matchesFilter =
+                    currentFilter === "all" ||
+                    currentFilter === status;
+
+
+                return (
+                    matchesSearch &&
+                    matchesFilter
+                );
+
+            }
+        );
+
+
+    updateSummary();
+
+
+    if(filtered.length === 0){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🧰
+                </div>
+
+                <div class="empty-title">
+                    No materials found
+                </div>
+
+                <div class="empty-text">
+                    Add your first custom material to start tracking supplies.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        filtered.map(
+            function(material){
+
+                const status =
+                    getMaterialStatus(
+                        material
+                    );
+
+                const statusText =
+                    getStatusText(
+                        status
+                    );
+
+
+                const quantity =
+                    Number(
+                        material.quantity || 0
+                    );
+
+
+                const cost =
+                    Number(
+                        material.costPerUnit || 0
+                    );
+
+
+                return `
+
+                    <div class="material-card">
+
+                        <div class="material-top">
+
+                            <div>
+
+                                <div class="material-name">
+                                    ${escapeHtml(
+                                        material.name || "Unnamed Material"
+                                    )}
+                                </div>
+
+                                <div class="material-category">
+                                    ${
+                                        material.category
+                                        ? escapeHtml(material.category)
+                                        : "No category"
+                                    }
+                                </div>
+
+                            </div>
+
+
+                            <div class="status ${status}">
+                                ${statusText}
+                            </div>
+
+                        </div>
+
+
+                        <div class="material-info">
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+                                    Quantity
+                                </div>
+
+                                <div class="info-value">
+                                    ${formatNumber(quantity)}
+                                    ${escapeHtml(material.unit || "")}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+                                    Cost / Unit
+                                </div>
+
+                                <div class="info-value">
+                                    ₱${formatMoney(cost)}
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+                                    Low Stock Alert
+                                </div>
+
+                                <div class="info-value">
+                                    ${
+                                        material.lowStockAlert !== undefined &&
+                                        material.lowStockAlert !== ""
+                                        ? formatNumber(material.lowStockAlert)
+                                        : "Not set"
+                                    }
+                                </div>
+
+                            </div>
+
+
+                            <div class="info-box">
+
+                                <div class="info-label">
+                                    Supplier
+                                </div>
+
+                                <div class="info-value">
+                                    ${
+                                        material.supplier
+                                        ? escapeHtml(material.supplier)
+                                        : "Not set"
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            material.notes
+                            ? `
+                                <div
+                                    style="
+                                        margin-top:12px;
+                                        font-size:12px;
+                                        color:#68756f;
+                                    ">
+                                    ${escapeHtml(material.notes)}
+                                </div>
+                            `
+                            : ""
+                        }
+
+
+                        <div class="material-actions">
+
+                            <button
+                                class="action-btn edit-btn"
+                                onclick="editMaterial('${material.id}')">
+                                Edit
+                            </button>
+
+                            <button
+                                class="action-btn delete-btn"
+                                onclick="removeMaterial('${material.id}')">
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+};
+
+
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
+
+function updateSummary(){
+
+    let low = 0;
+
+    let out = 0;
+
+
+    materials.forEach(
+        function(material){
+
+            const status =
+                getMaterialStatus(
+                    material
+                );
+
+            if(status === "low-stock")
+                low++;
+
+            if(status === "out-stock")
+                out++;
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalMaterials"
+    ).textContent =
+        materials.length;
+
+
+    document.getElementById(
+        "lowStockCount"
+    ).textContent =
+        low;
+
+
+    document.getElementById(
+        "outStockCount"
+    ).textContent =
+        out;
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+window.setFilter =
+function(filter, button){
+
+    currentFilter =
+        filter;
+
+
+    document
+        .querySelectorAll(".filter-btn")
+        .forEach(
+            function(btn){
+
+                btn.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderMaterials();
+
+};
+
+
+/* =====================================================
+   OPEN ADD
+===================================================== */
+
+window.openAddMaterial =
+function(){
+
+    editingMaterialId = null;
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Add Material";
+
+
+    clearForm();
+
+
+    document.getElementById(
+        "materialModal"
+    ).classList.add(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   EDIT MATERIAL
+===================================================== */
+
+window.editMaterial =
+function(id){
+
+    const material =
+        materials.find(
+            function(item){
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if(!material)
+        return;
+
+
+    editingMaterialId =
+        id;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Edit Material";
+
+
+    document.getElementById(
+        "materialName"
+    ).value =
+        material.name || "";
+
+
+    document.getElementById(
+        "materialCategory"
+    ).value =
+        material.category || "";
+
+
+    document.getElementById(
+        "materialQuantity"
+    ).value =
+        material.quantity ?? "";
+
+
+    document.getElementById(
+        "materialUnit"
+    ).value =
+        material.unit || "";
+
+
+    document.getElementById(
+        "materialCost"
+    ).value =
+        material.costPerUnit ?? "";
+
+
+    document.getElementById(
+        "materialLowStock"
+    ).value =
+        material.lowStockAlert ?? "";
+
+
+    document.getElementById(
+        "materialSupplier"
+    ).value =
+        material.supplier || "";
+
+
+    document.getElementById(
+        "materialNotes"
+    ).value =
+        material.notes || "";
+
+
+    document.getElementById(
+        "materialModal"
+    ).classList.add(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   SAVE MATERIAL
+===================================================== */
+
+window.saveMaterial =
+async function(){
+
+    if(!currentUser)
+        return;
+
+
+    const name =
+        document.getElementById(
+            "materialName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "materialCategory"
+        ).value.trim();
+
+
+    const quantityValue =
+        document.getElementById(
+            "materialQuantity"
+        ).value;
+
+
+    const unit =
+        document.getElementById(
+            "materialUnit"
+        ).value.trim();
+
+
+    const costValue =
+        document.getElementById(
+            "materialCost"
+        ).value;
+
+
+    const lowStockValue =
+        document.getElementById(
+            "materialLowStock"
+        ).value;
+
+
+    const supplier =
+        document.getElementById(
+            "materialSupplier"
+        ).value.trim();
+
+
+    const notes =
+        document.getElementById(
+            "materialNotes"
+        ).value.trim();
+
+
+    if(!name){
+
+        alert(
+            "Please enter the material name."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        quantityValue === "" ||
+        Number(quantityValue) < 0
+    ){
+
+        alert(
+            "Please enter a valid quantity."
+        );
+
+        return;
+
+    }
+
+
+    if(!unit){
+
+        alert(
+            "Please enter the unit."
+        );
+
+        return;
+
+    }
+
+
+    const quantity =
+        Number(quantityValue);
+
+
+    const costPerUnit =
+        costValue === ""
+        ? 0
+        : Number(costValue);
+
+
+    const lowStockAlert =
+        lowStockValue === ""
+        ? 0
+        : Number(lowStockValue);
+
+
+    const data = {
+
+        name:
+
+            name,
+
+        category:
+
+            category,
+
+        quantity:
+
+            quantity,
+
+        unit:
+
+            unit,
+
+        costPerUnit:
+
+            costPerUnit,
+
+        lowStockAlert:
+
+            lowStockAlert,
+
+        supplier:
+
+            supplier,
+
+        notes:
+
+            notes,
+
+        ownerUid:
+
+            currentUser.uid,
+
+        updatedAt:
+
+            serverTimestamp()
+
+    };
+
+
+    const button =
+        document.getElementById(
+            "saveMaterialBtn"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Saving...";
+
+
+    try{
+
+        if(editingMaterialId){
+
+            const materialRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid,
+                    "materials",
+                    editingMaterialId
+                );
+
+
+            await updateDoc(
+                materialRef,
+                data
+            );
+
+        }
+
+        else{
+
+            data.createdAt =
+                serverTimestamp();
+
+
+            const materialsRef =
+                collection(
+                    db,
+                    "users",
+                    currentUser.uid,
+                    "materials"
+                );
+
+
+            await addDoc(
+                materialsRef,
+                data
+            );
+
+        }
+
+
+        closeMaterialModal();
+
+        await loadMaterials();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to save material:",
+            error
+        );
+
+        alert(
+            "Unable to save material. Please try again."
+        );
+
+    }
+
+
+    button.disabled = false;
+
+    button.textContent =
+        "Save Material";
+
+};
+
+
+/* =====================================================
+   DELETE MATERIAL
+===================================================== */
+
+window.removeMaterial =
+async function(id){
+
+    const material =
+        materials.find(
+            function(item){
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if(!material)
+        return;
+
+
+    const confirmed =
+        confirm(
+            `Delete "${material.name}"?`
+        );
+
+
+    if(!confirmed)
+        return;
+
+
+    try{
+
+        const materialRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid,
+                "materials",
+                id
+            );
+
+
+        await deleteDoc(
+            materialRef
+        );
+
+
+        await loadMaterials();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to delete material:",
+            error
+        );
+
+        alert(
+            "Unable to delete material."
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+window.closeMaterialModal =
+function(){
+
+    document.getElementById(
+        "materialModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(){
+
+    document.getElementById(
+        "materialName"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialCategory"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialQuantity"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialUnit"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialLowStock"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialSupplier"
+    ).value = "";
+
+
+    document.getElementById(
+        "materialNotes"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function formatNumber(value){
+
+    return Number(value || 0)
+        .toLocaleString(
+            "en-US",
+            {
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+function formatMoney(value){
+
+    return Number(value || 0)
+        .toLocaleString(
+            "en-PH",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+window.goBack =
+function(){
+
+    window.location.href =
+        "../dashboard/";
+
+};
+
+
+/* =====================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.getElementById(
+    "materialModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            this
+        ){
+
+            closeMaterialModal();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
