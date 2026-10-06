@@ -13,6 +13,305 @@
 <style>
 
 /* =====================================================
+   MATERIAL INVENTORY
+===================================================== */
+
+.inventory-history-item{
+    background:white;
+    border:1px solid #e4e9e6;
+    border-radius:14px;
+    padding:13px;
+    margin-bottom:10px;
+}
+
+.inventory-history-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.inventory-history-type{
+    font-size:13px;
+    font-weight:700;
+    color:#0b4f3a;
+}
+
+.inventory-history-quantity{
+    font-size:15px;
+    font-weight:700;
+    color:#16805c;
+}
+
+.inventory-history-date{
+    margin-top:5px;
+    font-size:11px;
+    color:#7a857f;
+}
+
+.inventory-history-details{
+    margin-top:8px;
+    font-size:12px;
+    color:#53645c;
+    line-height:1.5;
+}
+
+.stock-in{
+    background:#e3f5ea;
+    color:#16805c;
+    padding:5px 8px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:700;
+}
+
+
+
+.inventory-btn{
+    background:#fff2d5;
+    color:#8a5a00;
+}
+
+
+
+
+/* =====================================================
+   MATERIAL LIST VIEW
+===================================================== */
+
+.material-list-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    background:#ffffff;
+
+    border:1px solid #e4e9e6;
+
+    border-radius:14px;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    transition:0.2s;
+
+}
+
+
+.material-list-item:hover{
+
+    border-color:#cbd8d1;
+
+}
+
+
+/* =====================================================
+   PHOTO
+===================================================== */
+
+.material-list-image{
+
+    flex-shrink:0;
+
+}
+
+
+.material-list-photo{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:#f7f3e8;
+
+}
+
+
+.no-photo{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    color:#8a968f;
+
+}
+
+
+/* =====================================================
+   MAIN INFO
+===================================================== */
+
+.material-list-main{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+
+.material-list-name{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#18382d;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.material-list-category{
+
+    margin-top:3px;
+
+    font-size:12px;
+
+    color:#7a8781;
+
+}
+
+
+.material-list-meta{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:7px;
+
+    font-size:12px;
+
+    color:#53645c;
+
+}
+
+
+.material-list-meta span:first-child{
+
+    font-weight:700;
+
+    color:#16805C;
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.material-list-status{
+
+    flex-shrink:0;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.material-list-actions{
+    display:flex;
+    gap:6px;
+    flex-shrink:0;
+    flex-wrap:wrap;
+}
+
+
+.material-list-actions .action-btn{
+
+    padding:7px 10px;
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px){
+
+    .material-list-item{
+
+        gap:10px;
+
+        padding:10px;
+
+    }
+
+
+    .material-list-photo{
+
+        width:54px;
+
+        height:54px;
+
+    }
+
+
+    .material-list-status{
+
+        display:none;
+
+    }
+
+
+    .material-list-actions{
+
+        flex-direction:column;
+
+        gap:4px;
+
+    }
+
+
+    .material-list-actions .action-btn{
+
+        padding:6px 8px;
+
+    }
+
+
+    .material-list-meta{
+
+        flex-direction:column;
+
+        gap:2px;
+
+    }
+
+}
+
+
+
+
+
+
+/* =====================================================
    RESET
 ===================================================== */
 
@@ -79,6 +378,24 @@ body{
     font-weight:bold;
     cursor:pointer;
 }
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.header-inventory-btn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
 
 .header-subtitle{
     margin-top:10px;
@@ -513,11 +830,21 @@ body{
             Materials
         </div>
 
-        <button
-            class="add-header-btn"
-            onclick="openAddMaterial()">
-            +
-        </button>
+        <div class="header-actions">
+
+    <button
+        class="header-inventory-btn"
+        onclick="openAddMaterialInventory()">
+        📦
+    </button>
+
+    <button
+        class="add-header-btn"
+        onclick="openAddMaterial()">
+        +
+    </button>
+
+</div>
 
     </div>
 
@@ -902,6 +1229,197 @@ body{
 
 
 <!-- =====================================================
+     ADD MATERIAL INVENTORY MODAL
+===================================================== -->
+
+<div
+    id="materialInventoryModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title">
+                Add Material Inventory
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeMaterialInventoryModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- MATERIAL -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Material *
+            </label>
+
+            <select
+                id="inventoryMaterial"
+                class="form-select">
+
+                <option value="">
+                    Select Material
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- CURRENT STOCK -->
+
+        <div
+            id="inventoryCurrentStock"
+            style="
+                display:none;
+                background:#e7f3ed;
+                color:#0b4f3a;
+                border-radius:12px;
+                padding:12px;
+                margin-bottom:14px;
+                font-size:13px;
+                font-weight:700;
+            ">
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Quantity Added *
+            </label>
+
+            <input
+                id="inventoryQuantity"
+                class="form-input"
+                type="number"
+                min="0"
+                step="any"
+                placeholder="0">
+
+        </div>
+
+
+        <!-- UNIT COST -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Unit Cost
+            </label>
+
+            <input
+                id="inventoryUnitCost"
+                class="form-input"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00">
+
+        </div>
+
+
+        <!-- SUPPLIER -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Supplier
+            </label>
+
+            <input
+                id="inventorySupplier"
+                class="form-input"
+                type="text"
+                placeholder="Optional">
+
+        </div>
+
+
+        <!-- NOTES -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Notes
+            </label>
+
+            <textarea
+                id="inventoryNotes"
+                class="form-textarea"
+                placeholder="Optional notes"></textarea>
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            id="saveMaterialInventoryBtn"
+            onclick="saveMaterialInventory()">
+
+            Add Stock
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     MATERIAL INVENTORY HISTORY MODAL
+===================================================== -->
+
+<div
+    id="materialInventoryHistoryModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div
+                id="inventoryHistoryTitle"
+                class="modal-title">
+                Inventory History
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeMaterialInventoryHistory()">
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="materialInventoryHistoryList">
+
+            <div class="loading">
+                Loading inventory history...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- =====================================================
      BOTTOM NAV
 ===================================================== -->
 
@@ -984,7 +1502,8 @@ import {
     updateDoc,
     deleteDoc,
     doc,
-    serverTimestamp
+    serverTimestamp,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -1307,7 +1826,7 @@ function getStatusText(status){
 
 
 /* =====================================================
-   RENDER MATERIALS
+   RENDER MATERIALS — LIST VIEW
 ===================================================== */
 
 window.renderMaterials =
@@ -1318,13 +1837,18 @@ function(){
             "materialList"
         );
 
+
     const search =
         document.getElementById(
             "searchInput"
         ).value
-         .trim()
-         .toLowerCase();
+        .trim()
+        .toLowerCase();
 
+
+    /* =================================================
+       FILTER
+    ================================================= */
 
     let filtered =
         materials.filter(
@@ -1335,10 +1859,12 @@ function(){
                         material.name || ""
                     ).toLowerCase();
 
+
                 const category =
                     String(
                         material.category || ""
                     ).toLowerCase();
+
 
                 const matchesSearch =
                     name.includes(search) ||
@@ -1349,6 +1875,7 @@ function(){
                     getMaterialStatus(
                         material
                     );
+
 
                 const matchesFilter =
                     currentFilter === "all" ||
@@ -1364,8 +1891,16 @@ function(){
         );
 
 
+    /* =================================================
+       UPDATE SUMMARY
+    ================================================= */
+
     updateSummary();
 
+
+    /* =================================================
+       EMPTY
+    ================================================= */
 
     if(filtered.length === 0){
 
@@ -1382,7 +1917,7 @@ function(){
                 </div>
 
                 <div class="empty-text">
-                    Add your first custom material to start tracking supplies.
+                    Add your first material to start tracking supplies.
                 </div>
 
             </div>
@@ -1394,6 +1929,10 @@ function(){
     }
 
 
+    /* =================================================
+       LIST
+    ================================================= */
+
     list.innerHTML =
         filtered.map(
             function(material){
@@ -1402,6 +1941,7 @@ function(){
                     getMaterialStatus(
                         material
                     );
+
 
                 const statusText =
                     getStatusText(
@@ -1415,59 +1955,172 @@ function(){
                     );
 
 
-                const cost =
-                    Number(
-                        material.costPerUnit || 0
-                    );
+                /* =====================================
+                   DATE ADDED
+                ===================================== */
 
+                let dateAdded =
+                    "—";
+
+
+                if(material.createdAt){
+
+                    try{
+
+                        let date;
+
+
+                        if(
+                            material.createdAt.toDate
+                        ){
+
+                            date =
+                                material.createdAt.toDate();
+
+                        }
+
+                        else if(
+                            material.createdAt.seconds
+                        ){
+
+                            date =
+                                new Date(
+                                    material.createdAt.seconds * 1000
+                                );
+
+                        }
+
+                        else{
+
+                            date =
+                                new Date(
+                                    material.createdAt
+                                );
+
+                        }
+
+
+                        if(
+                            !isNaN(
+                                date.getTime()
+                            )
+                        ){
+
+                            dateAdded =
+                                date.toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        month:"short",
+                                        day:"numeric",
+                                        year:"numeric"
+                                    }
+                                );
+
+                        }
+
+                    }
+
+                    catch(error){
+
+                        dateAdded =
+                            "—";
+
+                    }
+
+                }
+
+
+                /* =====================================
+                   PHOTO
+                ===================================== */
+
+                const photo =
+                    material.photoUrl
+
+                    ? `
+
+                        <img
+                            src="${escapeHtml(material.photoUrl)}"
+                            alt="${escapeHtml(material.name || "Material")}"
+                            class="material-list-photo"
+                        >
+
+                    `
+
+                    : `
+
+                        <div class="material-list-photo no-photo">
+                            🧰
+                        </div>
+
+                    `;
+
+
+                /* =====================================
+                   RETURN ITEM
+                ===================================== */
 
                 return `
 
-                    <div class="material-card">
-                        
-                        ${
-    material.photoUrl
-    ? `
-        <img
-            src="${escapeHtml(material.photoUrl)}"
-            alt="${escapeHtml(material.name || "Material")}"
-            style="
-                width:100%;
-                height:180px;
-                object-fit:cover;
-                border-radius:14px;
-                margin-bottom:14px;
-                background:#f7f3e8;
-                display:block;
-            "
-        >
-    `
-    : ""
-}
-                        
-                        
-                        
+                    <div class="material-list-item">
 
-                        <div class="material-top">
 
-                            <div>
+                        <!-- PHOTO -->
 
-                                <div class="material-name">
-                                    ${escapeHtml(
-                                        material.name || "Unnamed Material"
-                                    )}
-                                </div>
+                        <div class="material-list-image">
 
-                                <div class="material-category">
-                                    ${
-                                        material.category
-                                        ? escapeHtml(material.category)
-                                        : "No category"
-                                    }
-                                </div>
+                            ${photo}
+
+                        </div>
+
+
+                        <!-- MAIN INFO -->
+
+                        <div class="material-list-main">
+
+
+                            <div class="material-list-name">
+
+                                ${escapeHtml(
+                                    material.name ||
+                                    "Unnamed Material"
+                                )}
 
                             </div>
 
+
+                            <div class="material-list-category">
+
+                                ${
+                                    material.category
+                                    ? escapeHtml(
+                                        material.category
+                                    )
+                                    : "No category"
+                                }
+
+                            </div>
+
+
+                            <div class="material-list-meta">
+
+                                <span>
+                                    ${formatNumber(quantity)}
+                                    ${escapeHtml(material.unit || "")}
+                                </span>
+
+                                <span>
+                                    Added ${dateAdded}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="material-list-status">
 
                             <div class="status ${status}">
                                 ${statusText}
@@ -1476,103 +2129,30 @@ function(){
                         </div>
 
 
-                        <div class="material-info">
+                        <!-- ACTIONS -->
 
-                            <div class="info-box">
+                        <div class="material-list-actions">
 
-                                <div class="info-label">
-                                    Quantity
-                                </div>
+    <button
+        class="action-btn inventory-btn"
+        onclick="openMaterialInventory('${material.id}')">
+        Inventory
+    </button>
 
-                                <div class="info-value">
-                                    ${formatNumber(quantity)}
-                                    ${escapeHtml(material.unit || "")}
-                                </div>
+    <button
+        class="action-btn edit-btn"
+        onclick="editMaterial('${material.id}')">
+        Edit
+    </button>
 
-                            </div>
+    <button
+        class="action-btn delete-btn"
+        onclick="removeMaterial('${material.id}')">
+        Delete
+    </button>
 
+</div>
 
-                            <div class="info-box">
-
-                                <div class="info-label">
-                                    Cost / Unit
-                                </div>
-
-                                <div class="info-value">
-                                    ₱${formatMoney(cost)}
-                                </div>
-
-                            </div>
-
-
-                            <div class="info-box">
-
-                                <div class="info-label">
-                                    Low Stock Alert
-                                </div>
-
-                                <div class="info-value">
-                                    ${
-                                        material.lowStockAlert !== undefined &&
-                                        material.lowStockAlert !== ""
-                                        ? formatNumber(material.lowStockAlert)
-                                        : "Not set"
-                                    }
-                                </div>
-
-                            </div>
-
-
-                            <div class="info-box">
-
-                                <div class="info-label">
-                                    Supplier
-                                </div>
-
-                                <div class="info-value">
-                                    ${
-                                        material.supplier
-                                        ? escapeHtml(material.supplier)
-                                        : "Not set"
-                                    }
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        ${
-                            material.notes
-                            ? `
-                                <div
-                                    style="
-                                        margin-top:12px;
-                                        font-size:12px;
-                                        color:#68756f;
-                                    ">
-                                    ${escapeHtml(material.notes)}
-                                </div>
-                            `
-                            : ""
-                        }
-
-
-                        <div class="material-actions">
-
-                            <button
-                                class="action-btn edit-btn"
-                                onclick="editMaterial('${material.id}')">
-                                Edit
-                            </button>
-
-                            <button
-                                class="action-btn delete-btn"
-                                onclick="removeMaterial('${material.id}')">
-                                Delete
-                            </button>
-
-                        </div>
 
                     </div>
 
@@ -1582,7 +2162,6 @@ function(){
         ).join("");
 
 };
-
 
 /* =====================================================
    UPDATE SUMMARY
@@ -2190,6 +2769,751 @@ async function(){
         "Save Material";
 
 };
+
+
+
+
+/* =====================================================
+   OPEN ADD MATERIAL INVENTORY
+===================================================== */
+
+window.openAddMaterialInventory =
+function(materialId = ""){
+
+    const select =
+        document.getElementById(
+            "inventoryMaterial"
+        );
+
+    select.innerHTML = `
+        <option value="">
+            Select Material
+        </option>
+    `;
+
+
+    materials.forEach(
+        function(material){
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                material.id;
+
+            option.textContent =
+                `${material.name} — ${
+                    formatNumber(material.quantity)
+                } ${material.unit || ""}`;
+
+            select.appendChild(option);
+
+        }
+    );
+
+
+    document.getElementById(
+        "inventoryQuantity"
+    ).value = "";
+
+
+    document.getElementById(
+        "inventoryUnitCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "inventorySupplier"
+    ).value = "";
+
+
+    document.getElementById(
+        "inventoryNotes"
+    ).value = "";
+
+
+    document.getElementById(
+        "inventoryCurrentStock"
+    ).style.display = "none";
+
+
+    if(materialId){
+
+        select.value =
+            materialId;
+
+        updateInventorySelectedMaterial();
+
+    }
+
+
+    document.getElementById(
+        "materialInventoryModal"
+    ).classList.add("show");
+
+};
+
+
+/* =====================================================
+   SELECTED MATERIAL STOCK
+===================================================== */
+
+function updateInventorySelectedMaterial(){
+
+    const materialId =
+        document.getElementById(
+            "inventoryMaterial"
+        ).value;
+
+
+    const box =
+        document.getElementById(
+            "inventoryCurrentStock"
+        );
+
+
+    const material =
+        materials.find(
+            function(item){
+
+                return item.id === materialId;
+
+            }
+        );
+
+
+    if(!material){
+
+        box.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    box.textContent =
+        `Current Stock: ${
+            formatNumber(material.quantity)
+        } ${material.unit || ""}`;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+document.getElementById(
+    "inventoryMaterial"
+).addEventListener(
+    "change",
+    updateInventorySelectedMaterial
+);
+
+
+/* =====================================================
+   SAVE MATERIAL INVENTORY
+===================================================== */
+
+window.saveMaterialInventory =
+async function(){
+
+    if(!currentUser)
+        return;
+
+
+    const materialId =
+        document.getElementById(
+            "inventoryMaterial"
+        ).value;
+
+
+    const quantityValue =
+        document.getElementById(
+            "inventoryQuantity"
+        ).value;
+
+
+    const unitCostValue =
+        document.getElementById(
+            "inventoryUnitCost"
+        ).value;
+
+
+    const supplier =
+        document.getElementById(
+            "inventorySupplier"
+        ).value.trim();
+
+
+    const notes =
+        document.getElementById(
+            "inventoryNotes"
+        ).value.trim();
+
+
+    /* ================================================
+       VALIDATION
+    ================================================ */
+
+    if(!materialId){
+
+        alert(
+            "Please select a material."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        quantityValue === "" ||
+        Number(quantityValue) <= 0
+    ){
+
+        alert(
+            "Please enter a quantity greater than 0."
+        );
+
+        return;
+
+    }
+
+
+    const quantity =
+        Number(quantityValue);
+
+
+    const unitCost =
+        unitCostValue === ""
+        ? 0
+        : Number(unitCostValue);
+
+
+    const button =
+        document.getElementById(
+            "saveMaterialInventoryBtn"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Adding Stock...";
+
+
+    try{
+
+        const materialRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid,
+                "materials",
+                materialId
+            );
+
+
+        const inventoryCollection =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "materialInventory"
+            );
+
+
+        const inventoryRef =
+            doc(
+                inventoryCollection
+            );
+
+
+        await runTransaction(
+            db,
+            async function(transaction){
+
+                const materialSnapshot =
+                    await transaction.get(
+                        materialRef
+                    );
+
+
+                if(!materialSnapshot.exists()){
+
+                    throw new Error(
+                        "Material no longer exists."
+                    );
+
+                }
+
+
+                const materialData =
+                    materialSnapshot.data();
+
+
+                const currentQuantity =
+                    Number(
+                        materialData.quantity || 0
+                    );
+
+
+                const newQuantity =
+                    currentQuantity +
+                    quantity;
+
+
+                /* =================================
+                   UPDATE MATERIAL STOCK
+                ================================= */
+
+                transaction.update(
+                    materialRef,
+                    {
+
+                        quantity:
+                            newQuantity,
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                /* =================================
+                   CREATE INVENTORY TRANSACTION
+                ================================= */
+
+                transaction.set(
+                    inventoryRef,
+                    {
+
+                        materialId:
+                            materialId,
+
+                        materialName:
+                            materialData.name || "",
+
+                        type:
+                            "stock-in",
+
+                        quantity:
+                            quantity,
+
+                        unit:
+                            materialData.unit || "",
+
+                        unitCost:
+                            unitCost,
+
+                        supplier:
+                            supplier,
+
+                        notes:
+                            notes,
+
+                        balanceAfter:
+                            newQuantity,
+
+                        ownerUid:
+                            currentUser.uid,
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+            }
+        );
+
+
+        closeMaterialInventoryModal();
+
+        await loadMaterials();
+
+
+        alert(
+            "Material stock added successfully."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to add material inventory:",
+            error
+        );
+
+
+        alert(
+            "Unable to add material stock. Please try again."
+        );
+
+    }
+
+
+    button.disabled = false;
+
+    button.textContent =
+        "Add Stock";
+
+};
+
+
+/* =====================================================
+   CLOSE ADD INVENTORY MODAL
+===================================================== */
+
+window.closeMaterialInventoryModal =
+function(){
+
+    document.getElementById(
+        "materialInventoryModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   OPEN MATERIAL INVENTORY HISTORY
+===================================================== */
+
+window.openMaterialInventory =
+async function(materialId){
+
+    const material =
+        materials.find(
+            function(item){
+
+                return item.id === materialId;
+
+            }
+        );
+
+
+    if(!material)
+        return;
+
+
+    document.getElementById(
+        "inventoryHistoryTitle"
+    ).textContent =
+        `${material.name} Inventory`;
+
+
+    const list =
+        document.getElementById(
+            "materialInventoryHistoryList"
+        );
+
+
+    list.innerHTML = `
+        <div class="loading">
+            Loading inventory history...
+        </div>
+    `;
+
+
+    document.getElementById(
+        "materialInventoryHistoryModal"
+    ).classList.add("show");
+
+
+    try{
+
+        const inventoryRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "materialInventory"
+            );
+
+
+        const snapshot =
+            await getDocs(
+                inventoryRef
+            );
+
+
+        const history = [];
+
+
+        snapshot.forEach(
+            function(inventoryDoc){
+
+                const data =
+                    inventoryDoc.data();
+
+
+                if(
+                    data.materialId === materialId
+                ){
+
+                    history.push({
+
+                        id:
+                            inventoryDoc.id,
+
+                        ...data
+
+                    });
+
+                }
+
+            }
+        );
+
+
+        history.sort(
+            function(a,b){
+
+                const aTime =
+                    a.createdAt?.seconds || 0;
+
+                const bTime =
+                    b.createdAt?.seconds || 0;
+
+                return bTime - aTime;
+
+            }
+        );
+
+
+        if(history.length === 0){
+
+            list.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <div class="empty-title">
+                        No inventory history
+                    </div>
+
+                    <div class="empty-text">
+                        Stock movements for this material will appear here.
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        list.innerHTML =
+            history.map(
+                function(item){
+
+                    let dateText =
+                        "—";
+
+
+                    if(item.createdAt){
+
+                        try{
+
+                            let date;
+
+
+                            if(
+                                item.createdAt.toDate
+                            ){
+
+                                date =
+                                    item.createdAt.toDate();
+
+                            }
+
+                            else if(
+                                item.createdAt.seconds
+                            ){
+
+                                date =
+                                    new Date(
+                                        item.createdAt.seconds * 1000
+                                    );
+
+                            }
+
+
+                            if(date){
+
+                                dateText =
+                                    date.toLocaleString(
+                                        "en-PH",
+                                        {
+                                            month:"short",
+                                            day:"numeric",
+                                            year:"numeric",
+                                            hour:"numeric",
+                                            minute:"2-digit"
+                                        }
+                                    );
+
+                            }
+
+                        }
+
+                        catch(error){
+
+                            dateText =
+                                "—";
+
+                        }
+
+                    }
+
+
+                    const sign =
+                        item.type === "stock-in"
+                        ? "+"
+                        : "-";
+
+
+                    return `
+
+                        <div class="inventory-history-item">
+
+                            <div class="inventory-history-top">
+
+                                <div>
+
+                                    <div class="inventory-history-type">
+
+                                        <span class="stock-in">
+                                            ${
+                                                item.type === "stock-in"
+                                                ? "STOCK IN"
+                                                : "STOCK OUT"
+                                            }
+                                        </span>
+
+                                    </div>
+
+                                    <div class="inventory-history-date">
+                                        ${dateText}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="inventory-history-quantity">
+
+                                    ${sign}${formatNumber(item.quantity)}
+                                    ${escapeHtml(item.unit || "")}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="inventory-history-details">
+
+                                ${
+                                    item.balanceAfter !== undefined
+                                    ? `Balance after: <strong>${
+                                        formatNumber(item.balanceAfter)
+                                    } ${
+                                        escapeHtml(item.unit || "")
+                                    }</strong><br>`
+                                    : ""
+                                }
+
+                                ${
+                                    item.unitCost > 0
+                                    ? `Unit cost: ₱${formatMoney(item.unitCost)}<br>`
+                                    : ""
+                                }
+
+                                ${
+                                    item.supplier
+                                    ? `Supplier: ${escapeHtml(item.supplier)}<br>`
+                                    : ""
+                                }
+
+                                ${
+                                    item.notes
+                                    ? escapeHtml(item.notes)
+                                    : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to load material inventory:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <div class="empty-title">
+                    Unable to load inventory
+                </div>
+
+                <div class="empty-text">
+                    Please try again.
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+};
+
+
+/* =====================================================
+   CLOSE INVENTORY HISTORY
+===================================================== */
+
+window.closeMaterialInventoryHistory =
+function(){
+
+    document.getElementById(
+        "materialInventoryHistoryModal"
+    ).classList.remove(
+        "show"
+    );
+
+};
+
+
+
+
+
 /* =====================================================
    DELETE MATERIAL
 ===================================================== */
@@ -2412,6 +3736,41 @@ document.getElementById(
 
     }
 );
+
+
+document.getElementById(
+    "materialInventoryModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeMaterialInventoryModal();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "materialInventoryHistoryModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeMaterialInventoryHistory();
+
+        }
+
+    }
+);
+
+
+
 
 </script>
 
