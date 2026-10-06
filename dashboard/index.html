@@ -2297,20 +2297,22 @@ onAuthStateChanged(
 
 
             /*
-             * Setup must still be completed.
-             */
+ * OWNER SETUP CHECK
+ *
+ * Staff accounts do not need to complete
+ * the owner business setup.
+ */
 
-            if(
-                userData.setupCompleted !== true
-            ){
+if(
+    currentRole === "owner" &&
+    userData.setupCompleted !== true
+){
 
-                window.location.href =
-                    "../setup/";
+    window.location.href =
+        "../setup/";
 
-                return;
-
-            }
-
+    return;
+}
 
             /*
              * Owner account:
