@@ -525,6 +525,31 @@ a{
 }
 
 /* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-btn{
+    width:100%;
+    border:none;
+    background:#fff;
+    color:#d64545;
+    padding:15px;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    box-shadow:0 3px 12px rgba(0,0,0,0.06);
+    margin-top:20px;
+}
+
+.logout-btn:active{
+    transform:scale(0.98);
+}
+
+/* =====================================================
    BOTTOM NAV
 ===================================================== */
 
@@ -1264,6 +1289,17 @@ a{
 
         </div>
 
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout-btn"
+            onclick="logoutUser()"
+        >
+            <span>🚪</span>
+            <span>Log Out</span>
+        </button>
+
     </main>
 
 
@@ -1280,10 +1316,12 @@ a{
             <div class="nav-icon">
                 🏠
             </div>
+
             <div>
                 Home
             </div>
         </div>
+
 
         <div
             class="nav-item"
@@ -1292,10 +1330,12 @@ a{
             <div class="nav-icon">
                 💰
             </div>
+
             <div>
                 Sales
             </div>
         </div>
+
 
         <div
             class="nav-item"
@@ -1304,10 +1344,12 @@ a{
             <div class="nav-icon">
                 📦
             </div>
+
             <div>
                 Inventory
             </div>
         </div>
+
 
         <div
             class="nav-item"
@@ -1316,6 +1358,7 @@ a{
             <div class="nav-icon">
                 ☰
             </div>
+
             <div>
                 More
             </div>
@@ -1338,7 +1381,8 @@ import {
 
 import {
     getAuth,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -1423,11 +1467,17 @@ function updateGreeting(userData){
     let greeting = "Good day";
 
     if(hour >= 5 && hour < 12){
+
         greeting = "Good morning";
+
     }else if(hour >= 12 && hour < 18){
+
         greeting = "Good afternoon";
+
     }else{
+
         greeting = "Good evening";
+
     }
 
     document.getElementById("greetingSmall").textContent =
@@ -1442,7 +1492,9 @@ function updateGreeting(userData){
 
     document.getElementById("greetingName").textContent =
         name;
+
 }
+
 
 /* =====================================================
    PLAN NAME
@@ -1693,18 +1745,13 @@ function getUserRole(data){
    BUSINESS ID
 ===================================================== */
 
-function getBusinessId(data,user){
+function getBusinessId(data, user){
 
     return safeText(
-
         data?.businessId ||
-
         data?.ownerUid ||
-
         user.uid,
-
         user.uid
-
     );
 
 }
@@ -2121,6 +2168,35 @@ window.showNotificationMessage = function(){
 
 
 /* =====================================================
+   LOGOUT
+===================================================== */
+
+window.logoutUser = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        window.location.href =
+            "../login/";
+
+    }catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        alert(
+            "Unable to log out. Please try again."
+        );
+
+    }
+
+};
+
+
+/* =====================================================
    AUTH
 ===================================================== */
 
@@ -2330,7 +2406,6 @@ onAuthStateChanged(
              */
 
             updateGreeting(userData);
-            
 
 
             /*
