@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Staff Management - Kayah</title>
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:#F7F3E8;
+    color:#26332C;
+    min-height:100vh;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
+    padding-bottom:40px;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:#F7F3E8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.loading-box{
+    text-align:center;
+}
+
+.loading-logo{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.loading-spinner{
+    width:30px;
+    height:30px;
+    border:3px solid #DCE7E0;
+    border-top-color:#16805C;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 12px;
+}
+
+.loading-text{
+    font-size:12px;
+    color:#7B867F;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+    padding:18px 18px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.brand-logo{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+}
+
+.brand-text{
+    font-size:18px;
+    font-weight:800;
+    color:#0B4F3A;
+}
+
+.back-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:1px solid #E3E8E2;
+    background:#FFFFFF;
+    color:#0B4F3A;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    padding:0 16px;
+}
+
+.page-header{
+    padding:12px 3px 18px;
+}
+
+.page-title{
+    font-size:24px;
+    font-weight:800;
+    color:#173B2D;
+}
+
+.page-subtitle{
+    font-size:11px;
+    color:#7D8881;
+    margin-top:5px;
+    line-height:1.5;
+}
+
+/* =====================================================
+   PLAN CARD
+===================================================== */
+
+.plan-card{
+    background:linear-gradient(135deg,#0B4F3A,#16805C);
+    border-radius:20px;
+    padding:18px;
+    color:#FFFFFF;
+    box-shadow:0 8px 25px rgba(11,79,58,.15);
+    margin-bottom:16px;
+}
+
+.plan-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.plan-label{
+    font-size:10px;
+    opacity:.75;
+    font-weight:600;
+}
+
+.plan-name{
+    font-size:18px;
+    font-weight:800;
+    margin-top:3px;
+}
+
+.plan-badge{
+    padding:6px 10px;
+    border-radius:20px;
+    background:#F2B84B;
+    color:#173B2D;
+    font-size:9px;
+    font-weight:800;
+}
+
+.plan-description{
+    font-size:10px;
+    opacity:.8;
+    margin-top:12px;
+    line-height:1.5;
+}
+
+.staff-capacity{
+    margin-top:15px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.15);
+}
+
+.capacity-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.capacity-label{
+    font-size:10px;
+    opacity:.8;
+}
+
+.capacity-value{
+    font-size:13px;
+    font-weight:800;
+}
+
+.capacity-bar{
+    width:100%;
+    height:7px;
+    background:rgba(255,255,255,.15);
+    border-radius:20px;
+    margin-top:9px;
+    overflow:hidden;
+}
+
+.capacity-fill{
+    height:100%;
+    width:0%;
+    background:#F2B84B;
+    border-radius:20px;
+    transition:.25s;
+}
+
+/* =====================================================
+   ADD STAFF BUTTON
+===================================================== */
+
+.add-staff-btn{
+    width:100%;
+    border:none;
+    background:#F2B84B;
+    color:#173B2D;
+    border-radius:15px;
+    padding:14px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:18px;
+    box-shadow:0 5px 15px rgba(148,99,15,.08);
+}
+
+.add-staff-btn:active{
+    transform:scale(.985);
+}
+
+.add-staff-btn:disabled{
+    background:#D9DDD9;
+    color:#858D88;
+    cursor:not-allowed;
+}
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    color:#26332C;
+    margin:20px 2px 10px;
+}
+
+/* =====================================================
+   STAFF CARD
+===================================================== */
+
+.staff-list{
+    display:grid;
+    gap:10px;
+}
+
+.staff-card{
+    background:#FFFFFF;
+    border:1px solid #E6EAE5;
+    border-radius:17px;
+    padding:14px;
+    box-shadow:0 3px 12px rgba(11,79,58,.035);
+}
+
+.staff-top{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.staff-avatar{
+    width:45px;
+    height:45px;
+    min-width:45px;
+    border-radius:13px;
+    background:#EEF7F2;
+    color:#0B4F3A;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:800;
+}
+
+.staff-info{
+    flex:1;
+    min-width:0;
+}
+
+.staff-name{
+    font-size:13px;
+    font-weight:800;
+    color:#26332C;
+    overflow-wrap:anywhere;
+}
+
+.staff-email{
+    font-size:9px;
+    color:#8A938E;
+    margin-top:3px;
+    overflow-wrap:anywhere;
+}
+
+.status-badge{
+    font-size:8px;
+    font-weight:800;
+    padding:5px 8px;
+    border-radius:20px;
+}
+
+.status-active{
+    background:#EAF7EF;
+    color:#176B43;
+}
+
+.status-inactive{
+    background:#F3F3F3;
+    color:#858585;
+}
+
+.staff-permissions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:12px;
+}
+
+.permission-tag{
+    padding:5px 7px;
+    border-radius:7px;
+    background:#F4F8F5;
+    color:#4E6257;
+    font-size:7px;
+    font-weight:700;
+}
+
+.staff-actions{
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+.staff-action{
+    flex:1;
+    border:1px solid #E2E7E3;
+    background:#FFFFFF;
+    border-radius:9px;
+    padding:8px;
+    font-size:9px;
+    font-weight:700;
+    color:#496056;
+}
+
+.staff-action.delete{
+    color:#C44747;
+}
+
+.staff-action:active{
+    transform:scale(.98);
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state{
+    background:#FFFFFF;
+    border:1px dashed #D7DED9;
+    border-radius:17px;
+    padding:30px 20px;
+    text-align:center;
+}
+
+.empty-icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.empty-title{
+    font-size:13px;
+    font-weight:800;
+    color:#26332C;
+}
+
+.empty-text{
+    font-size:9px;
+    color:#8A938E;
+    margin-top:5px;
+    line-height:1.5;
+}
+
+/* =====================================================
+   ERROR / MESSAGE
+===================================================== */
+
+.message-box{
+    display:none;
+    border-radius:13px;
+    padding:12px;
+    margin-bottom:12px;
+    font-size:10px;
+    line-height:1.5;
+}
+
+.message-error{
+    background:#FFF2F2;
+    border:1px solid #EBCACA;
+    color:#A33A3A;
+}
+
+.message-success{
+    background:#EEF8F2;
+    border:1px solid #CFE4D7;
+    color:#176B43;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(16,40,30,.45);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:5000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:760px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:#F7F3E8;
+    border-radius:24px 24px 0 0;
+    padding:20px 16px 30px;
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.modal-title{
+    font-size:17px;
+    font-weight:800;
+    color:#173B2D;
+}
+
+.close-btn{
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:10px;
+    background:#FFFFFF;
+    color:#59655E;
+    font-size:18px;
+}
+
+.form-group{
+    margin-bottom:13px;
+}
+
+.form-label{
+    display:block;
+    font-size:9px;
+    color:#6F7B74;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.form-input{
+    width:100%;
+    border:1px solid #DDE4DE;
+    background:#FFFFFF;
+    border-radius:11px;
+    padding:12px;
+    outline:none;
+    color:#26332C;
+    font-size:11px;
+}
+
+.form-input:focus{
+    border-color:#16805C;
+}
+
+.permission-box{
+    background:#FFFFFF;
+    border:1px solid #E3E8E3;
+    border-radius:13px;
+    padding:12px;
+}
+
+.permission-title{
+    font-size:10px;
+    font-weight:800;
+    margin-bottom:10px;
+    color:#26332C;
+}
+
+.permission-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 0;
+    border-bottom:1px solid #F0F2EF;
+}
+
+.permission-item:last-child{
+    border-bottom:none;
+}
+
+.permission-item input{
+    width:16px;
+    height:16px;
+    accent-color:#16805C;
+}
+
+.permission-item span{
+    font-size:10px;
+    color:#49564F;
+}
+
+.modal-submit{
+    width:100%;
+    border:none;
+    background:#0B4F3A;
+    color:#FFFFFF;
+    border-radius:13px;
+    padding:14px;
+    font-size:11px;
+    font-weight:800;
+    margin-top:16px;
+}
+
+.modal-submit:disabled{
+    opacity:.55;
+}
+
+/* =====================================================
+   CONFIRM MODAL
+===================================================== */
+
+.confirm-box{
+    width:100%;
+    max-width:430px;
+    background:#FFFFFF;
+    border-radius:20px;
+    padding:20px;
+    margin:16px;
+}
+
+.confirm-title{
+    font-size:16px;
+    font-weight:800;
+    color:#26332C;
+}
+
+.confirm-text{
+    font-size:10px;
+    color:#7D8881;
+    margin-top:7px;
+    line-height:1.5;
+}
+
+.confirm-actions{
+    display:flex;
+    gap:8px;
+    margin-top:18px;
+}
+
+.confirm-btn{
+    flex:1;
+    border:1px solid #DDE4DE;
+    background:#FFFFFF;
+    border-radius:10px;
+    padding:11px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.confirm-btn.danger{
+    background:#C44747;
+    border-color:#C44747;
+    color:#FFFFFF;
+}
+
+/* =====================================================
+   UPGRADE
+===================================================== */
+
+.upgrade-box{
+    display:none;
+    background:#FFF8E7;
+    border:1px solid #EAD9AA;
+    border-radius:15px;
+    padding:13px;
+    margin-bottom:15px;
+}
+
+.upgrade-title{
+    font-size:11px;
+    font-weight:800;
+    color:#7A5411;
+}
+
+.upgrade-text{
+    font-size:9px;
+    color:#8A6A32;
+    line-height:1.5;
+    margin-top:4px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:380px){
+
+    .main{
+        padding:0 12px;
+    }
+
+    .page-title{
+        font-size:21px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div class="loading-screen" id="loadingScreen">
+
+    <div class="loading-box">
+
+        <img
+            src="../kayah-logo.png"
+            class="loading-logo"
+            alt="Kayah"
+            onerror="this.style.display='none'"
+        >
+
+        <div class="loading-spinner"></div>
+
+        <div class="loading-text">
+            Loading staff management...
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app" id="app">
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                src="../kayah-logo.png"
+                class="brand-logo"
+                alt="Kayah"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="brand-text">
+                Kayah
+            </div>
+
+        </div>
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+            aria-label="Back"
+        >
+            ‹
+        </button>
+
+    </div>
+
+
+    <main class="main">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div class="page-title">
+                Staff Management
+            </div>
+
+            <div class="page-subtitle">
+                Manage your team and control what each staff member can access.
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="messageBox"
+            class="message-box"
+        ></div>
+
+
+        <!-- PLAN -->
+
+        <div class="plan-card">
+
+            <div class="plan-top">
+
+                <div>
+
+                    <div class="plan-label">
+                        CURRENT OWNER PLAN
+                    </div>
+
+                    <div
+                        class="plan-name"
+                        id="planName"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+                <div
+                    class="plan-badge"
+                    id="planBadge"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div
+                class="plan-description"
+                id="planDescription"
+            >
+                Checking your plan...
+            </div>
+
+
+            <div class="staff-capacity">
+
+                <div class="capacity-row">
+
+                    <div class="capacity-label">
+                        Staff members
+                    </div>
+
+                    <div
+                        class="capacity-value"
+                        id="capacityValue"
+                    >
+                        0 / 1
+                    </div>
+
+                </div>
+
+                <div class="capacity-bar">
+
+                    <div
+                        class="capacity-fill"
+                        id="capacityFill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPGRADE -->
+
+        <div
+            class="upgrade-box"
+            id="upgradeBox"
+        >
+
+            <div class="upgrade-title">
+                Staff limit reached
+            </div>
+
+            <div class="upgrade-text">
+                Your current plan has reached its staff limit.
+                Upgrade your Kayah plan to add more staff members.
+            </div>
+
+        </div>
+
+
+        <!-- ADD STAFF -->
+
+        <button
+            class="add-staff-btn"
+            id="addStaffBtn"
+            onclick="openAddStaff()"
+        >
+            ＋ Add Staff Member
+        </button>
+
+
+        <!-- TEAM -->
+
+        <div class="section-title">
+            Your Team
+        </div>
+
+
+        <div
+            class="staff-list"
+            id="staffList"
+        ></div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     ADD STAFF MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="staffModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Add Staff Member
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeStaffModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="staffName"
+                class="form-input"
+                placeholder="Enter staff full name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="staffEmail"
+                class="form-input"
+                placeholder="staff@example.com"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="staffPhone"
+                class="form-input"
+                placeholder="+63"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="permission-box">
+
+                <div class="permission-title">
+                    Staff Permissions
+                </div>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="products"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Products
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="inventory"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Inventory
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="sales"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Sales
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="expenses"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Expenses
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="customers"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Customers
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="reports"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Reports
+                    </span>
+
+                </label>
+
+
+                <label class="permission-item">
+
+                    <input
+                        type="checkbox"
+                        value="materials"
+                        class="permission-check"
+                    >
+
+                    <span>
+                        Materials
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="modal-submit"
+            id="saveStaffBtn"
+            onclick="saveStaff()"
+        >
+            Add Staff Member
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIRM DELETE MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="confirmModal"
+>
+
+    <div class="confirm-box">
+
+        <div class="confirm-title">
+            Remove Staff Member?
+        </div>
+
+        <div
+            class="confirm-text"
+            id="confirmText"
+        >
+            This will remove the staff member from your team.
+        </div>
+
+        <div class="confirm-actions">
+
+            <button
+                class="confirm-btn"
+                onclick="closeConfirm()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="confirm-btn danger"
+                onclick="confirmDeleteStaff()"
+            >
+                Remove
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc,
+    arrayUnion,
+    arrayRemove
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+
+    authDomain: "kayah-ecosystem.firebaseapp.com",
+
+    projectId: "kayah-ecosystem",
+
+    storageBucket: "kayah-ecosystem.firebasestorage.app",
+
+    messagingSenderId: "49853785143",
+
+    appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+
+};
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   CURRENT OWNER
+===================================================== */
+
+let currentUser = null;
+
+let currentUserData = null;
+
+let currentPlan = "free";
+
+let currentPlanName = "Free Plan";
+
+let currentStaffLimit = 1;
+
+let currentStaff = [];
+
+let staffToDelete = null;
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function safeText(
+    value,
+    fallback = "—"
+){
+
+    if(
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ){
+
+        return fallback;
+
+    }
+
+    return String(value);
+
+}
+
+
+/* =====================================================
+   TRIAL CHECK
+===================================================== */
+
+function isTrialActive(data){
+
+    if(
+        data?.trialActive !== true
+    ){
+
+        return false;
+
+    }
+
+    if(!data?.trialEndsAt){
+
+        return false;
+
+    }
+
+    let trialEnd = null;
+
+    try{
+
+        if(
+            typeof data.trialEndsAt.toDate === "function"
+        ){
+
+            trialEnd =
+                data.trialEndsAt.toDate();
+
+        }else{
+
+            trialEnd =
+                new Date(data.trialEndsAt);
+
+        }
+
+    }catch(error){
+
+        return false;
+
+    }
+
+    return (
+        trialEnd &&
+        trialEnd > new Date()
+    );
+
+}
+
+
+/* =====================================================
+   DETERMINE PLAN
+===================================================== */
+
+function determinePlan(data){
+
+    const plan =
+        String(
+            data?.plan || "free"
+        ).toLowerCase();
+
+
+    if(
+        plan === "free" &&
+        isTrialActive(data)
+    ){
+
+        return {
+            key:"trial",
+            name:"30-Day Free Trial",
+            badge:"TRIAL",
+            staffLimit:1,
+            description:
+                "Full access during your 30-day free trial."
+        };
+
+    }
+
+
+    if(plan === "starter"){
+
+        return {
+            key:"starter",
+            name:"Starter",
+            badge:"STARTER",
+            staffLimit:3,
+            description:
+                "Your Starter plan allows up to 3 staff members per business."
+        };
+
+    }
+
+
+    if(plan === "business"){
+
+        return {
+            key:"business",
+            name:"Business",
+            badge:"BUSINESS",
+            staffLimit:10,
+            description:
+                "Your Business plan allows up to 10 staff members per business."
+        };
+
+    }
+
+
+    if(plan === "pro"){
+
+        return {
+            key:"pro",
+            name:"Pro",
+            badge:"PRO",
+            staffLimit:Infinity,
+            description:
+                "Your Pro plan includes unlimited staff members."
+        };
+
+    }
+
+
+    return {
+        key:"free",
+        name:"Free Plan",
+        badge:"FREE",
+        staffLimit:1,
+        description:
+            "Your Free Plan allows 1 staff member."
+    };
+
+}
+
+
+/* =====================================================
+   UPDATE PLAN DISPLAY
+===================================================== */
+
+function updatePlanDisplay(){
+
+    const plan =
+        determinePlan(
+            currentUserData
+        );
+
+
+    currentPlan =
+        plan.key;
+
+    currentPlanName =
+        plan.name;
+
+    currentStaffLimit =
+        plan.staffLimit;
+
+
+    document.getElementById(
+        "planName"
+    ).textContent =
+        plan.name;
+
+
+    document.getElementById(
+        "planBadge"
+    ).textContent =
+        plan.badge;
+
+
+    document.getElementById(
+        "planDescription"
+    ).textContent =
+        plan.description;
+
+
+    updateCapacity();
+
+}
+
+
+/* =====================================================
+   CAPACITY
+===================================================== */
+
+function updateCapacity(){
+
+    const used =
+        currentStaff.length;
+
+
+    const value =
+        document.getElementById(
+            "capacityValue"
+        );
+
+
+    const fill =
+        document.getElementById(
+            "capacityFill"
+        );
+
+
+    const upgradeBox =
+        document.getElementById(
+            "upgradeBox"
+        );
+
+
+    const addButton =
+        document.getElementById(
+            "addStaffBtn"
+        );
+
+
+    if(
+        currentStaffLimit === Infinity
+    ){
+
+        value.textContent =
+            used + " staff • Unlimited";
+
+        fill.style.width =
+            "100%";
+
+        upgradeBox.style.display =
+            "none";
+
+        addButton.disabled =
+            false;
+
+        return;
+
+    }
+
+
+    value.textContent =
+        used +
+        " / " +
+        currentStaffLimit;
+
+
+    let percentage = 0;
+
+    if(currentStaffLimit > 0){
+
+        percentage =
+            (used / currentStaffLimit) * 100;
+
+    }
+
+
+    fill.style.width =
+        Math.min(
+            percentage,
+            100
+        ) + "%";
+
+
+    if(
+        used >= currentStaffLimit
+    ){
+
+        upgradeBox.style.display =
+            "block";
+
+        addButton.disabled =
+            true;
+
+    }else{
+
+        upgradeBox.style.display =
+            "none";
+
+        addButton.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    message,
+    type = "success"
+){
+
+    const box =
+        document.getElementById(
+            "messageBox"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.className =
+        "message-box " +
+        (
+            type === "error"
+            ? "message-error"
+            : "message-success"
+        );
+
+
+    box.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            box.style.display =
+                "none";
+
+        },
+        3500
+    );
+
+}
+
+
+/* =====================================================
+   LOAD STAFF
+===================================================== */
+
+function loadStaff(){
+
+    currentStaff =
+        Array.isArray(
+            currentUserData.staff
+        )
+        ? currentUserData.staff
+        : [];
+
+
+    renderStaff();
+
+    updateCapacity();
+
+}
+
+
+/* =====================================================
+   RENDER STAFF
+===================================================== */
+
+function renderStaff(){
+
+    const container =
+        document.getElementById(
+            "staffList"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    if(
+        currentStaff.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
+                <div class="empty-title">
+                    No staff members yet
+                </div>
+
+                <div class="empty-text">
+                    Add your first staff member to start building your team.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    currentStaff.forEach(
+        (staff, index) => {
+
+            const permissions =
+                Array.isArray(
+                    staff.permissions
+                )
+                ? staff.permissions
+                : [];
+
+
+            const permissionHTML =
+                permissions.length
+                ? permissions.map(
+                    permission => `
+                        <span class="permission-tag">
+                            ${escapeHTML(
+                                formatPermission(
+                                    permission
+                                )
+                            )}
+                        </span>
+                    `
+                  ).join("")
+                : `
+                    <span class="permission-tag">
+                        No permissions assigned
+                    </span>
+                `;
+
+
+            const active =
+                staff.active !== false;
+
+
+            const statusClass =
+                active
+                ? "status-active"
+                : "status-inactive";
+
+
+            const statusText =
+                active
+                ? "Active"
+                : "Inactive";
+
+
+            const initial =
+                safeText(
+                    staff.name,
+                    "S"
+                )
+                .trim()
+                .charAt(0)
+                .toUpperCase();
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "staff-card";
+
+
+            card.innerHTML = `
+
+                <div class="staff-top">
+
+                    <div class="staff-avatar">
+                        ${escapeHTML(initial)}
+                    </div>
+
+                    <div class="staff-info">
+
+                        <div class="staff-name">
+                            ${escapeHTML(
+                                staff.name
+                            )}
+                        </div>
+
+                        <div class="staff-email">
+                            ${escapeHTML(
+                                staff.email
+                            )}
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="status-badge ${statusClass}"
+                    >
+                        ${statusText}
+                    </div>
+
+                </div>
+
+
+                <div class="staff-permissions">
+
+                    ${permissionHTML}
+
+                </div>
+
+
+                <div class="staff-actions">
+
+                    <button
+                        class="staff-action"
+                        onclick="toggleStaffStatus(${index})"
+                    >
+                        ${active
+                            ? "Deactivate"
+                            : "Activate"
+                        }
+                    </button>
+
+
+                    <button
+                        class="staff-action delete"
+                        onclick="askDeleteStaff(${index})"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT PERMISSION
+===================================================== */
+
+function formatPermission(
+    permission
+){
+
+    const names = {
+
+        products:"Products",
+
+        inventory:"Inventory",
+
+        sales:"Sales",
+
+        expenses:"Expenses",
+
+        customers:"Customers",
+
+        reports:"Reports",
+
+        materials:"Materials"
+
+    };
+
+
+    return (
+        names[permission] ||
+        permission
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   OPEN ADD STAFF
+===================================================== */
+
+window.openAddStaff =
+    function(){
+
+        if(
+            currentStaffLimit !== Infinity &&
+            currentStaff.length >= currentStaffLimit
+        ){
+
+            showMessage(
+                "Your current plan has reached its staff limit.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "staffName"
+        ).value = "";
+
+
+        document.getElementById(
+            "staffEmail"
+        ).value = "";
+
+
+        document.getElementById(
+            "staffPhone"
+        ).value = "";
+
+
+        document
+            .querySelectorAll(
+                ".permission-check"
+            )
+            .forEach(
+                checkbox => {
+
+                    checkbox.checked =
+                        false;
+
+                }
+            );
+
+
+        document.getElementById(
+            "staffModal"
+        ).classList.add(
+            "show"
+        );
+
+    };
+
+
+/* =====================================================
+   CLOSE STAFF MODAL
+===================================================== */
+
+window.closeStaffModal =
+    function(){
+
+        document.getElementById(
+            "staffModal"
+        ).classList.remove(
+            "show"
+        );
+
+    };
+
+
+/* =====================================================
+   SAVE STAFF
+===================================================== */
+
+window.saveStaff =
+    async function(){
+
+        const name =
+            document.getElementById(
+                "staffName"
+            ).value.trim();
+
+
+        const email =
+            document.getElementById(
+                "staffEmail"
+            ).value.trim()
+            .toLowerCase();
+
+
+        const phone =
+            document.getElementById(
+                "staffPhone"
+            ).value.trim();
+
+
+        if(!name){
+
+            alert(
+                "Please enter the staff member's name."
+            );
+
+            return;
+
+        }
+
+
+        if(!email){
+
+            alert(
+                "Please enter the staff member's email."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            currentStaffLimit !== Infinity &&
+            currentStaff.length >= currentStaffLimit
+        ){
+
+            closeStaffModal();
+
+            showMessage(
+                "Your staff limit has been reached.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const duplicate =
+            currentStaff.some(
+                staff =>
+                    String(
+                        staff.email || ""
+                    ).toLowerCase() === email
+            );
+
+
+        if(duplicate){
+
+            alert(
+                "A staff member with this email already exists."
+            );
+
+            return;
+
+        }
+
+
+        const permissions =
+            Array.from(
+                document.querySelectorAll(
+                    ".permission-check:checked"
+                )
+            )
+            .map(
+                checkbox =>
+                    checkbox.value
+            );
+
+
+        if(
+            permissions.length === 0
+        ){
+
+            alert(
+                "Please select at least one staff permission."
+            );
+
+            return;
+
+        }
+
+
+        const saveButton =
+            document.getElementById(
+                "saveStaffBtn"
+            );
+
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        const staffRecord = {
+
+            id:
+                createStaffId(),
+
+            name:
+                name,
+
+            email:
+                email,
+
+            phone:
+                phone,
+
+            role:
+                "staff",
+
+            ownerUid:
+                currentUser.uid,
+
+            businessId:
+                currentUser.uid,
+
+            permissions:
+                permissions,
+
+            active:
+                true,
+
+            createdAt:
+                new Date().toISOString(),
+
+            updatedAt:
+                new Date().toISOString()
+
+        };
+
+
+        try{
+
+            const ownerRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid
+                );
+
+
+            await updateDoc(
+                ownerRef,
+                {
+
+                    staff:
+                        arrayUnion(
+                            staffRecord
+                        )
+
+                }
+            );
+
+
+            currentStaff.push(
+                staffRecord
+            );
+
+
+            renderStaff();
+
+            updateCapacity();
+
+
+            closeStaffModal();
+
+
+            showMessage(
+                "Staff member added successfully."
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Add staff error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to add the staff member. Please try again.",
+                "error"
+            );
+
+        }finally{
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Add Staff Member";
+
+        }
+
+    };
+
+
+/* =====================================================
+   CREATE STAFF ID
+===================================================== */
+
+function createStaffId(){
+
+    return (
+        "staff_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .substring(2,8)
+    );
+
+}
+
+
+/* =====================================================
+   TOGGLE STATUS
+===================================================== */
+
+window.toggleStaffStatus =
+    async function(index){
+
+        const staff =
+            currentStaff[index];
+
+
+        if(!staff){
+
+            return;
+
+        }
+
+
+        const newStatus =
+            staff.active === false;
+
+
+        const updatedStaff =
+            {
+                ...staff,
+                active:
+                    newStatus,
+                updatedAt:
+                    new Date().toISOString()
+            };
+
+
+        const newArray =
+            [...currentStaff];
+
+
+        newArray[index] =
+            updatedStaff;
+
+
+        try{
+
+            const ownerRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid
+                );
+
+
+            await updateDoc(
+                ownerRef,
+                {
+                    staff:
+                        newArray
+                }
+            );
+
+
+            currentStaff =
+                newArray;
+
+
+            currentUserData.staff =
+                newArray;
+
+
+            renderStaff();
+
+
+            showMessage(
+                newStatus
+                ? "Staff member activated."
+                : "Staff member deactivated."
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Status update error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to update staff status.",
+                "error"
+            );
+
+        }
+
+    };
+
+
+/* =====================================================
+   ASK DELETE
+===================================================== */
+
+window.askDeleteStaff =
+    function(index){
+
+        const staff =
+            currentStaff[index];
+
+
+        if(!staff){
+
+            return;
+
+        }
+
+
+        staffToDelete =
+            index;
+
+
+        document.getElementById(
+            "confirmText"
+        ).textContent =
+            "Remove " +
+            safeText(
+                staff.name,
+                "this staff member"
+            ) +
+            " from your team?";
+
+
+        document.getElementById(
+            "confirmModal"
+        ).classList.add(
+            "show"
+        );
+
+    };
+
+
+/* =====================================================
+   CLOSE CONFIRM
+===================================================== */
+
+window.closeConfirm =
+    function(){
+
+        staffToDelete =
+            null;
+
+
+        document.getElementById(
+            "confirmModal"
+        ).classList.remove(
+            "show"
+        );
+
+    };
+
+
+/* =====================================================
+   DELETE STAFF
+===================================================== */
+
+window.confirmDeleteStaff =
+    async function(){
+
+        if(
+            staffToDelete === null
+        ){
+
+            return;
+
+        }
+
+
+        const index =
+            staffToDelete;
+
+
+        const staff =
+            currentStaff[index];
+
+
+        if(!staff){
+
+            closeConfirm();
+
+            return;
+
+        }
+
+
+        try{
+
+            const ownerRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid
+                );
+
+
+            await updateDoc(
+                ownerRef,
+                {
+
+                    staff:
+                        arrayRemove(
+                            staff
+                        )
+
+                }
+            );
+
+
+            currentStaff =
+                currentStaff.filter(
+                    (
+                        item,
+                        itemIndex
+                    ) =>
+                        itemIndex !== index
+                );
+
+
+            currentUserData.staff =
+                currentStaff;
+
+
+            renderStaff();
+
+            updateCapacity();
+
+            closeConfirm();
+
+
+            showMessage(
+                "Staff member removed."
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Delete staff error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to remove the staff member.",
+                "error"
+            );
+
+        }
+
+    };
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+window.goBack =
+    function(){
+
+        window.location.href =
+            "../dashboard/";
+
+    };
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        if(!user){
+
+            window.location.href =
+                "../login/";
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        try{
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const userSnap =
+                await getDoc(
+                    userRef
+                );
+
+
+            if(!userSnap.exists()){
+
+                alert(
+                    "Your account information could not be found."
+                );
+
+                window.location.href =
+                    "../login/";
+
+                return;
+
+            }
+
+
+            currentUserData =
+                userSnap.data();
+
+
+            /* -----------------------------------------
+               OWNER CHECK
+            ----------------------------------------- */
+
+            const role =
+                String(
+                    currentUserData.role ||
+                    "owner"
+                ).toLowerCase();
+
+
+            if(role !== "owner"){
+
+                alert(
+                    "Only the Business Owner can manage staff."
+                );
+
+                window.location.href =
+                    "../dashboard/";
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               SET PLAN
+            ----------------------------------------- */
+
+            updatePlanDisplay();
+
+
+            /* -----------------------------------------
+               LOAD STAFF
+            ----------------------------------------- */
+
+            loadStaff();
+
+
+            /* -----------------------------------------
+               SHOW APP
+            ----------------------------------------- */
+
+            document.getElementById(
+                "loadingScreen"
+            ).style.display =
+                "none";
+
+
+        }catch(error){
+
+            console.error(
+                "Staff management error:",
+                error
+            );
+
+
+            document.getElementById(
+                "loadingScreen"
+            ).style.display =
+                "none";
+
+
+            showMessage(
+                "Unable to load Staff Management. Please try again.",
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE MODALS WHEN CLICKING BACKGROUND
+===================================================== */
+
+document.getElementById(
+    "staffModal"
+).addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target.id === "staffModal"
+        ){
+
+            closeStaffModal();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "confirmModal"
+).addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target.id === "confirmModal"
+        ){
+
+            closeConfirm();
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- =====================================================
+     SERVICE WORKER
+===================================================== -->
+
+<script>
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("../sw.js")
+                .catch(
+                    error => {
+
+                        console.log(
+                            "Service worker registration failed:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
