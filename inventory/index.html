@@ -1359,7 +1359,10 @@ import {
     collection,
     getDocs,
     doc,
-    updateDoc
+    getDoc,
+    updateDoc,
+    addDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -1410,12 +1413,15 @@ const db =
 
 let currentUser = null;
 
+let currentUserData = null;
+
+let currentUserRole = "owner";
+
 let products = [];
 
 let currentFilter = "all";
 
 let selectedProduct = null;
-
 
 /* =====================================================
    DOM
@@ -1582,6 +1588,79 @@ function getStockStatus(product){
     };
 
 }
+
+
+/* =====================================================
+   ACTIVITY LOG
+===================================================== */
+
+async function logActivity({
+    action,
+    description,
+    targetType,
+    targetId,
+    details = {}
+}){
+
+    if(!currentUser){
+        return;
+    }
+
+    try{
+
+        const activityRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "activityLogs"
+            );
+
+        await addDoc(
+            activityRef,
+            {
+                action,
+                description,
+                targetType,
+                targetId,
+
+                performedByUid:
+                    currentUser.uid,
+
+                performedByName:
+                    currentUserData?.fullName ||
+                    currentUserData?.name ||
+                    currentUser.displayName ||
+                    currentUser.email ||
+                    "Unknown User",
+
+                performedByRole:
+                    currentUserRole,
+
+                details,
+
+                createdAt:
+                    serverTimestamp()
+            }
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "ACTIVITY LOG ERROR:",
+            error
+        );
+
+        /*
+         * Do not stop the inventory action
+         * if logging itself fails.
+         */
+    }
+
+}
+
+
 
 
 /* =====================================================
@@ -2218,6 +2297,66 @@ async function(){
 
             }
         );
+        
+        /* =================================================
+   LOG STOCK CHANGE
+================================================= */
+
+const previousStock =
+    getStockValue(
+        selectedProduct
+    );
+
+const stockDifference =
+    newStock -
+    previousStock;
+
+await logActivity({
+
+    action:
+        "stock_adjustment",
+
+    description:
+        "Adjusted stock for " +
+        (
+            selectedProduct.name ||
+            "Unnamed Product"
+        ),
+
+    targetType:
+        "product_inventory",
+
+    targetId:
+        selectedProduct.id,
+
+    details: {
+
+        productName:
+            selectedProduct.name ||
+            "Unnamed Product",
+
+        previousStock,
+
+        newStock,
+
+        quantityChanged:
+            stockDifference,
+
+        unit:
+            selectedProduct.unit ||
+            "units",
+
+        reason:
+            reason ||
+            ""
+
+    }
+
+});
+        
+        
+        
+        
 
 
         /*
@@ -2416,10 +2555,56 @@ onAuthStateChanged(
 
 
         currentUser =
-            user;
+    user;
 
 
-        await loadInventory();
+/* =================================================
+   LOAD USER PROFILE
+================================================= */
+
+try{
+
+    const userRef =
+        doc(
+            db,
+            "users",
+            user.uid
+        );
+
+    const userSnapshot =
+        await getDoc(
+            userRef
+        );
+
+    if(userSnapshot.exists()){
+
+        currentUserData =
+            userSnapshot.data();
+
+        currentUserRole =
+            String(
+                currentUserData.role ||
+                "owner"
+            ).toLowerCase();
+
+    }
+
+}
+catch(error){
+
+    console.error(
+        "USER PROFILE LOAD ERROR:",
+        error
+    );
+
+    currentUserData = null;
+
+    currentUserRole = "owner";
+
+}
+
+
+await loadInventory();
 
     }
 );
