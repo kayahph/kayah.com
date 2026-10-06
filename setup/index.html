@@ -1738,56 +1738,106 @@ form.addEventListener(
             );
 
 
-        /* ---------------------------------------------
-           BUSINESS DATA
-        --------------------------------------------- */
-
         const businessData = {
 
-            /*
-             * Business information
-             */
+    /* =========================================
+       BUSINESS IDENTITY
+    ========================================= */
 
-            businessName:
-                nameValue,
+    businessId:
+        currentUser.uid,
 
-            businessType:
-                typeValue,
+    ownerUid:
+        currentUser.uid,
 
-            businessAddress:
-                addressValue,
+    businessName:
+        businessName,
 
-            city:
-                cityValue,
+    businessType:
+        businessType,
 
-            province:
-                provinceValue,
+    businessAddress:
+        businessAddress,
 
-            currency:
-                "PHP",
+    city:
+        city,
 
-            currencySymbol:
-                "₱",
+    province:
+        province,
 
-            businessDescription:
-                descriptionValue,
+    currency:
+        "PHP",
+
+    currencySymbol:
+        "₱",
+
+    businessDescription:
+        businessDescription,
 
 
-            /*
-             * Setup status
-             */
+    /* =========================================
+       OWNER ROLE
+    ========================================= */
 
-            setupCompleted:
-                true,
+    role:
+        "owner",
 
-            setupCompletedAt:
-                serverTimestamp(),
 
-            updatedAt:
-                serverTimestamp()
+    /* =========================================
+       BUSINESS STRUCTURE
+    ========================================= */
 
-        };
+    businessCount:
+        1,
 
+    activeBusinessId:
+        currentUser.uid,
+
+
+    /* =========================================
+       FUTURE BUSINESS LIMIT
+       Do NOT use this to enforce limits yet.
+    ========================================= */
+
+    businessesLimit:
+        1,
+
+
+    /* =========================================
+       STAFF FOUNDATION
+    ========================================= */
+
+    staffCount:
+        0,
+
+    staffLimit:
+        1,
+
+
+    /* =========================================
+       CURRENT PLAN
+    ========================================= */
+
+    plan:
+        "free",
+
+    trialActive:
+        true,
+
+
+    /* =========================================
+       SETUP
+    ========================================= */
+
+    setupCompleted:
+        true,
+
+    setupCompletedAt:
+        serverTimestamp(),
+
+    updatedAt:
+        serverTimestamp()
+};
 
         try{
 
