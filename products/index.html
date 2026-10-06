@@ -3388,11 +3388,19 @@ addProductButton.addEventListener(
    AUTH STATE
 ===================================================== */
 
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
 onAuthStateChanged(
     auth,
     async function(user){
 
+        console.log("KAYAH PRODUCTS AUTH CHECK");
+
         if(!user){
+
+            console.log("NO FIREBASE USER — REDIRECTING");
 
             window.location.href =
                 "../login/";
@@ -3402,22 +3410,19 @@ onAuthStateChanged(
         }
 
 
-        currentUser =
-            user;
+        currentUser = user;
+
+
+        console.log(
+            "KAYAH PRODUCTS UID:",
+            user.uid
+        );
 
 
         try{
 
-            console.log(
-                "Kayah Products UID:",
-                user.uid
-            );
-
-
             /* =================================================
                READ USER DOCUMENT
-
-               users/{UID}
             ================================================= */
 
             const userRef =
@@ -3428,15 +3433,23 @@ onAuthStateChanged(
                 );
 
 
+            console.log(
+                "READING USER:",
+                "users/" + user.uid
+            );
+
+
             const userSnapshot =
-                await getDoc(
-                    userRef
-                );
+                await getDoc(userRef);
 
 
-            if(
-                !userSnapshot.exists()
-            ){
+            console.log(
+                "USER DOCUMENT EXISTS:",
+                userSnapshot.exists()
+            );
+
+
+            if(!userSnapshot.exists()){
 
                 showError(
                     "Your Kayah account profile could not be found."
@@ -3452,21 +3465,35 @@ onAuthStateChanged(
 
 
             console.log(
-                "Kayah user profile:",
+                "KAYAH USER PROFILE:",
                 userData
             );
 
 
-            /* SET PLAN */
+            /* =================================================
+               PLAN
+            ================================================= */
 
             updatePlanUI(
                 userData
             );
 
 
-            /* LOAD PRODUCTS */
+            /* =================================================
+               LOAD PRODUCTS
+            ================================================= */
+
+            console.log(
+                "NOW LOADING PRODUCTS..."
+            );
+
 
             await loadProducts();
+
+
+            console.log(
+                "PRODUCT LOADING FINISHED."
+            );
 
         }
 
@@ -3477,44 +3504,50 @@ onAuthStateChanged(
                 error
             );
 
+            console.error(
+                "ERROR CODE:",
+                error.code
+            );
 
-            if(
-                error.code ===
-                "permission-denied"
-            ){
+            console.error(
+                "ERROR MESSAGE:",
+                error.message
+            );
 
-                productsList.innerHTML = `
-                    <div
-                        class="empty-message"
-                        style="
-                            border-color:#F0CCCC;
-                            color:#9B3B3B;
-                        "
-                    >
 
-                        ⚠️<br><br>
+            productsList.innerHTML = `
+                <div
+                    class="empty-message"
+                    style="
+                        border-color:#F0CCCC;
+                        color:#9B3B3B;
+                    "
+                >
 
-                        Kayah could not access
-                        your account data.
+                    ⚠️<br><br>
 
-                        <br><br>
+                    <strong>
+                        Kayah could not load your account.
+                    </strong>
 
-                        <small>
-                            permission-denied
-                        </small>
+                    <br><br>
 
-                    </div>
-                `;
+                    ${safeText(
+                        error.message,
+                        "Unknown error."
+                    )}
 
-            }
+                    <br><br>
 
-            else{
+                    <small>
+                        ${safeText(
+                            error.code,
+                            "unknown-error"
+                        )}
+                    </small>
 
-                showError(
-                    "Something went wrong while loading your account."
-                );
-
-            }
+                </div>
+            `;
 
         }
 
@@ -3534,40 +3567,9 @@ onAuthStateChanged(
 );
 
 
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
-
-if(
-    "serviceWorker" in navigator
-){
-
-    navigator.serviceWorker
-        .register("../sw.js")
-        .then(
-            function(){
-
-                console.log(
-                    "Kayah service worker registered."
-                );
-
-            }
-        )
-        .catch(
-            function(error){
-
-                console.log(
-                    "Service worker error:",
-                    error
-                );
-
-            }
-        );
-
-}
 
 </script>
 
 </body>
 
-</html>
+</html> 
