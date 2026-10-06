@@ -387,6 +387,50 @@ button{
     font-weight:700;
 }
 
+.invitation-box{
+    margin-top:12px;
+    padding:10px;
+    background:#FFF8E7;
+    border:1px solid #EAD9AA;
+    border-radius:11px;
+}
+
+.invitation-label{
+    font-size:8px;
+    font-weight:800;
+    color:#7A5411;
+    margin-bottom:6px;
+}
+
+.invitation-link{
+    width:100%;
+    padding:8px;
+    border:1px solid #E2D5B5;
+    background:#FFFFFF;
+    border-radius:8px;
+    font-size:8px;
+    color:#59655E;
+    word-break:break-all;
+    line-height:1.4;
+}
+
+.copy-invite-btn{
+    width:100%;
+    border:none;
+    background:#0B4F3A;
+    color:#FFFFFF;
+    border-radius:9px;
+    padding:9px;
+    margin-top:7px;
+    font-size:9px;
+    font-weight:800;
+}
+
+.copy-invite-btn:active{
+    transform:scale(.98);
+}
+
+
 .staff-actions{
     display:flex;
     gap:7px;
@@ -1172,7 +1216,8 @@ import {
     updateDoc,
     arrayUnion,
     arrayRemove,
-    setDoc
+    setDoc,
+    Timestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* =====================================================
@@ -1747,12 +1792,39 @@ function renderStaff(){
 
                 <div class="staff-permissions">
 
-                    ${permissionHTML}
+    ${permissionHTML}
 
-                </div>
+</div>
 
 
-                <div class="staff-actions">
+${
+    staff.accountStatus === "invited" && staff.uid === null
+    ? `
+        <div class="invitation-box">
+
+            <div class="invitation-label">
+                STAFF INVITATION LINK
+            </div>
+
+            <div
+                class="invitation-link"
+                id="inviteLink-${index}"
+            ></div>
+
+            <button
+                class="copy-invite-btn"
+                onclick="copyInvitationLink(${index})"
+            >
+                📋 Copy Invitation Link
+            </button>
+
+        </div>
+      `
+    : ""
+}
+
+
+<div class="staff-actions">
 
                     <button
                         class="staff-action"
@@ -1780,11 +1852,154 @@ function renderStaff(){
             container.appendChild(
                 card
             );
+            
+            /* -----------------------------------------
+   DISPLAY INVITATION LINK
+----------------------------------------- */
+
+if(
+    staff.accountStatus === "invited" &&
+    staff.uid === null &&
+    staff.id
+){
+
+    const inviteElement =
+        document.getElementById(
+            "inviteLink-" + index
+        );
+
+    if(inviteElement){
+
+        const invitationLink =
+            new URL(
+                "https://kayahph.github.io/kayah.com/staff-signup/?invite="+
+                encodeURIComponent(staff.id),
+                window.location.href
+            ).href;
+
+        inviteElement.textContent =
+            invitationLink;
+
+    }
+
+}
+            
+            
+            
+            
+            
 
         }
     );
 
 }
+
+
+/* =====================================================
+   COPY STAFF INVITATION LINK
+===================================================== */
+
+window.copyInvitationLink =
+    async function(index){
+
+        const staff =
+            currentStaff[index];
+
+        if(!staff || !staff.id){
+
+            showMessage(
+                "Invitation link is not available.",
+                "error"
+            );
+
+            return;
+
+        }
+        
+        
+        
+        
+        
+
+        const invitationLink =
+            new URL(
+                  "https://kayahph.github.io/kayah.com/staff-signup/?invite=" +
+                encodeURIComponent(staff.id),
+                window.location.href
+            ).href;
+
+        try{
+
+            await navigator.clipboard.writeText(
+                invitationLink
+            );
+
+            showMessage(
+                "Invitation link copied successfully."
+            );
+
+        }catch(error){
+
+            console.error(
+                "Copy invitation link error:",
+                error
+            );
+
+            /* Fallback for browsers that block clipboard */
+
+            const textArea =
+                document.createElement("textarea");
+
+            textArea.value =
+                invitationLink;
+
+            textArea.style.position =
+                "fixed";
+
+            textArea.style.opacity =
+                "0";
+
+            document.body.appendChild(
+                textArea
+            );
+
+            textArea.select();
+
+            try{
+
+                document.execCommand(
+                    "copy"
+                );
+
+                showMessage(
+                    "Invitation link copied successfully."
+                );
+
+            }catch(copyError){
+
+                console.error(
+                    "Fallback copy error:",
+                    copyError
+                );
+
+                showMessage(
+                    "Unable to copy the link. Please copy it manually.",
+                    "error"
+                );
+
+            }
+
+            document.body.removeChild(
+                textArea
+            );
+
+        }
+
+    };
+
+
+
+
 
 
 /* =====================================================
@@ -2150,11 +2365,12 @@ await setDoc(
         createdAt:
             new Date().toISOString(),
 
-        expiresAt:
-            new Date(
-                Date.now() +
-                (7 * 24 * 60 * 60 * 1000)
-            ).toISOString()
+        expiresAt: Timestamp.fromDate(
+    new Date(
+        Date.now() +
+        (7 * 24 * 60 * 60 * 1000)
+    )
+)
     }
 );
 
