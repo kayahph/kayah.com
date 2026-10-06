@@ -2056,42 +2056,48 @@ window.saveStaff =
             "Saving...";
 
 
-        const staffRecord = {
+      const staffRecord = {
 
-            id:
-                createStaffId(),
+    id:
+        createStaffId(),
 
-            name:
-                name,
+    uid:
+        null,
 
-            email:
-                email,
+    name:
+        name,
 
-            phone:
-                phone,
+    email:
+        email,
 
-            role:
-                "staff",
+    phone:
+        phone,
 
-            ownerUid:
-                currentUser.uid,
+    role:
+        "staff",
 
-            businessId:
-                currentUser.uid,
+    ownerUid:
+        currentUser.uid,
 
-            permissions:
-                permissions,
+    businessId:
+        currentUser.uid,
 
-            active:
-                true,
+    permissions:
+        permissions,
 
-            createdAt:
-                new Date().toISOString(),
+    active:
+        true,
 
-            updatedAt:
-                new Date().toISOString()
+    accountStatus:
+        "invited",
 
-        };
+    createdAt:
+        new Date().toISOString(),
+
+    updatedAt:
+        new Date().toISOString()
+
+};
 
 
         try{
@@ -2131,8 +2137,8 @@ window.saveStaff =
 
 
             showMessage(
-                "Staff member added successfully."
-            );
+    "Staff member added. They can now complete their account setup."
+);
 
 
         }catch(error){
