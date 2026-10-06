@@ -1359,7 +1359,10 @@ import {
     collection,
     getDocs,
     doc,
-    updateDoc
+    getDoc,
+    updateDoc,
+    addDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -1410,12 +1413,15 @@ const db =
 
 let currentUser = null;
 
+let currentUserData = null;
+
+let currentUserRole = "owner";
+
 let products = [];
 
 let currentFilter = "all";
 
 let selectedProduct = null;
-
 
 /* =====================================================
    DOM
@@ -1582,6 +1588,79 @@ function getStockStatus(product){
     };
 
 }
+
+
+/* =====================================================
+   ACTIVITY LOG
+===================================================== */
+
+async function logActivity({
+    action,
+    description,
+    targetType,
+    targetId,
+    details = {}
+}){
+
+    if(!currentUser){
+        return;
+    }
+
+    try{
+
+        const activityRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "activityLogs"
+            );
+
+        await addDoc(
+            activityRef,
+            {
+                action,
+                description,
+                targetType,
+                targetId,
+
+                performedByUid:
+                    currentUser.uid,
+
+                performedByName:
+                    currentUserData?.fullName ||
+                    currentUserData?.name ||
+                    currentUser.displayName ||
+                    currentUser.email ||
+                    "Unknown User",
+
+                performedByRole:
+                    currentUserRole,
+
+                details,
+
+                createdAt:
+                    serverTimestamp()
+            }
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "ACTIVITY LOG ERROR:",
+            error
+        );
+
+        /*
+         * Do not stop the inventory action
+         * if logging itself fails.
+         */
+    }
+
+}
+
+
 
 
 /* =====================================================
@@ -2147,38 +2226,50 @@ async function(){
         return;
     }
 
-
     const input =
         document.getElementById(
             "stockQuantityInput"
         );
-
 
     const reason =
         document.getElementById(
             "stockReasonInput"
         ).value.trim();
 
+    /* =================================================
+       QUANTITY TO ADD
+    ================================================= */
 
-    const newStock =
+    const quantityToAdd =
         Number(
             input.value
         );
 
-
     if(
         input.value === "" ||
-        !Number.isFinite(newStock) ||
-        newStock < 0
+        !Number.isFinite(quantityToAdd) ||
+        quantityToAdd <= 0
     ){
 
         showToast(
-            "Please enter a valid stock quantity."
+            "Please enter a valid quantity to add."
         );
 
         return;
-
     }
+
+    /* =================================================
+       CALCULATE NEW STOCK
+    ================================================= */
+
+    const previousStock =
+        getStockValue(
+            selectedProduct
+        );
+
+    const newStock =
+        previousStock +
+        quantityToAdd;
 
 
     const saveButton =
@@ -2206,6 +2297,10 @@ async function(){
             );
 
 
+        /* =================================================
+           UPDATE FIREBASE
+        ================================================= */
+
         await updateDoc(
             productRef,
             {
@@ -2220,10 +2315,59 @@ async function(){
         );
 
 
-        /*
-         * Update local product
-         * immediately.
-         */
+        /* =================================================
+           LOG STOCK CHANGE
+        ================================================= */
+
+        await logActivity({
+
+            action:
+                "stock_in",
+
+            description:
+                "Added stock for " +
+                (
+                    selectedProduct.name ||
+                    "Unnamed Product"
+                ),
+
+            targetType:
+                "product_inventory",
+
+            targetId:
+                selectedProduct.id,
+
+            details: {
+
+                productName:
+                    selectedProduct.name ||
+                    "Unnamed Product",
+
+                previousStock:
+                    previousStock,
+
+                newStock:
+                    newStock,
+
+                quantityChanged:
+                    quantityToAdd,
+
+                unit:
+                    selectedProduct.unit ||
+                    "units",
+
+                reason:
+                    reason ||
+                    ""
+
+            }
+
+        });
+
+
+        /* =================================================
+           UPDATE LOCAL PRODUCT
+        ================================================= */
 
         selectedProduct.stockQuantity =
             newStock;
@@ -2238,11 +2382,7 @@ async function(){
 
 
         showToast(
-            reason
-            ?
-            "Stock updated successfully."
-            :
-            "Stock updated."
+            "Stock added successfully."
         );
 
 
@@ -2256,7 +2396,7 @@ async function(){
 
 
         showToast(
-            "Unable to update stock."
+            "Unable to add stock."
         );
 
     }
@@ -2266,12 +2406,11 @@ async function(){
             false;
 
         saveButton.textContent =
-            "Save Stock";
+            "Add Stock";
 
     }
 
 };
-
 
 /* =====================================================
    SEARCH
@@ -2416,10 +2555,56 @@ onAuthStateChanged(
 
 
         currentUser =
-            user;
+    user;
 
 
-        await loadInventory();
+/* =================================================
+   LOAD USER PROFILE
+================================================= */
+
+try{
+
+    const userRef =
+        doc(
+            db,
+            "users",
+            user.uid
+        );
+
+    const userSnapshot =
+        await getDoc(
+            userRef
+        );
+
+    if(userSnapshot.exists()){
+
+        currentUserData =
+            userSnapshot.data();
+
+        currentUserRole =
+            String(
+                currentUserData.role ||
+                "owner"
+            ).toLowerCase();
+
+    }
+
+}
+catch(error){
+
+    console.error(
+        "USER PROFILE LOAD ERROR:",
+        error
+    );
+
+    currentUserData = null;
+
+    currentUserRole = "owner";
+
+}
+
+
+await loadInventory();
 
     }
 );
