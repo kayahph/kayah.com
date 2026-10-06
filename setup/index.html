@@ -1745,25 +1745,25 @@ form.addEventListener(
     ========================================= */
 
     businessId:
-        currentUser.uid,
+        user.uid,
 
     ownerUid:
-        currentUser.uid,
+        user.uid,
 
     businessName:
-        businessName,
+        nameValue,
 
     businessType:
-        businessType,
+        typeValue,
 
     businessAddress:
-        businessAddress,
+        addressValue,
 
     city:
-        city,
+        cityValue,
 
     province:
-        province,
+        provinceValue,
 
     currency:
         "PHP",
@@ -1772,7 +1772,7 @@ form.addEventListener(
         "₱",
 
     businessDescription:
-        businessDescription,
+        descriptionValue,
 
 
     /* =========================================
@@ -1791,13 +1791,7 @@ form.addEventListener(
         1,
 
     activeBusinessId:
-        currentUser.uid,
-
-
-    /* =========================================
-       FUTURE BUSINESS LIMIT
-       Do NOT use this to enforce limits yet.
-    ========================================= */
+        user.uid,
 
     businessesLimit:
         1,
@@ -1838,7 +1832,6 @@ form.addEventListener(
     updatedAt:
         serverTimestamp()
 };
-
         try{
 
             /*
