@@ -2555,7 +2555,9 @@ import {
 import {
     getFirestore,
     doc,
-    getDoc
+    getDoc,
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -3367,6 +3369,94 @@ function loadBusinessProfile(
 }
 
 
+
+
+
+/* =====================================================
+   LOAD PRODUCT & INVENTORY COUNTS
+===================================================== */
+
+async function loadProductStats(uid){
+
+    try{
+
+        const productsRef =
+            collection(
+                db,
+                "users",
+                uid,
+                "products"
+            );
+
+        const snapshot =
+            await getDocs(productsRef);
+
+        let totalProducts = 0;
+        let inventoryProducts = 0;
+
+        snapshot.forEach(function(productDoc){
+
+            const product =
+                productDoc.data();
+
+            totalProducts++;
+
+            /*
+             * Inventory count:
+             * Products with stock tracking enabled
+             */
+
+            if(product.trackStock === true){
+
+                inventoryProducts++;
+
+            }
+
+        });
+
+        document.getElementById(
+            "productCount"
+        ).textContent =
+            totalProducts;
+
+        document.getElementById(
+            "inventoryCount"
+        ).textContent =
+            inventoryProducts;
+
+        console.log(
+            "Kayah product count:",
+            totalProducts
+        );
+
+        console.log(
+            "Kayah inventory count:",
+            inventoryProducts
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Unable to load product statistics:",
+            error
+        );
+
+        document.getElementById(
+            "productCount"
+        ).textContent =
+            "—";
+
+        document.getElementById(
+            "inventoryCount"
+        ).textContent =
+            "—";
+
+    }
+
+}
+
 /* =====================================================
    AUTH STATE
 ===================================================== */
@@ -3496,36 +3586,27 @@ onAuthStateChanged(
 
 
             /* -----------------------------------------
-               FUTURE STATS
-            ----------------------------------------- */
+   FUTURE STATS
+----------------------------------------- */
 
-            document.getElementById(
-                "productCount"
-            ).textContent =
-                "0";
+await loadProductStats(user.uid);
 
 
-            document.getElementById(
-                "inventoryCount"
-            ).textContent =
-                "0";
+document.getElementById(
+    "todaySales"
+).textContent =
+    "₱0.00";
 
 
-            document.getElementById(
-                "todaySales"
-            ).textContent =
-                "₱0.00";
+document.getElementById(
+    "todaySalesNote"
+).textContent =
+    "No sales recorded yet";
 
 
-            document.getElementById(
-                "todaySalesNote"
-            ).textContent =
-                "No sales recorded yet";
-
-
-            console.log(
-                "Kayah dashboard loaded successfully."
-            );
+console.log(
+    "Kayah dashboard loaded successfully."
+);
 
         }
 
