@@ -1365,6 +1365,72 @@ body{
 
 </div>
 
+<!-- =================================================
+     MATERIALS USED
+================================================== -->
+
+<div class="form-group">
+
+    <label class="form-label">
+        Materials Used
+    </label>
+
+    <div class="form-help" style="margin-bottom:10px;">
+        Select the materials needed to make or provide one unit of this product.
+    </div>
+
+    <div
+        id="materialsUsedList"
+        style="
+            display:grid;
+            gap:10px;
+        "
+    ></div>
+
+    <button
+        type="button"
+        id="addMaterialButton"
+        style="
+            width:100%;
+            height:48px;
+            margin-top:10px;
+            border:1px dashed #16805C;
+            border-radius:10px;
+            background:#F3F9F5;
+            color:#0B4F3A;
+            font-family:inherit;
+            font-size:12px;
+            font-weight:800;
+            cursor:pointer;
+        "
+    >
+        + Add Material
+    </button>
+
+    <div
+        id="materialsEmptyMessage"
+        style="
+            margin-top:9px;
+            padding:10px;
+            border-radius:9px;
+            background:#FBF8EF;
+            color:#8A938E;
+            font-size:10px;
+            line-height:1.5;
+            display:none;
+        "
+    >
+        No materials have been added yet.
+        Add your materials first from the Materials page.
+    </div>
+
+</div>
+
+
+
+
+
+
 <!-- STATUS -->
 
             <div class="form-group">
@@ -1763,6 +1829,21 @@ const productPhoto = document.getElementById("productPhoto");
 const photoPreview = document.getElementById("photoPreview");
 const photoPreviewImage = document.getElementById("photoPreviewImage");
 
+const materialsUsedList =
+    document.getElementById("materialsUsedList");
+
+const addMaterialButton =
+    document.getElementById("addMaterialButton");
+
+const materialsEmptyMessage =
+    document.getElementById("materialsEmptyMessage");
+
+let currentMaterials = [];
+
+let selectedMaterials = [];
+
+
+
 
 productPhoto.addEventListener("change", function(){
 
@@ -1803,6 +1884,325 @@ let currentUser = null;
 let currentProducts = [];
 
 let currentLimit = 100;
+
+
+
+/* =====================================================
+   LOAD MATERIALS
+===================================================== */
+
+async function loadMaterials(){
+
+    if(!currentUser){
+        return;
+    }
+
+    try{
+
+        const materialsRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "materials"
+            );
+
+        const snapshot =
+            await getDocs(materialsRef);
+
+        currentMaterials =
+            snapshot.docs.map(function(materialDoc){
+
+                const data =
+                    materialDoc.data();
+
+                return {
+
+                    id:
+                        materialDoc.id,
+
+                    ...data
+
+                };
+
+            });
+
+        console.log(
+            "Kayah materials loaded:",
+            currentMaterials
+        );
+
+        if(
+            currentMaterials.length === 0
+        ){
+
+            materialsEmptyMessage.style.display =
+                "block";
+
+        }
+
+        else{
+
+            materialsEmptyMessage.style.display =
+                "none";
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(
+            "MATERIAL LOAD ERROR:",
+            error
+        );
+
+        currentMaterials = [];
+
+        materialsEmptyMessage.style.display =
+            "block";
+
+        materialsEmptyMessage.textContent =
+            "Unable to load your materials.";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER MATERIAL ROWS
+===================================================== */
+
+function renderMaterialRows(){
+
+    materialsUsedList.innerHTML = "";
+
+    selectedMaterials.forEach(
+        function(item, index){
+
+            const row =
+                document.createElement("div");
+
+            row.style.cssText = `
+                display:grid;
+                grid-template-columns:1fr 95px 42px;
+                gap:8px;
+                align-items:center;
+                padding:10px;
+                background:#FAFAF7;
+                border:1px solid #E5E8E2;
+                border-radius:10px;
+            `;
+
+
+            /* MATERIAL SELECT */
+
+            const select =
+                document.createElement("select");
+
+            select.className =
+                "form-select";
+
+            select.style.height =
+                "48px";
+
+            select.style.padding =
+                "10px";
+
+            const defaultOption =
+                document.createElement("option");
+
+            defaultOption.value = "";
+
+            defaultOption.textContent =
+                "Select material";
+
+            select.appendChild(
+                defaultOption
+            );
+
+
+            currentMaterials.forEach(
+                function(material){
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        material.id;
+
+                    option.textContent =
+                        safeText(
+                            material.name,
+                            "Unnamed Material"
+                        );
+
+                    if(
+                        item.materialId ===
+                        material.id
+                    ){
+
+                        option.selected =
+                            true;
+
+                    }
+
+                    select.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+            select.addEventListener(
+                "change",
+                function(){
+
+                    selectedMaterials[index]
+                        .materialId =
+                        select.value;
+
+                }
+            );
+
+
+            /* QUANTITY */
+
+            const quantity =
+                document.createElement("input");
+
+            quantity.type =
+                "number";
+
+            quantity.min =
+                "0";
+
+            quantity.step =
+                "0.001";
+
+            quantity.placeholder =
+                "Qty";
+
+            quantity.value =
+                item.quantity || "";
+
+            quantity.className =
+                "form-input";
+
+            quantity.style.height =
+                "48px";
+
+            quantity.style.padding =
+                "10px";
+
+            quantity.addEventListener(
+                "input",
+                function(){
+
+                    selectedMaterials[index]
+                        .quantity =
+                        quantity.value;
+
+                }
+            );
+
+
+            /* REMOVE */
+
+            const removeButton =
+                document.createElement("button");
+
+            removeButton.type =
+                "button";
+
+            removeButton.textContent =
+                "×";
+
+            removeButton.style.cssText = `
+                width:42px;
+                height:42px;
+                border:1px solid #F0D5D5;
+                border-radius:9px;
+                background:#FFF5F5;
+                color:#A33A3A;
+                font-size:20px;
+                cursor:pointer;
+            `;
+
+            removeButton.addEventListener(
+                "click",
+                function(){
+
+                    selectedMaterials.splice(
+                        index,
+                        1
+                    );
+
+                    renderMaterialRows();
+
+                }
+            );
+
+
+            row.appendChild(select);
+
+            row.appendChild(quantity);
+
+            row.appendChild(removeButton);
+
+            materialsUsedList.appendChild(row);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ADD MATERIAL ROW
+===================================================== */
+
+function addMaterialRow(){
+
+    if(
+        currentMaterials.length === 0
+    ){
+
+        materialsEmptyMessage.style.display =
+            "block";
+
+        return;
+
+    }
+
+    selectedMaterials.push({
+
+        materialId:
+            "",
+
+        quantity:
+            ""
+
+    });
+
+    renderMaterialRows();
+
+}
+
+
+/* =====================================================
+   ADD MATERIAL BUTTON
+===================================================== */
+
+addMaterialButton.addEventListener(
+    "click",
+    addMaterialRow
+);
+
+
+
 
 
 /* =====================================================
@@ -2878,6 +3278,10 @@ photoPreview.style.display = "none";
 
 photoPreviewImage.src = "";
 
+selectedMaterials = [];
+
+renderMaterialRows();
+
 
 
 
@@ -2997,6 +3401,55 @@ const lowAlert =
         productDescription.value.trim();
 
 
+    /* =================================================
+   MATERIALS USED
+================================================= */
+
+const materials =
+    selectedMaterials
+        .filter(function(item){
+
+            return (
+                item.materialId &&
+                Number(item.quantity) > 0
+            );
+
+        })
+        .map(function(item){
+
+            const material =
+                currentMaterials.find(
+                    function(m){
+                        return m.id === item.materialId;
+                    }
+                );
+
+            return {
+
+                materialId:
+                    item.materialId,
+
+                materialName:
+                    safeText(
+                        material?.name,
+                        "Unnamed Material"
+                    ),
+
+                quantity:
+                    Number(item.quantity),
+
+                unit:
+                    safeText(
+                        material?.unit,
+                        ""
+                    )
+
+            };
+
+        });
+    
+    
+    
     
 
 
@@ -3187,6 +3640,9 @@ addProductButton.textContent = "Saving...";
 
                 sku:
     sku,
+    
+    
+    
 
 trackStock:
     trackStock,
@@ -3210,6 +3666,10 @@ lowStockAlert:
 
                 description:
                     description,
+                    
+materials:
+    materials,
+
 
                 ownerUid:
                     currentUser.uid,
@@ -3488,7 +3948,10 @@ onAuthStateChanged(
             );
 
 
-            await loadProducts();
+            
+
+await loadMaterials(); 
+await loadProducts(); 
 
 
             console.log(
