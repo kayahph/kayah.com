@@ -8,10 +8,13 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Staff Account Setup - Kayah</title>
+<meta name="theme-color" content="#0B4F3A">
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
+<title>Login — Kayah</title>
+
+<link rel="manifest" href="../manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect"
       href="https://fonts.gstatic.com"
@@ -22,199 +25,290 @@
 
 <style>
 
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:"Inter",sans-serif;
     background:#F7F3E8;
-    color:#26332C;
+    color:#202A24;
     min-height:100vh;
 }
 
-.app{
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
     width:100%;
-    max-width:520px;
-    margin:0 auto;
-    padding:24px 18px 40px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
+    width:110px;
+    height:auto;
     display:block;
-    width:70px;
-    height:70px;
-    object-fit:contain;
-    margin:20px auto 15px;
 }
 
-.brand{
+.home-link{
+    text-decoration:none;
+    color:#0B4F3A;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+    width:100%;
+    max-width:520px;
+    margin:0 auto;
+    padding:18px 20px 40px;
+}
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
     text-align:center;
-    font-size:22px;
+    margin-top:15px;
+    margin-bottom:28px;
+}
+
+.intro-logo{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    margin-bottom:18px;
+}
+
+.eyebrow{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.6px;
+    color:#16805C;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:30px;
+    line-height:1.15;
+    font-weight:800;
+    color:#0B4F3A;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:14px;
+    line-height:1.65;
+    color:#66736C;
+    max-width:400px;
+    margin:0 auto;
+}
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card{
+    background:#FFFFFF;
+    border-radius:24px;
+    padding:24px 20px 22px;
+    box-shadow:
+        0 12px 35px rgba(11,79,58,0.08);
+    border:1px solid rgba(11,79,58,0.06);
+}
+
+.card-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:22px;
+}
+
+.card-icon{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    background:#F2B84B;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    flex-shrink:0;
+}
+
+.card-title{
+    font-size:16px;
     font-weight:800;
     color:#0B4F3A;
 }
 
-.subtitle{
-    text-align:center;
-    font-size:11px;
-    color:#7D8881;
-    margin-top:6px;
-    line-height:1.5;
+.card-description{
+    font-size:12px;
+    color:#7A847F;
+    margin-top:3px;
 }
 
-.card{
-    background:#FFFFFF;
-    border:1px solid #E5EAE6;
-    border-radius:22px;
-    padding:20px;
-    margin-top:25px;
-    box-shadow:0 5px 20px rgba(11,79,58,.05);
-}
-
-.card-title{
-    font-size:17px;
-    font-weight:800;
-    color:#173B2D;
-}
-
-.card-text{
-    font-size:10px;
-    color:#7D8881;
-    margin-top:5px;
-    line-height:1.5;
-}
-
-.invited-box{
-    background:#EEF8F2;
-    border:1px solid #CFE4D7;
-    border-radius:13px;
-    padding:12px;
-    margin-top:16px;
-}
-
-.invited-label{
-    font-size:8px;
-    color:#6C7B72;
-    font-weight:700;
-}
-
-.invited-email{
-    font-size:11px;
-    font-weight:800;
-    color:#176B43;
-    margin-top:4px;
-    overflow-wrap:anywhere;
-}
+/* =====================================================
+   FORM
+===================================================== */
 
 .form-group{
-    margin-top:15px;
+    margin-bottom:17px;
 }
 
-.form-label{
+label{
     display:block;
-    font-size:9px;
-    color:#6F7B74;
+    font-size:12px;
     font-weight:700;
-    margin-bottom:6px;
+    color:#34433B;
+    margin-bottom:8px;
 }
 
-.form-input{
+.input-wrap{
+    position:relative;
+}
+
+input{
     width:100%;
-    border:1px solid #DDE4DE;
-    background:#FFFFFF;
-    border-radius:11px;
-    padding:12px;
+    height:52px;
+    border:1px solid #DCE4DE;
+    border-radius:14px;
+    background:#FBFCFA;
+    padding:0 15px;
+    font-family:inherit;
+    font-size:14px;
+    color:#202A24;
     outline:none;
-    color:#26332C;
-    font-size:11px;
+    transition:0.2s ease;
 }
 
-.form-input:focus{
+input:focus{
     border-color:#16805C;
+    background:#FFFFFF;
+    box-shadow:0 0 0 3px rgba(22,128,92,0.09);
 }
 
-.permissions{
-    margin-top:16px;
+input::placeholder{
+    color:#A5AEA9;
 }
 
-.permissions-title{
-    font-size:9px;
-    font-weight:800;
-    color:#6F7B74;
-    margin-bottom:7px;
+.password-input{
+    padding-right:52px;
 }
 
-.permission-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-}
-
-.permission{
-    background:#F4F8F5;
-    color:#496056;
-    border-radius:8px;
-    padding:6px 8px;
-    font-size:8px;
-    font-weight:700;
-}
-
-.submit-btn{
-    width:100%;
+.password-toggle{
+    position:absolute;
+    right:7px;
+    top:7px;
+    width:38px;
+    height:38px;
     border:none;
+    border-radius:10px;
+    background:transparent;
+    color:#6C7972;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.password-toggle:active{
+    background:#F2F5F1;
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box{
+    display:none;
+    background:#FFF1F0;
+    border:1px solid #F2C8C5;
+    color:#A43D36;
+    border-radius:13px;
+    padding:12px 13px;
+    font-size:12px;
+    line-height:1.5;
+    margin-bottom:16px;
+}
+
+.error-box.show{
+    display:block;
+}
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-button{
+    width:100%;
+    height:54px;
+    border:none;
+    border-radius:15px;
     background:#0B4F3A;
     color:#FFFFFF;
-    border-radius:13px;
-    padding:14px;
-    font-size:11px;
+    font-family:inherit;
+    font-size:14px;
     font-weight:800;
-    margin-top:20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    transition:0.2s ease;
+    box-shadow:0 8px 18px rgba(11,79,58,0.16);
 }
 
-.submit-btn:disabled{
-    opacity:.55;
+.login-button:hover{
+    background:#083D2D;
+}
+
+.login-button:active{
+    transform:scale(0.985);
+}
+
+.login-button:disabled{
+    opacity:0.7;
     cursor:not-allowed;
 }
 
-.message{
-    display:none;
-    border-radius:12px;
-    padding:11px;
-    margin-top:14px;
-    font-size:9px;
-    line-height:1.5;
-}
-
-.message.error{
-    background:#FFF2F2;
-    border:1px solid #EBCACA;
-    color:#A33A3A;
-}
-
-.message.success{
-    background:#EEF8F2;
-    border:1px solid #CFE4D7;
-    color:#176B43;
-}
-
-.loading{
-    text-align:center;
-    padding:25px 10px;
-    color:#7D8881;
-    font-size:10px;
-}
+/* =====================================================
+   SPINNER
+===================================================== */
 
 .spinner{
-    width:28px;
-    height:28px;
-    border:3px solid #DCE7E0;
-    border-top-color:#16805C;
+    width:17px;
+    height:17px;
+    border:2px solid rgba(255,255,255,0.35);
+    border-top-color:#FFFFFF;
     border-radius:50%;
-    animation:spin .8s linear infinite;
-    margin:0 auto 10px;
+    animation:spin 0.8s linear infinite;
+    display:none;
+}
+
+.login-button.loading .spinner{
+    display:block;
+}
+
+.login-button.loading .button-text{
+    display:none;
 }
 
 @keyframes spin{
@@ -223,251 +317,417 @@ body{
     }
 }
 
-.success-screen{
-    display:none;
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:22px 0;
+    color:#9AA49F;
+    font-size:11px;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#E7ECE8;
+}
+
+/* =====================================================
+   SIGNUP
+===================================================== */
+
+.signup-box{
     text-align:center;
 }
 
-.success-icon{
-    width:62px;
-    height:62px;
-    border-radius:50%;
-    background:#EAF7EF;
-    color:#176B43;
+.signup-text{
+    font-size:12px;
+    color:#7A847F;
+    margin-bottom:10px;
+}
+
+.signup-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    min-height:48px;
+    border:1px solid #CFE1D8;
+    border-radius:14px;
+    color:#16805C;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:800;
+    background:#F9FCFA;
+}
+
+.signup-link:active{
+    background:#F1F7F3;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+    text-align:center;
+    padding:25px 10px 5px;
+}
+
+.footer-text{
+    font-size:10px;
+    color:#8B9690;
+    line-height:1.6;
+}
+
+.footer-brand{
+    color:#16805C;
+    font-weight:800;
+}
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+.loading-screen{
+    position:fixed;
+    inset:0;
+    background:#F7F3E8;
+    z-index:9999;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:28px;
-    margin:0 auto 14px;
+    flex-direction:column;
+    transition:opacity 0.25s ease;
 }
 
-.success-title{
-    font-size:18px;
+.loading-screen.hide{
+    opacity:0;
+    pointer-events:none;
+}
+
+.loading-logo{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+    margin-bottom:20px;
+}
+
+.loading-spinner{
+    width:28px;
+    height:28px;
+    border:3px solid #D8E4DE;
+    border-top-color:#16805C;
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+    margin-bottom:14px;
+}
+
+.loading-title{
+    font-size:14px;
     font-weight:800;
-    color:#173B2D;
+    color:#0B4F3A;
 }
 
-.success-text{
-    font-size:10px;
-    color:#7D8881;
-    line-height:1.6;
-    margin-top:7px;
-}
-
-.login-btn{
-    display:block;
-    width:100%;
-    border:none;
-    background:#0B4F3A;
-    color:#FFFFFF;
-    border-radius:13px;
-    padding:13px;
+.loading-text{
     font-size:11px;
-    font-weight:800;
-    margin-top:18px;
-    text-decoration:none;
+    color:#7A847F;
+    margin-top:5px;
+}
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:700px){
+
+    .header{
+        max-width:900px;
+        margin:auto;
+        padding-top:24px;
+    }
+
+    .page{
+        padding-top:25px;
+    }
+
+    .intro{
+        margin-top:20px;
+    }
+
+    h1{
+        font-size:36px;
+    }
+
+    .login-card{
+        padding:30px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<div class="app">
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<div class="loading-screen" id="loadingScreen">
 
     <img
         src="../kayah-logo.png"
-        class="logo"
+        class="loading-logo"
         alt="Kayah"
-        onerror="this.style.display='none'"
     >
 
-    <div class="brand">
-        Kayah
+    <div class="loading-spinner"></div>
+
+    <div class="loading-title">
+        Please wait...
     </div>
 
-    <div class="subtitle">
-        Business, Made Possible.
+    <div class="loading-text">
+        Checking your account.
     </div>
 
+</div>
 
-    <div class="card">
 
-        <div id="loadingSection">
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-            <div class="loading">
+<header class="header">
 
-                <div class="spinner"></div>
+    <a href="../">
+        <img
+            src="../kayah-logo.png"
+            class="logo"
+            alt="Kayah"
+        >
+    </a>
 
-                Checking your staff invitation...
+    <a href="../" class="home-link">
+        ← Home
+    </a>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="page">
+
+
+    <!-- INTRO -->
+
+    <section class="intro">
+
+        <img
+            src="../kayah-logo.png"
+            class="intro-logo"
+            alt="Kayah"
+        >
+
+        <div class="eyebrow">
+            BUSINESS MANAGEMENT PLATFORM
+        </div>
+
+        <h1>
+            Welcome Back
+        </h1>
+
+        <p class="subtitle">
+            Sign in to manage your business,
+            products, sales, expenses and more.
+        </p>
+
+    </section>
+
+
+    <!-- LOGIN CARD -->
+
+    <section class="login-card">
+
+
+        <div class="card-top">
+
+            <div class="card-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <div class="card-title">
+                    Sign in to Kayah
+                </div>
+
+                <div class="card-description">
+                    Access your business workspace
+                </div>
 
             </div>
 
         </div>
 
 
-        <div id="signupSection"
-             style="display:none;">
+        <!-- ERROR -->
 
-            <div class="card-title">
-                Complete Your Staff Account
-            </div>
-
-            <div class="card-text">
-                You have been invited to join a Kayah business team.
-                Create your account below to get started.
-            </div>
+        <div
+            class="error-box"
+            id="errorBox">
+        </div>
 
 
-            <div class="invited-box">
+        <!-- FORM -->
 
-                <div class="invited-label">
-                    INVITED EMAIL
-                </div>
+        <form id="loginForm">
 
-                <div
-                    class="invited-email"
-                    id="invitedEmail"
-                >
-                    —
-                </div>
 
-            </div>
-
+            <!-- EMAIL -->
 
             <div class="form-group">
 
-                <label class="form-label">
-                    Full Name
+                <label for="email">
+                    Business Email
                 </label>
 
-                <input
-                    type="text"
-                    id="fullName"
-                    class="form-input"
-                    placeholder="Enter your full name"
-                    autocomplete="name"
-                >
+                <div class="input-wrap">
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
 
             </div>
 
 
-            <div class="form-group">
-
-                <label class="form-label">
-                    Phone Number
-                </label>
-
-                <input
-                    type="tel"
-                    id="phone"
-                    class="form-input"
-                    placeholder="+63"
-                    autocomplete="tel"
-                >
-
-            </div>
-
+            <!-- PASSWORD -->
 
             <div class="form-group">
 
-                <label class="form-label">
+                <label for="password">
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    id="password"
-                    class="form-input"
-                    placeholder="Create a password"
-                    autocomplete="new-password"
-                >
+                <div class="input-wrap">
 
-            </div>
+                    <input
+                        type="password"
+                        id="password"
+                        class="password-input"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
 
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Show password">
 
-            <div class="form-group">
+                        👁️
 
-                <label class="form-label">
-                    Confirm Password
-                </label>
+                    </button>
 
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    class="form-input"
-                    placeholder="Confirm your password"
-                    autocomplete="new-password"
-                >
-
-            </div>
-
-
-            <div class="permissions">
-
-                <div class="permissions-title">
-                    YOUR ASSIGNED ACCESS
-                </div>
-
-                <div
-                    class="permission-list"
-                    id="permissionList"
-                >
                 </div>
 
             </div>
 
 
-            <div
-                id="message"
-                class="message"
-            ></div>
-
+            <!-- LOGIN -->
 
             <button
-                class="submit-btn"
-                id="createAccountBtn"
-                type="button"
-            >
-                Create Staff Account
+                type="submit"
+                class="login-button"
+                id="loginButton">
+
+                <span class="button-text">
+                    Log In
+                </span>
+
+                <span class="spinner"></span>
+
             </button>
 
+
+        </form>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+            OR
         </div>
 
 
-        <div
-            id="successSection"
-            class="success-screen"
-        >
+        <!-- SIGNUP -->
 
-            <div class="success-icon">
-                ✓
-            </div>
+        <div class="signup-box">
 
-            <div class="success-title">
-                Account Created
-            </div>
-
-            <div class="success-text">
-                Your staff account has been created successfully.
-                You can now sign in to Kayah using your email and password.
+            <div class="signup-text">
+                Don't have a Kayah account yet?
             </div>
 
             <a
-                href="../login/"
-                class="login-btn"
-            >
-                Go to Login
+                href="../signup/"
+                class="signup-link">
+
+                🏢 Set Up Your Business
+
             </a>
 
         </div>
 
 
-    </div>
+    </section>
 
-</div>
 
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-text">
+
+            <span class="footer-brand">
+                Kayah
+            </span>
+            · Business, Made Possible.
+
+            <br>
+
+            Simple. Organized. Built for business.
+
+        </div>
+
+    </footer>
+
+
+</main>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
@@ -475,19 +735,19 @@ import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+
 import {
     getAuth,
-    createUserWithEmailAndPassword,
-    updateProfile
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence,
+    signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
     getFirestore,
     doc,
-    getDoc,
-    setDoc,
-    updateDoc,
-    serverTimestamp
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -519,601 +779,110 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   INITIALIZE
+   FIREBASE INITIALIZATION
 ===================================================== */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(app);
+const auth = getAuth(app);
 
-const db =
-    getFirestore(app);
+const db = getFirestore(app);
 
 
-/* =====================================================
-   GET INVITATION
-===================================================== */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const invitationId =
-    params.get("invite");
 
 
 /* =====================================================
    ELEMENTS
 ===================================================== */
 
-const loadingSection =
-    document.getElementById(
-        "loadingSection"
-    );
+const loadingScreen =
+    document.getElementById("loadingScreen");
 
-const signupSection =
-    document.getElementById(
-        "signupSection"
-    );
+const loginForm =
+    document.getElementById("loginForm");
 
-const successSection =
-    document.getElementById(
-        "successSection"
-    );
+const emailInput =
+    document.getElementById("email");
 
-const invitedEmail =
-    document.getElementById(
-        "invitedEmail"
-    );
+const passwordInput =
+    document.getElementById("password");
 
-const permissionList =
-    document.getElementById(
-        "permissionList"
-    );
+const passwordToggle =
+    document.getElementById("passwordToggle");
 
-const messageBox =
-    document.getElementById(
-        "message"
-    );
+const loginButton =
+    document.getElementById("loginButton");
 
-const createAccountBtn =
-    document.getElementById(
-        "createAccountBtn"
-    );
+const errorBox =
+    document.getElementById("errorBox");
 
 
 /* =====================================================
-   INVITATION DATA
+   HIDE LOADING
 ===================================================== */
 
-let invitation = null;
+function hideLoading(){
 
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-    message,
-    type = "error"
-){
-
-    messageBox.textContent =
-        message;
-
-    messageBox.className =
-        "message " +
-        type;
-
-    messageBox.style.display =
-        "block";
+    loadingScreen.classList.add("hide");
 
 }
 
 
 /* =====================================================
-   ESCAPE HTML
+   SHOW ERROR
 ===================================================== */
 
-function escapeHTML(value){
+function showError(message){
 
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    errorBox.textContent = message;
+
+    errorBox.classList.add("show");
 
 }
 
 
 /* =====================================================
-   FORMAT PERMISSION
+   HIDE ERROR
 ===================================================== */
 
-function formatPermission(
-    permission
-){
+function hideError(){
 
-    const names = {
+    errorBox.textContent = "";
 
-        products:
-            "Products",
-
-        inventory:
-            "Inventory",
-
-        sales:
-            "Sales",
-
-        expenses:
-            "Expenses",
-
-        customers:
-            "Customers",
-
-        reports:
-            "Reports",
-
-        materials:
-            "Materials"
-
-    };
-
-    return (
-        names[permission] ||
-        permission
-    );
+    errorBox.classList.remove("show");
 
 }
 
 
 /* =====================================================
-   CHECK INVITATION
+   PASSWORD SHOW / HIDE
 ===================================================== */
 
-async function loadInvitation(){
+passwordToggle.addEventListener(
+    "click",
+    function(){
 
-    if(!invitationId){
+        if(passwordInput.type === "password"){
 
-        throw new Error(
-            "No staff invitation was provided."
-        );
+            passwordInput.type = "text";
 
-    }
+            passwordToggle.textContent = "🙈";
 
-
-    const invitationRef =
-        doc(
-            db,
-            "staffInvitations",
-            invitationId
-        );
-
-
-    const invitationSnap =
-        await getDoc(
-            invitationRef
-        );
-
-
-    if(!invitationSnap.exists()){
-
-        throw new Error(
-            "This staff invitation could not be found."
-        );
-
-    }
-
-
-    invitation =
-        invitationSnap.data();
-
-
-    if(
-        invitation.status !== "pending"
-    ){
-
-        throw new Error(
-            "This staff invitation has already been used or is no longer available."
-        );
-
-    }
-
-
-    if(
-    invitation.expiresAt
-){
-
-    let expiry;
-
-    try{
-
-        if(
-            typeof invitation.expiresAt.toDate === "function"
-        ){
-
-            expiry =
-                invitation.expiresAt.toDate();
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
 
         }else{
 
-            expiry =
-                new Date(
-                    invitation.expiresAt
-                );
+            passwordInput.type = "password";
 
-        }
+            passwordToggle.textContent = "👁️";
 
-    }catch(error){
-
-        throw new Error(
-            "The invitation expiration date is invalid."
-        );
-
-    }
-
-    if(
-        !expiry ||
-        Number.isNaN(
-            expiry.getTime()
-        )
-    ){
-
-        throw new Error(
-            "The invitation expiration date is invalid."
-        );
-
-    }
-
-    if(
-        expiry <= new Date()
-    ){
-
-        throw new Error(
-            "This staff invitation has expired."
-        );
-
-    }
-
-}
-
-
-    invitedEmail.textContent =
-        invitation.email ||
-        "—";
-
-
-    const permissions =
-        Array.isArray(
-            invitation.permissions
-        )
-        ? invitation.permissions
-        : [];
-
-
-    permissionList.innerHTML =
-        permissions.length
-        ? permissions.map(
-            permission => `
-                <span class="permission">
-                    ${escapeHTML(
-                        formatPermission(
-                            permission
-                        )
-                    )}
-                </span>
-            `
-        ).join("")
-        : `
-            <span class="permission">
-                No permissions assigned
-            </span>
-        `;
-
-
-    loadingSection.style.display =
-        "none";
-
-    signupSection.style.display =
-        "block";
-
-}
-
-
-/* =====================================================
-   CREATE ACCOUNT
-===================================================== */
-
-createAccountBtn.addEventListener(
-    "click",
-    async () => {
-
-        messageBox.style.display =
-            "none";
-
-
-        const fullName =
-            document
-                .getElementById(
-                    "fullName"
-                )
-                .value
-                .trim();
-
-
-        const phone =
-            document
-                .getElementById(
-                    "phone"
-                )
-                .value
-                .trim();
-
-
-        const password =
-            document
-                .getElementById(
-                    "password"
-                )
-                .value;
-
-
-        const confirmPassword =
-            document
-                .getElementById(
-                    "confirmPassword"
-                )
-                .value;
-
-
-        if(!fullName){
-
-            showMessage(
-                "Please enter your full name."
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Show password"
             );
-
-            return;
-
-        }
-
-
-        if(!password){
-
-            showMessage(
-                "Please create a password."
-            );
-
-            return;
-
-        }
-
-
-        if(password.length < 6){
-
-            showMessage(
-                "Your password must be at least 6 characters."
-            );
-
-            return;
-
-        }
-
-
-        if(
-            password !==
-            confirmPassword
-        ){
-
-            showMessage(
-                "The passwords do not match."
-            );
-
-            return;
-
-        }
-
-
-        createAccountBtn.disabled =
-            true;
-
-        createAccountBtn.textContent =
-            "Creating Account...";
-
-
-        try{
-
-            /*
-             * IMPORTANT:
-             * The invited email comes from
-             * the invitation document.
-             */
-
-            const email =
-                String(
-                    invitation.email
-                )
-                .trim()
-                .toLowerCase();
-
-
-            const credential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-
-            const staffUser =
-                credential.user;
-
-
-            await updateProfile(
-                staffUser,
-                {
-                    displayName:
-                        fullName
-                }
-            );
-
-
-            /*
-             * Create the staff's own
-             * Firebase user document.
-             */
-
-            const staffRef =
-                doc(
-                    db,
-                    "users",
-                    staffUser.uid
-                );
-
-
-            await setDoc(
-                staffRef,
-                {
-
-                    uid:
-                        staffUser.uid,
-
-                    fullName:
-                        fullName,
-
-                    email:
-                        email,
-
-                    phone:
-                        phone,
-
-                    role:
-                        "staff",
-
-                    ownerUid:
-                        invitation.ownerUid,
-
-                    businessId:
-                        invitation.businessId,
-
-                    permissions:
-                        Array.isArray(
-                            invitation.permissions
-                        )
-                        ? invitation.permissions
-                        : [],
-
-                    accountStatus:
-                        "active",
-
-                    active:
-                        true,
-
-                    createdAt:
-                        serverTimestamp(),
-
-                    updatedAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-            /*
-             * Mark invitation as claimed.
-             */
-
-            await updateDoc(
-                doc(
-                    db,
-                    "staffInvitations",
-                    invitationId
-                ),
-                {
-
-                    status:
-                        "claimed",
-
-                    staffUid:
-                        staffUser.uid,
-
-                    claimedAt:
-                        serverTimestamp(),
-
-                    updatedAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-            signupSection.style.display =
-                "none";
-
-            successSection.style.display =
-                "block";
-
-
-        }catch(error){
-
-            console.error(
-                "Staff signup error:",
-                error
-            );
-
-
-            let errorMessage =
-                "Unable to create your staff account.";
-
-
-            if(
-                error.code ===
-                "auth/email-already-in-use"
-            ){
-
-                errorMessage =
-                    "This email already has a Kayah account.";
-
-            }
-
-
-            if(
-                error.code ===
-                "auth/invalid-email"
-            ){
-
-                errorMessage =
-                    "The invitation email is invalid.";
-
-            }
-
-
-            if(
-                error.code ===
-                "auth/weak-password"
-            ){
-
-                errorMessage =
-                    "Please choose a stronger password.";
-
-            }
-
-
-            showMessage(
-                errorMessage
-            );
-
-
-            createAccountBtn.disabled =
-                false;
-
-            createAccountBtn.textContent =
-                "Create Staff Account";
 
         }
 
@@ -1122,69 +891,391 @@ createAccountBtn.addEventListener(
 
 
 /* =====================================================
-   LOAD
+   AUTH PERSISTENCE
 ===================================================== */
 
-loadInvitation()
-    .catch(
-        error => {
+setPersistence(
+    auth,
+    browserLocalPersistence
+).catch(function(error){
+
+    console.error(
+        "Persistence error:",
+        error
+    );
+
+});
+
+
+/* =====================================================
+   ACCOUNT ROUTING
+===================================================== */
+
+async function routeUser(user){
+
+    if(!user){
+
+        hideLoading();
+
+        return;
+    }
+
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+        const userSnap =
+            await getDoc(userRef);
+
+
+        if(!userSnap.exists()){
+
+            showError(
+                "Your account profile could not be found. Please contact support."
+            );
+
+            hideLoading();
+
+            await auth.signOut();
+
+            return;
+        }
+
+
+        const userData =
+            userSnap.data();
+
+
+        /* ---------------------------------------------
+           STAFF ACCOUNT
+        --------------------------------------------- */
+
+        if(userData.role === "staff"){
+
+            if(
+                userData.accountStatus !== "active" ||
+                userData.active === false
+            ){
+
+                showError(
+                    "Your staff account is currently inactive. Please contact the business owner."
+                );
+
+                hideLoading();
+
+                await auth.signOut();
+
+                return;
+            }
+
+
+            window.location.replace(
+    "../pos/"
+);
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           OWNER ACCOUNT
+        --------------------------------------------- */
+
+        if(userData.role === "owner"){
+
+            if(userData.setupCompleted === true){
+
+                window.location.replace(
+                    "../dashboard/"
+                );
+
+            }else{
+
+                window.location.replace(
+                    "../setup/"
+                );
+
+            }
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           UNKNOWN ROLE
+        --------------------------------------------- */
+
+        showError(
+            "Your account role could not be identified. Please contact support."
+        );
+
+        hideLoading();
+
+        await auth.signOut();
+
+
+    }catch(error){
+
+        console.error(
+            "Account routing error:",
+            error
+        );
+
+        showError(
+            "Unable to load your account information. Please check your internet connection and try again."
+        );
+
+        hideLoading();
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK EXISTING LOGIN
+===================================================== */
+
+let authResolved = false;
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        authResolved = true;
+
+        await routeUser(user);
+
+    }
+);
+
+
+/* =====================================================
+   SAFETY TIMEOUT
+===================================================== */
+
+setTimeout(function(){
+
+    if(!authResolved){
+
+        hideLoading();
+
+    }
+
+}, 5000);
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+loginForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        hideError();
+
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+        if(!email){
+
+            showError(
+                "Please enter your business email."
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        if(!password){
+
+            showError(
+                "Please enter your password."
+            );
+
+            passwordInput.focus();
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           LOADING BUTTON
+        --------------------------------------------- */
+
+        loginButton.disabled = true;
+
+        loginButton.classList.add("loading");
+
+
+        try{
+
+            /* -----------------------------------------
+               SIGN IN
+            ----------------------------------------- */
+
+            await setPersistence(
+                auth,
+                browserLocalPersistence
+            );
+
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            /* -----------------------------------------
+               SUCCESS
+            ----------------------------------------- */
+
+            loginButton.classList.remove(
+                "loading"
+            );
+
+            loginButton.innerHTML =
+                "✓ Logged In";
+
+            loginButton.style.background =
+                "#16805C";
+
+
+            setTimeout(function(){
+
+    routeUser(auth.currentUser);
+
+}, 300);
+
+
+        }catch(error){
 
             console.error(
-                "Invitation error:",
+                "Login error:",
                 error
             );
 
 
-            loadingSection.innerHTML = `
+            loginButton.disabled = false;
 
-                <div style="
-                    color:#A33A3A;
-                    line-height:1.6;
-                ">
+            loginButton.classList.remove(
+                "loading"
+            );
 
-                    <strong>
-                        Invitation unavailable
-                    </strong>
 
-                    <br><br>
+            /* -----------------------------------------
+               FIREBASE ERROR MESSAGES
+            ----------------------------------------- */
 
-                    ${escapeHTML(
-                        error.message ||
-                        "This invitation is not available."
-                    )}
+            let message =
+                "Unable to log in. Please try again.";
 
-                </div>
 
-            `;
+            switch(error.code){
+
+                case "auth/invalid-credential":
+
+                case "auth/wrong-password":
+
+                case "auth/user-not-found":
+
+                    message =
+                        "Email or password is incorrect.";
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    message =
+                        "Please enter a valid email address.";
+
+                    break;
+
+
+                case "auth/too-many-requests":
+
+                    message =
+                        "Too many unsuccessful attempts. Please try again later.";
+
+                    break;
+
+
+                case "auth/network-request-failed":
+
+                    message =
+                        "Network error. Please check your internet connection.";
+
+                    break;
+
+
+                case "auth/user-disabled":
+
+                    message =
+                        "This account has been disabled.";
+
+                    break;
+
+
+                case "auth/operation-not-allowed":
+
+                    message =
+                        "Email and password login is not enabled in Firebase Authentication.";
+
+                    break;
+
+            }
+
+
+            showError(message);
 
         }
-    );
 
-</script>
+    }
+);
 
 
-<script>
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
 
-if(
-    "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
-        () => {
+        function(){
 
             navigator.serviceWorker
                 .register("../sw.js")
-                .catch(
-                    error => {
+                .catch(function(error){
 
-                        console.log(
-                            "Service worker registration failed:",
-                            error
-                        );
+                    console.log(
+                        "Service Worker registration failed:",
+                        error
+                    );
 
-                    }
-                );
+                });
 
         }
     );
@@ -1192,6 +1283,7 @@ if(
 }
 
 </script>
+
 
 </body>
 
