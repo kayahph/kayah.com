@@ -2297,6 +2297,7 @@ import {
     collection,
     getDocs,
     addDoc,
+    updateDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -4236,6 +4237,61 @@ window.confirmPayment = async function(){
                 salesRef,
                 saleData
             );
+            
+            
+            /* =====================================================
+   UPDATE INVENTORY
+===================================================== */
+
+for(const item of cart){
+
+    if(!item.stockTracked){
+        continue;
+    }
+
+    const productRef =
+        doc(
+            db,
+            "users",
+            currentBusinessId,
+            "products",
+            item.id
+        );
+
+    const productSnap =
+        await getDoc(productRef);
+
+    if(!productSnap.exists()){
+        console.warn(
+            "Product not found while updating stock:",
+            item.id
+        );
+        continue;
+    }
+
+    const productData =
+        productSnap.data();
+
+    const currentStock =
+        getProductStock(productData);
+
+    const soldQuantity =
+        Number(item.quantity) || 0;
+
+    const newStock =
+        Math.max(
+            0,
+            currentStock - soldQuantity
+        );
+
+    await updateDoc(
+    productRef,
+    {
+        stockQuantity: newStock
+    }
+);
+}
+            
 
 
         /* =================================================
