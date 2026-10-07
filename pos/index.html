@@ -2062,44 +2062,18 @@ a{
         </div>
   
   
-  <!-- SALE TYPE -->
+  <!-- TRANSACTION TYPE -->
 
 <span class="payment-label">
-    Select Sale Type
+    Select Transaction Type
 </span>
 
-<div class="sale-type-methods">
-
-    <button
-        type="button"
-        class="sale-type-button active"
-        data-sale-type="walkin"
-    >
-        <span class="sale-type-icon">🛍️</span>
-        <span>Walk-in</span>
-    </button>
-
-    <button
-        type="button"
-        class="sale-type-button"
-        data-sale-type="pickup"
-    >
-        <span class="sale-type-icon">📦</span>
-        <span>Pickup</span>
-    </button>
-
-    <button
-        type="button"
-        class="sale-type-button"
-        data-sale-type="delivery"
-    >
-        <span class="sale-type-icon">🛵</span>
-        <span>Delivery</span>
-    </button>
-
+<div
+    class="sale-type-methods"
+    id="transactionTypeMethods"
+>
+    <!-- Transaction types will be loaded based on business type -->
 </div>
-  
-  
   
         
         
@@ -2656,6 +2630,80 @@ function getBusinessId(
     );
 
 }
+
+
+/* =====================================================
+   RENDERTRANSACTION TYPE FUNCTION
+===================================================== */
+
+function renderTransactionTypes() {
+
+    const container =
+        document.getElementById("transactionTypeMethods");
+
+    if (!container) return;
+
+    const businessType =
+        businessData?.businessType || "Other";
+
+    const transactionTypes =
+        transactionTypeMap[businessType] ||
+        transactionTypeMap["Other"];
+
+    container.innerHTML = "";
+
+    selectedTransactionType =
+        transactionTypes[0]?.value || "walkin";
+
+    transactionTypes.forEach((type, index) => {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "sale-type-button" +
+            (index === 0 ? " active" : "");
+
+        button.dataset.transactionType =
+            type.value;
+
+        button.innerHTML = `
+            <span class="sale-type-icon">
+                ${type.icon}
+            </span>
+
+            <span>
+                ${type.label}
+            </span>
+        `;
+
+        button.addEventListener("click", () => {
+
+            container
+                .querySelectorAll(".sale-type-button")
+                .forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+            button.classList.add("active");
+
+            selectedTransactionType =
+                type.value;
+        });
+
+        container.appendChild(button);
+    });
+}
+
+
+
+
+
+
+
+
+
 
 
 /* =====================================================
@@ -3669,9 +3717,7 @@ function renderCart(){
 }
 
 
-/* =====================================================
-   COMPLETE SALE
-===================================================== */
+
 
 /* =====================================================
    PAYMENT POPUP
@@ -4035,21 +4081,114 @@ window.completeSale = function(){
 };
 
 
-let selectedSaleType = "walkin";
+let selectedTransactionType = "walkin";
 
 
-document.querySelectorAll(".sale-type-button").forEach(button => {
-    button.addEventListener("click", () => {
+const transactionTypeMap = {
 
-        document.querySelectorAll(".sale-type-button").forEach(btn => {
-            btn.classList.remove("active");
-        });
+    "Retail": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
 
-        button.classList.add("active");
+    "Cafe & Pastry": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
 
-        selectedSaleType = button.dataset.saleType;
-    });
-});
+    "Food & Beverage": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Wholesale": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "delivery", label: "Delivery", icon: "🛵" },
+        { value: "order", label: "Order", icon: "📝" }
+    ],
+
+    "Services": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "appointment", label: "Appointment", icon: "📅" },
+        { value: "service", label: "Service", icon: "🔧" }
+    ],
+
+    "Salon & Beauty": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "appointment", label: "Appointment", icon: "📅" },
+        { value: "service", label: "Service", icon: "💇" }
+    ],
+
+    "Laundry": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Repair & Maintenance": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "service_order", label: "Service Order", icon: "🔧" },
+        { value: "pickup", label: "Pickup", icon: "📦" }
+    ],
+
+    "Construction & Hardware": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Agriculture": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Manufacturing": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "order", label: "Order", icon: "📝" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Education & Training": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "appointment", label: "Appointment", icon: "📅" },
+        { value: "service", label: "Service", icon: "📚" }
+    ],
+
+    "Professional Services": [
+        { value: "appointment", label: "Appointment", icon: "📅" },
+        { value: "service", label: "Service", icon: "💼" },
+        { value: "walkin", label: "Walk-in", icon: "🛍️" }
+    ],
+
+    "Transportation & Delivery": [
+        { value: "booking", label: "Booking", icon: "📅" },
+        { value: "service", label: "Service", icon: "🚐" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Events & Entertainment": [
+        { value: "booking", label: "Booking", icon: "📅" },
+        { value: "service", label: "Service", icon: "🎫" },
+        { value: "walkin", label: "Walk-in", icon: "🛍️" }
+    ],
+
+    "Online Business": [
+        { value: "online_order", label: "Online Order", icon: "🌐" },
+        { value: "pickup", label: "Pickup", icon: "📦" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ],
+
+    "Other": [
+        { value: "walkin", label: "Walk-in", icon: "🛍️" },
+        { value: "service", label: "Service", icon: "🔧" },
+        { value: "delivery", label: "Delivery", icon: "🛵" }
+    ]
+
+};
 
 
 
@@ -4250,10 +4389,12 @@ window.confirmPayment = async function(){
         total:
             Number(total),
 
+transactionType: selectedTransactionType,
+
         paymentMethod:
             selectedPaymentMethod,
             
-    saleType: selectedSaleType,
+    
 
         cashReceived:
             Number(cashReceived),
@@ -4846,6 +4987,7 @@ onAuthStateChanged(
             businessData =
                 businessSnap.data();
 
+renderTransactionTypes();
 
             /* =========================================
                DISPLAY BUSINESS
