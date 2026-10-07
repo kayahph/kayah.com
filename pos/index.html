@@ -29,6 +29,15 @@
 
 <style>
     
+    
+    .quick-tab-sales {
+    background: #e53935 !important;
+    color: #ffffff !important;
+}
+    
+    
+    
+    
     .payment-logo {
     text-align: center;
     margin-bottom: 15px;
@@ -1881,7 +1890,7 @@ a{
 
        
 
-       <!-- BUSINESS TOOLS -->
+      <!-- BUSINESS TOOLS -->
 <section class="quick-section">
 
     <div class="section-title">
@@ -1892,110 +1901,67 @@ a{
 
         <div class="quick-tabs">
 
-            <button
-                type="button"
-                class="quick-tab quick-tab-products"
-                onclick="scrollToProducts()"
-            >
-                <span class="quick-tab-icon">🛍️</span>
-                <span class="quick-tab-name">
-                    Products
-                </span>
-            </button>
+            <!-- SALES -->
+            <!-- SALES -->
+<button
+    type="button"
+    class="quick-tab quick-tab-sales"
+    onclick="openPage('../pos-sales/')"
+>
+    <span class="quick-tab-icon">🧾</span>
+    <span class="quick-tab-name">Sales</span>
+</button>
 
-            <button
-                type="button"
-                class="quick-tab quick-tab-inventory"
-                onclick="openPage('../inventory/')"
-            >
-                <span class="quick-tab-icon">📦</span>
-                <span class="quick-tab-name">
-                    Inventory
-                </span>
-            </button>
+<!-- PRODUCTS -->
+<button
+    type="button"
+    class="quick-tab quick-tab-products"
+    onclick="openPage('../pos-products/')"
+>
+    <span class="quick-tab-icon">🛍️</span>
+    <span class="quick-tab-name">Products</span>
+</button>
 
-            <button
-                type="button"
-                class="quick-tab quick-tab-materials"
-                onclick="openPage('../materials/')"
-            >
-                <span class="quick-tab-icon">🧰</span>
-                <span class="quick-tab-name">
-                    Materials
-                </span>
-            </button>
+<!-- INVENTORY -->
+<button
+    type="button"
+    class="quick-tab quick-tab-inventory"
+    onclick="openPage('../pos-inventory/')"
+>
+    <span class="quick-tab-icon">📦</span>
+    <span class="quick-tab-name">Inventory</span>
+</button>
 
-            <button
-                type="button"
-                class="quick-tab quick-tab-expenses"
-                onclick="openPage('../expenses/')"
-            >
-                <span class="quick-tab-icon">🧾</span>
-                <span class="quick-tab-name">
-                    Expenses
-                </span>
-            </button>
+<!-- MATERIALS -->
+<button
+    type="button"
+    class="quick-tab quick-tab-materials"
+    onclick="openPage('../pos-materials/')"
+>
+    <span class="quick-tab-icon">🧰</span>
+    <span class="quick-tab-name">Materials</span>
+</button>
 
-            <button
-                type="button"
-                class="quick-tab quick-tab-customers"
-                onclick="openPage('../customers/')"
-            >
-                <span class="quick-tab-icon">👥</span>
-                <span class="quick-tab-name">
-                    Customers
-                </span>
-            </button>
+<!-- EXPENSES -->
+<button
+    type="button"
+    class="quick-tab quick-tab-expenses"
+    onclick="openPage('../pos-expenses/')"
+>
+    <span class="quick-tab-icon">🧾</span>
+    <span class="quick-tab-name">Expenses</span>
+</button>
 
-        </div>
+<!-- CUSTOMERS -->
+<button
+    type="button"
+    class="quick-tab quick-tab-customers"
+    onclick="openPage('../pos-customers/')"
+>
+    <span class="quick-tab-icon">👥</span>
+    <span class="quick-tab-name">Customers</span>
+</button>
 
-    </div>
-
-</section>
-
-
-<!-- TODAY'S SALES -->
-<section class="today-sales">
-
-    <div class="today-sales-main">
-
-        <div class="today-label">
-            TODAY'S SALES
-        </div>
-
-        <div
-            class="today-value"
-            id="todaySales"
-        >
-            ₱0.00
-        </div>
-
-        <div class="today-note">
-            Total sales for today
-        </div>
-
-    </div>
-
-    <div class="today-sales-stats">
-
-        <div class="today-stat">
-            <span class="today-stat-label">
-                Transactions
-            </span>
-
-            <strong id="todayTransactions">
-                0
-            </strong>
-        </div>
-
-        <div class="today-stat">
-            <span class="today-stat-label">
-                Items Sold
-            </span>
-
-            <strong id="todayItems">
-                0
-            </strong>
         </div>
 
     </div>
