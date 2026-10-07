@@ -299,6 +299,70 @@ a{
     margin-top:4px;
 }
 
+
+/* =====================================================
+   POS BUTTON
+===================================================== */
+
+.pos-button{
+    margin-top:14px;
+    width:100%;
+    padding:14px 15px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(
+        135deg,
+        #0B4F3A,
+        #16805C
+    );
+    color:#FFFFFF;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(11,79,58,.14);
+    text-align:left;
+}
+
+.pos-button:active{
+    transform:scale(.985);
+}
+
+.pos-icon{
+    width:42px;
+    height:42px;
+    min-width:42px;
+    border-radius:12px;
+    background:#F2B84B;
+    color:#173B2D;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.pos-info{
+    flex:1;
+    min-width:0;
+}
+
+.pos-title{
+    font-size:13px;
+    font-weight:800;
+}
+
+.pos-description{
+    margin-top:3px;
+    font-size:9px;
+    line-height:1.4;
+    opacity:.82;
+}
+
+.pos-arrow{
+    font-size:19px;
+    opacity:.8;
+}
+
 /* =====================================================
    TOOLS
 ===================================================== */
@@ -844,13 +908,48 @@ a{
 
             </div>
 
-        </div>
+              </div>
+
+
+        <!-- =================================================
+             POS
+        ================================================== -->
+
+        <button
+            class="pos-button"
+            type="button"
+            onclick="openPOS()"
+        >
+
+            <div class="pos-icon">
+                🛒
+            </div>
+
+            <div class="pos-info">
+
+                <div class="pos-title">
+                    Open POS
+                </div>
+
+                <div class="pos-description">
+                    Start selling, manage orders and process today's sales.
+                </div>
+
+            </div>
+
+            <div class="pos-arrow">
+                ›
+            </div>
+
+        </button>
 
 
         <!-- MANAGE BUSINESS -->
 
         <div class="section-title">
+
             Manage Your Business
+
         </div>
 
         <div class="tools-list">
@@ -2204,6 +2303,18 @@ window.openPage = function(url){
 
     window.location.href =
         url;
+
+};
+
+
+/* =====================================================
+   POS
+===================================================== */
+
+window.openPOS = function(){
+
+    window.location.href =
+        "../pos/";
 
 };
 
