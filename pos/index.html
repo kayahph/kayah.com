@@ -4239,15 +4239,22 @@ window.confirmPayment = async function(){
             );
             
             
-            /* =====================================================
-   UPDATE INVENTORY
+            /* /* =====================================================
+   UPDATE PRODUCT + MATERIAL INVENTORY
 ===================================================== */
 
 for(const item of cart){
 
-    if(!item.stockTracked){
+    const soldQuantity =
+        Number(item.quantity) || 0;
+
+    if(soldQuantity <= 0){
         continue;
     }
+
+    /* -------------------------------------------------
+       GET PRODUCT
+    ------------------------------------------------- */
 
     const productRef =
         doc(
@@ -4263,7 +4270,7 @@ for(const item of cart){
 
     if(!productSnap.exists()){
         console.warn(
-            "Product not found while updating stock:",
+            "Product not found:",
             item.id
         );
         continue;
@@ -4272,26 +4279,102 @@ for(const item of cart){
     const productData =
         productSnap.data();
 
-    const currentStock =
-        getProductStock(productData);
 
-    const soldQuantity =
-        Number(item.quantity) || 0;
+    /* -------------------------------------------------
+       UPDATE PRODUCT STOCK
+    ------------------------------------------------- */
 
-    const newStock =
-        Math.max(
-            0,
-            currentStock - soldQuantity
+    if(productData.trackStock === true){
+
+        const currentStock =
+            getProductStock(productData);
+
+        const newStock =
+            Math.max(
+                0,
+                currentStock - soldQuantity
+            );
+
+        await updateDoc(
+            productRef,
+            {
+                stockQuantity: newStock
+            }
         );
-
-    await updateDoc(
-    productRef,
-    {
-        stockQuantity: newStock
     }
-);
+
+
+    /* -------------------------------------------------
+       UPDATE MATERIALS
+    ------------------------------------------------- */
+
+    const materials =
+        Array.isArray(productData.materials)
+            ? productData.materials
+            : [];
+
+    for(const material of materials){
+
+        const materialId =
+            material?.materialId;
+
+        const materialPerProduct =
+            Number(material?.quantity) || 0;
+
+        if(
+            !materialId ||
+            materialPerProduct <= 0
+        ){
+            continue;
+        }
+
+        const materialRef =
+            doc(
+                db,
+                "users",
+                currentBusinessId,
+                "materials",
+                materialId
+            );
+
+        const materialSnap =
+            await getDoc(materialRef);
+
+        if(!materialSnap.exists()){
+            console.warn(
+                "Material not found:",
+                materialId
+            );
+            continue;
+        }
+
+        const materialData =
+            materialSnap.data();
+
+        const currentMaterialQuantity =
+            Number(
+                materialData.quantity
+            ) || 0;
+
+        const materialUsed =
+            materialPerProduct *
+            soldQuantity;
+
+        const newMaterialQuantity =
+            Math.max(
+                0,
+                currentMaterialQuantity -
+                materialUsed
+            );
+
+        await updateDoc(
+            materialRef,
+            {
+                quantity: newMaterialQuantity
+            }
+        );
+    }
 }
-            
 
 
         /* =================================================
