@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sales</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7f5;
+    color: #172033;
+    padding-bottom: 30px;
+}
+
+/* =========================
+   BUSINESS HEADER
+========================= */
+
+.top-header {
+    background: linear-gradient(135deg, #0B4F3A, #16805C);
+    color: white;
+    padding: 14px 16px 18px;
+    border-radius: 0 0 22px 22px;
+    box-shadow: 0 5px 18px rgba(11, 79, 58, 0.20);
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.back-btn {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.business-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: white;
+    object-fit: cover;
+    padding: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 7px rgba(0,0,0,.15);
+}
+
+.business-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.95);
+    color: #0B4F3A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 7px rgba(0,0,0,.15);
+}
+
+.header-business {
+    flex: 1;
+    min-width: 0;
+}
+
+.header-business-name {
+    font-size: 17px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-subtitle {
+    margin-top: 3px;
+    font-size: 11px;
+    opacity: .82;
+}
+
+.role-badge {
+    background: rgba(255,255,255,.15);
+    padding: 7px 9px;
+    border-radius: 9px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    flex-shrink: 0;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* =========================
+   TODAY SUMMARY
+========================= */
+
+.today-card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.055);
+    border: 1px solid #e2ebe5;
+    position: relative;
+    overflow: hidden;
+}
+
+.today-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: #16805C;
+}
+
+.today-label {
+    color: #16805C;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    margin-bottom: 6px;
+}
+
+.today-total {
+    font-size: 31px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.today-date {
+    margin-top: 4px;
+    color: #7b8494;
+    font-size: 12px;
+}
+
+.today-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.today-stat {
+    background: #f3f8f5;
+    border-radius: 12px;
+    padding: 11px;
+}
+
+.today-stat span {
+    display: block;
+    color: #7b8494;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.today-stat strong {
+    font-size: 16px;
+    color: #172033;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    background: white;
+    border: 1px solid #dfe8e2;
+    border-radius: 14px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    margin-bottom: 17px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.03);
+}
+
+.search-icon {
+    font-size: 17px;
+    color: #8a94a6;
+    margin-right: 9px;
+}
+
+.search-box input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    font-size: 14px;
+    color: #172033;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #9aa3b1;
+}
+
+/* =========================
+   LIST HEADER
+========================= */
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.list-header h2 {
+    font-size: 17px;
+    color: #172033;
+}
+
+.list-header span {
+    font-size: 11px;
+    color: #8a94a6;
+}
+
+/* =========================
+   SALES LIST
+========================= */
+
+.sales-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.sale-card {
+    background: white;
+    border: 1px solid #e2e9e4;
+    border-radius: 15px;
+    padding: 14px;
+    cursor: pointer;
+    transition: .15s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.025);
+}
+
+.sale-card:active {
+    transform: scale(.99);
+    background: #f9fcfa;
+}
+
+.sale-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.sale-left {
+    min-width: 0;
+}
+
+.sale-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: #172033;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.sale-date {
+    font-size: 11px;
+    color: #8a94a6;
+    margin-top: 4px;
+}
+
+.sale-total {
+    font-size: 16px;
+    font-weight: 800;
+    color: #16805C;
+    white-space: nowrap;
+}
+
+.sale-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #edf0f5;
+}
+
+.sale-info {
+    font-size: 11px;
+    color: #697386;
+}
+
+.payment-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+    background: #edf7f2;
+    color: #0B684B;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.staff-small {
+    font-size: 10px;
+    color: #7c8797;
+    text-align: right;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.state-box {
+    background: white;
+    border-radius: 15px;
+    padding: 35px 18px;
+    text-align: center;
+    color: #7d8798;
+    border: 1px solid #e2e9e4;
+}
+
+.state-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.state-box strong {
+    display: block;
+    color: #3d4655;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.state-box p {
+    font-size: 12px;
+}
+
+/* =========================
+   INVOICE
+========================= */
+
+.invoice-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,18,32,.55);
+    z-index: 1000;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.invoice-overlay.show {
+    display: flex;
+}
+
+.invoice-panel {
+    width: 100%;
+    max-width: 650px;
+    max-height: 94vh;
+    overflow-y: auto;
+    background: #f4f7f5;
+    border-radius: 24px 24px 0 0;
+    animation: slideUp .2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: .7;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.invoice-header {
+    background: white;
+    padding: 15px 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e9ef;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.invoice-header strong {
+    font-size: 15px;
+}
+
+.close-invoice {
+    width: 35px;
+    height: 35px;
+    border: 0;
+    border-radius: 10px;
+    background: #eef1f5;
+    color: #394353;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.invoice-paper {
+    margin: 15px;
+    background: white;
+    border-radius: 6px;
+    padding: 22px 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.invoice-business {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #cfd5de;
+}
+
+.invoice-business-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 1px solid #e2e7e3;
+    padding: 2px;
+    margin-bottom: 8px;
+}
+
+.invoice-business-placeholder {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: #edf7f2;
+    color: #0B4F3A;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.invoice-business h2 {
+    font-size: 20px;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.invoice-word {
+    font-size: 11px;
+    font-weight: 800;
+    color: #16805C;
+    letter-spacing: 1.5px;
+}
+
+.invoice-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px dashed #cfd5de;
+}
+
+.meta-item span {
+    display: block;
+    font-size: 9px;
+    color: #8a94a6;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: .4px;
+}
+
+.meta-item strong {
+    display: block;
+    font-size: 11px;
+    color: #252d3a;
+    word-break: break-word;
+}
+
+.invoice-items {
+    padding: 15px 0;
+    border-bottom: 1px dashed #cfd5de;
+}
+
+.invoice-item-head,
+.invoice-item {
+    display: grid;
+    grid-template-columns: 1fr 45px 75px;
+    gap: 8px;
+    align-items: center;
+}
+
+.invoice-item-head {
+    color: #8a94a6;
+    font-size: 9px;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+}
+
+.invoice-item {
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.invoice-item:last-child {
+    border-bottom: 0;
+}
+
+.invoice-item-name {
+    font-size: 11px;
+    color: #252d3a;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.invoice-item-qty {
+    font-size: 11px;
+    text-align: center;
+    color: #555f70;
+}
+
+.invoice-item-price {
+    font-size: 11px;
+    text-align: right;
+    color: #252d3a;
+}
+
+.invoice-summary {
+    padding: 15px 0;
+    border-bottom: 1px dashed #cfd5de;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 11px;
+    color: #687285;
+}
+
+.summary-row:last-child {
+    margin-bottom: 0;
+}
+
+.summary-row.total {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e4e8ee;
+    color: #111827;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.summary-row.total strong {
+    color: #16805C;
+}
+
+.payment-section {
+    padding: 15px 0 0;
+}
+
+.payment-title {
+    font-size: 10px;
+    color: #8a94a6;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: .5px;
+}
+
+.payment-detail {
+    background: #f3f8f5;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.payment-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.payment-detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.payment-detail-row span {
+    color: #788294;
+}
+
+.payment-detail-row strong {
+    color: #293241;
+    text-align: right;
+}
+
+.invoice-footer {
+    margin-top: 17px;
+    padding-top: 14px;
+    border-top: 1px dashed #cfd5de;
+    text-align: center;
+    color: #929aa8;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #dce9e1;
+    border-top-color: #16805C;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 700px) {
+
+    .invoice-overlay {
+        align-items: center;
+        padding: 20px;
+    }
+
+    .invoice-panel {
+        border-radius: 20px;
+        max-height: 90vh;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <div class="header-row">
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+        >
+            ‹
+        </button>
+
+        <!-- BUSINESS LOGO -->
+        <div id="headerLogoContainer">
+            <div class="business-placeholder">
+                🏪
+            </div>
+        </div>
+
+        <!-- BUSINESS NAME -->
+        <div class="header-business">
+
+            <div
+                class="header-business-name"
+                id="headerBusinessName"
+            >
+                Business
+            </div>
+
+            <div class="header-subtitle">
+                POS Sales
+            </div>
+
+        </div>
+
+        <div
+            class="role-badge"
+            id="headerRole"
+        >
+            OWNER
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <!-- TODAY SUMMARY -->
+
+    <section class="today-card">
+
+        <div class="today-label">
+            Today's Sales
+        </div>
+
+        <div
+            class="today-total"
+            id="todayTotal"
+        >
+            ₱0.00
+        </div>
+
+        <div
+            class="today-date"
+            id="todayDate"
+        >
+            Today
+        </div>
+
+        <div class="today-stats">
+
+            <div class="today-stat">
+
+                <span>
+                    Transactions
+                </span>
+
+                <strong id="todayTransactions">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="today-stat">
+
+                <span>
+                    Average Sale
+                </span>
+
+                <strong id="todayAverage">
+                    ₱0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search transaction, cashier or payment..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- LIST HEADER -->
+
+    <div class="list-header">
+
+        <h2 id="listTitle">
+            Today's Sales
+        </h2>
+
+        <span id="salesCount">
+            0 transactions
+        </span>
+
+    </div>
+
+
+    <!-- SALES -->
+
+    <div
+        id="salesList"
+        class="sales-list"
+    >
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     INVOICE
+========================= -->
+
+<div
+    class="invoice-overlay"
+    id="invoiceOverlay"
+    onclick="closeInvoiceOutside(event)"
+>
+
+    <div
+        class="invoice-panel"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="invoice-header">
+
+            <strong>
+                Sale Details
+            </strong>
+
+            <button
+                class="close-invoice"
+                onclick="closeInvoice()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div id="invoiceContent"></div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+/* =========================================================
+   FIREBASE
+   YOUR EXISTING CONFIG
+   DO NOT CHANGE
+========================================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    query,
+    orderBy,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+    authDomain: "kayah-ecosystem.firebaseapp.com",
+    projectId: "kayah-ecosystem",
+    storageBucket: "kayah-ecosystem.firebasestorage.app",
+    messagingSenderId: "49853785143",
+    appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+let currentUserData = null;
+let currentRole = "owner";
+let currentBusinessId = null;
+
+let businessData = null;
+let sales = [];
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function peso(value) {
+
+    const amount = Number(value || 0);
+
+    return "₱" + amount.toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+
+function getDateValue(createdAt) {
+
+    if (!createdAt) {
+        return null;
+    }
+
+    if (typeof createdAt.toDate === "function") {
+        return createdAt.toDate();
+    }
+
+    if (createdAt instanceof Date) {
+        return createdAt;
+    }
+
+    if (typeof createdAt === "number") {
+        return new Date(createdAt);
+    }
+
+    if (typeof createdAt === "string") {
+
+        const date = new Date(createdAt);
+
+        if (!isNaN(date.getTime())) {
+            return date;
+        }
+    }
+
+    return null;
+}
+
+
+function formatDateTime(createdAt) {
+
+    const date = getDateValue(createdAt);
+
+    if (!date) {
+        return "Date unavailable";
+    }
+
+    return date.toLocaleString("en-PH", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+
+function isToday(createdAt) {
+
+    const date = getDateValue(createdAt);
+
+    if (!date) {
+        return false;
+    }
+
+    const now = new Date();
+
+    return (
+        date.getFullYear() === now.getFullYear() &&
+        date.getMonth() === now.getMonth() &&
+        date.getDate() === now.getDate()
+    );
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function getPaymentLabel(sale) {
+
+    if (sale.paymentMethod) {
+
+        return String(sale.paymentMethod)
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, c => c.toUpperCase());
+
+    }
+
+    return "Payment";
+}
+
+
+function getCashierName(sale) {
+
+    return (
+        sale.performedByName ||
+        sale.cashierName ||
+        sale.staffName ||
+        "Unknown"
+    );
+}
+
+
+function getRoleLabel(sale) {
+
+    const role = String(
+        sale.performedByRole ||
+        sale.role ||
+        "owner"
+    ).toLowerCase();
+
+    return role === "staff"
+        ? "STAFF"
+        : "OWNER";
+}
+
+
+/* =========================================================
+   BUSINESS LOGO
+========================================================= */
+
+function getBusinessLogo() {
+
+    if (!businessData) {
+        return "";
+    }
+
+    return (
+        businessData.logo ||
+        businessData.businessLogo ||
+        businessData.logoUrl ||
+        businessData.image ||
+        businessData.imageUrl ||
+        ""
+    );
+}
+
+
+function getBusinessName() {
+
+    return (
+        businessData?.businessName ||
+        businessData?.name ||
+        currentUserData?.businessName ||
+        "Business"
+    );
+}
+
+
+function renderBusinessHeader() {
+
+    const businessName =
+        getBusinessName();
+
+    const logo =
+        getBusinessLogo();
+
+
+    document.getElementById(
+        "headerBusinessName"
+    ).textContent = businessName;
+
+
+    const logoContainer =
+        document.getElementById(
+            "headerLogoContainer"
+        );
+
+
+    if (logo) {
+
+        logoContainer.innerHTML = `
+
+            <img
+                class="business-logo"
+                src="${escapeHTML(logo)}"
+                alt="Business Logo"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div
+                class="business-placeholder"
+                style="display:none;"
+            >
+                🏪
+            </div>
+
+        `;
+
+    } else {
+
+        logoContainer.innerHTML = `
+
+            <div class="business-placeholder">
+                🏪
+            </div>
+
+        `;
+
+    }
+}
+
+
+/* =========================================================
+   LOAD CURRENT USER
+   PRESERVED
+========================================================= */
+
+async function loadCurrentUser() {
+
+    if (!currentUser) {
+        throw new Error("User is not signed in.");
+    }
+
+    const ownUserRef = doc(
+        db,
+        "users",
+        currentUser.uid
+    );
+
+    const ownUserSnap =
+        await getDoc(ownUserRef);
+
+    if (!ownUserSnap.exists()) {
+        throw new Error(
+            "User account was not found."
+        );
+    }
+
+    currentUserData =
+        ownUserSnap.data();
+
+    currentRole =
+        currentUserData.role || "owner";
+
+
+    if (currentRole === "staff") {
+
+        currentBusinessId =
+            currentUserData.ownerUid;
+
+    } else {
+
+        currentBusinessId =
+            currentUser.uid;
+
+    }
+
+
+    if (!currentBusinessId) {
+
+        throw new Error(
+            "Business information is missing."
+        );
+
+    }
+
+
+    document.getElementById(
+        "headerRole"
+    ).textContent =
+        currentRole === "staff"
+            ? "STAFF"
+            : "OWNER";
+}
+
+
+/* =========================================================
+   LOAD BUSINESS
+   PRESERVED
+========================================================= */
+
+async function loadBusiness() {
+
+    const businessRef = doc(
+        db,
+        "users",
+        currentBusinessId
+    );
+
+    const businessSnap =
+        await getDoc(businessRef);
+
+
+    if (businessSnap.exists()) {
+
+        businessData =
+            businessSnap.data();
+
+    } else {
+
+        businessData = {};
+
+    }
+
+
+    renderBusinessHeader();
+}
+
+
+/* =========================================================
+   LOAD SALES
+   PRESERVED
+========================================================= */
+
+async function loadSales() {
+
+    const salesRef = collection(
+        db,
+        "users",
+        currentBusinessId,
+        "sales"
+    );
+
+    let snapshot;
+
+
+    try {
+
+        const salesQuery =
+            query(
+                salesRef,
+                orderBy(
+                    "createdAt",
+                    "desc"
+                )
+            );
+
+        snapshot =
+            await getDocs(salesQuery);
+
+    } catch (error) {
+
+        console.warn(
+            "Ordered sales query failed. Loading without order.",
+            error
+        );
+
+        snapshot =
+            await getDocs(salesRef);
+    }
+
+
+    sales =
+        snapshot.docs.map(
+            saleDoc => ({
+                id: saleDoc.id,
+                ...saleDoc.data()
+            })
+        );
+
+
+    sales.sort((a, b) => {
+
+        const dateA =
+            getDateValue(
+                a.createdAt
+            );
+
+        const dateB =
+            getDateValue(
+                b.createdAt
+            );
+
+        return (
+            (dateB?.getTime() || 0) -
+            (dateA?.getTime() || 0)
+        );
+
+    });
+
+
+    updateTodaySummary();
+
+    renderSales();
+}
+
+
+/* =========================================================
+   TODAY SUMMARY
+========================================================= */
+
+function updateTodaySummary() {
+
+    const todaySales =
+        sales.filter(
+            sale =>
+                isToday(
+                    sale.createdAt
+                )
+        );
+
+
+    const total =
+        todaySales.reduce(
+            (sum, sale) =>
+                sum +
+                Number(
+                    sale.total || 0
+                ),
+            0
+        );
+
+
+    const count =
+        todaySales.length;
+
+
+    const average =
+        count > 0
+            ? total / count
+            : 0;
+
+
+    document.getElementById(
+        "todayTotal"
+    ).textContent =
+        peso(total);
+
+
+    document.getElementById(
+        "todayTransactions"
+    ).textContent =
+        count;
+
+
+    document.getElementById(
+        "todayAverage"
+    ).textContent =
+        peso(average);
+
+
+    const now = new Date();
+
+
+    document.getElementById(
+        "todayDate"
+    ).textContent =
+        now.toLocaleDateString(
+            "en-PH",
+            {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }
+        );
+}
+
+
+/* =========================================================
+   RENDER SALES
+========================================================= */
+
+function renderSales(
+    searchTerm = ""
+) {
+
+    const salesList =
+        document.getElementById(
+            "salesList"
+        );
+
+
+    const normalizedSearch =
+        searchTerm
+            .trim()
+            .toLowerCase();
+
+
+    let displayedSales;
+
+
+    if (normalizedSearch) {
+
+        displayedSales =
+            sales.filter(sale => {
+
+                const transaction =
+                    String(
+                        sale.id || ""
+                    ).toLowerCase();
+
+                const cashier =
+                    getCashierName(
+                        sale
+                    ).toLowerCase();
+
+                const payment =
+                    getPaymentLabel(
+                        sale
+                    ).toLowerCase();
+
+                const items =
+                    (sale.items || [])
+                        .map(
+                            item =>
+                                item.name || ""
+                        )
+                        .join(" ")
+                        .toLowerCase();
+
+
+                return (
+                    transaction.includes(
+                        normalizedSearch
+                    ) ||
+                    cashier.includes(
+                        normalizedSearch
+                    ) ||
+                    payment.includes(
+                        normalizedSearch
+                    ) ||
+                    items.includes(
+                        normalizedSearch
+                    )
+                );
+
+            });
+
+
+        document.getElementById(
+            "listTitle"
+        ).textContent =
+            "Search Results";
+
+    } else {
+
+        displayedSales =
+            sales.filter(
+                sale =>
+                    isToday(
+                        sale.createdAt
+                    )
+            );
+
+
+        document.getElementById(
+            "listTitle"
+        ).textContent =
+            "Today's Sales";
+    }
+
+
+    document.getElementById(
+        "salesCount"
+    ).textContent =
+        displayedSales.length +
+        (
+            displayedSales.length === 1
+                ? " transaction"
+                : " transactions"
+        );
+
+
+    if (!displayedSales.length) {
+
+        salesList.innerHTML = `
+
+            <div class="state-box">
+
+                <div class="state-icon">
+                    🧾
+                </div>
+
+                <strong>
+                    ${
+                        normalizedSearch
+                            ? "No matching sales"
+                            : "No sales today"
+                    }
+                </strong>
+
+                <p>
+                    ${
+                        normalizedSearch
+                            ? "Try another search."
+                            : "Sales recorded today will appear here."
+                    }
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    salesList.innerHTML =
+        displayedSales
+            .map(
+                sale =>
+                    createSaleCard(
+                        sale
+                    )
+            )
+            .join("");
+}
+
+
+/* =========================================================
+   SALE CARD
+========================================================= */
+
+function createSaleCard(sale) {
+
+    const items =
+        Array.isArray(
+            sale.items
+        )
+            ? sale.items
+            : [];
+
+
+    const itemCount =
+        items.reduce(
+            (sum, item) =>
+                sum +
+                Number(
+                    item.quantity || 0
+                ),
+            0
+        );
+
+
+    const cashier =
+        getCashierName(
+            sale
+        );
+
+
+    const role =
+        getRoleLabel(
+            sale
+        );
+
+
+    const payment =
+        getPaymentLabel(
+            sale
+        );
+
+
+    return `
+
+        <div
+            class="sale-card"
+            onclick="openInvoice('${escapeHTML(sale.id)}')"
+        >
+
+            <div class="sale-top">
+
+                <div class="sale-left">
+
+                    <div class="sale-number">
+                        Sale #${escapeHTML(
+                            sale.id
+                        )}
+                    </div>
+
+                    <div class="sale-date">
+                        ${escapeHTML(
+                            formatDateTime(
+                                sale.createdAt
+                            )
+                        )}
+                    </div>
+
+                </div>
+
+                <div class="sale-total">
+                    ${peso(sale.total)}
+                </div>
+
+            </div>
+
+
+            <div class="sale-bottom">
+
+                <div class="sale-info">
+
+                    ${itemCount}
+                    ${
+                        itemCount === 1
+                            ? "item"
+                            : "items"
+                    }
+
+                    <span class="payment-badge">
+                        ${escapeHTML(
+                            payment
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="staff-small">
+
+                    ${escapeHTML(
+                        cashier
+                    )}
+
+                    ·
+
+                    ${escapeHTML(
+                        role
+                    )}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   INVOICE
+========================================================= */
+
+window.openInvoice =
+function(saleId) {
+
+    const sale =
+        sales.find(
+            item =>
+                item.id === saleId
+        );
+
+
+    if (!sale) {
+        return;
+    }
+
+
+    const items =
+        Array.isArray(
+            sale.items
+        )
+            ? sale.items
+            : [];
+
+
+    const itemSubtotal =
+        items.reduce(
+            (sum, item) =>
+                sum +
+                (
+                    Number(
+                        item.subtotal
+                    ) ||
+                    (
+                        Number(
+                            item.price || 0
+                        ) *
+                        Number(
+                            item.quantity || 0
+                        )
+                    )
+                ),
+            0
+        );
+
+
+    const total =
+        Number(
+            sale.total ??
+            itemSubtotal
+        );
+
+
+    const businessName =
+        getBusinessName();
+
+
+    const businessLogo =
+        getBusinessLogo();
+
+
+    const cashier =
+        getCashierName(
+            sale
+        );
+
+
+    const role =
+        getRoleLabel(
+            sale
+        );
+
+
+    const payment =
+        getPaymentLabel(
+            sale
+        );
+
+
+    let itemsHTML = "";
+
+
+    if (!items.length) {
+
+        itemsHTML = `
+
+            <div style="
+                text-align:center;
+                color:#8a94a6;
+                font-size:11px;
+                padding:15px 0;
+            ">
+                No item details available
+            </div>
+
+        `;
+
+    } else {
+
+        itemsHTML =
+            items.map(
+                item => {
+
+                    const quantity =
+                        Number(
+                            item.quantity || 0
+                        );
+
+
+                    const price =
+                        Number(
+                            item.price || 0
+                        );
+
+
+                    const subtotal =
+                        Number(
+                            item.subtotal
+                        ) ||
+                        price * quantity;
+
+
+                    return `
+
+                        <div class="invoice-item">
+
+                            <div class="invoice-item-name">
+                                ${escapeHTML(
+                                    item.name ||
+                                    "Product"
+                                )}
+                            </div>
+
+                            <div class="invoice-item-qty">
+                                ${quantity}
+                            </div>
+
+                            <div class="invoice-item-price">
+                                ${peso(
+                                    subtotal
+                                )}
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+    }
+
+
+    let paymentDetails = `
+
+        <div class="payment-detail-row">
+
+            <span>
+                Payment Method
+            </span>
+
+            <strong>
+                ${escapeHTML(
+                    payment
+                )}
+            </strong>
+
+        </div>
+
+    `;
+
+
+    if (
+        sale.paymentMethod &&
+        String(
+            sale.paymentMethod
+        ).toLowerCase() === "cash"
+    ) {
+
+        paymentDetails += `
+
+            <div class="payment-detail-row">
+
+                <span>
+                    Cash Received
+                </span>
+
+                <strong>
+                    ${peso(
+                        sale.cashReceived
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="payment-detail-row">
+
+                <span>
+                    Change
+                </span>
+
+                <strong>
+                    ${peso(
+                        sale.change
+                    )}
+                </strong>
+
+            </div>
+
+        `;
+    }
+
+
+    if (sale.qrMethod) {
+
+        paymentDetails += `
+
+            <div class="payment-detail-row">
+
+                <span>
+                    QR Method
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        String(
+                            sale.qrMethod
+                        )
+                        .replace(
+                            /_/g,
+                            " "
+                        )
+                        .replace(
+                            /\b\w/g,
+                            c =>
+                                c.toUpperCase()
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+        `;
+    }
+
+
+    if (sale.creditNote) {
+
+        paymentDetails += `
+
+            <div class="payment-detail-row">
+
+                <span>
+                    Credit Note
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        sale.creditNote
+                    )}
+                </strong>
+
+            </div>
+
+        `;
+    }
+
+
+    let invoiceLogoHTML = "";
+
+
+    if (businessLogo) {
+
+        invoiceLogoHTML = `
+
+            <img
+                class="invoice-business-logo"
+                src="${escapeHTML(
+                    businessLogo
+                )}"
+                alt="Business Logo"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='inline-flex';
+                "
+            >
+
+            <div
+                class="invoice-business-placeholder"
+                style="display:none;"
+            >
+                🏪
+            </div>
+
+        `;
+
+    } else {
+
+        invoiceLogoHTML = `
+
+            <div class="invoice-business-placeholder">
+                🏪
+            </div>
+
+        `;
+    }
+
+
+    document.getElementById(
+        "invoiceContent"
+    ).innerHTML = `
+
+        <div class="invoice-paper">
+
+
+            <!-- BUSINESS -->
+
+            <div class="invoice-business">
+
+                ${invoiceLogoHTML}
+
+                <h2>
+                    ${escapeHTML(
+                        businessName
+                    )}
+                </h2>
+
+                <div class="invoice-word">
+                    SALES INVOICE
+                </div>
+
+            </div>
+
+
+            <!-- META -->
+
+            <div class="invoice-meta">
+
+                <div class="meta-item">
+
+                    <span>
+                        Transaction No.
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            sale.id
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="meta-item">
+
+                    <span>
+                        Date & Time
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            formatDateTime(
+                                sale.createdAt
+                            )
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="meta-item">
+
+                    <span>
+                        Cashier
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            cashier
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="meta-item">
+
+                    <span>
+                        Role
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            role
+                        )}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ITEMS -->
+
+            <div class="invoice-items">
+
+                <div class="invoice-item-head">
+
+                    <div>
+                        Item
+                    </div>
+
+                    <div style="text-align:center;">
+                        Qty
+                    </div>
+
+                    <div style="text-align:right;">
+                        Amount
+                    </div>
+
+                </div>
+
+
+                ${itemsHTML}
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="invoice-summary">
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        ${peso(
+                            itemSubtotal
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ${peso(
+                            total
+                        )}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment-section">
+
+                <div class="payment-title">
+                    Payment Information
+                </div>
+
+                <div class="payment-detail">
+
+                    ${paymentDetails}
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="invoice-footer">
+
+                Thank you for your purchase.<br>
+
+                Recorded by
+                ${escapeHTML(
+                    cashier
+                )}
+                (${escapeHTML(
+                    role
+                )})
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "invoiceOverlay"
+        )
+        .classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+};
+
+
+/* =========================================================
+   CLOSE INVOICE
+========================================================= */
+
+window.closeInvoice =
+function() {
+
+    document
+        .getElementById(
+            "invoiceOverlay"
+        )
+        .classList.remove(
+            "show"
+        );
+
+    document.body.style.overflow =
+        "";
+
+};
+
+
+window.closeInvoiceOutside =
+function(event) {
+
+    if (
+        event.target ===
+        document.getElementById(
+            "invoiceOverlay"
+        )
+    ) {
+
+        closeInvoice();
+
+    }
+
+};
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+window.goBack =
+function() {
+
+    window.location.href =
+        "../pos/";
+
+};
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        function() {
+
+            renderSales(
+                this.value
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   AUTH
+   PRESERVED
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if (!user) {
+
+            console.warn(
+                "No authenticated user."
+            );
+
+
+            document.getElementById(
+                "salesList"
+            ).innerHTML = `
+
+                <div class="state-box">
+
+                    <div class="state-icon">
+                        🔐
+                    </div>
+
+                    <strong>
+                        Session not available
+                    </strong>
+
+                    <p>
+                        Please sign in again.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        try {
+
+            currentUser =
+                user;
+
+
+            await loadCurrentUser();
+
+            await loadBusiness();
+
+            await loadSales();
+
+        } catch (error) {
+
+            console.error(
+                "Unable to load sales:",
+                error
+            );
+
+
+            document.getElementById(
+                "salesList"
+            ).innerHTML = `
+
+                <div class="state-box">
+
+                    <div class="state-icon">
+                        ⚠️
+                    </div>
+
+                    <strong>
+                        Unable to load sales
+                    </strong>
+
+                    <p>
+                        ${escapeHTML(
+                            error.message ||
+                            "Something went wrong."
+                        )}
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
