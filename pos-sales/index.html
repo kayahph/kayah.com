@@ -13,6 +13,354 @@
 <title>Kayah POS Sales</title>
 
 <style>
+    
+    /* =====================================================
+   DAILY REPORT POPUPS
+===================================================== */
+
+.daily-report-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,28,22,.58);
+    z-index:200;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.daily-report-overlay.show{
+    display:flex;
+}
+
+.daily-report-panel{
+    width:100%;
+    max-width:650px;
+    max-height:94vh;
+    overflow-y:auto;
+    background:#f4f7f5;
+    border-radius:22px 22px 0 0;
+    animation:dailyReportUp .2s ease;
+}
+
+@keyframes dailyReportUp{
+    from{
+        transform:translateY(40px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+.daily-report-header{
+    background:
+        linear-gradient(
+            135deg,
+            #0B4F3A,
+            #16805C
+        );
+    color:white;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.daily-report-title{
+    font-size:18px;
+    font-weight:900;
+}
+
+.daily-report-subtitle{
+    font-size:10px;
+    opacity:.75;
+    margin-top:4px;
+}
+
+.daily-report-close{
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:11px;
+    background:rgba(255,255,255,.14);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.daily-report-content{
+    padding:18px;
+}
+
+.daily-report-label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    color:#4e5b53;
+    margin-bottom:7px;
+}
+
+.daily-report-date{
+    width:100%;
+    height:46px;
+    border:1px solid #dce5df;
+    border-radius:12px;
+    background:white;
+    padding:0 13px;
+    font-size:14px;
+    outline:none;
+}
+
+.daily-report-date:focus{
+    border-color:#16805C;
+}
+
+.daily-report-note{
+    margin-top:9px;
+    font-size:11px;
+    line-height:1.5;
+    color:#7b857f;
+}
+
+.generate-report-button{
+    width:100%;
+    margin-top:17px;
+    height:46px;
+    border:0;
+    border-radius:13px;
+    background:#16805C;
+    color:white;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.generate-report-button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.daily-report-status{
+    margin-top:12px;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.report-summary-card{
+    background:white;
+    border:1px solid #e2e9e5;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.report-business{
+    font-size:16px;
+    font-weight:900;
+    color:#0B4F3A;
+}
+
+.report-finalized{
+    display:inline-block;
+    margin-top:6px;
+    background:#edf7f2;
+    color:#0B684B;
+    border-radius:20px;
+    padding:5px 9px;
+    font-size:9px;
+    font-weight:900;
+}
+
+.report-main-total{
+    margin-top:15px;
+    font-size:28px;
+    font-weight:900;
+    color:#16805C;
+}
+
+.report-total-label{
+    font-size:10px;
+    color:#7d8881;
+}
+
+.report-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:12px;
+}
+
+.report-stat{
+    background:#f7f9f8;
+    border-radius:11px;
+    padding:11px;
+}
+
+.report-stat-label{
+    display:block;
+    font-size:9px;
+    color:#7d8881;
+}
+
+.report-stat-value{
+    display:block;
+    margin-top:3px;
+    font-size:13px;
+    font-weight:900;
+    color:#28342d;
+}
+
+.report-section{
+    background:white;
+    border:1px solid #e2e9e5;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.report-section-title{
+    font-size:11px;
+    font-weight:900;
+    color:#0B4F3A;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.report-line{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:7px 0;
+    border-bottom:1px solid #eef2ef;
+    font-size:11px;
+}
+
+.report-line:last-child{
+    border-bottom:0;
+}
+
+.report-line strong{
+    color:#28342d;
+}
+
+.report-generated{
+    font-size:10px;
+    color:#7d8881;
+    line-height:1.6;
+}
+
+.report-sale{
+    padding:10px 0;
+    border-bottom:1px solid #eef2ef;
+}
+
+.report-sale:last-child{
+    border-bottom:0;
+}
+
+.report-sale-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.report-sale-number{
+    font-size:11px;
+    font-weight:900;
+    color:#0B4F3A;
+}
+
+.report-sale-total{
+    font-size:12px;
+    font-weight:900;
+    color:#16805C;
+}
+
+.report-sale-bottom{
+    margin-top:4px;
+    font-size:9px;
+    color:#7d8881;
+}
+
+@media(max-width:500px){
+
+    .daily-report-content{
+        padding:14px;
+    }
+
+}
+    
+    
+    
+    
+
+
+/* =====================================================
+   DAILY SALES REPORT
+===================================================== */
+
+.daily-report-action{
+    margin-bottom:16px;
+}
+
+.daily-report-button{
+    width:100%;
+    border:0;
+    background:white;
+    border:1px solid #dfe8e3;
+    border-radius:16px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    cursor:pointer;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.daily-report-button:active{
+    transform:scale(.99);
+}
+
+.daily-report-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#edf7f2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.daily-report-button span:nth-child(2){
+    flex:1;
+    min-width:0;
+}
+
+.daily-report-button strong{
+    display:block;
+    font-size:13px;
+    color:#0B4F3A;
+}
+
+.daily-report-button small{
+    display:block;
+    margin-top:3px;
+    font-size:10px;
+    color:#7a857f;
+}
+
+.daily-report-arrow{
+    font-size:25px;
+    color:#16805C;
+}
+
+
 
 *{
     box-sizing:border-box;
@@ -886,6 +1234,34 @@ body{
     </section>
 
 
+<!-- =====================================================
+     DAILY SALES REPORT
+===================================================== -->
+
+<div class="daily-report-action">
+
+    <button
+        type="button"
+        class="daily-report-button"
+        onclick="openDailyReportGenerator()"
+    >
+        <span class="daily-report-icon">
+            📊
+        </span>
+
+        <span>
+            <strong>Daily Sales Report</strong>
+            <small>Generate today's finalized sales report</small>
+        </span>
+
+        <span class="daily-report-arrow">
+            ›
+        </span>
+    </button>
+
+</div>
+
+
     <!-- SEARCH -->
 
     <div class="search-wrap">
@@ -973,6 +1349,131 @@ body{
 
 </div>
 
+<!-- =====================================================
+     DAILY REPORT GENERATOR
+===================================================== -->
+
+<div
+    id="dailyReportOverlay"
+    class="daily-report-overlay"
+    onclick="closeDailyReportFromOverlay(event)"
+>
+
+    <div class="daily-report-panel">
+
+        <div class="daily-report-header">
+
+            <div>
+                <div class="daily-report-title">
+                    Daily Sales Report
+                </div>
+
+                <div class="daily-report-subtitle">
+                    Generate the official report for a business day
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="daily-report-close"
+                onclick="closeDailyReportGenerator()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="daily-report-content">
+
+            <label
+                for="dailyReportDate"
+                class="daily-report-label"
+            >
+                Select Business Date
+            </label>
+
+            <input
+                type="date"
+                id="dailyReportDate"
+                class="daily-report-date"
+            >
+
+            <div class="daily-report-note">
+                The report will include all sales recorded for the selected
+                business date.
+            </div>
+
+            <button
+                type="button"
+                class="generate-report-button"
+                id="generateReportButton"
+                onclick="generateDailySalesReport()"
+            >
+                Generate Daily Report
+            </button>
+
+            <div
+                id="dailyReportStatus"
+                class="daily-report-status"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     DAILY REPORT VIEW
+===================================================== -->
+
+<div
+    id="dailyReportViewOverlay"
+    class="daily-report-overlay"
+    onclick="closeDailyReportViewFromOverlay(event)"
+>
+
+    <div class="daily-report-panel report-view-panel">
+
+        <div class="daily-report-header">
+
+            <div>
+                <div class="daily-report-title">
+                    Daily Sales Report
+                </div>
+
+                <div
+                    id="reportViewDate"
+                    class="daily-report-subtitle"
+                >
+                    —
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="daily-report-close"
+                onclick="closeDailyReportView()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            id="dailyReportViewContent"
+            class="daily-report-content"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+
+
 
 <!-- =====================================================
      FIREBASE
@@ -996,7 +1497,9 @@ import {
     query,
     orderBy,
     doc,
-    getDoc
+    getDoc,
+    setDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -1255,6 +1758,44 @@ function getPaymentLabel(sale){
     return "Payment";
 
 }
+
+
+function getTransactionTypeLabel(value){
+
+    const type =
+        String(
+            value || "walkin"
+        ).toLowerCase();
+
+    const labels = {
+
+        walkin: "Walk-in",
+
+        pickup: "Pickup",
+
+        delivery: "Delivery",
+
+        appointment: "Appointment",
+
+        service: "Service",
+
+        order: "Order",
+
+        booking: "Booking",
+
+        service_order: "Service Order",
+
+        online_order: "Online Order"
+
+    };
+
+    return (
+        labels[type] ||
+        "Walk-in"
+    );
+
+}
+
 
 
 function getCashierName(sale){
@@ -2677,6 +3218,1049 @@ window.goBack =
         window.history.back();
 
     };
+
+
+/* =====================================================
+   DAILY SALES REPORT
+===================================================== */
+
+function getBusinessDateKey(date){
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+function getSalesForBusinessDate(dateString){
+
+    return sales.filter(
+        function(sale){
+
+            const date =
+                getDateValue(
+                    sale.createdAt
+                );
+
+            if(!date){
+                return false;
+            }
+
+            const saleDate =
+                getBusinessDateKey(
+                    date
+                );
+
+            return saleDate === dateString;
+
+        }
+    );
+
+}
+
+
+function getReportTotals(reportSales){
+
+    let totalSales = 0;
+
+    let totalItems = 0;
+
+    let cashTotal = 0;
+
+    let creditTotal = 0;
+
+    let qrTotal = 0;
+
+    let gcashTotal = 0;
+
+    let mayaTotal = 0;
+
+    const transactionTypes = {};
+
+
+    reportSales.forEach(
+        function(sale){
+
+            const total =
+                Number(
+                    sale.total || 0
+                );
+
+            totalSales += total;
+
+
+            const items =
+                Array.isArray(
+                    sale.items
+                )
+                ? sale.items
+                : [];
+
+
+            items.forEach(
+                function(item){
+
+                    totalItems +=
+                        Number(
+                            item.quantity || 0
+                        );
+
+                }
+            );
+
+
+            const payment =
+                String(
+                    sale.paymentMethod || ""
+                ).toLowerCase();
+
+
+            if(payment === "cash"){
+
+                cashTotal += total;
+
+            }else if(payment === "credit"){
+
+                creditTotal += total;
+
+            }else if(payment === "qr"){
+
+                qrTotal += total;
+
+                const qrMethod =
+                    String(
+                        sale.qrMethod || ""
+                    ).toLowerCase();
+
+                if(qrMethod === "gcash"){
+
+                    gcashTotal += total;
+
+                }else if(qrMethod === "maya"){
+
+                    mayaTotal += total;
+
+                }
+
+            }
+
+
+            const type =
+                String(
+                    sale.transactionType ||
+                    "walkin"
+                ).toLowerCase();
+
+
+            transactionTypes[type] =
+                (
+                    transactionTypes[type] ||
+                    {
+                        count:0,
+                        total:0
+                    }
+                );
+
+
+            transactionTypes[type].count++;
+
+            transactionTypes[type].total +=
+                total;
+
+        }
+    );
+
+
+    return {
+
+        totalSales,
+
+        transactionCount:
+            reportSales.length,
+
+        totalItems,
+
+        cashTotal,
+
+        creditTotal,
+
+        qrTotal,
+
+        gcashTotal,
+
+        mayaTotal,
+
+        transactionTypes
+
+    };
+
+}
+
+
+function formatReportDate(dateString){
+
+    const parts =
+        String(
+            dateString
+        ).split("-");
+
+    if(parts.length !== 3){
+
+        return dateString;
+
+    }
+
+    const date =
+        new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+    return date.toLocaleDateString(
+        "en-PH",
+        {
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }
+    );
+
+}
+
+
+window.openDailyReportGenerator =
+    function(){
+
+        const overlay =
+            document.getElementById(
+                "dailyReportOverlay"
+            );
+
+        const dateInput =
+            document.getElementById(
+                "dailyReportDate"
+            );
+
+
+        const today =
+            getBusinessDateKey(
+                new Date()
+            );
+
+
+        dateInput.value =
+            today;
+
+        dateInput.max =
+            today;
+
+
+        document.getElementById(
+            "dailyReportStatus"
+        ).innerHTML = "";
+
+
+        overlay.classList.add(
+            "show"
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+    };
+
+
+window.closeDailyReportGenerator =
+    function(){
+
+        document.getElementById(
+            "dailyReportOverlay"
+        ).classList.remove(
+            "show"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    };
+
+
+window.closeDailyReportFromOverlay =
+    function(event){
+
+        if(
+            event.target.id ===
+            "dailyReportOverlay"
+        ){
+
+            closeDailyReportGenerator();
+
+        }
+
+    };
+
+
+window.generateDailySalesReport =
+    async function(){
+
+        const dateInput =
+            document.getElementById(
+                "dailyReportDate"
+            );
+
+        const status =
+            document.getElementById(
+                "dailyReportStatus"
+            );
+
+        const button =
+            document.getElementById(
+                "generateReportButton"
+            );
+
+
+        const dateString =
+            dateInput.value;
+
+
+        if(!dateString){
+
+            status.textContent =
+                "Please select a business date.";
+
+            status.style.color =
+                "#b42318";
+
+            return;
+
+        }
+
+
+        if(!currentBusinessId){
+
+            status.textContent =
+                "Business information is missing.";
+
+            status.style.color =
+                "#b42318";
+
+            return;
+
+        }
+
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Checking report...";
+
+        status.textContent = "";
+
+
+        try{
+
+            /*
+             * Each business gets its own report.
+             *
+             * Example:
+             * users/BUSINESS_ID/dailySalesReports/2026-10-07
+             */
+
+            const reportRef =
+                doc(
+                    db,
+                    "users",
+                    currentBusinessId,
+                    "dailySalesReports",
+                    dateString
+                );
+
+
+            /*
+             * Check if a report already exists.
+             */
+
+            const existingReport =
+                await getDoc(
+                    reportRef
+                );
+
+
+            if(
+                existingReport.exists()
+            ){
+
+                const existingData =
+                    existingReport.data();
+
+
+                closeDailyReportGenerator();
+
+                openDailyReportView(
+                    existingData
+                );
+
+                return;
+
+            }
+
+
+            const reportSales =
+                getSalesForBusinessDate(
+                    dateString
+                );
+
+
+            if(!reportSales.length){
+
+                status.textContent =
+                    "There are no sales recorded for this business date.";
+
+                status.style.color =
+                    "#b42318";
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Generate Daily Report";
+
+                return;
+
+            }
+
+
+            const totals =
+                getReportTotals(
+                    reportSales
+                );
+
+
+            const generatedByName =
+                currentUserData?.name ||
+                currentUserData?.fullName ||
+                currentUser.displayName ||
+                "Unknown";
+
+
+            const generatedByRole =
+                currentRole === "staff"
+                    ? "staff"
+                    : "owner";
+
+
+            const generatedAt =
+                new Date();
+
+
+            /*
+             * Save a FINALIZED snapshot.
+             *
+             * The original sales remain unchanged.
+             */
+
+            const reportData = {
+
+                businessId:
+                    currentBusinessId,
+
+                reportDate:
+                    dateString,
+
+                status:
+                    "finalized",
+
+                totalSales:
+                    totals.totalSales,
+
+                transactionCount:
+                    totals.transactionCount,
+
+                totalItems:
+                    totals.totalItems,
+
+                cashTotal:
+                    totals.cashTotal,
+
+                creditTotal:
+                    totals.creditTotal,
+
+                qrTotal:
+                    totals.qrTotal,
+
+                gcashTotal:
+                    totals.gcashTotal,
+
+                mayaTotal:
+                    totals.mayaTotal,
+
+                transactionTypes:
+                    totals.transactionTypes,
+
+                generatedByUid:
+                    currentUser.uid,
+
+                generatedByName:
+                    generatedByName,
+
+                generatedByRole:
+                    generatedByRole,
+
+                generatedAt:
+                    serverTimestamp(),
+
+                createdAt:
+                    serverTimestamp(),
+
+                /*
+                 * Store the sale IDs included
+                 * in this finalized report.
+                 */
+                saleIds:
+                    reportSales.map(
+                        sale =>
+                            sale.id
+                    )
+
+            };
+
+
+            await setDoc(
+                reportRef,
+                reportData
+            );
+
+
+            /*
+             * We now have the official report.
+             *
+             * Use the local generated time for
+             * immediate display.
+             */
+
+            reportData.generatedAt =
+                generatedAt;
+
+
+            reportData.createdAt =
+                generatedAt;
+
+
+            closeDailyReportGenerator();
+
+            openDailyReportView(
+                reportData
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Daily report error:",
+                error
+            );
+
+
+            status.textContent =
+                error.message ||
+                "Unable to generate daily report.";
+
+            status.style.color =
+                "#b42318";
+
+
+        }finally{
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Generate Daily Report";
+
+        }
+
+    };
+
+
+
+function renderDailyReportView(report){
+
+    const content =
+        document.getElementById(
+            "dailyReportViewContent"
+        );
+
+
+    const reportDate =
+        report.reportDate ||
+        "";
+
+
+    document.getElementById(
+        "reportViewDate"
+    ).textContent =
+        formatReportDate(
+            reportDate
+        );
+
+
+    const transactionTypes =
+        report.transactionTypes ||
+        {};
+
+
+    const transactionTypeHTML =
+        Object.keys(
+            transactionTypes
+        )
+        .map(
+            function(type){
+
+                const data =
+                    transactionTypes[type];
+
+
+                return `
+
+                    <div class="report-line">
+
+                        <span>
+                            ${escapeHTML(
+                                getTransactionTypeLabel(
+                                    type
+                                )
+                            )}
+                        </span>
+
+                        <strong>
+                            ${data.count}
+                            ·
+                            ${peso(
+                                data.total
+                            )}
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    const generatedDate =
+        getDateValue(
+            report.generatedAt
+        );
+
+
+    const generatedText =
+        generatedDate
+            ? generatedDate.toLocaleString(
+                "en-PH",
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric",
+                    hour:"numeric",
+                    minute:"2-digit"
+                }
+            )
+            : "—";
+
+
+    content.innerHTML = `
+
+        <div class="report-summary-card">
+
+            <div class="report-business">
+                ${escapeHTML(
+                    getBusinessName()
+                )}
+            </div>
+
+            <span class="report-finalized">
+                ✓ FINALIZED
+            </span>
+
+            <div class="report-total-label"
+                 style="margin-top:14px;">
+                TOTAL SALES
+            </div>
+
+            <div class="report-main-total">
+                ${peso(
+                    report.totalSales
+                )}
+            </div>
+
+            <div class="report-grid">
+
+                <div class="report-stat">
+
+                    <span class="report-stat-label">
+                        Transactions
+                    </span>
+
+                    <span class="report-stat-value">
+                        ${Number(
+                            report.transactionCount || 0
+                        )}
+                    </span>
+
+                </div>
+
+                <div class="report-stat">
+
+                    <span class="report-stat-label">
+                        Items Sold
+                    </span>
+
+                    <span class="report-stat-value">
+                        ${Number(
+                            report.totalItems || 0
+                        )}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-section">
+
+            <div class="report-section-title">
+                Payment Summary
+            </div>
+
+            <div class="report-line">
+                <span>Cash</span>
+                <strong>
+                    ${peso(
+                        report.cashTotal
+                    )}
+                </strong>
+            </div>
+
+            <div class="report-line">
+                <span>QR</span>
+                <strong>
+                    ${peso(
+                        report.qrTotal
+                    )}
+                </strong>
+            </div>
+
+            <div class="report-line">
+                <span>GCash</span>
+                <strong>
+                    ${peso(
+                        report.gcashTotal
+                    )}
+                </strong>
+            </div>
+
+            <div class="report-line">
+                <span>Maya</span>
+                <strong>
+                    ${peso(
+                        report.mayaTotal
+                    )}
+                </strong>
+            </div>
+
+            <div class="report-line">
+                <span>Credit</span>
+                <strong>
+                    ${peso(
+                        report.creditTotal
+                    )}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="report-section">
+
+            <div class="report-section-title">
+                Transaction Types
+            </div>
+
+            ${
+                transactionTypeHTML ||
+                `
+                    <div class="report-line">
+                        <span>No transaction types</span>
+                    </div>
+                `
+            }
+
+        </div>
+
+
+        <div class="report-section">
+
+            <div class="report-section-title">
+                Report Information
+            </div>
+
+            <div class="report-generated">
+
+                <strong>
+                    Generated by:
+                </strong>
+
+                ${escapeHTML(
+                    report.generatedByName ||
+                    "Unknown"
+                )}
+
+                <br>
+
+                <strong>
+                    Role:
+                </strong>
+
+                ${
+                    String(
+                        report.generatedByRole ||
+                        "owner"
+                    ).toLowerCase() === "staff"
+                        ? "STAFF"
+                        : "OWNER"
+                }
+
+                <br>
+
+                <strong>
+                    Generated:
+                </strong>
+
+                ${escapeHTML(
+                    generatedText
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="report-section">
+
+            <div class="report-section-title">
+                Included Sales
+            </div>
+
+            ${
+                renderReportSales(
+                    report
+                )
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+function renderReportSales(report){
+
+    const saleIds =
+        Array.isArray(
+            report.saleIds
+        )
+        ? report.saleIds
+        : [];
+
+
+    const includedSales =
+        sales.filter(
+            sale =>
+                saleIds.includes(
+                    sale.id
+                )
+        )
+        .sort(
+            function(a,b){
+
+                const timeA =
+                    getDateValue(
+                        a.createdAt
+                    )?.getTime() || 0;
+
+                const timeB =
+                    getDateValue(
+                        b.createdAt
+                    )?.getTime() || 0;
+
+                return timeA - timeB;
+
+            }
+        );
+
+
+    if(!includedSales.length){
+
+        return `
+            <div class="report-generated">
+                Sale details are not currently available.
+            </div>
+        `;
+
+    }
+
+
+    return includedSales
+        .map(
+            function(sale){
+
+                const transaction =
+                    getTransactionNumber(
+                        sale
+                    );
+
+
+                const type =
+                    getTransactionTypeLabel(
+                        sale.transactionType
+                    );
+
+
+                const payment =
+                    getPaymentLabel(
+                        sale
+                    );
+
+
+                return `
+
+                    <div class="report-sale">
+
+                        <div class="report-sale-top">
+
+                            <div class="report-sale-number">
+                                ${escapeHTML(
+                                    transaction
+                                )}
+                            </div>
+
+                            <div class="report-sale-total">
+                                ${peso(
+                                    sale.total
+                                )}
+                            </div>
+
+                        </div>
+
+                        <div class="report-sale-bottom">
+
+                            ${escapeHTML(
+                                type
+                            )}
+
+                            ·
+
+                            ${escapeHTML(
+                                payment
+                            )}
+
+                            ·
+
+                            ${escapeHTML(
+                                getCashierName(
+                                    sale
+                                )
+                            )}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+function openDailyReportView(report){
+
+    renderDailyReportView(
+        report
+    );
+
+
+    document.getElementById(
+        "dailyReportViewOverlay"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+window.closeDailyReportView =
+    function(){
+
+        document.getElementById(
+            "dailyReportViewOverlay"
+        ).classList.remove(
+            "show"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    };
+
+
+window.closeDailyReportViewFromOverlay =
+    function(event){
+
+        if(
+            event.target.id ===
+            "dailyReportViewOverlay"
+        ){
+
+            closeDailyReportView();
+
+        }
+
+    };
+
+
 
 
 /* =====================================================
