@@ -4391,6 +4391,17 @@ window.confirmPayment = async function(){
 
 };
 
+
+window.closePaymentPopup = function(){
+    const overlay = document.getElementById("paymentOverlay");
+
+    if(overlay){
+        overlay.classList.remove("show");
+    }
+};
+
+
+
 /* =====================================================
    PAYMENT METHOD BUTTONS
 ===================================================== */
@@ -4694,6 +4705,19 @@ onAuthStateChanged(
 
     }
 );
+
+document
+    .querySelector(".payment-close")
+    ?.addEventListener("click", function(){
+        const overlay = document.getElementById("paymentOverlay");
+
+        if(overlay){
+            overlay.classList.remove("show");
+        }
+    });
+
+
+
 
 </script>
 
