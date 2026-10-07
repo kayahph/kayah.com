@@ -3980,20 +3980,17 @@ window.completeSale = function(){
 };
 
 
-window.closePaymentPopup = function(){
-
-    document.getElementById(
-        "paymentOverlay"
-    ).classList.remove("show");
-
-};
 
 
-window.confirmPayment = function(){
+/* =====================================================
+   CONFIRMPAYMENT
+===================================================== */
+
+
+window.confirmPayment = async function(){
 
     const total =
         getCartTotal();
-
 
     if(!total){
 
@@ -4005,18 +4002,52 @@ window.confirmPayment = function(){
 
     }
 
+    if(!currentBusinessId){
+
+        showMessage(
+            "Business information is not available."
+        );
+
+        return;
+
+    }
+
+    if(!currentUser){
+
+        showMessage(
+            "Your account is not available. Please log in again."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       PAYMENT DETAILS
+    ===================================================== */
+
+    let cashReceived = 0;
+    let change = 0;
+    let creditNote = "";
+    let qrMethod = "";
+
+
+    /* =====================================================
+       CASH
+    ===================================================== */
 
     if(selectedPaymentMethod === "cash"){
 
-        const received =
+        cashReceived =
             Number(
                 document.getElementById(
                     "cashReceived"
-                ).value
+                )?.value
             ) || 0;
 
 
-        if(received < total){
+        if(cashReceived < total){
 
             showMessage(
                 "Cash received is not enough."
@@ -4027,45 +4058,48 @@ window.confirmPayment = function(){
         }
 
 
-        const change =
-            received - total;
-
-
-        closePaymentPopup();
-
-
-        showMessage(
-            "Cash payment confirmed. Change: " +
-            money(change)
-        );
-
-
-        return;
+        change =
+            cashReceived - total;
 
     }
 
+
+    /* =====================================================
+       CREDIT
+    ===================================================== */
 
     if(selectedPaymentMethod === "credit"){
 
-        closePaymentPopup();
-
-
-        showMessage(
-            "Credit payment confirmed."
-        );
-
-
-        return;
+        creditNote =
+            (
+                document.getElementById(
+                    "creditNote"
+                )?.value || ""
+            ).trim();
 
     }
 
 
+    /* =====================================================
+       QR
+    ===================================================== */
+
     if(selectedPaymentMethod === "qr"){
+
+        qrMethod =
+            selectedQrMethod;
+
 
         const qrUrl =
             selectedQrMethod === "gcash"
-                ? safeText(businessData?.gcashQrUrl,"")
-                : safeText(businessData?.mayaQrUrl,"");
+                ? safeText(
+                    businessData?.gcashQrUrl,
+                    ""
+                )
+                : safeText(
+                    businessData?.mayaQrUrl,
+                    ""
+                );
 
 
         if(!qrUrl){
@@ -4084,26 +4118,274 @@ window.confirmPayment = function(){
 
         }
 
+    }
+
+
+    /* =====================================================
+       PREPARE CART ITEMS
+    ===================================================== */
+
+    const saleItems =
+        cart.map(
+            function(item){
+
+                const price =
+                    Number(item.price) || 0;
+
+                const quantity =
+                    Number(item.quantity) || 0;
+
+                return {
+
+                    productId:
+                        item.id,
+
+                    name:
+                        item.name,
+
+                    price:
+                        price,
+
+                    quantity:
+                        quantity,
+
+                    subtotal:
+                        price * quantity,
+
+                    image:
+                        item.image || "",
+
+                    stockTracked:
+                        !!item.stockTracked
+
+                };
+
+            }
+        );
+
+
+    /* =====================================================
+       SALE DATA
+    ===================================================== */
+
+    const saleData = {
+
+        businessId:
+            currentBusinessId,
+
+        items:
+            saleItems,
+
+        total:
+            Number(total),
+
+        paymentMethod:
+            selectedPaymentMethod,
+
+        cashReceived:
+            Number(cashReceived),
+
+        change:
+            Number(change),
+
+        creditNote:
+            creditNote,
+
+        qrMethod:
+            qrMethod,
+
+        performedByUid:
+            currentUser.uid,
+
+        performedByName:
+            currentUserData?.name ||
+            currentUserData?.fullName ||
+            currentUser.displayName ||
+            "",
+
+        performedByRole:
+            currentRole || "owner",
+
+        createdAt:
+            serverTimestamp()
+
+    };
+
+
+    /* =====================================================
+       SAVE TO FIREBASE
+    ===================================================== */
+
+    try{
+
+        const salesRef =
+            collection(
+                db,
+                "users",
+                currentBusinessId,
+                "sales"
+            );
+
+
+        const saleDoc =
+            await addDoc(
+                salesRef,
+                saleData
+            );
+
+
+        /* =================================================
+           CLEAR CART
+        ================================================= */
+
+        cart = [];
+
+        renderCart();
+
+
+        /* =================================================
+           CLOSE PAYMENT POPUP
+        ================================================= */
 
         closePaymentPopup();
 
 
-        showMessage(
-            (
-                selectedQrMethod === "gcash"
-                    ? "GCash"
-                    : "Maya"
-            ) +
-            " payment confirmed."
+        /* =================================================
+           SUCCESS MESSAGE
+        ================================================= */
+
+        if(selectedPaymentMethod === "cash"){
+
+            showMessage(
+                "Sale completed. Change: " +
+                money(change)
+            );
+
+        }
+
+        else if(selectedPaymentMethod === "credit"){
+
+            showMessage(
+                "Credit sale saved successfully."
+            );
+
+        }
+
+        else if(selectedPaymentMethod === "qr"){
+
+            showMessage(
+                (
+                    selectedQrMethod === "gcash"
+                        ? "GCash"
+                        : "Maya"
+                ) +
+                " payment confirmed. Sale saved."
+            );
+
+        }
+
+
+        /* =================================================
+           RESET PAYMENT FORM
+        ================================================= */
+
+        selectedPaymentMethod =
+            "cash";
+
+        selectedQrMethod =
+            "gcash";
+
+
+        const cashInput =
+            document.getElementById(
+                "cashReceived"
+            );
+
+        if(cashInput){
+
+            cashInput.value = "";
+
+        }
+
+
+        const creditInput =
+            document.getElementById(
+                "creditNote"
+            );
+
+        if(creditInput){
+
+            creditInput.value = "";
+
+        }
+
+
+        const creditSection =
+            document.getElementById(
+                "creditNoteSection"
+            );
+
+        if(creditSection){
+
+            creditSection.style.display =
+                "none";
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".payment-method"
+            )
+            .forEach(
+                function(button){
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.paymentMethod === "cash"
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".qr-method"
+            )
+            .forEach(
+                function(button){
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.qrMethod === "gcash"
+                    );
+
+                }
+            );
+
+
+        console.log(
+            "Sale saved to Firebase:",
+            saleDoc.id
         );
 
 
-        return;
+    }catch(error){
+
+        console.error(
+            "Error saving sale:",
+            error
+        );
+
+
+        showMessage(
+            "Unable to save the sale. Please try again."
+        );
 
     }
 
 };
-
 
 /* =====================================================
    PAYMENT METHOD BUTTONS
