@@ -30,6 +30,49 @@
 <style>
     
     
+    .sale-type-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+}
+
+.sale-type-button {
+    border: 1px solid #d9e1dc;
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 12px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.sale-type-button:hover {
+    border-color: #16805C;
+}
+
+.sale-type-button.active {
+    background: #eaf6f0;
+    border: 2px solid #16805C;
+    color: #0B4F3A;
+}
+
+.sale-type-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+    
+    
+    
+    
     .quick-tab-sales {
     background: #e53935 !important;
     color: #ffffff !important;
@@ -2017,6 +2060,47 @@ a{
             </div>
 
         </div>
+  
+  
+  <!-- SALE TYPE -->
+
+<span class="payment-label">
+    Select Sale Type
+</span>
+
+<div class="sale-type-methods">
+
+    <button
+        type="button"
+        class="sale-type-button active"
+        data-sale-type="walkin"
+    >
+        <span class="sale-type-icon">🛍️</span>
+        <span>Walk-in</span>
+    </button>
+
+    <button
+        type="button"
+        class="sale-type-button"
+        data-sale-type="pickup"
+    >
+        <span class="sale-type-icon">📦</span>
+        <span>Pickup</span>
+    </button>
+
+    <button
+        type="button"
+        class="sale-type-button"
+        data-sale-type="delivery"
+    >
+        <span class="sale-type-icon">🛵</span>
+        <span>Delivery</span>
+    </button>
+
+</div>
+  
+  
+  
         
         
 <!-- PAYMENT METHOD -->
@@ -3951,6 +4035,22 @@ window.completeSale = function(){
 };
 
 
+let selectedSaleType = "walkin";
+
+
+document.querySelectorAll(".sale-type-button").forEach(button => {
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".sale-type-button").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        selectedSaleType = button.dataset.saleType;
+    });
+});
+
 
 
 /* =====================================================
@@ -4152,6 +4252,8 @@ window.confirmPayment = async function(){
 
         paymentMethod:
             selectedPaymentMethod,
+            
+    saleType: selectedSaleType,
 
         cashReceived:
             Number(cashReceived),
