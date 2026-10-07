@@ -28,6 +28,21 @@
 >
 
 <style>
+    
+    .payment-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.payment-logo img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    display: inline-block;
+}
+    
+    
+    
 
 /* =====================================================
    RESET
@@ -2032,41 +2047,70 @@ a{
             </div>
 
         </div>
+        
+        
+<!-- PAYMENT METHOD -->
 
+<span class="payment-label">
+    Select Payment Method
+</span>
 
-        <!-- PAYMENT METHOD -->
+<div class="payment-methods">
 
-        <span class="payment-label">
-            Select Payment Method
-        </span>
+    <button
+        type="button"
+        class="payment-method active"
+        data-payment-method="cash"
+    >
+        💵 Cash
+    </button>
 
-        <div class="payment-methods">
+    <button
+        type="button"
+        class="payment-method"
+        data-payment-method="credit"
+    >
+        📝 Credit
+    </button>
 
-            <button
-                type="button"
-                class="payment-method active"
-                data-payment-method="cash"
-            >
-                💵 Cash
-            </button>
+    <button
+        type="button"
+        class="payment-method"
+        data-payment-method="qr"
+    >
+        📱 QR
+    </button>
 
-            <button
-                type="button"
-                class="payment-method"
-                data-payment-method="credit"
-            >
-                📝 Credit
-            </button>
+</div>
 
-            <button
-                type="button"
-                class="payment-method"
-                data-payment-method="qr"
-            >
-                📱 QR
-            </button>
+<!-- CREDIT NOTE -->
+<div
+    id="creditNoteSection"
+    style="display:none; margin-top:15px;"
+>
+    <label
+        for="creditNote"
+        class="payment-label"
+    >
+        Credit Note
+    </label>
 
-        </div>
+    <textarea
+        id="creditNote"
+        rows="3"
+        placeholder="Enter a note for this credit sale..."
+        style="
+            width:100%;
+            box-sizing:border-box;
+            resize:none;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            font-size:14px;
+            outline:none;
+        "
+    ></textarea>
+</div>
 
 
         <!-- CASH -->
@@ -2247,7 +2291,9 @@ import {
     doc,
     getDoc,
     collection,
-    getDocs
+    getDocs,
+    addDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -3824,6 +3870,51 @@ function loadPaymentQr(){
         };
 
 }
+
+document
+    .querySelectorAll(".payment-method")
+    .forEach(function(button){
+
+        button.addEventListener("click", function(){
+
+            selectedPaymentMethod =
+                button.dataset.paymentMethod;
+
+            document
+                .querySelectorAll(".payment-method")
+                .forEach(function(item){
+
+                    item.classList.toggle(
+                        "active",
+                        item.dataset.paymentMethod === selectedPaymentMethod
+                    );
+
+                });
+
+            // Show Credit Note only for Credit
+            const creditNoteSection =
+                document.getElementById("creditNoteSection");
+
+            if (creditNoteSection) {
+                creditNoteSection.style.display =
+                    selectedPaymentMethod === "credit"
+                        ? "block"
+                        : "none";
+            }
+
+            // Existing QR function
+            if (selectedPaymentMethod === "qr") {
+                loadPaymentQr();
+            }
+
+        });
+
+    });
+
+
+
+
+
 
 
 window.completeSale = function(){
