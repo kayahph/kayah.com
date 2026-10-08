@@ -1169,20 +1169,19 @@ body{
             ‹
         </a>
 
-        <a
-            href="../dashboard/"
-            class="brand"
-        >
+        
+<a href="../dashboard/" class="brand">
+    <img
+        class="brand-logo"
+        id="businessLogo"
+        src="../kayah-logo.png"
+        alt="Business logo"
+    >
 
-            <img
-                class="brand-logo"
-                src="../kayah-logo.png"
-                alt="Kayah"
-            >
-
-            <span class="brand-name">
-                Kayah
-            </span>
+    <span class="brand-name" id="businessName">
+        My Business
+    </span>
+</a>
 
         </a>
 
@@ -2044,6 +2043,45 @@ function getActorName(){
 }
 
 
+function updateBusinessBranding(data) {
+    const logoElement = document.getElementById("businessLogo");
+    const nameElement = document.getElementById("businessName");
+
+    const businessName =
+        data.businessName ||
+        data.business?.name ||
+        data.name ||
+        data.fullName ||
+        "My Business";
+
+    const businessLogo =
+        data.businessLogoUrl ||
+        data.businessLogo ||
+        data.logoUrl ||
+        data.business?.logoUrl ||
+        data.business?.logo ||
+        "";
+
+    nameElement.textContent = businessName;
+
+    if (businessLogo) {
+        logoElement.onerror = function () {
+            logoElement.onerror = null;
+            logoElement.src = "../kayah-logo.png";
+        };
+
+        logoElement.src = businessLogo;
+    } else {
+        logoElement.src = "../kayah-logo.png";
+    }
+
+    logoElement.alt = businessName + " logo";
+}
+
+
+
+
+
 /* =====================================================
    MESSAGES
 ===================================================== */
@@ -2346,42 +2384,68 @@ function updatePlanUI(data){
 }
 
 
+
+function getServiceLimit() {
+    const data = currentUserData || {};
+
+    const plan = String(data.plan || "free")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+plan$/, "");
+
+    const trialEnd = data.trialEndsAt?.toDate
+        ? data.trialEndsAt.toDate()
+        : data.trialEndsAt
+            ? new Date(data.trialEndsAt)
+            : null;
+
+    const trialIsActive =
+        data.trialActive === true &&
+        trialEnd &&
+        trialEnd.getTime() > Date.now();
+
+    if (trialIsActive) return 100;
+
+    const limits = {
+        free: 30,
+        starter: 150,
+        business: 500,
+        pro: 2000
+    };
+
+    return limits[plan] || 30;
+}
+
+
+
 /* =====================================================
    USAGE
 ===================================================== */
 
-function updateUsageUI(){
 
-    const count =
-        currentServices.length;
+function updateUsageUI() {
+    const count = currentServices.length;
+    const limit = getServiceLimit();
+    const percentage = Math.min(100, (count / limit) * 100);
 
+    serviceUsage.textContent = `${count} / ${limit}`;
 
-    serviceUsage.textContent =
-        String(count);
+    document.querySelector(".limit-value").textContent =
+        `${limit} services`;
 
+    progressBar.style.width = `${percentage}%`;
 
-    /*
-       Services do not use the
-       Product limit.
+    const limitReached =
+        count >= limit && !editingServiceId;
 
-       This progress bar is only
-       a visual indicator.
-    */
+    saveServiceButton.disabled = limitReached;
 
-    const percentage =
-        count > 0
-            ? Math.min(
-                100,
-                count * 2
-            )
-            : 0;
-
-
-    progressBar.style.width =
-        percentage + "%";
-
+    saveServiceButton.textContent = limitReached
+        ? "Service Limit Reached"
+        : editingServiceId
+            ? "Save Changes"
+            : "+ Add Service";
 }
-
 
 /* =====================================================
    LOAD SERVICES
@@ -3142,80 +3206,51 @@ async function saveService(){
         serviceDescription.value.trim();
 
 
-    /* VALIDATE NAME */
+    
+/* VALIDATE PRICE */
+if (
+    !Number.isFinite(price) ||
+    price < 0
+) {
+    showError("Please enter a valid service price.");
+    servicePrice.focus();
+    return;
+}
 
-    if(!name){
+/* CHECK SERVICE PLAN LIMIT */
+if (!editingServiceId) {
+    const limit = getServiceLimit();
 
+    if (currentServices.length >= limit) {
         showError(
-            "Please enter a service name."
+            `Your plan allows ${limit} services. Upgrade your plan to add more.`
         );
-
-        serviceName.focus();
-
         return;
-
     }
+}
 
+try {
+    saveServiceButton.disabled = true;
+    saveServiceButton.textContent = "Saving...";
 
-    /* VALIDATE PRICE */
+    let photoUrl = "";
 
-    if(
-        !Number.isFinite(price) ||
-        price < 0
-    ){
+    const selectedPhoto =
+        servicePhoto.files[0] || null;
 
-        showError(
-            "Please enter a valid service price."
-        );
+    if (selectedPhoto) {
+        saveServiceButton.textContent = "Uploading photo...";
 
-        servicePrice.focus();
-
-        return;
-
-    }
-
-
-    try{
-
-        saveServiceButton.disabled =
-            true;
-
-
-        saveServiceButton.textContent =
-            "Saving...";
-
-
-        let photoUrl =
-            "";
-
-
-        const selectedPhoto =
-            servicePhoto.files[0] ||
-            null;
-
-
-        if(
+        photoUrl = await uploadServicePhoto(
             selectedPhoto
-        ){
+        );
+    }
 
-            saveServiceButton.textContent =
-                "Uploading photo...";
+    saveServiceButton.textContent = "Saving...";
 
+    const actorName = getActorName();
 
-            photoUrl =
-                await uploadServicePhoto(
-                    selectedPhoto
-                );
-
-        }
-
-
-        saveServiceButton.textContent =
-            "Saving...";
-
-
-        const actorName =
-            getActorName();
+    
 
 
         /* =============================================
@@ -3585,6 +3620,8 @@ onAuthStateChanged(
 
             currentUserData =
                 userSnapshot.data();
+                
+                updateBusinessBranding(currentUserData);
 
 
             currentRole =
