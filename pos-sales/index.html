@@ -14,6 +14,305 @@
 
 <style>
     
+    .download-report-btn{
+    width:100%;
+    margin:0 0 16px;
+    padding:13px 18px;
+    border:0;
+    border-radius:10px;
+    background:#0b4f3a;
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.download-report-btn:active{
+    transform:scale(.98);
+}
+    
+    
+    /* COMPACT DAILY REPORT */
+
+.formal-report{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px;
+    background:#fff;
+    border:1px solid #d9e2dc;
+    border-radius:10px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.formal-report-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+}
+
+.formal-report-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.formal-report-logo,
+.formal-report-logo-placeholder{
+    width:58px;
+    height:58px;
+    flex-shrink:0;
+}
+
+.formal-report-logo-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:9px;
+    background:#0b4f3a;
+    color:#fff;
+    font-size:24px;
+    font-weight:800;
+}
+
+.formal-report-logo{
+    object-fit:contain;
+    border-radius:9px;
+}
+
+.formal-business-name{
+    font-size:19px;
+    font-weight:800;
+    color:#17382d;
+}
+
+.formal-report-title{
+    margin-top:2px;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.8px;
+    color:#0b4f3a;
+}
+
+.formal-report-date{
+    margin-top:2px;
+    font-size:12px;
+    color:#68746e;
+}
+
+.formal-report-status{
+    padding:5px 9px;
+    border-radius:14px;
+    background:#e8f5ee;
+    color:#0b6b46;
+    font-size:10px;
+    font-weight:800;
+}
+
+.formal-report-divider{
+    height:1px;
+    background:#d9e2dc;
+    margin:14px 0;
+}
+
+
+/* SUMMARY */
+
+.report-summary-card{
+    padding:12px 0;
+    margin:0;
+}
+
+.report-total-label{
+    margin-top:0 !important;
+    font-size:10px;
+    font-weight:700;
+    color:#6b746f;
+}
+
+.report-main-total{
+    margin-top:1px;
+    font-size:25px;
+    font-weight:900;
+    color:#0b4f3a;
+}
+
+.report-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:9px;
+}
+
+.report-stat{
+    padding:9px 11px;
+    border:1px solid #e0e6e2;
+    border-radius:7px;
+    background:#fafcfb;
+}
+
+.report-stat-label{
+    display:block;
+    font-size:10px;
+    color:#707a75;
+}
+
+.report-stat-value{
+    display:block;
+    margin-top:1px;
+    font-size:15px;
+    font-weight:800;
+}
+
+
+/* SECTIONS */
+
+.report-section{
+    margin-top:10px;
+    padding:11px 13px;
+    border:1px solid #e0e6e2;
+    border-radius:8px;
+    background:#fff;
+}
+
+.report-section-title{
+    margin-bottom:6px;
+    font-size:12px;
+    font-weight:800;
+    color:#17382d;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+
+.report-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:5px 0;
+    border-bottom:1px solid #edf0ee;
+    font-size:12px;
+}
+
+.report-line:last-child{
+    border-bottom:0;
+}
+
+.report-line strong{
+    font-size:12px;
+}
+
+
+/* SALES / INVOICES */
+
+.report-sale{
+    padding:7px 0;
+    border-bottom:1px solid #e5e9e6;
+}
+
+.report-sale:last-child{
+    border-bottom:0;
+}
+
+.report-sale-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.report-sale-number{
+    font-size:11px;
+    font-weight:800;
+    color:#17382d;
+}
+
+.report-sale-total{
+    font-size:12px;
+    font-weight:800;
+    color:#0b4f3a;
+}
+
+.report-sale-bottom{
+    margin-top:2px;
+    font-size:10px;
+    color:#707873;
+}
+
+
+/* REPORT INFORMATION */
+
+.report-generated{
+    font-size:11px;
+    line-height:1.45;
+    color:#4e5954;
+}
+
+.report-generated strong{
+    color:#202824;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .formal-report{
+        padding:13px;
+        border-radius:8px;
+    }
+
+    .formal-report-header{
+        align-items:flex-start;
+    }
+
+    .formal-report-brand{
+        gap:9px;
+    }
+
+    .formal-report-logo,
+    .formal-report-logo-placeholder{
+        width:48px;
+        height:48px;
+    }
+
+    .formal-report-logo-placeholder{
+        font-size:20px;
+    }
+
+    .formal-business-name{
+        font-size:16px;
+    }
+
+    .formal-report-title{
+        font-size:11px;
+    }
+
+    .formal-report-date{
+        font-size:10px;
+    }
+
+    .formal-report-status{
+        font-size:9px;
+        padding:4px 7px;
+    }
+
+    .formal-report-divider{
+        margin:10px 0;
+    }
+
+    .report-section{
+        padding:9px 10px;
+        margin-top:8px;
+    }
+
+    .report-grid{
+        gap:6px;
+        margin-top:7px;
+    }
+
+}
+    
+    
     /* =====================================================
    DAILY REPORT POPUPS
 ===================================================== */
@@ -1442,6 +1741,16 @@ body{
                 <div class="daily-report-title">
                     Daily Sales Report
                 </div>
+                
+                <button
+    type="button"
+    class="download-report-btn"
+    onclick="downloadDailyReport()"
+>
+    ↓ Download Report
+</button>
+                
+                
 
                 <div
                     id="reportViewDate"
@@ -2413,9 +2722,18 @@ function renderSales(){
         .toLowerCase();
 
 
-    const filtered =
-        sales.filter(
-            function(sale){
+    const todaySales =
+    sales.filter(
+        function(sale){
+            return isToday(
+                sale.createdAt
+            );
+        }
+    );
+
+const filtered =
+    todaySales.filter(
+        function(sale){
 
                 const transaction =
                     getTransactionNumber(
@@ -2480,9 +2798,9 @@ function renderSales(){
 
                 <div class="empty-text">
                     ${
-                        sales.length
-                            ? "Try another search."
-                            : "Sales will appear here after checkout."
+                        todaySales.length
+    ? "Try another search."
+    : "There are no sales recorded today."
                     }
                 </div>
 
@@ -3592,7 +3910,7 @@ window.generateDailySalesReport =
                     db,
                     "users",
                     currentBusinessId,
-                    "dailySalesReports",
+                    "dailyReports",
                     dateString
                 );
 
@@ -3893,17 +4211,61 @@ function renderDailyReportView(report){
 
     content.innerHTML = `
 
-        <div class="report-summary-card">
+    <div class="formal-report">
 
-            <div class="report-business">
-                ${escapeHTML(
-                    getBusinessName()
-                )}
+        <div class="formal-report-header">
+
+            <div class="formal-report-brand">
+
+                ${
+                    getBusinessLogo()
+                        ? `
+                            <img
+                                src="${escapeHTML(getBusinessLogo())}"
+                                class="formal-report-logo"
+                                alt="Business Logo"
+                            >
+                        `
+                        : `
+                            <div class="formal-report-logo-placeholder">
+                                ${escapeHTML(
+                                    getBusinessName()
+                                        .charAt(0)
+                                        .toUpperCase()
+                                )}
+                            </div>
+                        `
+                }
+
+                <div class="formal-report-business">
+
+                    <div class="formal-business-name">
+                        ${escapeHTML(
+                            getBusinessName()
+                        )}
+                    </div>
+
+                    <div class="formal-report-title">
+                        DAILY SALES REPORT
+                    </div>
+
+                    <div class="formal-report-date">
+                        ${formatReportDate(reportDate)}
+                    </div>
+
+                </div>
+
             </div>
 
-            <span class="report-finalized">
+            <div class="formal-report-status">
                 ✓ FINALIZED
-            </span>
+            </div>
+
+        </div>
+
+        <div class="formal-report-divider"></div>
+
+        <div class="report-summary-card">
 
             <div class="report-total-label"
                  style="margin-top:14px;">
@@ -3948,8 +4310,9 @@ function renderDailyReportView(report){
 
             </div>
 
-        </div>
+                </div>
 
+        </div>
 
         <div class="report-section">
 
@@ -4022,6 +4385,22 @@ function renderDailyReportView(report){
 
         </div>
 
+ <div class="report-section">
+
+            <div class="report-section-title">
+                Included Sales
+            </div>
+
+            ${
+                renderReportSales(
+                    report
+                )
+            }
+
+        </div>
+
+
+
 
         <div class="report-section">
 
@@ -4070,19 +4449,7 @@ function renderDailyReportView(report){
         </div>
 
 
-        <div class="report-section">
-
-            <div class="report-section-title">
-                Included Sales
-            </div>
-
-            ${
-                renderReportSales(
-                    report
-                )
-            }
-
-        </div>
+       
 
     `;
 
@@ -4259,6 +4626,241 @@ window.closeDailyReportViewFromOverlay =
         }
 
     };
+
+
+window.downloadDailyReport = function(){
+
+    const reportContent =
+        document.getElementById(
+            "dailyReportViewContent"
+        );
+
+    if(!reportContent){
+        alert("Report is not available.");
+        return;
+    }
+
+    const reportWindow =
+        window.open("", "_blank");
+
+    if(!reportWindow){
+        alert("Please allow pop-ups to download the report.");
+        return;
+    }
+
+    reportWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+
+            <title>Daily Sales Report</title>
+
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            >
+
+            <style>
+
+                body{
+                    margin:0;
+                    padding:30px;
+                    background:#fff;
+                    font-family:Arial,sans-serif;
+                    color:#222;
+                }
+
+                .download-report-btn{
+                    display:none !important;
+                }
+
+                .formal-report{
+                    max-width:900px;
+                    margin:auto;
+                    background:#fff;
+                    border:1px solid #d9e2dc;
+                    padding:28px;
+                }
+
+                .formal-report-header{
+                    display:flex;
+                    align-items:flex-start;
+                    justify-content:space-between;
+                    gap:20px;
+                }
+
+                .formal-report-brand{
+                    display:flex;
+                    align-items:center;
+                    gap:16px;
+                }
+
+                .formal-report-logo{
+                    width:72px;
+                    height:72px;
+                    object-fit:contain;
+                }
+
+                .formal-report-logo-placeholder{
+                    width:72px;
+                    height:72px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#0b4f3a;
+                    color:#fff;
+                    font-size:30px;
+                    font-weight:800;
+                }
+
+                .formal-business-name{
+                    font-size:22px;
+                    font-weight:800;
+                }
+
+                .formal-report-title{
+                    margin-top:4px;
+                    font-size:16px;
+                    font-weight:800;
+                    color:#0b4f3a;
+                }
+
+                .formal-report-date{
+                    margin-top:5px;
+                    font-size:14px;
+                    color:#66736d;
+                }
+
+                .formal-report-status{
+                    padding:7px 12px;
+                    border-radius:20px;
+                    background:#e8f5ee;
+                    color:#0b6b46;
+                    font-size:12px;
+                    font-weight:800;
+                }
+
+                .formal-report-divider{
+                    height:1px;
+                    background:#d9e2dc;
+                    margin:24px 0;
+                }
+
+                .report-section{
+                    margin-top:20px;
+                    border:1px solid #ddd;
+                    border-radius:8px;
+                    padding:16px;
+                }
+
+                .report-section-title{
+                    font-size:15px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                }
+
+                .report-line{
+                    display:flex;
+                    justify-content:space-between;
+                    padding:9px 0;
+                    border-bottom:1px solid #eee;
+                }
+
+                .report-line:last-child{
+                    border-bottom:0;
+                }
+
+                .report-grid{
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:12px;
+                    margin-top:16px;
+                }
+
+                .report-stat{
+                    border:1px solid #ddd;
+                    padding:14px;
+                    border-radius:8px;
+                }
+
+                .report-stat-label{
+                    display:block;
+                    font-size:12px;
+                    color:#666;
+                }
+
+                .report-stat-value{
+                    display:block;
+                    margin-top:4px;
+                    font-size:18px;
+                    font-weight:800;
+                }
+
+                .report-main-total{
+                    font-size:30px;
+                    font-weight:900;
+                    margin-top:5px;
+                }
+
+                .report-total-label{
+                    font-size:12px;
+                    font-weight:700;
+                    color:#666;
+                }
+
+                .report-sale{
+                    border-bottom:1px solid #ddd;
+                    padding:12px 0;
+                }
+
+                .report-sale-top{
+                    display:flex;
+                    justify-content:space-between;
+                    font-weight:700;
+                }
+
+                .report-sale-bottom{
+                    margin-top:5px;
+                    font-size:12px;
+                    color:#666;
+                }
+
+                .report-generated{
+                    font-size:13px;
+                    line-height:1.7;
+                }
+
+                @media print{
+                    body{
+                        padding:0;
+                    }
+
+                    .formal-report{
+                        border:0;
+                    }
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${reportContent.innerHTML}
+
+            <script>
+                window.onload = function(){
+                    window.print();
+                };
+            <\/script>
+
+        </body>
+        </html>
+    `);
+
+    reportWindow.document.close();
+
+};
 
 
 
