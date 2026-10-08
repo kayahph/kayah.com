@@ -640,34 +640,18 @@ function formatPermission(
     permission
 ){
 
-    const names = {
     
-    pos:
-    "POS",
-    
-
-        products:
-            "Products",
-
-        inventory:
-            "Inventory",
-
-        sales:
-            "Sales",
-
-        expenses:
-            "Expenses",
-
-        customers:
-            "Customers",
-
-        reports:
-            "Reports",
-
-        materials:
-            "Materials"
-
-    };
+const names = {
+    pos: "POS",
+    products: "Products",
+    inventory: "Inventory",
+    sales: "Sales",
+    expenses: "Expenses",
+    customers: "Customers",
+    reports: "Reports",
+    materials: "Materials",
+    services: "Services"
+};
 
     return (
         names[permission] ||
