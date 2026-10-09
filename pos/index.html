@@ -2062,6 +2062,54 @@ a{
         </div>
   
   
+  
+<!-- OPTIONAL CUSTOMER DETAILS -->
+
+<div class="customer-details-section"
+     style="margin-top:18px;">
+
+    <label for="customerName" class="payment-label">
+        Customer Name (Optional)
+    </label>
+
+    <input
+        type="text"
+        id="customerName"
+        class="payment-input"
+        placeholder="Enter customer name & Number "
+        autocomplete="off"
+    >
+
+    <label
+        for="transactionDetails"
+        class="payment-label"
+        style="display:block; margin-top:12px;"
+    >
+        Transaction Details (Optional)
+    </label>
+
+    <textarea
+        id="transactionDetails"
+        rows="3"
+        placeholder="Enter transaction details, service description, delivery information or notes..."
+        style="
+            width:100%;
+            box-sizing:border-box;
+            resize:vertical;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            font-size:14px;
+            outline:none;
+            margin-top:6px;
+        "
+    ></textarea>
+
+</div>
+  
+  
+  
+  
   <!-- TRANSACTION TYPE -->
 
 <span class="payment-label">
@@ -2849,6 +2897,38 @@ async function loadProducts(){
 
             }
         );
+        
+        
+      
+        // LOAD SERVICES SEPARATELY
+        try {
+            const servicesRef = collection(
+                db,
+                "users",
+                currentBusinessId,
+                "services"
+            );
+
+            const servicesSnapshot = await getDocs(servicesRef);
+
+            servicesSnapshot.forEach(function(serviceDoc) {
+                const service = serviceDoc.data();
+
+                allProducts.push({
+                    id: serviceDoc.id,
+                    ...service,
+                    itemType: "service"
+                });
+            });
+
+        } catch (serviceError) {
+            console.warn(
+                "Services could not be loaded:",
+                serviceError
+            );
+        }
+        
+        
 
         allProducts.sort(
             function(a,b){
@@ -2914,30 +2994,11 @@ function buildCategories(){
     const categories =
         new Set();
 
-    allProducts.forEach(
-        function(product){
+    allProducts.forEach( function(product){ if(product.itemType === "service"){ return; } categories.add( getProductCategory( product ) ); } ); 
 
-            categories.add(
-                getProductCategory(
-                    product
-                )
-            );
-
-        }
-    );
-
-    categoryList.innerHTML = `
-
-        <button
-            type="button"
-            class="category-btn active"
-            data-category="all"
-        >
-            All
-        </button>
-
-    `;
-
+    categoryList.innerHTML = ` <button type="button" class="category-btn active" data-category="all" > All </button> <button type="button" class="category-btn" data-category="__services__" > 🛠️ Services </button> `; 
+ 
+ 
     Array.from(categories)
         .sort()
         .forEach(
@@ -3036,58 +3097,8 @@ document
     );
 
 
-/* =====================================================
-   APPLY FILTERS
-===================================================== */
+/* ===================================================== APPLY FILTERS ===================================================== */ function applyFilters(){ const search = document.getElementById( "searchInput" ).value.trim().toLowerCase(); filteredProducts = allProducts.filter(function(product){ const name = getProductName(product).toLowerCase(); const category = getProductCategory(product).toLowerCase(); const matchesSearch = !search || name.includes(search) || category.includes(search); let matchesCategory; if(activeCategory === "all"){ matchesCategory = true; }else if(activeCategory === "__services__"){ matchesCategory = product.itemType === "service"; }else{ matchesCategory = product.itemType !== "service" && getProductCategory(product) === activeCategory; } return matchesSearch && matchesCategory; }); renderProducts(); } 
 
-function applyFilters(){
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-    filteredProducts =
-        allProducts.filter(
-            function(product){
-
-                const name =
-                    getProductName(
-                        product
-                    )
-                    .toLowerCase();
-
-                const category =
-                    getProductCategory(
-                        product
-                    )
-                    .toLowerCase();
-
-                const matchesSearch =
-                    !search ||
-                    name.includes(search) ||
-                    category.includes(search);
-
-                const matchesCategory =
-                    activeCategory === "all" ||
-                    getProductCategory(
-                        product
-                    ) === activeCategory;
-
-                return (
-                    matchesSearch &&
-                    matchesCategory
-                );
-
-            }
-        );
-
-    renderProducts();
-
-}
 
 
 /* =====================================================
@@ -3432,8 +3443,9 @@ window.addToCart = function(
             stockTracked:
                 stockTracked,
 
-            stock:
-                stock
+            stock: stock,
+
+itemType: product.itemType || "product"
 
         });
 
@@ -3447,6 +3459,36 @@ window.addToCart = function(
     );
 
 };
+
+
+
+/* =====================================================
+   CHANGE SERVICE PRICE
+===================================================== */
+
+window.changeServicePrice = function(productId, newPrice){
+
+    const item = cart.find(function(cartItem){
+        return cartItem.id === productId;
+    });
+
+    if(!item || item.itemType !== "service"){
+        return;
+    }
+
+    const price = Number(newPrice);
+
+    if(!Number.isFinite(price) || price < 0){
+        showMessage("Please enter a valid service amount.");
+        renderCart();
+        return;
+    }
+
+    item.price = Math.round(price * 100) / 100;
+
+    renderCart();
+};
+
 
 
 /* =====================================================
@@ -3627,9 +3669,28 @@ function renderCart(){
                                     ${escapeHtml(item.name)}
                                 </div>
 
-                                <div class="cart-item-price">
-                                    ${money(item.price)} each
-                                </div>
+                                
+<div class="cart-item-price">
+
+    ${
+        item.itemType === "service"
+            ? `
+                <label>
+                    Service amount (₱)
+                    <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="${item.price}"
+                        onchange="changeServicePrice('${escapeHtml(item.id)}', this.value)"
+                        style="width:100px; padding:6px; margin-top:4px;"
+                    >
+                </label>
+            `
+            : `${money(item.price)} each`
+    }
+
+</div>
 
                             </div>
 
@@ -4237,10 +4298,17 @@ window.confirmPayment = async function(){
        PAYMENT DETAILS
     ===================================================== */
 
-    let cashReceived = 0;
-    let change = 0;
-    let creditNote = "";
-    let qrMethod = "";
+   
+let cashReceived = 0;
+let change = 0;
+let creditNote = "";
+let qrMethod = "";
+
+const customerName =
+    (document.getElementById("customerName")?.value || "").trim();
+
+const transactionDetails =
+    (document.getElementById("transactionDetails")?.value || "").trim();
 
 
     /* =====================================================
@@ -4390,6 +4458,10 @@ window.confirmPayment = async function(){
             Number(total),
 
 transactionType: selectedTransactionType,
+
+
+customerName: customerName,
+transactionDetails: transactionDetails,
 
         paymentMethod:
             selectedPaymentMethod,
