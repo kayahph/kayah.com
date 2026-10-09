@@ -3302,34 +3302,15 @@ window.openInvoice =
                         </div>
 
 
-                        <div class="info-box">
-
-                            <span class="info-label">
-                                Cashier
-                            </span>
-
-                            <span class="info-value">
-                                ${escapeHTML(
-                                    cashier
-                                )}
-                            </span>
-
-                        </div>
-
-
-                        <div class="info-box">
-
-                            <span class="info-label">
-                                Account Role
-                            </span>
-
-                            <span class="info-value">
-                                ${escapeHTML(
-                                    role
-                                )}
-                            </span>
-
-                        </div>
+<div class="info-box">
+    <span class="info-label">Customer Name</span>
+    <span class="info-value">
+        ${escapeHTML(sale.customerName || "Walk-in Customer")}
+    </span>
+</div>
+                        
+                        
+                        
 
 
                         <div class="info-box">
@@ -3446,15 +3427,14 @@ window.openInvoice =
                     </div>
 
 
-                    <div class="invoice-footer">
-
-                        Thank you for your business.
-
-                        <br>
-
-                        Powered by Kayah — Business, Made Possible.
-
-                    </div>
+                    
+<div class="invoice-footer">
+    Thank you for your business.
+    <br>
+    Served by: ${escapeHTML(cashier)}
+    <br>
+    Powered by Kayah — Business, Made Possible.
+</div>
 
                 </div>
 
