@@ -471,22 +471,22 @@ a{
    PRODUCT LIST
 ===================================================== */
 
-.products-grid{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 7px;
 
-    /* Show about 4 products */
-    max-height:260px;
+    /* Show about 5 rows of products */
+    max-height: 260px;
 
     /* Allow vertical swipe */
-    overflow-y:auto;
+    overflow-y: auto;
 
     /* Hide scrollbar */
-    scrollbar-width:none;
-    -webkit-overflow-scrolling:touch;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 
-    padding-right:2px;
+    padding-right: 2px;
 }
 
 .products-grid::-webkit-scrollbar{
