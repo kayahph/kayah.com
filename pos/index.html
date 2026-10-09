@@ -2334,6 +2334,60 @@ a{
 
 
 
+<!-- PAYMENT PROCESSING OVERLAY -->
+<div id="paymentProcessingOverlay"
+     style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:99999;
+        background:rgba(0,0,0,0.55);
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        box-sizing:border-box;
+     ">
+
+    <div style="
+        background:white;
+        border-radius:18px;
+        padding:30px 24px;
+        text-align:center;
+        width:100%;
+        max-width:320px;
+        box-shadow:0 12px 40px rgba(0,0,0,0.2);
+    ">
+
+        <div id="paymentProcessingSpinner"
+             style="
+                width:42px;
+                height:42px;
+                border:4px solid #dce8e2;
+                border-top-color:#16805C;
+                border-radius:50%;
+                margin:0 auto 18px;
+                animation:kayahPaymentSpin 0.8s linear infinite;
+             ">
+        </div>
+
+        <div id="paymentProcessingTitle"
+             style="font-size:19px;font-weight:700;color:#0B4F3A;">
+            Processing transaction
+        </div>
+
+        <div id="paymentProcessingText"
+             style="font-size:14px;color:#666;margin-top:8px;">
+            Please wait while we save your sale.
+        </div>
+
+    </div>
+</div>
+
+<style>
+@keyframes kayahPaymentSpin {
+    to { transform: rotate(360deg); }
+}
+</style>
 
 
 
@@ -3810,6 +3864,11 @@ function updatePaymentTotal(){
 
     const total =
         getCartTotal();
+        
+        
+        
+        
+        
 
     document.getElementById(
         "paymentTotal"
@@ -4262,6 +4321,20 @@ window.confirmPayment = async function(){
 
     const total =
         getCartTotal();
+        
+        
+      
+const confirmButton = document.getElementById("confirmPaymentButton");
+const processingOverlay = document.getElementById("paymentProcessingOverlay");
+
+if (window.paymentIsProcessing) {
+    return;
+} 
+        
+        
+        
+        
+        
 
     if(!total){
 
@@ -4502,9 +4575,21 @@ transactionDetails: transactionDetails,
        SAVE TO FIREBASE
     ===================================================== */
 
-    try{
+    
+try {
 
-        const salesRef =
+    window.paymentIsProcessing = true;
+
+    if (confirmButton) {
+        confirmButton.disabled = true;
+        confirmButton.textContent = "Processing...";
+    }
+
+    if (processingOverlay) {
+        processingOverlay.style.display = "flex";
+    }
+
+    const salesRef =
             collection(
                 db,
                 "users",
@@ -4795,22 +4880,34 @@ for(const item of cart){
         );
 
 
-    }catch(error){
+    
+    } catch(error) {
 
         console.error(
             "Error saving sale:",
             error
         );
 
-
         showMessage(
             "Unable to save the sale. Please try again."
         );
 
+    } finally {
+
+        window.paymentIsProcessing = false;
+
+        if (processingOverlay) {
+            processingOverlay.style.display = "none";
+        }
+
+        if (confirmButton) {
+            confirmButton.disabled = false;
+            confirmButton.textContent = "Confirm Payment";
+        }
+
     }
 
 };
-
 
 window.closePaymentPopup = function(){
     const overlay = document.getElementById("paymentOverlay");
