@@ -1627,6 +1627,56 @@ a{
 
 
 
+/* OPTIONAL CUSTOMER DETAILS */
+
+.customer-details-box {
+    margin: 16px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.customer-details-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.customer-details-title span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #64748b;
+}
+
+.customer-field {
+    margin-top: 12px;
+}
+
+.customer-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.customer-field input,
+.customer-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.customer-field textarea {
+    min-height: 75px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+
+
+
 
 
 </style>
@@ -2060,6 +2110,42 @@ a{
             </div>
 
         </div>
+  
+  
+  
+<!-- OPTIONAL CUSTOMER DETAILS -->
+
+<div class="customer-details-box">
+    <div class="customer-details-title">
+        Customer Details
+        <span>(Optional)</span>
+    </div>
+
+    <div class="customer-field">
+        <label for="customerName">Customer Name</label>
+        <input
+            type="text"
+            id="customerName"
+            class="payment-input"
+            placeholder="Enter customer name"
+            maxlength="100"
+        >
+    </div>
+
+    <div class="customer-field">
+        <label for="saleDescription">Description / Notes</label>
+        <textarea
+            id="saleDescription"
+            class="payment-input"
+            rows="3"
+            placeholder="Service details or notes (optional)"
+            maxlength="500"
+        ></textarea>
+    </div>
+</div>
+  
+  
+  
   
   
   <!-- TRANSACTION TYPE -->
@@ -2809,97 +2895,84 @@ function tracksStock(
 }
 
 
+
 /* =====================================================
-   LOAD PRODUCTS
+   LOAD PRODUCTS AND SERVICES
 ===================================================== */
 
-async function loadProducts(){
+async function loadProducts() {
+    try {
+        const productsRef = collection(
+            db,
+            "users",
+            currentBusinessId,
+            "products"
+        );
 
-    try{
+        const servicesRef = collection(
+            db,
+            "users",
+            currentBusinessId,
+            "services"
+        );
 
-        const productsRef =
-            collection(
-                db,
-                "users",
-                currentBusinessId,
-                "products"
-            );
-
-        const snapshot =
-            await getDocs(
-                productsRef
-            );
+        const [productsSnapshot, servicesSnapshot] =
+            await Promise.all([
+                getDocs(productsRef),
+                getDocs(servicesRef)
+            ]);
 
         allProducts = [];
 
-        snapshot.forEach(
-            function(productDoc){
+        productsSnapshot.forEach(function(productDoc) {
+            const product = productDoc.data();
 
-                const product =
-                    productDoc.data();
+            allProducts.push({
+                id: productDoc.id,
+                ...product,
+                itemType: "product"
+            });
+        });
 
-                allProducts.push({
+        servicesSnapshot.forEach(function(serviceDoc) {
+            const service = serviceDoc.data();
 
-                    id:
-                        productDoc.id,
+            allProducts.push({
+                id: serviceDoc.id,
+                ...service,
+                itemType: "service"
+            });
+        });
 
-                    ...product
-
-                });
-
-            }
-        );
-
-        allProducts.sort(
-            function(a,b){
-
-                return getProductName(a)
-                    .localeCompare(
-                        getProductName(b)
-                    );
-
-            }
-        );
+        allProducts.sort(function(a, b) {
+            return getProductName(a).localeCompare(
+                getProductName(b)
+            );
+        });
 
         buildCategories();
-
         applyFilters();
 
-    }catch(error){
-
+    } catch (error) {
         console.error(
-            "Load products error:",
+            "Load products and services error:",
             error
         );
 
-        document.getElementById(
-            "productsGrid"
-        ).innerHTML = `
-
+        document.getElementById("productsGrid").innerHTML = `
             <div class="empty-box">
-
-                <div class="empty-icon">
-                    ⚠️
-                </div>
-
+                <div class="empty-icon">⚠️</div>
                 <div class="empty-title">
-                    Unable to load products
+                    Unable to load products and services
                 </div>
-
                 <div class="empty-text">
                     Please check your internet connection
                     and Firebase permissions.
                 </div>
-
             </div>
-
         `;
-
     }
-
 }
-
-
 /* =====================================================
    BUILD CATEGORIES
 ===================================================== */
@@ -3036,208 +3109,128 @@ document
     );
 
 
+
 /* =====================================================
-   APPLY FILTERS
+   APPLY FILTERS — PRODUCTS AND SERVICES
 ===================================================== */
 
-function applyFilters(){
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
+function applyFilters() {
+    const search = document
+        .getElementById("searchInput")
         .value
         .trim()
         .toLowerCase();
 
-    filteredProducts =
-        allProducts.filter(
-            function(product){
+    filteredProducts = allProducts.filter(function(product) {
+        const name = getProductName(product).toLowerCase();
 
-                const name =
-                    getProductName(
-                        product
-                    )
-                    .toLowerCase();
+        const category = getProductCategory(product).toLowerCase();
 
-                const category =
-                    getProductCategory(
-                        product
-                    )
-                    .toLowerCase();
+        const itemType = product.itemType === "service"
+            ? "service"
+            : "product";
 
-                const matchesSearch =
-                    !search ||
-                    name.includes(search) ||
-                    category.includes(search);
+        const matchesSearch =
+            !search ||
+            name.includes(search) ||
+            category.includes(search);
 
-                const matchesCategory =
-                    activeCategory === "all" ||
-                    getProductCategory(
-                        product
-                    ) === activeCategory;
+        const matchesCategory =
+            activeCategory === "all" ||
+            getProductCategory(product) === activeCategory;
 
-                return (
-                    matchesSearch &&
-                    matchesCategory
-                );
+        const matchesItemType =
+            activeItemType === "all" ||
+            activeItemType === itemType;
 
-            }
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesItemType
         );
+    });
 
     renderProducts();
-
 }
 
 
 /* =====================================================
-   RENDER PRODUCTS
+   RENDER PRODUCTS AND SERVICES
 ===================================================== */
 
-function renderProducts(){
+function renderProducts() {
+    const grid = document.getElementById("productsGrid");
+    const count = document.getElementById("productsCount");
 
-    const grid =
-        document.getElementById(
-            "productsGrid"
-        );
+    const total = filteredProducts.length;
 
-    document.getElementById(
-        "productsCount"
-    ).textContent =
-        filteredProducts.length +
-        (
-            filteredProducts.length === 1
-                ? " product"
-                : " products"
-        );
+    count.textContent =
+        total + (total === 1 ? " item" : " items");
 
-    if(!filteredProducts.length){
-
+    if (!total) {
         grid.innerHTML = `
-
             <div class="empty-box">
-
-                <div class="empty-icon">
-                    🔎
-                </div>
-
+                <div class="empty-icon">🔎</div>
                 <div class="empty-title">
-                    No products found
+                    No products or services found
                 </div>
-
                 <div class="empty-text">
                     Try another search or category.
                 </div>
-
             </div>
-
         `;
-
         return;
-
     }
 
-    grid.innerHTML =
-        filteredProducts
-            .map(
-                function(product){
-
-                    return productCard(
-                        product
-                    );
-
-                }
-            )
-            .join("");
-
+    grid.innerHTML = filteredProducts.map(function(item) {
+        return productCard(item);
+    }).join("");
 }
 
-
 /* =====================================================
-   PRODUCT CARD
+   PRODUCT AND SERVICE CARD
 ===================================================== */
 
-function productCard(
-    product
-){
+function productCard(product) {
+    const name = getProductName(product);
+    const category = getProductCategory(product);
+    const image = getProductImage(product);
 
-    const name =
-        getProductName(
-            product
-        );
+    const isService = product.itemType === "service";
 
-    const price =
-        getProductPrice(
-            product
-        );
+    const hasPrice =
+        product.price !== null &&
+        product.price !== undefined &&
+        product.price !== "" &&
+        Number.isFinite(Number(product.price)) &&
+        Number(product.price) >= 0;
 
-    const category =
-        getProductCategory(
-            product
-        );
+    const price = getProductPrice(product);
 
-    const image =
-        getProductImage(
-            product
-        );
+    const stock = getProductStock(product);
+    const stockTracked = !isService && tracksStock(product);
 
-    const stock =
-        getProductStock(
-            product
-        );
+    let stockText = isService ? "Service" : "Stock not tracked";
+    let stockClass = "";
+    let disabled = false;
 
-    const stockTracked =
-        tracksStock(
-            product
-        );
-
-    let stockText =
-        "Stock not tracked";
-
-    let stockClass =
-        "";
-
-    let disabled =
-        false;
-
-    if(stockTracked){
-
-        if(stock <= 0){
-
-            stockText =
-                "Out of stock";
-
-            stockClass =
-                "out";
-
-            disabled =
-                true;
-
-        }else if(stock <= 5){
-
-            stockText =
-                stock +
-                " left";
-
-            stockClass =
-                "low";
-
-        }else{
-
-            stockText =
-                stock +
-                " in stock";
-
+    if (stockTracked) {
+        if (stock <= 0) {
+            stockText = "Out of stock";
+            stockClass = "out";
+            disabled = true;
+        } else if (stock <= 5) {
+            stockText = stock + " left";
+            stockClass = "low";
+        } else {
+            stockText = stock + " in stock";
         }
-
     }
 
     let photoHtml = "";
 
-    if(image){
-
+    if (image) {
         photoHtml = `
-
             <img
                 src="${escapeHtml(image)}"
                 alt="${escapeHtml(name)}"
@@ -3246,209 +3239,163 @@ function productCard(
                     this.nextElementSibling.style.display='flex';
                 "
             >
-
             <div
                 class="product-photo-placeholder"
                 style="display:none;"
-            >
-                🛍️
-            </div>
-
+            >${isService ? "🛠️" : "🛍️"}</div>
         `;
-
-    }else{
-
+    } else {
         photoHtml = `
-
-            <div
-                class="product-photo-placeholder"
-            >
-                🛍️
+            <div class="product-photo-placeholder">
+                ${isService ? "🛠️" : "🛍️"}
             </div>
-
         `;
-
     }
 
+    const priceHtml = isService && !hasPrice
+        ? "Price set at checkout"
+        : money(price);
+
     return `
-
-    <div class="product-card">
-
-        <div class="product-photo">
-
-            ${photoHtml}
-
-        </div>
-
-
-        <div class="product-content">
-
-            <div class="product-name">
-                ${escapeHtml(name)}
+        <div class="product-card">
+            <div class="product-photo">
+                ${photoHtml}
             </div>
 
-
-            <div class="product-category">
-                ${escapeHtml(category)}
-            </div>
-
-
-            <div class="product-bottom">
-
-                <div class="product-price">
-                    ${money(price)}
+            <div class="product-content">
+                <div class="product-name">
+                    ${escapeHtml(name)}
                 </div>
 
-                <div
-                    class="product-stock ${stockClass}"
-                >
-                    ${escapeHtml(stockText)}
+                <div class="product-category">
+                    ${escapeHtml(category || (isService ? "Service" : "Product"))}
                 </div>
 
+                <div class="product-bottom">
+                    <div class="product-price">
+                        ${priceHtml}
+                    </div>
+
+                    <div class="product-stock ${stockClass}">
+                        ${escapeHtml(stockText)}
+                    </div>
+                </div>
             </div>
 
+            <button
+                type="button"
+                class="add-btn"
+                onclick="addToCart('${escapeHtml(product.id)}')"
+                ${disabled ? "disabled" : ""}
+            >
+                ${disabled ? "Out" : "+ Add"}
+            </button>
         </div>
-
-
-        <button
-            type="button"
-            class="add-btn"
-            onclick="addToCart('${escapeHtml(product.id)}')"
-            ${disabled ? "disabled" : ""}
-        >
-
-            ${
-                disabled
-                    ? "Out"
-                    : "+ Add"
-            }
-
-        </button>
-
-    </div>
-
-`;
-
-           
-
+    `;
 }
 
 
+
+
 /* =====================================================
-   ADD TO CART
+   ADD PRODUCTS AND SERVICES TO CART
 ===================================================== */
 
-window.addToCart = function(
-    productId
-){
+window.addToCart = function(productId) {
+    const product = allProducts.find(function(item) {
+        return item.id === productId;
+    });
 
-    const product =
-        allProducts.find(
-            function(item){
-
-                return item.id === productId;
-
-            }
-        );
-
-    if(!product){
+    if (!product) {
         return;
     }
 
-    const stockTracked =
-        tracksStock(
-            product
-        );
+    const isService = product.itemType === "service";
 
-    const stock =
-        getProductStock(
-            product
-        );
+    const stockTracked = !isService && tracksStock(product);
+    const stock = getProductStock(product);
 
-    const existing =
-        cart.find(
-            function(item){
+    const existing = cart.find(function(item) {
+        return item.id === productId;
+    });
 
-                return item.id === productId;
-
-            }
-        );
-
-    if(
-        stockTracked &&
-        stock <= 0
-    ){
-
-        showMessage(
-            "This product is out of stock."
-        );
-
+    if (stockTracked && stock <= 0) {
+        showMessage("This product is out of stock.");
         return;
-
     }
 
-    if(existing){
+    /*
+       SERVICES WITHOUT A DEFAULT PRICE
+       Ask for a price for this transaction only.
+    */
 
-        if(
-            stockTracked &&
-            existing.quantity >= stock
-        ){
+    let transactionPrice;
 
+    if (isService) {
+        const hasDefaultPrice =
+            product.price !== null &&
+            product.price !== undefined &&
+            product.price !== "" &&
+            Number.isFinite(Number(product.price)) &&
+            Number(product.price) >= 0;
+
+        if (!existing && !hasDefaultPrice) {
+            const enteredPrice = prompt(
+                "Enter the price for " +
+                getProductName(product) +
+                " for this sale:"
+            );
+
+            if (
+                enteredPrice === null ||
+                enteredPrice.trim() === "" ||
+                !Number.isFinite(Number(enteredPrice)) ||
+                Number(enteredPrice) < 0
+            ) {
+                showMessage(
+                    "Please enter a valid service price."
+                );
+                return;
+            }
+
+            transactionPrice = Number(enteredPrice);
+        } else if (existing) {
+            transactionPrice = existing.price;
+        } else {
+            transactionPrice = Number(product.price);
+        }
+    } else {
+        transactionPrice = getProductPrice(product);
+    }
+
+    if (existing) {
+        if (stockTracked && existing.quantity >= stock) {
             showMessage(
                 "You cannot add more than the available stock."
             );
-
             return;
-
         }
 
         existing.quantity++;
-
-    }else{
-
+    } else {
         cart.push({
-
-            id:
-                productId,
-
-            name:
-                getProductName(
-                    product
-                ),
-
-            price:
-                getProductPrice(
-                    product
-                ),
-
-            image:
-                getProductImage(
-                    product
-                ),
-
-            quantity:
-                1,
-
-            stockTracked:
-                stockTracked,
-
-            stock:
-                stock
-
+            id: productId,
+            name: getProductName(product),
+            price: transactionPrice,
+            image: getProductImage(product),
+            quantity: 1,
+            stockTracked: stockTracked,
+            stock: stock,
+            itemType: isService ? "service" : "product"
         });
-
     }
 
     renderCart();
 
     showMessage(
-        getProductName(product) +
-        " added to cart."
+        getProductName(product) + " added to cart."
     );
-
 };
-
-
 /* =====================================================
    CHANGE QUANTITY
 ===================================================== */
@@ -3624,8 +3571,12 @@ function renderCart(){
                             <div class="cart-item-info">
 
                                 <div class="cart-item-name">
-                                    ${escapeHtml(item.name)}
-                                </div>
+    ${escapeHtml(item.name)}
+</div>
+
+<div class="cart-item-type">
+    ${item.itemType === "service" ? "🛠️ Service" : "📦 Product"}
+</div>
 
                                 <div class="cart-item-price">
                                     ${money(item.price)} each
@@ -3749,6 +3700,14 @@ function updatePaymentTotal(){
 
     const total =
         getCartTotal();
+        
+        
+        const customerName =
+    (document.getElementById("customerName")?.value || "").trim();
+
+const saleDescription =
+    (document.getElementById("saleDescription")?.value || "").trim();
+        
 
     document.getElementById(
         "paymentTotal"
@@ -4346,30 +4305,15 @@ window.confirmPayment = async function(){
                     Number(item.quantity) || 0;
 
                 return {
-
-                    productId:
-                        item.id,
-
-                    name:
-                        item.name,
-
-                    price:
-                        price,
-
-                    quantity:
-                        quantity,
-
-                    subtotal:
-                        price * quantity,
-
-                    image:
-                        item.image || "",
-
-                    stockTracked:
-                        !!item.stockTracked
-
-                };
-
+    productId: item.id,
+    itemType: item.itemType === "service" ? "service" : "product",
+    name: item.name,
+    price: price,
+    quantity: quantity,
+    subtotal: price * quantity,
+    image: item.image || "",
+    stockTracked: !!item.stockTracked
+};
             }
         );
 
@@ -4382,6 +4326,9 @@ window.confirmPayment = async function(){
 
         businessId:
             currentBusinessId,
+
+customerName: customerName,
+description: saleDescription,
 
         items:
             saleItems,
@@ -4456,6 +4403,13 @@ for(const item of cart){
 
     const soldQuantity =
         Number(item.quantity) || 0;
+        
+        
+            // Services do not deduct product or material inventory.
+    if(item.itemType === "service"){
+        continue;
+    }
+        
 
     if(soldQuantity <= 0){
         continue;
@@ -4672,6 +4626,12 @@ for(const item of cart){
         }
 
 
+
+
+
+
+
+
         const creditSection =
             document.getElementById(
                 "creditNoteSection"
@@ -4683,6 +4643,22 @@ for(const item of cart){
                 "none";
 
         }
+
+
+const customerNameInput =
+    document.getElementById("customerName");
+
+if(customerNameInput){
+    customerNameInput.value = "";
+}
+
+const descriptionInput =
+    document.getElementById("saleDescription");
+
+if(descriptionInput){
+    descriptionInput.value = "";
+}
+
 
 
         document
