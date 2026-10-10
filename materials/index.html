@@ -1,3779 +1,1386 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>Materials - Kayah</title>
-
-<style>
-
-/* =====================================================
-   MATERIAL INVENTORY
-===================================================== */
-
-.inventory-history-item{
-    background:white;
-    border:1px solid #e4e9e6;
-    border-radius:14px;
-    padding:13px;
-    margin-bottom:10px;
-}
-
-.inventory-history-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-}
-
-.inventory-history-type{
-    font-size:13px;
-    font-weight:700;
-    color:#0b4f3a;
-}
-
-.inventory-history-quantity{
-    font-size:15px;
-    font-weight:700;
-    color:#16805c;
-}
-
-.inventory-history-date{
-    margin-top:5px;
-    font-size:11px;
-    color:#7a857f;
-}
-
-.inventory-history-details{
-    margin-top:8px;
-    font-size:12px;
-    color:#53645c;
-    line-height:1.5;
-}
-
-.stock-in{
-    background:#e3f5ea;
-    color:#16805c;
-    padding:5px 8px;
-    border-radius:8px;
-    font-size:10px;
-    font-weight:700;
-}
-
-
-
-.inventory-btn{
-    background:#fff2d5;
-    color:#8a5a00;
-}
-
-
-
-
-/* =====================================================
-   MATERIAL LIST VIEW
-===================================================== */
-
-.material-list-item{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-    background:#ffffff;
-
-    border:1px solid #e4e9e6;
-
-    border-radius:14px;
-
-    padding:12px;
-
-    margin-bottom:10px;
-
-    transition:0.2s;
-
-}
-
-
-.material-list-item:hover{
-
-    border-color:#cbd8d1;
-
-}
-
-
-/* =====================================================
-   PHOTO
-===================================================== */
-
-.material-list-image{
-
-    flex-shrink:0;
-
-}
-
-
-.material-list-photo{
-
-    width:64px;
-
-    height:64px;
-
-    border-radius:12px;
-
-    object-fit:cover;
-
-    display:block;
-
-    background:#f7f3e8;
-
-}
-
-
-.no-photo{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:24px;
-
-    color:#8a968f;
-
-}
-
-
-/* =====================================================
-   MAIN INFO
-===================================================== */
-
-.material-list-main{
-
-    flex:1;
-
-    min-width:0;
-
-}
-
-
-.material-list-name{
-
-    font-size:15px;
-
-    font-weight:700;
-
-    color:#18382d;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-}
-
-
-.material-list-category{
-
-    margin-top:3px;
-
-    font-size:12px;
-
-    color:#7a8781;
-
-}
-
-
-.material-list-meta{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:7px;
-
-    font-size:12px;
-
-    color:#53645c;
-
-}
-
-
-.material-list-meta span:first-child{
-
-    font-weight:700;
-
-    color:#16805C;
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.material-list-status{
-
-    flex-shrink:0;
-
-}
-
-
-/* =====================================================
-   ACTIONS
-===================================================== */
-
-.material-list-actions{
-    display:flex;
-    gap:6px;
-    flex-shrink:0;
-    flex-wrap:wrap;
-}
-
-
-.material-list-actions .action-btn{
-
-    padding:7px 10px;
-
-    font-size:12px;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:650px){
-
-    .material-list-item{
-
-        gap:10px;
-
-        padding:10px;
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B4F3A">
+  <title>Materials & Stock - Kayah</title>
+
+  <style>
+    :root {
+      --green: #0B4F3A;
+      --green-light: #16805C;
+      --yellow: #F2B84B;
+      --cream: #F7F3E8;
+      --white: #fff;
+      --text: #26352d;
+      --muted: #718078;
+      --border: #e3e9e4;
     }
 
+    * { box-sizing: border-box; }
 
-    .material-list-photo{
-
-        width:54px;
-
-        height:54px;
-
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
     }
 
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
 
-    .material-list-status{
-
-        display:none;
-
+    /* BUSINESS HEADER */
+    .business-header {
+      background: linear-gradient(135deg, #0B4F3A, #16805C);
+      color: white;
+      padding: 14px 16px;
+      box-shadow: 0 3px 12px rgba(11, 79, 58, .16);
     }
 
-
-    .material-list-actions{
-
-        flex-direction:column;
-
-        gap:4px;
-
+    .business-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
     }
 
-
-    .material-list-actions .action-btn{
-
-        padding:6px 8px;
-
+    .business-logo-wrap {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-
-    .material-list-meta{
-
-        flex-direction:column;
-
-        gap:2px;
-
+    .business-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+      background: white;
     }
 
-}
-
-
-
-
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f7f3e8;
-    color:#18352b;
-    min-height:100vh;
-    padding-bottom:90px;
-}
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.header{
-    background:linear-gradient(
-        135deg,
-        #0b4f3a,
-        #16805c
-    );
-
-    color:white;
-    padding:22px 18px 26px;
-    border-radius:0 0 24px 24px;
-}
-
-.header-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.back-btn{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,.15);
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-}
-
-.header-title{
-    font-size:22px;
-    font-weight:700;
-}
-
-.add-header-btn{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:12px;
-    background:#f2b84b;
-    color:#0b4f3a;
-    font-size:25px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.header-inventory-btn{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,.15);
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-
-.header-subtitle{
-    margin-top:10px;
-    font-size:13px;
-    opacity:.85;
-}
-
-/* =====================================================
-   SUMMARY
-===================================================== */
-
-.summary{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    padding:16px;
-}
-
-.summary-card{
-    background:white;
-    border-radius:16px;
-    padding:14px 8px;
-    text-align:center;
-    box-shadow:0 4px 15px rgba(0,0,0,.06);
-}
-
-.summary-number{
-    font-size:21px;
-    font-weight:700;
-    color:#0b4f3a;
-}
-
-.summary-label{
-    margin-top:5px;
-    font-size:11px;
-    color:#718078;
-}
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-.search-area{
-    padding:0 16px 12px;
-}
-
-.search-box{
-    width:100%;
-    border:1px solid #ddd8ca;
-    background:white;
-    border-radius:14px;
-    padding:13px 15px;
-    font-size:14px;
-    outline:none;
-}
-
-.search-box:focus{
-    border-color:#16805c;
-}
-
-/* =====================================================
-   FILTERS
-===================================================== */
-
-.filters{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding:0 16px 14px;
-}
-
-.filter-btn{
-    white-space:nowrap;
-    border:1px solid #d9d4c7;
-    background:white;
-    color:#496158;
-    border-radius:20px;
-    padding:9px 14px;
-    font-size:12px;
-    cursor:pointer;
-}
-
-.filter-btn.active{
-    background:#0b4f3a;
-    color:white;
-    border-color:#0b4f3a;
-}
-
-/* =====================================================
-   MATERIAL LIST
-===================================================== */
-
-.material-list{
-    padding:0 16px;
-}
-
-.material-card{
-    background:white;
-    border-radius:18px;
-    padding:16px;
-    margin-bottom:12px;
-    box-shadow:0 4px 16px rgba(0,0,0,.06);
-}
-
-.material-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.material-name{
-    font-size:16px;
-    font-weight:700;
-    color:#18352b;
-}
-
-.material-category{
-    margin-top:4px;
-    font-size:11px;
-    color:#7b8781;
-}
-
-.status{
-    white-space:nowrap;
-    height:max-content;
-    padding:6px 9px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:700;
-}
-
-.status.in-stock{
-    background:#e3f5ea;
-    color:#16805c;
-}
-
-.status.low-stock{
-    background:#fff2d5;
-    color:#a96c00;
-}
-
-.status.out-stock{
-    background:#fde4e1;
-    color:#b3261e;
-}
-
-.material-info{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:15px;
-}
-
-.info-box{
-    background:#f7f3e8;
-    border-radius:12px;
-    padding:10px;
-}
-
-.info-label{
-    font-size:10px;
-    color:#7a857f;
-}
-
-.info-value{
-    margin-top:3px;
-    font-size:14px;
-    font-weight:700;
-    color:#18352b;
-}
-
-.material-actions{
-    display:flex;
-    gap:8px;
-    margin-top:14px;
-}
-
-.action-btn{
-    flex:1;
-    border:none;
-    border-radius:11px;
-    padding:10px;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:600;
-}
-
-.edit-btn{
-    background:#e7f3ed;
-    color:#0b4f3a;
-}
-
-.delete-btn{
-    background:#fde9e7;
-    color:#b3261e;
-}
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-    text-align:center;
-    padding:50px 20px;
-    color:#75817b;
-}
-
-.empty-icon{
-    font-size:45px;
-    margin-bottom:12px;
-}
-
-.empty-title{
-    font-size:17px;
-    font-weight:700;
-    color:#31483f;
-}
-
-.empty-text{
-    margin-top:7px;
-    font-size:13px;
-    line-height:1.5;
-}
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.5);
-    display:none;
-    align-items:flex-end;
-    justify-content:center;
-    z-index:1000;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-content{
-    width:100%;
-    max-width:600px;
-    max-height:92vh;
-    overflow-y:auto;
-    background:#f7f3e8;
-    border-radius:25px 25px 0 0;
-    padding:22px 18px 28px;
-}
-
-.modal-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:18px;
-}
-
-.modal-title{
-    font-size:20px;
-    font-weight:700;
-    color:#0b4f3a;
-}
-
-.close-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:12px;
-    background:#e9e5d9;
-    font-size:20px;
-    cursor:pointer;
-}
-
-.form-group{
-    margin-bottom:14px;
-}
-
-.form-label{
-    display:block;
-    margin-bottom:6px;
-    font-size:12px;
-    font-weight:600;
-    color:#42554d;
-}
-
-.form-input,
-.form-select,
-.form-textarea{
-    width:100%;
-    border:1px solid #d8d3c7;
-    background:white;
-    border-radius:12px;
-    padding:12px;
-    font-size:14px;
-    outline:none;
-}
-
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus{
-    border-color:#16805c;
-}
-
-.form-textarea{
-    min-height:80px;
-    resize:vertical;
-}
-
-.two-columns{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.save-btn{
-    width:100%;
-    border:none;
-    border-radius:14px;
-    padding:14px;
-    background:#0b4f3a;
-    color:white;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    margin-top:8px;
-}
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-.loading{
-    text-align:center;
-    padding:35px;
-    color:#718078;
-    font-size:13px;
-}
-
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
-
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:70px;
-    background:white;
-    border-top:1px solid #e4dfd2;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:500;
-}
-
-.nav-item{
-    text-decoration:none;
-    color:#7a857f;
-    text-align:center;
-    font-size:10px;
-}
-
-.nav-icon{
-    font-size:21px;
-    display:block;
-    margin-bottom:3px;
-}
-
-.nav-item.active{
-    color:#0b4f3a;
-    font-weight:700;
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(min-width:700px){
-
-    .modal{
-        align-items:center;
+    .logo-fallback {
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--yellow);
     }
 
-    .modal-content{
-        border-radius:25px;
+    .business-heading {
+      flex: 1;
+      min-width: 0;
     }
 
-    .material-list{
-        max-width:800px;
-        margin:auto;
+    .business-name {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
     }
 
-    .search-area,
-    .filters{
-        max-width:800px;
-        margin:auto;
+    .business-subtitle {
+      margin-top: 5px;
+      color: rgba(255,255,255,.83);
+      font-size: 12px;
     }
 
-    .summary{
-        max-width:800px;
-        margin:auto;
+    .header-records-button {
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.12);
+      color: white;
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
-}
+    .header-records-button:active {
+      background: rgba(255,255,255,.24);
+    }
 
-</style>
+    .page {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px;
+    }
 
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .search {
+      flex: 1;
+      min-width: 0;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #d9e2db;
+      border-radius: 8px;
+      padding: 10px;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green-light);
+    }
+
+    .search input { padding: 11px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .primary { background: var(--green); color: white; }
+    .secondary { background: #e6eee8; color: var(--green); }
+    .yellow { background: var(--yellow); color: #342500; }
+    .small { padding: 7px 9px; font-size: 11px; }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+
+    .summary span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .summary strong {
+      color: var(--green);
+      font-size: 18px;
+    }
+
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 12px 2px 8px;
+    }
+
+    .list-header h2 {
+      color: var(--green);
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .material-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .material-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px;
+    }
+
+    .material-photo,
+    .photo-placeholder {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      border-radius: 8px;
+      background: #edf2ed;
+    }
+
+    .material-photo {
+      object-fit: cover;
+      border: 1px solid #edf0ed;
+    }
+
+    .photo-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+    }
+
+    .material-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .material-name {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+      margin-bottom: 4px;
+    }
+
+    .material-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .category-tag {
+      display: inline-block;
+      padding: 3px 6px;
+      background: #f1f5f1;
+      border-radius: 5px;
+      color: #52665a;
+    }
+
+    .stock-number {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--green);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .stock-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .row-action { flex: 0 0 auto; }
+
+    .empty, .loading {
+      padding: 28px 12px;
+      text-align: center;
+      background: white;
+      border: 1px dashed #cbd7ce;
+      border-radius: 10px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .notice {
+      display: none;
+      padding: 11px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .notice.success {
+      display: block;
+      color: #145a32;
+      background: #e8f6ec;
+      border: 1px solid #c8e8d1;
+    }
+
+    .notice.error {
+      display: block;
+      color: #8d261d;
+      background: #fff0ed;
+      border: 1px solid #f0ccc6;
+    }
+
+    .notice.info {
+      display: block;
+      color: #365341;
+      background: #edf4ee;
+      border: 1px solid #d7e4d9;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,.48);
+      padding: 14px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      width: 100%;
+      max-width: 470px;
+      max-height: 92vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.18);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h2 {
+      color: var(--green);
+      font-size: 17px;
+      margin: 0;
+    }
+
+    .close-button {
+      border: 0;
+      background: #edf2ed;
+      color: var(--green);
+      border-radius: 7px;
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+    }
+
+    .field { margin-bottom: 12px; }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #3d5145;
+    }
+
+    .field small {
+      display: block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .photo-preview {
+      display: none;
+      width: 76px;
+      height: 76px;
+      object-fit: cover;
+      border-radius: 9px;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .modal-actions button { flex: 1; }
+
+    .progress-text {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 480px) {
+      .business-header { padding: 12px; }
+
+      .business-header-inner { gap: 9px; }
+
+      .business-logo-wrap {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+      }
+
+      .business-name { font-size: 15px; }
+
+      .business-subtitle { font-size: 11px; }
+
+      .header-records-button {
+        padding: 8px;
+        font-size: 10px;
+      }
+
+      .page { padding: 10px; }
+
+      .material-row { gap: 8px; padding: 8px; }
+
+      .material-photo,
+      .photo-placeholder {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+      }
+
+      .stock-number { font-size: 12px; }
+
+      .row-action .button {
+        padding: 7px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .business-subtitle { display: none; }
+
+      .header-records-button {
+        white-space: normal;
+        max-width: 82px;
+      }
+
+      .material-row { gap: 6px; }
+    }
+  </style>
 </head>
-
 
 <body>
 
+  <!-- BUSINESS BRAND HEADER -->
+  <header class="business-header">
+    <div class="business-header-inner">
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+      <div class="business-logo-wrap">
+        <img id="businessLogo" class="business-logo" alt="Business logo">
+        <div id="logoFallback" class="logo-fallback">K</div>
+      </div>
 
-<header class="header">
+      <div class="business-heading">
+        <h1 id="businessName" class="business-name">Loading business...</h1>
+        <div class="business-subtitle">Materials & Stock</div>
+      </div>
 
-    <div class="header-top">
-
-        <button
-            class="back-btn"
-            onclick="goBack()">
-            ‹
-        </button>
-
-        <div class="header-title">
-            Materials
-        </div>
-
-        <div class="header-actions">
-
-    <button
-        class="header-inventory-btn"
-        onclick="openAddMaterialInventory()">
-        📦
-    </button>
-
-    <button
-        class="add-header-btn"
-        onclick="openAddMaterial()">
-        +
-    </button>
-
-</div>
+      <button
+        type="button"
+        class="header-records-button"
+        id="inventoryRecordsButton"
+      >
+        Inventory Records ↗
+      </button>
 
     </div>
+  </header>
 
-    <div class="header-subtitle">
-        Manage your business materials and supplies
+  <main class="page">
+    <div id="notice" class="notice"></div>
+
+    <section class="toolbar">
+      <div class="search">
+        <input
+          type="search"
+          id="searchMaterials"
+          placeholder="Search materials..."
+          aria-label="Search materials"
+        >
+      </div>
+
+      <button type="button" class="button secondary" id="refreshButton">↻</button>
+
+      <button type="button" class="button primary" id="addMaterialButton">+ Add</button>
+    </section>
+
+    <section class="summary">
+      <span>Materials in your list</span>
+      <strong id="materialCount">—</strong>
+    </section>
+
+    <div class="list-header">
+      <h2>All Materials</h2>
+      <span id="listStatus" class="subtitle">Loading...</span>
     </div>
 
-</header>
+    <section id="materialList" class="material-list">
+      <div class="loading">Loading materials...</div>
+    </section>
+  </main>
 
+  <!-- ADD MATERIAL -->
+  <div class="modal-backdrop" id="addMaterialModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="addMaterialTitle">
+      <div class="modal-header">
+        <h2 id="addMaterialTitle">Add New Material</h2>
+        <button type="button" class="close-button" data-close="addMaterialModal" aria-label="Close">×</button>
+      </div>
 
-<!-- =====================================================
-     SUMMARY
-===================================================== -->
-
-<section class="summary">
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="totalMaterials">
-            0
+      <form id="addMaterialForm">
+        <div class="field">
+          <label for="materialName">Material Name *</label>
+          <input id="materialName" required maxlength="120" placeholder="Enter Material Name">
         </div>
-
-        <div class="summary-label">
-            Total Materials
-        </div>
-
-    </div>
-
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="lowStockCount">
-            0
-        </div>
-
-        <div class="summary-label">
-            Low Stock
-        </div>
-
-    </div>
-
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="outStockCount">
-            0
-        </div>
-
-        <div class="summary-label">
-            Out of Stock
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     SEARCH
-===================================================== -->
-
-<div class="search-area">
-
-    <input
-        type="text"
-        id="searchInput"
-        class="search-box"
-        placeholder="Search materials..."
-        oninput="renderMaterials()">
-
-</div>
-
-
-<!-- =====================================================
-     FILTERS
-===================================================== -->
-
-<div class="filters">
-
-    <button
-        class="filter-btn active"
-        data-filter="all"
-        onclick="setFilter('all', this)">
-        All
-    </button>
-
-    <button
-        class="filter-btn"
-        data-filter="in-stock"
-        onclick="setFilter('in-stock', this)">
-        In Stock
-    </button>
-
-    <button
-        class="filter-btn"
-        data-filter="low-stock"
-        onclick="setFilter('low-stock', this)">
-        Low Stock
-    </button>
-
-    <button
-        class="filter-btn"
-        data-filter="out-stock"
-        onclick="setFilter('out-stock', this)">
-        Out of Stock
-    </button>
-
-</div>
-
-
-<!-- =====================================================
-     MATERIAL LIST
-===================================================== -->
-
-<div
-    id="materialList"
-    class="material-list">
-
-    <div class="loading">
-        Loading materials...
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ADD / EDIT MODAL
-===================================================== -->
-
-<div
-    id="materialModal"
-    class="modal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <div
-                id="modalTitle"
-                class="modal-title">
-                Add Material
-            </div>
-
-            <button
-                class="close-btn"
-                onclick="closeMaterialModal()">
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Material Name *
-            </label>
-
-            <input
-                id="materialName"
-                class="form-input"
-                type="text"
-                placeholder="Enter Material Name">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Category
-            </label>
-
-            <input
-                id="materialCategory"
-                class="form-input"
-                type="text"
-                placeholder="Enter Category">
-
-        </div>
-
 
         <div class="two-columns">
+          <div class="field">
+            <label for="materialCategory">Category</label>
+            <input id="materialCategory" maxlength="80" placeholder="e.g. Packaging">
+          </div>
 
-            <div class="form-group">
-
-                <label class="form-label">
-                    Quantity *
-                </label>
-
-                <input
-                    id="materialQuantity"
-                    class="form-input"
-                    type="number"
-                    min="0"
-                    step="any"
-                    placeholder="0">
-
-            </div>
-
-<!-- =====================================================
-     MATERIAL PHOTO - OPTIONAL
-===================================================== -->
-
-<div class="form-group">
-
-    <label class="form-label">
-        Material Photo
-        <span style="font-weight:400;color:#7a857f;">
-            (Optional)
-        </span>
-    </label>
-
-    <input
-        id="materialPhoto"
-        class="form-input"
-        type="file"
-        accept="image/*">
-
-    <div
-        id="materialPhotoPreview"
-        style="
-            display:none;
-            margin-top:10px;
-            position:relative;
-        "
-    >
-
-        <img
-            id="materialPhotoPreviewImage"
-            src=""
-            alt="Material preview"
-            style="
-                width:100%;
-                max-height:180px;
-                object-fit:cover;
-                border-radius:12px;
-                border:1px solid #ddd8ca;
-                background:white;
-            "
-        >
-
-        <button
-            type="button"
-            id="removeMaterialPhoto"
-            style="
-                position:absolute;
-                top:8px;
-                right:8px;
-                width:32px;
-                height:32px;
-                border:none;
-                border-radius:50%;
-                background:rgba(0,0,0,.65);
-                color:white;
-                font-size:18px;
-                cursor:pointer;
-            "
-        >
-            ×
-        </button>
-
-    </div>
-
-    <div
-        style="
-            margin-top:6px;
-            font-size:10px;
-            color:#7a857f;
-        "
-    >
-        You can leave this empty if you don't want to add a photo.
-    </div>
-
-</div>
-
-
-
-
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Unit *
-                </label>
-
-                <input
-                    id="materialUnit"
-                    class="form-input"
-                    type="text"
-                    placeholder="kg, pcs, L">
-
-            </div>
-
+          <div class="field">
+            <label for="materialUnit">Unit *</label>
+            <input id="materialUnit" required maxlength="30" value="pcs" placeholder="pcs, kg, box">
+          </div>
         </div>
 
+        <div class="field">
+          <label for="materialPhoto">Material Photo</label>
+          <input id="materialPhoto" type="file" accept="image/*">
+          <small>Choose a photo to display beside the material. Maximum size: 5 MB.</small>
+          <img id="materialPhotoPreview" class="photo-preview" alt="Material photo preview">
+          <div id="photoUploadStatus" class="progress-text"></div>
+        </div>
 
         <div class="two-columns">
+          <div class="field">
+            <label for="openingQuantity">Opening Stock</label>
+            <input id="openingQuantity" type="number" min="0" step="any" value="0">
+          </div>
 
-            <div class="form-group">
-
-                <label class="form-label">
-                    Cost per Unit
-                </label>
-
-                <input
-                    id="materialCost"
-                    class="form-input"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="0.00">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Low Stock Alert
-                </label>
-
-                <input
-                    id="materialLowStock"
-                    class="form-input"
-                    type="number"
-                    min="0"
-                    step="any"
-                    placeholder="Example: 5">
-
-            </div>
-
+          <div class="field">
+            <label for="materialUnitCost">Unit Cost (₱)</label>
+            <input id="materialUnitCost" type="number" min="0" step="any" placeholder="0.00">
+          </div>
         </div>
 
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Supplier
-            </label>
-
-            <input
-                id="materialSupplier"
-                class="form-input"
-                type="text"
-                placeholder="Optional">
-
+        <div class="field">
+          <label for="materialSupplier">Supplier</label>
+          <input id="materialSupplier" maxlength="120" placeholder="Optional">
         </div>
 
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Notes
-            </label>
-
-            <textarea
-                id="materialNotes"
-                class="form-textarea"
-                placeholder="Optional notes"></textarea>
-
+        <div class="field">
+          <label for="materialNotes">Notes</label>
+          <textarea id="materialNotes" rows="2" maxlength="500" placeholder="Optional notes"></textarea>
         </div>
 
+        <div class="modal-actions">
+          <button type="button" class="button secondary" data-close="addMaterialModal">Cancel</button>
+          <button type="submit" class="button primary" id="saveMaterialButton">Save Material</button>
+        </div>
+      </form>
+    </section>
+  </div>
 
-        <button
-            class="save-btn"
-            id="saveMaterialBtn"
-            onclick="saveMaterial()">
-            Save Material
-        </button>
+  <!-- ADD STOCK -->
+  <div class="modal-backdrop" id="addStockModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="addStockTitle">
+      <div class="modal-header">
+        <h2 id="addStockTitle">Add Stock</h2>
+        <button type="button" class="close-button" data-close="addStockModal" aria-label="Close">×</button>
+      </div>
 
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ADD MATERIAL INVENTORY MODAL
-===================================================== -->
-
-<div
-    id="materialInventoryModal"
-    class="modal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <div
-                class="modal-title">
-                Add Material Inventory
-            </div>
-
-            <button
-                class="close-btn"
-                onclick="closeMaterialInventoryModal()">
-                ×
-            </button>
-
+      <form id="addStockForm">
+        <div class="field">
+          <label for="stockMaterialSelect">Material *</label>
+          <select id="stockMaterialSelect" required></select>
         </div>
 
-
-        <!-- MATERIAL -->
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Material *
-            </label>
-
-            <select
-                id="inventoryMaterial"
-                class="form-select">
-
-                <option value="">
-                    Select Material
-                </option>
-
-            </select>
-
+        <div class="field">
+          <label for="stockQuantity">Quantity to Add *</label>
+          <input id="stockQuantity" type="number" min="0.000001" step="any" required placeholder="Enter quantity">
         </div>
 
-
-        <!-- CURRENT STOCK -->
-
-        <div
-            id="inventoryCurrentStock"
-            style="
-                display:none;
-                background:#e7f3ed;
-                color:#0b4f3a;
-                border-radius:12px;
-                padding:12px;
-                margin-bottom:14px;
-                font-size:13px;
-                font-weight:700;
-            ">
+        <div class="field">
+          <label for="stockUnitCost">Unit Cost (₱)</label>
+          <input id="stockUnitCost" type="number" min="0" step="any" placeholder="Optional">
         </div>
 
-
-        <!-- QUANTITY -->
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Quantity Added *
-            </label>
-
-            <input
-                id="inventoryQuantity"
-                class="form-input"
-                type="number"
-                min="0"
-                step="any"
-                placeholder="0">
-
+        <div class="field">
+          <label for="stockSupplier">Supplier</label>
+          <input id="stockSupplier" maxlength="120" placeholder="Optional">
         </div>
 
-
-        <!-- UNIT COST -->
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Unit Cost
-            </label>
-
-            <input
-                id="inventoryUnitCost"
-                class="form-input"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00">
-
+        <div class="field">
+          <label for="stockNotes">Notes</label>
+          <textarea id="stockNotes" rows="2" maxlength="500" placeholder="Invoice number or other details"></textarea>
         </div>
 
-
-        <!-- SUPPLIER -->
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Supplier
-            </label>
-
-            <input
-                id="inventorySupplier"
-                class="form-input"
-                type="text"
-                placeholder="Optional">
-
+        <div class="modal-actions">
+          <button type="button" class="button secondary" data-close="addStockModal">Cancel</button>
+          <button type="submit" class="button primary" id="saveStockButton">Save Stock</button>
         </div>
-
-
-        <!-- NOTES -->
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Notes
-            </label>
-
-            <textarea
-                id="inventoryNotes"
-                class="form-textarea"
-                placeholder="Optional notes"></textarea>
-
-        </div>
-
-
-        <button
-            class="save-btn"
-            id="saveMaterialInventoryBtn"
-            onclick="saveMaterialInventory()">
-
-            Add Stock
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- =====================================================
-     MATERIAL INVENTORY HISTORY MODAL
-===================================================== -->
-
-<div
-    id="materialInventoryHistoryModal"
-    class="modal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <div
-                id="inventoryHistoryTitle"
-                class="modal-title">
-                Inventory History
-            </div>
-
-            <button
-                class="close-btn"
-                onclick="closeMaterialInventoryHistory()">
-                ×
-            </button>
-
-        </div>
-
-
-        <div
-            id="materialInventoryHistoryList">
-
-            <div class="loading">
-                Loading inventory history...
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
-
-<nav class="bottom-nav">
-
-    <a
-        class="nav-item"
-        href="../dashboard/">
-
-        <span class="nav-icon">⌂</span>
-        Dashboard
-
-    </a>
-
-
-    <a
-        class="nav-item"
-        href="../products/">
-
-        <span class="nav-icon">📦</span>
-        Products
-
-    </a>
-
-
-    <a
-        class="nav-item"
-        href="../inventory/">
-
-        <span class="nav-icon">📋</span>
-        Inventory
-
-    </a>
-
-
-    <a
-        class="nav-item active"
-        href="./">
-
-        <span class="nav-icon">🧰</span>
-        Materials
-
-    </a>
-
-
-    <a
-        class="nav-item"
-        href="../settings/">
-
-        <span class="nav-icon">⚙️</span>
-        Settings
-
-    </a>
-
-</nav>
-
-
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
-
-<script type="module">
-
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-import {
-    getFirestore,
-    collection,
-    getDocs,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp,
-    runTransaction
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-
-/* =====================================================
-   CLOUDINARY
-===================================================== */
-
-const CLOUDINARY_CLOUD_NAME =
-    "tfzuiwcp";
-
-const CLOUDINARY_UPLOAD_PRESET =
-    "kayah_products";
-
-
-
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
-
-    authDomain:
-        "kayah-ecosystem.firebaseapp.com",
-
-    projectId:
-        "kayah-ecosystem",
-
-    storageBucket:
-        "kayah-ecosystem.firebasestorage.app",
-
-    messagingSenderId:
-        "49853785143",
-    appId:
-        "1:49853785143:web:23182e6e11696ac03dcbb2"
-
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getFirestore(app);
-
-
-/* =====================================================
-   GLOBAL VARIABLES
-===================================================== */
-
-let currentUser = null;
-
-let materials = [];
-
-let currentFilter = "all";
-
-let editingMaterialId = null;
-
-
-let materialPhotoUrl = "";
-
-
-
-const materialPhoto =
-    document.getElementById("materialPhoto");
-
-const materialPhotoPreview =
-    document.getElementById(
-        "materialPhotoPreview"
-    );
-
-const materialPhotoPreviewImage =
-    document.getElementById(
-        "materialPhotoPreviewImage"
-    );
-
-const removeMaterialPhoto =
-    document.getElementById(
-        "removeMaterialPhoto"
-    );
-
-
-
-/* =====================================================
-   MATERIAL PHOTO PREVIEW
-===================================================== */
-
-materialPhoto.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            materialPhoto.files[0];
-
-        if(!file){
-            return;
-        }
-
-        if(!file.type.startsWith("image/")){
-
-            alert(
-                "Please select an image file."
-            );
-
-            materialPhoto.value = "";
-
-            return;
-        }
-
-        if(file.size > 5 * 1024 * 1024){
-
-            alert(
-                "Photo must be 5 MB or smaller."
-            );
-
-            materialPhoto.value = "";
-
-            return;
-        }
-
-        const reader =
-            new FileReader();
-
-        reader.onload =
-            function(event){
-
-                materialPhotoPreviewImage.src =
-                    event.target.result;
-
-                materialPhotoPreview.style.display =
-                    "block";
-
-            };
-
-        reader.readAsDataURL(file);
-
+      </form>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initializeApp, getApps }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import { getAuth, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      collection,
+      getDocs,
+      runTransaction,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+      authDomain: "kayah-ecosystem.firebaseapp.com",
+      projectId: "kayah-ecosystem",
+      storageBucket: "kayah-ecosystem.firebasestorage.app",
+      messagingSenderId: "49853785143",
+      appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+    };
+
+    const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Match these values to the Cloudinary setup already used by Kayah.
+    const CLOUDINARY_CLOUD_NAME = "tfzuiwcp";
+    const CLOUDINARY_UPLOAD_PRESET = "kayah_products";
+
+    let currentUser = null;
+    let businessId = null;
+    let actorName = "Business Owner";
+    let actorRole = "owner";
+    let materials = [];
+    let isSaving = false;
+    let previewObjectUrl = null;
+
+    const $ = id => document.getElementById(id);
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
     }
-);
 
-
-removeMaterialPhoto.addEventListener(
-    "click",
-    function(){
-
-        materialPhoto.value = "";
-
-        materialPhotoPreviewImage.src = "";
-
-        materialPhotoPreview.style.display =
-            "none";
-
-        materialPhotoUrl = "";
-
+    function showNotice(message, type = "info") {
+      const notice = $("notice");
+      notice.textContent = message;
+      notice.className = "notice " + type;
+      notice.style.display = "block";
+      notice.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
-);
 
+    function clearNotice() {
+      $("notice").textContent = "";
+      $("notice").className = "notice";
+      $("notice").style.display = "none";
+    }
 
+    function numberValue(value) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number : 0;
+    }
 
-/* =====================================================
-   AUTH
-===================================================== */
+    function formatNumber(value) {
+      return numberValue(value).toLocaleString("en-PH", {
+        maximumFractionDigits: 3
+      });
+    }
 
-onAuthStateChanged(
-    auth,
-    async function(user){
+    function getMaterialPhoto(material) {
+      return material.photoUrl ||
+        material.photoURL ||
+        material.imageUrl ||
+        material.imageURL ||
+        material.image ||
+        material.photo ||
+        "";
+    }
 
-        if(!user){
+    function getMaterialName(material) {
+      return material.name || material.materialName || "Unnamed Material";
+    }
 
-            window.location.href =
-                "../login/";
+    function getMaterialUnit(material) {
+      return material.unit || "pcs";
+    }
 
-            return;
+    function getStock(material) {
+      return numberValue(material.quantity ?? material.stock ?? 0);
+    }
 
+    function openModal(id) {
+      $(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+      $(id).classList.remove("open");
+    }
+
+    function setButtonLoading(id, loading, loadingText, normalText) {
+      $(id).disabled = loading;
+      $(id).textContent = loading ? loadingText : normalText;
+    }
+
+    function actorFields() {
+      return {
+        performedByUid: currentUser.uid,
+        performedByName: actorName,
+        performedByRole: actorRole,
+        actorUid: currentUser.uid,
+        actorName,
+        actorRole
+      };
+    }
+
+    function getProfileName(profile) {
+      return profile.businessName ||
+        profile.storeName ||
+        profile.companyName ||
+        profile.name ||
+        "My Business";
+    }
+
+    function getProfileLogo(profile) {
+      return profile.businessLogoUrl ||
+        profile.logoUrl ||
+        profile.businessLogo ||
+        profile.logoURL ||
+        profile.logo ||
+        "";
+    }
+
+    function displayBusinessBrand(profile) {
+      const name = getProfileName(profile);
+      const logoUrl = getProfileLogo(profile);
+
+      $("businessName").textContent = name;
+      document.title = "Materials & Stock - " + name;
+
+      const logo = $("businessLogo");
+      const fallback = $("logoFallback");
+
+      fallback.textContent = name.trim().charAt(0).toUpperCase() || "B";
+      logo.style.display = "none";
+      logo.removeAttribute("src");
+      fallback.style.display = "block";
+
+      if (logoUrl) {
+        logo.onload = () => {
+          logo.style.display = "block";
+          fallback.style.display = "none";
+        };
+
+        logo.onerror = () => {
+          logo.style.display = "none";
+          fallback.style.display = "block";
+        };
+
+        logo.src = logoUrl;
+      }
+    }
+
+    // AUTH + LOAD THE BUSINESS OWNER'S BRANDING
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        window.location.href = "../login/";
+        return;
+      }
+
+      currentUser = user;
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          showNotice("Your Kayah user profile could not be found.", "error");
+          $("materialList").innerHTML =
+            '<div class="empty">User profile not found.</div>';
+          return;
         }
 
-        currentUser = user;
+        const profile = userSnap.data();
+        const role = String(profile.role || "owner").toLowerCase();
+        const isStaff = role === "staff";
 
+        if (
+          profile.isActive === false ||
+          String(profile.status || "").toLowerCase() === "inactive"
+        ) {
+          showNotice("This account is inactive. Please contact the business owner.", "error");
+          return;
+        }
+
+        businessId = isStaff
+          ? (profile.ownerUid || profile.businessOwnerUid || profile.businessId)
+          : user.uid;
+
+        if (!businessId) {
+          showNotice("The business owner account could not be identified.", "error");
+          return;
+        }
+
+        actorRole = isStaff ? "staff" : "owner";
+        actorName = profile.fullName ||
+          profile.name ||
+          profile.displayName ||
+          user.displayName ||
+          user.email ||
+          (isStaff ? "Staff Member" : "Business Owner");
+
+        // Always load the business logo/name from the business owner's profile.
+        let businessProfile = profile;
+
+        if (isStaff) {
+          const ownerSnap = await getDoc(doc(db, "users", businessId));
+
+          if (ownerSnap.exists()) {
+            businessProfile = ownerSnap.data();
+          }
+        }
+
+        displayBusinessBrand(businessProfile);
         await loadMaterials();
 
-    }
-);
+      } catch (error) {
+        console.error("Initialization error:", error);
+        showNotice("Unable to initialize Materials: " + (error.message || "Please try again."), "error");
+      }
+    });
 
+    // LOAD MATERIALS
+    async function loadMaterials() {
+      if (!businessId) return;
 
-/* =====================================================
-   LOAD MATERIALS
-===================================================== */
+      $("materialList").innerHTML = '<div class="loading">Loading materials...</div>';
+      $("listStatus").textContent = "Loading...";
 
-async function loadMaterials(){
+      try {
+        const materialsRef = collection(db, "users", businessId, "materials");
+        const snapshot = await getDocs(materialsRef);
 
-    const list =
-        document.getElementById(
-            "materialList"
-        );
+        materials = snapshot.docs.map(item => ({
+          id: item.id,
+          ...item.data()
+        }));
 
-    list.innerHTML = `
-        <div class="loading">
-            Loading materials...
-        </div>
-    `;
-
-    try{
-
-        const materialsRef =
-            collection(
-                db,
-                "users",
-                currentUser.uid,
-                "materials"
-            );
-
-        const snapshot =
-            await getDocs(
-                materialsRef
-            );
-
-        materials = [];
-
-        snapshot.forEach(
-            function(materialDoc){
-
-                materials.push({
-
-                    id:
-                        materialDoc.id,
-
-                    ...materialDoc.data()
-
-                });
-
-            }
+        materials.sort((a, b) =>
+          getMaterialName(a).localeCompare(getMaterialName(b))
         );
 
         renderMaterials();
 
+      } catch (error) {
+        console.error("Load materials error:", error);
+        $("materialList").innerHTML =
+          '<div class="empty">Unable to load materials.<br>Check your connection and Firebase permissions.</div>';
+        $("listStatus").textContent = "Load failed";
+        showNotice("Unable to load materials: " + (error.message || "Unknown error"), "error");
+      }
     }
 
-    catch(error){
+    // COMPACT MATERIAL LIST WITH PHOTOS
+    function renderMaterials() {
+      const search = $("searchMaterials").value.trim().toLowerCase();
 
-        console.error(
-            "Unable to load materials:",
-            error
-        );
+      const filtered = materials.filter(material => {
+        const text = [
+          getMaterialName(material),
+          material.category || "",
+          getMaterialUnit(material),
+          material.supplier || ""
+        ].join(" ").toLowerCase();
 
-        list.innerHTML = `
-            <div class="empty">
+        return text.includes(search);
+      });
 
-                <div class="empty-icon">
-                    ⚠️
-                </div>
+      $("materialCount").textContent = materials.length;
+      $("listStatus").textContent =
+        filtered.length + (filtered.length === 1 ? " item" : " items");
 
-                <div class="empty-title">
-                    Unable to load materials
-                </div>
+      if (!filtered.length) {
+        $("materialList").innerHTML = materials.length
+          ? '<div class="empty">No materials match your search.</div>'
+          : '<div class="empty">No materials added yet.<br>Tap <b>+ Add</b> to create your first material.</div>';
+        return;
+      }
 
-                <div class="empty-text">
-                    Please check your Firebase connection and try again.
-                </div>
+      $("materialList").innerHTML = filtered.map(material => {
+        const name = getMaterialName(material);
+        const photo = getMaterialPhoto(material);
+        const unit = getMaterialUnit(material);
+        const quantity = getStock(material);
 
+        const category = material.category
+          ? `<span class="category-tag">${escapeHtml(material.category)}</span>`
+          : "";
+
+        const photoHtml = photo
+          ? `<img class="material-photo"
+                  src="${escapeHtml(photo)}"
+                  alt="${escapeHtml(name)}"
+                  loading="lazy"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+             <div class="photo-placeholder" style="display:none;">📦</div>`
+          : '<div class="photo-placeholder">📦</div>';
+
+        return `
+          <article class="material-row">
+            ${photoHtml}
+            <div class="material-info">
+              <div class="material-name">${escapeHtml(name)}</div>
+              <div class="material-meta">
+                ${category}
+                <span>${escapeHtml(unit)}</span>
+              </div>
             </div>
-        `;
-
-    }
-
-}
-
-
-/* =====================================================
-   GET STATUS
-===================================================== */
-
-function getMaterialStatus(material){
-
-    const quantity =
-        Number(material.quantity || 0);
-
-    const lowStock =
-        Number(material.lowStockAlert || 0);
-
-    if(quantity <= 0){
-
-        return "out-stock";
-
-    }
-
-    if(
-        lowStock > 0 &&
-        quantity <= lowStock
-    ){
-
-        return "low-stock";
-
-    }
-
-    return "in-stock";
-
-}
-
-
-/* =====================================================
-   STATUS TEXT
-===================================================== */
-
-function getStatusText(status){
-
-    if(status === "out-stock")
-        return "Out of Stock";
-
-    if(status === "low-stock")
-        return "Low Stock";
-
-    return "In Stock";
-
-}
-
-
-/* =====================================================
-   RENDER MATERIALS — LIST VIEW
-===================================================== */
-
-window.renderMaterials =
-function(){
-
-    const list =
-        document.getElementById(
-            "materialList"
-        );
-
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        ).value
-        .trim()
-        .toLowerCase();
-
-
-    /* =================================================
-       FILTER
-    ================================================= */
-
-    let filtered =
-        materials.filter(
-            function(material){
-
-                const name =
-                    String(
-                        material.name || ""
-                    ).toLowerCase();
-
-
-                const category =
-                    String(
-                        material.category || ""
-                    ).toLowerCase();
-
-
-                const matchesSearch =
-                    name.includes(search) ||
-                    category.includes(search);
-
-
-                const status =
-                    getMaterialStatus(
-                        material
-                    );
-
-
-                const matchesFilter =
-                    currentFilter === "all" ||
-                    currentFilter === status;
-
-
-                return (
-                    matchesSearch &&
-                    matchesFilter
-                );
-
-            }
-        );
-
-
-    /* =================================================
-       UPDATE SUMMARY
-    ================================================= */
-
-    updateSummary();
-
-
-    /* =================================================
-       EMPTY
-    ================================================= */
-
-    if(filtered.length === 0){
-
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🧰
-                </div>
-
-                <div class="empty-title">
-                    No materials found
-                </div>
-
-                <div class="empty-text">
-                    Add your first material to start tracking supplies.
-                </div>
-
+            <div class="stock-number">
+              ${escapeHtml(formatNumber(quantity))}
+              <span class="stock-label">In stock</span>
             </div>
-
+            <div class="row-action">
+              <button type="button" class="button yellow small"
+                data-add-stock="${escapeHtml(material.id)}">+ Stock</button>
+            </div>
+          </article>
         `;
+      }).join("");
+    }
 
+    // PHOTO PREVIEW
+    $("materialPhoto").addEventListener("change", event => {
+      const file = event.target.files?.[0];
+      const preview = $("materialPhotoPreview");
+
+      $("photoUploadStatus").textContent = "";
+
+      if (previewObjectUrl) {
+        URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = null;
+      }
+
+      if (!file) {
+        preview.style.display = "none";
+        preview.removeAttribute("src");
         return;
-
-    }
-
-
-    /* =================================================
-       LIST
-    ================================================= */
-
-    list.innerHTML =
-        filtered.map(
-            function(material){
-
-                const status =
-                    getMaterialStatus(
-                        material
-                    );
-
-
-                const statusText =
-                    getStatusText(
-                        status
-                    );
-
-
-                const quantity =
-                    Number(
-                        material.quantity || 0
-                    );
-
-
-                /* =====================================
-                   DATE ADDED
-                ===================================== */
-
-                let dateAdded =
-                    "—";
-
-
-                if(material.createdAt){
-
-                    try{
-
-                        let date;
-
-
-                        if(
-                            material.createdAt.toDate
-                        ){
-
-                            date =
-                                material.createdAt.toDate();
-
-                        }
-
-                        else if(
-                            material.createdAt.seconds
-                        ){
-
-                            date =
-                                new Date(
-                                    material.createdAt.seconds * 1000
-                                );
-
-                        }
-
-                        else{
-
-                            date =
-                                new Date(
-                                    material.createdAt
-                                );
-
-                        }
-
-
-                        if(
-                            !isNaN(
-                                date.getTime()
-                            )
-                        ){
-
-                            dateAdded =
-                                date.toLocaleDateString(
-                                    "en-US",
-                                    {
-                                        month:"short",
-                                        day:"numeric",
-                                        year:"numeric"
-                                    }
-                                );
-
-                        }
-
-                    }
-
-                    catch(error){
-
-                        dateAdded =
-                            "—";
-
-                    }
-
-                }
-
-
-                /* =====================================
-                   PHOTO
-                ===================================== */
-
-                const photo =
-                    material.photoUrl
-
-                    ? `
-
-                        <img
-                            src="${escapeHtml(material.photoUrl)}"
-                            alt="${escapeHtml(material.name || "Material")}"
-                            class="material-list-photo"
-                        >
-
-                    `
-
-                    : `
-
-                        <div class="material-list-photo no-photo">
-                            🧰
-                        </div>
-
-                    `;
-
-
-                /* =====================================
-                   RETURN ITEM
-                ===================================== */
-
-                return `
-
-                    <div class="material-list-item">
-
-
-                        <!-- PHOTO -->
-
-                        <div class="material-list-image">
-
-                            ${photo}
-
-                        </div>
-
-
-                        <!-- MAIN INFO -->
-
-                        <div class="material-list-main">
-
-
-                            <div class="material-list-name">
-
-                                ${escapeHtml(
-                                    material.name ||
-                                    "Unnamed Material"
-                                )}
-
-                            </div>
-
-
-                            <div class="material-list-category">
-
-                                ${
-                                    material.category
-                                    ? escapeHtml(
-                                        material.category
-                                    )
-                                    : "No category"
-                                }
-
-                            </div>
-
-
-                            <div class="material-list-meta">
-
-                                <span>
-                                    ${formatNumber(quantity)}
-                                    ${escapeHtml(material.unit || "")}
-                                </span>
-
-                                <span>
-                                    Added ${dateAdded}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- STATUS -->
-
-                        <div class="material-list-status">
-
-                            <div class="status ${status}">
-                                ${statusText}
-                            </div>
-
-                        </div>
-
-
-                        <!-- ACTIONS -->
-
-                        <div class="material-list-actions">
-
-    <button
-        class="action-btn inventory-btn"
-        onclick="openMaterialInventory('${material.id}')">
-        Inventory
-    </button>
-
-    <button
-        class="action-btn edit-btn"
-        onclick="editMaterial('${material.id}')">
-        Edit
-    </button>
-
-    <button
-        class="action-btn delete-btn"
-        onclick="removeMaterial('${material.id}')">
-        Delete
-    </button>
-
-</div>
-
-
-                    </div>
-
-                `;
-
-            }
-        ).join("");
-
-};
-
-/* =====================================================
-   UPDATE SUMMARY
-===================================================== */
-
-function updateSummary(){
-
-    let low = 0;
-
-    let out = 0;
-
-
-    materials.forEach(
-        function(material){
-
-            const status =
-                getMaterialStatus(
-                    material
-                );
-
-            if(status === "low-stock")
-                low++;
-
-            if(status === "out-stock")
-                out++;
-
-        }
-    );
-
-
-    document.getElementById(
-        "totalMaterials"
-    ).textContent =
-        materials.length;
-
-
-    document.getElementById(
-        "lowStockCount"
-    ).textContent =
-        low;
-
-
-    document.getElementById(
-        "outStockCount"
-    ).textContent =
-        out;
-
-}
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-window.setFilter =
-function(filter, button){
-
-    currentFilter =
-        filter;
-
-
-    document
-        .querySelectorAll(".filter-btn")
-        .forEach(
-            function(btn){
-
-                btn.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
-
-    renderMaterials();
-
-};
-
-
-/* =====================================================
-   OPEN ADD
-===================================================== */
-
-window.openAddMaterial =
-function(){
-
-    editingMaterialId = null;
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        "Add Material";
-
-
-    clearForm();
-
-
-    document.getElementById(
-        "materialModal"
-    ).classList.add(
-        "show"
-    );
-
-};
-
-
-/* =====================================================
-   EDIT MATERIAL
-===================================================== */
-
-window.editMaterial =
-function(id){
-
-    const material =
-        materials.find(
-            function(item){
-
-                return item.id === id;
-
-            }
-        );
-
-
-    if(!material)
+      }
+
+      if (!file.type.startsWith("image/")) {
+        event.target.value = "";
+        preview.style.display = "none";
+        $("photoUploadStatus").textContent = "Please choose an image file.";
         return;
+      }
 
-
-    editingMaterialId =
-        id;
-
-
-    /* =============================================
-       EXISTING PHOTO
-    ============================================= */
-
-    materialPhotoUrl =
-        material.photoUrl || "";
-
-
-    materialPhoto.value = "";
-
-
-    if(materialPhotoUrl){
-
-        materialPhotoPreviewImage.src =
-            materialPhotoUrl;
-
-        materialPhotoPreview.style.display =
-            "block";
-
-    }
-
-    else{
-
-        materialPhotoPreviewImage.src =
-            "";
-
-        materialPhotoPreview.style.display =
-            "none";
-
-    }
-
-
-    /* =============================================
-       FORM TITLE
-    ============================================= */
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        "Edit Material";
-
-
-    /* =============================================
-       FORM VALUES
-    ============================================= */
-
-    document.getElementById(
-        "materialName"
-    ).value =
-        material.name || "";
-
-
-    document.getElementById(
-        "materialCategory"
-    ).value =
-        material.category || "";
-
-
-    document.getElementById(
-        "materialQuantity"
-    ).value =
-        material.quantity ?? "";
-
-
-    document.getElementById(
-        "materialUnit"
-    ).value =
-        material.unit || "";
-
-
-    document.getElementById(
-        "materialCost"
-    ).value =
-        material.costPerUnit ?? "";
-
-
-    document.getElementById(
-        "materialLowStock"
-    ).value =
-        material.lowStockAlert ?? "";
-
-
-    document.getElementById(
-        "materialSupplier"
-    ).value =
-        material.supplier || "";
-
-
-    document.getElementById(
-        "materialNotes"
-    ).value =
-        material.notes || "";
-
-
-    document.getElementById(
-        "materialModal"
-    ).classList.add(
-        "show"
-    );
-
-};
-
-/* =====================================================
-   UPLOAD MATERIAL PHOTO
-===================================================== */
-
-async function uploadMaterialPhoto(file){
-
-    if(!file){
-        return "";
-    }
-
-    const formData =
-        new FormData();
-
-    formData.append(
-        "file",
-        file
-    );
-
-    formData.append(
-        "upload_preset",
-        CLOUDINARY_UPLOAD_PRESET
-    );
-
-    const response =
-        await fetch(
-            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-            {
-                method:"POST",
-                body:formData
-            }
-        );
-
-    if(!response.ok){
-
-        throw new Error(
-            "Photo upload failed."
-        );
-
-    }
-
-    const data =
-        await response.json();
-
-    return data.secure_url || "";
-
-}
-
-
-
-
-
-
-/* =====================================================
-   SAVE MATERIAL
-===================================================== */
-
-window.saveMaterial =
-async function(){
-
-    if(!currentUser)
+      if (file.size > 5 * 1024 * 1024) {
+        event.target.value = "";
+        preview.style.display = "none";
+        $("photoUploadStatus").textContent = "Choose an image under 5 MB.";
         return;
+      }
 
+      previewObjectUrl = URL.createObjectURL(file);
+      preview.src = previewObjectUrl;
+      preview.style.display = "block";
+    });
 
-    const name =
-        document.getElementById(
-            "materialName"
-        ).value.trim();
+    // UPLOAD PHOTO TO CLOUDINARY
+    async function uploadMaterialPhoto(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+      formData.append("folder", "kayah/materials");
 
+      $("photoUploadStatus").textContent = "Uploading photo...";
 
-    const category =
-        document.getElementById(
-            "materialCategory"
-        ).value.trim();
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+        { method: "POST", body: formData }
+      );
 
+      const result = await response.json();
 
-    const quantityValue =
-        document.getElementById(
-            "materialQuantity"
-        ).value;
+      if (!response.ok || !result.secure_url) {
+        throw new Error(result.error?.message || "Unable to upload photo.");
+      }
 
-
-    const unit =
-        document.getElementById(
-            "materialUnit"
-        ).value.trim();
-
-
-    const costValue =
-        document.getElementById(
-            "materialCost"
-        ).value;
-
-
-    const lowStockValue =
-        document.getElementById(
-            "materialLowStock"
-        ).value;
-
-
-    const supplier =
-        document.getElementById(
-            "materialSupplier"
-        ).value.trim();
-
-
-    const notes =
-        document.getElementById(
-            "materialNotes"
-        ).value.trim();
-
-
-    /* =================================================
-       VALIDATION
-    ================================================= */
-
-    if(!name){
-
-        alert(
-            "Please enter the material name."
-        );
-
-        return;
-
+      $("photoUploadStatus").textContent = "Photo uploaded successfully.";
+      return result.secure_url;
     }
 
+    // OPEN ADD MATERIAL
+    $("addMaterialButton").addEventListener("click", () => {
+      clearNotice();
+      $("addMaterialForm").reset();
+      $("materialUnit").value = "pcs";
+      $("openingQuantity").value = "0";
+      $("materialPhotoPreview").style.display = "none";
+      $("photoUploadStatus").textContent = "";
 
-    if(
-        quantityValue === "" ||
-        Number(quantityValue) < 0
-    ){
+      if (previewObjectUrl) {
+        URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = null;
+      }
 
-        alert(
-            "Please enter a valid quantity."
-        );
+      openModal("addMaterialModal");
+    });
 
+    // CREATE MATERIAL AND RECORD ACTIVITY
+    $("addMaterialForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (isSaving || !currentUser || !businessId) return;
+
+      const name = $("materialName").value.trim();
+      const category = $("materialCategory").value.trim();
+      const unit = $("materialUnit").value.trim();
+      const openingQuantity = Number($("openingQuantity").value || 0);
+      const costText = $("materialUnitCost").value.trim();
+      const unitCost = costText === "" ? null : Number(costText);
+      const supplier = $("materialSupplier").value.trim();
+      const notes = $("materialNotes").value.trim();
+      const photoFile = $("materialPhoto").files?.[0] || null;
+
+      if (!name || !unit) {
+        showNotice("Please enter a material name and unit.", "error");
         return;
+      }
 
-    }
-
-
-    if(!unit){
-
-        alert(
-            "Please enter the unit."
-        );
-
+      if (!Number.isFinite(openingQuantity) || openingQuantity < 0) {
+        showNotice("Opening stock must be zero or greater.", "error");
         return;
+      }
 
-    }
+      if (unitCost !== null && (!Number.isFinite(unitCost) || unitCost < 0)) {
+        showNotice("Unit cost must be zero or greater.", "error");
+        return;
+      }
 
+      isSaving = true;
+      setButtonLoading("saveMaterialButton", true, "Saving...", "Save Material");
 
-    const quantity =
-        Number(quantityValue);
+      try {
+        let photoUrl = "";
 
-
-    const costPerUnit =
-        costValue === ""
-        ? 0
-        : Number(costValue);
-
-
-    const lowStockAlert =
-        lowStockValue === ""
-        ? 0
-        : Number(lowStockValue);
-
-
-    /* =================================================
-       SAVE BUTTON
-    ================================================= */
-
-    const button =
-        document.getElementById(
-            "saveMaterialBtn"
-        );
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Saving...";
-
-
-    /* =================================================
-       MATERIAL PHOTO
-       OPTIONAL
-    ================================================= */
-
-    let photoUrl =
-    materialPhotoUrl;
-
-
-    const selectedPhoto =
-        materialPhoto.files[0];
-
-
-    if(selectedPhoto){
-
-        try{
-
-            button.textContent =
-                "Uploading photo...";
-
-
-            photoUrl =
-                await uploadMaterialPhoto(
-                    selectedPhoto
-                );
-
-
+        if (photoFile) {
+          photoUrl = await uploadMaterialPhoto(photoFile);
         }
 
-        catch(error){
+        const materialRef = doc(collection(db, "users", businessId, "materials"));
+        const activityRef = doc(collection(db, "users", businessId, "activityLogs"));
 
-            console.error(
-                "Material photo upload error:",
-                error
-            );
+        const movementRef = openingQuantity > 0
+          ? doc(collection(db, "users", businessId, "materialInventory"))
+          : null;
 
+        const stockActivityRef = openingQuantity > 0
+          ? doc(collection(db, "users", businessId, "activityLogs"))
+          : null;
 
-            alert(
-                "Unable to upload the photo. Please try again."
-            );
+        const actor = actorFields();
 
-
-            button.disabled = false;
-
-            button.textContent =
-                "Save Material";
-
-
-            return;
-
-        }
-
-    }
-
-
-    /* =================================================
-       MATERIAL DATA
-    ================================================= */
-
-    const data = {
-
-        name:
+        await runTransaction(db, async transaction => {
+          transaction.set(materialRef, {
             name,
-
-        category:
             category,
-
-        quantity:
-            quantity,
-
-        unit:
             unit,
-
-        costPerUnit:
-            costPerUnit,
-
-        lowStockAlert:
-            lowStockAlert,
-
-        supplier:
+            quantity: openingQuantity,
+            unitCost,
             supplier,
-
-        notes:
             notes,
-
-        photoUrl:
             photoUrl,
+            ownerUid: businessId,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+            createdByUid: currentUser.uid,
+            createdByName: actorName,
+            createdByRole: actorRole,
+            updatedByUid: currentUser.uid,
+            updatedByName: actorName,
+            updatedByRole: actorRole
+          });
 
-        ownerUid:
-            currentUser.uid,
+          transaction.set(activityRef, {
+            action: "material_created",
+            description: `Created material: ${name}`,
+            targetType: "material",
+            targetId: materialRef.id,
+            ...actor,
+            details: {
+              materialId: materialRef.id,
+              materialName: name,
+              category,
+              unit,
+              openingStock: openingQuantity,
+              unitCost,
+              supplier,
+              hasPhoto: Boolean(photoUrl)
+            },
+            createdAt: serverTimestamp()
+          });
 
-        updatedAt:
-            serverTimestamp()
+          if (openingQuantity > 0) {
+            transaction.set(movementRef, {
+              materialId: materialRef.id,
+              materialName: name,
+              type: "stock-in",
+              quantity: openingQuantity,
+              unit,
+              unitCost,
+              supplier,
+              notes: notes || "Opening stock",
+              balanceAfter: openingQuantity,
+              ownerUid: businessId,
+              createdAt: serverTimestamp(),
+              ...actor
+            });
 
-    };
+            transaction.set(stockActivityRef, {
+              action: "material_stock_in",
+              description: `Added opening stock of ${formatNumber(openingQuantity)} ${unit} for ${name}`,
+              targetType: "material",
+              targetId: materialRef.id,
+              ...actor,
+              details: {
+                materialId: materialRef.id,
+                materialName: name,
+                previousStock: 0,
+                addedStock: openingQuantity,
+                newStock: openingQuantity,
+                unit,
+                unitCost,
+                supplier,
+                notes: notes || "Opening stock"
+              },
+              createdAt: serverTimestamp()
+            });
+          }
+        });
 
-
-    /* =================================================
-       SAVE TO FIRESTORE
-    ================================================= */
-
-    try{
-
-        if(editingMaterialId){
-
-            const materialRef =
-                doc(
-                    db,
-                    "users",
-                    currentUser.uid,
-                    "materials",
-                    editingMaterialId
-                );
-
-
-            await updateDoc(
-                materialRef,
-                data
-            );
-
-        }
-
-        else{
-
-            data.createdAt =
-                serverTimestamp();
-
-
-            const materialsRef =
-                collection(
-                    db,
-                    "users",
-                    currentUser.uid,
-                    "materials"
-                );
-
-
-            await addDoc(
-                materialsRef,
-                data
-            );
-
-        }
-
-
-        /* =============================================
-           CLOSE MODAL
-        ============================================= */
-
-        closeMaterialModal();
-
-
-        /* =============================================
-           RELOAD MATERIALS
-        ============================================= */
-
+        closeModal("addMaterialModal");
+        showNotice("Material added successfully.", "success");
         await loadMaterials();
 
+      } catch (error) {
+        console.error("Save material error:", error);
+        showNotice("Unable to save material: " + (error.message || "Please try again."), "error");
 
-    }
+      } finally {
+        isSaving = false;
+        setButtonLoading("saveMaterialButton", false, "Saving...", "Save Material");
+      }
+    });
 
-    catch(error){
+    // OPEN ADD STOCK FORM
+    function openAddStock(materialId = "") {
+      clearNotice();
 
-        console.error(
-            "Unable to save material:",
-            error
-        );
+      if (!materials.length) {
+        showNotice("Add a material before recording stock.", "info");
+        return;
+      }
 
-
-        alert(
-            "Unable to save material. Please try again."
-        );
-
-    }
-
-
-    /* =================================================
-       RESTORE BUTTON
-    ================================================= */
-
-    button.disabled = false;
-
-    button.textContent =
-        "Save Material";
-
-};
-
-
-
-
-/* =====================================================
-   OPEN ADD MATERIAL INVENTORY
-===================================================== */
-
-window.openAddMaterialInventory =
-function(materialId = ""){
-
-    const select =
-        document.getElementById(
-            "inventoryMaterial"
-        );
-
-    select.innerHTML = `
-        <option value="">
-            Select Material
+      $("stockMaterialSelect").innerHTML = materials.map(material => `
+        <option value="${escapeHtml(material.id)}">
+          ${escapeHtml(getMaterialName(material))}
+          (${escapeHtml(formatNumber(getStock(material)))} ${escapeHtml(getMaterialUnit(material))})
         </option>
-    `;
+      `).join("");
 
+      if (materialId) $("stockMaterialSelect").value = materialId;
 
-    materials.forEach(
-        function(material){
+      $("stockQuantity").value = "";
+      $("stockUnitCost").value = "";
+      $("stockSupplier").value = "";
+      $("stockNotes").value = "";
 
-            const option =
-                document.createElement("option");
-
-            option.value =
-                material.id;
-
-            option.textContent =
-                `${material.name} — ${
-                    formatNumber(material.quantity)
-                } ${material.unit || ""}`;
-
-            select.appendChild(option);
-
-        }
-    );
-
-
-    document.getElementById(
-        "inventoryQuantity"
-    ).value = "";
-
-
-    document.getElementById(
-        "inventoryUnitCost"
-    ).value = "";
-
-
-    document.getElementById(
-        "inventorySupplier"
-    ).value = "";
-
-
-    document.getElementById(
-        "inventoryNotes"
-    ).value = "";
-
-
-    document.getElementById(
-        "inventoryCurrentStock"
-    ).style.display = "none";
-
-
-    if(materialId){
-
-        select.value =
-            materialId;
-
-        updateInventorySelectedMaterial();
-
+      openModal("addStockModal");
     }
 
+    $("materialList").addEventListener("click", event => {
+      const button = event.target.closest("[data-add-stock]");
+      if (button) openAddStock(button.dataset.addStock);
+    });
 
-    document.getElementById(
-        "materialInventoryModal"
-    ).classList.add("show");
+    // SAVE STOCK MOVEMENT AND ACTIVITY LOG
+    $("addStockForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (isSaving || !currentUser || !businessId) return;
 
-};
+      const materialId = $("stockMaterialSelect").value;
+      const addedQuantity = Number($("stockQuantity").value);
+      const costText = $("stockUnitCost").value.trim();
+      const unitCost = costText === "" ? null : Number(costText);
+      const supplier = $("stockSupplier").value.trim();
+      const notes = $("stockNotes").value.trim();
 
-
-/* =====================================================
-   SELECTED MATERIAL STOCK
-===================================================== */
-
-function updateInventorySelectedMaterial(){
-
-    const materialId =
-        document.getElementById(
-            "inventoryMaterial"
-        ).value;
-
-
-    const box =
-        document.getElementById(
-            "inventoryCurrentStock"
-        );
-
-
-    const material =
-        materials.find(
-            function(item){
-
-                return item.id === materialId;
-
-            }
-        );
-
-
-    if(!material){
-
-        box.style.display =
-            "none";
-
+      if (!materialId) {
+        showNotice("Please select a material.", "error");
         return;
+      }
 
-    }
-
-
-    box.textContent =
-        `Current Stock: ${
-            formatNumber(material.quantity)
-        } ${material.unit || ""}`;
-
-
-    box.style.display =
-        "block";
-
-}
-
-
-document.getElementById(
-    "inventoryMaterial"
-).addEventListener(
-    "change",
-    updateInventorySelectedMaterial
-);
-
-
-/* =====================================================
-   SAVE MATERIAL INVENTORY
-===================================================== */
-
-window.saveMaterialInventory =
-async function(){
-
-    if(!currentUser)
+      if (!Number.isFinite(addedQuantity) || addedQuantity <= 0) {
+        showNotice("Enter a quantity greater than zero.", "error");
         return;
+      }
 
-
-    const materialId =
-        document.getElementById(
-            "inventoryMaterial"
-        ).value;
-
-
-    const quantityValue =
-        document.getElementById(
-            "inventoryQuantity"
-        ).value;
-
-
-    const unitCostValue =
-        document.getElementById(
-            "inventoryUnitCost"
-        ).value;
-
-
-    const supplier =
-        document.getElementById(
-            "inventorySupplier"
-        ).value.trim();
-
-
-    const notes =
-        document.getElementById(
-            "inventoryNotes"
-        ).value.trim();
-
-
-    /* ================================================
-       VALIDATION
-    ================================================ */
-
-    if(!materialId){
-
-        alert(
-            "Please select a material."
-        );
-
+      if (unitCost !== null && (!Number.isFinite(unitCost) || unitCost < 0)) {
+        showNotice("Unit cost must be zero or greater.", "error");
         return;
+      }
 
-    }
+      isSaving = true;
+      setButtonLoading("saveStockButton", true, "Saving...", "Save Stock");
 
+      try {
+        const materialRef = doc(db, "users", businessId, "materials", materialId);
+        const movementRef = doc(collection(db, "users", businessId, "materialInventory"));
+        const activityRef = doc(collection(db, "users", businessId, "activityLogs"));
+        const actor = actorFields();
 
-    if(
-        quantityValue === "" ||
-        Number(quantityValue) <= 0
-    ){
+        await runTransaction(db, async transaction => {
+          const materialSnap = await transaction.get(materialRef);
 
-        alert(
-            "Please enter a quantity greater than 0."
-        );
+          if (!materialSnap.exists()) {
+            throw new Error("This material no longer exists. Refresh the list.");
+          }
 
-        return;
+          const material = materialSnap.data();
+          const materialName = getMaterialName(material);
+          const unit = getMaterialUnit(material);
+          const previousStock = getStock(material);
+          const newStock = previousStock + addedQuantity;
 
-    }
+          transaction.update(materialRef, {
+            quantity: newStock,
+            updatedAt: serverTimestamp(),
+            updatedByUid: currentUser.uid,
+            updatedByName: actorName,
+            updatedByRole: actorRole
+          });
 
+          transaction.set(movementRef, {
+            materialId,
+            materialName,
+            type: "stock-in",
+            quantity: addedQuantity,
+            unit,
+            unitCost,
+            supplier,
+            notes,
+            balanceAfter: newStock,
+            ownerUid: businessId,
+            createdAt: serverTimestamp(),
+            ...actor
+          });
 
-    const quantity =
-        Number(quantityValue);
+          transaction.set(activityRef, {
+            action: "material_stock_in",
+            description: `Added ${formatNumber(addedQuantity)} ${unit} of ${materialName}`,
+            targetType: "material",
+            targetId: materialId,
+            ...actor,
+            details: {
+              materialId,
+              materialName,
+              previousStock,
+              addedStock: addedQuantity,
+              newStock,
+              unit,
+              unitCost,
+              supplier,
+              notes
+            },
+            createdAt: serverTimestamp()
+          });
+        });
 
-
-    const unitCost =
-        unitCostValue === ""
-        ? 0
-        : Number(unitCostValue);
-
-
-    const button =
-        document.getElementById(
-            "saveMaterialInventoryBtn"
-        );
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Adding Stock...";
-
-
-    try{
-
-        const materialRef =
-            doc(
-                db,
-                "users",
-                currentUser.uid,
-                "materials",
-                materialId
-            );
-
-
-        const inventoryCollection =
-            collection(
-                db,
-                "users",
-                currentUser.uid,
-                "materialInventory"
-            );
-
-
-        const inventoryRef =
-            doc(
-                inventoryCollection
-            );
-
-
-        await runTransaction(
-            db,
-            async function(transaction){
-
-                const materialSnapshot =
-                    await transaction.get(
-                        materialRef
-                    );
-
-
-                if(!materialSnapshot.exists()){
-
-                    throw new Error(
-                        "Material no longer exists."
-                    );
-
-                }
-
-
-                const materialData =
-                    materialSnapshot.data();
-
-
-                const currentQuantity =
-                    Number(
-                        materialData.quantity || 0
-                    );
-
-
-                const newQuantity =
-                    currentQuantity +
-                    quantity;
-
-
-                /* =================================
-                   UPDATE MATERIAL STOCK
-                ================================= */
-
-                transaction.update(
-                    materialRef,
-                    {
-
-                        quantity:
-                            newQuantity,
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
-                );
-
-
-                /* =================================
-                   CREATE INVENTORY TRANSACTION
-                ================================= */
-
-                transaction.set(
-                    inventoryRef,
-                    {
-
-                        materialId:
-                            materialId,
-
-                        materialName:
-                            materialData.name || "",
-
-                        type:
-                            "stock-in",
-
-                        quantity:
-                            quantity,
-
-                        unit:
-                            materialData.unit || "",
-
-                        unitCost:
-                            unitCost,
-
-                        supplier:
-                            supplier,
-
-                        notes:
-                            notes,
-
-                        balanceAfter:
-                            newQuantity,
-
-                        ownerUid:
-                            currentUser.uid,
-
-                        createdAt:
-                            serverTimestamp()
-
-                    }
-                );
-
-            }
-        );
-
-
-        closeMaterialInventoryModal();
-
+        closeModal("addStockModal");
+        showNotice("Stock added and activity recorded successfully.", "success");
         await loadMaterials();
 
-
-        alert(
-            "Material stock added successfully."
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Unable to add material inventory:",
-            error
-        );
-
-
-        alert(
-            "Unable to add material stock. Please try again."
-        );
-
-    }
-
-
-    button.disabled = false;
-
-    button.textContent =
-        "Add Stock";
-
-};
-
-
-/* =====================================================
-   CLOSE ADD INVENTORY MODAL
-===================================================== */
-
-window.closeMaterialInventoryModal =
-function(){
-
-    document.getElementById(
-        "materialInventoryModal"
-    ).classList.remove(
-        "show"
-    );
-
-};
-
-
-/* =====================================================
-   OPEN MATERIAL INVENTORY HISTORY
-===================================================== */
-
-window.openMaterialInventory =
-async function(materialId){
-
-    const material =
-        materials.find(
-            function(item){
-
-                return item.id === materialId;
-
-            }
-        );
-
-
-    if(!material)
-        return;
-
-
-    document.getElementById(
-        "inventoryHistoryTitle"
-    ).textContent =
-        `${material.name} Inventory`;
-
-
-    const list =
-        document.getElementById(
-            "materialInventoryHistoryList"
-        );
-
-
-    list.innerHTML = `
-        <div class="loading">
-            Loading inventory history...
-        </div>
-    `;
-
-
-    document.getElementById(
-        "materialInventoryHistoryModal"
-    ).classList.add("show");
-
-
-    try{
-
-        const inventoryRef =
-            collection(
-                db,
-                "users",
-                currentUser.uid,
-                "materialInventory"
-            );
-
-
-        const snapshot =
-            await getDocs(
-                inventoryRef
-            );
-
-
-        const history = [];
-
-
-        snapshot.forEach(
-            function(inventoryDoc){
-
-                const data =
-                    inventoryDoc.data();
-
-
-                if(
-                    data.materialId === materialId
-                ){
-
-                    history.push({
-
-                        id:
-                            inventoryDoc.id,
-
-                        ...data
-
-                    });
-
-                }
-
-            }
-        );
-
-
-        history.sort(
-            function(a,b){
-
-                const aTime =
-                    a.createdAt?.seconds || 0;
-
-                const bTime =
-                    b.createdAt?.seconds || 0;
-
-                return bTime - aTime;
-
-            }
-        );
-
-
-        if(history.length === 0){
-
-            list.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        📦
-                    </div>
-
-                    <div class="empty-title">
-                        No inventory history
-                    </div>
-
-                    <div class="empty-text">
-                        Stock movements for this material will appear here.
-                    </div>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        list.innerHTML =
-            history.map(
-                function(item){
-
-                    let dateText =
-                        "—";
-
-
-                    if(item.createdAt){
-
-                        try{
-
-                            let date;
-
-
-                            if(
-                                item.createdAt.toDate
-                            ){
-
-                                date =
-                                    item.createdAt.toDate();
-
-                            }
-
-                            else if(
-                                item.createdAt.seconds
-                            ){
-
-                                date =
-                                    new Date(
-                                        item.createdAt.seconds * 1000
-                                    );
-
-                            }
-
-
-                            if(date){
-
-                                dateText =
-                                    date.toLocaleString(
-                                        "en-PH",
-                                        {
-                                            month:"short",
-                                            day:"numeric",
-                                            year:"numeric",
-                                            hour:"numeric",
-                                            minute:"2-digit"
-                                        }
-                                    );
-
-                            }
-
-                        }
-
-                        catch(error){
-
-                            dateText =
-                                "—";
-
-                        }
-
-                    }
-
-
-                    const sign =
-                        item.type === "stock-in"
-                        ? "+"
-                        : "-";
-
-
-                    return `
-
-                        <div class="inventory-history-item">
-
-                            <div class="inventory-history-top">
-
-                                <div>
-
-                                    <div class="inventory-history-type">
-
-                                        <span class="stock-in">
-                                            ${
-                                                item.type === "stock-in"
-                                                ? "STOCK IN"
-                                                : "STOCK OUT"
-                                            }
-                                        </span>
-
-                                    </div>
-
-                                    <div class="inventory-history-date">
-                                        ${dateText}
-                                    </div>
-
-                                </div>
-
-
-                                <div class="inventory-history-quantity">
-
-                                    ${sign}${formatNumber(item.quantity)}
-                                    ${escapeHtml(item.unit || "")}
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="inventory-history-details">
-
-                                ${
-                                    item.balanceAfter !== undefined
-                                    ? `Balance after: <strong>${
-                                        formatNumber(item.balanceAfter)
-                                    } ${
-                                        escapeHtml(item.unit || "")
-                                    }</strong><br>`
-                                    : ""
-                                }
-
-                                ${
-                                    item.unitCost > 0
-                                    ? `Unit cost: ₱${formatMoney(item.unitCost)}<br>`
-                                    : ""
-                                }
-
-                                ${
-                                    item.supplier
-                                    ? `Supplier: ${escapeHtml(item.supplier)}<br>`
-                                    : ""
-                                }
-
-                                ${
-                                    item.notes
-                                    ? escapeHtml(item.notes)
-                                    : ""
-                                }
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-            ).join("");
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Unable to load material inventory:",
-            error
-        );
-
-
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    ⚠️
-                </div>
-
-                <div class="empty-title">
-                    Unable to load inventory
-                </div>
-
-                <div class="empty-text">
-                    Please try again.
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-};
-
-
-/* =====================================================
-   CLOSE INVENTORY HISTORY
-===================================================== */
-
-window.closeMaterialInventoryHistory =
-function(){
-
-    document.getElementById(
-        "materialInventoryHistoryModal"
-    ).classList.remove(
-        "show"
-    );
-
-};
-
-
-
-
-
-/* =====================================================
-   DELETE MATERIAL
-===================================================== */
-
-window.removeMaterial =
-async function(id){
-
-    const material =
-        materials.find(
-            function(item){
-
-                return item.id === id;
-
-            }
-        );
-
-
-    if(!material)
-        return;
-
-
-    const confirmed =
-        confirm(
-            `Delete "${material.name}"?`
-        );
-
-
-    if(!confirmed)
-        return;
-
-
-    try{
-
-        const materialRef =
-            doc(
-                db,
-                "users",
-                currentUser.uid,
-                "materials",
-                id
-            );
-
-
-        await deleteDoc(
-            materialRef
-        );
-
-
-        await loadMaterials();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Unable to delete material:",
-            error
-        );
-
-        alert(
-            "Unable to delete material."
-        );
-
-    }
-
-};
-
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-window.closeMaterialModal =
-function(){
-
-    document.getElementById(
-        "materialModal"
-    ).classList.remove(
-        "show"
-    );
-
-};
-
-
-/* =====================================================
-   CLEAR FORM
-===================================================== */
-
-function clearForm(){
-
-    document.getElementById(
-        "materialName"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialCategory"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialQuantity"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialUnit"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialCost"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialLowStock"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialSupplier"
-    ).value = "";
-
-
-    document.getElementById(
-        "materialNotes"
-    ).value = "";
-    
-    
-    materialPhotoUrl = "";
-
-materialPhoto.value = "";
-
-materialPhotoPreviewImage.src = "";
-
-materialPhotoPreview.style.display =
-    "none";
-    
-
-}
-
-
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function formatNumber(value){
-
-    return Number(value || 0)
-        .toLocaleString(
-            "en-US",
-            {
-                maximumFractionDigits:2
-            }
-        );
-
-}
-
-
-function formatMoney(value){
-
-    return Number(value || 0)
-        .toLocaleString(
-            "en-PH",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
-}
-
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-/* =====================================================
-   BACK
-===================================================== */
-
-window.goBack =
-function(){
-
-    window.location.href =
-        "../dashboard/";
-
-};
-
-
-/* =====================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-===================================================== */
-
-document.getElementById(
-    "materialModal"
-).addEventListener(
-    "click",
-    function(event){
-
-        if(
-            event.target ===
-            this
-        ){
-
-            closeMaterialModal();
-
-        }
-
-    }
-);
-
-
-document.getElementById(
-    "materialInventoryModal"
-).addEventListener(
-    "click",
-    function(event){
-
-        if(event.target === this){
-
-            closeMaterialInventoryModal();
-
-        }
-
-    }
-);
-
-
-document.getElementById(
-    "materialInventoryHistoryModal"
-).addEventListener(
-    "click",
-    function(event){
-
-        if(event.target === this){
-
-            closeMaterialInventoryHistory();
-
-        }
-
-    }
-);
-
-
-
-
-</script>
-
+      } catch (error) {
+        console.error("Add stock error:", error);
+        showNotice("Unable to add stock: " + (error.message || "Please try again."), "error");
+
+      } finally {
+        isSaving = false;
+        setButtonLoading("saveStockButton", false, "Saving...", "Save Stock");
+      }
+    });
+
+    // SEARCH, REFRESH, HEADER NAVIGATION AND MODALS
+    $("searchMaterials").addEventListener("input", renderMaterials);
+
+    $("refreshButton").addEventListener("click", async () => {
+      clearNotice();
+      await loadMaterials();
+    });
+
+    $("inventoryRecordsButton").addEventListener("click", () => {
+      window.location.href = "inventory-record/index.htm";
+    });
+
+    document.querySelectorAll("[data-close]").forEach(button => {
+      button.addEventListener("click", () => closeModal(button.dataset.close));
+    });
+
+    document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+      backdrop.addEventListener("click", event => {
+        if (event.target === backdrop) closeModal(backdrop.id);
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        document.querySelectorAll(".modal-backdrop.open").forEach(modal => {
+          closeModal(modal.id);
+        });
+      }
+    });
+  </script>
 </body>
-
 </html>
