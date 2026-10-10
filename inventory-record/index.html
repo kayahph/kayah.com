@@ -1,0 +1,1434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>Inventory Records - Kayah</title>
+
+<style>
+:root {
+  --g: #0B4F3A;
+  --g2: #16805C;
+  --y: #F2B84B;
+  --bg: #F7F3E8;
+  --ink: #20352d;
+  --mut: #718078;
+  --line: #e1e8e1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f8f5;
+  color: var(--ink);
+  font: 14px system-ui, Arial, sans-serif;
+}
+
+header {
+  background: linear-gradient(120deg, var(--g), var(--g2));
+  color: white;
+  padding: 20px max(15px, calc((100% - 1100px) / 2));
+}
+
+.business-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+  border-radius: 14px;
+}
+
+.business-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.business-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.business-info {
+  min-width: 0;
+}
+
+.business-info h2 {
+  margin: 0;
+  color: var(--g);
+  font-size: 17px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.business-info p {
+  margin: 4px 0 0;
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.dashboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--g);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dashboard-button:hover {
+  background: var(--g2);
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 850;
+}
+
+.brand span {
+  color: var(--y);
+}
+
+header p {
+  margin: 5px 0 0;
+  opacity: .85;
+  font-size: 13px;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 14px 40px;
+}
+
+h2 {
+  margin: 0;
+  color: var(--g);
+  font-size: 19px;
+}
+
+.intro {
+  color: var(--mut);
+  margin: 6px 0 18px;
+  line-height: 1.5;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  min-width: 0;
+}
+
+.stat small {
+  color: var(--mut);
+}
+
+.stat strong {
+  display: block;
+  font-size: 23px;
+  color: var(--g);
+  margin-top: 4px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px;
+  margin-bottom: 13px;
+}
+
+input, select, button {
+  font: inherit;
+}
+
+input, select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #dbe4dc;
+  border-radius: 9px;
+  background: white;
+  color: var(--ink);
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 13px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 13px;
+  background: white;
+  color: var(--g);
+  font-weight: 750;
+}
+
+button.primary {
+  background: var(--y);
+  color: #26351f;
+  border-color: var(--y);
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.notice {
+  display: none;
+  padding: 11px 13px;
+  margin-bottom: 13px;
+  border-radius: 10px;
+  background: #edf5ef;
+  color: var(--g);
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.notice.show {
+  display: block;
+}
+
+.notice.error {
+  background: #fff0ef;
+  color: #9d241b;
+}
+
+.results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 17px 0 10px;
+}
+
+.results span {
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.list-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+}
+
+.list-heading,
+.record-summary {
+  display: grid;
+  grid-template-columns:
+    minmax(140px, 1.5fr)
+    minmax(125px, 1fr)
+    minmax(145px, 1.2fr)
+    minmax(125px, 1fr)
+    24px;
+  align-items: center;
+  gap: 12px;
+  min-width: 650px;
+}
+
+.list-heading {
+  padding: 11px 15px;
+  background: #edf5ef;
+  color: var(--g);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .35px;
+  border-bottom: 1px solid var(--line);
+}
+
+.record {
+  border-bottom: 1px solid var(--line);
+}
+
+.record:last-child {
+  border-bottom: 0;
+}
+
+.record summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.record summary::-webkit-details-marker {
+  display: none;
+}
+
+.record-summary {
+  padding: 13px 15px;
+  transition: background .15s;
+}
+
+.record summary:hover .record-summary {
+  background: #f6faf6;
+}
+
+.record[open] .record-summary {
+  background: #f0f7f1;
+}
+
+.cell {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.item-name {
+  display: block;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.cell-sub {
+  display: block;
+  color: var(--mut);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.activity-tag {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #edf5ef;
+  color: var(--g);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.activity-tag.stock {
+  background: #fff1d2;
+  color: #825b00;
+}
+
+.activity-tag.delete {
+  background: #fff0ef;
+  color: #9d241b;
+}
+
+.activity-tag.edit {
+  background: #edf2ff;
+  color: #3156a3;
+}
+
+.person-name {
+  display: block;
+  font-size: 12px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.chevron {
+  color: var(--g);
+  font-size: 18px;
+  text-align: center;
+  transition: transform .15s;
+}
+
+.record[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.record-details {
+  padding: 15px;
+  border-top: 1px solid #e7eee7;
+  background: #fcfdfb;
+  min-width: 0;
+}
+
+.detail-title {
+  font-size: 13px;
+  color: var(--g);
+  font-weight: 850;
+  margin: 0 0 12px;
+}
+
+.qty {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.qty div {
+  background: #f1f6f0;
+  border-radius: 9px;
+  padding: 10px;
+  min-width: 0;
+}
+
+.qty small {
+  display: block;
+  color: var(--mut);
+  font-size: 11px;
+}
+
+.qty strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.details {
+  margin-top: 10px;
+  border-top: 1px solid #edf0ed;
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.person-details {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid #edf0ed;
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.detail-box {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.detail-box small {
+  display: block;
+  color: var(--mut);
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.detail-box strong {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  text-align: center;
+  padding: 36px 15px;
+  border: 1px dashed #cbd8cd;
+  background: white;
+  border-radius: 14px;
+  color: var(--mut);
+  line-height: 1.6;
+}
+
+.empty b {
+  display: block;
+  color: var(--g);
+  margin-bottom: 5px;
+}
+
+.foot {
+  text-align: center;
+  padding: 22px 0;
+  color: var(--mut);
+  font-size: 11px;
+}
+
+@media (max-width: 650px) {
+  main {
+    padding: 16px 10px 30px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters input {
+    grid-column: 1 / -1;
+  }
+
+  .stats {
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 10px;
+  }
+
+  .stat strong {
+    font-size: 19px;
+  }
+
+  .qty {
+    gap: 5px;
+  }
+
+  .qty div {
+    padding: 8px;
+  }
+
+  .qty strong {
+    font-size: 13px;
+  }
+
+  .record-details {
+    padding: 12px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .business-header {
+    padding: 12px 10px;
+  }
+
+  .business-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .business-info h2 {
+    font-size: 14px;
+  }
+
+  .dashboard-button {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Kayah<span>.</span></div>
+  <p>Business, Made Possible.</p>
+</header>
+
+<main>
+
+  <div class="business-header">
+    <div class="business-brand">
+      <img
+        id="businessLogo"
+        class="business-logo"
+        src=""
+        alt="Business logo"
+        hidden
+      >
+
+      <div class="business-info">
+        <h2 id="businessName">Loading business...</h2>
+        <p>
+          Activity Log Records ·
+          <span id="roleLabel">Checking account...</span>
+        </p>
+      </div>
+    </div>
+
+    <a href="../dashboard/" class="dashboard-button">
+      ← Dashboard
+    </a>
+  </div>
+
+  <h2>Inventory Records</h2>
+
+  <p class="intro">
+    View product and service changes, stock additions, and the people
+    responsible for each recorded activity.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <small>Matching records</small>
+      <strong id="totalCount">—</strong>
+    </div>
+
+    <div class="stat">
+      <small>Stock additions</small>
+      <strong id="stockCount">—</strong>
+    </div>
+
+    <div class="stat">
+      <small>Items created</small>
+      <strong id="createdCount">—</strong>
+    </div>
+  </div>
+
+  <div id="notice" class="notice" role="status"></div>
+
+  <div class="filters">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search item, person, action, or reason..."
+      aria-label="Search activity records"
+    >
+
+    <select id="activityFilter" aria-label="Filter by activity">
+      <option value="all">All activities</option>
+      <option value="stock">Stock additions</option>
+      <option value="created">Items created</option>
+      <option value="updated">Items updated</option>
+      <option value="deleted">Items deleted</option>
+      <option value="other">Other activities</option>
+    </select>
+
+    <select id="typeFilter" aria-label="Filter by item type">
+      <option value="all">All item types</option>
+      <option value="product">Products</option>
+      <option value="service">Services</option>
+      <option value="material">Materials</option>
+      <option value="other">Other activities</option>
+    </select>
+  </div>
+
+  <div class="dates">
+    <input id="dateFrom" type="date" aria-label="From date">
+    <input id="dateTo" type="date" aria-label="To date">
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="refresh" type="button">
+      Refresh records
+    </button>
+
+    <button id="clear" type="button">
+      Clear filters
+    </button>
+  </div>
+
+  <div class="results">
+    <strong>Activity history</strong>
+    <span id="resultLabel">Loading records...</span>
+  </div>
+
+  <div id="records">
+    <div class="empty">Connecting to Kayah...</div>
+  </div>
+
+  <div class="foot">
+    Powered by Kayah — Business, Made Possible.
+  </div>
+
+</main>
+
+<script type="module">
+import {
+  initializeApp,
+  getApps
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/*
+  Uses the existing Kayah Firebase project.
+  This page reads activityLogs only; it does not create,
+  edit, or delete inventory or activity records.
+*/
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = getApps().length
+  ? getApps().find(a => a.options.projectId === firebaseConfig.projectId)
+    || initializeApp(firebaseConfig)
+  : initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let userData = {};
+let businessId = null;
+let role = "owner";
+let allRecords = [];
+
+const $ = id => document.getElementById(id);
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[c]);
+}
+
+function showNotice(message, error = false) {
+  $("notice").textContent = message;
+  $("notice").className =
+    "notice show" + (error ? " error" : "");
+}
+
+function hideNotice() {
+  $("notice").className = "notice";
+  $("notice").textContent = "";
+}
+
+function toDate(value) {
+  if (!value) return null;
+
+  if (typeof value.toDate === "function") {
+    return value.toDate();
+  }
+
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (typeof value === "number") {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  if (typeof value === "string") {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  if (typeof value.seconds === "number") {
+    return new Date(value.seconds * 1000);
+  }
+
+  return null;
+}
+
+function dateText(value) {
+  const d = toDate(value);
+  if (!d) return "Date unavailable";
+
+  return new Intl.DateTimeFormat("en-PH", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Manila"
+  }).format(d);
+}
+
+function dateKey(value) {
+  const d = toDate(value);
+  if (!d) return "";
+
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: "Asia/Manila"
+  }).formatToParts(d);
+
+  const part = type =>
+    parts.find(p => p.type === type)?.value || "";
+
+  return `${part("year")}-${part("month")}-${part("day")}`;
+}
+
+function numberText(value) {
+  if (value === null || value === undefined || value === "") {
+    return "—";
+  }
+
+  const n = Number(value);
+
+  return Number.isFinite(n)
+    ? n.toLocaleString("en-PH", { maximumFractionDigits: 3 })
+    : String(value);
+}
+
+function firstValue(...values) {
+  return values.find(v =>
+    v !== undefined && v !== null && v !== ""
+  );
+}
+
+function normalize(raw, id) {
+  const d = raw.details && typeof raw.details === "object"
+    ? raw.details
+    : {};
+
+  const action = String(
+    raw.action || raw.activity || raw.event || "activity"
+  ).toLowerCase();
+
+  const rawType = String(
+    raw.type ||
+    raw.itemType ||
+    raw.targetType ||
+    d.type ||
+    d.itemType ||
+    d.targetType ||
+    ""
+  ).toLowerCase();
+
+  let type = "other";
+
+  if (rawType.includes("service")) {
+    type = "service";
+  } else if (rawType.includes("material")) {
+    type = "material";
+  } else if (
+    rawType.includes("product") ||
+    rawType.includes("inventory")
+  ) {
+    type = "product";
+  }
+
+  const combined = [
+    action,
+    raw.description || "",
+    raw.reason || "",
+    raw.event || ""
+  ].join(" ").toLowerCase();
+
+  let activity = "other";
+
+  if (
+    /stock|add stock|stock_in|stock addition|quantity added/.test(combined)
+  ) {
+    activity = "stock";
+  } else if (
+    /create|created|add item|item added|added product|added service|added material|new product|new service/.test(combined)
+  ) {
+    activity = "created";
+  } else if (
+    /update|updated|edit|edited|change|changed/.test(combined)
+  ) {
+    activity = "updated";
+  } else if (
+    /delete|deleted|remove|removed/.test(combined)
+  ) {
+    activity = "deleted";
+  }
+
+  const name = firstValue(
+    raw.recordName,
+    raw.itemName,
+    raw.materialName,
+    raw.productName,
+    raw.serviceName,
+    d.recordName,
+    d.materialName,
+    d.itemName,
+    d.productName,
+    d.serviceName,
+    d.name,
+    raw.description
+      ? raw.description.replace(/^Added stock for /i, "")
+      : null
+  ) || "Unnamed item";
+
+  const previous = firstValue(
+    d.previousQuantity,
+    d.previousStock,
+    d.previous,
+    raw.previousQuantity,
+    raw.previousStock
+  );
+
+  const added = firstValue(
+    d.quantityAdded,
+    d.quantityChanged,
+    d.quantity,
+    d.added,
+    raw.quantityAdded,
+    raw.quantity
+  );
+
+  const next = firstValue(
+    d.newQuantity,
+    d.newStock,
+    d.new,
+    raw.newQuantity,
+    raw.newStock
+  );
+
+  const actorName = firstValue(
+    raw.actorName,
+    raw.performedByName,
+    raw.updatedByName,
+    raw.createdByName,
+    raw.userName,
+    raw.staffName,
+    raw.changedByName
+  ) || "Unknown user";
+
+  const actorUid = firstValue(
+    raw.actorUid,
+    raw.performedByUid,
+    raw.updatedByUid,
+    raw.createdByUid,
+    raw.userUid,
+    raw.changedByUid
+  ) || "";
+
+  const actorRole = String(firstValue(
+    raw.actorRole,
+    raw.performedByRole,
+    raw.updatedByRole,
+    raw.createdByRole,
+    raw.userRole,
+    raw.changedByRole
+  ) || "unknown").toLowerCase();
+
+  return {
+    id,
+    action,
+    activity,
+    type,
+    name: String(name),
+    previous,
+    added,
+    next,
+    unit: firstValue(d.unit, raw.unit) || "",
+    reason: firstValue(d.reason, raw.reason) || "",
+    actorName: String(actorName),
+    actorUid: String(actorUid),
+    actorRole,
+    description: raw.description || "",
+    createdAt: firstValue(
+      raw.createdAt,
+      raw.timestamp,
+      raw.date,
+      raw.updatedAt
+    ) || null,
+    details: d
+  };
+}
+
+function activityLabel(r) {
+  if (r.activity === "stock") return "Stock addition";
+  if (r.activity === "created") return "Item created";
+  if (r.activity === "updated") return "Item updated";
+  if (r.activity === "deleted") return "Item deleted";
+
+  return r.action.replace(/[_-]/g, " ");
+}
+
+function badgeClass(r) {
+  if (r.activity === "stock") return "activity-tag stock";
+  if (r.activity === "deleted") return "activity-tag delete";
+  if (r.activity === "updated") return "activity-tag edit";
+
+  return "activity-tag";
+}
+
+function typeLabel(type) {
+  return ({
+    product: "Product",
+    service: "Service",
+    material: "Material",
+    other: "Other"
+  })[type] || "Other";
+}
+
+function roleLabelText(actorRole) {
+  if (actorRole === "owner") return "Business Owner";
+  if (actorRole === "staff") return "Staff";
+  if (actorRole === "unknown") return "Role not recorded";
+
+  return actorRole;
+}
+
+function getFiltered() {
+  const query = $("search").value.trim().toLowerCase();
+  const activity = $("activityFilter").value;
+  const type = $("typeFilter").value;
+  const from = $("dateFrom").value;
+  const to = $("dateTo").value;
+
+  return allRecords.filter(r => {
+    if (activity !== "all" && r.activity !== activity) {
+      return false;
+    }
+
+    if (type !== "all" && r.type !== type) {
+      return false;
+    }
+
+    const key = dateKey(r.createdAt);
+
+    if (from && (!key || key < from)) return false;
+    if (to && (!key || key > to)) return false;
+
+    if (query) {
+      const searchable = [
+        r.name,
+        r.action,
+        r.activity,
+        r.type,
+        r.actorName,
+        r.actorRole,
+        r.actorUid,
+        r.description,
+        r.reason,
+        JSON.stringify(r.details)
+      ].join(" ").toLowerCase();
+
+      if (!searchable.includes(query)) return false;
+    }
+
+    return true;
+  });
+}
+
+function render() {
+  const list = getFiltered();
+
+  $("totalCount").textContent = list.length;
+
+  $("stockCount").textContent =
+    list.filter(r => r.activity === "stock").length;
+
+  $("createdCount").textContent =
+    list.filter(r => r.activity === "created").length;
+
+  $("resultLabel").textContent =
+    `${list.length} record${list.length === 1 ? "" : "s"}`;
+
+  if (!list.length) {
+    $("records").innerHTML = `
+      <div class="empty">
+        <b>No matching records</b>
+        Try changing the filters, or refresh the page.
+        <br><br>
+        Only activities saved to the business activity log
+        can appear here.
+      </div>`;
+    return;
+  }
+
+  const rows = list.map(r => {
+    const hasStock =
+      r.activity === "stock" ||
+      r.previous !== undefined ||
+      r.added !== undefined ||
+      r.next !== undefined;
+
+    let quantityHtml = "";
+
+    if (hasStock) {
+      quantityHtml = `
+        <div class="qty">
+          <div>
+            <small>Previous stock</small>
+            <strong>${esc(numberText(r.previous))} ${esc(r.unit)}</strong>
+          </div>
+          <div>
+            <small>Quantity added</small>
+            <strong>${esc(numberText(r.added))} ${esc(r.unit)}</strong>
+          </div>
+          <div>
+            <small>New stock</small>
+            <strong>${esc(numberText(r.next))} ${esc(r.unit)}</strong>
+          </div>
+        </div>`;
+    }
+
+    const reasonHtml = r.reason
+      ? `<div><b>Reason:</b> ${esc(r.reason)}</div>`
+      : "";
+
+    const descHtml = r.description
+      ? `<div><b>Description:</b> ${esc(r.description)}</div>`
+      : "";
+
+    const actorIdHtml = r.actorUid
+      ? `<div><b>User ID:</b> ${esc(r.actorUid)}</div>`
+      : "";
+
+    const excludedKeys = [
+      "previousQuantity", "previousStock", "previous",
+      "quantityAdded", "quantityChanged", "quantity", "added",
+      "newQuantity", "newStock", "new", "unit", "reason",
+      "recordName", "itemName", "materialName", "productName",
+      "serviceName", "name", "itemType", "targetType", "type"
+    ];
+
+    const extraDetails = Object.entries(r.details || {})
+      .filter(([key, value]) => {
+        if (value === null || value === undefined || value === "") {
+          return false;
+        }
+
+        return !excludedKeys.includes(key);
+      })
+      .map(([key, value]) => {
+        const label = key
+          .replace(/([A-Z])/g, " $1")
+          .replace(/[_-]/g, " ")
+          .replace(/^./, c => c.toUpperCase());
+
+        let display;
+
+        if (value && typeof value.toDate === "function") {
+          display = dateText(value);
+        } else if (value && typeof value === "object") {
+          display = JSON.stringify(value);
+        } else {
+          display = String(value);
+        }
+
+        return `
+          <div class="detail-box">
+            <small>${esc(label)}</small>
+            <strong>${esc(display)}</strong>
+          </div>`;
+      }).join("");
+
+    return `
+      <details class="record">
+        <summary>
+          <div class="record-summary">
+            <div class="cell">
+              <span class="item-name">${esc(r.name)}</span>
+              <span class="cell-sub">${esc(typeLabel(r.type))}</span>
+            </div>
+
+            <div class="cell">
+              <span class="${badgeClass(r)}">
+                ${esc(activityLabel(r))}
+              </span>
+            </div>
+
+            <div class="cell">
+              <span class="person-name">${esc(dateText(r.createdAt))}</span>
+            </div>
+
+            <div class="cell">
+              <span class="person-name">${esc(r.actorName)}</span>
+              <span class="cell-sub">${esc(roleLabelText(r.actorRole))}</span>
+            </div>
+
+            <div class="chevron">⌄</div>
+          </div>
+        </summary>
+
+        <div class="record-details">
+          <p class="detail-title">Activity details</p>
+
+          <div class="detail-grid">
+            <div class="detail-box">
+              <small>Item name</small>
+              <strong>${esc(r.name)}</strong>
+            </div>
+
+            <div class="detail-box">
+              <small>Item type</small>
+              <strong>${esc(typeLabel(r.type))}</strong>
+            </div>
+
+            <div class="detail-box">
+              <small>Activity</small>
+              <strong>${esc(activityLabel(r))}</strong>
+            </div>
+
+            <div class="detail-box">
+              <small>Date and time</small>
+              <strong>${esc(dateText(r.createdAt))}</strong>
+            </div>
+          </div>
+
+          ${quantityHtml}
+
+          ${(reasonHtml || descHtml) ? `
+            <div class="details">
+              ${descHtml}
+              ${reasonHtml}
+            </div>` : ""}
+
+          ${extraDetails ? `
+            <div class="details">
+              <b>Additional information</b>
+              <div class="detail-grid" style="margin-top:8px">
+                ${extraDetails}
+              </div>
+            </div>` : ""}
+
+          <div class="person-details">
+            <b>Performed by:</b> ${esc(r.actorName)}<br>
+            <b>Role:</b> ${esc(roleLabelText(r.actorRole))}<br>
+            ${actorIdHtml}
+            <b>Action code:</b> ${esc(r.action)}<br>
+            <b>Record ID:</b> ${esc(r.id)}
+          </div>
+        </div>
+      </details>`;
+  }).join("");
+
+  $("records").innerHTML = `
+    <div class="list-wrap">
+      <div class="list-heading">
+        <div>Item name</div>
+        <div>Activity</div>
+        <div>Date</div>
+        <div>Performed by</div>
+        <div></div>
+      </div>
+      ${rows}
+    </div>`;
+}
+
+async function loadRecords() {
+  if (!businessId) return;
+
+  $("records").innerHTML =
+    '<div class="empty">Loading activity records...</div>';
+
+  $("refresh").disabled = true;
+  hideNotice();
+
+  try {
+    const snapshot = await getDocs(
+      collection(db, "users", businessId, "activityLogs")
+    );
+
+    allRecords = snapshot.docs.map(d =>
+      normalize(d.data(), d.id)
+    );
+
+    allRecords.sort((a, b) => {
+      const da = toDate(a.createdAt)?.getTime() || 0;
+      const dbTime = toDate(b.createdAt)?.getTime() || 0;
+
+      return dbTime - da;
+    });
+
+    render();
+
+    if (!allRecords.length) {
+      showNotice(
+        "No activity records were found in this business's activityLogs collection. " +
+        "Existing product records do not automatically appear here unless activity logs were saved."
+      );
+    }
+  } catch (error) {
+    console.error("Could not load inventory records:", error);
+
+    $("records").innerHTML = `
+      <div class="empty">
+        <b>Unable to load records</b>
+        Check your internet connection and Firestore rules.
+      </div>`;
+
+    showNotice(
+      "Could not read activity logs: " +
+      (error.code || error.message || "Unknown error"),
+      true
+    );
+  } finally {
+    $("refresh").disabled = false;
+  }
+}
+
+function setBusinessHeader(profile) {
+  const businessName = firstValue(
+    profile.businessName,
+    profile.business?.name,
+    profile.storeName,
+    profile.name
+  ) || "My Business";
+
+  $("businessName").textContent = String(businessName);
+
+  const logo = firstValue(
+    profile.businessLogo,
+    profile.businessLogoUrl,
+    profile.logoUrl,
+    profile.logo,
+    profile.business?.logoUrl
+  );
+
+  const img = $("businessLogo");
+
+  if (logo && typeof logo === "string") {
+    img.onload = () => {
+      img.hidden = false;
+    };
+
+    img.onerror = () => {
+      img.hidden = true;
+    };
+
+    img.src = logo;
+  } else {
+    img.hidden = true;
+    img.removeAttribute("src");
+  }
+}
+
+$("search").addEventListener("input", render);
+$("activityFilter").addEventListener("change", render);
+$("typeFilter").addEventListener("change", render);
+$("dateFrom").addEventListener("change", render);
+$("dateTo").addEventListener("change", render);
+
+$("refresh").addEventListener("click", loadRecords);
+
+$("clear").addEventListener("click", () => {
+  $("search").value = "";
+  $("activityFilter").value = "all";
+  $("typeFilter").value = "all";
+  $("dateFrom").value = "";
+  $("dateTo").value = "";
+
+  render();
+});
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  businessId = null;
+  allRecords = [];
+
+  if (!user) {
+    $("roleLabel").textContent = "Sign in required";
+    $("businessName").textContent = "Kayah";
+
+    $("records").innerHTML = `
+      <div class="empty">
+        <b>Please sign in</b>
+        Sign in to Kayah and reopen this page.
+      </div>`;
+
+    showNotice("Your session is not signed in. Please sign in again.", true);
+    return;
+  }
+
+  try {
+    $("roleLabel").textContent = "Loading account...";
+
+    const profile = await getDoc(doc(db, "users", user.uid));
+
+    if (!profile.exists()) {
+      throw new Error("Kayah user profile not found.");
+    }
+
+    userData = profile.data();
+
+    const accountRole = String(
+      userData.role || "owner"
+    ).toLowerCase();
+
+    if (accountRole === "staff") {
+      if (
+        (userData.accountStatus &&
+          userData.accountStatus !== "active") ||
+        userData.active === false
+      ) {
+        throw new Error("Staff account is not active.");
+      }
+
+      if (!userData.ownerUid) {
+        throw new Error("Staff profile is missing ownerUid.");
+      }
+
+      businessId = userData.ownerUid;
+      role = "staff";
+    } else {
+      businessId = user.uid;
+      role = "owner";
+    }
+
+    setBusinessHeader(userData);
+
+    $("roleLabel").textContent =
+      role === "owner" ? "Business Owner" : "Staff";
+
+    await loadRecords();
+
+  } catch (error) {
+    console.error("Could not open inventory records:", error);
+
+    $("records").innerHTML = `
+      <div class="empty">
+        <b>Could not open inventory records</b>
+        Check your account profile and Firestore permissions.
+      </div>`;
+
+    showNotice(
+      error.message || "Could not open records.",
+      true
+    );
+  }
+});
+</script>
+
+</body>
+</html>
