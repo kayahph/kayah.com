@@ -1,9 +1,65 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0B4F3A"><title>Kayah Products & Services</title>
+
 <style>
+    
+   
+.brandrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: white;
+  border-radius: 12px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+#businessName {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+}
+    
+    
 :root{--g:#0B4F3A;--g2:#16805C;--y:#F2B84B;--b:#F7F3E8;--ink:#20352d;--mut:#718078;--line:#e1e8e1}*{box-sizing:border-box}body{margin:0;background:#f5f8f5;color:var(--ink);font:15px system-ui,Arial}.top{background:linear-gradient(120deg,var(--g),var(--g2));color:white;padding:20px max(14px,calc((100% - 1000px)/2))}.brand{font-size:23px;font-weight:850}.brand span{color:var(--y)}.sub{font-size:13px;opacity:.8}main{max-width:1000px;margin:auto;padding:18px 14px 40px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px 0 16px}.tabs{display:flex;gap:5px;background:#e9efe9;padding:5px;border-radius:12px}.tab{border:0;background:transparent;padding:10px 17px;border-radius:9px;font-weight:750;color:#536258}.tab.active{background:white;color:var(--g);box-shadow:0 2px 8px #0001}button{cursor:pointer;font:inherit}.primary{background:var(--y);color:#26351f;border:0;padding:11px 15px;border-radius:11px;font-weight:800}.secondary{border:1px solid var(--line);background:white;color:var(--g);padding:8px 11px;border-radius:9px;font-weight:700}.danger{color:#b42318}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat,.item{background:white;border:1px solid var(--line);border-radius:15px;padding:14px}.stat small{color:var(--mut)}.stat strong{display:block;color:var(--g);font-size:22px;margin-top:4px}.bar{height:6px;background:#edf1ed;border-radius:9px;margin-top:8px;overflow:hidden}.bar div{height:100%;background:var(--g2);width:0}.search{display:flex;gap:8px;margin:15px 0}.search input{flex:1}input,select,textarea{font:inherit;width:100%;border:1px solid #dbe4dc;border-radius:9px;padding:11px;background:white;color:var(--ink)}.list{display:grid;gap:10px}.item{display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center}.photo{width:68px;height:68px;border-radius:11px;object-fit:cover;background:var(--b);display:grid;place-items:center;color:var(--g)}h3{font-size:16px;margin:0 0 3px}.muted{font-size:12px;color:var(--mut)}.price{color:var(--g);font-weight:850;margin-top:4px}.actions{display:flex;gap:5px;flex-wrap:wrap}.actions button{font-size:12px}.tag{display:inline-block;border-radius:30px;background:#edf5ef;color:var(--g);font-size:11px;padding:4px 7px;margin:4px 4px 0 0}.warn{background:#fff1d2;color:#825b00}.empty,.loading{background:white;border:1px dashed #cbd8cd;border-radius:14px;text-align:center;padding:35px;color:var(--mut)}.empty b{display:block;color:var(--g);margin-bottom:5px}.notice{display:none;padding:10px 12px;background:#edf5ef;color:var(--g);border-radius:10px;margin-bottom:12px;font-size:13px}.notice.show{display:block}.notice.error{background:#fff0ef;color:#9d241b}.addmenu{position:relative}.menu{display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:4;width:215px;background:white;border:1px solid var(--line);border-radius:12px;padding:5px;box-shadow:0 10px 30px #0002}.menu.open{display:block}.menu button{display:block;width:100%;text-align:left;padding:11px;border:0;background:white;border-radius:8px;font-weight:700}.menu button:hover{background:var(--b)}.menu small{display:block;color:var(--mut);font-weight:400}.backdrop{display:none;position:fixed;inset:0;background:#10261dcc;z-index:10;align-items:center;justify-content:center;padding:14px;overflow:auto}.backdrop.open{display:flex}.modal{background:white;border-radius:18px;width:min(100%,590px);max-height:92vh;overflow:auto}.mhead,.mfoot{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.mhead h2{margin:0;color:var(--g);font-size:19px}.mhead button{border:0;border-radius:8px;padding:6px 11px;font-size:22px}.mfoot{border-top:1px solid var(--line);border-bottom:0;justify-content:flex-end;gap:8px}.formgrid{padding:17px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;font-weight:750;color:#52635a}.full{grid-column:1/-1}.hint{font-size:11px;color:var(--mut)}.toggle{display:flex;gap:8px;align-items:center}.toggle input{width:auto}.preview{width:75px;height:75px;object-fit:cover;border-radius:10px;display:none}.foot{text-align:center;font-size:11px;color:var(--mut);padding:18px}@media(max-width:580px){.item{grid-template-columns:55px 1fr}.photo{width:55px;height:55px}.actions{grid-column:1/-1;padding-left:65px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.stats{gap:6px}.stat{padding:10px}.stat strong{font-size:18px}}
 </style></head><body>
-<header class="top"><div class="brand">kayah<span>.</span></div><div class="sub">Products & Services · <span id="role">Connecting…</span></div></header>
+    
+    
+    
+
+<header class="top">
+  <div class="brandrow">
+    <img
+      id="businessLogo"
+      class="brand-logo"
+      alt="Business logo"
+      style="display:none"
+    >
+    <div class="brand" id="businessName">Loading business…</div>
+  </div>
+  <div class="sub">
+    Products &amp; Services · <span id="role">Connecting…</span>
+  </div>
+</header>
+
+
+
 <main><div id="notice" class="notice"></div><div class="stats"><div class="stat"><small id="countLabel">Products</small><strong id="count">—</strong></div><div class="stat"><small>Plan allowance</small><strong id="limit">—</strong><div class="bar"><div id="bar"></div></div></div><div class="stat"><small>Active items</small><strong id="active">—</strong></div></div>
 <div class="toolbar"><div class="tabs"><button class="tab active" id="ptab">Products</button><button class="tab" id="stab">Services</button></div><div class="addmenu"><button class="primary" id="addbtn">＋ Add New ▾</button><div class="menu" id="menu"><button data-add="product">＋ Add New Product<small>Create a product</small></button><button data-add="service">＋ Add New Service<small>Create a service</small></button><button data-add="stock">＋ Add New Stock<small>Use the Stock button on a product</small></button></div></div></div>
 <div class="search"><input id="search" placeholder="Search name, SKU, category…"><button class="secondary" id="refresh">Refresh</button></div><div id="list" class="list"><div class="loading">Connecting to Kayah…</div></div><div class="foot">Kayah — Business, Made Possible.</div></main>
@@ -48,7 +104,47 @@ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
 let user=null,userData={},ownerData={},businessId=null,role="owner",tab="products",products=[],services=[],editingId=null,mode="product",photoUrl="";
 const $=id=>document.getElementById(id),cash=n=>"₱"+(Number(n)||0).toLocaleString("en-PH",{maximumFractionDigits:2}),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function notice(s,error=false){$("notice").textContent=s;$("notice").className="notice show"+(error?" error":"")}
+
+
+
 function actor(){return userData.name||userData.fullName||user?.displayName||user?.email||"Unknown user"}
+
+
+
+function renderBusinessBrand() {
+  const name =
+    ownerData.businessName ||
+    ownerData.storeName ||
+    ownerData.companyName ||
+    "Your Business";
+
+  $("businessName").textContent = name;
+
+  const logo =
+    ownerData.businessLogoUrl ||
+    ownerData.logoUrl ||
+    ownerData.businessLogo ||
+    ownerData.logoURL ||
+    ownerData.logo ||
+    "";
+
+  const img = $("businessLogo");
+
+  img.onerror = () => {
+    img.style.display = "none";
+  };
+
+  if (typeof logo === "string" && /^https?:\/\//i.test(logo)) {
+    img.src = logo;
+    img.style.display = "block";
+  } else {
+    img.removeAttribute("src");
+    img.style.display = "none";
+  }
+}
+
+
+
 function actorFields(){return{createdByUid:user.uid,createdByName:actor(),createdByRole:role,updatedByUid:user.uid,updatedByName:actor(),updatedByRole:role}}
 const pref=()=>collection(db,"users",businessId,"products"),sref=()=>collection(db,"users",businessId,"services");
 async function log(action,type,id,name,details={}){try{await addDoc(collection(db,"users",businessId,"activityLogs"),{action,itemType:type,itemId:id||null,itemName:name||"",details,actorUid:user.uid,actorName:actor(),actorRole:role,businessId,createdAt:serverTimestamp()})}
@@ -71,5 +167,17 @@ $("modal").classList.remove("open");notice((edit?"Updated":"Saved")+" successful
 }catch(err){console.error(err);notice(err.message||"Save failed.",true)}finally{btn.disabled=false;btn.textContent="Save"}}
 async function remove(id){let service=tab==="services",item=(service?services:products).find(x=>x.id===id);if(!item||!confirm(`Delete "${item.name}"? This cannot be undone.`))return;try{await log("item_deleted",service?"service":"product",id,item.name,{});await deleteDoc(doc(db,"users",businessId,service?"services":"products",id));notice("Deleted "+item.name+".");await load()}catch(e){notice("Delete failed: "+(e.code||e.message),true)}}
 $("ptab").onclick=()=>setTab("products");$("stab").onclick=()=>setTab("services");$("addbtn").onclick=()=>$("menu").classList.toggle("open");$("menu").onclick=e=>{let b=e.target.closest("[data-add]");if(!b)return;$("menu").classList.remove("open");if(b.dataset.add==="stock"){notice("Use the ＋ Stock button on the product row so the correct product is selected.");return}open(b.dataset.add)};$("list").onclick=e=>{let b=e.target.closest("button");if(!b)return;if(b.dataset.edit){let x=items().find(x=>x.id===b.dataset.edit);if(x)open(tab==="services"?"editService":"editProduct",x)}else if(b.dataset.stock){let x=products.find(x=>x.id===b.dataset.stock);if(x)open("stock",x)}else if(b.dataset.delete)remove(b.dataset.delete)};$("form").onsubmit=submit;$("search").oninput=render;$("refresh").onclick=load;document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$("modal").classList.remove("open"));$("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};$("photo").onchange=()=>{let f=$("photo").files[0];if(f){$("preview").src=URL.createObjectURL(f);$("preview").style.display="block"}};document.addEventListener("click",e=>{if(!e.target.closest(".addmenu"))$("menu").classList.remove("open")});
-onAuthStateChanged(auth,async u=>{if(!u){$("list").innerHTML='<div class="empty"><b>Please sign in</b>Sign in to Kayah and reopen this page.</div>';return}user=u;try{let s=await getDoc(doc(db,"users",u.uid));if(!s.exists())throw Error("Kayah user profile not found.");userData=s.data();if(userData.role==="staff"){if(userData.accountStatus&&userData.accountStatus!=="active"||userData.active===false)throw Error("Staff account is not active.");if(!userData.ownerUid)throw Error("Staff profile is missing ownerUid.");businessId=userData.ownerUid;role="staff";let os=await getDoc(doc(db,"users",businessId));if(!os.exists())throw Error("Business owner profile not found.");ownerData=os.data()}else{businessId=u.uid;role="owner";ownerData=userData}$("role").textContent=(role==="owner"?"Business Owner":"Staff")+" · "+(ownerData.businessName||ownerData.name||"Kayah");await load()}catch(e){console.error(e);notice(e.message||"Could not open Kayah data.",true);$("list").innerHTML='<div class="empty"><b>Could not open data</b>Check your profile and Firestore rules.</div>'}});
+onAuthStateChanged(auth,async u=>{if(!u){$("list").innerHTML='<div class="empty"><b>Please sign in</b>Sign in to Kayah and reopen this page.</div>';return}user=u;try{let s=await getDoc(doc(db,"users",u.uid));if(!s.exists())throw Error("Kayah user profile not found.");userData=s.data();if(userData.role==="staff"){if(userData.accountStatus&&userData.accountStatus!=="active"||userData.active===false)throw Error("Staff account is not active.");if(!userData.ownerUid)throw Error("Staff profile is missing ownerUid.");businessId=userData.ownerUid;role="staff";let os=await getDoc(doc(db,"users",businessId));if(!os.exists())throw Error("Business owner profile not found.");ownerData=os.data()}else{businessId=u.uid;role="owner";ownerData=userData}
+    
+    
+    
+renderBusinessBrand();
+
+$("role").textContent =
+  (role === "owner" ? "Business Owner" : "Staff");
+
+await load();
+    
+    
+    }catch(e){console.error(e);notice(e.message||"Could not open Kayah data.",true);$("list").innerHTML='<div class="empty"><b>Could not open data</b>Check your profile and Firestore rules.</div>'}});
 </script></body></html>
