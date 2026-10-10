@@ -477,7 +477,7 @@ a{
     gap:7px;
 
     /* Show about 4 products */
-    max-height:260px;
+    max-height:300px;
 
     /* Allow vertical swipe */
     overflow-y:auto;
@@ -4024,43 +4024,63 @@ function updatePaymentTotal(){
 }
 
 
-function updateCashChange(){
 
-    const total =
-        getCartTotal();
+function updateCashChange() {
+    const cashInput = document.getElementById("cashReceived");
+    const changeDisplay = document.getElementById("cashChange");
+    const confirmButton = document.getElementById("confirmPaymentButton");
 
-    const received =
-        Number(
-            document.getElementById(
-                "cashReceived"
-            ).value
-        ) || 0;
-
-    const change =
-        Math.max(
-            0,
-            received - total
-        );
-
-    document.getElementById(
-        "cashChange"
-    ).textContent =
-        money(change);
-
-
-    const button =
-        document.getElementById(
-            "confirmPaymentButton"
-        );
-
-    if(selectedPaymentMethod === "cash"){
-
-        button.disabled =
-            received < total;
-
+    if (!cashInput || !changeDisplay) {
+        console.error("POS payment elements not found.");
+        return;
     }
 
+    // Read the total from your existing cart function.
+    const rawTotal = getCartTotal();
+    const total = Math.round(
+        (Number(String(rawTotal).replace(/[₱,\s]/g, "")) || 0) * 100
+    ) / 100;
+
+    const rawReceived = String(cashInput.value || "")
+        .replace(/[₱,\s]/g, "");
+
+    const received = rawReceived === "" ? 0 : Number(rawReceived);
+
+    const validReceived = Number.isFinite(received) && received >= 0;
+    const receivedAmount = validReceived ? received : 0;
+
+    // Calculate change accurately to two decimal places.
+    const change = Math.max(
+        0,
+        Math.round((receivedAmount - total) * 100) / 100
+    );
+
+    changeDisplay.textContent = "₱" + change.toFixed(2);
+
+    // Enable payment only when enough cash has been received.
+    if (confirmButton && selectedPaymentMethod === "cash") {
+        confirmButton.disabled =
+            !validReceived || receivedAmount < total;
+    }
 }
+
+
+
+(function connectCashPaymentInput() {
+    const cashInput = document.getElementById("cashReceived");
+
+    if (!cashInput || cashInput.dataset.changeListenerAdded === "true") {
+        return;
+    }
+
+    cashInput.dataset.changeListenerAdded = "true";
+
+    ["input", "change", "keyup"].forEach(function (eventName) {
+        cashInput.addEventListener(eventName, function () {
+            updateCashChange();
+        });
+    });
+})();
 
 
 function showPaymentMethod(
@@ -4335,14 +4355,26 @@ window.completeSale = function(){
         );
 
 
-    showPaymentMethod(
-        "cash"
-    );
+    
+showPaymentMethod("cash");
 
+// Reset the payment button before opening the popup.
+const confirmButton = document.getElementById("confirmPaymentButton");
 
-    document.getElementById(
-        "paymentOverlay"
-    ).classList.add("show");
+if (confirmButton) {
+    confirmButton.disabled = true;
+    confirmButton.textContent = "Confirm Payment";
+}
+
+// Open the payment popup.
+const paymentOverlay = document.getElementById("paymentOverlay");
+
+if (paymentOverlay) {
+    paymentOverlay.classList.add("show");
+}
+
+// Recalculate after the popup is opened.
+updateCashChange();
 
 };
 
@@ -4737,28 +4769,12 @@ window.confirmPayment = async function () {
           ? "Credit"
           : "Cash";
 
-    if (typeof window.showPosInvoice === "function") {
-      window.showPosInvoice({
-        saleId: saleDoc.id,
-        businessName: invoiceBusinessName,
-        date: new Date().toLocaleString("en-PH", {
-          timeZone: "Asia/Manila"
-        }),
-        customerName: customerName,
-        method: paymentMethodForInvoice,
-        paymentMethod: invoicePaymentMethod,
-        qrMethod: qrMethodForInvoice,
-        items: saleItems,
-        subtotal: total,
-        total: total,
-        cashReceived: cashReceived,
-        change: change,
-        creditNote: creditNote,
-        cashierName: invoiceCashier
-      });
-    } else {
-      console.error("Invoice function is not loaded.");
-    }
+   
+
+/* SHOW SALE SUCCESS MESSAGE */
+
+showMessage("Sale successful! Your transaction has been saved.");
+
 
     /* CLEAR CART */
 
@@ -5062,6 +5078,29 @@ document
 
 
 
+/* CLOSE PAYMENT POPUP */
+
+window.closePaymentPopup = function () {
+    const paymentOverlay = document.getElementById("paymentOverlay");
+
+    if (paymentOverlay) {
+        paymentOverlay.classList.remove("show");
+    }
+
+    const cashInput = document.getElementById("cashReceived");
+    if (cashInput) cashInput.value = "";
+
+    const cashChange = document.getElementById("cashChange");
+    if (cashChange) cashChange.textContent = "₱0.00";
+
+    const creditInput = document.getElementById("creditNote");
+    if (creditInput) creditInput.value = "";
+
+    selectedPaymentMethod = "cash";
+    selectedQrMethod = "gcash";
+};
+
+
 
 </script>
 
@@ -5188,6 +5227,382 @@ if(
     </div>
   </div>
 </div>
+
+
+
+<!-- KAYAH POS INVOICE POPUP -->
+<div id="posInvoiceOverlay" class="pos-invoice-overlay" style="display:none;">
+    <div class="pos-invoice-modal">
+        <div class="pos-invoice-actions">
+            <button type="button" onclick="window.printPosInvoice()">
+                Print Invoice
+            </button>
+            <button type="button" onclick="window.closePosInvoice()">
+                Close
+            </button>
+        </div>
+
+        <div id="posInvoiceContent"></div>
+    </div>
+</div>
+
+
+<style>
+#posInvoiceOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(10, 30, 25, .72);
+    padding: 16px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#posInvoiceOverlay .pos-invoice-modal {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    padding: 22px;
+    border-radius: 18px;
+    background: #fff;
+    color: #26332d;
+    box-sizing: border-box;
+    box-shadow: 0 15px 50px rgba(0,0,0,.25);
+}
+
+#posInvoiceOverlay .pos-invoice-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#posInvoiceOverlay .pos-invoice-actions button {
+    flex: 1;
+    padding: 12px;
+    border: 0;
+    border-radius: 10px;
+    background: #0B4F3A;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#posInvoiceOverlay .pos-invoice-actions button:last-child {
+    background: #647067;
+}
+
+#posInvoiceOverlay .pos-invoice-paper {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#posInvoiceOverlay .invoice-brand {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #0B4F3A;
+}
+
+#posInvoiceOverlay .invoice-brand h2 {
+    color: #0B4F3A;
+    margin: 0 0 5px;
+    font-size: 24px;
+}
+
+#posInvoiceOverlay .invoice-brand p {
+    margin: 3px 0;
+    color: #68756d;
+}
+
+#posInvoiceOverlay .invoice-heading {
+    text-align: center;
+    font-weight: 800;
+    font-size: 17px;
+    margin: 18px 0 12px;
+}
+
+#posInvoiceOverlay .invoice-meta {
+    background: #f2f7f3;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#posInvoiceOverlay .invoice-meta p {
+    margin: 5px 0;
+}
+
+#posInvoiceOverlay .invoice-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#posInvoiceOverlay .pos-invoice-paper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+#posInvoiceOverlay .pos-invoice-paper th {
+    background: #0B4F3A;
+    color: white;
+    padding: 9px 5px;
+    text-align: left;
+}
+
+#posInvoiceOverlay .pos-invoice-paper td {
+    padding: 9px 5px;
+    border-bottom: 1px solid #e1e7e2;
+    vertical-align: top;
+}
+
+#posInvoiceOverlay .invoice-total {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #edf6ef;
+    text-align: right;
+    color: #0B4F3A;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+#posInvoiceOverlay .invoice-payment {
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid #e1e7e2;
+    border-radius: 10px;
+}
+
+#posInvoiceOverlay .invoice-footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #68756d;
+    font-size: 12px;
+}
+
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #posInvoiceOverlay,
+    #posInvoiceOverlay * {
+        visibility: visible !important;
+    }
+
+    #posInvoiceOverlay {
+        display: block !important;
+        position: absolute;
+        inset: 0;
+        padding: 0;
+        background: white;
+        overflow: visible;
+    }
+
+    #posInvoiceOverlay .pos-invoice-modal {
+        max-width: none;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    #posInvoiceOverlay .pos-invoice-actions {
+        display: none !important;
+    }
+}
+</style>
+
+
+<script>
+(function () {
+    "use strict";
+
+    function escapeInvoiceText(value) {
+        return String(value == null ? "" : value).replace(
+            /[&<>"']/g,
+            function (char) {
+                return {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                }[char];
+            }
+        );
+    }
+
+    function invoiceMoney(value) {
+        var amount = Number(value) || 0;
+
+        return "₱" + amount.toLocaleString("en-PH", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    window.showPosInvoice = function (data) {
+        data = data || {};
+
+        var overlay = document.getElementById("posInvoiceOverlay");
+        var content = document.getElementById("posInvoiceContent");
+
+        if (!overlay || !content) {
+            console.error("Invoice HTML elements are missing.");
+            return;
+        }
+
+        var items = Array.isArray(data.items) ? data.items : [];
+
+        var rows = items.map(function (item) {
+            item = item || {};
+
+            var qty = Number(item.quantity) || 0;
+            var price = Number(item.price) || 0;
+
+            var subtotal = item.subtotal != null &&
+                item.subtotal !== "" &&
+                Number.isFinite(Number(item.subtotal))
+                ? Number(item.subtotal)
+                : qty * price;
+
+            return `
+                <tr>
+                    <td>${escapeInvoiceText(item.name || item.productName || "Item")}</td>
+                    <td>${qty}</td>
+                    <td>${invoiceMoney(price)}</td>
+                    <td>${invoiceMoney(subtotal)}</td>
+                </tr>
+            `;
+        }).join("");
+
+        var paymentType = String(data.method || "").toLowerCase();
+        var paymentName = data.paymentMethod || data.method || "Cash";
+
+        var paymentDetails = "";
+
+        if (paymentType === "cash") {
+            paymentDetails = `
+                <p><strong>Cash received:</strong>
+                    ${invoiceMoney(data.cashReceived)}</p>
+                <p><strong>Change:</strong>
+                    ${invoiceMoney(data.change)}</p>
+            `;
+        }
+
+        if (paymentType === "credit" && data.creditNote) {
+            paymentDetails += `
+                <p><strong>Credit note:</strong>
+                    ${escapeInvoiceText(data.creditNote)}</p>
+            `;
+        }
+
+        if (paymentType === "qr" && data.qrMethod) {
+            paymentDetails += `
+                <p><strong>QR payment:</strong>
+                    ${escapeInvoiceText(data.qrMethod)}</p>
+            `;
+        }
+
+        content.innerHTML = `
+            <div class="pos-invoice-paper">
+
+                <div class="invoice-brand">
+                    <h2>${escapeInvoiceText(data.businessName || "Kayah Business")}</h2>
+                    <p>Business Sales Receipt</p>
+                </div>
+
+                <div class="invoice-heading">SALES INVOICE</div>
+
+                <div class="invoice-meta">
+                    <p><strong>Receipt No:</strong>
+                        ${escapeInvoiceText(data.saleId || "—")}</p>
+
+                    <p><strong>Date:</strong>
+                        ${escapeInvoiceText(data.date || new Date().toLocaleString("en-PH"))}</p>
+
+                    <p><strong>Customer:</strong>
+                        ${escapeInvoiceText(data.customerName || "Walk-in Customer")}</p>
+
+                    <p><strong>Cashier:</strong>
+                        ${escapeInvoiceText(data.cashierName || "Cashier")}</p>
+
+                    <p><strong>Payment:</strong>
+                        ${escapeInvoiceText(paymentName)}</p>
+                </div>
+
+                <div class="invoice-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item / Service</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            ${rows || `
+                                <tr>
+                                    <td colspan="4">No item details were provided.</td>
+                                </tr>
+                            `}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="invoice-total">
+                    TOTAL: ${invoiceMoney(data.total)}
+                </div>
+
+                <div class="invoice-payment">
+                    ${paymentDetails}
+                </div>
+
+                <div class="invoice-footer">
+                    Thank you for your purchase!
+                    <br>
+                    Powered by Kayah — Business, Made Possible.
+                </div>
+
+            </div>
+        `;
+
+        overlay.style.display = "flex";
+    };
+
+    window.closePosInvoice = function () {
+        var invoiceOverlay = document.getElementById("posInvoiceOverlay");
+
+        if (invoiceOverlay) {
+            invoiceOverlay.style.display = "none";
+        }
+
+        // Return to the POS page and close the payment popup.
+        if (typeof window.closePaymentPopup === "function") {
+            window.closePaymentPopup();
+        } else {
+            var paymentOverlay = document.getElementById("paymentOverlay");
+
+            if (paymentOverlay) {
+                paymentOverlay.classList.remove("show");
+            }
+        }
+    };
+
+    window.printPosInvoice = function () {
+        window.print();
+    };
+
+})();
+</script>
+
 
 </body>
 
