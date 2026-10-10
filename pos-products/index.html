@@ -4,6 +4,66 @@
 <style>
     
    
+#materialsRows {
+  display: grid;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.material-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(75px, 0.8fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f9fbf8;
+}
+
+.material-row .material-cost {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.material-row .remove-material {
+  color: #b42318;
+  border: 1px solid #f0d5d2;
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.recipe-total {
+  padding: 12px;
+  background: #edf5ef;
+  border-radius: 10px;
+  color: var(--g);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.recipe-total strong {
+  font-size: 17px;
+}
+
+@media (max-width: 420px) {
+  .material-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .material-row select,
+  .material-row input {
+    grid-column: 1 / -1;
+  }
+}
+   
+   
+   
+   
 .brandrow {
   display: flex;
   align-items: center;
@@ -64,7 +124,35 @@
 <div class="toolbar"><div class="tabs"><button class="tab active" id="ptab">Products</button><button class="tab" id="stab">Services</button></div><div class="addmenu"><button class="primary" id="addbtn">＋ Add New ▾</button><div class="menu" id="menu"><button data-add="product">＋ Add New Product<small>Create a product</small></button><button data-add="service">＋ Add New Service<small>Create a service</small></button><button data-add="stock">＋ Add New Stock<small>Use the Stock button on a product</small></button></div></div></div>
 <div class="search"><input id="search" placeholder="Search name, SKU, category…"><button class="secondary" id="refresh">Refresh</button></div><div id="list" class="list"><div class="loading">Connecting to Kayah…</div></div><div class="foot">Kayah — Business, Made Possible.</div></main>
 <div class="backdrop" id="modal"><div class="modal"><div class="mhead"><h2 id="mtitle">Add Product</h2><button type="button" data-close>×</button></div><form id="form"><div class="formgrid">
-<div class="field full"><label>Name *</label><input id="name" required maxlength="100"></div><div class="field"><label>Category</label><input id="category" maxlength="60"></div><div class="field"><label>SKU / Code</label><input id="code" maxlength="50"></div><div class="field" id="pricebox"><label id="pricelabel">Selling price (₱) *</label><input id="price" type="number" min="0" step=".01" required></div><div class="field" id="costbox"><label>Cost price (₱)</label><input id="cost" type="number" min="0" step=".01" placeholder="Optional"></div><div class="field" id="stockbox"><label>Stock quantity</label><input id="stock" type="number" min="0" step="1" value="0"></div><div class="field" id="unitbox"><label>Stock unit</label><input id="unit" placeholder="pcs, kg, box…"></div><div class="field" id="lowbox"><label>Low-stock alert at</label><input id="low" type="number" min="0" step="1" value="5"></div><div class="field" id="trackbox"><label>Stock tracking</label><div class="toggle"><input id="track" type="checkbox"><label for="track">Track quantity</label></div></div><div class="field" id="durationbox"><label>Service duration</label><input id="duration" placeholder="e.g. 30 minutes"></div><div class="field"><label>Status</label><select id="status"><option value="active">Active</option><option value="inactive">Inactive</option></select></div><div class="field full"><label>Description</label><textarea id="description" rows="2" maxlength="500"></textarea></div><div class="field full" id="photobox"><label>Product photo (max 5 MB)</label><input id="photo" type="file" accept="image/*"><span class="hint">Uploads to Cloudinary; URL is saved in Firestore.</span><img id="preview" class="preview" alt="Preview"></div><div class="field full" id="stockhint" style="display:none"><span class="hint">Stock additions are recorded in the business activity log. Stock tracking must be enabled on the product.</span></div>
+<div class="field full"><label>Name *</label><input id="name" required maxlength="100"></div><div class="field"><label>Category</label><input id="category" maxlength="60"></div><div class="field"><label>SKU / Code</label><input id="code" maxlength="50"></div>
+
+<div class="field" id="pricebox"><label id="pricelabel">Selling price (₱) *</label><input id="price" type="number" min="0" step=".01" required></div>
+
+
+
+<div class="field" id="costbox"><label>Cost price (₱)</label><input id="cost" type="number" min="0" step=".01" placeholder="Optional"></div>
+
+
+
+<div class="field full" id="materialsBox">
+  <label>Materials Used to Make This Product</label>
+  <div class="hint">
+    Choose materials from your existing Materials inventory and enter the quantity needed for one product.
+  </div>
+  <div id="materialsRows"></div>
+  <button type="button" class="secondary" id="addMaterialRow">
+    ＋ Add Material
+  </button>
+  <div class="recipe-total">
+    Estimated materials cost per product:
+    <strong id="materialsTotal">₱0</strong>
+  </div>
+</div>
+
+
+
+
+<div class="field" id="stockbox"><label>Stock quantity</label><input id="stock" type="number" min="0" step="1" value="0"></div><div class="field" id="unitbox"><label>Stock unit</label><input id="unit" placeholder="pcs, kg, box…"></div><div class="field" id="lowbox"><label>Low-stock alert at</label><input id="low" type="number" min="0" step="1" value="5"></div><div class="field" id="trackbox"><label>Stock tracking</label><div class="toggle"><input id="track" type="checkbox"><label for="track">Track quantity</label></div></div><div class="field" id="durationbox"><label>Service duration</label><input id="duration" placeholder="e.g. 30 minutes"></div><div class="field"><label>Status</label><select id="status"><option value="active">Active</option><option value="inactive">Inactive</option></select></div><div class="field full"><label>Description</label><textarea id="description" rows="2" maxlength="500"></textarea></div><div class="field full" id="photobox"><label>Product photo (max 5 MB)</label><input id="photo" type="file" accept="image/*"><span class="hint">Uploads to Cloudinary; URL is saved in Firestore.</span><img id="preview" class="preview" alt="Preview"></div><div class="field full" id="stockhint" style="display:none"><span class="hint">Stock additions are recorded in the business activity log. Stock tracking must be enabled on the product.</span></div>
 </div><div class="mfoot"><button class="secondary" type="button" data-close>Cancel</button><button class="primary" id="save">Save</button></div></form></div></div>
 <script type="module">
     
@@ -101,7 +189,14 @@ const firebaseConfig = {
 
 const CLOUDINARY_CLOUD_NAME="tfzuiwcp",CLOUDINARY_UPLOAD_PRESET="kayah_products";
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-let user=null,userData={},ownerData={},businessId=null,role="owner",tab="products",products=[],services=[],editingId=null,mode="product",photoUrl="";
+
+
+
+let user=null,userData={},ownerData={},businessId=null,role="owner",tab="products",products=[],services=[],materials=[],editingId=null,mode="product",photoUrl="";
+
+
+
+
 const $=id=>document.getElementById(id),cash=n=>"₱"+(Number(n)||0).toLocaleString("en-PH",{maximumFractionDigits:2}),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function notice(s,error=false){$("notice").textContent=s;$("notice").className="notice show"+(error?" error":"")}
 
@@ -146,7 +241,155 @@ function renderBusinessBrand() {
 
 
 function actorFields(){return{createdByUid:user.uid,createdByName:actor(),createdByRole:role,updatedByUid:user.uid,updatedByName:actor(),updatedByRole:role}}
+
+
 const pref=()=>collection(db,"users",businessId,"products"),sref=()=>collection(db,"users",businessId,"services");
+
+
+
+const materialsRef = () =>
+  collection(db, "users", businessId, "materials");
+
+function renderMaterialRows(saved = []) {
+  const container = $("materialsRows");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  saved.forEach(item => {
+    addMaterialRow(item);
+  });
+
+  updateMaterialsTotal();
+}
+
+function addMaterialRow(saved = {}) {
+  const container = $("materialsRows");
+  const row = document.createElement("div");
+  row.className = "material-row";
+
+  const selectedId = saved.materialId || "";
+  const quantity = saved.quantity ?? "";
+
+  const options = materials.map(m => `
+    <option value="${esc(m.id)}"
+      ${m.id === selectedId ? "selected" : ""}>
+      ${esc(m.name || "Unnamed material")}
+    </option>
+  `).join("");
+
+  row.innerHTML = `
+    <select class="recipe-material" aria-label="Select material">
+      <option value="">Select material</option>
+      ${options}
+    </select>
+
+    <input class="recipe-quantity"
+      type="number" min="0.0001" step="any"
+      placeholder="Quantity"
+      aria-label="Quantity used"
+      value="${esc(quantity)}">
+
+    <button type="button"
+      class="remove-material"
+      aria-label="Remove material">×</button>
+
+    <div class="material-cost">Select a material</div>
+  `;
+
+  container.appendChild(row);
+
+  const select = row.querySelector(".recipe-material");
+  const quantityInput = row.querySelector(".recipe-quantity");
+
+  function updateRow() {
+    const material = materials.find(m => m.id === select.value);
+    const qty = Number(quantityInput.value);
+    const unitCost = Number(material?.costPerUnit || 0);
+    const validQty = quantityInput.value !== "" &&
+      Number.isFinite(qty) && qty > 0;
+
+    row.querySelector(".material-cost").textContent = material
+      ? `Cost: ${cash(unitCost)} per ${material.unit || "unit"} · ` +
+        `Line cost: ${cash(validQty ? qty * unitCost : 0)}`
+      : "Select a material";
+
+    updateMaterialsTotal();
+  }
+
+  select.addEventListener("change", updateRow);
+  quantityInput.addEventListener("input", updateRow);
+
+  row.querySelector(".remove-material").onclick = () => {
+    row.remove();
+    updateMaterialsTotal();
+  };
+
+  updateRow();
+}
+
+function getSelectedMaterials() {
+  const result = [];
+
+  document.querySelectorAll("#materialsRows .material-row")
+    .forEach(row => {
+      const materialId = row.querySelector(".recipe-material").value;
+      const quantityValue = row.querySelector(".recipe-quantity").value;
+
+      // Ignore an entirely blank row.
+      if (!materialId && quantityValue === "") return;
+
+      if (!materialId) {
+        throw Error("Please select a material for each filled row.");
+      }
+
+      const quantity = Number(quantityValue);
+
+      if (!Number.isFinite(quantity) || quantity <= 0) {
+        throw Error("Enter a quantity greater than zero for each material.");
+      }
+
+      const material = materials.find(m => m.id === materialId);
+
+      if (!material) {
+        throw Error(
+          "A selected material is no longer available. Refresh and try again."
+        );
+      }
+
+      const costPerUnit = Number(material.costPerUnit || 0);
+
+      result.push({
+        materialId: material.id,
+        name: material.name || "",
+        quantity,
+        unit: material.unit || "",
+        costPerUnit,
+        lineCost: quantity * costPerUnit
+      });
+    });
+
+  return result;
+}
+
+function updateMaterialsTotal() {
+  let total = 0;
+
+  document.querySelectorAll("#materialsRows .material-row")
+    .forEach(row => {
+      const materialId = row.querySelector(".recipe-material").value;
+      const quantity = Number(row.querySelector(".recipe-quantity").value);
+      const material = materials.find(m => m.id === materialId);
+
+      if (material && Number.isFinite(quantity) && quantity > 0) {
+        total += quantity * Number(material.costPerUnit || 0);
+      }
+    });
+
+  $("materialsTotal").textContent = cash(total);
+}
+
+
 async function log(action,type,id,name,details={}){try{await addDoc(collection(db,"users",businessId,"activityLogs"),{action,itemType:type,itemId:id||null,itemName:name||"",details,actorUid:user.uid,actorName:actor(),actorRole:role,businessId,createdAt:serverTimestamp()})}
 
 
@@ -154,18 +397,182 @@ catch(e){console.warn("Activity log failed",e)}}
 function plan(){let p=String(ownerData.plan||"free").toLowerCase(),end=ownerData.trialEndsAt?.toDate?ownerData.trialEndsAt.toDate():ownerData.trialEndsAt?new Date(ownerData.trialEndsAt):null;if(ownerData.trialActive&&(!end||end>Date.now()))return{name:"30-Day Trial",limit:100};if(p.includes("pro"))return{name:"Pro",limit:2000};if(p.includes("business"))return{name:"Business",limit:500};if(p.includes("starter"))return{name:"Starter",limit:150};return{name:"Free",limit:30}}
 function items(){return tab==="products"?products:services}
 function render(){let a=items(),q=$("search").value.toLowerCase().trim();$("countLabel").textContent=tab==="products"?"Products":"Services";$("count").textContent=a.length;$("active").textContent=a.filter(x=>(x.status||"active")==="active").length;let p=plan();$("limit").textContent=tab==="products"?`${a.length} / ${p.limit}`:p.name;$("bar").style.width=tab==="products"?Math.min(100,a.length/p.limit*100)+"%":"0%";a=a.filter(x=>[x.name,x.category,x.sku,x.serviceCode,x.description].some(v=>String(v||"").toLowerCase().includes(q)));if(!a.length){$("list").innerHTML=`<div class="empty"><b>${q?"No matching items":"Nothing here yet"}</b>${q?"Try another search.":"Add your first "+(tab==="products"?"product":"service")+" to get started."}</div>`;return} $("list").innerHTML=a.map(x=>{let prod=tab==="products",code=prod?x.sku:x.serviceCode,price=prod?x.sellingPrice:x.price,stock=prod?(x.trackStock?`Stock: ${esc(x.stockQuantity??0)} ${esc(x.unit||"")}`:"Stock tracking off"):(x.duration?"Duration: "+esc(x.duration):"Service");return`<article class="item"><div>${x.photoUrl?`<img class="photo" src="${esc(x.photoUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">`:`<div class="photo">${prod?"▧":"✦"}</div>`}</div><div><h3>${esc(x.name||"Unnamed item")}</h3><div class="muted">${esc(x.category||"Uncategorized")}${code?" · "+esc(code):""}</div><div class="price">${cash(price)}</div><span class="tag">${esc(x.status||"active")}</span><span class="tag">${stock}</span>${x.trackStock&&Number(x.stockQuantity||0)<=Number(x.lowStockAlert||0)?'<span class="tag warn">Low stock</span>':""}</div><div class="actions"><button class="secondary" data-edit="${esc(x.id)}">Edit</button>${prod?`<button class="secondary" data-stock="${esc(x.id)}">＋ Stock</button>`:""}<button class="secondary danger" data-delete="${esc(x.id)}">Delete</button></div></article>`}).join("")}
-async function load(){try{$("list").innerHTML='<div class="loading">Loading…</div>';let [p,s]=await Promise.all([getDocs(pref()),getDocs(sref())]);products=p.docs.map(d=>({id:d.id,...d.data()}));services=s.docs.map(d=>({id:d.id,...d.data()}));render()}catch(e){console.error(e);$("list").innerHTML='<div class="empty"><b>Unable to load items</b>Check Firestore rules and business collection access.</div>';notice("Load error: "+(e.code||e.message),true)}}
+
+
+
+
+async function load() {
+  try {
+    $("list").innerHTML =
+      '<div class="loading">Loading…</div>';
+
+    const [p, s] = await Promise.all([
+      getDocs(pref()),
+      getDocs(sref())
+    ]);
+
+    products = p.docs.map(d => ({
+      id: d.id,
+      ...d.data()
+    }));
+
+    services = s.docs.map(d => ({
+      id: d.id,
+      ...d.data()
+    }));
+
+    try {
+      const materialSnapshot = await getDocs(materialsRef());
+
+      materials = materialSnapshot.docs.map(d => ({
+        id: d.id,
+        ...d.data()
+      }));
+    } catch (materialError) {
+      console.error("Materials loading failed:", materialError);
+      materials = [];
+      notice(
+        "Products loaded, but materials could not be loaded. Check Materials Firestore permissions.",
+        true
+      );
+    }
+
+    render();
+  } catch (e) {
+    console.error(e);
+
+    $("list").innerHTML =
+      '<div class="empty"><b>Unable to load items</b>' +
+      'Check Firestore rules and business collection access.</div>';
+
+    notice("Load error: " + (e.code || e.message), true);
+  }
+}
+
 function setTab(t){tab=t;$("ptab").classList.toggle("active",t==="products");$("stab").classList.toggle("active",t==="services");$("search").value="";render()}
-function open(modeArg,item=null){mode=modeArg;editingId=item?.id||null;photoUrl=item?.photoUrl||"";$("form").reset();$("preview").style.display="none";let stockMode=mode==="stock",service=mode==="service"||mode==="editService",edit=mode.startsWith("edit");if(edit)mode=service?"service":"product";$("mtitle").textContent=stockMode?"Add Stock":edit?"Edit "+(service?"Service":"Product"):"Add New "+(service?"Service":"Product");$("name").value=item?.name||"";$("name").readOnly=stockMode;$("category").value=item?.category||"";$("code").value=service?(item?.serviceCode||""):(item?.sku||"");$("price").value=item?(service?(item.price??""):(item.sellingPrice??"")):"";$("cost").value=item?.costPrice??"";$("stock").value=stockMode?1:(item?.stockQuantity??0);$("unit").value=item?.unit||"";$("low").value=item?.lowStockAlert??5;$("track").checked=!!item?.trackStock;$("status").value=item?.status||"active";$("description").value=item?.description||"";$("duration").value=item?.duration||"";$("photo").value="";$("pricelabel").textContent=service?"Service price (₱) *":"Selling price (₱) *";for(let id of ["costbox","stockbox","unitbox","lowbox","trackbox","durationbox","photobox"])$(id).style.display=service&&id!=="durationbox"?"none":(!service&&id==="durationbox"?"none":"flex");$("stockhint").style.display=stockMode?"block":"none";$("pricebox").style.display=stockMode?"none":"flex";$("stockbox").style.display=service?"none":"flex";$("stock").readOnly=false;$("price").required=!stockMode;if(stockMode){$("category").closest(".field").style.display="none";$("code").closest(".field").style.display="none";$("description").closest(".field").style.display="none";$("status").closest(".field").style.display="none";$("save").textContent="Add Stock"}else{$("category").closest(".field").style.display="flex";$("code").closest(".field").style.display="flex";$("description").closest(".field").style.display="flex";$("status").closest(".field").style.display="flex";$("save").textContent=edit?"Save Changes":"Save"}if(item?.photoUrl&&!service){$("preview").src=item.photoUrl;$("preview").style.display="block"}$("modal").classList.add("open")}
+
+
+
+function open(modeArg,item=null){mode=modeArg;editingId=item?.id||null;photoUrl=item?.photoUrl||"";
+
+$("form").reset();
+$("preview").style.display = "none";
+
+let stockMode = modeArg === "stock";
+let service = modeArg === "service" || modeArg === "editService";
+let edit = modeArg.startsWith("edit");
+
+renderMaterialRows(
+  !service && !stockMode && item
+    ? (item.materialsUsed || [])
+    : []
+);
+
+
+
+if(edit)mode=service?"service":"product";$("mtitle").textContent=stockMode?"Add Stock":edit?"Edit "+(service?"Service":"Product"):"Add New "+(service?"Service":"Product");$("name").value=item?.name||"";$("name").readOnly=stockMode;$("category").value=item?.category||"";$("code").value=service?(item?.serviceCode||""):(item?.sku||"");$("price").value=item?(service?(item.price??""):(item.sellingPrice??"")):"";$("cost").value=item?.costPrice??"";$("stock").value=stockMode?1:(item?.stockQuantity??0);$("unit").value=item?.unit||"";$("low").value=item?.lowStockAlert??5;$("track").checked=!!item?.trackStock;$("status").value=item?.status||"active";$("description").value=item?.description||"";$("duration").value=item?.duration||"";$("photo").value="";$("pricelabel").textContent=service?"Service price (₱) *":"Selling price (₱) *";
+
+
+for (let id of [
+  "costbox", "stockbox", "unitbox", "lowbox",
+  "trackbox", "durationbox", "photobox", "materialsBox"
+]) {
+  $(id).style.display =
+    service && id !== "durationbox"
+      ? "none"
+      : (!service && id === "durationbox" ? "none" : "flex");
+}
+
+
+$("stockhint").style.display=stockMode?"block":"none";$("pricebox").style.display=stockMode?"none":"flex";$("stockbox").style.display=service?"none":"flex";$("stock").readOnly=false;$("price").required=!stockMode;if(stockMode){$("category").closest(".field").style.display="none";$("code").closest(".field").style.display="none";$("description").closest(".field").style.display="none";$("status").closest(".field").style.display="none";$("save").textContent="Add Stock"}else{$("category").closest(".field").style.display="flex";$("code").closest(".field").style.display="flex";$("description").closest(".field").style.display="flex";$("status").closest(".field").style.display="flex";$("save").textContent=edit?"Save Changes":"Save"}if(item?.photoUrl&&!service){$("preview").src=item.photoUrl;$("preview").style.display="block"}$("modal").classList.add("open")}
 async function upload(file){if(!file)return photoUrl;if(!file.type.startsWith("image/"))throw Error("Choose an image file.");if(file.size>5*1024*1024)throw Error("Image must be 5 MB or smaller.");let f=new FormData();f.append("file",file);f.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);let r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,{method:"POST",body:f}),d=await r.json();if(!r.ok||!d.secure_url)throw Error(d.error?.message||"Cloudinary upload failed.");return d.secure_url}
 async function submit(e){e.preventDefault();let stockMode=mode==="stock",service=mode==="service",edit=!!editingId,name=$("name").value.trim();if(!stockMode&&!name)return;let btn=$("save");btn.disabled=true;btn.textContent="Saving…";try{if(stockMode){let item=products.find(x=>x.id===editingId);if(!item)throw Error("Product not found. Refresh and try again.");if(!item.trackStock)throw Error("Stock tracking is off. Edit the product and enable it first.");let qty=Number($("stock").value);if(!Number.isInteger(qty)||qty<1)throw Error("Enter a whole number greater than zero.");let ref=doc(db,"users",businessId,"products",item.id),prev=Number(item.stockQuantity||0);await runTransaction(db,async tx=>{let s=await tx.get(ref);if(!s.exists())throw Error("Product no longer exists.");tx.update(ref,{stockQuantity:Number(s.data().stockQuantity||0)+qty,updatedAt:serverTimestamp(),updatedByUid:user.uid,updatedByName:actor(),updatedByRole:role})});await log("stock_added","product",item.id,item.name,{quantityAdded:qty,previousQuantity:prev,newQuantity:prev+qty,unit:item.unit||""});$("modal").classList.remove("open");notice("Stock added successfully.");await load();return}
-let price=Number($("price").value);if(!Number.isFinite(price)||price<0)throw Error("Enter a valid price.");let uploaded=service?photoUrl:await upload($("photo").files[0]),category=$("category").value.trim(),code=$("code").value.trim(),status=$("status").value,description=$("description").value.trim(),payload;
+
+
+
+let price = Number($("price").value);
+
+if (!Number.isFinite(price) || price < 0) {
+  throw Error("Enter a valid price.");
+}
+
+let uploaded = service
+  ? photoUrl
+  : await upload($("photo").files[0]);
+
+let category = $("category").value.trim();
+let code = $("code").value.trim();
+let status = $("status").value;
+let description = $("description").value.trim();
+let payload;
+
+
 if(service){payload={name,price,category,serviceCode:code,duration:$("duration").value.trim(),status,description,itemType:"service",ownerUid:businessId,businessId}}
-else{if(!edit&&products.length>=plan().limit)throw Error(`Your ${plan().name} allowance is ${plan().limit} products.`);let old=products.find(x=>x.id===editingId);payload={name,category,costPrice:$("cost").value===""?null:Number($("cost").value),createdAt:old?.createdAt||serverTimestamp(),description,lowStockAlert:Number($("low").value)||0,materials:old?.materials||[],ownerUid:businessId,photoUrl:uploaded||"",sellingPrice:price,sku:code,status,stockQuantity:Math.max(0,Math.floor(Number($("stock").value)||0)),trackStock:$("track").checked,unit:$("unit").value.trim()}}
+
+
+
+else {
+  if (!edit && products.length >= plan().limit) {
+    throw Error(
+      `Your ${plan().name} allowance is ${plan().limit} products.`
+    );
+  }
+
+  const old = products.find(x => x.id === editingId);
+  const materialsUsed = getSelectedMaterials();
+
+  payload = {
+    name,
+    category,
+    costPrice: $("cost").value === ""
+      ? null
+      : Number($("cost").value),
+
+    createdAt: old?.createdAt || serverTimestamp(),
+    description,
+    lowStockAlert: Number($("low").value) || 0,
+
+    // Keep the selected materials as the product's recipe.
+    materialsUsed,
+
+    ownerUid: businessId,
+    photoUrl: uploaded || "",
+    sellingPrice: price,
+    sku: code,
+    status,
+
+    stockQuantity: Math.max(
+      0,
+      Math.floor(Number($("stock").value) || 0)
+    ),
+
+    trackStock: $("track").checked,
+    unit: $("unit").value.trim()
+  };
+}
+
+
+
+
 if(edit){payload.updatedAt=serverTimestamp();payload.updatedByUid=user.uid;payload.updatedByName=actor();payload.updatedByRole=role;await updateDoc(doc(db,"users",businessId,service?"services":"products",editingId),payload);await log("item_updated",service?"service":"product",editingId,name,{})}else{Object.assign(payload,actorFields(),{createdAt:serverTimestamp(),updatedAt:serverTimestamp()});let ref=await addDoc(service?sref():pref(),payload);await log("item_created",service?"service":"product",ref.id,name,{category,price})}
 $("modal").classList.remove("open");notice((edit?"Updated":"Saved")+" successfully.");await load()
 }catch(err){console.error(err);notice(err.message||"Save failed.",true)}finally{btn.disabled=false;btn.textContent="Save"}}
 async function remove(id){let service=tab==="services",item=(service?services:products).find(x=>x.id===id);if(!item||!confirm(`Delete "${item.name}"? This cannot be undone.`))return;try{await log("item_deleted",service?"service":"product",id,item.name,{});await deleteDoc(doc(db,"users",businessId,service?"services":"products",id));notice("Deleted "+item.name+".");await load()}catch(e){notice("Delete failed: "+(e.code||e.message),true)}}
+
+
+$("addMaterialRow").onclick = () => {
+  if (!materials.length) {
+    notice(
+      "No materials found. Add materials in your Materials page first.",
+      true
+    );
+    return;
+  }
+
+  addMaterialRow();
+};
+
+
 $("ptab").onclick=()=>setTab("products");$("stab").onclick=()=>setTab("services");$("addbtn").onclick=()=>$("menu").classList.toggle("open");$("menu").onclick=e=>{let b=e.target.closest("[data-add]");if(!b)return;$("menu").classList.remove("open");if(b.dataset.add==="stock"){notice("Use the ＋ Stock button on the product row so the correct product is selected.");return}open(b.dataset.add)};$("list").onclick=e=>{let b=e.target.closest("button");if(!b)return;if(b.dataset.edit){let x=items().find(x=>x.id===b.dataset.edit);if(x)open(tab==="services"?"editService":"editProduct",x)}else if(b.dataset.stock){let x=products.find(x=>x.id===b.dataset.stock);if(x)open("stock",x)}else if(b.dataset.delete)remove(b.dataset.delete)};$("form").onsubmit=submit;$("search").oninput=render;$("refresh").onclick=load;document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$("modal").classList.remove("open"));$("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};$("photo").onchange=()=>{let f=$("photo").files[0];if(f){$("preview").src=URL.createObjectURL(f);$("preview").style.display="block"}};document.addEventListener("click",e=>{if(!e.target.closest(".addmenu"))$("menu").classList.remove("open")});
 onAuthStateChanged(auth,async u=>{if(!u){$("list").innerHTML='<div class="empty"><b>Please sign in</b>Sign in to Kayah and reopen this page.</div>';return}user=u;try{let s=await getDoc(doc(db,"users",u.uid));if(!s.exists())throw Error("Kayah user profile not found.");userData=s.data();if(userData.role==="staff"){if(userData.accountStatus&&userData.accountStatus!=="active"||userData.active===false)throw Error("Staff account is not active.");if(!userData.ownerUid)throw Error("Staff profile is missing ownerUid.");businessId=userData.ownerUid;role="staff";let os=await getDoc(doc(db,"users",businessId));if(!os.exists())throw Error("Business owner profile not found.");ownerData=os.data()}else{businessId=u.uid;role="owner";ownerData=userData}
     
