@@ -1628,6 +1628,152 @@ a{
 
 
 
+.pos-invoice-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 15px;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.pos-invoice-modal {
+  background: #f7f3e8;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.pos-invoice-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pos-invoice-actions button {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #0b4f3a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pos-invoice-actions .pos-invoice-close {
+  background: #666;
+}
+
+.pos-invoice-paper {
+  background: white;
+  color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.pos-invoice-header {
+  text-align: center;
+  color: #0b4f3a;
+}
+
+.pos-invoice-header h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.pos-invoice-header p {
+  margin-top: 5px;
+}
+
+.pos-invoice-info p {
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+
+.pos-invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+}
+
+.pos-invoice-table th,
+.pos-invoice-table td {
+  padding: 8px 3px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.pos-invoice-table th {
+  background: #f2f5f2;
+}
+
+.pos-invoice-table th:nth-child(n+2),
+.pos-invoice-table td:nth-child(n+2) {
+  text-align: right;
+}
+
+.pos-invoice-totals {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.pos-invoice-totals p {
+  margin: 8px 0;
+}
+
+.pos-invoice-footer {
+  margin-top: 25px;
+  text-align: center;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #posInvoiceOverlay,
+  #posInvoiceOverlay * {
+    visibility: visible !important;
+  }
+
+  #posInvoiceOverlay {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    background: white;
+    overflow: visible;
+  }
+
+  .pos-invoice-modal {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  .pos-invoice-actions {
+    display: none !important;
+  }
+
+  .pos-invoice-paper {
+    padding: 10px;
+    border-radius: 0;
+  }
+}
+
+
+
+
 
 </style>
 
@@ -2062,6 +2208,54 @@ a{
         </div>
   
   
+  
+<!-- OPTIONAL CUSTOMER DETAILS -->
+
+<div class="customer-details-section"
+     style="margin-top:18px;">
+
+    <label for="customerName" class="payment-label">
+        Customer Name (Optional)
+    </label>
+
+    <input
+        type="text"
+        id="customerName"
+        class="payment-input"
+        placeholder="Enter customer name & Number "
+        autocomplete="off"
+    >
+
+    <label
+        for="transactionDetails"
+        class="payment-label"
+        style="display:block; margin-top:12px;"
+    >
+        Transaction Details (Optional)
+    </label>
+
+    <textarea
+        id="transactionDetails"
+        rows="3"
+        placeholder="Enter transaction details, service description, delivery information or notes..."
+        style="
+            width:100%;
+            box-sizing:border-box;
+            resize:vertical;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            font-size:14px;
+            outline:none;
+            margin-top:6px;
+        "
+    ></textarea>
+
+</div>
+  
+  
+  
+  
   <!-- TRANSACTION TYPE -->
 
 <span class="payment-label">
@@ -2286,6 +2480,60 @@ a{
 
 
 
+<!-- PAYMENT PROCESSING OVERLAY -->
+<div id="paymentProcessingOverlay"
+     style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:99999;
+        background:rgba(0,0,0,0.55);
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        box-sizing:border-box;
+     ">
+
+    <div style="
+        background:white;
+        border-radius:18px;
+        padding:30px 24px;
+        text-align:center;
+        width:100%;
+        max-width:320px;
+        box-shadow:0 12px 40px rgba(0,0,0,0.2);
+    ">
+
+        <div id="paymentProcessingSpinner"
+             style="
+                width:42px;
+                height:42px;
+                border:4px solid #dce8e2;
+                border-top-color:#16805C;
+                border-radius:50%;
+                margin:0 auto 18px;
+                animation:kayahPaymentSpin 0.8s linear infinite;
+             ">
+        </div>
+
+        <div id="paymentProcessingTitle"
+             style="font-size:19px;font-weight:700;color:#0B4F3A;">
+            Processing transaction
+        </div>
+
+        <div id="paymentProcessingText"
+             style="font-size:14px;color:#666;margin-top:8px;">
+            Please wait while we save your sale.
+        </div>
+
+    </div>
+</div>
+
+<style>
+@keyframes kayahPaymentSpin {
+    to { transform: rotate(360deg); }
+}
+</style>
 
 
 
@@ -2607,7 +2855,31 @@ function displayBusinessProfile(){
 
 }
 
-/* ===================================================== GET BUSINESS ID ===================================================== */ function getBusinessId(data, user) { const role = String(data?.role || "owner") .trim() .toLowerCase(); if (role === "staff") { const ownerUid = String(data?.ownerUid || "").trim(); if (!ownerUid) { throw new Error( "Your staff account is missing the business owner's UID." ); } return ownerUid; } return user.uid; } 
+
+/* =====================================================
+   GET BUSINESS ID
+===================================================== */
+
+function getBusinessId(
+    data,
+    user
+){
+
+    return safeText(
+
+        data?.businessId ||
+
+        data?.ownerUid ||
+
+        user.uid,
+
+        user.uid
+
+    );
+
+}
+
+
 /* =====================================================
    RENDERTRANSACTION TYPE FUNCTION
 ===================================================== */
@@ -2825,6 +3097,38 @@ async function loadProducts(){
 
             }
         );
+        
+        
+      
+        // LOAD SERVICES SEPARATELY
+        try {
+            const servicesRef = collection(
+                db,
+                "users",
+                currentBusinessId,
+                "services"
+            );
+
+            const servicesSnapshot = await getDocs(servicesRef);
+
+            servicesSnapshot.forEach(function(serviceDoc) {
+                const service = serviceDoc.data();
+
+                allProducts.push({
+                    id: serviceDoc.id,
+                    ...service,
+                    itemType: "service"
+                });
+            });
+
+        } catch (serviceError) {
+            console.warn(
+                "Services could not be loaded:",
+                serviceError
+            );
+        }
+        
+        
 
         allProducts.sort(
             function(a,b){
@@ -2890,30 +3194,11 @@ function buildCategories(){
     const categories =
         new Set();
 
-    allProducts.forEach(
-        function(product){
+    allProducts.forEach( function(product){ if(product.itemType === "service"){ return; } categories.add( getProductCategory( product ) ); } ); 
 
-            categories.add(
-                getProductCategory(
-                    product
-                )
-            );
-
-        }
-    );
-
-    categoryList.innerHTML = `
-
-        <button
-            type="button"
-            class="category-btn active"
-            data-category="all"
-        >
-            All
-        </button>
-
-    `;
-
+    categoryList.innerHTML = ` <button type="button" class="category-btn active" data-category="all" > All </button> <button type="button" class="category-btn" data-category="__services__" > 🛠️ Services </button> `; 
+ 
+ 
     Array.from(categories)
         .sort()
         .forEach(
@@ -3012,58 +3297,8 @@ document
     );
 
 
-/* =====================================================
-   APPLY FILTERS
-===================================================== */
+/* ===================================================== APPLY FILTERS ===================================================== */ function applyFilters(){ const search = document.getElementById( "searchInput" ).value.trim().toLowerCase(); filteredProducts = allProducts.filter(function(product){ const name = getProductName(product).toLowerCase(); const category = getProductCategory(product).toLowerCase(); const matchesSearch = !search || name.includes(search) || category.includes(search); let matchesCategory; if(activeCategory === "all"){ matchesCategory = true; }else if(activeCategory === "__services__"){ matchesCategory = product.itemType === "service"; }else{ matchesCategory = product.itemType !== "service" && getProductCategory(product) === activeCategory; } return matchesSearch && matchesCategory; }); renderProducts(); } 
 
-function applyFilters(){
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-    filteredProducts =
-        allProducts.filter(
-            function(product){
-
-                const name =
-                    getProductName(
-                        product
-                    )
-                    .toLowerCase();
-
-                const category =
-                    getProductCategory(
-                        product
-                    )
-                    .toLowerCase();
-
-                const matchesSearch =
-                    !search ||
-                    name.includes(search) ||
-                    category.includes(search);
-
-                const matchesCategory =
-                    activeCategory === "all" ||
-                    getProductCategory(
-                        product
-                    ) === activeCategory;
-
-                return (
-                    matchesSearch &&
-                    matchesCategory
-                );
-
-            }
-        );
-
-    renderProducts();
-
-}
 
 
 /* =====================================================
@@ -3408,8 +3643,9 @@ window.addToCart = function(
             stockTracked:
                 stockTracked,
 
-            stock:
-                stock
+            stock: stock,
+
+itemType: product.itemType || "product"
 
         });
 
@@ -3423,6 +3659,36 @@ window.addToCart = function(
     );
 
 };
+
+
+
+/* =====================================================
+   CHANGE SERVICE PRICE
+===================================================== */
+
+window.changeServicePrice = function(productId, newPrice){
+
+    const item = cart.find(function(cartItem){
+        return cartItem.id === productId;
+    });
+
+    if(!item || item.itemType !== "service"){
+        return;
+    }
+
+    const price = Number(newPrice);
+
+    if(!Number.isFinite(price) || price < 0){
+        showMessage("Please enter a valid service amount.");
+        renderCart();
+        return;
+    }
+
+    item.price = Math.round(price * 100) / 100;
+
+    renderCart();
+};
+
 
 
 /* =====================================================
@@ -3603,9 +3869,28 @@ function renderCart(){
                                     ${escapeHtml(item.name)}
                                 </div>
 
-                                <div class="cart-item-price">
-                                    ${money(item.price)} each
-                                </div>
+                                
+<div class="cart-item-price">
+
+    ${
+        item.itemType === "service"
+            ? `
+                <label>
+                    Service amount (₱)
+                    <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="${item.price}"
+                        onchange="changeServicePrice('${escapeHtml(item.id)}', this.value)"
+                        style="width:100px; padding:6px; margin-top:4px;"
+                    >
+                </label>
+            `
+            : `${money(item.price)} each`
+    }
+
+</div>
 
                             </div>
 
@@ -3725,6 +4010,11 @@ function updatePaymentTotal(){
 
     const total =
         getCartTotal();
+        
+        
+        
+        
+        
 
     document.getElementById(
         "paymentTotal"
@@ -4168,644 +4458,373 @@ const transactionTypeMap = {
 
 
 
+
 /* =====================================================
-   CONFIRMPAYMENT
+   CONFIRM PAYMENT
 ===================================================== */
 
+window.confirmPayment = async function () {
+  const total = getCartTotal();
 
-window.confirmPayment = async function(){
+  const confirmButton =
+    document.getElementById("confirmPaymentButton");
 
-    const total =
-        getCartTotal();
+  const processingOverlay =
+    document.getElementById("paymentProcessingOverlay");
 
-    if(!total){
+  if (window.paymentIsProcessing) return;
 
-        showMessage(
-            "Invalid payment amount."
-        );
+  if (!total) {
+    showMessage("Invalid payment amount.");
+    return;
+  }
 
-        return;
+  if (!currentBusinessId) {
+    showMessage("Business information is not available.");
+    return;
+  }
 
+  if (!currentUser) {
+    showMessage("Your account is not available. Please log in again.");
+    return;
+  }
+
+  /* PAYMENT DETAILS */
+
+  let cashReceived = 0;
+  let change = 0;
+  let creditNote = "";
+  let qrMethod = "";
+
+  const customerName =
+    (document.getElementById("customerName")?.value || "").trim();
+
+  const transactionDetails =
+    (document.getElementById("transactionDetails")?.value || "").trim();
+
+  const paymentMethodForInvoice = selectedPaymentMethod;
+  const qrMethodForInvoice = selectedQrMethod;
+
+  /* CASH */
+
+  if (selectedPaymentMethod === "cash") {
+    cashReceived =
+      Number(document.getElementById("cashReceived")?.value) || 0;
+
+    if (cashReceived < total) {
+      showMessage("Cash received is not enough.");
+      return;
     }
 
-    if(!currentBusinessId){
+    change = cashReceived - total;
+  }
 
-        showMessage(
-            "Business information is not available."
-        );
+  /* CREDIT */
 
-        return;
+  if (selectedPaymentMethod === "credit") {
+    creditNote =
+      (document.getElementById("creditNote")?.value || "").trim();
+  }
 
+  /* QR */
+
+  if (selectedPaymentMethod === "qr") {
+    qrMethod = selectedQrMethod;
+
+    const qrUrl =
+      selectedQrMethod === "gcash"
+        ? safeText(businessData?.gcashQrUrl, "")
+        : safeText(businessData?.mayaQrUrl, "");
+
+    if (!qrUrl) {
+      showMessage(
+        "No " +
+        (selectedQrMethod === "gcash" ? "GCash" : "Maya") +
+        " QR code is available."
+      );
+      return;
     }
-
-    if(!currentUser){
-
-        showMessage(
-            "Your account is not available. Please log in again."
-        );
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       PAYMENT DETAILS
-    ===================================================== */
-
-    let cashReceived = 0;
-    let change = 0;
-    let creditNote = "";
-    let qrMethod = "";
-
-
-    /* =====================================================
-       CASH
-    ===================================================== */
-
-    if(selectedPaymentMethod === "cash"){
-
-        cashReceived =
-            Number(
-                document.getElementById(
-                    "cashReceived"
-                )?.value
-            ) || 0;
-
-
-        if(cashReceived < total){
-
-            showMessage(
-                "Cash received is not enough."
-            );
-
-            return;
-
-        }
-
-
-        change =
-            cashReceived - total;
-
-    }
-
-
-    /* =====================================================
-       CREDIT
-    ===================================================== */
-
-    if(selectedPaymentMethod === "credit"){
-
-        creditNote =
-            (
-                document.getElementById(
-                    "creditNote"
-                )?.value || ""
-            ).trim();
-
-    }
-
-
-    /* =====================================================
-       QR
-    ===================================================== */
-
-    if(selectedPaymentMethod === "qr"){
-
-        qrMethod =
-            selectedQrMethod;
-
-
-        const qrUrl =
-            selectedQrMethod === "gcash"
-                ? safeText(
-                    businessData?.gcashQrUrl,
-                    ""
-                )
-                : safeText(
-                    businessData?.mayaQrUrl,
-                    ""
-                );
-
-
-        if(!qrUrl){
-
-            showMessage(
-                "No " +
-                (
-                    selectedQrMethod === "gcash"
-                        ? "GCash"
-                        : "Maya"
-                ) +
-                " QR code is available."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    /* =====================================================
-       PREPARE CART ITEMS
-    ===================================================== */
-
-    const saleItems =
-        cart.map(
-            function(item){
-
-                const price =
-                    Number(item.price) || 0;
-
-                const quantity =
-                    Number(item.quantity) || 0;
-
-                return {
-
-                    productId:
-                        item.id,
-
-                    name:
-                        item.name,
-
-                    price:
-                        price,
-
-                    quantity:
-                        quantity,
-
-                    subtotal:
-                        price * quantity,
-
-                    image:
-                        item.image || "",
-
-                    stockTracked:
-                        !!item.stockTracked
-
-                };
-
-            }
-        );
-
-
-    /* =====================================================
-       SALE DATA
-    ===================================================== */
-
-    const saleData = {
-
-        businessId:
-            currentBusinessId,
-
-        items:
-            saleItems,
-
-        total:
-            Number(total),
-
-transactionType: selectedTransactionType,
-
-        paymentMethod:
-            selectedPaymentMethod,
-            
-    
-
-        cashReceived:
-            Number(cashReceived),
-
-        change:
-            Number(change),
-
-        creditNote:
-            creditNote,
-
-        qrMethod:
-            qrMethod,
-
-        performedByUid:
-            currentUser.uid,
-
-        performedByName:
-            currentUserData?.name ||
-            currentUserData?.fullName ||
-            currentUser.displayName ||
-            "",
-
-        performedByRole:
-            currentRole || "owner",
-
-        createdAt:
-            serverTimestamp()
-
+  }
+
+  /* PREPARE CART ITEMS */
+
+  const saleItems = cart.map(function (item) {
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 0;
+
+    return {
+      productId: item.id,
+      name: item.name,
+      price: price,
+      quantity: quantity,
+      subtotal: price * quantity,
+      image: item.image || "",
+      stockTracked: !!item.stockTracked
     };
+  });
 
+  /* SALE DATA */
 
-    /* =====================================================
-       SAVE TO FIREBASE
-    ===================================================== */
+  const saleData = {
+    businessId: currentBusinessId,
+    items: saleItems,
+    total: Number(total),
+    transactionType: selectedTransactionType,
+    customerName: customerName,
+    transactionDetails: transactionDetails,
+    paymentMethod: selectedPaymentMethod,
+    cashReceived: Number(cashReceived),
+    change: Number(change),
+    creditNote: creditNote,
+    qrMethod: qrMethod,
 
-    try{
+    performedByUid: currentUser.uid,
 
-        const salesRef =
-            collection(
-                db,
-                "users",
-                currentBusinessId,
-                "sales"
-            );
+    performedByName:
+      currentUserData?.name ||
+      currentUserData?.fullName ||
+      currentUser.displayName ||
+      "",
 
+    performedByRole: currentRole || "owner",
+    createdAt: serverTimestamp()
+  };
 
-        const saleDoc =
-            await addDoc(
-                salesRef,
-                saleData
-            );
-            
-            
-            /* /* =====================================================
-   UPDATE PRODUCT + MATERIAL INVENTORY
-===================================================== */
+  /* SAVE TO FIREBASE */
 
-for(const item of cart){
+  try {
+    window.paymentIsProcessing = true;
 
-    const soldQuantity =
-        Number(item.quantity) || 0;
+    if (confirmButton) {
+      confirmButton.disabled = true;
+      confirmButton.textContent = "Processing...";
+    }
 
-    if(soldQuantity <= 0){
+    if (processingOverlay) {
+      processingOverlay.style.display = "flex";
+    }
+
+    const salesRef = collection(
+      db,
+      "users",
+      currentBusinessId,
+      "sales"
+    );
+
+    const saleDoc = await addDoc(salesRef, saleData);
+
+    /* UPDATE PRODUCT AND MATERIAL INVENTORY */
+
+    for (const item of cart) {
+      const soldQuantity = Number(item.quantity) || 0;
+
+      if (soldQuantity <= 0) continue;
+
+      const productRef = doc(
+        db,
+        "users",
+        currentBusinessId,
+        "products",
+        item.id
+      );
+
+      const productSnap = await getDoc(productRef);
+
+      if (!productSnap.exists()) {
+        console.warn("Product not found:", item.id);
         continue;
-    }
+      }
 
-    /* -------------------------------------------------
-       GET PRODUCT
-    ------------------------------------------------- */
+      const productData = productSnap.data();
 
-    const productRef =
-        doc(
-            db,
-            "users",
-            currentBusinessId,
-            "products",
-            item.id
+      /* UPDATE PRODUCT STOCK */
+
+      if (productData.trackStock === true) {
+        const currentStock = getProductStock(productData);
+
+        const newStock = Math.max(
+          0,
+          currentStock - soldQuantity
         );
 
-    const productSnap =
-        await getDoc(productRef);
+        await updateDoc(productRef, {
+          stockQuantity: newStock
+        });
+      }
 
-    if(!productSnap.exists()){
-        console.warn(
-            "Product not found:",
-            item.id
-        );
-        continue;
-    }
+      /* UPDATE MATERIALS */
 
-    const productData =
-        productSnap.data();
+      const materials = Array.isArray(productData.materials)
+        ? productData.materials
+        : [];
 
-
-    /* -------------------------------------------------
-       UPDATE PRODUCT STOCK
-    ------------------------------------------------- */
-
-    if(productData.trackStock === true){
-
-        const currentStock =
-            getProductStock(productData);
-
-        const newStock =
-            Math.max(
-                0,
-                currentStock - soldQuantity
-            );
-
-        await updateDoc(
-            productRef,
-            {
-                stockQuantity: newStock
-            }
-        );
-    }
-
-
-    /* -------------------------------------------------
-       UPDATE MATERIALS
-    ------------------------------------------------- */
-
-    const materials =
-        Array.isArray(productData.materials)
-            ? productData.materials
-            : [];
-
-    for(const material of materials){
-
-        const materialId =
-            material?.materialId;
-
+      for (const material of materials) {
+        const materialId = material?.materialId;
         const materialPerProduct =
-            Number(material?.quantity) || 0;
+          Number(material?.quantity) || 0;
 
-        if(
-            !materialId ||
-            materialPerProduct <= 0
-        ){
-            continue;
+        if (!materialId || materialPerProduct <= 0) continue;
+
+        const materialRef = doc(
+          db,
+          "users",
+          currentBusinessId,
+          "materials",
+          materialId
+        );
+
+        const materialSnap = await getDoc(materialRef);
+
+        if (!materialSnap.exists()) {
+          console.warn("Material not found:", materialId);
+          continue;
         }
 
-        const materialRef =
-            doc(
-                db,
-                "users",
-                currentBusinessId,
-                "materials",
-                materialId
-            );
-
-        const materialSnap =
-            await getDoc(materialRef);
-
-        if(!materialSnap.exists()){
-            console.warn(
-                "Material not found:",
-                materialId
-            );
-            continue;
-        }
-
-        const materialData =
-            materialSnap.data();
+        const materialData = materialSnap.data();
 
         const currentMaterialQuantity =
-            Number(
-                materialData.quantity
-            ) || 0;
+          Number(materialData.quantity) || 0;
 
         const materialUsed =
-            materialPerProduct *
-            soldQuantity;
+          materialPerProduct * soldQuantity;
 
-        const newMaterialQuantity =
-            Math.max(
-                0,
-                currentMaterialQuantity -
-                materialUsed
-            );
-
-        await updateDoc(
-            materialRef,
-            {
-                quantity: newMaterialQuantity
-            }
-        );
-    }
-}
-
-
-        /* =================================================
-           CLEAR CART
-        ================================================= */
-
-        cart = [];
-
-        renderCart();
-
-
-        /* =================================================
-           CLOSE PAYMENT POPUP
-        ================================================= */
-
-        closePaymentPopup();
-
-
-        /* =================================================
-           SUCCESS MESSAGE
-        ================================================= */
-
-        if(selectedPaymentMethod === "cash"){
-
-            showMessage(
-                "Sale completed. Change: " +
-                money(change)
-            );
-
-        }
-
-        else if(selectedPaymentMethod === "credit"){
-
-            showMessage(
-                "Credit sale saved successfully."
-            );
-
-        }
-
-        else if(selectedPaymentMethod === "qr"){
-
-            showMessage(
-                (
-                    selectedQrMethod === "gcash"
-                        ? "GCash"
-                        : "Maya"
-                ) +
-                " payment confirmed. Sale saved."
-            );
-
-        }
-
-
-        /* =================================================
-           RESET PAYMENT FORM
-        ================================================= */
-
-        selectedPaymentMethod =
-            "cash";
-
-        selectedQrMethod =
-            "gcash";
-
-
-        const cashInput =
-            document.getElementById(
-                "cashReceived"
-            );
-
-        if(cashInput){
-
-            cashInput.value = "";
-
-        }
-
-
-        const creditInput =
-            document.getElementById(
-                "creditNote"
-            );
-
-        if(creditInput){
-
-            creditInput.value = "";
-
-        }
-
-
-        const creditSection =
-            document.getElementById(
-                "creditNoteSection"
-            );
-
-        if(creditSection){
-
-            creditSection.style.display =
-                "none";
-
-        }
-
-
-        document
-            .querySelectorAll(
-                ".payment-method"
-            )
-            .forEach(
-                function(button){
-
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.paymentMethod === "cash"
-                    );
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                ".qr-method"
-            )
-            .forEach(
-                function(button){
-
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.qrMethod === "gcash"
-                    );
-
-                }
-            );
-
-
-        console.log(
-            "Sale saved to Firebase:",
-            saleDoc.id
+        const newMaterialQuantity = Math.max(
+          0,
+          currentMaterialQuantity - materialUsed
         );
 
-
-    }catch(error){
-
-        console.error(
-            "Error saving sale:",
-            error
-        );
-
-
-        showMessage(
-            "Unable to save the sale. Please try again."
-        );
-
-    }
-
-};
-
-
-window.closePaymentPopup = function(){
-    const overlay = document.getElementById("paymentOverlay");
-
-    if(overlay){
-        overlay.classList.remove("show");
-    }
-};
-
-
-
-/* =====================================================
-   PAYMENT METHOD BUTTONS
-===================================================== */
-
-document
-    .querySelectorAll(
-        ".payment-method"
-    )
-    .forEach(
-        function(button){
-
-            button.addEventListener(
-                "click",
-                function(){
-
-                    showPaymentMethod(
-                        button.dataset.paymentMethod
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-/* =====================================================
-   QR METHOD BUTTONS
-===================================================== */
-
-/* ===================================================== QR METHOD BUTTONS ===================================================== */ document .querySelectorAll( ".qr-method" ) .forEach( function(button){ button.addEventListener( "click", function(){ selectedQrMethod = button.dataset.qrMethod; document .querySelectorAll( ".qr-method" ) .forEach( function(item){ item.classList.toggle( "active", item.dataset.qrMethod === selectedQrMethod ); } ); loadPaymentQr(); } ); } ); 
-
-/* =====================================================
-   CASH INPUT
-===================================================== */
-
-document
-    .getElementById(
-        "cashReceived"
-    )
-    .addEventListener(
-        "input",
-        updateCashChange
-    );
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-window.openPage = function(
-    url
-){
-
-    window.location.href =
-        url;
-
-};
-
-
-window.scrollToProducts = function(){
-
-    const products =
-        document.getElementById("productsGrid");
-
-    if(products){
-
-        products.scrollIntoView({
-            behavior:"smooth",
-            block:"start"
+        await updateDoc(materialRef, {
+          quantity: newMaterialQuantity
         });
-
+      }
     }
 
+    /* SUCCESS MESSAGE */
+
+    if (paymentMethodForInvoice === "cash") {
+      showMessage(
+        "Sale completed. Change: " + money(change)
+      );
+    } else if (paymentMethodForInvoice === "credit") {
+      showMessage("Credit sale saved successfully.");
+    } else if (paymentMethodForInvoice === "qr") {
+      showMessage(
+        (qrMethodForInvoice === "gcash" ? "GCash" : "Maya") +
+        " payment confirmed. Sale saved."
+      );
+    }
+
+    /* OPEN INVOICE AFTER SUCCESSFUL SAVE AND INVENTORY UPDATES */
+
+    const invoiceBusinessName =
+      businessData?.businessName ||
+      businessData?.name ||
+      currentUserData?.businessName ||
+      window.currentBusinessName ||
+      "Business Name";
+
+    const invoiceCashier =
+      currentUserData?.name ||
+      currentUserData?.fullName ||
+      currentUser.displayName ||
+      currentUser.email ||
+      "Cashier";
+
+    const invoicePaymentMethod =
+      paymentMethodForInvoice === "qr"
+        ? (qrMethodForInvoice === "gcash" ? "GCash" : "Maya")
+        : paymentMethodForInvoice === "credit"
+          ? "Credit"
+          : "Cash";
+
+    if (typeof window.showPosInvoice === "function") {
+      window.showPosInvoice({
+        saleId: saleDoc.id,
+        businessName: invoiceBusinessName,
+        date: new Date().toLocaleString("en-PH", {
+          timeZone: "Asia/Manila"
+        }),
+        customerName: customerName,
+        method: paymentMethodForInvoice,
+        paymentMethod: invoicePaymentMethod,
+        qrMethod: qrMethodForInvoice,
+        items: saleItems,
+        subtotal: total,
+        total: total,
+        cashReceived: cashReceived,
+        change: change,
+        creditNote: creditNote,
+        cashierName: invoiceCashier
+      });
+    } else {
+      console.error("Invoice function is not loaded.");
+    }
+
+    /* CLEAR CART */
+
+    cart = [];
+    renderCart();
+
+    closePaymentPopup();
+
+    /* RESET PAYMENT FORM */
+
+    selectedPaymentMethod = "cash";
+    selectedQrMethod = "gcash";
+
+    const cashInput = document.getElementById("cashReceived");
+    if (cashInput) cashInput.value = "";
+
+    const creditInput = document.getElementById("creditNote");
+    if (creditInput) creditInput.value = "";
+
+    const creditSection =
+      document.getElementById("creditNoteSection");
+
+    if (creditSection) {
+      creditSection.style.display = "none";
+    }
+
+    document.querySelectorAll(".payment-method").forEach(
+      function (button) {
+        button.classList.toggle(
+          "active",
+          button.dataset.paymentMethod === "cash"
+        );
+      }
+    );
+
+    document.querySelectorAll(".qr-method").forEach(
+      function (button) {
+        button.classList.toggle(
+          "active",
+          button.dataset.qrMethod === "gcash"
+        );
+      }
+    );
+
+    console.log("Sale saved to Firebase:", saleDoc.id);
+
+  } catch (error) {
+    console.error("Error saving sale:", error);
+
+    showMessage(
+      "Unable to complete the sale or update inventory. Please check the sale before retrying."
+    );
+
+  } finally {
+    window.paymentIsProcessing = false;
+
+    if (processingOverlay) {
+      processingOverlay.style.display = "none";
+    }
+
+    if (confirmButton) {
+      confirmButton.disabled = false;
+      confirmButton.textContent = "Confirm Payment";
+    }
+  }
 };
-
-
-
-
-
-
 
 /* =====================================================
    LOGOUT
@@ -5080,6 +5099,95 @@ if(
 }
 
 </script>
+
+
+
+<!-- KAYAH POS INVOICE -->
+<div id="posInvoiceOverlay" class="pos-invoice-overlay">
+  <div class="pos-invoice-modal">
+
+    <div class="pos-invoice-actions">
+      <button type="button" onclick="window.printPosInvoice()">
+        Print Invoice
+      </button>
+      <button type="button" class="pos-invoice-close"
+        onclick="window.closePosInvoice()">
+        Close
+      </button>
+    </div>
+
+   
+<div id="posInvoicePaper" class="pos-invoice-paper">
+  <div class="invoice-header">
+    <div class="invoice-brand">
+      <div>
+        <div id="posInvoiceBusinessName"
+             class="invoice-business-name">Business Name</div>
+        <div class="invoice-business-subtitle">
+          Kayah Point of Sale
+        </div>
+      </div>
+    </div>
+
+    <div class="invoice-title-row">
+      <div class="invoice-title">SALES INVOICE</div>
+      <div class="invoice-number" id="posInvoiceNumber"></div>
+    </div>
+  </div>
+
+  <div class="invoice-body">
+    <div class="invoice-info">
+      <div class="info-box">
+        <span class="info-label">Date &amp; Time</span>
+        <span class="info-value" id="posInvoiceDate"></span>
+      </div>
+      <div class="info-box">
+        <span class="info-label">Customer Name</span>
+        <span class="info-value" id="posInvoiceCustomer"></span>
+      </div>
+      <div class="info-box">
+        <span class="info-label">Transaction</span>
+        <span class="info-value" id="posInvoiceNumberInfo"></span>
+      </div>
+    </div>
+
+    <div class="invoice-section-title">Items</div>
+
+    <div class="invoice-items">
+      <div class="invoice-item invoice-item-heading">
+        <div class="invoice-item-name">PRODUCT</div>
+        <div class="invoice-item-qty">QTY</div>
+        <div class="invoice-item-price">PRICE</div>
+        <div class="invoice-item-total">TOTAL</div>
+      </div>
+      <div id="posInvoiceItems"></div>
+    </div>
+
+    <div class="invoice-summary">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="posInvoiceSubtotal"></strong>
+      </div>
+      <div class="summary-row total">
+        <span>TOTAL</span>
+        <strong id="posInvoiceTotal"></strong>
+      </div>
+    </div>
+
+    <div class="payment-section">
+      <div class="invoice-section-title">Payment Details</div>
+      <div class="payment-card" id="posInvoicePaymentDetails"></div>
+    </div>
+
+    <div class="invoice-footer">
+      Thank you for your business.
+      <br>
+      Served by: <strong id="posInvoiceCashier"></strong>
+      <br>
+      Powered by Kayah — Business, Made Possible.
+    </div>
+  </div>
+</div>
 
 </body>
 
