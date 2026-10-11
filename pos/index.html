@@ -2079,7 +2079,8 @@ a{
 
        
 
-      <!-- BUSINESS TOOLS -->
+      
+<!-- BUSINESS TOOLS -->
 <section class="quick-section">
 
     <div class="section-title">
@@ -2087,79 +2088,72 @@ a{
     </div>
 
     <div class="quick-tabs-box">
-
         <div class="quick-tabs">
 
             <!-- SALES -->
-            <!-- SALES -->
-<button
-    type="button"
-    class="quick-tab quick-tab-sales"
-    onclick="openPage('../pos-sales/')"
->
-    <span class="quick-tab-icon">🧾</span>
-    <span class="quick-tab-name">Sales</span>
-</button>
+            <button
+                type="button"
+                class="quick-tab quick-tab-sales"
+                onclick="openPage('../pos-sales/index.html')"
+            >
+                <span class="quick-tab-icon">🧾</span>
+                <span class="quick-tab-name">Sales</span>
+            </button>
 
-<!-- PRODUCTS -->
-<button
-    type="button"
-    class="quick-tab quick-tab-products"
-    onclick="openPage('../pos-products/')"
->
-    <span class="quick-tab-icon">🛍️</span>
-    <span class="quick-tab-name">Products</span>
-</button>
+            <!-- PRODUCTS -->
+            <button
+                type="button"
+                class="quick-tab quick-tab-products"
+                onclick="openPage('../pos-products/index.html')"
+            >
+                <span class="quick-tab-icon">🛍️</span>
+                <span class="quick-tab-name">Products</span>
+            </button>
 
-<!-- INVENTORY -->
-<button
-    type="button"
-    class="quick-tab quick-tab-inventory"
-    onclick="openPage('../pos-inventory/')"
->
-    <span class="quick-tab-icon">📦</span>
-    <span class="quick-tab-name">Inventory</span>
-</button>
+            <!-- INVENTORY -->
+            <button
+                type="button"
+                class="quick-tab quick-tab-inventory"
+                onclick="openPage('../pos-inventory/index.html')"
+            >
+                <span class="quick-tab-icon">📦</span>
+                <span class="quick-tab-name">Inventory</span>
+            </button>
 
-<!-- MATERIALS -->
-<button
-    type="button"
-    class="quick-tab quick-tab-materials"
-    onclick="openPage('../pos-materials/')"
->
-    <span class="quick-tab-icon">🧰</span>
-    <span class="quick-tab-name">Materials</span>
-</button>
+            <!-- MATERIALS -->
+            <button
+                type="button"
+                class="quick-tab quick-tab-materials"
+                onclick="openPage('../materials/index.html')"
+            >
+                <span class="quick-tab-icon">🧰</span>
+                <span class="quick-tab-name">Materials</span>
+            </button>
 
-<!-- EXPENSES -->
-<button
-    type="button"
-    class="quick-tab quick-tab-expenses"
-    onclick="openPage('../pos-expenses/')"
->
-    <span class="quick-tab-icon">🧾</span>
-    <span class="quick-tab-name">Expenses</span>
-</button>
+            <!-- EXPENSES -->
+            <button
+                type="button"
+                class="quick-tab quick-tab-expenses"
+                onclick="openPage('../pos-expenses/index.html')"
+            >
+                <span class="quick-tab-icon">💰</span>
+                <span class="quick-tab-name">Expenses</span>
+            </button>
 
-<!-- CUSTOMERS -->
-<button
-    type="button"
-    class="quick-tab quick-tab-customers"
-    onclick="openPage('../pos-customers/')"
->
-    <span class="quick-tab-icon">👥</span>
-    <span class="quick-tab-name">Customers</span>
-</button>
+            <!-- CUSTOMERS -->
+            <button
+                type="button"
+                class="quick-tab quick-tab-customers"
+                onclick="openPage('../pos-customers/index.html')"
+            >
+                <span class="quick-tab-icon">👥</span>
+                <span class="quick-tab-name">Customers</span>
+            </button>
 
         </div>
-
     </div>
 
 </section>
-
-
-
-
 
 <!-- =====================================================
      PAYMENT POPUP
@@ -2279,31 +2273,37 @@ a{
 
 <div class="payment-methods">
 
-    <button
-        type="button"
-        class="payment-method active"
-        data-payment-method="cash"
-    >
-        💵 Cash
-    </button>
+    
+<button
+    type="button"
+    class="payment-method active"
+    data-payment-method="cash"
+    onclick="showPaymentMethod('cash')"
+>
+    💵 Cash
+</button>
+    
+<button
+    type="button"
+    class="payment-method"
+    data-payment-method="credit"
+    onclick="showPaymentMethod('credit')"
+>
+    📝 Credit
+</button>
 
-    <button
-        type="button"
-        class="payment-method"
-        data-payment-method="credit"
-    >
-        📝 Credit
-    </button>
-
-    <button
-        type="button"
-        class="payment-method"
-        data-payment-method="qr"
-    >
-        📱 QR
-    </button>
+   
+<button
+    type="button"
+    class="payment-method"
+    data-payment-method="qr"
+    onclick="showPaymentMethod('qr')"
+>
+    📱 QR
+</button>
 
 </div>
+
 
 <!-- CREDIT NOTE -->
 <div
@@ -2416,13 +2416,20 @@ a{
                 Select QR Payment
             </span>
 
-           <div class="qr-methods">
-    <button class="qr-method active" data-qr-method="gcash">
+           
+<div class="qr-methods">
+    <button type="button"
+            class="qr-method active"
+            data-qr-method="gcash"
+            onclick="selectQrMethod('gcash')">
         <img src="gcash-logo.png" alt="GCash">
         <span>GCash</span>
     </button>
 
-    <button class="qr-method" data-qr-method="maya">
+    <button type="button"
+            class="qr-method"
+            data-qr-method="maya"
+            onclick="selectQrMethod('maya')">
         <img src="maya-logo.png" alt="Maya">
         <span>Maya</span>
     </button>
@@ -4083,224 +4090,191 @@ function updateCashChange() {
 })();
 
 
-function showPaymentMethod(
-    method
-){
 
-    selectedPaymentMethod =
-        method;
+/* =====================================
+   PAYMENT METHOD SWITCHING
+===================================== */
 
+function showPaymentMethod(method) {
+    selectedPaymentMethod = method;
 
-    document
-        .querySelectorAll(
-            ".payment-method"
-        )
-        .forEach(
-            function(button){
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.paymentMethod === method
-                );
-
-            }
+    // Update selected payment button
+    document.querySelectorAll(".payment-method").forEach(function (button) {
+        button.classList.toggle(
+            "active",
+            button.dataset.paymentMethod === method
         );
-
-
-    document
-        .querySelectorAll(
-            ".payment-method-content"
-        )
-        .forEach(
-            function(content){
-
-                content.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    if(method === "cash"){
-
-        document.getElementById(
-            "cashPaymentContent"
-        ).classList.add("active");
-
-        document.getElementById(
-            "cashReceived"
-        ).focus();
-
-        updateCashChange();
-
-    }
-
-
-    if(method === "credit"){
-
-        document.getElementById(
-            "creditPaymentContent"
-        ).classList.add("active");
-
-        document.getElementById(
-            "confirmPaymentButton"
-        ).disabled = false;
-
-    }
-
-
-    if(method === "qr"){
-
-        document.getElementById(
-            "qrPaymentContent"
-        ).classList.add("active");
-
-        document.getElementById(
-            "confirmPaymentButton"
-        ).disabled = false;
-
-        loadPaymentQr();
-
-    }
-
-}
-
-
-function loadPaymentQr(){
-
-    const qrImage =
-        document.getElementById(
-            "paymentQrImage"
-        );
-
-    const qrEmpty =
-        document.getElementById(
-            "qrEmpty"
-        );
-
-    const businessName =
-        document.getElementById(
-            "qrBusinessName"
-        );
-
-
-    businessName.textContent =
-        safeText(
-            businessData?.businessName,
-            "Your Business"
-        );
-
-
-    let qrUrl = "";
-
-
-    if(selectedQrMethod === "gcash"){
-
-        qrUrl =
-            safeText(
-                businessData?.gcashQrUrl,
-                ""
-            );
-
-    }else{
-
-        qrUrl =
-            safeText(
-                businessData?.mayaQrUrl,
-                ""
-            );
-
-    }
-
-
-    if(!qrUrl){
-
-        qrImage.style.display =
-            "none";
-
-        qrEmpty.style.display =
-            "block";
-
-        qrEmpty.textContent =
-            selectedQrMethod === "gcash"
-                ? "No GCash QR code has been uploaded for this business."
-                : "No Maya QR code has been uploaded for this business.";
-
-        return;
-
-    }
-
-
-    qrImage.src =
-        qrUrl;
-
-    qrImage.style.display =
-        "block";
-
-    qrEmpty.style.display =
-        "none";
-
-
-    qrImage.onerror =
-        function(){
-
-            qrImage.style.display =
-                "none";
-
-            qrEmpty.style.display =
-                "block";
-
-            qrEmpty.textContent =
-                "Unable to load this payment QR code.";
-
-        };
-
-}
-
-document
-    .querySelectorAll(".payment-method")
-    .forEach(function(button){
-
-        button.addEventListener("click", function(){
-
-            selectedPaymentMethod =
-                button.dataset.paymentMethod;
-
-            document
-                .querySelectorAll(".payment-method")
-                .forEach(function(item){
-
-                    item.classList.toggle(
-                        "active",
-                        item.dataset.paymentMethod === selectedPaymentMethod
-                    );
-
-                });
-
-            // Show Credit Note only for Credit
-            const creditNoteSection =
-                document.getElementById("creditNoteSection");
-
-            if (creditNoteSection) {
-                creditNoteSection.style.display =
-                    selectedPaymentMethod === "credit"
-                        ? "block"
-                        : "none";
-            }
-
-            // Existing QR function
-            if (selectedPaymentMethod === "qr") {
-                loadPaymentQr();
-            }
-
-        });
-
     });
 
+    // Hide all payment sections first
+    document.querySelectorAll(".payment-method-content").forEach(function (content) {
+        content.classList.remove("active");
+    });
+
+    // Show the selected payment section
+    const contentId = {
+        cash: "cashPaymentContent",
+        credit: "creditPaymentContent",
+        qr: "qrPaymentContent"
+    }[method];
+
+    const activeContent = contentId
+        ? document.getElementById(contentId)
+        : null;
+
+    if (!activeContent) {
+        console.error("Payment section not found:", contentId);
+        return;
+    }
+
+    activeContent.classList.add("active");
+
+    const confirmButton = document.getElementById("confirmPaymentButton");
+
+    // Show or hide the existing Credit Note field
+    const creditNoteSection = document.getElementById("creditNoteSection");
+
+    if (creditNoteSection) {
+        creditNoteSection.style.display =
+            method === "credit" ? "block" : "none";
+    }
+
+    // CASH PAYMENT
+    if (method === "cash") {
+        if (confirmButton) {
+            confirmButton.disabled = false;
+        }
+
+        const cashInput = document.getElementById("cashReceived");
+
+        if (cashInput) {
+            cashInput.focus();
+        }
+
+        if (typeof updateCashChange === "function") {
+            updateCashChange();
+        }
+    }
+
+    // CREDIT PAYMENT
+    if (method === "credit") {
+        if (confirmButton) {
+            confirmButton.disabled = false;
+        }
+    }
+
+    // QR PAYMENT
+    if (method === "qr") {
+        if (confirmButton) {
+            confirmButton.disabled = false;
+        }
+
+        // Preserve the current GCash/Maya selection
+        document.querySelectorAll(".qr-method").forEach(function (button) {
+            button.classList.toggle(
+                "active",
+                button.dataset.qrMethod === selectedQrMethod
+            );
+        });
+
+        // Load the selected payment QR
+        if (typeof loadPaymentQr === "function") {
+            loadPaymentQr();
+        } else {
+            console.error("loadPaymentQr function is missing.");
+        }
+    }
+}
+
+// Make payment switching accessible to HTML buttons
+window.showPaymentMethod = showPaymentMethod;
 
 
+/* =====================================
+   GCASH / MAYA QR SWITCHING
+===================================== */
 
+window.selectQrMethod = function (method) {
+    if (method !== "gcash" && method !== "maya") {
+        return;
+    }
+
+    selectedQrMethod = method;
+
+    // Update selected QR button
+    document.querySelectorAll(".qr-method").forEach(function (button) {
+        button.classList.toggle(
+            "active",
+            button.dataset.qrMethod === method
+        );
+    });
+
+    // Reload the selected QR code
+    if (typeof loadPaymentQr === "function") {
+        loadPaymentQr();
+    } else {
+        console.error("loadPaymentQr function is missing.");
+    }
+};
+
+
+function loadPaymentQr() {
+    const qrImage = document.getElementById("paymentQrImage");
+    const qrEmpty = document.getElementById("qrEmpty");
+    const businessNameElement = document.getElementById("qrBusinessName");
+
+    if (!qrImage || !qrEmpty || !businessNameElement) {
+        console.error("QR payment elements are missing.");
+        return;
+    }
+
+    businessNameElement.textContent =
+        safeText(businessData?.businessName, "Your Business");
+
+    const method = selectedQrMethod || "gcash";
+
+    const qrUrl = method === "gcash"
+        ? safeText(businessData?.gcashQrUrl, "")
+        : safeText(businessData?.mayaQrUrl, "");
+
+    // Remove previous image handlers while changing providers.
+    qrImage.onload = null;
+    qrImage.onerror = null;
+
+    if (!qrUrl) {
+        qrImage.removeAttribute("src");
+        qrImage.style.display = "none";
+        qrEmpty.style.display = "block";
+        qrEmpty.textContent = method === "gcash"
+            ? "No GCash QR code is saved for this business."
+            : "No Maya QR code is saved for this business.";
+        return;
+    }
+
+    qrImage.style.display = "none";
+    qrEmpty.style.display = "block";
+    qrEmpty.textContent = "Loading QR code...";
+
+    qrImage.onload = function () {
+        qrImage.style.display = "block";
+        qrEmpty.style.display = "none";
+    };
+
+    qrImage.onerror = function () {
+        qrImage.style.display = "none";
+        qrEmpty.style.display = "block";
+        qrEmpty.textContent =
+            "QR image could not load. Please check the saved image URL.";
+    };
+
+    qrImage.src = qrUrl;
+
+    // Handle an image that was already cached by the browser.
+    if (qrImage.complete && qrImage.naturalWidth > 0) {
+        qrImage.style.display = "block";
+        qrEmpty.style.display = "none";
+    }
+}
 
 
 
