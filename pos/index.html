@@ -2085,6 +2085,7 @@ a{
 
       
 
+
 <!-- BUSINESS TOOLS -->
 <section class="quick-section">
 
@@ -2096,61 +2097,49 @@ a{
     <div class="quick-tabs">
 
       <!-- SALES -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-sales"
-        onclick="window.location.href = new URL('../pos-sales/index.html', window.location.href).href"
-      >
+        onclick="openPage('../pos-sales/')">
         <span class="quick-tab-icon">🧾</span>
         <span class="quick-tab-name">Sales</span>
       </button>
 
       <!-- PRODUCTS -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-products"
-        onclick="window.location.href = new URL('../pos-products/index.html', window.location.href).href"
-      >
+        onclick="openPage('../pos-products/')">
         <span class="quick-tab-icon">🛍️</span>
         <span class="quick-tab-name">Products</span>
       </button>
 
       <!-- INVENTORY -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-inventory"
-        onclick="window.location.href = new URL('../pos-inventory/index.html', window.location.href).href"
-      >
+        onclick="openPage('../pos-inventory/')">
         <span class="quick-tab-icon">📦</span>
         <span class="quick-tab-name">Inventory</span>
       </button>
 
       <!-- MATERIALS -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-materials"
-        onclick="window.location.href = new URL('../materials/index.html', window.location.href).href"
-      >
+        onclick="openPage('../materials/')">
         <span class="quick-tab-icon">🧰</span>
         <span class="quick-tab-name">Materials</span>
       </button>
 
       <!-- EXPENSES -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-expenses"
-        onclick="window.location.href = new URL('../pos-expenses/index.html', window.location.href).href"
-      >
+        onclick="openPage('../pos-expenses/')">
         <span class="quick-tab-icon">💰</span>
         <span class="quick-tab-name">Expenses</span>
       </button>
 
       <!-- CUSTOMERS -->
-      <button
-        type="button"
+      <button type="button"
         class="quick-tab quick-tab-customers"
-        onclick="window.location.href = new URL('../pos-customers/index.html', window.location.href).href"
-      >
+        onclick="openPage('../pos-customers/')">
         <span class="quick-tab-icon">👥</span>
         <span class="quick-tab-name">Customers</span>
       </button>
@@ -5580,7 +5569,18 @@ if(
     };
 
 })();
+
+
+window.openPage = function(url) {
+  window.location.href = url;
+};
+
 </script>
+
+
+
+
+
 
 
 </body>
