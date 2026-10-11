@@ -2078,56 +2078,87 @@ a{
 
 
        
+       
+<
 
-     
+       
+
+      
 
 <!-- BUSINESS TOOLS -->
 <section class="quick-section">
-    <div class="section-title">Business Tools</div>
 
-    <div class="quick-tabs-box">
-        <div class="quick-tabs">
+  <div class="section-title">
+    Business Tools
+  </div>
 
-            <button type="button" class="quick-tab quick-tab-sales"
-                onclick="window.location.href='/pos-sales/index.html'">
-                <span class="quick-tab-icon">🧾</span>
-                <span class="quick-tab-name">Sales</span>
-            </button>
+  <div class="quick-tabs-box">
+    <div class="quick-tabs">
 
-            <button type="button" class="quick-tab quick-tab-products"
-                onclick="window.location.href='/pos-products/index.html'">
-                <span class="quick-tab-icon">🛍️</span>
-                <span class="quick-tab-name">Products</span>
-            </button>
+      <!-- SALES -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-sales"
+        onclick="window.location.href = new URL('../pos-sales/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">🧾</span>
+        <span class="quick-tab-name">Sales</span>
+      </button>
 
-            <button type="button" class="quick-tab quick-tab-inventory"
-                onclick="window.location.href='/pos-inventory/index.html'">
-                <span class="quick-tab-icon">📦</span>
-                <span class="quick-tab-name">Inventory</span>
-            </button>
+      <!-- PRODUCTS -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-products"
+        onclick="window.location.href = new URL('../pos-products/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">🛍️</span>
+        <span class="quick-tab-name">Products</span>
+      </button>
 
-            <button type="button" class="quick-tab quick-tab-materials"
-                onclick="window.location.href='/materials/index.html'">
-                <span class="quick-tab-icon">🧰</span>
-                <span class="quick-tab-name">Materials</span>
-            </button>
+      <!-- INVENTORY -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-inventory"
+        onclick="window.location.href = new URL('../pos-inventory/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">📦</span>
+        <span class="quick-tab-name">Inventory</span>
+      </button>
 
-            <button type="button" class="quick-tab quick-tab-expenses"
-                onclick="window.location.href='/pos-expenses/index.html'">
-                <span class="quick-tab-icon">💰</span>
-                <span class="quick-tab-name">Expenses</span>
-            </button>
+      <!-- MATERIALS -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-materials"
+        onclick="window.location.href = new URL('../materials/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">🧰</span>
+        <span class="quick-tab-name">Materials</span>
+      </button>
 
-            <button type="button" class="quick-tab quick-tab-customers"
-                onclick="window.location.href='/pos-customers/index.html'">
-                <span class="quick-tab-icon">👥</span>
-                <span class="quick-tab-name">Customers</span>
-            </button>
+      <!-- EXPENSES -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-expenses"
+        onclick="window.location.href = new URL('../pos-expenses/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">💰</span>
+        <span class="quick-tab-name">Expenses</span>
+      </button>
 
-        </div>
+      <!-- CUSTOMERS -->
+      <button
+        type="button"
+        class="quick-tab quick-tab-customers"
+        onclick="window.location.href = new URL('../pos-customers/index.html', window.location.href).href"
+      >
+        <span class="quick-tab-icon">👥</span>
+        <span class="quick-tab-name">Customers</span>
+      </button>
+
     </div>
-</section>
+  </div>
 
+</section>
 
 <!-- =====================================================
      PAYMENT POPUP
@@ -2256,7 +2287,6 @@ a{
 >
     💵 Cash
 </button>
-
     
 <button
     type="button"
@@ -5556,5 +5586,3 @@ if(
 </body>
 
 </html>
-
-      
