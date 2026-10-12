@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -855,16 +856,13 @@ a{
                     Today's Sales
                 </div>
 
-                <div
-                    class="overview-value"
-                    id="todaySales"
-                >
-                    ₱0.00
-                </div>
+                <div class="overview-value" id="todaySales">
+    ₱0.00
+</div>
 
-                <div class="overview-sub">
-                    No sales yet
-                </div>
+<div class="overview-sub" id="todaySalesSub">
+    Loading sales...
+</div>
 
             </div>
 
@@ -2291,6 +2289,128 @@ async function loadProductStats(uid){
 }
 
 
+
+/* =====================================================
+   TODAY'S SALES — PHILIPPINE TIME
+===================================================== */
+
+async function loadTodaySales(businessId) {
+    const salesElement = document.getElementById("todaySales");
+    const subtitleElement = document.getElementById("todaySalesSub");
+
+    salesElement.textContent = "₱0.00";
+    subtitleElement.textContent = "Loading sales...";
+
+    try {
+        // Read sales belonging to this business.
+        const salesRef = collection(
+            db,
+            "users",
+            businessId,
+            "sales"
+        );
+
+        const snapshot = await getDocs(salesRef);
+
+        // Get today's date in the Philippines.
+        const parts = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Manila",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).formatToParts(new Date());
+
+        const dateParts = {};
+        parts.forEach(part => {
+            if (part.type !== "literal") {
+                dateParts[part.type] = part.value;
+            }
+        });
+
+        const todayKey =
+            `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
+
+        let totalSales = 0;
+        let numberOfSales = 0;
+
+        snapshot.forEach(saleDoc => {
+            const sale = saleDoc.data();
+
+            // Only count sales belonging to this business.
+            if (
+                sale.businessId &&
+                sale.businessId !== businessId
+            ) {
+                return;
+            }
+
+            // Convert Firestore Timestamp to a JavaScript Date.
+            let saleDate = null;
+
+            if (sale.createdAt?.toDate) {
+                saleDate = sale.createdAt.toDate();
+            } else if (sale.createdAt) {
+                saleDate = new Date(sale.createdAt);
+            }
+
+            // Ignore records without a valid timestamp.
+            if (
+                !saleDate ||
+                Number.isNaN(saleDate.getTime())
+            ) {
+                return;
+            }
+
+            // Compare the sale date in Philippine time.
+            const saleKey = new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Asia/Manila",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            }).format(saleDate);
+
+            if (saleKey !== todayKey) {
+                return;
+            }
+
+            const amount = Number(sale.total);
+
+            if (!Number.isFinite(amount) || amount < 0) {
+                return;
+            }
+
+            totalSales += amount;
+            numberOfSales++;
+        });
+
+        salesElement.textContent = totalSales.toLocaleString(
+            "en-PH",
+            {
+                style: "currency",
+                currency: "PHP",
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+        if (numberOfSales === 0) {
+            subtitleElement.textContent = "No sales yet today";
+        } else {
+            subtitleElement.textContent =
+                `${numberOfSales} sale${numberOfSales === 1 ? "" : "s"} today`;
+        }
+
+    } catch (error) {
+        console.error("Today's sales error:", error);
+
+        subtitleElement.textContent = "Unable to load sales";
+    }
+}
+
+
+
+
+
 /* =====================================================
    OWNER / STAFF UI
 ===================================================== */
@@ -2577,8 +2697,12 @@ if(
                 );
 
                 await loadProductStats(
-                    currentBusinessId
-                );
+    currentBusinessId
+);
+
+await loadTodaySales(
+    currentBusinessId
+);
 
             }else{
 
