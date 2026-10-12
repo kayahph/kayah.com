@@ -1,0 +1,1362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>POS Inventory - Kayah</title>
+
+<style>
+:root {
+    --green: #0B4F3A;
+    --green2: #16805C;
+    --gold: #F2B84B;
+    --cream: #F7F3E8;
+    --bg: #F5F7F5;
+    --text: #26352D;
+    --muted: #758078;
+    --border: #E1E8E2;
+    --red: #C0392B;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.top-header {
+    background: linear-gradient(135deg, var(--green), var(--green2));
+    color: white;
+    padding: 17px 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.10);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.business-logo, .logo-fallback {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border-radius: 12px;
+}
+
+.business-logo {
+    object-fit: cover;
+    background: white;
+    border: 2px solid rgba(255,255,255,.4);
+}
+
+.logo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    background: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-info { flex: 1; min-width: 0; }
+
+.header-info h1 {
+    font-size: 19px;
+    margin: 0 0 4px;
+    overflow-wrap: anywhere;
+}
+
+.header-info p {
+    font-size: 12px;
+    margin: 0;
+    opacity: .85;
+}
+
+.header-back {
+    background: rgba(255,255,255,.14);
+    color: white;
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 10px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 14px 40px;
+}
+
+.page-heading { margin: 2px 0 16px; }
+
+.page-heading h2 {
+    color: var(--green);
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.page-heading p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.summary-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 12px;
+    min-width: 0;
+}
+
+.summary-icon { font-size: 22px; margin-bottom: 9px; }
+
+.summary-label {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.summary-value {
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--green);
+    margin-top: 5px;
+    overflow-wrap: anywhere;
+}
+
+.search-panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 17px;
+}
+
+.section-heading {
+    color: var(--green);
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0 0 13px;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.field label {
+    display: block;
+    color: #59665E;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #D8E0D9;
+    border-radius: 9px;
+    background: #fff;
+    padding: 11px 10px;
+    outline: none;
+    color: var(--text);
+}
+
+.field input:focus {
+    border-color: var(--green2);
+    box-shadow: 0 0 0 3px rgba(22,128,92,.10);
+}
+
+.search-actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 12px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 9px;
+    padding: 11px 16px;
+    font-weight: 700;
+}
+
+.btn-primary { color: white; background: var(--green); }
+.btn-secondary { background: #EDF2EE; color: var(--green); }
+
+.search-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.tab-button {
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 11px;
+    padding: 13px 7px;
+    color: #526057;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.tab-button.active {
+    color: white;
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.tab-button span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 15px 0 10px;
+}
+
+.results-heading h3 {
+    margin: 0;
+    color: var(--green);
+    font-size: 16px;
+}
+
+.results-count { color: var(--muted); font-size: 12px; }
+
+.item-list { display: grid; gap: 10px; }
+
+.item-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 13px;
+    min-width: 0;
+}
+
+.item-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.item-photo, .item-placeholder {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border-radius: 10px;
+}
+
+.item-photo {
+    object-fit: cover;
+    background: #EDF2EE;
+}
+
+.item-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EDF2EE;
+    font-size: 25px;
+}
+
+.item-info { min-width: 0; flex: 1; }
+
+.item-name {
+    color: #24392D;
+    font-size: 15px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.item-subtitle {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 5px;
+    overflow-wrap: anywhere;
+}
+
+.status {
+    flex: 0 0 auto;
+    border-radius: 20px;
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 800;
+    background: #E6F5EA;
+    color: #217346;
+}
+
+.status.low { background: #FFF0D1; color: #8A5B00; }
+.status.out { background: #FCE8E6; color: #B3261E; }
+
+.item-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    border-top: 1px solid #EDF0ED;
+    margin-top: 13px;
+    padding-top: 12px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.stat-value {
+    font-weight: 800;
+    font-size: 16px;
+    margin-top: 5px;
+    color: var(--green);
+    overflow-wrap: anywhere;
+}
+
+.stat-value.sold { color: #946200; }
+
+.empty-state, .loading-state, .error-state {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 28px 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 13px;
+}
+
+.error-state { color: var(--red); }
+
+.page-footer {
+    text-align: center;
+    padding: 24px 10px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+@media (max-width: 600px) {
+    .page { padding: 14px 11px 30px; }
+    .search-grid { grid-template-columns: 1fr 1fr; }
+    .field-name { grid-column: 1 / -1; }
+    .summary-card { padding: 11px 9px; }
+    .summary-value { font-size: 20px; }
+    .header-back { padding: 9px; font-size: 12px; }
+    .item-card { padding: 11px; }
+    .item-stats { gap: 5px; }
+    .stat-value { font-size: 14px; }
+}
+
+@media (min-width: 760px) {
+    .item-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-header">
+    <div class="header-inner">
+        <div id="businessLogoFallback" class="logo-fallback">K</div>
+
+        <img
+            id="businessLogo"
+            class="business-logo"
+            alt="Business logo"
+            style="display:none"
+        >
+
+        <div class="header-info">
+            <h1 id="businessName">Kayah</h1>
+            <p>POS &amp; Inventory Management</p>
+        </div>
+
+        <button class="header-back" type="button" onclick="goBack()">
+            ← Back
+        </button>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="page-heading">
+        <h2>Inventory Overview</h2>
+        <p>
+            Review stock levels and POS sales for products, materials,
+            and services. Search by item name and sale date.
+        </p>
+    </section>
+
+    <section class="summary-grid">
+        <div class="summary-card">
+            <div class="summary-icon">📦</div>
+            <div class="summary-label">Products Listed</div>
+            <div class="summary-value" id="summaryProducts">—</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon">🧱</div>
+            <div class="summary-label">Materials Listed</div>
+            <div class="summary-value" id="summaryMaterials">—</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon">🛠️</div>
+            <div class="summary-label">Services Listed</div>
+            <div class="summary-value" id="summaryServices">—</div>
+        </div>
+    </section>
+
+    <section class="search-panel">
+        <h3 class="section-heading">Search &amp; Filter</h3>
+
+        <div class="search-grid">
+            <div class="field field-name">
+                <label for="searchName">Item name</label>
+                <input
+                    id="searchName"
+                    type="search"
+                    placeholder="Search by name..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="field">
+                <label for="dateFrom">From date</label>
+                <input id="dateFrom" type="date">
+            </div>
+
+            <div class="field">
+                <label for="dateTo">To date</label>
+                <input id="dateTo" type="date">
+            </div>
+        </div>
+
+        <div class="search-actions">
+            <button class="btn btn-primary" id="searchButton" type="button">
+                🔎 Search
+            </button>
+            <button class="btn btn-secondary" id="clearButton" type="button">
+                Clear
+            </button>
+        </div>
+
+        <div class="search-note">
+            Date filters apply to the Sold in Period and Used in Period figures.
+            Total Stock uses all loaded sales plus current remaining stock.
+        </div>
+    </section>
+
+    <nav class="tabs" aria-label="Inventory categories">
+        <button type="button" class="tab-button active" data-tab="products">
+            <span>📦</span>
+            Products
+        </button>
+
+        <button type="button" class="tab-button" data-tab="materials">
+            <span>🧱</span>
+            Materials
+        </button>
+
+        <button type="button" class="tab-button" data-tab="services">
+            <span>🛠️</span>
+            Services
+        </button>
+    </nav>
+
+    <section>
+        <div class="results-heading">
+            <h3 id="resultsTitle">Products</h3>
+            <span class="results-count" id="resultsCount">Loading...</span>
+        </div>
+
+        <div id="inventoryList" class="item-list">
+            <div class="loading-state">Loading inventory...</div>
+        </div>
+    </section>
+
+    <div class="page-footer">
+        Kayah — Business, Made Possible.
+    </div>
+
+</main>
+
+<script type="module">
+import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* =====================================================
+   EXISTING KAYAH FIREBASE CONFIGURATION
+===================================================== */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+    authDomain: "kayah-ecosystem.firebaseapp.com",
+    projectId: "kayah-ecosystem",
+    storageBucket: "kayah-ecosystem.firebasestorage.app",
+    messagingSenderId: "49853785143",
+    appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let currentBusinessId = null;
+let currentUserData = {};
+let currentBusinessData = {};
+
+let allProducts = [];
+let allMaterials = [];
+let allServices = [];
+let allSales = [];
+
+let activeTab = "products";
+let appliedName = "";
+let appliedFrom = "";
+let appliedTo = "";
+
+const $ = id => document.getElementById(id);
+
+/* =====================================================
+   SAFE HELPERS
+===================================================== */
+
+function safeString(value, fallback = "") {
+    if (value === null || value === undefined) return fallback;
+    return String(value);
+}
+
+function safeNumber(value, fallback = 0) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+}
+
+function normalizeName(value) {
+    return safeString(value).trim().toLowerCase();
+}
+
+function displayNumber(value) {
+    return safeNumber(value).toLocaleString("en-PH", {
+        maximumFractionDigits: 3
+    });
+}
+
+function escapeHTML(value) {
+    return safeString(value).replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
+}
+
+function getTimestamp(value) {
+    if (!value) return null;
+
+    if (typeof value.toDate === "function") return value.toDate();
+    if (value instanceof Date) return value;
+
+    if (typeof value === "number") {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    if (typeof value === "string") {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    if (typeof value.seconds === "number") {
+        return new Date(value.seconds * 1000);
+    }
+
+    return null;
+}
+
+function isWithinDateRange(timestamp) {
+    if (!appliedFrom && !appliedTo) return true;
+
+    const date = getTimestamp(timestamp);
+    if (!date) return false;
+
+    if (appliedFrom) {
+        const from = new Date(appliedFrom + "T00:00:00");
+        if (date < from) return false;
+    }
+
+    if (appliedTo) {
+        const toExclusive = new Date(appliedTo + "T00:00:00");
+        toExclusive.setDate(toExclusive.getDate() + 1);
+        if (date >= toExclusive) return false;
+    }
+
+    return true;
+}
+
+function saleDate(sale) {
+    return sale.createdAt ||
+        sale.date ||
+        sale.transactionDate ||
+        sale.completedAt ||
+        null;
+}
+
+function itemQuantity(item) {
+    return Math.max(0, safeNumber(item?.quantity, 0));
+}
+
+function isNameMatch(name) {
+    return normalizeName(name).includes(appliedName);
+}
+
+function setMessage(message, type = "empty") {
+    $("inventoryList").innerHTML =
+        '<div class="' + type + '-state">' +
+        escapeHTML(message) +
+        '</div>';
+
+    $("resultsCount").textContent = "";
+}
+
+/* =====================================================
+   BUSINESS HEADER
+===================================================== */
+
+function setBusinessHeader() {
+    const name =
+        currentBusinessData.businessName ||
+        currentBusinessData.name ||
+        currentUserData.businessName ||
+        currentUserData.fullName ||
+        currentUserData.name ||
+        "Kayah";
+
+    $("businessName").textContent = name;
+
+    const logoUrl =
+        currentBusinessData.businessLogoUrl ||
+        currentBusinessData.logoUrl ||
+        currentBusinessData.logo ||
+        currentUserData.businessLogoUrl ||
+        currentUserData.logoUrl ||
+        "";
+
+    if (logoUrl) {
+        $("businessLogo").src = logoUrl;
+        $("businessLogo").style.display = "block";
+        $("businessLogoFallback").style.display = "none";
+
+        $("businessLogo").onerror = function() {
+            this.style.display = "none";
+            $("businessLogoFallback").style.display = "flex";
+        };
+    } else {
+        $("businessLogo").style.display = "none";
+        $("businessLogoFallback").style.display = "flex";
+    }
+}
+
+/* =====================================================
+   READ EXISTING FIREBASE COLLECTIONS
+===================================================== */
+
+async function readCollection(collectionName) {
+    const reference = collection(
+        db,
+        "users",
+        currentBusinessId,
+        collectionName
+    );
+
+    const snapshot = await getDocs(reference);
+
+    return snapshot.docs.map(function(document) {
+        return {
+            id: document.id,
+            ...document.data()
+        };
+    });
+}
+
+/* =====================================================
+   MATCH SALE ITEMS
+===================================================== */
+
+function getSaleItems(sale) {
+    return Array.isArray(sale.items) ? sale.items : [];
+}
+
+function saleMatchesItem(saleItem, record) {
+    const saleId = safeString(
+        saleItem.productId ||
+        saleItem.serviceId ||
+        saleItem.itemId ||
+        saleItem.id
+    );
+
+    if (saleId && saleId === record.id) return true;
+
+    const saleName = normalizeName(saleItem.name);
+    const recordName = normalizeName(record.name);
+
+    return (
+        (!saleId || !record.id) &&
+        saleName !== "" &&
+        saleName === recordName
+    );
+}
+
+/*
+  Period sales respond to the selected date filters.
+  Total sales ignore date filters and use all loaded sales.
+*/
+
+function getSoldQuantity(record) {
+    let total = 0;
+
+    for (const sale of allSales) {
+        if (!isWithinDateRange(saleDate(sale))) continue;
+
+        for (const item of getSaleItems(sale)) {
+            if (saleMatchesItem(item, record)) {
+                total += itemQuantity(item);
+            }
+        }
+    }
+
+    return total;
+}
+
+function getTotalSoldQuantity(record) {
+    let total = 0;
+
+    for (const sale of allSales) {
+        for (const item of getSaleItems(sale)) {
+            if (saleMatchesItem(item, record)) {
+                total += itemQuantity(item);
+            }
+        }
+    }
+
+    return total;
+}
+
+/* =====================================================
+   PRODUCT STOCK HELPERS
+===================================================== */
+
+function isStockTracked(product) {
+    return product.trackStock === true ||
+        product.stockTracked === true;
+}
+
+function getCurrentProductStock(product) {
+    if (!isStockTracked(product)) return null;
+
+    if (product.stockQuantity !== undefined) {
+        return Math.max(0, safeNumber(product.stockQuantity));
+    }
+
+    if (product.quantity !== undefined) {
+        return Math.max(0, safeNumber(product.quantity));
+    }
+
+    return 0;
+}
+
+function getStockStatus(remaining, threshold) {
+    if (remaining === null) {
+        return { text: "No stock tracking", className: "" };
+    }
+
+    if (remaining <= 0) {
+        return { text: "Out of stock", className: "out" };
+    }
+
+    if (remaining <= threshold) {
+        return { text: "Low stock", className: "low" };
+    }
+
+    return { text: "In stock", className: "" };
+}
+
+/* =====================================================
+   MATERIAL USAGE FROM POS SALES
+===================================================== */
+
+function getMaterialUsedQuantity(material) {
+    let totalUsed = 0;
+
+    for (const sale of allSales) {
+        if (!isWithinDateRange(saleDate(sale))) continue;
+
+        for (const saleItem of getSaleItems(sale)) {
+            const productId = safeString(
+                saleItem.productId || saleItem.id
+            );
+
+            const product = allProducts.find(function(p) {
+                return p.id === productId;
+            });
+
+            if (!product || !Array.isArray(product.materials)) {
+                continue;
+            }
+
+            const soldQty = itemQuantity(saleItem);
+
+            for (const recipeMaterial of product.materials) {
+                if (
+                    safeString(recipeMaterial.materialId) === material.id
+                ) {
+                    totalUsed +=
+                        Math.max(0, safeNumber(recipeMaterial.quantity)) *
+                        soldQty;
+                }
+            }
+        }
+    }
+
+    return totalUsed;
+}
+
+/* All-time material usage: ignores date filters. */
+
+function getTotalMaterialUsedQuantity(material) {
+    let totalUsed = 0;
+
+    for (const sale of allSales) {
+        for (const saleItem of getSaleItems(sale)) {
+            const productId = safeString(
+                saleItem.productId || saleItem.id
+            );
+
+            const product = allProducts.find(function(p) {
+                return p.id === productId;
+            });
+
+            if (!product || !Array.isArray(product.materials)) {
+                continue;
+            }
+
+            const soldQty = itemQuantity(saleItem);
+
+            for (const recipeMaterial of product.materials) {
+                if (
+                    safeString(recipeMaterial.materialId) === material.id
+                ) {
+                    totalUsed +=
+                        Math.max(0, safeNumber(recipeMaterial.quantity)) *
+                        soldQty;
+                }
+            }
+        }
+    }
+
+    return totalUsed;
+}
+
+/* =====================================================
+   ITEM PHOTO
+===================================================== */
+
+function photoMarkup(url, name, emoji) {
+    if (url) {
+        return `
+            <img
+                class="item-photo"
+                src="${escapeHTML(url)}"
+                alt="${escapeHTML(name)}"
+                loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            >
+            <div class="item-placeholder" style="display:none">${emoji}</div>
+        `;
+    }
+
+    return `<div class="item-placeholder">${emoji}</div>`;
+}
+
+/* =====================================================
+   PRODUCT CARD
+   Total Stock = Current Remaining + All-Time Sold
+===================================================== */
+
+function productCard(product) {
+    const soldInPeriod = getSoldQuantity(product);
+    const totalSold = getTotalSoldQuantity(product);
+    const remaining = getCurrentProductStock(product);
+
+    const totalStock = remaining === null
+        ? null
+        : remaining + totalSold;
+
+    const threshold = Math.max(
+        0,
+        safeNumber(product.lowStockAlert, 5)
+    );
+
+    const status = getStockStatus(remaining, threshold);
+    const unit = safeString(product.unit, "unit");
+
+    const totalStockText = totalStock === null
+        ? "Not tracked"
+        : displayNumber(totalStock);
+
+    const remainingText = remaining === null
+        ? "Not tracked"
+        : displayNumber(remaining);
+
+    return `
+        <article class="item-card">
+            <div class="item-top">
+                ${photoMarkup(
+                    product.photoUrl || product.image || "",
+                    product.name || "Product",
+                    "📦"
+                )}
+
+                <div class="item-info">
+                    <div class="item-name">
+                        ${escapeHTML(product.name || "Unnamed product")}
+                    </div>
+
+                    <div class="item-subtitle">
+                        ${product.sku ? "SKU: " + escapeHTML(product.sku) + " · " : ""}
+                        ${escapeHTML(unit)}
+                    </div>
+                </div>
+
+                <span class="status ${status.className}">
+                    ${escapeHTML(status.text)}
+                </span>
+            </div>
+
+            <div class="item-stats">
+                <div>
+                    <div class="stat-label">Total stock</div>
+                    <div class="stat-value">${totalStockText}</div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Sold in period</div>
+                    <div class="stat-value sold">${displayNumber(soldInPeriod)}</div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Current remaining</div>
+                    <div class="stat-value">${remainingText}</div>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+/* =====================================================
+   MATERIAL CARD
+   Total Stock = Current Remaining + All-Time Used
+===================================================== */
+
+function materialCard(material) {
+    const usedInPeriod = getMaterialUsedQuantity(material);
+    const totalUsed = getTotalMaterialUsedQuantity(material);
+
+    const remaining = Math.max(
+        0,
+        safeNumber(material.quantity)
+    );
+
+    const totalStock = remaining + totalUsed;
+
+    const threshold = Math.max(
+        0,
+        safeNumber(material.lowStockAlert, 5)
+    );
+
+    const status = getStockStatus(remaining, threshold);
+    const unit = safeString(material.unit, "unit");
+
+    return `
+        <article class="item-card">
+            <div class="item-top">
+                ${photoMarkup(
+                    material.photoUrl || material.image || "",
+                    material.name || "Material",
+                    "🧱"
+                )}
+
+                <div class="item-info">
+                    <div class="item-name">
+                        ${escapeHTML(material.name || "Unnamed material")}
+                    </div>
+
+                    <div class="item-subtitle">
+                        Unit: ${escapeHTML(unit)}
+                    </div>
+                </div>
+
+                <span class="status ${status.className}">
+                    ${escapeHTML(status.text)}
+                </span>
+            </div>
+
+            <div class="item-stats">
+                <div>
+                    <div class="stat-label">Total stock</div>
+                    <div class="stat-value">
+                        ${displayNumber(totalStock)} ${escapeHTML(unit)}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Used in period</div>
+                    <div class="stat-value sold">
+                        ${displayNumber(usedInPeriod)} ${escapeHTML(unit)}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Current remaining</div>
+                    <div class="stat-value">
+                        ${displayNumber(remaining)} ${escapeHTML(unit)}
+                    </div>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+/* =====================================================
+   SERVICE CARD
+===================================================== */
+
+function serviceCard(service) {
+    const sold = getSoldQuantity(service);
+
+    const price = service.sellingPrice ??
+        service.price ??
+        null;
+
+    const priceText = price === null
+        ? ""
+        : " · ₱" + safeNumber(price).toLocaleString("en-PH", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+    return `
+        <article class="item-card">
+            <div class="item-top">
+                ${photoMarkup(
+                    service.photoUrl || service.image || "",
+                    service.name || "Service",
+                    "🛠️"
+                )}
+
+                <div class="item-info">
+                    <div class="item-name">
+                        ${escapeHTML(service.name || "Unnamed service")}
+                    </div>
+
+                    <div class="item-subtitle">
+                        Service${escapeHTML(priceText)}
+                    </div>
+                </div>
+
+                <span class="status">Service</span>
+            </div>
+
+            <div class="item-stats">
+                <div>
+                    <div class="stat-label">Sold in period</div>
+                    <div class="stat-value sold">${displayNumber(sold)}</div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Price</div>
+                    <div class="stat-value">
+                        ${price === null ? "—" : "₱" + safeNumber(price).toLocaleString("en-PH", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="stat-label">Stock</div>
+                    <div class="stat-value">Not applicable</div>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+/* =====================================================
+   FILTER AND RENDER
+===================================================== */
+
+function getFilteredRecords(records) {
+    return records.filter(function(record) {
+        return isNameMatch(record.name);
+    });
+}
+
+function renderInventory() {
+    let records = [];
+    let cardRenderer = productCard;
+    let title = "Products";
+
+    if (activeTab === "materials") {
+        records = allMaterials;
+        cardRenderer = materialCard;
+        title = "Materials";
+    } else if (activeTab === "services") {
+        records = allServices;
+        cardRenderer = serviceCard;
+        title = "Services";
+    } else {
+        records = allProducts;
+        cardRenderer = productCard;
+    }
+
+    const filtered = getFilteredRecords(records);
+
+    $("resultsTitle").textContent = title;
+    $("resultsCount").textContent =
+        filtered.length + (filtered.length === 1 ? " item" : " items");
+
+    if (filtered.length === 0) {
+        setMessage(
+            appliedName || appliedFrom || appliedTo
+                ? "No items match your search. Try changing your name or date filters."
+                : "No " + title.toLowerCase() + " were found for this business."
+        );
+        return;
+    }
+
+    $("inventoryList").innerHTML =
+        filtered.map(cardRenderer).join("");
+}
+
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
+
+function updateSummary() {
+    $("summaryProducts").textContent = displayNumber(allProducts.length);
+    $("summaryMaterials").textContent = displayNumber(allMaterials.length);
+    $("summaryServices").textContent = displayNumber(allServices.length);
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function applySearch() {
+    appliedName = normalizeName($("searchName").value);
+    appliedFrom = $("dateFrom").value;
+    appliedTo = $("dateTo").value;
+
+    if (appliedFrom && appliedTo && appliedFrom > appliedTo) {
+        setMessage(
+            "The From date must be on or before the To date.",
+            "error"
+        );
+        return;
+    }
+
+    renderInventory();
+}
+
+$("searchButton").addEventListener("click", applySearch);
+
+$("searchName").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") applySearch();
+});
+
+$("clearButton").addEventListener("click", function() {
+    $("searchName").value = "";
+    $("dateFrom").value = "";
+    $("dateTo").value = "";
+
+    appliedName = "";
+    appliedFrom = "";
+    appliedTo = "";
+
+    renderInventory();
+});
+
+/* =====================================================
+   TAB SWITCHING
+===================================================== */
+
+document.querySelectorAll(".tab-button").forEach(function(button) {
+    button.addEventListener("click", function() {
+        activeTab = button.dataset.tab;
+
+        document.querySelectorAll(".tab-button").forEach(function(otherButton) {
+            otherButton.classList.toggle("active", otherButton === button);
+        });
+
+        renderInventory();
+    });
+});
+
+/* =====================================================
+   LOAD INVENTORY FROM FIREBASE
+===================================================== */
+
+async function loadInventory() {
+    $("inventoryList").innerHTML =
+        '<div class="loading-state">Loading inventory from Firebase...</div>';
+
+    try {
+        const results = await Promise.all([
+            readCollection("products"),
+            readCollection("materials"),
+            readCollection("services"),
+            readCollection("sales")
+        ]);
+
+        allProducts = results[0];
+        allMaterials = results[1];
+        allServices = results[2];
+        allSales = results[3];
+
+        updateSummary();
+        renderInventory();
+
+    } catch (error) {
+        console.error("KAYAH INVENTORY LOAD ERROR:", error);
+
+        $("inventoryList").innerHTML =
+            '<div class="error-state">' +
+            '<strong>Unable to load inventory.</strong><br>' +
+            escapeHTML(error.message || "Please check your Firebase connection and Firestore rules.") +
+            '</div>';
+
+        $("resultsCount").textContent = "Load error";
+    }
+}
+
+/* =====================================================
+   AUTHENTICATION AND BUSINESS RESOLUTION
+===================================================== */
+
+async function initializeInventory(user) {
+    currentUser = user;
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+        throw new Error(
+            "Your user profile was not found in users/" + user.uid
+        );
+    }
+
+    currentUserData = userSnap.data();
+
+    currentBusinessId =
+        currentUserData.businessId ||
+        currentUserData.ownerUid ||
+        user.uid;
+
+    const businessRef = doc(db, "users", currentBusinessId);
+    const businessSnap = await getDoc(businessRef);
+
+    currentBusinessData = businessSnap.exists()
+        ? businessSnap.data()
+        : currentUserData;
+
+    setBusinessHeader();
+    await loadInventory();
+}
+
+onAuthStateChanged(auth, async function(user) {
+    if (!user) {
+        window.location.href = "../login/";
+        return;
+    }
+
+    try {
+        await initializeInventory(user);
+    } catch (error) {
+        console.error("KAYAH INVENTORY INITIALIZATION ERROR:", error);
+
+        $("inventoryList").innerHTML =
+            '<div class="error-state">' +
+            '<strong>Unable to open inventory.</strong><br>' +
+            escapeHTML(error.message || "Please sign in again or contact your business owner.") +
+            '</div>';
+
+        $("resultsCount").textContent = "Initialization error";
+    }
+});
+
+/* =====================================================
+   BACK NAVIGATION
+===================================================== */
+
+window.goBack = function() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "../";
+    }
+};
+</script>
+
+</body>
+</html>
