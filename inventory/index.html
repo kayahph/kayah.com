@@ -8,28 +8,7 @@
 <title>Stock Inventory - Kayah</title>
 
 <style>
-    
-    
-.history-button-row {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0 0 12px;
-}
-
-.history-button {
-  width: 100%;
-  min-height: 42px;
-  border: 1px solid #cbded0;
-  background: #ffffff;
-  color: #0B4F3A;
-  border-radius: 9px;
-  font-size: 12px;
-  font-weight: 800;
-}
-    
-    
-    
-:root{
+:root {
   --green:#0B4F3A;
   --green-light:#16805C;
   --yellow:#F2B84B;
@@ -65,15 +44,14 @@ button:disabled{opacity:.6;cursor:not-allowed}
   border:1px solid rgba(255,255,255,.25);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.business-logo{width:100%;height:100%;object-fit:contain;background:white;display:none}
+.business-logo{
+  width:100%;height:100%;object-fit:contain;background:white;display:none
+}
 .logo-fallback{font-size:23px;font-weight:800;color:var(--yellow)}
 .business-heading{flex:1;min-width:0}
 .business-name{margin:0;font-size:17px;font-weight:800;overflow-wrap:anywhere}
 .business-subtitle{margin-top:4px;color:#e3eee7;font-size:11px}
-.header-button{
-  border:1px solid #ffffff55;background:#ffffff18;color:white;
-  border-radius:8px;padding:9px 10px;font-size:11px;font-weight:700;
-}
+
 .page{max-width:950px;margin:auto;padding:13px}
 .notice{
   display:none;padding:11px 12px;border-radius:9px;margin-bottom:12px;
@@ -122,6 +100,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
 .yellow{background:var(--yellow);color:#342500}
 .small{padding:7px 9px;font-size:11px}
 
+.history-button-row{
+  display:flex;justify-content:flex-end;margin:0 0 12px;
+}
+.history-button{
+  width:100%;min-height:42px;border:1px solid #cbded0;
+  background:white;color:var(--green);border-radius:9px;
+  font-size:12px;font-weight:800;
+}
+
 .filters{display:flex;gap:6px;overflow-x:auto;padding:1px 0 8px;margin-bottom:5px}
 .filter{
   flex:0 0 auto;border:1px solid #dce5de;border-radius:20px;
@@ -142,60 +129,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
   background:white;border:1px solid var(--border);border-radius:10px;padding:9px;
 }
 
-
-
-
-/* FORCE LARGER PRODUCT AND MATERIAL PHOTOS */
-.item-photo,
-img.item-photo,
-.photo-placeholder {
-  width: 75px !important;
-  height: 75px !important;
-  min-width: 75px !important;
-  min-height: 75px !important;
-  max-width: 75px !important;
-  max-height: 75px !important;
-  flex: 0 0 75px !important;
-  border-radius: 10px !important;
-  box-sizing: border-box !important;
+.item-photo,.photo-placeholder{
+  width:75px;height:75px;min-width:75px;min-height:75px;
+  max-width:75px;max-height:75px;flex:0 0 75px;
+  border-radius:10px;box-sizing:border-box;
 }
-
-.item-photo,
-img.item-photo {
-  display: block !important;
-  object-fit: cover !important;
-  object-position: center !important;
+.item-photo{display:block;object-fit:cover;object-position:center}
+.photo-placeholder{
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+  background:#edf2ed;
 }
-
-.photo-placeholder {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 28px !important;
-}
-
-/* Keep item details visible beside the photo */
-.item-info {
-  flex: 1 1 0 !important;
-  min-width: 0 !important;
-}
-
-/* Mobile adjustment */
-@media (max-width: 480px) {
-  .item-photo,
-  img.item-photo,
-  .photo-placeholder {
-    width: 65px !important;
-    height: 65px !important;
-    min-width: 65px !important;
-    min-height: 65px !important;
-    max-width: 65px !important;
-    max-height: 65px !important;
-    flex: 0 0 65px !important;
-  }
-}
-
-.item-info{flex:1;min-width:0}
+.item-info{flex:1 1 0;min-width:0}
 .item-name{font-size:13px;font-weight:800;color:var(--green);overflow-wrap:anywhere;margin-bottom:4px}
 .item-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
 .tag{padding:3px 6px;border-radius:5px;background:#f1f5f1;color:#52665a}
@@ -244,13 +188,15 @@ img.item-photo {
 @media(max-width:480px){
   .page{padding:10px}
   .business-name{font-size:15px}
-  .header-button{padding:8px;font-size:10px}
   .summary-grid{gap:5px}
   .summary-card{padding:8px 7px}
   .summary-label{font-size:9px}
   .summary-number{font-size:18px}
   .stock-row{gap:7px;padding:8px}
-  .item-photo,.photo-placeholder{width:39px;height:39px;flex-basis:39px}
+  .item-photo,.photo-placeholder{
+    width:65px;height:65px;min-width:65px;min-height:65px;
+    max-width:65px;max-height:65px;flex-basis:65px;
+  }
   .stock-right{min-width:54px}
   .stock-quantity{font-size:12px}
   .row-actions .button{padding:7px;font-size:10px}
@@ -265,17 +211,15 @@ img.item-photo {
 </head>
 
 <body>
-
 <header class="business-header">
   <div class="business-header-inner">
     <div class="business-logo-wrap">
       <img id="businessLogo" class="business-logo" alt="Business logo">
       <div id="logoFallback" class="logo-fallback">K</div>
     </div>
-
     <div class="business-heading">
       <h1 id="businessName" class="business-name">Loading business...</h1>
-      <div class="business-subtitle">Stock Inventory · Products & Materials</div>
+      <div class="business-subtitle">Stock Inventory · Products &amp; Materials</div>
     </div>
   </div>
 </header>
@@ -320,17 +264,12 @@ img.item-photo {
     <button type="button" class="button secondary" id="refreshButton" title="Refresh">↻</button>
     <button type="button" class="button primary" id="primaryAction">+ Adjust</button>
   </section>
-  
-  
-<div class="history-button-row">
-  <button
-    type="button"
-    class="button secondary history-button"
-    id="recordsButton">
-    📋 View Stocks History ↗
-  </button>
-</div>
-  
+
+  <div class="history-button-row">
+    <button type="button" class="button secondary history-button" id="recordsButton">
+      📋 View Stocks History ↗
+    </button>
+  </div>
 
   <div class="filters" id="filters">
     <button type="button" class="filter active" data-filter="all">All <span class="filter-count" id="filterAllCount"></span></button>
@@ -575,7 +514,9 @@ function displayBrand(profile){
   document.title="Stock Inventory - "+name;
   const logo=$("businessLogo"),fallback=$("logoFallback"),url=getProfileLogo(profile);
   fallback.textContent=name.trim().charAt(0).toUpperCase()||"B";
-  logo.style.display="none";logo.removeAttribute("src");fallback.style.display="block";
+  logo.style.display="none";
+  logo.removeAttribute("src");
+  fallback.style.display="block";
   if(url){
     logo.onload=()=>{logo.style.display="block";fallback.style.display="none"};
     logo.onerror=()=>{logo.style.display="none";fallback.style.display="block"};
@@ -593,10 +534,11 @@ function materialStock(m){return num(m.quantity??m.stock??0)}
 function materialPhoto(m){return m.photoUrl||m.photoURL||m.imageUrl||m.imageURL||m.image||m.photo||""}
 
 function thresholdFor(item,isMaterial){
-  const raw = isMaterial
-    ? (item.lowStockAlert??item.lowStockThreshold??item.reorderLevel)
-    : (item.lowStockAlert??item.lowStockThreshold??item.reorderLevel);
-  return raw===undefined||raw===null||raw==="" ? DEFAULT_LOW_STOCK_THRESHOLD : Math.max(0,num(raw));
+  const raw=isMaterial
+    ?(item.lowStockAlert??item.lowStockThreshold??item.reorderLevel)
+    :(item.lowStockAlert??item.lowStockThreshold??item.reorderLevel);
+  return raw===undefined||raw===null||raw===""
+    ?DEFAULT_LOW_STOCK_THRESHOLD:Math.max(0,num(raw));
 }
 function statusFor(item,isMaterial){
   const qty=isMaterial?materialStock(item):productStock(item);
@@ -644,7 +586,6 @@ function renderInventory(){
   const items=currentItems();
   const counts={all:items.length,in:0,low:0,out:0};
   items.forEach(item=>counts[statusFor(item,isMaterial)]++);
-  counts.all=items.length;
 
   $("totalLabel").textContent=isMaterial?"Total Materials":"Tracked Products";
   $("totalCount").textContent=counts.all;
@@ -681,7 +622,7 @@ function renderInventory(){
     const message=items.length
       ?"No items match this search or stock filter."
       :(isMaterial?"No materials added yet. Tap + Add Material to create one."
-                  :"No stock-tracked products found. Enable Track Stock on the Products page.");
+        :"No stock-tracked products found. Enable Track Stock on the Products page.");
     $("stockList").innerHTML='<div class="empty">'+escapeHtml(message)+'</div>';
     return;
   }
@@ -702,6 +643,7 @@ function renderInventory(){
     const action=isMaterial
       ?'<button class="button yellow small" type="button" data-add-material-stock="'+escapeHtml(item.id)+'">+ Stock</button>'
       :'<button class="button yellow small" type="button" data-adjust-product="'+escapeHtml(item.id)+'">Adjust</button>';
+
     return '<article class="stock-row">'+photoHtml+
       '<div class="item-info"><div class="item-name">'+escapeHtml(name)+'</div>'+
       '<div class="item-meta">'+category+sku+'<span>'+escapeHtml(unit)+'</span></div>'+
@@ -748,14 +690,16 @@ $("productStockForm").addEventListener("submit",async event=>{
     const productRef=doc(db,"users",businessId,"products",selectedProductId);
     const activityRef=doc(collection(db,"users",businessId,"activityLogs"));
     const actor=actorFields();
+
     await runTransaction(db,async tx=>{
       const snap=await tx.get(productRef);
       if(!snap.exists())throw new Error("Product not found. Refresh the inventory.");
       const p=snap.data();
       const previous=productStock(p);
-      let next=type==="in"?previous+amount:type==="out"?previous-amount:amount;
+      const next=type==="in"?previous+amount:type==="out"?previous-amount:amount;
       if(next<0)throw new Error("You cannot remove more stock than is available.");
       const delta=next-previous;
+
       tx.update(productRef,{
         stockQuantity:next,
         updatedAt:serverTimestamp(),
@@ -782,6 +726,7 @@ $("productStockForm").addEventListener("submit",async event=>{
         createdAt:serverTimestamp()
       });
     });
+
     closeModal("productModal");
     showNotice("Product stock updated successfully.","success");
     await loadInventory();
@@ -812,7 +757,6 @@ function openAddMaterialStock(id=""){
     '<option value="'+escapeHtml(m.id)+'">'+escapeHtml(materialName(m))+
     ' ('+escapeHtml(fmt(materialStock(m)))+' '+escapeHtml(materialUnit(m))+')</option>'
   ).join("");
-  if(id)$("stockMaterialSelect").value=id;
   $("materialStockForm").reset();
   if(id)$("stockMaterialSelect").value=id;
   openModal("materialStockModal");
@@ -825,15 +769,20 @@ $("materialPhoto").addEventListener("change",event=>{
   if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null}
   if(!file){preview.style.display="none";preview.removeAttribute("src");return}
   if(!file.type.startsWith("image/")){
-    event.target.value="";preview.style.display="none";
-    $("photoUploadStatus").textContent="Please choose an image file.";return;
+    event.target.value="";
+    preview.style.display="none";
+    $("photoUploadStatus").textContent="Please choose an image file.";
+    return;
   }
   if(file.size>5*1024*1024){
-    event.target.value="";preview.style.display="none";
-    $("photoUploadStatus").textContent="Choose an image under 5 MB.";return;
+    event.target.value="";
+    preview.style.display="none";
+    $("photoUploadStatus").textContent="Choose an image under 5 MB.";
+    return;
   }
   previewObjectUrl=URL.createObjectURL(file);
-  preview.src=previewObjectUrl;preview.style.display="block";
+  preview.src=previewObjectUrl;
+  preview.style.display="block";
 });
 
 async function uploadMaterialPhoto(file){
@@ -897,18 +846,23 @@ $("materialForm").addEventListener("submit",async event=>{
         action:"material_created",
         description:"Created material: "+name,
         targetType:"material",targetId:materialRef.id,...actor,
-        details:{materialId:materialRef.id,materialName:name,category,unit,
-          openingStock:opening,unitCost,supplier,lowStockAlert:threshold,hasPhoto:Boolean(photoUrl)},
+        details:{
+          materialId:materialRef.id,materialName:name,category,unit,
+          openingStock:opening,unitCost,supplier,lowStockAlert:threshold,
+          hasPhoto:Boolean(photoUrl)
+        },
         createdAt:serverTimestamp()
       });
       if(opening>0){
         tx.set(movementRef,{
           materialId:materialRef.id,materialName:name,type:"stock-in",
           quantity:opening,unit,unitCost,supplier,notes:notes||"Opening stock",
-          balanceAfter:opening,ownerUid:businessId,createdAt:serverTimestamp(),...actor
+          balanceAfter:opening,ownerUid:businessId,
+          createdAt:serverTimestamp(),...actor
         });
       }
     });
+
     closeModal("materialModal");
     showNotice("Material added successfully.","success");
     await loadInventory();
@@ -953,6 +907,7 @@ $("materialStockForm").addEventListener("submit",async event=>{
       const next=previous+added;
       const name=materialName(m);
       const unit=materialUnit(m);
+
       tx.update(materialRef,{
         quantity:next,updatedAt:serverTimestamp(),
         updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
@@ -966,11 +921,14 @@ $("materialStockForm").addEventListener("submit",async event=>{
         action:"material_stock_in",
         description:"Added "+fmt(added)+" "+unit+" of "+name,
         targetType:"material",targetId:materialId,...actor,
-        details:{materialId,materialName:name,previousStock:previous,
-          addedStock:added,newStock:next,unit,unitCost,supplier,notes},
+        details:{
+          materialId,materialName:name,previousStock:previous,
+          addedStock:added,newStock:next,unit,unitCost,supplier,notes
+        },
         createdAt:serverTimestamp()
       });
     });
+
     closeModal("materialStockModal");
     showNotice("Material stock added and recorded successfully.","success");
     await loadInventory();
@@ -999,33 +957,61 @@ document.querySelectorAll(".filter").forEach(button=>{
   });
 });
 $("searchInput").addEventListener("input",renderInventory);
-$("refreshButton").addEventListener("click",async()=>{clearNotice();await loadInventory()});
+$("refreshButton").addEventListener("click",async()=>{
+  clearNotice();
+  await loadInventory();
+});
 $("primaryAction").addEventListener("click",()=>{
   clearNotice();
-  if(activeTab==="materials")openAddMaterial();
-  else{
+  if(activeTab==="materials"){
+    openAddMaterial();
+  }else{
     const eligible=products.filter(p=>p.trackStock===true);
-    if(!eligible.length){showNotice("No stock-tracked products found. Enable Track Stock on the Products page.","info");return}
+    if(!eligible.length){
+      showNotice("No stock-tracked products found. Enable Track Stock on the Products page.","info");
+      return;
+    }
     showNotice("Tap Adjust beside the product you want to update.","info");
   }
 });
 $("stockList").addEventListener("click",event=>{
   const productButton=event.target.closest("[data-adjust-product]");
-  if(productButton){clearNotice();openProductAdjustment(productButton.dataset.adjustProduct);return}
+  if(productButton){
+    clearNotice();
+    openProductAdjustment(productButton.dataset.adjustProduct);
+    return;
+  }
   const materialButton=event.target.closest("[data-add-material-stock]");
-  if(materialButton){clearNotice();openAddMaterialStock(materialButton.dataset.addMaterialStock)}
+  if(materialButton){
+    clearNotice();
+    openAddMaterialStock(materialButton.dataset.addMaterialStock);
+  }
 });
 
-const recordsButton = document.getElementById("recordsButton");
+/*
+ * STOCK HISTORY REDIRECT
+ * Supports a stock-history folder inside the current folder,
+ * or one level above the current folder.
+ */
+$("recordsButton").addEventListener("click",()=>{
+  const currentPath=window.location.pathname;
+  const currentDirectory=currentPath.substring(0,currentPath.lastIndexOf("/") + 1);
 
-if (recordsButton) {
-    recordsButton.addEventListener("click", function () {
-        window.location.href = new URL(
-            "stock-history/index.html",
-            window.location.href
-        ).href;
-    });
-}
+  const candidates=[
+    new URL("stock-history/index.html",window.location.origin+currentDirectory).href,
+    new URL("../stock-history/index.html",window.location.origin+currentDirectory).href
+  ];
+
+  const currentCandidate=candidates[0];
+  const parentCandidate=candidates[1];
+
+  // Use the same-folder path first. If your folder is elsewhere,
+  // change this to the exact relative path of your stock-history page.
+  const savedPath=window.location.pathname;
+  const pathLooksNested=/\/(inventory|stock-inventory)\//i.test(savedPath);
+  window.location.assign(pathLooksNested?parentCandidate:currentCandidate);
+});
+
 document.querySelectorAll("[data-close]").forEach(button=>{
   button.addEventListener("click",()=>closeModal(button.dataset.close));
 });
@@ -1042,7 +1028,10 @@ document.addEventListener("keydown",event=>{
 
 /* AUTHENTICATION AND BUSINESS OWNER LOOKUP */
 onAuthStateChanged(auth,async user=>{
-  if(!user){window.location.href="../login/";return}
+  if(!user){
+    window.location.href="../login/";
+    return;
+  }
   currentUser=user;
   try{
     const userSnap=await getDoc(doc(db,"users",user.uid));
@@ -1051,9 +1040,11 @@ onAuthStateChanged(auth,async user=>{
       $("stockList").innerHTML='<div class="empty">User profile not found.</div>';
       return;
     }
+
     const profile=userSnap.data();
     const role=String(profile.role||"owner").toLowerCase();
     const isStaff=role==="staff";
+
     if(profile.isActive===false||String(profile.status||"").toLowerCase()==="inactive"){
       showNotice("This account is inactive. Please contact the business owner.","error");
       return;
@@ -1077,6 +1068,7 @@ onAuthStateChanged(auth,async user=>{
       const ownerSnap=await getDoc(doc(db,"users",businessId));
       if(ownerSnap.exists())businessProfile=ownerSnap.data();
     }
+
     displayBrand(businessProfile);
     await loadInventory();
   }catch(error){
