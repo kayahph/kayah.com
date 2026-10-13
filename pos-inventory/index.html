@@ -188,7 +188,7 @@ button { cursor: pointer; }
     transform: scale(.98);
 }
 
-/* SEARCH PANEL */
+/* SEARCH PANEL: HIDDEN BY DEFAULT */
 
 .search-panel {
     background: white;
@@ -523,7 +523,7 @@ button { cursor: pointer; }
         </button>
     </section>
 
-    <!-- HIDDEN BY DEFAULT -->
+    <!-- SEARCH PANEL IS HIDDEN UNTIL SEARCH IS CLICKED -->
     <section class="search-panel" id="searchPanel" hidden>
         <h3 class="section-heading">Search &amp; Filter</h3>
 
@@ -720,7 +720,7 @@ function getTimestamp(value) {
     return null;
 }
 
-/* Return a date key in Philippine time: YYYY-MM-DD. */
+/* Philippine date key: YYYY-MM-DD */
 function manilaDateKey(value) {
     const date = getTimestamp(value);
     if (!date) return "";
@@ -741,7 +741,6 @@ function manilaDateKey(value) {
     return values.year + "-" + values.month + "-" + values.day;
 }
 
-/* Today's date in Philippine time. */
 function getTodayManila() {
     return manilaDateKey(new Date());
 }
@@ -822,7 +821,7 @@ function setBusinessHeader() {
 }
 
 /* =====================================================
-   READ EXISTING FIREBASE COLLECTIONS
+   READ FIREBASE COLLECTIONS
 ===================================================== */
 
 async function readCollection(collectionName) {
@@ -872,7 +871,7 @@ function saleMatchesItem(saleItem, record) {
 }
 
 /*
-  Period sales respond to the selected date filters.
+  Period sales respond to selected date filters.
   Total sales ignore date filters and use all loaded sales.
 */
 
@@ -985,7 +984,7 @@ function getMaterialUsedQuantity(material) {
     return totalUsed;
 }
 
-/* All-time material usage: ignores date filters. */
+/* All-time material usage ignores date filters. */
 
 function getTotalMaterialUsedQuantity(material) {
     let totalUsed = 0;
@@ -1338,7 +1337,8 @@ $("toggleSearchButton").addEventListener("click", function() {
 });
 
 /* =====================================================
-   ADJUST STOCK INVENTORY NAVIGATION
+   ADJUST STOCK INVENTORY REDIRECT
+   Opens inventory/index.html relative to this page.
 ===================================================== */
 
 $("adjustStockButton").addEventListener("click", function() {
@@ -1374,8 +1374,7 @@ $("searchName").addEventListener("keydown", function(event) {
 });
 
 /* =====================================================
-   TODAY FILTER
-   Uses the Asia/Manila calendar date.
+   TODAY FILTER — PHILIPPINE TIME
 ===================================================== */
 
 $("todayButton").addEventListener("click", function() {
@@ -1418,7 +1417,16 @@ $("refreshButton").addEventListener("click", async function() {
         return;
     }
 
-    await loadInventory();
+    const button = $("refreshButton");
+    button.disabled = true;
+    button.textContent = "↻ Refreshing...";
+
+    try {
+        await loadInventory();
+    } finally {
+        button.disabled = false;
+        button.textContent = "↻ Refresh";
+    }
 });
 
 /* =====================================================
