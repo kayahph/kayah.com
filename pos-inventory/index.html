@@ -118,7 +118,7 @@ button { cursor: pointer; }
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 .summary-card {
@@ -145,12 +145,61 @@ button { cursor: pointer; }
     overflow-wrap: anywhere;
 }
 
+/* ACTION BUTTONS */
+
+.toolbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin: 0 0 16px;
+}
+
+.toolbar-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    min-height: 44px;
+}
+
+.search-toggle {
+    background: var(--green);
+    color: white;
+}
+
+.adjust-button {
+    background: var(--gold);
+    color: #26352D;
+}
+
+.refresh-button {
+    background: #E7EEE8;
+    color: var(--green);
+}
+
+.toolbar-button:active,
+.btn:active {
+    transform: scale(.98);
+}
+
+/* SEARCH PANEL */
+
 .search-panel {
     background: white;
     border: 1px solid var(--border);
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 17px;
+}
+
+.search-panel[hidden] {
+    display: none !important;
 }
 
 .section-heading {
@@ -192,6 +241,7 @@ button { cursor: pointer; }
 
 .search-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 9px;
     margin-top: 12px;
 }
@@ -205,6 +255,7 @@ button { cursor: pointer; }
 
 .btn-primary { color: white; background: var(--green); }
 .btn-secondary { background: #EDF2EE; color: var(--green); }
+.btn-today { background: #FFF0D1; color: #795000; }
 
 .search-note {
     font-size: 11px;
@@ -378,6 +429,9 @@ button { cursor: pointer; }
     .item-card { padding: 11px; }
     .item-stats { gap: 5px; }
     .stat-value { font-size: 14px; }
+    .toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .toolbar-button { padding: 11px 8px; font-size: 12px; }
+    .search-toggle { grid-column: 1 / -1; }
 }
 
 @media (min-width: 760px) {
@@ -440,7 +494,37 @@ button { cursor: pointer; }
         </div>
     </section>
 
-    <section class="search-panel">
+    <!-- SEARCH, ADJUST STOCK, AND REFRESH ACTIONS -->
+    <section class="toolbar-actions">
+        <button
+            class="toolbar-button search-toggle"
+            id="toggleSearchButton"
+            type="button"
+            aria-expanded="false"
+            aria-controls="searchPanel"
+        >
+            🔎 Search &amp; Filter
+        </button>
+
+        <button
+            class="toolbar-button adjust-button"
+            id="adjustStockButton"
+            type="button"
+        >
+            📦 Adjust Stock Inventory
+        </button>
+
+        <button
+            class="toolbar-button refresh-button"
+            id="refreshButton"
+            type="button"
+        >
+            ↻ Refresh
+        </button>
+    </section>
+
+    <!-- HIDDEN BY DEFAULT -->
+    <section class="search-panel" id="searchPanel" hidden>
         <h3 class="section-heading">Search &amp; Filter</h3>
 
         <div class="search-grid">
@@ -467,16 +551,23 @@ button { cursor: pointer; }
 
         <div class="search-actions">
             <button class="btn btn-primary" id="searchButton" type="button">
-                🔎 Search
+                Apply Search
             </button>
+
+            <button class="btn btn-today" id="todayButton" type="button">
+                📅 Today
+            </button>
+
             <button class="btn btn-secondary" id="clearButton" type="button">
                 Clear
             </button>
         </div>
 
         <div class="search-note">
-            Date filters apply to the Sold in Period and Used in Period figures.
-            Total Stock uses all loaded sales plus current remaining stock.
+            Choose Today to show sales and material usage for the current
+            Philippine calendar day. Custom date filters apply to the
+            Sold in Period and Used in Period figures. Total Stock uses
+            all loaded sales plus current remaining stock.
         </div>
     </section>
 
@@ -604,8 +695,13 @@ function escapeHTML(value) {
 function getTimestamp(value) {
     if (!value) return null;
 
-    if (typeof value.toDate === "function") return value.toDate();
-    if (value instanceof Date) return value;
+    if (typeof value.toDate === "function") {
+        return value.toDate();
+    }
+
+    if (value instanceof Date) {
+        return value;
+    }
 
     if (typeof value === "number") {
         const date = new Date(value);
@@ -624,22 +720,40 @@ function getTimestamp(value) {
     return null;
 }
 
+/* Return a date key in Philippine time: YYYY-MM-DD. */
+function manilaDateKey(value) {
+    const date = getTimestamp(value);
+    if (!date) return "";
+
+    const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Manila",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).formatToParts(date);
+
+    const values = {};
+
+    parts.forEach(function(part) {
+        values[part.type] = part.value;
+    });
+
+    return values.year + "-" + values.month + "-" + values.day;
+}
+
+/* Today's date in Philippine time. */
+function getTodayManila() {
+    return manilaDateKey(new Date());
+}
+
 function isWithinDateRange(timestamp) {
     if (!appliedFrom && !appliedTo) return true;
 
-    const date = getTimestamp(timestamp);
-    if (!date) return false;
+    const dateKey = manilaDateKey(timestamp);
+    if (!dateKey) return false;
 
-    if (appliedFrom) {
-        const from = new Date(appliedFrom + "T00:00:00");
-        if (date < from) return false;
-    }
-
-    if (appliedTo) {
-        const toExclusive = new Date(appliedTo + "T00:00:00");
-        toExclusive.setDate(toExclusive.getDate() + 1);
-        if (date >= toExclusive) return false;
-    }
+    if (appliedFrom && dateKey < appliedFrom) return false;
+    if (appliedTo && dateKey > appliedTo) return false;
 
     return true;
 }
@@ -1200,6 +1314,38 @@ function updateSummary() {
 }
 
 /* =====================================================
+   SHOW / HIDE SEARCH PANEL
+===================================================== */
+
+$("toggleSearchButton").addEventListener("click", function() {
+    const panel = $("searchPanel");
+    const isOpening = panel.hidden;
+
+    panel.hidden = !isOpening;
+
+    $("toggleSearchButton").setAttribute(
+        "aria-expanded",
+        String(isOpening)
+    );
+
+    $("toggleSearchButton").textContent = isOpening
+        ? "✕ Hide Search & Filter"
+        : "🔎 Search & Filter";
+
+    if (isOpening) {
+        $("searchName").focus();
+    }
+});
+
+/* =====================================================
+   ADJUST STOCK INVENTORY NAVIGATION
+===================================================== */
+
+$("adjustStockButton").addEventListener("click", function() {
+    window.location.href = "inventory/index.html";
+});
+
+/* =====================================================
    SEARCH
 ===================================================== */
 
@@ -1222,8 +1368,32 @@ function applySearch() {
 $("searchButton").addEventListener("click", applySearch);
 
 $("searchName").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") applySearch();
+    if (event.key === "Enter") {
+        applySearch();
+    }
 });
+
+/* =====================================================
+   TODAY FILTER
+   Uses the Asia/Manila calendar date.
+===================================================== */
+
+$("todayButton").addEventListener("click", function() {
+    const today = getTodayManila();
+
+    $("dateFrom").value = today;
+    $("dateTo").value = today;
+
+    appliedFrom = today;
+    appliedTo = today;
+    appliedName = normalizeName($("searchName").value);
+
+    renderInventory();
+});
+
+/* =====================================================
+   CLEAR FILTERS
+===================================================== */
 
 $("clearButton").addEventListener("click", function() {
     $("searchName").value = "";
@@ -1238,6 +1408,20 @@ $("clearButton").addEventListener("click", function() {
 });
 
 /* =====================================================
+   REFRESH INVENTORY
+===================================================== */
+
+$("refreshButton").addEventListener("click", async function() {
+    if (!currentUser) {
+        $("inventoryList").innerHTML =
+            '<div class="loading-state">Please wait while your account loads...</div>';
+        return;
+    }
+
+    await loadInventory();
+});
+
+/* =====================================================
    TAB SWITCHING
 ===================================================== */
 
@@ -1246,7 +1430,10 @@ document.querySelectorAll(".tab-button").forEach(function(button) {
         activeTab = button.dataset.tab;
 
         document.querySelectorAll(".tab-button").forEach(function(otherButton) {
-            otherButton.classList.toggle("active", otherButton === button);
+            otherButton.classList.toggle(
+                "active",
+                otherButton === button
+            );
         });
 
         renderInventory();
@@ -1260,6 +1447,8 @@ document.querySelectorAll(".tab-button").forEach(function(button) {
 async function loadInventory() {
     $("inventoryList").innerHTML =
         '<div class="loading-state">Loading inventory from Firebase...</div>';
+
+    $("resultsCount").textContent = "Loading...";
 
     try {
         const results = await Promise.all([
@@ -1283,7 +1472,10 @@ async function loadInventory() {
         $("inventoryList").innerHTML =
             '<div class="error-state">' +
             '<strong>Unable to load inventory.</strong><br>' +
-            escapeHTML(error.message || "Please check your Firebase connection and Firestore rules.") +
+            escapeHTML(
+                error.message ||
+                "Please check your Firebase connection and Firestore rules."
+            ) +
             '</div>';
 
         $("resultsCount").textContent = "Load error";
@@ -1338,7 +1530,10 @@ onAuthStateChanged(auth, async function(user) {
         $("inventoryList").innerHTML =
             '<div class="error-state">' +
             '<strong>Unable to open inventory.</strong><br>' +
-            escapeHTML(error.message || "Please sign in again or contact your business owner.") +
+            escapeHTML(
+                error.message ||
+                "Please sign in again or contact your business owner."
+            ) +
             '</div>';
 
         $("resultsCount").textContent = "Initialization error";
