@@ -1,0 +1,1410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>Sales - Kayah</title>
+
+<style>
+:root {
+  --green:#0B4F3A;
+  --green2:#16805C;
+  --gold:#F2B84B;
+  --cream:#F7F3E8;
+  --bg:#F3F7F4;
+  --text:#20352B;
+  --muted:#718078;
+  --border:#E1E9E3;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+}
+
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+
+.business-header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px;
+  color:white;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  box-shadow:0 4px 14px #0B4F3A20;
+}
+
+.business-logo,.logo-fallback {
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  flex-shrink:0;
+}
+
+.business-logo {
+  display:none;
+  object-fit:cover;
+  background:white;
+}
+
+.logo-fallback {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--green);
+  background:var(--gold);
+  font-size:22px;
+  font-weight:900;
+}
+
+.header-text { min-width:0; flex:1; }
+.header-text h1 {
+  margin:0 0 4px;
+  font-size:19px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+.header-text p {
+  margin:0;
+  font-size:12px;
+  color:#E0F2E7;
+}
+.header-badge {
+  padding:7px 10px;
+  border-radius:20px;
+  background:#FFFFFF20;
+  border:1px solid #FFFFFF50;
+  font-size:10px;
+  font-weight:900;
+}
+
+.page {
+  max-width:1250px;
+  margin:auto;
+  padding:16px;
+}
+
+.page-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:17px;
+}
+
+.page-heading h2 {
+  color:var(--green);
+  margin:0 0 5px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.page-heading p {
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.primary-btn,.secondary-btn {
+  border-radius:9px;
+  padding:10px 13px;
+  font-weight:800;
+}
+
+.primary-btn {
+  color:white;
+  background:var(--green);
+  border:0;
+}
+.primary-btn:hover { background:var(--green2); }
+
+.secondary-btn {
+  color:var(--green);
+  background:white;
+  border:1px solid var(--border);
+}
+
+.section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:21px 0 11px;
+}
+
+.section-title h3 {
+  margin:0;
+  color:var(--green);
+  font-size:16px;
+  font-weight:900;
+}
+
+.section-title small {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:11px;
+}
+
+.summary-card {
+  color:white;
+  border-radius:14px;
+  padding:15px;
+  min-width:0;
+  box-shadow:0 5px 15px #173B2A12;
+}
+
+.summary-card.sales {
+  background:linear-gradient(135deg,#0B4F3A,#16805C);
+}
+.summary-card.transactions {
+  background:linear-gradient(135deg,#174EA6,#3B82F6);
+}
+.summary-card.cost {
+  background:linear-gradient(135deg,#854D0E,#D99A24);
+}
+.summary-card.profit {
+  background:linear-gradient(135deg,#5B21B6,#8B5CF6);
+}
+
+.summary-label {
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:11px;
+}
+
+.summary-value {
+  font-size:clamp(19px,2.5vw,27px);
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.summary-note {
+  font-size:10px;
+  font-weight:700;
+  opacity:.9;
+  margin-top:8px;
+}
+
+/* Simple payment tabs, not colored cards */
+.payment-tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:5px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.payment-tab {
+  flex:1;
+  min-width:115px;
+  padding:12px 10px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#FAFCFA;
+  color:var(--text);
+  text-align:left;
+}
+
+.payment-tab:hover {
+  background:#F0F6F1;
+  border-color:#B9D0BF;
+}
+
+.payment-tab .tab-name {
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.payment-tab .tab-amount {
+  display:block;
+  font-size:18px;
+  font-weight:900;
+  color:var(--green);
+  overflow-wrap:anywhere;
+}
+
+.payment-tab .tab-count {
+  display:block;
+  margin-top:4px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.filters-toggle {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px 14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:11px;
+  color:var(--green);
+  font-weight:900;
+  text-align:left;
+}
+
+.filters-toggle:hover { background:#F8FBF8; }
+
+.toggle-arrow {
+  transition:transform .2s;
+  font-size:16px;
+}
+
+.filters-toggle[aria-expanded="true"] .toggle-arrow {
+  transform:rotate(180deg);
+}
+
+.filters-panel {
+  display:none;
+  grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(120px,1fr));
+  gap:10px;
+  margin-top:10px;
+  padding:14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.filters-panel.open { display:grid; }
+
+.filter-field { min-width:0; }
+
+.filter-field label {
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:900;
+  color:#42564A;
+}
+
+.filter-field input,.filter-field select {
+  width:100%;
+  min-width:0;
+  padding:10px;
+  border:1px solid #DCE5DE;
+  border-radius:8px;
+  background:#FBFDFC;
+  color:var(--text);
+  outline:none;
+}
+
+.filter-field input:focus,.filter-field select:focus {
+  border-color:var(--green2);
+  box-shadow:0 0 0 3px #16805C15;
+}
+
+.history-panel {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:13px;
+  overflow:hidden;
+}
+
+.history-top {
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+
+.history-top strong {
+  color:var(--green);
+  font-weight:900;
+}
+
+.history-count {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.table-wrap { overflow-x:auto; }
+
+table {
+  width:100%;
+  min-width:850px;
+  border-collapse:collapse;
+}
+
+th {
+  padding:12px 10px;
+  text-align:left;
+  background:#EAF3ED;
+  color:#315744;
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+td {
+  padding:12px 10px;
+  border-bottom:1px solid #EDF1EE;
+  font-size:12px;
+  vertical-align:middle;
+}
+
+tbody tr:hover { background:#FAFCFA; }
+tbody tr:last-child td { border-bottom:0; }
+
+.cell-main {
+  color:#263D30;
+  font-weight:800;
+  overflow-wrap:anywhere;
+}
+
+.cell-sub {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.money { font-weight:900; white-space:nowrap; }
+
+.payment-pill {
+  display:inline-block;
+  padding:6px 8px;
+  border-radius:7px;
+  background:#EAF3ED;
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.payment-pill.credit { background:#FEF3C7; color:#92400E; }
+.payment-pill.gcash { background:#DBEAFE; color:#1D4ED8; }
+.payment-pill.maya { background:#EDE9FE; color:#6D28D9; }
+.payment-pill.unknown { background:#F1F5F9; color:#475569; }
+
+.view-btn {
+  padding:8px 10px;
+  background:#EAF3ED;
+  color:var(--green);
+  border:0;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.notice {
+  display:none;
+  padding:12px;
+  border-radius:9px;
+  margin:12px 0;
+  font-size:12px;
+  font-weight:700;
+}
+.notice.error { display:block; background:#FEE2E2; color:#991B1B; }
+.notice.info { display:block; background:#DBEAFE; color:#1E40AF; }
+.notice.success { display:block; background:#DCFCE7; color:#166534; }
+
+.empty-state,.loading {
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+.empty-state strong {
+  display:block;
+  margin-bottom:6px;
+  color:var(--green);
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  padding:15px;
+  background:#071C12A8;
+  align-items:center;
+  justify-content:center;
+}
+.modal.open { display:flex; }
+
+.modal-card {
+  width:100%;
+  max-width:490px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:14px;
+}
+
+.modal-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:14px;
+  background:var(--green);
+  color:white;
+}
+
+.modal-head strong { font-size:16px; font-weight:900; }
+
+.close-btn {
+  padding:7px 10px;
+  border:0;
+  border-radius:7px;
+  color:white;
+  background:#FFFFFF25;
+  font-weight:800;
+}
+
+.receipt { padding:20px; }
+
+.receipt-brand {
+  text-align:center;
+  padding-bottom:14px;
+  border-bottom:1px dashed #CBD5CC;
+}
+
+.receipt-logo {
+  width:55px;
+  height:55px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.receipt-brand h2 {
+  color:var(--green);
+  font-size:19px;
+  margin:0 0 5px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.receipt-brand p {
+  color:var(--muted);
+  font-size:11px;
+  margin:4px 0;
+}
+
+.receipt-meta {
+  padding:12px 0;
+  border-bottom:1px dashed #CBD5CC;
+}
+
+.receipt-meta div,.receipt-totals div {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:5px 0;
+  font-size:12px;
+}
+
+.receipt-meta span:first-child { color:var(--muted); }
+.receipt-meta span:last-child { font-weight:800; text-align:right; overflow-wrap:anywhere; }
+
+.receipt-items {
+  width:100%;
+  min-width:0;
+  margin:12px 0;
+}
+
+.receipt-items th,.receipt-items td {
+  padding:8px 4px;
+  font-size:10px;
+}
+
+.receipt-totals {
+  border-top:1px dashed #CBD5CC;
+  padding-top:10px;
+}
+
+.receipt-totals .grand {
+  margin-top:5px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+  color:var(--green);
+  font-size:17px;
+  font-weight:900;
+}
+
+.receipt-thanks {
+  text-align:center;
+  padding-top:18px;
+  color:var(--green);
+  font-weight:900;
+}
+
+.modal-actions {
+  display:flex;
+  gap:9px;
+  padding:0 20px 20px;
+}
+.modal-actions button { flex:1; }
+
+.footer-note {
+  padding:18px 0 5px;
+  color:var(--muted);
+  text-align:center;
+  font-size:10px;
+}
+
+@media(max-width:850px) {
+  .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .filters-panel { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .search-field { grid-column:1/-1; }
+}
+
+@media(max-width:480px) {
+  .page { padding:12px; }
+  .business-header { padding:12px; }
+  .header-text h1 { font-size:17px; }
+  .header-badge { display:none; }
+  .page-heading h2 { font-size:20px; }
+  .summary-grid { gap:8px; }
+  .summary-card { padding:12px; }
+  .summary-value { font-size:20px; }
+  .payment-tabs { gap:6px; }
+  .payment-tab { min-width:calc(50% - 6px); padding:10px; }
+  .payment-tab .tab-amount { font-size:17px; }
+  .filters-panel { gap:9px; padding:10px; }
+  .filter-field input,.filter-field select { padding:9px 7px; font-size:12px; }
+}
+
+@media print {
+  body * { visibility:hidden !important; }
+  #receiptModal,#receiptModal * { visibility:visible !important; }
+  #receiptModal {
+    display:block !important;
+    position:absolute;
+    inset:0;
+    padding:0;
+    background:white;
+  }
+  #receiptModal .modal-card {
+    max-width:none;
+    max-height:none;
+    overflow:visible;
+    border-radius:0;
+  }
+  #receiptModal .modal-head,#receiptModal .modal-actions {
+    display:none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="business-header">
+  <img id="businessLogo" class="business-logo" alt="Business logo">
+  <div id="logoFallback" class="logo-fallback">K</div>
+  <div class="header-text">
+    <h1 id="businessName">Kayah</h1>
+    <p id="businessSubtitle">Sales Management</p>
+  </div>
+  <div class="header-badge">READ ONLY</div>
+</header>
+
+<main class="page">
+
+  <div class="page-heading">
+    <div>
+      <h2>Sales Overview</h2>
+      <p>Review sales, payments, costs and profits.</p>
+    </div>
+    <button class="primary-btn" id="refreshBtn" type="button">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <div id="notice" class="notice"></div>
+
+  <div class="section-title">
+    <h3>📊 Sales Summary</h3>
+    <small id="summaryPeriod">Today</small>
+  </div>
+
+  <section class="summary-grid">
+    <div class="summary-card sales">
+      <div class="summary-label">TOTAL SALES</div>
+      <div class="summary-value" id="totalSales">₱0.00</div>
+      <div class="summary-note">Matching sales transactions</div>
+    </div>
+    <div class="summary-card transactions">
+      <div class="summary-label">TRANSACTIONS</div>
+      <div class="summary-value" id="totalTransactions">0</div>
+      <div class="summary-note">Number of sales</div>
+    </div>
+    <div class="summary-card cost">
+      <div class="summary-label">TOTAL COST</div>
+      <div class="summary-value" id="totalCost">₱0.00</div>
+      <div class="summary-note" id="costNote">Recorded cost data</div>
+    </div>
+    <div class="summary-card profit">
+      <div class="summary-label">GROSS PROFIT</div>
+      <div class="summary-value" id="totalProfit">₱0.00</div>
+      <div class="summary-note" id="profitNote">Sales less recorded cost</div>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h3>Payment Breakdown</h3>
+    <small>Based on filtered sales</small>
+  </div>
+
+  <section class="payment-tabs">
+    <div class="payment-tab">
+      <span class="tab-name">Cash</span>
+      <span class="tab-amount" id="cashAmount">₱0.00</span>
+      <span class="tab-count" id="cashCount">0 transactions</span>
+    </div>
+    <div class="payment-tab">
+      <span class="tab-name">Credit</span>
+      <span class="tab-amount" id="creditAmount">₱0.00</span>
+      <span class="tab-count" id="creditCount">0 transactions</span>
+    </div>
+    <div class="payment-tab">
+      <span class="tab-name">QR · GCash</span>
+      <span class="tab-amount" id="gcashAmount">₱0.00</span>
+      <span class="tab-count" id="gcashCount">0 transactions</span>
+    </div>
+    <div class="payment-tab">
+      <span class="tab-name">QR · Maya</span>
+      <span class="tab-amount" id="mayaAmount">₱0.00</span>
+      <span class="tab-count" id="mayaCount">0 transactions</span>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h3>Search & Filter</h3>
+    <small>Hidden until opened</small>
+  </div>
+
+  <button
+    type="button"
+    id="filtersToggle"
+    class="filters-toggle"
+    aria-expanded="false"
+    aria-controls="filtersPanel">
+    <span>🔎 Search & Filter Sales</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+
+  <section class="filters-panel" id="filtersPanel">
+    <div class="filter-field search-field">
+      <label for="searchInput">Search sales</label>
+      <input id="searchInput" type="search"
+        placeholder="Receipt, customer, product...">
+    </div>
+    <div class="filter-field">
+      <label for="fromDate">From date</label>
+      <input id="fromDate" type="date">
+    </div>
+    <div class="filter-field">
+      <label for="toDate">To date</label>
+      <input id="toDate" type="date">
+    </div>
+    <div class="filter-field">
+      <label for="productFilter">Product</label>
+      <input id="productFilter" type="search" placeholder="Product name">
+    </div>
+    <div class="filter-field">
+      <label for="paymentFilter">Payment method</label>
+      <select id="paymentFilter">
+        <option value="">All payments</option>
+        <option value="cash">Cash</option>
+        <option value="credit">Credit</option>
+        <option value="gcash">QR - GCash</option>
+        <option value="maya">QR - Maya</option>
+        <option value="unknown">Unrecognized</option>
+      </select>
+    </div>
+    <div style="grid-column:1/-1">
+      <button type="button" id="clearFiltersBtn" class="secondary-btn">
+        Clear Filters
+      </button>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h3>Sales History</h3>
+    <small>Existing transactions only</small>
+  </div>
+
+  <section class="history-panel">
+    <div class="history-top">
+      <div>
+        <strong>Transaction Records</strong>
+        <div class="history-count" id="historyCount">Loading sales...</div>
+      </div>
+      <strong id="historyTotal">₱0.00</strong>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Receipt</th>
+            <th>Customer</th>
+            <th>Payment</th>
+            <th>Sale Total</th>
+            <th>Cost</th>
+            <th>Profit</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="salesTableBody">
+          <tr><td colspan="8" class="loading">Loading sales records...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Kayah Business Management · Sales records are read-only.
+  </div>
+</main>
+
+<div class="modal" id="receiptModal" role="dialog"
+  aria-modal="true" aria-label="Sales receipt">
+  <div class="modal-card">
+    <div class="modal-head">
+      <strong>Sales Receipt</strong>
+      <button type="button" class="close-btn" id="closeReceiptBtn">✕ Close</button>
+    </div>
+    <div class="receipt" id="receiptContent"></div>
+    <div class="modal-actions">
+      <button type="button" class="secondary-btn" id="closeReceiptBtn2">Close</button>
+      <button type="button" class="primary-btn" id="printReceiptBtn">Print Receipt</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp, getApps }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, collection, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/*
+  Confirm this path against the working POS.
+  Expected path: users/{ownerUid}/sales/{saleId}
+  This page reads records only.
+*/
+const SALES_SUBCOLLECTION = "sales";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let allSales = [];
+let visibleSales = [];
+let businessInfo = {};
+let loading = false;
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#039;"
+  })[c]);
+}
+
+function peso(value) {
+  const n = Number(value);
+  return "₱" + (Number.isFinite(n) ? n : 0).toLocaleString("en-PH", {
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function num(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string") {
+    const cleaned = value.replace(/[₱,\s]/g, "");
+    if (cleaned !== "" && Number.isFinite(Number(cleaned))) return Number(cleaned);
+  }
+  return null;
+}
+
+function first(object, keys) {
+  for (const key of keys) {
+    const value = object?.[key];
+    if (value !== undefined && value !== null && value !== "") return value;
+  }
+  return null;
+}
+
+function getDateValue(sale) {
+  return first(sale, [
+    "createdAt","timestamp","date","saleDate","completedAt","created_at"
+  ]);
+}
+
+function toDate(value) {
+  if (!value) return null;
+  if (typeof value.toDate === "function") return value.toDate();
+  if (typeof value === "object" && value.seconds != null) {
+    return new Date(value.seconds * 1000);
+  }
+  if (typeof value === "number") {
+    return new Date(value < 100000000000 ? value * 1000 : value);
+  }
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function dateString(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+}
+
+function formatDate(value) {
+  const date = toDate(value);
+  if (!date) return "Date unavailable";
+  return date.toLocaleString("en-PH", {
+    year:"numeric", month:"short", day:"2-digit",
+    hour:"2-digit", minute:"2-digit"
+  });
+}
+
+function rawItems(sale) {
+  const items = first(sale, ["items","cart","products","orderItems"]);
+  if (Array.isArray(items)) return items;
+  if (items && typeof items === "object") return Object.values(items);
+  return [];
+}
+
+function normalizeItems(sale) {
+  return rawItems(sale).map(item => {
+    const quantity = num(first(item,["quantity","qty","count"])) ?? 1;
+    const price = num(first(item,["price","unitPrice","sellingPrice","rate"])) ?? 0;
+    const lineTotal = num(first(item,["subtotal","lineTotal","total"]));
+    const unitCost = num(first(item,["costPrice","unitCost","cost","purchasePrice"]));
+    const savedCost = num(first(item,["costTotal","totalCost"]));
+
+    return {
+      name:String(first(item,["name","productName","title","description"]) ?? "Item"),
+      quantity,
+      price,
+      total:lineTotal ?? price * quantity,
+      costTotal:savedCost ?? (unitCost === null ? null : unitCost * quantity)
+    };
+  });
+}
+
+function getTotal(sale, items) {
+  const saved = num(first(sale,[
+    "total","totalAmount","grandTotal","amount","finalTotal","totalDue","netAmount"
+  ]));
+  return saved ?? items.reduce((sum,item) => sum + item.total,0);
+}
+
+function getCost(sale, items) {
+  const saved = num(first(sale,["costTotal","totalCost","costAmount"]));
+  if (saved !== null) return saved;
+  if (items.length && items.every(item => item.costTotal !== null)) {
+    return items.reduce((sum,item) => sum + item.costTotal,0);
+  }
+  return null;
+}
+
+function getProfit(sale,total,cost) {
+  const saved = num(first(sale,["grossProfit","profit","profitAmount"]));
+  return saved ?? (cost === null ? null : total - cost);
+}
+
+
+
+function getPayment(sale) {
+    // Read the main payment method saved by the POS.
+    const rawMethod = String(
+        sale.paymentMethod ||
+        sale.payment ||
+        sale.method ||
+        sale.paymentType ||
+        ""
+    ).trim().toLowerCase();
+
+    // Your POS saves the QR provider in qrMethod.
+    const rawProvider = String(
+        sale.qrMethod ||
+        sale.selectedQrMethod ||
+        sale.paymentProvider ||
+        sale.qrProvider ||
+        sale.qrPaymentProvider ||
+        sale.provider ||
+        ""
+    ).trim().toLowerCase();
+
+    // Check the QR provider first.
+    const provider = rawProvider.replace(/[-_]/g, " ");
+
+    if (
+        provider.includes("gcash") ||
+        provider.includes("g cash")
+    ) {
+        return "gcash";
+    }
+
+    if (
+        provider.includes("maya") ||
+        provider.includes("paymaya")
+    ) {
+        return "maya";
+    }
+
+    // Also support records where the provider is saved
+    // directly inside the main payment method.
+    const method = rawMethod.replace(/[-_]/g, " ");
+    const combined = `${method} ${provider}`;
+
+    if (
+        combined.includes("gcash") ||
+        combined.includes("g cash")
+    ) {
+        return "gcash";
+    }
+
+    if (
+        combined.includes("maya") ||
+        combined.includes("paymaya")
+    ) {
+        return "maya";
+    }
+
+    if (
+        method.includes("credit") ||
+        method.includes("utang") ||
+        method.includes("on account")
+    ) {
+        return "credit";
+    }
+
+    // A QR payment without a recognized provider must not
+    // be incorrectly counted as cash.
+    if (
+        method === "qr" ||
+        method.includes("qr code") ||
+        method.includes("qr payment")
+    ) {
+        return "unknown";
+    }
+
+    if (method.includes("cash")) {
+        return "cash";
+    }
+
+    return "unknown";
+}
+
+
+function paymentName(method) {
+  return {
+    cash:"Cash", credit:"Credit", gcash:"QR · GCash",
+    maya:"QR · Maya", unknown:"Unrecognized"
+  }[method] || "Unrecognized";
+}
+
+function getCustomer(sale) {
+  const customer = sale.customer;
+  if (typeof customer === "string" && customer.trim()) return customer;
+  if (customer && typeof customer === "object") {
+    const name = first(customer,["name","fullName","customerName"]);
+    if (name) return String(name);
+  }
+  return String(first(sale,["customerName","fullName"]) ?? "Walk-in Customer");
+}
+
+function getReceipt(sale,id) {
+  return String(first(sale,[
+    "receiptNumber","receiptNo","transactionNumber","transactionId",
+    "invoiceNumber","reference"
+  ]) ?? id);
+}
+
+function normalizeSale(id,raw) {
+  const items = normalizeItems(raw);
+  const total = getTotal(raw,items);
+  const cost = getCost(raw,items);
+
+  return {
+    id, raw, items, total, cost,
+    profit:getProfit(raw,total,cost),
+    dateValue:getDateValue(raw),
+    date:toDate(getDateValue(raw)),
+    payment:getPayment(raw),
+    customer:getCustomer(raw),
+    receipt:getReceipt(raw,id),
+    discount:num(first(raw,["discount","discountAmount"])) ?? 0,
+    notes:String(first(raw,["notes","remarks","description"]) ?? "")
+  };
+}
+
+function showNotice(message,type="info") {
+  $("notice").textContent = message;
+  $("notice").className = "notice " + type;
+}
+
+function hideNotice() {
+  $("notice").textContent = "";
+  $("notice").className = "notice";
+}
+
+function setBrand(profile) {
+  businessInfo = profile || {};
+  const name = String(first(profile,["businessName","storeName","companyName"]) ?? "Kayah");
+  $("businessName").textContent = name;
+  $("businessSubtitle").textContent =
+    String(first(profile,["businessType"]) ?? "Sales Management");
+
+  const logo = first(profile,[
+    "businessLogoUrl","logoURL","logoUrl","logo","businessLogo"
+  ]);
+
+  if (typeof logo === "string" && /^https?:\/\//i.test(logo)) {
+    $("businessLogo").src = logo;
+    $("businessLogo").style.display = "block";
+    $("logoFallback").style.display = "none";
+    $("businessLogo").onerror = () => {
+      $("businessLogo").style.display = "none";
+      $("logoFallback").style.display = "flex";
+    };
+  } else {
+    $("businessLogo").style.display = "none";
+    $("logoFallback").style.display = "flex";
+    $("logoFallback").textContent = name.trim().charAt(0).toUpperCase() || "K";
+  }
+}
+
+async function loadSales() {
+  if (loading) return;
+  loading = true;
+  $("refreshBtn").disabled = true;
+  $("refreshBtn").textContent = "Loading...";
+
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      showNotice("Firebase has not restored a signed-in user for this page.", "error");
+      return;
+    }
+
+    const userSnap = await getDoc(doc(db,"users",user.uid));
+    if (!userSnap.exists()) throw new Error("Your Kayah user profile was not found.");
+
+    const userData = userSnap.data();
+    const role = String(userData.role ?? "").toLowerCase();
+    let ownerUid = user.uid;
+
+    if (role === "staff") {
+      ownerUid = userData.ownerUid || userData.businessId || "";
+      if (!ownerUid) throw new Error("Staff profile is missing ownerUid/businessId.");
+    }
+
+    let ownerProfile = userData;
+    if (ownerUid !== user.uid) {
+      const ownerSnap = await getDoc(doc(db,"users",ownerUid));
+      if (!ownerSnap.exists()) throw new Error("Business owner profile was not found.");
+      ownerProfile = ownerSnap.data();
+    }
+
+    setBrand(ownerProfile);
+
+    const salesSnap = await getDocs(
+      collection(db,"users",ownerUid,SALES_SUBCOLLECTION)
+    );
+
+    allSales = salesSnap.docs.map(d => normalizeSale(d.id,d.data()));
+    allSales.sort((a,b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
+
+    hideNotice();
+    if (!allSales.length) {
+      showNotice(
+        "No sales were found in this collection. Check that the sales path matches the working POS.",
+        "info"
+      );
+    }
+    applyFilters();
+  } catch (error) {
+    console.error("Sales loading error:",error);
+    showNotice(
+      error.code === "permission-denied"
+        ? "Access denied. Check Firestore rules for this business's sales."
+        : (error.message || "Unable to load sales."),
+      "error"
+    );
+    $("salesTableBody").innerHTML =
+      '<tr><td colspan="8" class="empty-state"><strong>Unable to load sales</strong>Check the message above.</td></tr>';
+  } finally {
+    loading = false;
+    $("refreshBtn").disabled = false;
+    $("refreshBtn").textContent = "↻ Refresh";
+  }
+}
+
+function matchesFilters(sale) {
+  const search = $("searchInput").value.trim().toLowerCase();
+  const product = $("productFilter").value.trim().toLowerCase();
+  const payment = $("paymentFilter").value;
+  const from = $("fromDate").value;
+  const to = $("toDate").value;
+
+  const searchable = [
+    sale.id,sale.receipt,sale.customer,sale.notes,
+    paymentName(sale.payment),...sale.items.map(i => i.name)
+  ].join(" ").toLowerCase();
+
+  if (search && !searchable.includes(search)) return false;
+  if (product && !sale.items.some(i => i.name.toLowerCase().includes(product))) return false;
+  if (payment && sale.payment !== payment) return false;
+
+  if (from || to) {
+    if (!sale.date) return false;
+    const day = dateString(sale.date);
+    if (from && day < from) return false;
+    if (to && day > to) return false;
+  }
+
+  return true;
+}
+
+function applyFilters() {
+  visibleSales = allSales.filter(matchesFilters);
+  renderSummary();
+  renderHistory();
+}
+
+function renderSummary() {
+  const total = visibleSales.reduce((s,x) => s + x.total,0);
+  const costsKnown = visibleSales.every(x => x.cost !== null);
+  const profitsKnown = visibleSales.every(x => x.profit !== null);
+  const cost = visibleSales.reduce((s,x) => s + (x.cost ?? 0),0);
+  const profit = visibleSales.reduce((s,x) => s + (x.profit ?? 0),0);
+
+  $("totalSales").textContent = peso(total);
+  $("totalTransactions").textContent = visibleSales.length.toLocaleString("en-PH");
+  $("totalCost").textContent = visibleSales.length && !costsKnown ? "Partial data" : peso(cost);
+  $("totalProfit").textContent = visibleSales.length && !profitsKnown ? "Partial data" : peso(profit);
+  $("costNote").textContent = visibleSales.length && !costsKnown
+    ? "Some sales have no saved cost" : "Based on saved cost data";
+  $("profitNote").textContent = visibleSales.length && !profitsKnown
+    ? "Some sales have no saved profit/cost" : "Sales less recorded cost";
+
+  const from = $("fromDate").value;
+  const to = $("toDate").value;
+  $("summaryPeriod").textContent = from || to
+    ? `${from || "Beginning"} to ${to || "Today"}`
+    : "All dates";
+
+  const methods = {
+    cash:{amount:0,count:0},
+    credit:{amount:0,count:0},
+    gcash:{amount:0,count:0},
+    maya:{amount:0,count:0}
+  };
+
+  visibleSales.forEach(sale => {
+    if (methods[sale.payment]) {
+      methods[sale.payment].amount += sale.total;
+      methods[sale.payment].count++;
+    }
+  });
+
+  Object.keys(methods).forEach(method => {
+    $(method+"Amount").textContent = peso(methods[method].amount);
+    const count = methods[method].count;
+    $(method+"Count").textContent = `${count} transaction${count === 1 ? "" : "s"}`;
+  });
+}
+
+function renderHistory() {
+  $("historyCount").textContent =
+    `${visibleSales.length} transaction${visibleSales.length === 1 ? "" : "s"} shown`;
+  $("historyTotal").textContent = peso(visibleSales.reduce((s,x) => s+x.total,0));
+
+  if (!visibleSales.length) {
+    $("salesTableBody").innerHTML = `
+      <tr><td colspan="8" class="empty-state">
+        <strong>No matching sales</strong>Try changing your search or filters.
+      </td></tr>`;
+    return;
+  }
+
+  $("salesTableBody").innerHTML = visibleSales.map(sale => `
+    <tr>
+      <td><div class="cell-main">${escapeHTML(formatDate(sale.dateValue))}</div></td>
+      <td>
+        <div class="cell-main">${escapeHTML(sale.receipt)}</div>
+        <div class="cell-sub">ID: ${escapeHTML(sale.id)}</div>
+      </td>
+      <td><div class="cell-main">${escapeHTML(sale.customer)}</div></td>
+      <td><span class="payment-pill ${sale.payment}">
+        ${escapeHTML(paymentName(sale.payment))}
+      </span></td>
+      <td class="money">${peso(sale.total)}</td>
+      <td class="money">${sale.cost === null ? "—" : peso(sale.cost)}</td>
+      <td class="money">${sale.profit === null ? "—" : peso(sale.profit)}</td>
+      <td><button type="button" class="view-btn"
+        data-view-sale="${escapeHTML(sale.id)}">View Receipt</button></td>
+    </tr>`).join("");
+}
+
+function receiptMarkup(sale) {
+  const logo = first(businessInfo,[
+    "businessLogoUrl","logoURL","logoUrl","logo","businessLogo"
+  ]);
+
+  const items = sale.items.length ? sale.items.map(item => `
+    <tr>
+      <td>${escapeHTML(item.name)}</td>
+      <td style="text-align:center">${escapeHTML(item.quantity)}</td>
+      <td style="text-align:right">${peso(item.price)}</td>
+      <td style="text-align:right;font-weight:800">${peso(item.total)}</td>
+    </tr>`).join("") :
+    '<tr><td colspan="4" style="text-align:center">No item details saved</td></tr>';
+
+  return `
+    <div class="receipt-brand">
+      ${typeof logo === "string" && /^https?:\/\//i.test(logo)
+        ? `<img class="receipt-logo" src="${escapeHTML(logo)}" alt="Business logo">` : ""}
+      <h2>${escapeHTML(businessInfo.businessName || "Kayah")}</h2>
+      <p>${escapeHTML(businessInfo.businessType || "Sales Receipt")}</p>
+      <p>SALES RECEIPT</p>
+    </div>
+    <div class="receipt-meta">
+      <div><span>Receipt No.</span><span>${escapeHTML(sale.receipt)}</span></div>
+      <div><span>Transaction ID</span><span>${escapeHTML(sale.id)}</span></div>
+      <div><span>Date & Time</span><span>${escapeHTML(formatDate(sale.dateValue))}</span></div>
+      <div><span>Customer</span><span>${escapeHTML(sale.customer)}</span></div>
+      <div><span>Payment</span><span>${escapeHTML(paymentName(sale.payment))}</span></div>
+    </div>
+    <table class="receipt-items">
+      <thead><tr>
+        <th>Item</th><th style="text-align:center">Qty</th>
+        <th style="text-align:right">Price</th><th style="text-align:right">Total</th>
+      </tr></thead>
+      <tbody>${items}</tbody>
+    </table>
+    <div class="receipt-totals">
+      <div><span>Discount</span><strong>${peso(sale.discount)}</strong></div>
+      ${sale.cost === null ? "" : `<div><span>Total Cost</span><strong>${peso(sale.cost)}</strong></div>`}
+      ${sale.profit === null ? "" : `<div><span>Gross Profit</span><strong>${peso(sale.profit)}</strong></div>`}
+      <div class="grand"><span>TOTAL</span><span>${peso(sale.total)}</span></div>
+    </div>
+    ${sale.notes ? `<div class="receipt-meta"><div><span>Notes</span><span>${escapeHTML(sale.notes)}</span></div></div>` : ""}
+    <div class="receipt-thanks">Thank you for your business!</div>`;
+}
+
+function openReceipt(id) {
+  const sale = visibleSales.find(x => x.id === id) || allSales.find(x => x.id === id);
+  if (!sale) return;
+  $("receiptContent").innerHTML = receiptMarkup(sale);
+  $("receiptModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeReceipt() {
+  $("receiptModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function clearFilters() {
+  $("searchInput").value = "";
+  $("productFilter").value = "";
+  $("paymentFilter").value = "";
+  $("fromDate").value = "";
+  $("toDate").value = "";
+  applyFilters();
+}
+
+/* Search/filter panel is collapsed when the page first opens. */
+$("filtersToggle").addEventListener("click",() => {
+  const panel = $("filtersPanel");
+  const isOpen = panel.classList.toggle("open");
+  $("filtersToggle").setAttribute("aria-expanded",String(isOpen));
+});
+
+["searchInput","productFilter","paymentFilter","fromDate","toDate"].forEach(id => {
+  $(id).addEventListener("input",applyFilters);
+  $(id).addEventListener("change",applyFilters);
+});
+
+$("clearFiltersBtn").addEventListener("click",clearFilters);
+$("refreshBtn").addEventListener("click",loadSales);
+
+$("salesTableBody").addEventListener("click",event => {
+  const button = event.target.closest("[data-view-sale]");
+  if (button) openReceipt(button.dataset.viewSale);
+});
+
+$("closeReceiptBtn").addEventListener("click",closeReceipt);
+$("closeReceiptBtn2").addEventListener("click",closeReceipt);
+$("printReceiptBtn").addEventListener("click",() => window.print());
+
+$("receiptModal").addEventListener("click",event => {
+  if (event.target === $("receiptModal")) closeReceipt();
+});
+
+document.addEventListener("keydown",event => {
+  if (event.key === "Escape") closeReceipt();
+});
+
+$("fromDate").value = dateString();
+$("toDate").value = dateString();
+
+/*
+  Wait for Firebase Auth to restore the existing session.
+  Do not create a separate login screen or sign out the user.
+*/
+onAuthStateChanged(auth,user => {
+  if (user) {
+    loadSales();
+  } else {
+    allSales = [];
+    visibleSales = [];
+    showNotice(
+      "No authenticated Firebase user was detected on this page. Check that this page uses the same Kayah authentication setup and origin as your working POS.",
+      "error"
+    );
+    $("salesTableBody").innerHTML =
+      '<tr><td colspan="8" class="empty-state"><strong>Sales are not loaded</strong>The existing Firebase session was not detected.</td></tr>';
+    renderSummary();
+    renderHistory();
+  }
+});
+</script>
+
+</body>
+</html>
