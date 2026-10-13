@@ -771,6 +771,21 @@ try {
                 <div class="tool-description">Monitor and track stock</div>
             </div>
 
+
+<div class="tool-card tile-materials" onclick="openPage('../materials/')">
+                <div class="tool-icon">🧰</div>
+                <div class="tool-name">Materials</div>
+                <div class="tool-description">Manage supplies and ingredients</div>
+            </div>
+
+
+<div class="tool-card tile-settings" onclick="openActivityLog()">
+    <div class="tool-icon">📋</div>
+    <div class="tool-name">Activity Log</div>
+    <div class="tool-description">View business activity and change records</div>
+</div>
+
+
             <div class="tool-card tile-sales" onclick="openPage('../sales/')">
                 <div class="tool-icon">📈</div>
                 <div class="tool-name">Sales</div>
@@ -783,34 +798,24 @@ try {
                 <div class="tool-description">Track business expenses</div>
             </div>
 
+<div class="tool-card tile-reports" onclick="openPage('../reports/')">
+                <div class="tool-icon">📊</div>
+                <div class="tool-name">Reports & Analytics</div>
+                <div class="tool-description">Review business performance</div>
+            </div>
+
+
             <div class="tool-card tile-customers" onclick="openPage('../customers/')">
                 <div class="tool-icon">👥</div>
                 <div class="tool-name">Customers</div>
                 <div class="tool-description">Manage customer records</div>
             </div>
 
-            <div class="tool-card tile-reports" onclick="openPage('../reports/')">
-                <div class="tool-icon">📊</div>
-                <div class="tool-name">Reports & Analytics</div>
-                <div class="tool-description">Review business performance</div>
-            </div>
+            
 
-            <div class="tool-card tile-materials" onclick="openPage('../materials/')">
-                <div class="tool-icon">🧰</div>
-                <div class="tool-name">Materials</div>
-                <div class="tool-description">Manage supplies and ingredients</div>
-            </div>
-
+            
             <!-- Owner-only management tiles -->
-            <div class="tool-card tile-business"
-                 id="businessProfileTile"
-                 style="display:none"
-                 onclick="openBusinessProfile()">
-                <div class="tool-icon">🏢</div>
-                <div class="tool-name">Business Profile</div>
-                <div class="tool-description">Edit your business name and logo</div>
-            </div>
-
+            
             <div class="tool-card tile-staff"
                  id="staffManagementTile"
                  style="display:none"
@@ -821,11 +826,19 @@ try {
             </div>
 
             
-<div class="tool-card tile-settings" onclick="openActivityLog()">
-    <div class="tool-icon">📋</div>
-    <div class="tool-name">Activity Log</div>
-    <div class="tool-description">View business activity and change records</div>
-</div>
+            
+            <div class="tool-card tile-business"
+                 id="businessProfileTile"
+                 style="display:none"
+                 onclick="openBusinessProfile()">
+                <div class="tool-icon">🏢</div>
+                <div class="tool-name">Business Profile</div>
+                <div class="tool-description">Edit your business name and logo</div>
+            </div>
+
+            
+            
+
 
         </div>
 
