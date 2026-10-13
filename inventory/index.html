@@ -9,74 +9,38 @@
 
 <style>
 :root{
-  --green:#0B4F3A;
-  --green-light:#16805C;
-  --yellow:#F2B84B;
-  --cream:#F7F3E8;
-  --white:#fff;
-  --text:#26352d;
-  --muted:#5d6e63;
-  --border:#d8e2da;
-  --red:#b42318;
-  --orange:#955500;
+  --green:#0B4F3A;--green-light:#16805C;--yellow:#F2B84B;
+  --cream:#F7F3E8;--white:#fff;--text:#26352d;--muted:#5d6e63;
+  --border:#d8e2da;--red:#b42318;--orange:#955500;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--cream);color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;font-size:14px;
-  font-weight:500;line-height:1.45;
-}
+body{margin:0;background:var(--cream);color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:500;line-height:1.45}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.6;cursor:not-allowed}
 
-.business-header{
-  background:linear-gradient(135deg,var(--green),var(--green-light));
-  color:white;padding:13px 15px;
-  box-shadow:0 3px 12px #0b4f3a29;
-}
-.business-header-inner{
-  max-width:950px;margin:auto;display:flex;
-  align-items:center;gap:11px;min-width:0;
-}
-.business-logo-wrap{
-  width:46px;height:46px;flex:0 0 46px;border-radius:11px;
-  background:#ffffff24;border:1px solid #ffffff40;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-}
-.business-logo{
-  width:100%;height:100%;object-fit:contain;background:white;display:none;
-}
+.business-header{background:linear-gradient(135deg,var(--green),var(--green-light));color:white;padding:13px 15px;box-shadow:0 3px 12px #0b4f3a29}
+.business-header-inner{max-width:950px;margin:auto;display:flex;align-items:center;gap:11px;min-width:0}
+.business-logo-wrap{width:46px;height:46px;flex:0 0 46px;border-radius:11px;background:#ffffff24;border:1px solid #ffffff40;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.business-logo{width:100%;height:100%;object-fit:contain;background:white;display:none}
 .logo-fallback{font-size:23px;font-weight:900;color:var(--yellow)}
 .business-heading{flex:1;min-width:0}
 .business-name{margin:0;font-size:17px;font-weight:900;overflow-wrap:anywhere}
 .business-subtitle{margin-top:4px;color:#e3eee7;font-size:12px;font-weight:600}
 
 .page{max-width:950px;margin:auto;padding:13px}
-.notice{
-  display:none;padding:12px;border-radius:9px;margin-bottom:12px;
-  font-size:13px;font-weight:700;line-height:1.5;overflow-wrap:anywhere;
-}
+.notice{display:none;padding:12px;border-radius:9px;margin-bottom:12px;font-size:13px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
 .notice.success{display:block;background:#e8f6ec;color:#145a32;border:1px solid #c8e8d1}
 .notice.error{display:block;background:#fff0ed;color:#8d261d;border:1px solid #f0ccc6}
 .notice.info{display:block;background:#edf4ee;color:#365341;border:1px solid #d7e4d9}
 
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.tab{
-  border:1px solid #cbd9ce;background:white;color:var(--green);
-  border-radius:10px;padding:12px 8px;font-weight:900;font-size:14px;
-}
+.tab{border:1px solid #cbd9ce;background:white;color:var(--green);border-radius:10px;padding:12px 8px;font-weight:900;font-size:14px}
 .tab.active{background:var(--green);color:white;border-color:var(--green)}
 .tab small{display:block;font-size:11px;font-weight:700;margin-top:4px;opacity:.9}
 
-.summary-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:7px;margin-bottom:12px;
-}
-.summary-card{
-  min-width:0;background:white;border:1px solid var(--border);
-  border-radius:10px;padding:10px;
-}
+.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:12px}
+.summary-card{min-width:0;background:white;border:1px solid var(--border);border-radius:10px;padding:10px}
 .summary-label{color:var(--muted);font-size:11px;font-weight:700;line-height:1.3}
 .summary-number{font-size:22px;font-weight:900;color:var(--green);margin-top:5px}
 .summary-card.low .summary-number{color:var(--orange)}
@@ -84,18 +48,10 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 .toolbar{display:flex;gap:7px;align-items:center;margin-bottom:9px}
 .search{flex:1;min-width:0}
-input,select,textarea{
-  width:100%;border:1px solid #cbd8ce;border-radius:8px;
-  padding:11px;background:white;color:var(--text);outline:none;
-  font-weight:600;
-}
+input,select,textarea{width:100%;border:1px solid #cbd8ce;border-radius:8px;padding:11px;background:white;color:var(--text);outline:none;font-weight:600}
 input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shadow:0 0 0 2px #16805c20}
 .search input{padding:12px}
-.button{
-  display:inline-flex;align-items:center;justify-content:center;gap:5px;
-  border:0;border-radius:8px;padding:11px 12px;
-  font-size:12px;font-weight:900;white-space:nowrap;
-}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0;border-radius:8px;padding:11px 12px;font-size:12px;font-weight:900;white-space:nowrap}
 .primary{background:var(--green);color:white}
 .secondary{background:#e6eee8;color:var(--green)}
 .yellow{background:var(--yellow);color:#342500}
@@ -103,48 +59,30 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
 .small{padding:8px 10px;font-size:11px}
 
 .history-button-row{display:flex;justify-content:flex-end;margin:0 0 12px}
-.history-button{
-  width:100%;min-height:43px;border:1px solid #cbded0;
-  background:white;color:var(--green);border-radius:9px;
-  font-size:13px;font-weight:900;
-}
+.history-button{width:100%;min-height:43px;border:1px solid #cbded0;background:white;color:var(--green);border-radius:9px;font-size:13px;font-weight:900}
 
 .filters{display:flex;gap:6px;overflow-x:auto;padding:1px 0 8px;margin-bottom:5px}
-.filter{
-  flex:0 0 auto;border:1px solid #d1ded4;border-radius:20px;
-  background:white;color:#40594a;padding:9px 12px;font-size:12px;font-weight:800;
-}
+.filter{flex:0 0 auto;border:1px solid #d1ded4;border-radius:20px;background:white;color:#40594a;padding:9px 12px;font-size:12px;font-weight:800}
 .filter.active{background:#e0eee4;color:var(--green);border-color:#9fc8ad}
 .filter-count{opacity:.85;margin-left:3px}
 
-.list-heading{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:8px;margin:7px 2px 9px;
-}
+.list-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 2px 9px}
 .list-heading h2{font-size:16px;font-weight:900;color:var(--green);margin:0}
 .muted{font-size:12px;font-weight:600;color:var(--muted)}
 .stock-list{display:flex;flex-direction:column;gap:8px}
-.stock-row{
-  display:flex;align-items:center;gap:9px;min-width:0;
-  background:white;border:1px solid var(--border);border-radius:10px;padding:10px;
-}
-.item-photo,.photo-placeholder{
-  width:75px;height:75px;min-width:75px;min-height:75px;
-  max-width:75px;max-height:75px;flex:0 0 75px;border-radius:10px;
-}
+.stock-row{display:flex;align-items:center;gap:9px;min-width:0;background:white;border:1px solid var(--border);border-radius:10px;padding:10px}
+.item-photo,.photo-placeholder{width:75px;height:75px;min-width:75px;min-height:75px;max-width:75px;max-height:75px;flex:0 0 75px;border-radius:10px}
 .item-photo{display:block;object-fit:cover;object-position:center}
-.photo-placeholder{
-  display:flex;align-items:center;justify-content:center;font-size:28px;
-  background:#edf2ed;
-}
+.photo-placeholder{display:flex;align-items:center;justify-content:center;font-size:28px;background:#edf2ed}
 .item-info{flex:1 1 0;min-width:0}
 .item-name{font-size:14px;font-weight:900;color:var(--green);overflow-wrap:anywhere;margin-bottom:4px}
 .item-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--muted)}
 .tag{padding:3px 6px;border-radius:5px;background:#f1f5f1;color:#40594a;font-weight:700}
-.stock-status{
-  display:inline-flex;align-items:center;gap:4px;border-radius:20px;
-  padding:5px 8px;font-size:11px;font-weight:900;white-space:nowrap;
-}
+.price-details{display:flex;flex-wrap:wrap;gap:5px 12px;margin-top:7px;font-size:11px;line-height:1.4}
+.price-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px;min-width:0}
+.price-label{color:var(--muted);font-weight:700}
+.price-line strong{color:var(--green);font-weight:900;overflow-wrap:anywhere}
+.stock-status{display:inline-flex;align-items:center;gap:4px;border-radius:20px;padding:5px 8px;font-size:11px;font-weight:900;white-space:nowrap}
 .status-in{background:#e4f6e9;color:#19703a}
 .status-low{background:#fff1d5;color:#955500}
 .status-out{background:#ffebe8;color:#b42318}
@@ -152,36 +90,19 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
 .stock-quantity{font-size:15px;font-weight:900;color:var(--green);white-space:nowrap}
 .stock-unit{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px}
 .row-actions{display:flex;flex-direction:column;gap:5px}
-.empty,.loading{
-  padding:28px 12px;text-align:center;background:white;
-  border:1px dashed #cbd7ce;border-radius:10px;color:var(--muted);
-  line-height:1.7;font-weight:700;
-}
+.empty,.loading{padding:28px 12px;text-align:center;background:white;border:1px dashed #cbd7ce;border-radius:10px;color:var(--muted);line-height:1.7;font-weight:700}
 .hidden{display:none!important}
 
-.modal-backdrop{
-  display:none;position:fixed;inset:0;z-index:100;
-  background:#0008;padding:12px;align-items:center;justify-content:center;
-}
+.modal-backdrop{display:none;position:fixed;inset:0;z-index:100;background:#0008;padding:12px;align-items:center;justify-content:center}
 .modal-backdrop.open{display:flex}
-.modal{
-  width:100%;max-width:470px;max-height:92vh;overflow-y:auto;
-  background:white;border-radius:14px;padding:17px;
-  box-shadow:0 10px 35px #0003;
-}
+.modal{width:100%;max-width:470px;max-height:92vh;overflow-y:auto;background:white;border-radius:14px;padding:17px;box-shadow:0 10px 35px #0003}
 .modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
 .modal-header h2{color:var(--green);font-size:18px;font-weight:900;margin:0}
-.close-button{
-  border:0;background:#edf2ed;color:var(--green);
-  border-radius:7px;width:34px;height:34px;font-size:22px;font-weight:900;flex:0 0 34px;
-}
+.close-button{border:0;background:#edf2ed;color:var(--green);border-radius:7px;width:34px;height:34px;font-size:22px;font-weight:900;flex:0 0 34px}
 .field{margin-bottom:13px}
 .field label{display:block;font-size:13px;font-weight:900;margin-bottom:6px;color:#30483a}
 .field small{display:block;margin-top:5px;font-size:11px;font-weight:600;line-height:1.5;color:var(--muted)}
-.field-note{
-  background:#f1f6f2;border:1px solid #dce8df;padding:10px;
-  border-radius:8px;font-size:12px;font-weight:700;color:#40594a;line-height:1.5;
-}
+.field-note{background:#f1f6f2;border:1px solid #dce8df;padding:10px;border-radius:8px;font-size:12px;font-weight:700;color:#40594a;line-height:1.5}
 .two-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-actions{display:flex;gap:8px;margin-top:17px}
 .modal-actions button{flex:1}
@@ -190,29 +111,20 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
 .required-note{font-size:11px;color:var(--muted);font-weight:600;margin-top:-5px;margin-bottom:12px}
 
 @media(max-width:480px){
-  .page{padding:10px}
-  .business-name{font-size:16px}
-  .summary-grid{gap:5px}
-  .summary-card{padding:9px 7px}
-  .summary-label{font-size:10px}
-  .summary-number{font-size:19px}
+  .page{padding:10px}.business-name{font-size:16px}
+  .summary-grid{gap:5px}.summary-card{padding:9px 7px}
+  .summary-label{font-size:10px}.summary-number{font-size:19px}
   .stock-row{gap:7px;padding:8px}
-  .item-photo,.photo-placeholder{
-    width:62px;height:62px;min-width:62px;min-height:62px;
-    max-width:62px;max-height:62px;flex-basis:62px;
-  }
-  .stock-right{min-width:48px}
-  .stock-quantity{font-size:13px}
+  .item-photo,.photo-placeholder{width:62px;height:62px;min-width:62px;min-height:62px;max-width:62px;max-height:62px;flex-basis:62px}
+  .stock-right{min-width:48px}.stock-quantity{font-size:13px}
   .row-actions .button{padding:8px 7px;font-size:10px}
-  .item-name{font-size:13px}
-  .modal{padding:14px}
+  .item-name{font-size:13px}.modal{padding:14px}
 }
 @media(max-width:350px){
-  .business-subtitle{display:none}
-  .summary-number{font-size:17px}
-  .item-meta{font-size:10px}
-  .stock-status{font-size:10px;padding:4px 6px}
+  .business-subtitle{display:none}.summary-number{font-size:17px}
+  .item-meta{font-size:10px}.stock-status{font-size:10px;padding:4px 6px}
   .row-actions .button{font-size:9px;padding:7px 5px}
+  .price-details{gap:4px 8px;font-size:10px}
 }
 </style>
 </head>
@@ -273,9 +185,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
   </section>
 
   <div class="history-button-row">
-    <button type="button" class="button secondary history-button" id="recordsButton">
-      📋 View Stock History ↗
-    </button>
+    <button type="button" class="button secondary history-button" id="recordsButton">📋 View Stock History ↗</button>
   </div>
 
   <div class="filters" id="filters">
@@ -365,9 +275,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
           <input id="openingQuantity" type="number" min="0" step="any" value="0">
         </div>
         <div class="field">
-          <label for="materialUnitCost">Unit Cost (₱)</label>
+          <label for="materialUnitCost">Cost Price (₱)</label>
           <input id="materialUnitCost" type="number" min="0" step="any" placeholder="0.00">
         </div>
+      </div>
+      <div class="field">
+        <label for="materialSellingPrice">Selling Price (₱)</label>
+        <input id="materialSellingPrice" type="number" min="0" step="any" placeholder="0.00">
+        <small>Optional. Enter the price you charge when selling this material.</small>
       </div>
       <div class="field">
         <label for="materialSupplier">Supplier</label>
@@ -406,7 +321,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
         <select id="stockMaterialSelect" required></select>
         <small id="materialCurrentStock">Current stock: —</small>
       </div>
-
       <div class="field">
         <label for="materialAdjustmentType">Adjustment Type *</label>
         <select id="materialAdjustmentType" required>
@@ -415,12 +329,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
           <option value="set">Set Exact Quantity</option>
         </select>
       </div>
-
       <div class="field">
         <label for="materialAdjustmentQuantity" id="materialAdjustmentQuantityLabel">Quantity to Add *</label>
         <input id="materialAdjustmentQuantity" type="number" min="0.000001" step="any" required>
       </div>
-
       <div class="field">
         <label for="materialAdjustmentReason">Reason *</label>
         <select id="materialAdjustmentReason" required>
@@ -433,27 +345,20 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
           <option value="other">Other</option>
         </select>
       </div>
-
       <div class="field">
         <label for="materialAdjustmentUnitCost">Unit Cost (₱)</label>
         <input id="materialAdjustmentUnitCost" type="number" min="0" step="any" placeholder="Optional">
         <small>For additions, you can enter the cost for this delivery. Leave blank if not applicable.</small>
       </div>
-
       <div class="field">
         <label for="materialAdjustmentSupplier">Supplier</label>
         <input id="materialAdjustmentSupplier" maxlength="120" placeholder="Optional">
       </div>
-
       <div class="field">
         <label for="materialAdjustmentNotes">Notes</label>
         <textarea id="materialAdjustmentNotes" rows="2" maxlength="500" placeholder="Explain the adjustment or record a reference number..."></textarea>
       </div>
-
-      <div class="field-note" id="materialAdjustmentHelp">
-        The inventory balance and stock history will be updated together.
-      </div>
-
+      <div class="field-note" id="materialAdjustmentHelp">The inventory balance and stock history will be updated together.</div>
       <div class="modal-actions">
         <button class="button secondary" type="button" data-close="materialStockModal">Cancel</button>
         <button class="button primary" type="submit" id="saveMaterialStock">Save Adjustment</button>
@@ -463,66 +368,90 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shad
 </div>
 
 <script type="module">
-import { initializeApp, getApps }
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged }
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, doc, getDoc, collection, getDocs,
-  runTransaction, serverTimestamp
+  getFirestore,doc,getDoc,collection,getDocs,runTransaction,serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
-  authDomain: "kayah-ecosystem.firebaseapp.com",
-  projectId: "kayah-ecosystem",
-  storageBucket: "kayah-ecosystem.firebasestorage.app",
-  messagingSenderId: "49853785143",
-  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+const firebaseConfig={
+  apiKey:"AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain:"kayah-ecosystem.firebaseapp.com",
+  projectId:"kayah-ecosystem",
+  storageBucket:"kayah-ecosystem.firebasestorage.app",
+  messagingSenderId:"49853785143",
+  appId:"1:49853785143:web:23182e6e11696ac03dcbb2"
 };
 
-const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app=getApps().length?getApps()[0]:initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-const CLOUDINARY_CLOUD_NAME = "tfzuiwcp";
-const CLOUDINARY_UPLOAD_PRESET = "kayah_products";
-const DEFAULT_LOW_STOCK_THRESHOLD = 5;
+const CLOUDINARY_CLOUD_NAME="tfzuiwcp";
+const CLOUDINARY_UPLOAD_PRESET="kayah_products";
+const DEFAULT_LOW_STOCK_THRESHOLD=5;
 
-let currentUser = null;
-let businessId = null;
-let actorName = "Business Owner";
-let actorRole = "owner";
-let activeTab = "products";
-let activeFilter = "all";
-let products = [];
-let materials = [];
-let selectedProductId = null;
-let saving = false;
-let previewObjectUrl = null;
+let currentUser=null;
+let businessId=null;
+let actorName="Business Owner";
+let actorRole="owner";
+let activeTab="products";
+let activeFilter="all";
+let products=[];
+let materials=[];
+let selectedProductId=null;
+let saving=false;
+let previewObjectUrl=null;
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
-function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+function escapeHtml(value){
+  return String(value??"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[char]);
 }
-function num(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : 0;
+function num(value){
+  const n=Number(value);
+  return Number.isFinite(n)?n:0;
 }
-function fmt(value) {
+function fmt(value){
   return num(value).toLocaleString("en-PH",{maximumFractionDigits:3});
 }
-function showNotice(message,type="info") {
+function firstSavedPrice(...values){
+  for(const value of values){
+    if(value!==undefined&&value!==null&&value!==""&&
+       Number.isFinite(Number(value))&&Number(value)>=0){
+      return Number(value);
+    }
+  }
+  return null;
+}
+function formatPrice(value){
+  if(value===null||value===undefined||value==="")return "Not set";
+  return "₱"+Number(value).toLocaleString("en-PH",{
+    minimumFractionDigits:2,maximumFractionDigits:2
+  });
+}
+function productSellingPrice(p){
+  return firstSavedPrice(p.sellingPrice,p.salePrice,p.selling_price,p.price);
+}
+function productCostPrice(p){
+  return firstSavedPrice(p.costPrice,p.unitCost,p.purchasePrice,p.buyingPrice,p.cost_price,p.cost);
+}
+function materialSellingPrice(m){
+  return firstSavedPrice(m.sellingPrice,m.salePrice,m.selling_price,m.price);
+}
+function materialCostPrice(m){
+  return firstSavedPrice(m.unitCost,m.costPrice,m.purchasePrice,m.buyingPrice,m.cost_price,m.cost);
+}
+function showNotice(message,type="info"){
   const el=$("notice");
   el.textContent=message;
   el.className="notice "+type;
   el.style.display="block";
   el.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function clearNotice() {
+function clearNotice(){
   $("notice").textContent="";
   $("notice").className="notice";
   $("notice").style.display="none";
@@ -672,6 +601,8 @@ function renderInventory(){
     const qty=isMaterial?materialStock(item):productStock(item);
     const photo=isMaterial?materialPhoto(item):productPhoto(item);
     const status=statusFor(item,isMaterial);
+    const sellingPrice=isMaterial?materialSellingPrice(item):productSellingPrice(item);
+    const costPrice=isMaterial?materialCostPrice(item):productCostPrice(item);
     const category=item.category?'<span class="tag">'+escapeHtml(item.category)+'</span>':"";
     const sku=item.sku?'<span>SKU: '+escapeHtml(item.sku)+'</span>':"";
     const threshold=thresholdFor(item);
@@ -687,6 +618,10 @@ function renderInventory(){
     return '<article class="stock-row">'+photoHtml+
       '<div class="item-info"><div class="item-name">'+escapeHtml(name)+'</div>'+
       '<div class="item-meta">'+category+sku+'<span>'+escapeHtml(unit)+'</span></div>'+
+      '<div class="price-details">'+
+        '<div class="price-line"><span class="price-label">Selling:</span><strong>'+escapeHtml(formatPrice(sellingPrice))+'</strong></div>'+
+        '<div class="price-line"><span class="price-label">Cost:</span><strong>'+escapeHtml(formatPrice(costPrice))+'</strong></div>'+
+      '</div>'+
       '<div style="margin-top:6px">'+statusBadge(status)+'</div>'+
       '<div class="muted" style="margin-top:4px">'+escapeHtml(thresholdText)+'</div></div>'+
       '<div class="stock-right"><div class="stock-quantity">'+escapeHtml(fmt(qty))+'</div>'+
@@ -777,6 +712,7 @@ function openAddMaterial(){
   $("materialUnit").value="pcs";
   $("openingQuantity").value="0";
   $("materialThreshold").value=String(DEFAULT_LOW_STOCK_THRESHOLD);
+  $("materialSellingPrice").value="";
   $("materialPhotoPreview").style.display="none";
   $("photoUploadStatus").textContent="";
   if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null}
@@ -834,6 +770,8 @@ $("materialForm").addEventListener("submit",async event=>{
   const threshold=num($("materialThreshold").value);
   const costText=$("materialUnitCost").value.trim();
   const unitCost=costText===""?null:Number(costText);
+  const sellingText=$("materialSellingPrice").value.trim();
+  const sellingPrice=sellingText===""?null:Number(sellingText);
   const supplier=$("materialSupplier").value.trim();
   const notes=$("materialNotes").value.trim();
   const photoFile=$("materialPhoto").files?.[0]||null;
@@ -841,7 +779,10 @@ $("materialForm").addEventListener("submit",async event=>{
   if(!name||!unit){showNotice("Enter a material name and unit.","error");return}
   if(opening<0||threshold<0){showNotice("Stock and threshold cannot be negative.","error");return}
   if(unitCost!==null&&(!Number.isFinite(unitCost)||unitCost<0)){
-    showNotice("Unit cost must be zero or greater.","error");return;
+    showNotice("Cost price must be zero or greater.","error");return;
+  }
+  if(sellingPrice!==null&&(!Number.isFinite(sellingPrice)||sellingPrice<0)){
+    showNotice("Selling price must be zero or greater.","error");return;
   }
 
   saving=true;
@@ -857,7 +798,7 @@ $("materialForm").addEventListener("submit",async event=>{
 
     await runTransaction(db,async tx=>{
       tx.set(materialRef,{
-        name,category,unit,quantity:opening,unitCost,supplier,notes,photoUrl,
+        name,category,unit,quantity:opening,unitCost,sellingPrice,supplier,notes,photoUrl,
         lowStockAlert:threshold,ownerUid:businessId,
         createdAt:serverTimestamp(),updatedAt:serverTimestamp(),
         createdByUid:currentUser.uid,createdByName:actorName,createdByRole:actorRole,
@@ -869,8 +810,8 @@ $("materialForm").addEventListener("submit",async event=>{
         targetType:"material",targetId:materialRef.id,...actor,
         details:{
           materialId:materialRef.id,materialName:name,category,unit,
-          openingStock:opening,unitCost,supplier,lowStockAlert:threshold,
-          hasPhoto:Boolean(photoUrl)
+          openingStock:opening,unitCost,sellingPrice,supplier,
+          lowStockAlert:threshold,hasPhoto:Boolean(photoUrl)
         },
         createdAt:serverTimestamp()
       });
@@ -917,7 +858,6 @@ function openMaterialAdjustment(id=""){
   $("materialAdjustmentNotes").value="";
 
   if(id)$("stockMaterialSelect").value=id;
-
   updateMaterialAdjustmentInfo();
   openModal("materialStockModal");
 }
@@ -929,23 +869,15 @@ function updateMaterialAdjustmentInfo(){
   const qty=material?materialStock(material):0;
   const unit=material?materialUnit(material):"units";
 
-  $("materialCurrentStock").textContent=
-    "Current stock: "+fmt(qty)+" "+unit;
-
+  $("materialCurrentStock").textContent="Current stock: "+fmt(qty)+" "+unit;
   $("materialAdjustmentQuantityLabel").textContent=
-    type==="in"?"Quantity to Add *":
-    type==="out"?"Quantity to Remove *":"New Exact Quantity *";
-
+    type==="in"?"Quantity to Add *":type==="out"?"Quantity to Remove *":"New Exact Quantity *";
   $("materialAdjustmentQuantity").min=type==="set"?"0":"0.000001";
 
   let help="The inventory balance and stock history will be updated together.";
-  if(type==="in"){
-    help="This adjustment will increase the material quantity.";
-  }else if(type==="out"){
-    help="This adjustment will reduce the material quantity. You cannot remove more than the available stock.";
-  }else{
-    help="This will set the final stock balance to the exact quantity entered. The difference will be recorded in stock history.";
-  }
+  if(type==="in")help="This adjustment will increase the material quantity.";
+  else if(type==="out")help="This adjustment will reduce the material quantity. You cannot remove more than the available stock.";
+  else help="This will set the final stock balance to the exact quantity entered. The difference will be recorded in stock history.";
 
   if(reason==="waste")help+=" Reason: Waste or damaged material.";
   if(reason==="used")help+=" Reason: Material used or consumed by the business.";
@@ -982,7 +914,6 @@ $("materialStockForm").addEventListener("submit",async event=>{
   if(unitCost!==null&&(!Number.isFinite(unitCost)||unitCost<0)){
     showNotice("Unit cost must be zero or greater.","error");return;
   }
-
   if(type==="out"&&reason==="delivery"){
     showNotice("Choose an appropriate reason for removing stock.","error");return;
   }
@@ -1009,7 +940,6 @@ $("materialStockForm").addEventListener("submit",async event=>{
       const m=snap.data();
       const previous=materialStock(m);
       const next=type==="in"?previous+amount:type==="out"?previous-amount:amount;
-
       if(next<0)throw new Error("You cannot remove more stock than is available.");
 
       const delta=next-previous;
@@ -1018,15 +948,9 @@ $("materialStockForm").addEventListener("submit",async event=>{
       const unit=materialUnit(m);
 
       let movementType;
-      if(type==="in"){
-        movementType=reason==="customer_return"?"return-in":"stock-in";
-      }else if(type==="out"){
-        movementType=reason==="waste"?"waste":
-          reason==="used"?"used":
-          reason==="supplier_return"?"supplier-return":"stock-out";
-      }else{
-        movementType="adjustment";
-      }
+      if(type==="in")movementType=reason==="customer_return"?"return-in":"stock-in";
+      else if(type==="out")movementType=reason==="waste"?"waste":reason==="used"?"used":reason==="supplier_return"?"supplier-return":"stock-out";
+      else movementType="adjustment";
 
       const reasonLabels={
         delivery:"New Delivery / Purchase",
@@ -1039,58 +963,28 @@ $("materialStockForm").addEventListener("submit",async event=>{
       };
 
       tx.update(materialRef,{
-        quantity:next,
-        updatedAt:serverTimestamp(),
-        updatedByUid:currentUser.uid,
-        updatedByName:actorName,
-        updatedByRole:actorRole
+        quantity:next,updatedAt:serverTimestamp(),
+        updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
       });
 
       tx.set(movementRef,{
-        materialId,
-        materialName:name,
-        type:movementType,
-        adjustmentType:type,
-        reason,
-        reasonLabel:reasonLabels[reason]||reason,
-        quantity:changed,
-        quantityChanged:delta,
-        previousStock:previous,
-        balanceAfter:next,
-        unit,
-        unitCost,
-        supplier,
-        notes,
-        ownerUid:businessId,
-        createdAt:serverTimestamp(),
-        ...actor
+        materialId,materialName:name,type:movementType,adjustmentType:type,
+        reason,reasonLabel:reasonLabels[reason]||reason,
+        quantity:changed,quantityChanged:delta,previousStock:previous,
+        balanceAfter:next,unit,unitCost,supplier,notes,ownerUid:businessId,
+        createdAt:serverTimestamp(),...actor
       });
 
       tx.set(activityRef,{
-        action:type==="in"?"material_stock_in":
-          type==="out"?"material_stock_out":"material_stock_adjustment",
-        description:
-          (type==="in"?"Added ":
-           type==="out"?"Removed ":"Adjusted ")+
-          fmt(changed)+" "+unit+" of "+name+
-          " ("+(reasonLabels[reason]||reason)+")",
-        targetType:"material",
-        targetId:materialId,
-        ...actor,
+        action:type==="in"?"material_stock_in":type==="out"?"material_stock_out":"material_stock_adjustment",
+        description:(type==="in"?"Added ":type==="out"?"Removed ":"Adjusted ")+
+          fmt(changed)+" "+unit+" of "+name+" ("+(reasonLabels[reason]||reason)+")",
+        targetType:"material",targetId:materialId,...actor,
         details:{
-          materialId,
-          materialName:name,
-          adjustmentType:type,
-          reason,
-          reasonLabel:reasonLabels[reason]||reason,
-          previousStock:previous,
-          quantityChanged:delta,
-          changedQuantity:changed,
-          newStock:next,
-          unit,
-          unitCost,
-          supplier,
-          notes
+          materialId,materialName:name,adjustmentType:type,reason,
+          reasonLabel:reasonLabels[reason]||reason,previousStock:previous,
+          quantityChanged:delta,changedQuantity:changed,newStock:next,
+          unit,unitCost,supplier,notes
         },
         createdAt:serverTimestamp()
       });
@@ -1127,7 +1021,6 @@ document.querySelectorAll(".filter").forEach(button=>{
 });
 
 $("searchInput").addEventListener("input",renderInventory);
-
 $("refreshButton").addEventListener("click",async()=>{
   clearNotice();
   await loadInventory();
@@ -1154,7 +1047,6 @@ $("stockList").addEventListener("click",event=>{
     openProductAdjustment(productButton.dataset.adjustProduct);
     return;
   }
-
   const materialButton=event.target.closest("[data-adjust-material]");
   if(materialButton){
     clearNotice();
@@ -1165,11 +1057,9 @@ $("stockList").addEventListener("click",event=>{
 /* STOCK HISTORY REDIRECT */
 $("recordsButton").addEventListener("click",()=>{
   const currentPath=window.location.pathname;
-  const currentDirectory=currentPath.substring(0,currentPath.lastIndexOf("/") + 1);
-
+  const currentDirectory=currentPath.substring(0,currentPath.lastIndexOf("/")+1);
   const sameFolderPath=new URL("stock-history/index.html",window.location.origin+currentDirectory).href;
   const parentFolderPath=new URL("../stock-history/index.html",window.location.origin+currentDirectory).href;
-
   const pathLooksNested=/\/(inventory|stock-inventory)\//i.test(currentPath);
   window.location.assign(pathLooksNested?parentFolderPath:sameFolderPath);
 });
