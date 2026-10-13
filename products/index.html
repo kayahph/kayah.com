@@ -33,6 +33,10 @@
     rel="stylesheet"
 >
 
+
+
+
+
 <style>
     
     .product-search-bar {
@@ -925,6 +929,297 @@ body{
 
 }
 
+
+/* =========================================
+   KAYAH — COMPACT HORIZONTAL PRODUCT LIST
+========================================= */
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.product-list-item {
+    display: grid;
+    grid-template-columns: 94px minmax(0, 1fr);
+    grid-template-areas:
+        "photo main"
+        "actions actions";
+    gap: 10px 12px;
+    align-items: start;
+    padding: 11px;
+    background: #FFFFFF;
+    border: 1px solid #E2E9E3;
+    border-radius: 13px;
+    box-shadow: 0 2px 7px rgba(11, 79, 58, 0.05);
+    min-width: 0;
+}
+
+.product-list-photo,
+.product-list-photo-placeholder {
+    grid-area: photo;
+    width: 94px;
+    height: 106px;
+    border-radius: 9px;
+    object-fit: cover;
+    background: #F1F5F1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-list-photo-placeholder {
+    font-size: 28px;
+    color: #7D9685;
+    border: 1px solid #E5ECE6;
+}
+
+.product-list-main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.product-list-name {
+    color: #24372C;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.product-list-category {
+    color: #78857C;
+    font-size: 10px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.product-list-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.product-list-meta-item {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: #F1F4F1;
+    color: #66736A;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.product-list-price {
+    padding: 0;
+    background: transparent;
+    color: #0B4F3A;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.product-list-stock {
+    background: #E7F5EB;
+    color: #16805C;
+}
+
+.product-list-low {
+    background: #FFF1D9;
+    color: #A86408;
+}
+
+.product-list-inactive {
+    background: #F0F1F2;
+    color: #737B76;
+}
+
+.product-list-date {
+    color: #98A199;
+    font-size: 9px;
+    line-height: 1.4;
+    margin-top: 1px;
+}
+
+.product-list-actions {
+    grid-area: actions;
+    display: flex;
+    gap: 7px;
+    padding-top: 9px;
+    border-top: 1px solid #EDF1ED;
+}
+
+.product-action-btn {
+    min-height: 32px;
+    padding: 7px 12px;
+    border: 1px solid #DCE6DE;
+    border-radius: 7px;
+    background: #FFFFFF;
+    color: #0B4F3A;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.product-action-btn.inventory {
+    background: #EAF5ED;
+    border-color: #D4EBDD;
+}
+
+.product-action-btn.delete {
+    color: #B83A3A;
+    border-color: #F0DCDC;
+    background: #FFF8F8;
+}
+
+.product-action-btn:active {
+    transform: scale(0.97);
+}
+
+.products-list .empty-message {
+    padding: 22px 14px;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px dashed #DDE5DF;
+    border-radius: 12px;
+    color: #7D8881;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+@media (max-width: 360px) {
+    .product-list-item {
+        grid-template-columns: 78px minmax(0, 1fr);
+        gap: 9px;
+        padding: 9px;
+    }
+
+    .product-list-photo,
+    .product-list-photo-placeholder {
+        width: 78px;
+        height: 92px;
+    }
+
+    .product-list-name {
+        font-size: 12px;
+    }
+
+    .product-list-price {
+        font-size: 14px;
+    }
+}
+
+
+
+
+/* =========================================
+   KAYAH BUSINESS HEADER
+========================================= */
+
+.topbar {
+    min-height: 78px;
+    padding: 14px 17px;
+    background: linear-gradient(135deg, #0B4F3A, #16805C);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #FFFFFF;
+    box-shadow: 0 3px 12px rgba(11, 79, 58, 0.16);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+}
+
+.brand-logo {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #FFFFFF;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    display: none;
+}
+
+.brand-initial {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F2B84B;
+    color: #173B2D;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.brand-text {
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: #FFFFFF;
+    overflow-wrap: anywhere;
+}
+
+.brand-caption {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.78);
+    margin-top: 3px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.icon-btn {
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 17px;
+    color: #FFFFFF;
+}
+
+@media (max-width: 380px) {
+    .topbar {
+        padding: 12px;
+    }
+
+    .brand-text {
+        font-size: 14px;
+    }
+}
+
+
+
+
 </style>
 
 </head>
@@ -964,35 +1259,35 @@ ducts           src="../kayah-logo.png"
      TOP BAR
 ===================================================== -->
 
+
 <header class="topbar">
-
-    <div class="topbar-inner">
-
-        <a
-            href="../dashboard/"
-            class="back-button"
-        >
-            ‹
-        </a>
-
-        <a
-            href="../dashboard/"
-            class="brand"
+    <div class="brand">
+        <img
+            src=""
+            class="brand-logo"
+            id="headerBusinessLogo"
+            alt="Business logo"
+            style="display: none;"
         >
 
-            <img
-                src="../kayah-logo.png"
-                alt="Kayah"
-            >
+        <div class="brand-initial" id="headerBusinessInitial">K</div>
 
-            <span class="brand-name">
-                Kayah
-            </span>
-
-        </a>
-
+        <div style="min-width: 0;">
+            <div class="brand-text" id="headerBusinessName">
+                Your Business
+            </div>
+            <div class="brand-caption">Products</div>
+        </div>
     </div>
 
+    <div class="top-actions">
+        <button
+            class="icon-btn"
+            type="button"
+            onclick="window.location.href='../dashboard/'"
+            aria-label="Dashboard"
+        >🏠</button>
+    </div>
 </header>
 
 
@@ -3689,19 +3984,13 @@ window.location.href =
             );
 
 
-            /* FINAL */
+            /* FINAL — PHOTO, DETAILS, ACTIONS */
 
-            item.appendChild(
-                main
-            );
+item.appendChild(photoElement);
+item.appendChild(main);
+item.appendChild(actions);
 
-            item.appendChild(
-                actions
-            );
-
-            productsList.appendChild(
-                item
-            );
+productsList.appendChild(item);
 
         }
     );
@@ -4425,82 +4714,101 @@ addProductButton.addEventListener(
 );
 
 
+
 /* =====================================================
    AUTH STATE
 ===================================================== */
 
 onAuthStateChanged(
     auth,
-    async function(user){
+    async function(user) {
 
-        console.log(
-            "KAYAH PRODUCTS AUTH CHECK"
-        );
+        console.log("KAYAH PRODUCTS AUTH CHECK");
 
-
-        if(!user){
-
-            console.log(
-                "NO FIREBASE USER — REDIRECTING"
-            );
-
-            window.location.href =
-                "../login/";
-
+        if (!user) {
+            console.log("NO FIREBASE USER — REDIRECTING");
+            window.location.href = "../login/";
             return;
-
         }
 
+        currentUser = user;
 
-        currentUser =
-            user;
-
-
-        try{
+        try {
 
             /* =================================================
                USER DOCUMENT
             ================================================= */
 
-            const userRef =
-                doc(
-                    db,
-                    "users",
-                    user.uid
-                );
+            const userRef = doc(
+                db,
+                "users",
+                user.uid
+            );
 
+            const userSnapshot = await getDoc(userRef);
 
-            const userSnapshot =
-                await getDoc(
-                    userRef
-                );
-
-
-            if(
-                !userSnapshot.exists()
-            ){
+            if (!userSnapshot.exists()) {
 
                 showError(
                     "Your Kayah account profile could not be found."
                 );
 
                 return;
-
             }
 
+            const userData = userSnapshot.data();
 
-            const userData =
-                userSnapshot.data();
+            /* =================================================
+               LOAD BUSINESS PROFILE FOR HEADER
+               Supports both owner and staff accounts
+            ================================================= */
 
+            let businessData = userData;
+
+            const businessId =
+                userData.businessId ||
+                userData.ownerUid ||
+                user.uid;
+
+            if (businessId !== user.uid) {
+
+                const businessRef = doc(
+                    db,
+                    "users",
+                    businessId
+                );
+
+                const businessSnapshot = await getDoc(
+                    businessRef
+                );
+
+                if (businessSnapshot.exists()) {
+
+                    businessData = businessSnapshot.data();
+
+                } else {
+
+                    console.warn(
+                        "Business profile not found. Using user profile."
+                    );
+
+                }
+            }
+
+            /* =================================================
+               DISPLAY BUSINESS LOGO + BUSINESS NAME
+            ================================================= */
+
+            displayBusinessLogo(
+                businessData.logoUrl,
+                businessData.businessName
+            );
 
             /* =================================================
                PLAN
             ================================================= */
 
-            updatePlanUI(
-                userData
-            );
-
+            updatePlanUI(userData);
 
             /* =================================================
                LOAD MATERIALS + PRODUCTS
@@ -4510,7 +4818,6 @@ onAuthStateChanged(
 
             await loadProducts();
 
-
             /* =================================================
                ALWAYS START ON PRODUCT LIST
             ================================================= */
@@ -4519,13 +4826,12 @@ onAuthStateChanged(
 
         }
 
-        catch(error){
+        catch(error) {
 
             console.error(
                 "KAYAH PRODUCTS ERROR:",
                 error
             );
-
 
             productsList.innerHTML = `
 
@@ -4556,13 +4862,11 @@ onAuthStateChanged(
 
         }
 
-        finally{
+        finally {
 
-            if(loadingScreen){
+            if (loadingScreen) {
 
-                loadingScreen.classList.add(
-                    "hide"
-                );
+                loadingScreen.classList.add("hide");
 
             }
 
@@ -4570,6 +4874,87 @@ onAuthStateChanged(
 
     }
 );
+
+
+/* =====================================================
+   BUSINESS LOGO + NAME DISPLAY
+===================================================== */
+
+function displayBusinessLogo(
+    logoUrl,
+    businessName = "K"
+) {
+
+    const logo = document.getElementById(
+        "headerBusinessLogo"
+    );
+
+    const initial = document.getElementById(
+        "headerBusinessInitial"
+    );
+
+    const name = document.getElementById(
+        "headerBusinessName"
+    );
+
+    const url = logoUrl
+        ? String(logoUrl).trim()
+        : "";
+
+    const businessTitle = businessName
+        ? String(businessName).trim()
+        : "Your Business";
+
+    if (name) {
+        name.textContent =
+            businessTitle || "Your Business";
+    }
+
+    if (initial) {
+        initial.textContent =
+            (businessTitle || "K")
+                .charAt(0)
+                .toUpperCase();
+
+        initial.style.display = "flex";
+    }
+
+    if (!logo) return;
+
+    logo.style.display = "none";
+
+    logo.onerror = function() {
+
+        logo.style.display = "none";
+
+        if (initial) {
+            initial.style.display = "flex";
+        }
+
+    };
+
+    logo.onload = function() {
+
+        logo.style.display = "block";
+
+        if (initial) {
+            initial.style.display = "none";
+        }
+
+    };
+
+    if (url) {
+
+        logo.src = url;
+
+    } else {
+
+        logo.removeAttribute("src");
+
+    }
+
+}
+
 
 </script>
 
