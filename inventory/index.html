@@ -8,22 +8,23 @@
 <title>Stock Inventory - Kayah</title>
 
 <style>
-:root {
+:root{
   --green:#0B4F3A;
   --green-light:#16805C;
   --yellow:#F2B84B;
   --cream:#F7F3E8;
   --white:#fff;
   --text:#26352d;
-  --muted:#718078;
-  --border:#e3e9e4;
-  --red:#c0392b;
-  --orange:#a85d00;
+  --muted:#5d6e63;
+  --border:#d8e2da;
+  --red:#b42318;
+  --orange:#955500;
 }
 *{box-sizing:border-box}
 body{
   margin:0;background:var(--cream);color:var(--text);
   font-family:Arial,Helvetica,sans-serif;font-size:14px;
+  font-weight:500;line-height:1.45;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
@@ -32,7 +33,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 .business-header{
   background:linear-gradient(135deg,var(--green),var(--green-light));
   color:white;padding:13px 15px;
-  box-shadow:0 3px 12px rgba(11,79,58,.16);
+  box-shadow:0 3px 12px #0b4f3a29;
 }
 .business-header-inner{
   max-width:950px;margin:auto;display:flex;
@@ -40,34 +41,33 @@ button:disabled{opacity:.6;cursor:not-allowed}
 }
 .business-logo-wrap{
   width:46px;height:46px;flex:0 0 46px;border-radius:11px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.25);
+  background:#ffffff24;border:1px solid #ffffff40;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 .business-logo{
-  width:100%;height:100%;object-fit:contain;background:white;display:none
+  width:100%;height:100%;object-fit:contain;background:white;display:none;
 }
-.logo-fallback{font-size:23px;font-weight:800;color:var(--yellow)}
+.logo-fallback{font-size:23px;font-weight:900;color:var(--yellow)}
 .business-heading{flex:1;min-width:0}
-.business-name{margin:0;font-size:17px;font-weight:800;overflow-wrap:anywhere}
-.business-subtitle{margin-top:4px;color:#e3eee7;font-size:11px}
+.business-name{margin:0;font-size:17px;font-weight:900;overflow-wrap:anywhere}
+.business-subtitle{margin-top:4px;color:#e3eee7;font-size:12px;font-weight:600}
 
 .page{max-width:950px;margin:auto;padding:13px}
 .notice{
-  display:none;padding:11px 12px;border-radius:9px;margin-bottom:12px;
-  font-size:12px;line-height:1.5;overflow-wrap:anywhere;
+  display:none;padding:12px;border-radius:9px;margin-bottom:12px;
+  font-size:13px;font-weight:700;line-height:1.5;overflow-wrap:anywhere;
 }
 .notice.success{display:block;background:#e8f6ec;color:#145a32;border:1px solid #c8e8d1}
 .notice.error{display:block;background:#fff0ed;color:#8d261d;border:1px solid #f0ccc6}
 .notice.info{display:block;background:#edf4ee;color:#365341;border:1px solid #d7e4d9}
 
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .tab{
-  border:1px solid #d7e2d9;background:#fff;color:var(--green);
-  border-radius:10px;padding:12px 8px;font-weight:800;font-size:13px;
+  border:1px solid #cbd9ce;background:white;color:var(--green);
+  border-radius:10px;padding:12px 8px;font-weight:900;font-size:14px;
 }
 .tab.active{background:var(--green);color:white;border-color:var(--green)}
-.tab small{display:block;font-size:10px;font-weight:400;margin-top:4px;opacity:.85}
+.tab small{display:block;font-size:11px;font-weight:700;margin-top:4px;opacity:.9}
 
 .summary-grid{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
@@ -77,62 +77,60 @@ button:disabled{opacity:.6;cursor:not-allowed}
   min-width:0;background:white;border:1px solid var(--border);
   border-radius:10px;padding:10px;
 }
-.summary-label{color:var(--muted);font-size:10px;line-height:1.3}
-.summary-number{font-size:20px;font-weight:800;color:var(--green);margin-top:5px}
+.summary-label{color:var(--muted);font-size:11px;font-weight:700;line-height:1.3}
+.summary-number{font-size:22px;font-weight:900;color:var(--green);margin-top:5px}
 .summary-card.low .summary-number{color:var(--orange)}
 .summary-card.out .summary-number{color:var(--red)}
 
 .toolbar{display:flex;gap:7px;align-items:center;margin-bottom:9px}
 .search{flex:1;min-width:0}
 input,select,textarea{
-  width:100%;border:1px solid #d9e2db;border-radius:8px;
-  padding:10px;background:white;color:var(--text);outline:none;
+  width:100%;border:1px solid #cbd8ce;border-radius:8px;
+  padding:11px;background:white;color:var(--text);outline:none;
+  font-weight:600;
 }
-input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
-.search input{padding:11px}
+input:focus,select:focus,textarea:focus{border-color:var(--green-light);box-shadow:0 0 0 2px #16805c20}
+.search input{padding:12px}
 .button{
   display:inline-flex;align-items:center;justify-content:center;gap:5px;
-  border:0;border-radius:8px;padding:10px 12px;
-  font-size:12px;font-weight:700;white-space:nowrap;
+  border:0;border-radius:8px;padding:11px 12px;
+  font-size:12px;font-weight:900;white-space:nowrap;
 }
 .primary{background:var(--green);color:white}
 .secondary{background:#e6eee8;color:var(--green)}
 .yellow{background:var(--yellow);color:#342500}
-.small{padding:7px 9px;font-size:11px}
+.danger{background:#ffebe8;color:#a1241a}
+.small{padding:8px 10px;font-size:11px}
 
-.history-button-row{
-  display:flex;justify-content:flex-end;margin:0 0 12px;
-}
+.history-button-row{display:flex;justify-content:flex-end;margin:0 0 12px}
 .history-button{
-  width:100%;min-height:42px;border:1px solid #cbded0;
+  width:100%;min-height:43px;border:1px solid #cbded0;
   background:white;color:var(--green);border-radius:9px;
-  font-size:12px;font-weight:800;
+  font-size:13px;font-weight:900;
 }
 
 .filters{display:flex;gap:6px;overflow-x:auto;padding:1px 0 8px;margin-bottom:5px}
 .filter{
-  flex:0 0 auto;border:1px solid #dce5de;border-radius:20px;
-  background:white;color:#52665a;padding:8px 12px;font-size:11px;font-weight:700;
+  flex:0 0 auto;border:1px solid #d1ded4;border-radius:20px;
+  background:white;color:#40594a;padding:9px 12px;font-size:12px;font-weight:800;
 }
 .filter.active{background:#e0eee4;color:var(--green);border-color:#9fc8ad}
-.filter-count{opacity:.75;margin-left:3px}
+.filter-count{opacity:.85;margin-left:3px}
 
 .list-heading{
   display:flex;align-items:center;justify-content:space-between;
   gap:8px;margin:7px 2px 9px;
 }
-.list-heading h2{font-size:15px;color:var(--green);margin:0}
-.muted{font-size:11px;color:var(--muted)}
-.stock-list{display:flex;flex-direction:column;gap:7px}
+.list-heading h2{font-size:16px;font-weight:900;color:var(--green);margin:0}
+.muted{font-size:12px;font-weight:600;color:var(--muted)}
+.stock-list{display:flex;flex-direction:column;gap:8px}
 .stock-row{
   display:flex;align-items:center;gap:9px;min-width:0;
-  background:white;border:1px solid var(--border);border-radius:10px;padding:9px;
+  background:white;border:1px solid var(--border);border-radius:10px;padding:10px;
 }
-
 .item-photo,.photo-placeholder{
   width:75px;height:75px;min-width:75px;min-height:75px;
-  max-width:75px;max-height:75px;flex:0 0 75px;
-  border-radius:10px;box-sizing:border-box;
+  max-width:75px;max-height:75px;flex:0 0 75px;border-radius:10px;
 }
 .item-photo{display:block;object-fit:cover;object-position:center}
 .photo-placeholder{
@@ -140,23 +138,24 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
   background:#edf2ed;
 }
 .item-info{flex:1 1 0;min-width:0}
-.item-name{font-size:13px;font-weight:800;color:var(--green);overflow-wrap:anywhere;margin-bottom:4px}
-.item-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
-.tag{padding:3px 6px;border-radius:5px;background:#f1f5f1;color:#52665a}
+.item-name{font-size:14px;font-weight:900;color:var(--green);overflow-wrap:anywhere;margin-bottom:4px}
+.item-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--muted)}
+.tag{padding:3px 6px;border-radius:5px;background:#f1f5f1;color:#40594a;font-weight:700}
 .stock-status{
   display:inline-flex;align-items:center;gap:4px;border-radius:20px;
-  padding:4px 7px;font-size:10px;font-weight:800;white-space:nowrap;
+  padding:5px 8px;font-size:11px;font-weight:900;white-space:nowrap;
 }
 .status-in{background:#e4f6e9;color:#19703a}
 .status-low{background:#fff1d5;color:#955500}
 .status-out{background:#ffebe8;color:#b42318}
-.stock-right{min-width:63px;text-align:right}
-.stock-quantity{font-size:14px;font-weight:800;color:var(--green);white-space:nowrap}
-.stock-unit{font-size:10px;color:var(--muted);margin-top:3px}
+.stock-right{min-width:62px;text-align:right}
+.stock-quantity{font-size:15px;font-weight:900;color:var(--green);white-space:nowrap}
+.stock-unit{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px}
 .row-actions{display:flex;flex-direction:column;gap:5px}
 .empty,.loading{
-  padding:27px 12px;text-align:center;background:white;
-  border:1px dashed #cbd7ce;border-radius:10px;color:var(--muted);line-height:1.6;
+  padding:28px 12px;text-align:center;background:white;
+  border:1px dashed #cbd7ce;border-radius:10px;color:var(--muted);
+  line-height:1.7;font-weight:700;
 }
 .hidden{display:none!important}
 
@@ -167,45 +166,53 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
 .modal-backdrop.open{display:flex}
 .modal{
   width:100%;max-width:470px;max-height:92vh;overflow-y:auto;
-  background:white;border-radius:14px;padding:16px;
+  background:white;border-radius:14px;padding:17px;
   box-shadow:0 10px 35px #0003;
 }
-.modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
-.modal-header h2{color:var(--green);font-size:17px;margin:0}
+.modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.modal-header h2{color:var(--green);font-size:18px;font-weight:900;margin:0}
 .close-button{
   border:0;background:#edf2ed;color:var(--green);
-  border-radius:7px;width:32px;height:32px;font-size:20px;
+  border-radius:7px;width:34px;height:34px;font-size:22px;font-weight:900;flex:0 0 34px;
 }
-.field{margin-bottom:12px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#3d5145}
-.field small{display:block;margin-top:5px;font-size:11px;line-height:1.5;color:var(--muted)}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:13px;font-weight:900;margin-bottom:6px;color:#30483a}
+.field small{display:block;margin-top:5px;font-size:11px;font-weight:600;line-height:1.5;color:var(--muted)}
+.field-note{
+  background:#f1f6f2;border:1px solid #dce8df;padding:10px;
+  border-radius:8px;font-size:12px;font-weight:700;color:#40594a;line-height:1.5;
+}
 .two-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal-actions{display:flex;gap:8px;margin-top:17px}
 .modal-actions button{flex:1}
 .photo-preview{display:none;width:75px;height:75px;object-fit:cover;border-radius:9px;margin-top:8px}
-.progress-text{font-size:11px;color:var(--muted);margin-top:7px;overflow-wrap:anywhere}
+.progress-text{font-size:12px;font-weight:700;color:var(--muted);margin-top:7px;overflow-wrap:anywhere}
+.required-note{font-size:11px;color:var(--muted);font-weight:600;margin-top:-5px;margin-bottom:12px}
 
 @media(max-width:480px){
   .page{padding:10px}
-  .business-name{font-size:15px}
+  .business-name{font-size:16px}
   .summary-grid{gap:5px}
-  .summary-card{padding:8px 7px}
-  .summary-label{font-size:9px}
-  .summary-number{font-size:18px}
+  .summary-card{padding:9px 7px}
+  .summary-label{font-size:10px}
+  .summary-number{font-size:19px}
   .stock-row{gap:7px;padding:8px}
   .item-photo,.photo-placeholder{
-    width:65px;height:65px;min-width:65px;min-height:65px;
-    max-width:65px;max-height:65px;flex-basis:65px;
+    width:62px;height:62px;min-width:62px;min-height:62px;
+    max-width:62px;max-height:62px;flex-basis:62px;
   }
-  .stock-right{min-width:54px}
-  .stock-quantity{font-size:12px}
-  .row-actions .button{padding:7px;font-size:10px}
+  .stock-right{min-width:48px}
+  .stock-quantity{font-size:13px}
+  .row-actions .button{padding:8px 7px;font-size:10px}
+  .item-name{font-size:13px}
+  .modal{padding:14px}
 }
 @media(max-width:350px){
   .business-subtitle{display:none}
-  .summary-number{font-size:16px}
-  .item-meta{font-size:9px}
-  .stock-status{font-size:9px;padding:4px 5px}
+  .summary-number{font-size:17px}
+  .item-meta{font-size:10px}
+  .stock-status{font-size:10px;padding:4px 6px}
+  .row-actions .button{font-size:9px;padding:7px 5px}
 }
 </style>
 </head>
@@ -261,13 +268,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
     <div class="search">
       <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search inventory">
     </div>
-    <button type="button" class="button secondary" id="refreshButton" title="Refresh">↻</button>
-    <button type="button" class="button primary" id="primaryAction">+ Adjust</button>
+    <button type="button" class="button secondary" id="refreshButton" title="Refresh inventory">↻</button>
+    <button type="button" class="button primary" id="primaryAction">+ Adjust Stock</button>
   </section>
 
   <div class="history-button-row">
     <button type="button" class="button secondary history-button" id="recordsButton">
-      📋 View Stocks History ↗
+      📋 View Stock History ↗
     </button>
   </div>
 
@@ -298,7 +305,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
     <form id="productStockForm">
       <div class="field">
         <label>Product</label>
-        <div id="selectedProductName" style="font-weight:800;color:#0B4F3A"></div>
+        <div id="selectedProductName" style="font-weight:900;color:#0B4F3A"></div>
         <small>Current quantity: <strong id="selectedProductStock">0</strong></small>
       </div>
       <div class="field">
@@ -311,11 +318,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
       </div>
       <div class="field">
         <label for="productAdjustmentQuantity" id="productQuantityLabel">Quantity to Add *</label>
-        <input id="productAdjustmentQuantity" type="number" min="0" step="any" required>
+        <input id="productAdjustmentQuantity" type="number" min="0.000001" step="any" required>
       </div>
       <div class="field">
         <label for="productAdjustmentReason">Reason / Notes</label>
-        <textarea id="productAdjustmentReason" rows="2" maxlength="500" placeholder="e.g. New delivery, damaged items, stock count"></textarea>
+        <textarea id="productAdjustmentReason" rows="2" maxlength="500" placeholder="New delivery, damaged items, stock count..."></textarea>
       </div>
       <div class="modal-actions">
         <button class="button secondary" type="button" data-close="productModal">Cancel</button>
@@ -350,7 +357,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
       <div class="field">
         <label for="materialThreshold">Low Stock Alert At</label>
         <input id="materialThreshold" type="number" min="0" step="any" value="5">
-        <small>Show Low Stock when quantity is above zero and at or below this value.</small>
+        <small>Low Stock appears when the quantity is above zero and at or below this value.</small>
       </div>
       <div class="two-columns">
         <div class="field">
@@ -385,37 +392,71 @@ input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
   </section>
 </div>
 
-<!-- ADD MATERIAL STOCK -->
+<!-- MATERIAL STOCK ADJUSTMENT -->
 <div class="modal-backdrop" id="materialStockModal">
   <section class="modal" role="dialog" aria-modal="true" aria-labelledby="materialStockTitle">
     <div class="modal-header">
-      <h2 id="materialStockTitle">Add Material Stock</h2>
+      <h2 id="materialStockTitle">Adjust Material Stock</h2>
       <button class="close-button" type="button" data-close="materialStockModal">×</button>
     </div>
+
     <form id="materialStockForm">
       <div class="field">
         <label for="stockMaterialSelect">Material *</label>
         <select id="stockMaterialSelect" required></select>
+        <small id="materialCurrentStock">Current stock: —</small>
       </div>
+
       <div class="field">
-        <label for="materialStockQuantity">Quantity to Add *</label>
-        <input id="materialStockQuantity" type="number" min="0.000001" step="any" required>
+        <label for="materialAdjustmentType">Adjustment Type *</label>
+        <select id="materialAdjustmentType" required>
+          <option value="in">Add Stock — increase quantity</option>
+          <option value="out">Remove Stock — decrease quantity</option>
+          <option value="set">Set Exact Quantity</option>
+        </select>
       </div>
+
       <div class="field">
-        <label for="materialStockUnitCost">Unit Cost (₱)</label>
-        <input id="materialStockUnitCost" type="number" min="0" step="any" placeholder="Optional">
+        <label for="materialAdjustmentQuantity" id="materialAdjustmentQuantityLabel">Quantity to Add *</label>
+        <input id="materialAdjustmentQuantity" type="number" min="0.000001" step="any" required>
       </div>
+
       <div class="field">
-        <label for="materialStockSupplier">Supplier</label>
-        <input id="materialStockSupplier" maxlength="120" placeholder="Optional">
+        <label for="materialAdjustmentReason">Reason *</label>
+        <select id="materialAdjustmentReason" required>
+          <option value="delivery">New Delivery / Purchase</option>
+          <option value="waste">Waste / Damaged</option>
+          <option value="used">Used / Consumed</option>
+          <option value="customer_return">Returned by Customer</option>
+          <option value="supplier_return">Returned to Supplier</option>
+          <option value="correction">Stock Count Correction</option>
+          <option value="other">Other</option>
+        </select>
       </div>
+
       <div class="field">
-        <label for="materialStockNotes">Notes</label>
-        <textarea id="materialStockNotes" rows="2" maxlength="500" placeholder="Invoice number or other details"></textarea>
+        <label for="materialAdjustmentUnitCost">Unit Cost (₱)</label>
+        <input id="materialAdjustmentUnitCost" type="number" min="0" step="any" placeholder="Optional">
+        <small>For additions, you can enter the cost for this delivery. Leave blank if not applicable.</small>
       </div>
+
+      <div class="field">
+        <label for="materialAdjustmentSupplier">Supplier</label>
+        <input id="materialAdjustmentSupplier" maxlength="120" placeholder="Optional">
+      </div>
+
+      <div class="field">
+        <label for="materialAdjustmentNotes">Notes</label>
+        <textarea id="materialAdjustmentNotes" rows="2" maxlength="500" placeholder="Explain the adjustment or record a reference number..."></textarea>
+      </div>
+
+      <div class="field-note" id="materialAdjustmentHelp">
+        The inventory balance and stock history will be updated together.
+      </div>
+
       <div class="modal-actions">
         <button class="button secondary" type="button" data-close="materialStockModal">Cancel</button>
-        <button class="button primary" type="submit" id="saveMaterialStock">Save Stock</button>
+        <button class="button primary" type="submit" id="saveMaterialStock">Save Adjustment</button>
       </div>
     </form>
   </section>
@@ -533,17 +574,15 @@ function materialUnit(m){return m.unit||"pcs"}
 function materialStock(m){return num(m.quantity??m.stock??0)}
 function materialPhoto(m){return m.photoUrl||m.photoURL||m.imageUrl||m.imageURL||m.image||m.photo||""}
 
-function thresholdFor(item,isMaterial){
-  const raw=isMaterial
-    ?(item.lowStockAlert??item.lowStockThreshold??item.reorderLevel)
-    :(item.lowStockAlert??item.lowStockThreshold??item.reorderLevel);
+function thresholdFor(item){
+  const raw=item.lowStockAlert??item.lowStockThreshold??item.reorderLevel;
   return raw===undefined||raw===null||raw===""
     ?DEFAULT_LOW_STOCK_THRESHOLD:Math.max(0,num(raw));
 }
 function statusFor(item,isMaterial){
   const qty=isMaterial?materialStock(item):productStock(item);
   if(qty<=0)return "out";
-  if(qty<=thresholdFor(item,isMaterial))return "low";
+  if(qty<=thresholdFor(item))return "low";
   return "in";
 }
 function statusBadge(status){
@@ -635,13 +674,14 @@ function renderInventory(){
     const status=statusFor(item,isMaterial);
     const category=item.category?'<span class="tag">'+escapeHtml(item.category)+'</span>':"";
     const sku=item.sku?'<span>SKU: '+escapeHtml(item.sku)+'</span>':"";
-    const threshold=thresholdFor(item,isMaterial);
+    const threshold=thresholdFor(item);
     const thresholdText=threshold>0?'Low at ≤ '+fmt(threshold):'Low threshold: 0';
     const photoHtml=photo
       ?'<img class="item-photo" src="'+escapeHtml(photo)+'" alt="'+escapeHtml(name)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';"><div class="photo-placeholder" style="display:none">📦</div>'
       :'<div class="photo-placeholder">📦</div>';
+
     const action=isMaterial
-      ?'<button class="button yellow small" type="button" data-add-material-stock="'+escapeHtml(item.id)+'">+ Stock</button>'
+      ?'<button class="button yellow small" type="button" data-adjust-material="'+escapeHtml(item.id)+'">Adjust</button>'
       :'<button class="button yellow small" type="button" data-adjust-product="'+escapeHtml(item.id)+'">Adjust</button>';
 
     return '<article class="stock-row">'+photoHtml+
@@ -655,6 +695,7 @@ function renderInventory(){
   }).join("");
 }
 
+/* PRODUCT ADJUSTMENT */
 function openProductAdjustment(id){
   const item=products.find(p=>p.id===id);
   if(!item)return;
@@ -684,6 +725,7 @@ $("productStockForm").addEventListener("submit",async event=>{
   if(!Number.isFinite(amount)||amount<0||(type!=="set"&&amount<=0)){
     showNotice("Enter a valid stock quantity.","error");return;
   }
+
   saving=true;
   setLoading("saveProductStock",true,"Saving...","Save Adjustment");
   try{
@@ -701,27 +743,17 @@ $("productStockForm").addEventListener("submit",async event=>{
       const delta=next-previous;
 
       tx.update(productRef,{
-        stockQuantity:next,
-        updatedAt:serverTimestamp(),
-        updatedByUid:currentUser.uid,
-        updatedByName:actorName,
-        updatedByRole:actorRole
+        stockQuantity:next,updatedAt:serverTimestamp(),
+        updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
       });
       tx.set(activityRef,{
         action:type==="in"?"product_stock_in":type==="out"?"product_stock_out":"product_stock_adjustment",
         description:"Adjusted stock for "+productName(p),
-        targetType:"product_inventory",
-        targetId:selectedProductId,
-        ...actor,
+        targetType:"product_inventory",targetId:selectedProductId,...actor,
         details:{
-          productId:selectedProductId,
-          productName:productName(p),
-          previousStock:previous,
-          quantityChanged:delta,
-          newStock:next,
-          unit:productUnit(p),
-          adjustmentType:type,
-          reason
+          productId:selectedProductId,productName:productName(p),
+          previousStock:previous,quantityChanged:delta,newStock:next,
+          unit:productUnit(p),adjustmentType:type,reason
         },
         createdAt:serverTimestamp()
       });
@@ -739,6 +771,7 @@ $("productStockForm").addEventListener("submit",async event=>{
   }
 });
 
+/* ADD MATERIAL */
 function openAddMaterial(){
   $("materialForm").reset();
   $("materialUnit").value="pcs";
@@ -748,18 +781,6 @@ function openAddMaterial(){
   $("photoUploadStatus").textContent="";
   if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null}
   openModal("materialModal");
-}
-function openAddMaterialStock(id=""){
-  if(!materials.length){
-    showNotice("Add a material first.","info");return;
-  }
-  $("stockMaterialSelect").innerHTML=materials.map(m=>
-    '<option value="'+escapeHtml(m.id)+'">'+escapeHtml(materialName(m))+
-    ' ('+escapeHtml(fmt(materialStock(m)))+' '+escapeHtml(materialUnit(m))+')</option>'
-  ).join("");
-  $("materialStockForm").reset();
-  if(id)$("stockMaterialSelect").value=id;
-  openModal("materialStockModal");
 }
 
 $("materialPhoto").addEventListener("change",event=>{
@@ -805,6 +826,7 @@ async function uploadMaterialPhoto(file){
 $("materialForm").addEventListener("submit",async event=>{
   event.preventDefault();
   if(saving||!currentUser||!businessId)return;
+
   const name=$("materialName").value.trim();
   const category=$("materialCategory").value.trim();
   const unit=$("materialUnit").value.trim();
@@ -836,15 +858,14 @@ $("materialForm").addEventListener("submit",async event=>{
     await runTransaction(db,async tx=>{
       tx.set(materialRef,{
         name,category,unit,quantity:opening,unitCost,supplier,notes,photoUrl,
-        lowStockAlert:threshold,
-        ownerUid:businessId,
+        lowStockAlert:threshold,ownerUid:businessId,
         createdAt:serverTimestamp(),updatedAt:serverTimestamp(),
         createdByUid:currentUser.uid,createdByName:actorName,createdByRole:actorRole,
         updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
       });
+
       tx.set(activityRef,{
-        action:"material_created",
-        description:"Created material: "+name,
+        action:"material_created",description:"Created material: "+name,
         targetType:"material",targetId:materialRef.id,...actor,
         details:{
           materialId:materialRef.id,materialName:name,category,unit,
@@ -853,6 +874,7 @@ $("materialForm").addEventListener("submit",async event=>{
         },
         createdAt:serverTimestamp()
       });
+
       if(opening>0){
         tx.set(movementRef,{
           materialId:materialRef.id,materialName:name,type:"stock-in",
@@ -875,24 +897,105 @@ $("materialForm").addEventListener("submit",async event=>{
   }
 });
 
+/* MATERIAL ADJUSTMENT */
+function openMaterialAdjustment(id=""){
+  if(!materials.length){
+    showNotice("Add a material first before adjusting material stock.","info");
+    return;
+  }
+
+  $("stockMaterialSelect").innerHTML=materials.map(m=>
+    '<option value="'+escapeHtml(m.id)+'">'+escapeHtml(materialName(m))+'</option>'
+  ).join("");
+
+  $("materialStockForm").reset();
+  $("materialAdjustmentType").value="in";
+  $("materialAdjustmentReason").value="delivery";
+  $("materialAdjustmentQuantity").value="";
+  $("materialAdjustmentUnitCost").value="";
+  $("materialAdjustmentSupplier").value="";
+  $("materialAdjustmentNotes").value="";
+
+  if(id)$("stockMaterialSelect").value=id;
+
+  updateMaterialAdjustmentInfo();
+  openModal("materialStockModal");
+}
+
+function updateMaterialAdjustmentInfo(){
+  const type=$("materialAdjustmentType").value;
+  const reason=$("materialAdjustmentReason").value;
+  const material=materials.find(m=>m.id===$("stockMaterialSelect").value);
+  const qty=material?materialStock(material):0;
+  const unit=material?materialUnit(material):"units";
+
+  $("materialCurrentStock").textContent=
+    "Current stock: "+fmt(qty)+" "+unit;
+
+  $("materialAdjustmentQuantityLabel").textContent=
+    type==="in"?"Quantity to Add *":
+    type==="out"?"Quantity to Remove *":"New Exact Quantity *";
+
+  $("materialAdjustmentQuantity").min=type==="set"?"0":"0.000001";
+
+  let help="The inventory balance and stock history will be updated together.";
+  if(type==="in"){
+    help="This adjustment will increase the material quantity.";
+  }else if(type==="out"){
+    help="This adjustment will reduce the material quantity. You cannot remove more than the available stock.";
+  }else{
+    help="This will set the final stock balance to the exact quantity entered. The difference will be recorded in stock history.";
+  }
+
+  if(reason==="waste")help+=" Reason: Waste or damaged material.";
+  if(reason==="used")help+=" Reason: Material used or consumed by the business.";
+  if(reason==="customer_return")help+=" Reason: Material returned by a customer.";
+  if(reason==="supplier_return")help+=" Reason: Material returned to the supplier.";
+  if(reason==="correction")help+=" Reason: Stock count correction.";
+  if(reason==="other")help+=" Add an explanation in Notes.";
+
+  $("materialAdjustmentHelp").textContent=help;
+}
+
+$("materialAdjustmentType").addEventListener("change",updateMaterialAdjustmentInfo);
+$("materialAdjustmentReason").addEventListener("change",updateMaterialAdjustmentInfo);
+$("stockMaterialSelect").addEventListener("change",updateMaterialAdjustmentInfo);
+
 $("materialStockForm").addEventListener("submit",async event=>{
   event.preventDefault();
   if(saving||!currentUser||!businessId)return;
+
   const materialId=$("stockMaterialSelect").value;
-  const added=Number($("materialStockQuantity").value);
-  const costText=$("materialStockUnitCost").value.trim();
+  const type=$("materialAdjustmentType").value;
+  const reason=$("materialAdjustmentReason").value;
+  const amount=Number($("materialAdjustmentQuantity").value);
+  const costText=$("materialAdjustmentUnitCost").value.trim();
   const unitCost=costText===""?null:Number(costText);
-  const supplier=$("materialStockSupplier").value.trim();
-  const notes=$("materialStockNotes").value.trim();
+  const supplier=$("materialAdjustmentSupplier").value.trim();
+  const notes=$("materialAdjustmentNotes").value.trim();
 
   if(!materialId){showNotice("Select a material.","error");return}
-  if(!Number.isFinite(added)||added<=0){showNotice("Enter a quantity greater than zero.","error");return}
+  if(!Number.isFinite(amount)||amount<0||(type!=="set"&&amount<=0)){
+    showNotice("Enter a valid quantity. Quantity must be greater than zero unless setting an exact balance.","error");
+    return;
+  }
   if(unitCost!==null&&(!Number.isFinite(unitCost)||unitCost<0)){
     showNotice("Unit cost must be zero or greater.","error");return;
   }
 
+  if(type==="out"&&reason==="delivery"){
+    showNotice("Choose an appropriate reason for removing stock.","error");return;
+  }
+  if(type==="in"&&reason==="supplier_return"){
+    showNotice("Returning material to a supplier should use Remove Stock.","error");return;
+  }
+  if(type==="out"&&reason==="customer_return"){
+    showNotice("Returned-by-customer stock should use Add Stock.","error");return;
+  }
+
   saving=true;
-  setLoading("saveMaterialStock",true,"Saving...","Save Stock");
+  setLoading("saveMaterialStock",true,"Saving...","Save Adjustment");
+
   try{
     const materialRef=doc(db,"users",businessId,"materials",materialId);
     const movementRef=doc(collection(db,"users",businessId,"materialInventory"));
@@ -901,66 +1004,135 @@ $("materialStockForm").addEventListener("submit",async event=>{
 
     await runTransaction(db,async tx=>{
       const snap=await tx.get(materialRef);
-      if(!snap.exists())throw new Error("Material not found. Refresh the list.");
+      if(!snap.exists())throw new Error("Material not found. Refresh the inventory.");
+
       const m=snap.data();
       const previous=materialStock(m);
-      const next=previous+added;
+      const next=type==="in"?previous+amount:type==="out"?previous-amount:amount;
+
+      if(next<0)throw new Error("You cannot remove more stock than is available.");
+
+      const delta=next-previous;
+      const changed=Math.abs(delta);
       const name=materialName(m);
       const unit=materialUnit(m);
 
+      let movementType;
+      if(type==="in"){
+        movementType=reason==="customer_return"?"return-in":"stock-in";
+      }else if(type==="out"){
+        movementType=reason==="waste"?"waste":
+          reason==="used"?"used":
+          reason==="supplier_return"?"supplier-return":"stock-out";
+      }else{
+        movementType="adjustment";
+      }
+
+      const reasonLabels={
+        delivery:"New Delivery / Purchase",
+        waste:"Waste / Damaged",
+        used:"Used / Consumed",
+        customer_return:"Returned by Customer",
+        supplier_return:"Returned to Supplier",
+        correction:"Stock Count Correction",
+        other:"Other"
+      };
+
       tx.update(materialRef,{
-        quantity:next,updatedAt:serverTimestamp(),
-        updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
+        quantity:next,
+        updatedAt:serverTimestamp(),
+        updatedByUid:currentUser.uid,
+        updatedByName:actorName,
+        updatedByRole:actorRole
       });
+
       tx.set(movementRef,{
-        materialId,materialName:name,type:"stock-in",quantity:added,unit,
-        unitCost,supplier,notes,balanceAfter:next,ownerUid:businessId,
-        createdAt:serverTimestamp(),...actor
+        materialId,
+        materialName:name,
+        type:movementType,
+        adjustmentType:type,
+        reason,
+        reasonLabel:reasonLabels[reason]||reason,
+        quantity:changed,
+        quantityChanged:delta,
+        previousStock:previous,
+        balanceAfter:next,
+        unit,
+        unitCost,
+        supplier,
+        notes,
+        ownerUid:businessId,
+        createdAt:serverTimestamp(),
+        ...actor
       });
+
       tx.set(activityRef,{
-        action:"material_stock_in",
-        description:"Added "+fmt(added)+" "+unit+" of "+name,
-        targetType:"material",targetId:materialId,...actor,
+        action:type==="in"?"material_stock_in":
+          type==="out"?"material_stock_out":"material_stock_adjustment",
+        description:
+          (type==="in"?"Added ":
+           type==="out"?"Removed ":"Adjusted ")+
+          fmt(changed)+" "+unit+" of "+name+
+          " ("+(reasonLabels[reason]||reason)+")",
+        targetType:"material",
+        targetId:materialId,
+        ...actor,
         details:{
-          materialId,materialName:name,previousStock:previous,
-          addedStock:added,newStock:next,unit,unitCost,supplier,notes
+          materialId,
+          materialName:name,
+          adjustmentType:type,
+          reason,
+          reasonLabel:reasonLabels[reason]||reason,
+          previousStock:previous,
+          quantityChanged:delta,
+          changedQuantity:changed,
+          newStock:next,
+          unit,
+          unitCost,
+          supplier,
+          notes
         },
         createdAt:serverTimestamp()
       });
     });
 
     closeModal("materialStockModal");
-    showNotice("Material stock added and recorded successfully.","success");
+    showNotice("Material stock adjusted successfully. The quantity and stock history have been updated.","success");
     await loadInventory();
   }catch(error){
-    console.error(error);
-    showNotice("Unable to add material stock: "+(error.message||"Please try again."),"error");
+    console.error("Material adjustment error:",error);
+    showNotice("Unable to adjust material stock: "+(error.message||"Please try again."),"error");
   }finally{
     saving=false;
-    setLoading("saveMaterialStock",false,"Saving...","Save Stock");
+    setLoading("saveMaterialStock",false,"Saving...","Save Adjustment");
   }
 });
 
-/* TAB, FILTER, SEARCH AND ACTIONS */
+/* TABS, FILTERS, SEARCH AND ACTIONS */
 document.querySelectorAll(".tab").forEach(button=>{
   button.addEventListener("click",()=>{
     activeTab=button.dataset.tab;
     activeFilter="all";
     $("searchInput").value="";
+    clearNotice();
     renderInventory();
   });
 });
+
 document.querySelectorAll(".filter").forEach(button=>{
   button.addEventListener("click",()=>{
     activeFilter=button.dataset.filter;
     renderInventory();
   });
 });
+
 $("searchInput").addEventListener("input",renderInventory);
+
 $("refreshButton").addEventListener("click",async()=>{
   clearNotice();
   await loadInventory();
 });
+
 $("primaryAction").addEventListener("click",()=>{
   clearNotice();
   if(activeTab==="materials"){
@@ -974,6 +1146,7 @@ $("primaryAction").addEventListener("click",()=>{
     showNotice("Tap Adjust beside the product you want to update.","info");
   }
 });
+
 $("stockList").addEventListener("click",event=>{
   const productButton=event.target.closest("[data-adjust-product]");
   if(productButton){
@@ -981,37 +1154,27 @@ $("stockList").addEventListener("click",event=>{
     openProductAdjustment(productButton.dataset.adjustProduct);
     return;
   }
-  const materialButton=event.target.closest("[data-add-material-stock]");
+
+  const materialButton=event.target.closest("[data-adjust-material]");
   if(materialButton){
     clearNotice();
-    openAddMaterialStock(materialButton.dataset.addMaterialStock);
+    openMaterialAdjustment(materialButton.dataset.adjustMaterial);
   }
 });
 
-/*
- * STOCK HISTORY REDIRECT
- * Supports a stock-history folder inside the current folder,
- * or one level above the current folder.
- */
+/* STOCK HISTORY REDIRECT */
 $("recordsButton").addEventListener("click",()=>{
   const currentPath=window.location.pathname;
   const currentDirectory=currentPath.substring(0,currentPath.lastIndexOf("/") + 1);
 
-  const candidates=[
-    new URL("stock-history/index.html",window.location.origin+currentDirectory).href,
-    new URL("../stock-history/index.html",window.location.origin+currentDirectory).href
-  ];
+  const sameFolderPath=new URL("stock-history/index.html",window.location.origin+currentDirectory).href;
+  const parentFolderPath=new URL("../stock-history/index.html",window.location.origin+currentDirectory).href;
 
-  const currentCandidate=candidates[0];
-  const parentCandidate=candidates[1];
-
-  // Use the same-folder path first. If your folder is elsewhere,
-  // change this to the exact relative path of your stock-history page.
-  const savedPath=window.location.pathname;
-  const pathLooksNested=/\/(inventory|stock-inventory)\//i.test(savedPath);
-  window.location.assign(pathLooksNested?parentCandidate:currentCandidate);
+  const pathLooksNested=/\/(inventory|stock-inventory)\//i.test(currentPath);
+  window.location.assign(pathLooksNested?parentFolderPath:sameFolderPath);
 });
 
+/* MODAL CLOSE CONTROLS */
 document.querySelectorAll("[data-close]").forEach(button=>{
   button.addEventListener("click",()=>closeModal(button.dataset.close));
 });
@@ -1032,6 +1195,7 @@ onAuthStateChanged(auth,async user=>{
     window.location.href="../login/";
     return;
   }
+
   currentUser=user;
   try{
     const userSnap=await getDoc(doc(db,"users",user.uid));
