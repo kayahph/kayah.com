@@ -1015,9 +1015,17 @@ $("stockList").addEventListener("click",event=>{
   const materialButton=event.target.closest("[data-add-material-stock]");
   if(materialButton){clearNotice();openAddMaterialStock(materialButton.dataset.addMaterialStock)}
 });
-$("recordsButton").addEventListener("click",()=>{
-  window.location.href="stock-history/index.html";
-});
+
+const recordsButton = document.getElementById("recordsButton");
+
+if (recordsButton) {
+    recordsButton.addEventListener("click", function () {
+        window.location.href = new URL(
+            "stock-history/index.html",
+            window.location.href
+        ).href;
+    });
+}
 document.querySelectorAll("[data-close]").forEach(button=>{
   button.addEventListener("click",()=>closeModal(button.dataset.close));
 });
