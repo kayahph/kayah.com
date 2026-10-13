@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +19,9 @@
     --red: #C0392B;
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -29,9 +30,20 @@ body {
     color: var(--text);
 }
 
-button, input, select { font: inherit; }
-button { cursor: pointer; }
+button, input, select {
+    font: inherit;
+}
 
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+/* BUSINESS HEADER */
 .top-header {
     background: linear-gradient(135deg, var(--green), var(--green2));
     color: white;
@@ -47,7 +59,8 @@ button { cursor: pointer; }
     gap: 12px;
 }
 
-.business-logo, .logo-fallback {
+.business-logo,
+.logo-fallback {
     width: 48px;
     height: 48px;
     flex: 0 0 48px;
@@ -70,7 +83,10 @@ button { cursor: pointer; }
     font-weight: bold;
 }
 
-.header-info { flex: 1; min-width: 0; }
+.header-info {
+    flex: 1;
+    min-width: 0;
+}
 
 .header-info h1 {
     font-size: 19px;
@@ -93,13 +109,16 @@ button { cursor: pointer; }
     white-space: nowrap;
 }
 
+/* PAGE */
 .page {
     max-width: 1200px;
     margin: auto;
     padding: 18px 14px 40px;
 }
 
-.page-heading { margin: 2px 0 16px; }
+.page-heading {
+    margin: 2px 0 16px;
+}
 
 .page-heading h2 {
     color: var(--green);
@@ -114,6 +133,7 @@ button { cursor: pointer; }
     line-height: 1.5;
 }
 
+/* SUMMARY CARDS */
 .summary-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -129,7 +149,10 @@ button { cursor: pointer; }
     min-width: 0;
 }
 
-.summary-icon { font-size: 22px; margin-bottom: 9px; }
+.summary-icon {
+    font-size: 22px;
+    margin-bottom: 9px;
+}
 
 .summary-label {
     color: var(--muted);
@@ -145,12 +168,13 @@ button { cursor: pointer; }
     overflow-wrap: anywhere;
 }
 
-/* ACTION BUTTONS */
-
+/* TOOLBAR — BUTTONS ALIGN CONSISTENTLY */
 .toolbar-actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 10px;
     margin: 0 0 16px;
 }
 
@@ -161,26 +185,35 @@ button { cursor: pointer; }
     gap: 7px;
     border: 0;
     border-radius: 10px;
-    padding: 12px 14px;
+    padding: 12px 16px;
+    min-height: 44px;
     font-size: 13px;
     font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
     text-decoration: none;
-    min-height: 44px;
+    transition: background .2s, transform .15s;
 }
 
 .search-toggle {
     background: var(--green);
     color: white;
+    flex: 0 1 auto;
 }
 
-.adjust-button {
-    background: var(--gold);
-    color: #26352D;
+.search-toggle:hover {
+    background: var(--green2);
 }
 
 .refresh-button {
     background: #E7EEE8;
     color: var(--green);
+    flex: 0 0 auto;
+    min-width: 112px;
+}
+
+.refresh-button:hover {
+    background: #D9E5DB;
 }
 
 .toolbar-button:active,
@@ -188,8 +221,7 @@ button { cursor: pointer; }
     transform: scale(.98);
 }
 
-/* SEARCH PANEL: HIDDEN BY DEFAULT */
-
+/* SEARCH PANEL */
 .search-panel {
     background: white;
     border: 1px solid var(--border);
@@ -211,8 +243,16 @@ button { cursor: pointer; }
 
 .search-grid {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field-name {
+    grid-column: span 2;
 }
 
 .field label {
@@ -223,7 +263,8 @@ button { cursor: pointer; }
     margin-bottom: 6px;
 }
 
-.field input {
+.field input,
+.field select {
     width: 100%;
     min-width: 0;
     border: 1px solid #D8E0D9;
@@ -232,9 +273,11 @@ button { cursor: pointer; }
     padding: 11px 10px;
     outline: none;
     color: var(--text);
+    font-size: 13px;
 }
 
-.field input:focus {
+.field input:focus,
+.field select:focus {
     border-color: var(--green2);
     box-shadow: 0 0 0 3px rgba(22,128,92,.10);
 }
@@ -250,12 +293,29 @@ button { cursor: pointer; }
     border: 0;
     border-radius: 9px;
     padding: 11px 16px;
+    font-size: 13px;
     font-weight: 700;
+    min-height: 40px;
 }
 
-.btn-primary { color: white; background: var(--green); }
-.btn-secondary { background: #EDF2EE; color: var(--green); }
-.btn-today { background: #FFF0D1; color: #795000; }
+.btn-primary {
+    color: white;
+    background: var(--green);
+}
+
+.btn-primary:hover {
+    background: var(--green2);
+}
+
+.btn-secondary {
+    background: #EDF2EE;
+    color: var(--green);
+}
+
+.btn-today {
+    background: #FFF0D1;
+    color: #795000;
+}
 
 .search-note {
     font-size: 11px;
@@ -264,6 +324,7 @@ button { cursor: pointer; }
     line-height: 1.5;
 }
 
+/* TABS */
 .tabs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -293,6 +354,7 @@ button { cursor: pointer; }
     margin-bottom: 5px;
 }
 
+/* RESULTS */
 .results-heading {
     display: flex;
     align-items: center;
@@ -307,9 +369,16 @@ button { cursor: pointer; }
     font-size: 16px;
 }
 
-.results-count { color: var(--muted); font-size: 12px; }
+.results-count {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+}
 
-.item-list { display: grid; gap: 10px; }
+.item-list {
+    display: grid;
+    gap: 10px;
+}
 
 .item-card {
     background: white;
@@ -325,7 +394,8 @@ button { cursor: pointer; }
     gap: 11px;
 }
 
-.item-photo, .item-placeholder {
+.item-photo,
+.item-placeholder {
     width: 54px;
     height: 54px;
     flex: 0 0 54px;
@@ -345,7 +415,10 @@ button { cursor: pointer; }
     font-size: 25px;
 }
 
-.item-info { min-width: 0; flex: 1; }
+.item-info {
+    min-width: 0;
+    flex: 1;
+}
 
 .item-name {
     color: #24392D;
@@ -359,6 +432,7 @@ button { cursor: pointer; }
     font-size: 11px;
     margin-top: 5px;
     overflow-wrap: anywhere;
+    line-height: 1.5;
 }
 
 .status {
@@ -371,8 +445,15 @@ button { cursor: pointer; }
     color: #217346;
 }
 
-.status.low { background: #FFF0D1; color: #8A5B00; }
-.status.out { background: #FCE8E6; color: #B3261E; }
+.status.low {
+    background: #FFF0D1;
+    color: #8A5B00;
+}
+
+.status.out {
+    background: #FCE8E6;
+    color: #B3261E;
+}
 
 .item-stats {
     display: grid;
@@ -397,9 +478,14 @@ button { cursor: pointer; }
     overflow-wrap: anywhere;
 }
 
-.stat-value.sold { color: #946200; }
+.stat-value.sold {
+    color: #946200;
+}
 
-.empty-state, .loading-state, .error-state {
+/* MESSAGES */
+.empty-state,
+.loading-state,
+.error-state {
     text-align: center;
     background: white;
     border: 1px solid var(--border);
@@ -410,7 +496,9 @@ button { cursor: pointer; }
     font-size: 13px;
 }
 
-.error-state { color: var(--red); }
+.error-state {
+    color: var(--red);
+}
 
 .page-footer {
     text-align: center;
@@ -419,23 +507,112 @@ button { cursor: pointer; }
     font-size: 11px;
 }
 
+/* MOBILE */
 @media (max-width: 600px) {
-    .page { padding: 14px 11px 30px; }
-    .search-grid { grid-template-columns: 1fr 1fr; }
-    .field-name { grid-column: 1 / -1; }
-    .summary-card { padding: 11px 9px; }
-    .summary-value { font-size: 20px; }
-    .header-back { padding: 9px; font-size: 12px; }
-    .item-card { padding: 11px; }
-    .item-stats { gap: 5px; }
-    .stat-value { font-size: 14px; }
-    .toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; }
-    .toolbar-button { padding: 11px 8px; font-size: 12px; }
-    .search-toggle { grid-column: 1 / -1; }
+    .page {
+        padding: 14px 11px 30px;
+    }
+
+    .search-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-name {
+        grid-column: 1 / -1;
+    }
+
+    .summary-card {
+        padding: 11px 9px;
+    }
+
+    .summary-value {
+        font-size: 20px;
+    }
+
+    .header-back {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .item-card {
+        padding: 11px;
+    }
+
+    .item-stats {
+        gap: 5px;
+    }
+
+    .stat-value {
+        font-size: 14px;
+    }
+
+    /* Keep Search and Refresh on the same row */
+    .toolbar-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .toolbar-button {
+        min-height: 44px;
+        padding: 11px 10px;
+        font-size: 12px;
+    }
+
+    .search-toggle {
+        grid-column: auto;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .refresh-button {
+        min-width: 96px;
+        width: auto;
+    }
+
+    .status {
+        font-size: 9px;
+        padding: 5px 6px;
+    }
+}
+
+@media (max-width: 360px) {
+    .toolbar-actions {
+        grid-template-columns: minmax(0, 1fr) 94px;
+        gap: 6px;
+    }
+
+    .toolbar-button {
+        font-size: 11px;
+        padding: 10px 7px;
+    }
+
+    .refresh-button {
+        min-width: 0;
+    }
+
+    .search-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field-name {
+        grid-column: auto;
+    }
+
+    .item-photo,
+    .item-placeholder {
+        width: 46px;
+        height: 46px;
+        flex-basis: 46px;
+    }
 }
 
 @media (min-width: 760px) {
-    .item-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .item-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 </style>
 </head>
@@ -469,8 +646,8 @@ button { cursor: pointer; }
     <section class="page-heading">
         <h2>Inventory Overview</h2>
         <p>
-            Review stock levels and POS sales for products, materials,
-            and services. Search by item name and sale date.
+            Review products, materials, services, and items with recorded POS sales.
+            Use Search &amp; Filter to narrow the results.
         </p>
     </section>
 
@@ -494,7 +671,7 @@ button { cursor: pointer; }
         </div>
     </section>
 
-    <!-- SEARCH, ADJUST STOCK, AND REFRESH ACTIONS -->
+    <!-- Search and Refresh are aligned together -->
     <section class="toolbar-actions">
         <button
             class="toolbar-button search-toggle"
@@ -507,14 +684,6 @@ button { cursor: pointer; }
         </button>
 
         <button
-            class="toolbar-button adjust-button"
-            id="adjustStockButton"
-            type="button"
-        >
-            📦 Adjust Stock Inventory
-        </button>
-
-        <button
             class="toolbar-button refresh-button"
             id="refreshButton"
             type="button"
@@ -523,19 +692,44 @@ button { cursor: pointer; }
         </button>
     </section>
 
-    <!-- SEARCH PANEL IS HIDDEN UNTIL SEARCH IS CLICKED -->
     <section class="search-panel" id="searchPanel" hidden>
         <h3 class="section-heading">Search &amp; Filter</h3>
 
         <div class="search-grid">
+
             <div class="field field-name">
                 <label for="searchName">Item name</label>
                 <input
                     id="searchName"
                     type="search"
-                    placeholder="Search by name..."
+                    placeholder="Search by item name..."
                     autocomplete="off"
                 >
+            </div>
+
+            <div class="field">
+                <label for="searchSku">SKU / Item code</label>
+                <input
+                    id="searchSku"
+                    type="search"
+                    placeholder="SKU or barcode..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="field">
+                <label for="searchCategory">Category</label>
+                <select id="searchCategory">
+                    <option value="">All categories</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="salesStatus">Show items</label>
+                <select id="salesStatus">
+                    <option value="sold" selected>Sold / used only</option>
+                    <option value="all">All items</option>
+                </select>
             </div>
 
             <div class="field">
@@ -547,6 +741,7 @@ button { cursor: pointer; }
                 <label for="dateTo">To date</label>
                 <input id="dateTo" type="date">
             </div>
+
         </div>
 
         <div class="search-actions">
@@ -564,27 +759,24 @@ button { cursor: pointer; }
         </div>
 
         <div class="search-note">
-            Choose Today to show sales and material usage for the current
-            Philippine calendar day. Custom date filters apply to the
-            Sold in Period and Used in Period figures. Total Stock uses
-            all loaded sales plus current remaining stock.
+            “Sold / used only” is the default. Products and services must have a
+            matching POS sale in the selected date range. Materials must have
+            recorded recipe usage from sold products. Choose “All items” to show
+            items with no sales or usage too. Dates use Philippine time.
         </div>
     </section>
 
     <nav class="tabs" aria-label="Inventory categories">
         <button type="button" class="tab-button active" data-tab="products">
-            <span>📦</span>
-            Products
+            <span>📦</span>Products
         </button>
 
         <button type="button" class="tab-button" data-tab="materials">
-            <span>🧱</span>
-            Materials
+            <span>🧱</span>Materials
         </button>
 
         <button type="button" class="tab-button" data-tab="services">
-            <span>🛠️</span>
-            Services
+            <span>🛠️</span>Services
         </button>
     </nav>
 
@@ -606,8 +798,7 @@ button { cursor: pointer; }
 </main>
 
 <script type="module">
-import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
@@ -622,10 +813,7 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* =====================================================
-   EXISTING KAYAH FIREBASE CONFIGURATION
-===================================================== */
-
+/* FIREBASE CONFIGURATION */
 const firebaseConfig = {
     apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
     authDomain: "kayah-ecosystem.firebaseapp.com",
@@ -639,6 +827,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+/* APPLICATION STATE */
 let currentUser = null;
 let currentBusinessId = null;
 let currentUserData = {};
@@ -650,22 +839,27 @@ let allServices = [];
 let allSales = [];
 
 let activeTab = "products";
+
 let appliedName = "";
+let appliedSku = "";
+let appliedCategory = "";
 let appliedFrom = "";
 let appliedTo = "";
+let appliedSalesStatus = "sold";
 
 const $ = id => document.getElementById(id);
 
-/* =====================================================
-   SAFE HELPERS
-===================================================== */
-
+/* SAFE HELPERS */
 function safeString(value, fallback = "") {
     if (value === null || value === undefined) return fallback;
     return String(value);
 }
 
 function safeNumber(value, fallback = 0) {
+    if (value === null || value === undefined || value === "") {
+        return fallback;
+    }
+
     const number = Number(value);
     return Number.isFinite(number) ? number : fallback;
 }
@@ -681,15 +875,13 @@ function displayNumber(value) {
 }
 
 function escapeHTML(value) {
-    return safeString(value).replace(/[&<>"']/g, function(char) {
-        return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        }[char];
-    });
+    return safeString(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[char]));
 }
 
 function getTimestamp(value) {
@@ -700,7 +892,7 @@ function getTimestamp(value) {
     }
 
     if (value instanceof Date) {
-        return value;
+        return Number.isNaN(value.getTime()) ? null : value;
     }
 
     if (typeof value === "number") {
@@ -720,7 +912,7 @@ function getTimestamp(value) {
     return null;
 }
 
-/* Philippine date key: YYYY-MM-DD */
+/* PHILIPPINE DATE KEY: YYYY-MM-DD */
 function manilaDateKey(value) {
     const date = getTimestamp(value);
     if (!date) return "";
@@ -734,7 +926,7 @@ function manilaDateKey(value) {
 
     const values = {};
 
-    parts.forEach(function(part) {
+    parts.forEach(part => {
         values[part.type] = part.value;
     });
 
@@ -748,11 +940,11 @@ function getTodayManila() {
 function isWithinDateRange(timestamp) {
     if (!appliedFrom && !appliedTo) return true;
 
-    const dateKey = manilaDateKey(timestamp);
-    if (!dateKey) return false;
+    const key = manilaDateKey(timestamp);
 
-    if (appliedFrom && dateKey < appliedFrom) return false;
-    if (appliedTo && dateKey > appliedTo) return false;
+    if (!key) return false;
+    if (appliedFrom && key < appliedFrom) return false;
+    if (appliedTo && key > appliedTo) return false;
 
     return true;
 }
@@ -769,10 +961,6 @@ function itemQuantity(item) {
     return Math.max(0, safeNumber(item?.quantity, 0));
 }
 
-function isNameMatch(name) {
-    return normalizeName(name).includes(appliedName);
-}
-
 function setMessage(message, type = "empty") {
     $("inventoryList").innerHTML =
         '<div class="' + type + '-state">' +
@@ -782,10 +970,7 @@ function setMessage(message, type = "empty") {
     $("resultsCount").textContent = "";
 }
 
-/* =====================================================
-   BUSINESS HEADER
-===================================================== */
-
+/* BUSINESS HEADER */
 function setBusinessHeader() {
     const name =
         currentBusinessData.businessName ||
@@ -820,10 +1005,7 @@ function setBusinessHeader() {
     }
 }
 
-/* =====================================================
-   READ FIREBASE COLLECTIONS
-===================================================== */
-
+/* READ FIRESTORE COLLECTION */
 async function readCollection(collectionName) {
     const reference = collection(
         db,
@@ -834,47 +1016,50 @@ async function readCollection(collectionName) {
 
     const snapshot = await getDocs(reference);
 
-    return snapshot.docs.map(function(document) {
-        return {
-            id: document.id,
-            ...document.data()
-        };
-    });
+    return snapshot.docs.map(document => ({
+        id: document.id,
+        ...document.data()
+    }));
 }
 
-/* =====================================================
-   MATCH SALE ITEMS
-===================================================== */
-
+/* SALE ITEM MATCHING */
 function getSaleItems(sale) {
     return Array.isArray(sale.items) ? sale.items : [];
 }
 
 function saleMatchesItem(saleItem, record) {
-    const saleId = safeString(
-        saleItem.productId ||
-        saleItem.serviceId ||
-        saleItem.itemId ||
+    const identifiers = [
+        saleItem.productId,
+        saleItem.serviceId,
+        saleItem.itemId,
+        saleItem.product_id,
+        saleItem.service_id,
         saleItem.id
+    ]
+        .filter(value =>
+            value !== null &&
+            value !== undefined &&
+            String(value) !== ""
+        )
+        .map(String);
+
+    if (identifiers.includes(String(record.id))) {
+        return true;
+    }
+
+    const saleName = normalizeName(
+        saleItem.name ||
+        saleItem.productName ||
+        saleItem.serviceName ||
+        saleItem.itemName
     );
 
-    if (saleId && saleId === record.id) return true;
-
-    const saleName = normalizeName(saleItem.name);
     const recordName = normalizeName(record.name);
 
-    return (
-        (!saleId || !record.id) &&
-        saleName !== "" &&
-        saleName === recordName
-    );
+    return saleName !== "" && saleName === recordName;
 }
 
-/*
-  Period sales respond to selected date filters.
-  Total sales ignore date filters and use all loaded sales.
-*/
-
+/* SOLD QUANTITY WITHIN SELECTED DATE RANGE */
 function getSoldQuantity(record) {
     let total = 0;
 
@@ -891,6 +1076,7 @@ function getSoldQuantity(record) {
     return total;
 }
 
+/* ALL-TIME SOLD QUANTITY */
 function getTotalSoldQuantity(record) {
     let total = 0;
 
@@ -905,10 +1091,7 @@ function getTotalSoldQuantity(record) {
     return total;
 }
 
-/* =====================================================
-   PRODUCT STOCK HELPERS
-===================================================== */
-
+/* PRODUCT STOCK HELPERS */
 function isStockTracked(product) {
     return product.trackStock === true ||
         product.stockTracked === true;
@@ -930,100 +1113,89 @@ function getCurrentProductStock(product) {
 
 function getStockStatus(remaining, threshold) {
     if (remaining === null) {
-        return { text: "No stock tracking", className: "" };
+        return {
+            text: "No stock tracking",
+            className: ""
+        };
     }
 
     if (remaining <= 0) {
-        return { text: "Out of stock", className: "out" };
+        return {
+            text: "Out of stock",
+            className: "out"
+        };
     }
 
     if (remaining <= threshold) {
-        return { text: "Low stock", className: "low" };
+        return {
+            text: "Low stock",
+            className: "low"
+        };
     }
 
-    return { text: "In stock", className: "" };
+    return {
+        text: "In stock",
+        className: ""
+    };
 }
 
-/* =====================================================
-   MATERIAL USAGE FROM POS SALES
-===================================================== */
+/* MATERIAL USAGE THROUGH SOLD PRODUCTS' RECIPES */
+function getMaterialUsage(material, useDateRange = true) {
+    let totalUsed = 0;
+
+    for (const sale of allSales) {
+        if (useDateRange && !isWithinDateRange(saleDate(sale))) {
+            continue;
+        }
+
+        for (const saleItem of getSaleItems(sale)) {
+            const productId = safeString(
+                saleItem.productId ||
+                saleItem.product_id ||
+                saleItem.itemId ||
+                saleItem.id
+            );
+
+            const product = allProducts.find(
+                p => String(p.id) === productId
+            );
+
+            if (!product || !Array.isArray(product.materials)) {
+                continue;
+            }
+
+            const soldQty = itemQuantity(saleItem);
+
+            for (const recipeMaterial of product.materials) {
+                const materialId = safeString(
+                    recipeMaterial.materialId ||
+                    recipeMaterial.material_id ||
+                    recipeMaterial.id
+                );
+
+                if (materialId === String(material.id)) {
+                    totalUsed +=
+                        Math.max(
+                            0,
+                            safeNumber(recipeMaterial.quantity)
+                        ) * soldQty;
+                }
+            }
+        }
+    }
+
+    return totalUsed;
+}
 
 function getMaterialUsedQuantity(material) {
-    let totalUsed = 0;
-
-    for (const sale of allSales) {
-        if (!isWithinDateRange(saleDate(sale))) continue;
-
-        for (const saleItem of getSaleItems(sale)) {
-            const productId = safeString(
-                saleItem.productId || saleItem.id
-            );
-
-            const product = allProducts.find(function(p) {
-                return p.id === productId;
-            });
-
-            if (!product || !Array.isArray(product.materials)) {
-                continue;
-            }
-
-            const soldQty = itemQuantity(saleItem);
-
-            for (const recipeMaterial of product.materials) {
-                if (
-                    safeString(recipeMaterial.materialId) === material.id
-                ) {
-                    totalUsed +=
-                        Math.max(0, safeNumber(recipeMaterial.quantity)) *
-                        soldQty;
-                }
-            }
-        }
-    }
-
-    return totalUsed;
+    return getMaterialUsage(material, true);
 }
-
-/* All-time material usage ignores date filters. */
 
 function getTotalMaterialUsedQuantity(material) {
-    let totalUsed = 0;
-
-    for (const sale of allSales) {
-        for (const saleItem of getSaleItems(sale)) {
-            const productId = safeString(
-                saleItem.productId || saleItem.id
-            );
-
-            const product = allProducts.find(function(p) {
-                return p.id === productId;
-            });
-
-            if (!product || !Array.isArray(product.materials)) {
-                continue;
-            }
-
-            const soldQty = itemQuantity(saleItem);
-
-            for (const recipeMaterial of product.materials) {
-                if (
-                    safeString(recipeMaterial.materialId) === material.id
-                ) {
-                    totalUsed +=
-                        Math.max(0, safeNumber(recipeMaterial.quantity)) *
-                        soldQty;
-                }
-            }
-        }
-    }
-
-    return totalUsed;
+    return getMaterialUsage(material, false);
 }
 
-/* =====================================================
-   ITEM PHOTO
-===================================================== */
-
+/* ITEM PHOTO */
 function photoMarkup(url, name, emoji) {
     if (url) {
         return `
@@ -1041,11 +1213,7 @@ function photoMarkup(url, name, emoji) {
     return `<div class="item-placeholder">${emoji}</div>`;
 }
 
-/* =====================================================
-   PRODUCT CARD
-   Total Stock = Current Remaining + All-Time Sold
-===================================================== */
-
+/* PRODUCT CARD */
 function productCard(product) {
     const soldInPeriod = getSoldQuantity(product);
     const totalSold = getTotalSoldQuantity(product);
@@ -1063,19 +1231,19 @@ function productCard(product) {
     const status = getStockStatus(remaining, threshold);
     const unit = safeString(product.unit, "unit");
 
-    const totalStockText = totalStock === null
-        ? "Not tracked"
-        : displayNumber(totalStock);
-
-    const remainingText = remaining === null
-        ? "Not tracked"
-        : displayNumber(remaining);
+    const sku = product.sku ||
+        product.itemCode ||
+        product.barcode ||
+        product.code;
 
     return `
         <article class="item-card">
             <div class="item-top">
                 ${photoMarkup(
-                    product.photoUrl || product.image || "",
+                    product.photoUrl ||
+                    product.image ||
+                    product.imageUrl ||
+                    "",
                     product.name || "Product",
                     "📦"
                 )}
@@ -1086,8 +1254,11 @@ function productCard(product) {
                     </div>
 
                     <div class="item-subtitle">
-                        ${product.sku ? "SKU: " + escapeHTML(product.sku) + " · " : ""}
-                        ${escapeHTML(unit)}
+                        ${sku
+                            ? "SKU/Code: " + escapeHTML(sku) + " · "
+                            : ""}
+                        ${escapeHTML(product.category || product.type || "Product")}
+                        · ${escapeHTML(unit)}
                     </div>
                 </div>
 
@@ -1099,28 +1270,34 @@ function productCard(product) {
             <div class="item-stats">
                 <div>
                     <div class="stat-label">Total stock</div>
-                    <div class="stat-value">${totalStockText}</div>
+                    <div class="stat-value">
+                        ${totalStock === null
+                            ? "Not tracked"
+                            : displayNumber(totalStock)}
+                    </div>
                 </div>
 
                 <div>
                     <div class="stat-label">Sold in period</div>
-                    <div class="stat-value sold">${displayNumber(soldInPeriod)}</div>
+                    <div class="stat-value sold">
+                        ${displayNumber(soldInPeriod)}
+                    </div>
                 </div>
 
                 <div>
                     <div class="stat-label">Current remaining</div>
-                    <div class="stat-value">${remainingText}</div>
+                    <div class="stat-value">
+                        ${remaining === null
+                            ? "Not tracked"
+                            : displayNumber(remaining)}
+                    </div>
                 </div>
             </div>
         </article>
     `;
 }
 
-/* =====================================================
-   MATERIAL CARD
-   Total Stock = Current Remaining + All-Time Used
-===================================================== */
-
+/* MATERIAL CARD */
 function materialCard(material) {
     const usedInPeriod = getMaterialUsedQuantity(material);
     const totalUsed = getTotalMaterialUsedQuantity(material);
@@ -1140,11 +1317,19 @@ function materialCard(material) {
     const status = getStockStatus(remaining, threshold);
     const unit = safeString(material.unit, "unit");
 
+    const sku = material.sku ||
+        material.itemCode ||
+        material.barcode ||
+        material.code;
+
     return `
         <article class="item-card">
             <div class="item-top">
                 ${photoMarkup(
-                    material.photoUrl || material.image || "",
+                    material.photoUrl ||
+                    material.image ||
+                    material.imageUrl ||
+                    "",
                     material.name || "Material",
                     "🧱"
                 )}
@@ -1155,7 +1340,11 @@ function materialCard(material) {
                     </div>
 
                     <div class="item-subtitle">
-                        Unit: ${escapeHTML(unit)}
+                        ${sku
+                            ? "SKU/Code: " + escapeHTML(sku) + " · "
+                            : ""}
+                        ${escapeHTML(material.category || material.type || "Material")}
+                        · Unit: ${escapeHTML(unit)}
                     </div>
                 </div>
 
@@ -1190,10 +1379,7 @@ function materialCard(material) {
     `;
 }
 
-/* =====================================================
-   SERVICE CARD
-===================================================== */
-
+/* SERVICE CARD */
 function serviceCard(service) {
     const sold = getSoldQuantity(service);
 
@@ -1202,17 +1388,25 @@ function serviceCard(service) {
         null;
 
     const priceText = price === null
-        ? ""
-        : " · ₱" + safeNumber(price).toLocaleString("en-PH", {
+        ? "—"
+        : "₱" + safeNumber(price).toLocaleString("en-PH", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+    const sku = service.sku ||
+        service.itemCode ||
+        service.barcode ||
+        service.code;
 
     return `
         <article class="item-card">
             <div class="item-top">
                 ${photoMarkup(
-                    service.photoUrl || service.image || "",
+                    service.photoUrl ||
+                    service.image ||
+                    service.imageUrl ||
+                    "",
                     service.name || "Service",
                     "🛠️"
                 )}
@@ -1223,7 +1417,10 @@ function serviceCard(service) {
                     </div>
 
                     <div class="item-subtitle">
-                        Service${escapeHTML(priceText)}
+                        ${sku
+                            ? "Code: " + escapeHTML(sku) + " · "
+                            : ""}
+                        ${escapeHTML(service.category || service.type || "Service")}
                     </div>
                 </div>
 
@@ -1233,17 +1430,14 @@ function serviceCard(service) {
             <div class="item-stats">
                 <div>
                     <div class="stat-label">Sold in period</div>
-                    <div class="stat-value sold">${displayNumber(sold)}</div>
+                    <div class="stat-value sold">
+                        ${displayNumber(sold)}
+                    </div>
                 </div>
 
                 <div>
                     <div class="stat-label">Price</div>
-                    <div class="stat-value">
-                        ${price === null ? "—" : "₱" + safeNumber(price).toLocaleString("en-PH", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        })}
-                    </div>
+                    <div class="stat-value">${priceText}</div>
                 </div>
 
                 <div>
@@ -1255,46 +1449,142 @@ function serviceCard(service) {
     `;
 }
 
-/* =====================================================
-   FILTER AND RENDER
-===================================================== */
+/* CURRENT TAB RECORDS */
+function getActiveRecords() {
+    if (activeTab === "materials") return allMaterials;
+    if (activeTab === "services") return allServices;
+    return allProducts;
+}
 
+function getActiveTitle() {
+    if (activeTab === "materials") return "Materials";
+    if (activeTab === "services") return "Services";
+    return "Products";
+}
+
+function getActiveRenderer() {
+    if (activeTab === "materials") return materialCard;
+    if (activeTab === "services") return serviceCard;
+    return productCard;
+}
+
+/* CATEGORY AND SKU HELPERS */
+function recordCategory(record) {
+    return safeString(
+        record.category ||
+        record.type ||
+        record.itemCategory ||
+        ""
+    ).trim();
+}
+
+function recordSku(record) {
+    return safeString(
+        record.sku ||
+        record.itemCode ||
+        record.barcode ||
+        record.code ||
+        ""
+    );
+}
+
+function getActivityQuantity(record) {
+    if (activeTab === "materials") {
+        return getMaterialUsedQuantity(record);
+    }
+
+    return getSoldQuantity(record);
+}
+
+/* UPDATE CATEGORY OPTIONS FOR ACTIVE TAB */
+function updateCategoryOptions() {
+    const select = $("searchCategory");
+    const previous = appliedCategory;
+
+    const categories = [
+        ...new Set(
+            getActiveRecords()
+                .map(recordCategory)
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b));
+
+    select.innerHTML =
+        '<option value="">All categories</option>' +
+        categories.map(category =>
+            '<option value="' + escapeHTML(category) + '">' +
+            escapeHTML(category) +
+            '</option>'
+        ).join("");
+
+    if (categories.includes(previous)) {
+        select.value = previous;
+    } else {
+        select.value = "";
+        appliedCategory = "";
+    }
+}
+
+/* FILTER RECORDS */
 function getFilteredRecords(records) {
     return records.filter(function(record) {
-        return isNameMatch(record.name);
+        const name = normalizeName(record.name);
+        const sku = normalizeName(recordSku(record));
+        const category = recordCategory(record);
+
+        if (appliedName && !name.includes(appliedName)) {
+            return false;
+        }
+
+        if (appliedSku && !sku.includes(appliedSku)) {
+            return false;
+        }
+
+        if (appliedCategory && category !== appliedCategory) {
+            return false;
+        }
+
+        if (appliedSalesStatus === "sold") {
+            const activity = getActivityQuantity(record);
+
+            if (activity <= 0) {
+                return false;
+            }
+        }
+
+        return true;
     });
 }
 
+/* RENDER INVENTORY */
 function renderInventory() {
-    let records = [];
-    let cardRenderer = productCard;
-    let title = "Products";
+    const records = getActiveRecords();
+    const title = getActiveTitle();
+    const cardRenderer = getActiveRenderer();
 
-    if (activeTab === "materials") {
-        records = allMaterials;
-        cardRenderer = materialCard;
-        title = "Materials";
-    } else if (activeTab === "services") {
-        records = allServices;
-        cardRenderer = serviceCard;
-        title = "Services";
-    } else {
-        records = allProducts;
-        cardRenderer = productCard;
-    }
+    $("resultsTitle").textContent = title;
 
     const filtered = getFilteredRecords(records);
 
-    $("resultsTitle").textContent = title;
     $("resultsCount").textContent =
-        filtered.length + (filtered.length === 1 ? " item" : " items");
+        filtered.length +
+        (filtered.length === 1 ? " item" : " items");
 
     if (filtered.length === 0) {
-        setMessage(
-            appliedName || appliedFrom || appliedTo
-                ? "No items match your search. Try changing your name or date filters."
-                : "No " + title.toLowerCase() + " were found for this business."
-        );
+        let message;
+
+        if (appliedSalesStatus === "sold") {
+            message =
+                "No sold or used items match these filters. " +
+                "Try another date range, change your search, " +
+                "or choose All items.";
+        } else {
+            message =
+                "No " + title.toLowerCase() +
+                " match your filters.";
+        }
+
+        setMessage(message);
         return;
     }
 
@@ -1302,20 +1592,19 @@ function renderInventory() {
         filtered.map(cardRenderer).join("");
 }
 
-/* =====================================================
-   UPDATE SUMMARY
-===================================================== */
-
+/* SUMMARY COUNTS */
 function updateSummary() {
-    $("summaryProducts").textContent = displayNumber(allProducts.length);
-    $("summaryMaterials").textContent = displayNumber(allMaterials.length);
-    $("summaryServices").textContent = displayNumber(allServices.length);
+    $("summaryProducts").textContent =
+        displayNumber(allProducts.length);
+
+    $("summaryMaterials").textContent =
+        displayNumber(allMaterials.length);
+
+    $("summaryServices").textContent =
+        displayNumber(allServices.length);
 }
 
-/* =====================================================
-   SHOW / HIDE SEARCH PANEL
-===================================================== */
-
+/* SHOW / HIDE SEARCH PANEL */
 $("toggleSearchButton").addEventListener("click", function() {
     const panel = $("searchPanel");
     const isOpening = panel.hidden;
@@ -1336,25 +1625,12 @@ $("toggleSearchButton").addEventListener("click", function() {
     }
 });
 
-/* =====================================================
-   ADJUST STOCK INVENTORY REDIRECT
-   Opens inventory/index.html relative to this page.
-===================================================== */
-
-$("adjustStockButton").addEventListener("click", function() {
-    window.location.href = "inventory/index.html";
-});
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
+/* APPLY FILTERS */
 function applySearch() {
-    appliedName = normalizeName($("searchName").value);
-    appliedFrom = $("dateFrom").value;
-    appliedTo = $("dateTo").value;
+    const from = $("dateFrom").value;
+    const to = $("dateTo").value;
 
-    if (appliedFrom && appliedTo && appliedFrom > appliedTo) {
+    if (from && to && from > to) {
         setMessage(
             "The From date must be on or before the To date.",
             "error"
@@ -1362,62 +1638,78 @@ function applySearch() {
         return;
     }
 
+    appliedName = normalizeName($("searchName").value);
+    appliedSku = normalizeName($("searchSku").value);
+    appliedCategory = $("searchCategory").value;
+    appliedFrom = from;
+    appliedTo = to;
+    appliedSalesStatus = $("salesStatus").value || "sold";
+
     renderInventory();
 }
 
 $("searchButton").addEventListener("click", applySearch);
 
-$("searchName").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        applySearch();
-    }
+["searchName", "searchSku"].forEach(function(id) {
+    $(id).addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            applySearch();
+        }
+    });
 });
 
-/* =====================================================
-   TODAY FILTER — PHILIPPINE TIME
-===================================================== */
+$("searchCategory").addEventListener("change", applySearch);
+$("salesStatus").addEventListener("change", applySearch);
 
+/* TODAY FILTER — PHILIPPINE TIME */
 $("todayButton").addEventListener("click", function() {
     const today = getTodayManila();
 
     $("dateFrom").value = today;
     $("dateTo").value = today;
 
+    appliedName = normalizeName($("searchName").value);
+    appliedSku = normalizeName($("searchSku").value);
+    appliedCategory = $("searchCategory").value;
     appliedFrom = today;
     appliedTo = today;
-    appliedName = normalizeName($("searchName").value);
+    appliedSalesStatus = $("salesStatus").value || "sold";
 
     renderInventory();
 });
 
-/* =====================================================
-   CLEAR FILTERS
-===================================================== */
-
+/* CLEAR ALL FILTERS */
 $("clearButton").addEventListener("click", function() {
     $("searchName").value = "";
+    $("searchSku").value = "";
+    $("searchCategory").value = "";
+    $("salesStatus").value = "sold";
     $("dateFrom").value = "";
     $("dateTo").value = "";
 
     appliedName = "";
+    appliedSku = "";
+    appliedCategory = "";
     appliedFrom = "";
     appliedTo = "";
+    appliedSalesStatus = "sold";
 
+    updateCategoryOptions();
     renderInventory();
 });
 
-/* =====================================================
-   REFRESH INVENTORY
-===================================================== */
-
+/* REFRESH INVENTORY */
 $("refreshButton").addEventListener("click", async function() {
     if (!currentUser) {
         $("inventoryList").innerHTML =
-            '<div class="loading-state">Please wait while your account loads...</div>';
+            '<div class="loading-state">' +
+            'Please wait while your account loads...' +
+            '</div>';
         return;
     }
 
     const button = $("refreshButton");
+
     button.disabled = true;
     button.textContent = "↻ Refreshing...";
 
@@ -1429,32 +1721,31 @@ $("refreshButton").addEventListener("click", async function() {
     }
 });
 
-/* =====================================================
-   TAB SWITCHING
-===================================================== */
-
+/* TABS */
 document.querySelectorAll(".tab-button").forEach(function(button) {
     button.addEventListener("click", function() {
         activeTab = button.dataset.tab;
 
-        document.querySelectorAll(".tab-button").forEach(function(otherButton) {
-            otherButton.classList.toggle(
-                "active",
-                otherButton === button
-            );
-        });
+        document.querySelectorAll(".tab-button").forEach(
+            function(otherButton) {
+                otherButton.classList.toggle(
+                    "active",
+                    otherButton === button
+                );
+            }
+        );
 
+        updateCategoryOptions();
         renderInventory();
     });
 });
 
-/* =====================================================
-   LOAD INVENTORY FROM FIREBASE
-===================================================== */
-
+/* LOAD INVENTORY FROM FIREBASE */
 async function loadInventory() {
     $("inventoryList").innerHTML =
-        '<div class="loading-state">Loading inventory from Firebase...</div>';
+        '<div class="loading-state">' +
+        'Loading inventory from Firebase...' +
+        '</div>';
 
     $("resultsCount").textContent = "Loading...";
 
@@ -1472,6 +1763,7 @@ async function loadInventory() {
         allSales = results[3];
 
         updateSummary();
+        updateCategoryOptions();
         renderInventory();
 
     } catch (error) {
@@ -1490,10 +1782,7 @@ async function loadInventory() {
     }
 }
 
-/* =====================================================
-   AUTHENTICATION AND BUSINESS RESOLUTION
-===================================================== */
-
+/* AUTHENTICATION AND BUSINESS RESOLUTION */
 async function initializeInventory(user) {
     currentUser = user;
 
@@ -1521,9 +1810,11 @@ async function initializeInventory(user) {
         : currentUserData;
 
     setBusinessHeader();
+
     await loadInventory();
 }
 
+/* AUTH STATE */
 onAuthStateChanged(auth, async function(user) {
     if (!user) {
         window.location.href = "../login/";
@@ -1533,7 +1824,10 @@ onAuthStateChanged(auth, async function(user) {
     try {
         await initializeInventory(user);
     } catch (error) {
-        console.error("KAYAH INVENTORY INITIALIZATION ERROR:", error);
+        console.error(
+            "KAYAH INVENTORY INITIALIZATION ERROR:",
+            error
+        );
 
         $("inventoryList").innerHTML =
             '<div class="error-state">' +
@@ -1548,10 +1842,7 @@ onAuthStateChanged(auth, async function(user) {
     }
 });
 
-/* =====================================================
-   BACK NAVIGATION
-===================================================== */
-
+/* BACK NAVIGATION */
 window.goBack = function() {
     if (window.history.length > 1) {
         window.history.back();
