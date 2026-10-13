@@ -8,6 +8,27 @@
 <title>Stock Inventory - Kayah</title>
 
 <style>
+    
+    
+.history-button-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 12px;
+}
+
+.history-button {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #cbded0;
+  background: #ffffff;
+  color: #0B4F3A;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+}
+    
+    
+    
 :root{
   --green:#0B4F3A;
   --green-light:#16805C;
@@ -244,17 +265,18 @@ img.item-photo {
 </head>
 
 <body>
+
 <header class="business-header">
   <div class="business-header-inner">
     <div class="business-logo-wrap">
       <img id="businessLogo" class="business-logo" alt="Business logo">
       <div id="logoFallback" class="logo-fallback">K</div>
     </div>
+
     <div class="business-heading">
       <h1 id="businessName" class="business-name">Loading business...</h1>
       <div class="business-subtitle">Stock Inventory · Products & Materials</div>
     </div>
-    <button class="header-button" id="recordsButton" type="button">Stocks History  ↗</button>
   </div>
 </header>
 
@@ -298,6 +320,17 @@ img.item-photo {
     <button type="button" class="button secondary" id="refreshButton" title="Refresh">↻</button>
     <button type="button" class="button primary" id="primaryAction">+ Adjust</button>
   </section>
+  
+  
+<div class="history-button-row">
+  <button
+    type="button"
+    class="button secondary history-button"
+    id="recordsButton">
+    📋 View Stocks History ↗
+  </button>
+</div>
+  
 
   <div class="filters" id="filters">
     <button type="button" class="filter active" data-filter="all">All <span class="filter-count" id="filterAllCount"></span></button>
