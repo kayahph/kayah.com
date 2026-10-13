@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0B4F3A">
-<title>Inventory Records - Kayah</title>
+<title>Inventory Records</title>
 
 <style>
 :root {
@@ -14,8 +14,9 @@
   --y: #F2B84B;
   --bg: #F7F3E8;
   --ink: #20352d;
-  --mut: #718078;
-  --line: #e1e8e1;
+  --mut: #63736a;
+  --line: #dce6dd;
+  --soft: #edf5ef;
 }
 
 * {
@@ -26,25 +27,57 @@ body {
   margin: 0;
   background: #f5f8f5;
   color: var(--ink);
-  font: 14px system-ui, Arial, sans-serif;
+  font: 15px system-ui, Arial, sans-serif;
 }
 
-header {
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 14px;
+  background: white;
+  color: var(--g);
+  font-weight: 800;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+button.primary {
+  background: var(--y);
+  color: #26351f;
+  border-color: var(--y);
+}
+
+button.green {
+  background: var(--g);
+  color: white;
+  border-color: var(--g);
+}
+
+button.green:hover {
+  background: var(--g2);
+}
+
+.top-header {
   background: linear-gradient(120deg, var(--g), var(--g2));
   color: white;
-  padding: 20px max(15px, calc((100% - 1100px) / 2));
+  padding: 16px max(12px, calc((100% - 1100px) / 2));
 }
 
-.business-header {
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 16px;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 18px;
-  border-radius: 14px;
 }
 
 .business-brand {
@@ -55,11 +88,12 @@ header {
 }
 
 .business-logo {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
-  border-radius: 10px;
-  background: var(--bg);
+  border-radius: 11px;
+  background: white;
+  padding: 3px;
   flex-shrink: 0;
 }
 
@@ -67,167 +101,101 @@ header {
   min-width: 0;
 }
 
-.business-info h2 {
+.business-info h1 {
   margin: 0;
-  color: var(--g);
-  font-size: 17px;
-  font-weight: 700;
+  color: white;
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 1.25;
   overflow-wrap: anywhere;
 }
 
 .business-info p {
-  margin: 4px 0 0;
-  color: var(--mut);
+  margin: 5px 0 0;
   font-size: 12px;
+  font-weight: 700;
+  opacity: .9;
 }
 
 .dashboard-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   flex-shrink: 0;
   padding: 10px 12px;
   border-radius: 10px;
-  background: var(--g);
-  color: white;
+  background: white;
+  color: var(--g);
   text-decoration: none;
   font-size: 13px;
-  font-weight: 600;
-}
-
-.dashboard-button:hover {
-  background: var(--g2);
-}
-
-.brand {
-  font-size: 24px;
-  font-weight: 850;
-}
-
-.brand span {
-  color: var(--y);
-}
-
-header p {
-  margin: 5px 0 0;
-  opacity: .85;
-  font-size: 13px;
+  font-weight: 900;
 }
 
 main {
   max-width: 1100px;
   margin: auto;
-  padding: 20px 14px 40px;
+  padding: 20px 14px 35px;
 }
 
-h2 {
+.page-heading {
+  margin-bottom: 17px;
+}
+
+.page-heading h2 {
   margin: 0;
   color: var(--g);
-  font-size: 19px;
+  font-size: 22px;
+  font-weight: 900;
 }
 
 .intro {
   color: var(--mut);
-  margin: 6px 0 18px;
-  line-height: 1.5;
+  margin: 6px 0 0;
+  line-height: 1.55;
+  font-weight: 600;
 }
 
 .stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  margin-bottom: 17px;
+  margin-bottom: 16px;
 }
 
 .stat {
   background: white;
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: 13px;
+  padding: 13px;
   min-width: 0;
 }
 
 .stat small {
+  display: block;
   color: var(--mut);
+  font-weight: 750;
+  line-height: 1.4;
 }
 
 .stat strong {
   display: block;
   font-size: 23px;
+  font-weight: 900;
   color: var(--g);
-  margin-top: 4px;
-}
-
-.filters {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 10px;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 13px;
-  margin-bottom: 13px;
-}
-
-input, select, button {
-  font: inherit;
-}
-
-input, select {
-  width: 100%;
-  min-width: 0;
-  padding: 11px;
-  border: 1px solid #dbe4dc;
-  border-radius: 9px;
-  background: white;
-  color: var(--ink);
-}
-
-.dates {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 13px;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 13px;
-}
-
-button {
-  cursor: pointer;
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  padding: 10px 13px;
-  background: white;
-  color: var(--g);
-  font-weight: 750;
-}
-
-button.primary {
-  background: var(--y);
-  color: #26351f;
-  border-color: var(--y);
-}
-
-button:disabled {
-  opacity: .55;
-  cursor: wait;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
 }
 
 .notice {
   display: none;
-  padding: 11px 13px;
-  margin-bottom: 13px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
   border-radius: 10px;
   background: #edf5ef;
   color: var(--g);
+  font-weight: 700;
   overflow-wrap: anywhere;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .notice.show {
@@ -239,6 +207,72 @@ button:disabled {
   color: #9d241b;
 }
 
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-panel {
+  display: none;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 13px;
+  margin-bottom: 14px;
+}
+
+.filter-panel.show {
+  display: block;
+}
+
+.filter-title {
+  color: var(--g);
+  font-size: 15px;
+  font-weight: 900;
+  margin: 0 0 10px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #d4e0d6;
+  border-radius: 9px;
+  background: white;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #a8cfb4;
+  border-color: var(--g2);
+}
+
 .results {
   display: flex;
   align-items: center;
@@ -248,16 +282,23 @@ button:disabled {
   margin: 17px 0 10px;
 }
 
+.results strong {
+  color: var(--g);
+  font-size: 16px;
+  font-weight: 900;
+}
+
 .results span {
   color: var(--mut);
   font-size: 12px;
+  font-weight: 750;
 }
 
 .list-wrap {
   width: 100%;
   overflow-x: auto;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 13px;
   background: white;
 }
 
@@ -265,24 +306,25 @@ button:disabled {
 .record-summary {
   display: grid;
   grid-template-columns:
-    minmax(140px, 1.5fr)
+    minmax(135px, 1.35fr)
     minmax(125px, 1fr)
-    minmax(145px, 1.2fr)
-    minmax(125px, 1fr)
-    24px;
+    minmax(110px, .9fr)
+    minmax(105px, .85fr)
+    minmax(105px, .8fr)
+    22px;
   align-items: center;
-  gap: 12px;
-  min-width: 650px;
+  gap: 11px;
+  min-width: 800px;
 }
 
 .list-heading {
-  padding: 11px 15px;
-  background: #edf5ef;
+  padding: 12px 14px;
+  background: #eaf3ec;
   color: var(--g);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: .35px;
+  letter-spacing: .25px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -304,7 +346,7 @@ button:disabled {
 }
 
 .record-summary {
-  padding: 13px 15px;
+  padding: 13px 14px;
   transition: background .15s;
 }
 
@@ -324,15 +366,17 @@ button:disabled {
 .item-name {
   display: block;
   color: var(--ink);
-  font-weight: 800;
+  font-weight: 900;
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .cell-sub {
   display: block;
   color: var(--mut);
   font-size: 11px;
-  margin-top: 3px;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
 .activity-tag {
@@ -342,12 +386,13 @@ button:disabled {
   background: #edf5ef;
   color: var(--g);
   font-size: 11px;
-  font-weight: 750;
+  font-weight: 900;
+  line-height: 1.35;
 }
 
 .activity-tag.stock {
   background: #fff1d2;
-  color: #825b00;
+  color: #795500;
 }
 
 .activity-tag.delete {
@@ -360,16 +405,47 @@ button:disabled {
   color: #3156a3;
 }
 
+.activity-tag.sale {
+  background: #e8f5ff;
+  color: #155b91;
+}
+
 .person-name {
   display: block;
   font-size: 12px;
-  font-weight: 750;
+  font-weight: 850;
   overflow-wrap: anywhere;
+  line-height: 1.45;
+}
+
+.quantity-change {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.quantity-change.in {
+  background: #e8f7eb;
+  color: #176b32;
+}
+
+.quantity-change.out {
+  background: #fff0ef;
+  color: #a32920;
+}
+
+.quantity-change.neutral {
+  background: #f0f2f0;
+  color: #45544a;
 }
 
 .chevron {
   color: var(--g);
   font-size: 18px;
+  font-weight: 900;
   text-align: center;
   transition: transform .15s;
 }
@@ -386,9 +462,9 @@ button:disabled {
 }
 
 .detail-title {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--g);
-  font-weight: 850;
+  font-weight: 900;
   margin: 0 0 12px;
 }
 
@@ -410,12 +486,14 @@ button:disabled {
   display: block;
   color: var(--mut);
   font-size: 11px;
+  font-weight: 750;
 }
 
 .qty strong {
   display: block;
   margin-top: 4px;
   font-size: 15px;
+  font-weight: 900;
   overflow-wrap: anywhere;
 }
 
@@ -424,7 +502,7 @@ button:disabled {
   border-top: 1px solid #edf0ed;
   padding-top: 10px;
   font-size: 12px;
-  line-height: 1.7;
+  line-height: 1.8;
   overflow-wrap: anywhere;
 }
 
@@ -433,7 +511,8 @@ button:disabled {
   padding-top: 11px;
   border-top: 1px solid #edf0ed;
   font-size: 12px;
-  line-height: 1.8;
+  font-weight: 650;
+  line-height: 1.9;
   overflow-wrap: anywhere;
 }
 
@@ -456,27 +535,31 @@ button:disabled {
   display: block;
   color: var(--mut);
   font-size: 11px;
-  margin-bottom: 3px;
+  font-weight: 750;
+  margin-bottom: 4px;
 }
 
 .detail-box strong {
   font-size: 12px;
+  font-weight: 850;
   overflow-wrap: anywhere;
 }
 
 .empty {
   text-align: center;
-  padding: 36px 15px;
+  padding: 35px 15px;
   border: 1px dashed #cbd8cd;
   background: white;
-  border-radius: 14px;
+  border-radius: 13px;
   color: var(--mut);
-  line-height: 1.6;
+  font-weight: 650;
+  line-height: 1.7;
 }
 
 .empty b {
   display: block;
   color: var(--g);
+  font-weight: 900;
   margin-bottom: 5px;
 }
 
@@ -485,19 +568,34 @@ button:disabled {
   padding: 22px 0;
   color: var(--mut);
   font-size: 11px;
+  font-weight: 650;
 }
 
 @media (max-width: 650px) {
   main {
-    padding: 16px 10px 30px;
+    padding: 16px 10px 28px;
   }
 
-  .filters {
-    grid-template-columns: 1fr 1fr;
+  .top-header {
+    padding: 13px 10px;
   }
 
-  .filters input {
-    grid-column: 1 / -1;
+  .business-logo {
+    width: 43px;
+    height: 43px;
+  }
+
+  .business-info h1 {
+    font-size: 16px;
+  }
+
+  .dashboard-button {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .page-heading h2 {
+    font-size: 20px;
   }
 
   .stats {
@@ -508,8 +606,33 @@ button:disabled {
     padding: 10px;
   }
 
+  .stat small {
+    font-size: 11px;
+  }
+
   .stat strong {
     font-size: 19px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters input {
+    grid-column: 1 / -1;
+  }
+
+  .toolbar {
+    align-items: stretch;
+  }
+
+  .toolbar-left,
+  .toolbar-right {
+    width: 100%;
+  }
+
+  .toolbar button {
+    flex: 1;
   }
 
   .qty {
@@ -533,23 +656,30 @@ button:disabled {
   }
 }
 
-@media (max-width: 420px) {
-  .business-header {
-    padding: 12px 10px;
-  }
-
-  .business-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .business-info h2 {
+@media (max-width: 380px) {
+  .business-info h1 {
     font-size: 14px;
   }
 
+  .business-info p {
+    font-size: 10px;
+  }
+
   .dashboard-button {
-    padding: 9px 10px;
-    font-size: 12px;
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stat strong {
+    font-size: 17px;
+  }
+
+  .dates {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -557,27 +687,20 @@ button:disabled {
 
 <body>
 
-<header>
-  <div class="brand">Kayah<span>.</span></div>
-  <p>Business, Made Possible.</p>
-</header>
-
-<main>
-
-  <div class="business-header">
+<header class="top-header">
+  <div class="header-inner">
     <div class="business-brand">
       <img
         id="businessLogo"
         class="business-logo"
-        src=""
         alt="Business logo"
         hidden
       >
 
       <div class="business-info">
-        <h2 id="businessName">Loading business...</h2>
+        <h1 id="businessName">Loading business...</h1>
         <p>
-          Activity Log Records ·
+          INVENTORY RECORDS ·
           <span id="roleLabel">Checking account...</span>
         </p>
       </div>
@@ -587,13 +710,15 @@ button:disabled {
       ← Dashboard
     </a>
   </div>
+</header>
 
-  <h2>Inventory Records</h2>
-
-  <p class="intro">
-    View product and service changes, stock additions, and the people
-    responsible for each recorded activity.
-  </p>
+<main>
+  <div class="page-heading">
+    <h2>Inventory Records</h2>
+    <p class="intro">
+      Review stock adjustments, item changes, and who performed each activity.
+    </p>
+  </div>
 
   <div class="stats">
     <div class="stat">
@@ -602,7 +727,7 @@ button:disabled {
     </div>
 
     <div class="stat">
-      <small>Stock additions</small>
+      <small>Stock adjustments</small>
       <strong id="stockCount">—</strong>
     </div>
 
@@ -614,60 +739,79 @@ button:disabled {
 
   <div id="notice" class="notice" role="status"></div>
 
-  <div class="filters">
-    <input
-      id="search"
-      type="search"
-      placeholder="Search item, person, action, or reason..."
-      aria-label="Search activity records"
-    >
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button class="green" id="toggleFilters" type="button"
+        aria-expanded="false">
+        Search &amp; Filter
+      </button>
+    </div>
 
-    <select id="activityFilter" aria-label="Filter by activity">
-      <option value="all">All activities</option>
-      <option value="stock">Stock additions</option>
-      <option value="created">Items created</option>
-      <option value="updated">Items updated</option>
-      <option value="deleted">Items deleted</option>
-      <option value="other">Other activities</option>
-    </select>
-
-    <select id="typeFilter" aria-label="Filter by item type">
-      <option value="all">All item types</option>
-      <option value="product">Products</option>
-      <option value="service">Services</option>
-      <option value="material">Materials</option>
-      <option value="other">Other activities</option>
-    </select>
+    <div class="toolbar-right">
+      <button class="primary" id="refresh" type="button">
+        Refresh Records
+      </button>
+    </div>
   </div>
 
-  <div class="dates">
-    <input id="dateFrom" type="date" aria-label="From date">
-    <input id="dateTo" type="date" aria-label="To date">
-  </div>
+  <section id="filterPanel" class="filter-panel" aria-hidden="true">
+    <p class="filter-title">Search and filter records</p>
 
-  <div class="actions">
-    <button class="primary" id="refresh" type="button">
-      Refresh records
-    </button>
+    <div class="filters">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search item, person, action, reason..."
+        aria-label="Search activity records"
+      >
 
-    <button id="clear" type="button">
-      Clear filters
-    </button>
-  </div>
+      <select id="activityFilter" aria-label="Filter by activity">
+        <option value="all">All activities</option>
+        <option value="stock">Stock adjustments</option>
+        <option value="created">Items created</option>
+        <option value="updated">Items updated</option>
+        <option value="deleted">Items deleted</option>
+        <option value="other">Other activities</option>
+      </select>
+
+      <select id="typeFilter" aria-label="Filter by item type">
+        <option value="all">All item types</option>
+        <option value="product">Products</option>
+        <option value="service">Services</option>
+        <option value="material">Materials</option>
+        <option value="other">Other activities</option>
+      </select>
+    </div>
+
+    <div class="dates">
+      <input id="dateFrom" type="date" aria-label="From date">
+      <input id="dateTo" type="date" aria-label="To date">
+    </div>
+
+    <div class="toolbar" style="margin:12px 0 0">
+      <div class="toolbar-left">
+        <button id="clear" type="button">Clear Filters</button>
+      </div>
+      <div class="toolbar-right">
+        <button class="green" id="applyFilters" type="button">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  </section>
 
   <div class="results">
-    <strong>Activity history</strong>
+    <strong>Activity History</strong>
     <span id="resultLabel">Loading records...</span>
   </div>
 
   <div id="records">
-    <div class="empty">Connecting to Kayah...</div>
+    <div class="empty">Connecting to your business records...</div>
   </div>
 
   <div class="foot">
-    Powered by Kayah — Business, Made Possible.
+    Business activity history · Kayah
   </div>
-
 </main>
 
 <script type="module">
@@ -689,12 +833,6 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/*
-  Uses the existing Kayah Firebase project.
-  This page reads activityLogs only; it does not create,
-  edit, or delete inventory or activity records.
-*/
-
 const firebaseConfig = {
   apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
   authDomain: "kayah-ecosystem.firebaseapp.com",
@@ -704,19 +842,18 @@ const firebaseConfig = {
   appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
 };
 
-const app = getApps().length
-  ? getApps().find(a => a.options.projectId === firebaseConfig.projectId)
-    || initializeApp(firebaseConfig)
-  : initializeApp(firebaseConfig);
+const app = getApps().find(
+  a => a.options.projectId === firebaseConfig.projectId
+) || initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser = null;
-let userData = {};
 let businessId = null;
+let userData = {};
 let role = "owner";
 let allRecords = [];
+let filteredRecords = null;
 
 const $ = id => document.getElementById(id);
 
@@ -732,13 +869,16 @@ function esc(value) {
 
 function showNotice(message, error = false) {
   $("notice").textContent = message;
-  $("notice").className =
-    "notice show" + (error ? " error" : "");
+  $("notice").className = "notice show" + (error ? " error" : "");
 }
 
 function hideNotice() {
   $("notice").className = "notice";
   $("notice").textContent = "";
+}
+
+function firstValue(...values) {
+  return values.find(v => v !== undefined && v !== null && v !== "");
 }
 
 function toDate(value) {
@@ -813,10 +953,86 @@ function numberText(value) {
     : String(value);
 }
 
-function firstValue(...values) {
-  return values.find(v =>
-    v !== undefined && v !== null && v !== ""
-  );
+function roleLabelText(actorRole) {
+  const r = String(actorRole || "unknown").toLowerCase();
+
+  if (r === "owner" || r === "business owner") return "Business Owner";
+  if (r === "staff") return "Staff";
+  if (r === "unknown") return "Role not recorded";
+
+  return r;
+}
+
+function inferType(raw, details) {
+  const rawType = String(
+    raw.type ||
+    raw.itemType ||
+    raw.targetType ||
+    details.type ||
+    details.itemType ||
+    details.targetType ||
+    ""
+  ).toLowerCase();
+
+  if (rawType.includes("service")) return "service";
+  if (rawType.includes("material")) return "material";
+
+  if (
+    rawType.includes("product") ||
+    rawType.includes("inventory")
+  ) {
+    return "product";
+  }
+
+  const combined = [
+    raw.action,
+    raw.description,
+    raw.recordName,
+    raw.itemName,
+    raw.materialName,
+    raw.productName,
+    details.itemType,
+    details.type
+  ].join(" ").toLowerCase();
+
+  if (combined.includes("material")) return "material";
+  if (combined.includes("service")) return "service";
+  if (combined.includes("product")) return "product";
+
+  return "other";
+}
+
+function inferActivity(action, raw, details) {
+  const combined = [
+    action,
+    raw.description || "",
+    raw.reason || "",
+    raw.event || "",
+    details.reason || "",
+    details.description || ""
+  ].join(" ").toLowerCase().replace(/[_-]/g, " ");
+
+  if (
+    /stock|adjustment|quantity changed|quantity added|quantity removed|stock in|stock out|waste|return|material used|used material/.test(combined)
+  ) {
+    return "stock";
+  }
+
+  if (
+    /create|created|add item|item added|added product|added service|added material|new product|new service/.test(combined)
+  ) {
+    return "created";
+  }
+
+  if (/delete|deleted|remove item|item removed/.test(combined)) {
+    return "deleted";
+  }
+
+  if (/update|updated|edit|edited|change|changed/.test(combined)) {
+    return "updated";
+  }
+
+  return "other";
 }
 
 function normalize(raw, id) {
@@ -828,55 +1044,8 @@ function normalize(raw, id) {
     raw.action || raw.activity || raw.event || "activity"
   ).toLowerCase();
 
-  const rawType = String(
-    raw.type ||
-    raw.itemType ||
-    raw.targetType ||
-    d.type ||
-    d.itemType ||
-    d.targetType ||
-    ""
-  ).toLowerCase();
-
-  let type = "other";
-
-  if (rawType.includes("service")) {
-    type = "service";
-  } else if (rawType.includes("material")) {
-    type = "material";
-  } else if (
-    rawType.includes("product") ||
-    rawType.includes("inventory")
-  ) {
-    type = "product";
-  }
-
-  const combined = [
-    action,
-    raw.description || "",
-    raw.reason || "",
-    raw.event || ""
-  ].join(" ").toLowerCase();
-
-  let activity = "other";
-
-  if (
-    /stock|add stock|stock_in|stock addition|quantity added/.test(combined)
-  ) {
-    activity = "stock";
-  } else if (
-    /create|created|add item|item added|added product|added service|added material|new product|new service/.test(combined)
-  ) {
-    activity = "created";
-  } else if (
-    /update|updated|edit|edited|change|changed/.test(combined)
-  ) {
-    activity = "updated";
-  } else if (
-    /delete|deleted|remove|removed/.test(combined)
-  ) {
-    activity = "deleted";
-  }
+  const activity = inferActivity(action, raw, d);
+  const type = inferType(raw, d);
 
   const name = firstValue(
     raw.recordName,
@@ -903,15 +1072,6 @@ function normalize(raw, id) {
     raw.previousStock
   );
 
-  const added = firstValue(
-    d.quantityAdded,
-    d.quantityChanged,
-    d.quantity,
-    d.added,
-    raw.quantityAdded,
-    raw.quantity
-  );
-
   const next = firstValue(
     d.newQuantity,
     d.newStock,
@@ -919,6 +1079,74 @@ function normalize(raw, id) {
     raw.newQuantity,
     raw.newStock
   );
+
+  const rawChange = firstValue(
+    d.quantityChanged,
+    d.adjustmentQuantity,
+    d.quantityAdded,
+    d.quantityRemoved,
+    d.quantityUsed,
+    d.quantityReturned,
+    d.quantity,
+    d.added,
+    raw.quantityChanged,
+    raw.adjustmentQuantity,
+    raw.quantityAdded,
+    raw.quantityRemoved,
+    raw.quantityUsed,
+    raw.quantityReturned,
+    raw.quantity
+  );
+
+  const unit = firstValue(d.unit, raw.unit, d.unitOfMeasure, raw.unitOfMeasure) || "";
+
+  const previousNumber = previous !== undefined && previous !== null && previous !== ""
+    ? Number(previous)
+    : NaN;
+
+  const nextNumber = next !== undefined && next !== null && next !== ""
+    ? Number(next)
+    : NaN;
+
+  let change = null;
+  let changeKnown = false;
+
+  // When both stock values exist, calculate the actual change.
+  if (Number.isFinite(previousNumber) && Number.isFinite(nextNumber)) {
+    change = nextNumber - previousNumber;
+    changeKnown = true;
+  } else if (rawChange !== undefined && rawChange !== null && rawChange !== "") {
+    const parsed = Number(rawChange);
+
+    if (Number.isFinite(parsed)) {
+      change = parsed;
+      changeKnown = true;
+    }
+  }
+
+  // For explicit stock-out / waste / usage events, show the movement
+  // as a negative quantity when the saved value is positive.
+  const actionText = [
+    action,
+    raw.description || "",
+    raw.reason || "",
+    d.reason || "",
+    d.adjustmentType || "",
+    raw.adjustmentType || ""
+  ].join(" ").toLowerCase().replace(/[_-]/g, " ");
+
+  if (changeKnown && change > 0 && (
+    /stock out|stock removal|quantity removed|waste|material used|quantity used|used material|consumed|deduct|damage|expired|sold/.test(actionText)
+  )) {
+    change = -Math.abs(change);
+  }
+
+  // If the log contains previous and new quantity, these remain
+  // authoritative even if the action label is not specific.
+  if (Number.isFinite(previousNumber) && Number.isFinite(nextNumber)) {
+    change = nextNumber - previousNumber;
+    changeKnown = true;
+  }
 
   const actorName = firstValue(
     raw.actorName,
@@ -955,9 +1183,10 @@ function normalize(raw, id) {
     type,
     name: String(name),
     previous,
-    added,
     next,
-    unit: firstValue(d.unit, raw.unit) || "",
+    change,
+    changeKnown,
+    unit,
     reason: firstValue(d.reason, raw.reason) || "",
     actorName: String(actorName),
     actorUid: String(actorUid),
@@ -974,10 +1203,37 @@ function normalize(raw, id) {
 }
 
 function activityLabel(r) {
-  if (r.activity === "stock") return "Stock addition";
-  if (r.activity === "created") return "Item created";
-  if (r.activity === "updated") return "Item updated";
-  if (r.activity === "deleted") return "Item deleted";
+  if (r.activity === "stock") {
+    const text = [
+      r.action,
+      r.description,
+      r.reason,
+      r.details?.reason,
+      r.details?.adjustmentType
+    ].join(" ").toLowerCase().replace(/[_-]/g, " ");
+
+    if (/stock out|quantity removed|waste|material used|quantity used|consumed|deduct|damaged|expired/.test(text)) {
+      return "Stock Out";
+    }
+
+    if (/return|returned/.test(text)) {
+      return "Stock Return";
+    }
+
+    if (/sold|sale/.test(text)) {
+      return "Stock Sold";
+    }
+
+    if (/adjust/.test(text)) {
+      return "Stock Adjustment";
+    }
+
+    return "Stock Adjustment";
+  }
+
+  if (r.activity === "created") return "Item Created";
+  if (r.activity === "updated") return "Item Updated";
+  if (r.activity === "deleted") return "Item Deleted";
 
   return r.action.replace(/[_-]/g, " ");
 }
@@ -986,6 +1242,7 @@ function badgeClass(r) {
   if (r.activity === "stock") return "activity-tag stock";
   if (r.activity === "deleted") return "activity-tag delete";
   if (r.activity === "updated") return "activity-tag edit";
+  if (/sale|sold/.test(r.action)) return "activity-tag sale";
 
   return "activity-tag";
 }
@@ -999,12 +1256,32 @@ function typeLabel(type) {
   })[type] || "Other";
 }
 
-function roleLabelText(actorRole) {
-  if (actorRole === "owner") return "Business Owner";
-  if (actorRole === "staff") return "Staff";
-  if (actorRole === "unknown") return "Role not recorded";
+function quantityLabel(r) {
+  if (!r.changeKnown) {
+    return {
+      text: "Not recorded",
+      className: "quantity-change neutral"
+    };
+  }
 
-  return actorRole;
+  if (r.change > 0) {
+    return {
+      text: "+" + numberText(r.change) + (r.unit ? " " + r.unit : ""),
+      className: "quantity-change in"
+    };
+  }
+
+  if (r.change < 0) {
+    return {
+      text: "−" + numberText(Math.abs(r.change)) + (r.unit ? " " + r.unit : ""),
+      className: "quantity-change out"
+    };
+  }
+
+  return {
+    text: "0" + (r.unit ? " " + r.unit : ""),
+    className: "quantity-change neutral"
+  };
 }
 
 function getFiltered() {
@@ -1015,13 +1292,8 @@ function getFiltered() {
   const to = $("dateTo").value;
 
   return allRecords.filter(r => {
-    if (activity !== "all" && r.activity !== activity) {
-      return false;
-    }
-
-    if (type !== "all" && r.type !== type) {
-      return false;
-    }
+    if (activity !== "all" && r.activity !== activity) return false;
+    if (type !== "all" && r.type !== type) return false;
 
     const key = dateKey(r.createdAt);
 
@@ -1067,10 +1339,10 @@ function render() {
     $("records").innerHTML = `
       <div class="empty">
         <b>No matching records</b>
-        Try changing the filters, or refresh the page.
+        Try changing your filters or refreshing the page.
         <br><br>
-        Only activities saved to the business activity log
-        can appear here.
+        Only activities saved in this business's activityLogs
+        collection can appear here.
       </div>`;
     return;
   }
@@ -1079,8 +1351,10 @@ function render() {
     const hasStock =
       r.activity === "stock" ||
       r.previous !== undefined ||
-      r.added !== undefined ||
-      r.next !== undefined;
+      r.next !== undefined ||
+      r.changeKnown;
+
+    const qty = quantityLabel(r);
 
     let quantityHtml = "";
 
@@ -1092,8 +1366,8 @@ function render() {
             <strong>${esc(numberText(r.previous))} ${esc(r.unit)}</strong>
           </div>
           <div>
-            <small>Quantity added</small>
-            <strong>${esc(numberText(r.added))} ${esc(r.unit)}</strong>
+            <small>Quantity changed</small>
+            <strong>${esc(qty.text)}</strong>
           </div>
           <div>
             <small>New stock</small>
@@ -1116,10 +1390,12 @@ function render() {
 
     const excludedKeys = [
       "previousQuantity", "previousStock", "previous",
-      "quantityAdded", "quantityChanged", "quantity", "added",
-      "newQuantity", "newStock", "new", "unit", "reason",
-      "recordName", "itemName", "materialName", "productName",
-      "serviceName", "name", "itemType", "targetType", "type"
+      "quantityAdded", "quantityChanged", "adjustmentQuantity",
+      "quantityRemoved", "quantityUsed", "quantityReturned",
+      "quantity", "added", "newQuantity", "newStock", "new",
+      "unit", "unitOfMeasure", "reason", "recordName",
+      "itemName", "materialName", "productName", "serviceName",
+      "name", "itemType", "targetType", "type"
     ];
 
     const extraDetails = Object.entries(r.details || {})
@@ -1141,7 +1417,11 @@ function render() {
         if (value && typeof value.toDate === "function") {
           display = dateText(value);
         } else if (value && typeof value === "object") {
-          display = JSON.stringify(value);
+          try {
+            display = JSON.stringify(value);
+          } catch {
+            display = String(value);
+          }
         } else {
           display = String(value);
         }
@@ -1152,6 +1432,10 @@ function render() {
             <strong>${esc(display)}</strong>
           </div>`;
       }).join("");
+
+    const qtyColumn = hasStock
+      ? `<span class="${qty.className}">${esc(qty.text)}</span>`
+      : `<span class="cell-sub">—</span>`;
 
     return `
       <details class="record">
@@ -1173,6 +1457,10 @@ function render() {
             </div>
 
             <div class="cell">
+              ${qtyColumn}
+            </div>
+
+            <div class="cell">
               <span class="person-name">${esc(r.actorName)}</span>
               <span class="cell-sub">${esc(roleLabelText(r.actorRole))}</span>
             </div>
@@ -1182,7 +1470,7 @@ function render() {
         </summary>
 
         <div class="record-details">
-          <p class="detail-title">Activity details</p>
+          <p class="detail-title">Activity Details</p>
 
           <div class="detail-grid">
             <div class="detail-box">
@@ -1204,6 +1492,24 @@ function render() {
               <small>Date and time</small>
               <strong>${esc(dateText(r.createdAt))}</strong>
             </div>
+
+            <div class="detail-box">
+              <small>Quantity changed</small>
+              <strong>${hasStock ? esc(qty.text) : "Not recorded"}</strong>
+            </div>
+
+            <div class="detail-box">
+              <small>Movement direction</small>
+              <strong>${
+                !hasStock || !r.changeKnown
+                  ? "Not recorded"
+                  : r.change > 0
+                    ? "Stock In"
+                    : r.change < 0
+                      ? "Stock Out"
+                      : "No quantity change"
+              }</strong>
+            </div>
           </div>
 
           ${quantityHtml}
@@ -1216,7 +1522,7 @@ function render() {
 
           ${extraDetails ? `
             <div class="details">
-              <b>Additional information</b>
+              <b>Additional Information</b>
               <div class="detail-grid" style="margin-top:8px">
                 ${extraDetails}
               </div>
@@ -1239,6 +1545,7 @@ function render() {
         <div>Item name</div>
         <div>Activity</div>
         <div>Date</div>
+        <div>Quantity changed</div>
         <div>Performed by</div>
         <div></div>
       </div>
@@ -1267,7 +1574,6 @@ async function loadRecords() {
     allRecords.sort((a, b) => {
       const da = toDate(a.createdAt)?.getTime() || 0;
       const dbTime = toDate(b.createdAt)?.getTime() || 0;
-
       return dbTime - da;
     });
 
@@ -1276,7 +1582,7 @@ async function loadRecords() {
     if (!allRecords.length) {
       showNotice(
         "No activity records were found in this business's activityLogs collection. " +
-        "Existing product records do not automatically appear here unless activity logs were saved."
+        "Existing inventory items will not appear here unless their activities were logged."
       );
     }
   } catch (error) {
@@ -1285,7 +1591,7 @@ async function loadRecords() {
     $("records").innerHTML = `
       <div class="empty">
         <b>Unable to load records</b>
-        Check your internet connection and Firestore rules.
+        Check your internet connection and Firestore permissions.
       </div>`;
 
     showNotice(
@@ -1303,30 +1609,34 @@ function setBusinessHeader(profile) {
     profile.businessName,
     profile.business?.name,
     profile.storeName,
+    profile.companyName,
     profile.name
   ) || "My Business";
 
   $("businessName").textContent = String(businessName);
 
   const logo = firstValue(
-    profile.businessLogo,
     profile.businessLogoUrl,
     profile.logoUrl,
+    profile.businessLogo,
+    profile.businessLogoURL,
+    profile.logoURL,
     profile.logo,
-    profile.business?.logoUrl
+    profile.business?.logoUrl,
+    profile.business?.logo
   );
 
   const img = $("businessLogo");
 
+  img.onload = () => {
+    img.hidden = false;
+  };
+
+  img.onerror = () => {
+    img.hidden = true;
+  };
+
   if (logo && typeof logo === "string") {
-    img.onload = () => {
-      img.hidden = false;
-    };
-
-    img.onerror = () => {
-      img.hidden = true;
-    };
-
     img.src = logo;
   } else {
     img.hidden = true;
@@ -1334,11 +1644,27 @@ function setBusinessHeader(profile) {
   }
 }
 
-$("search").addEventListener("input", render);
-$("activityFilter").addEventListener("change", render);
-$("typeFilter").addEventListener("change", render);
-$("dateFrom").addEventListener("change", render);
-$("dateTo").addEventListener("change", render);
+function toggleFilterPanel(forceOpen) {
+  const panel = $("filterPanel");
+  const button = $("toggleFilters");
+  const shouldOpen = typeof forceOpen === "boolean"
+    ? forceOpen
+    : !panel.classList.contains("show");
+
+  panel.classList.toggle("show", shouldOpen);
+  panel.setAttribute("aria-hidden", String(!shouldOpen));
+  button.setAttribute("aria-expanded", String(shouldOpen));
+  button.textContent = shouldOpen ? "Hide Search & Filter" : "Search & Filter";
+}
+
+$("toggleFilters").addEventListener("click", () => {
+  toggleFilterPanel();
+});
+
+$("applyFilters").addEventListener("click", () => {
+  render();
+  toggleFilterPanel(false);
+});
 
 $("refresh").addEventListener("click", loadRecords);
 
@@ -1348,18 +1674,22 @@ $("clear").addEventListener("click", () => {
   $("typeFilter").value = "all";
   $("dateFrom").value = "";
   $("dateTo").value = "";
-
   render();
 });
 
+$("search").addEventListener("input", render);
+$("activityFilter").addEventListener("change", render);
+$("typeFilter").addEventListener("change", render);
+$("dateFrom").addEventListener("change", render);
+$("dateTo").addEventListener("change", render);
+
 onAuthStateChanged(auth, async user => {
-  currentUser = user;
   businessId = null;
   allRecords = [];
 
   if (!user) {
     $("roleLabel").textContent = "Sign in required";
-    $("businessName").textContent = "Kayah";
+    $("businessName").textContent = "My Business";
 
     $("records").innerHTML = `
       <div class="empty">
@@ -1374,17 +1704,15 @@ onAuthStateChanged(auth, async user => {
   try {
     $("roleLabel").textContent = "Loading account...";
 
-    const profile = await getDoc(doc(db, "users", user.uid));
+    const profileSnapshot = await getDoc(doc(db, "users", user.uid));
 
-    if (!profile.exists()) {
+    if (!profileSnapshot.exists()) {
       throw new Error("Kayah user profile not found.");
     }
 
-    userData = profile.data();
+    userData = profileSnapshot.data();
 
-    const accountRole = String(
-      userData.role || "owner"
-    ).toLowerCase();
+    const accountRole = String(userData.role || "owner").toLowerCase();
 
     if (accountRole === "staff") {
       if (
@@ -1395,11 +1723,17 @@ onAuthStateChanged(auth, async user => {
         throw new Error("Staff account is not active.");
       }
 
-      if (!userData.ownerUid) {
-        throw new Error("Staff profile is missing ownerUid.");
+      const ownerUid = firstValue(
+        userData.ownerUid,
+        userData.businessOwnerUid,
+        userData.businessId
+      );
+
+      if (!ownerUid) {
+        throw new Error("Staff profile is missing the business owner's UID.");
       }
 
-      businessId = userData.ownerUid;
+      businessId = ownerUid;
       role = "staff";
     } else {
       businessId = user.uid;
@@ -1412,7 +1746,6 @@ onAuthStateChanged(auth, async user => {
       role === "owner" ? "Business Owner" : "Staff";
 
     await loadRecords();
-
   } catch (error) {
     console.error("Could not open inventory records:", error);
 
@@ -1422,10 +1755,7 @@ onAuthStateChanged(auth, async user => {
         Check your account profile and Firestore permissions.
       </div>`;
 
-    showNotice(
-      error.message || "Could not open records.",
-      true
-    );
+    showNotice(error.message || "Could not open records.", true);
   }
 });
 </script>
