@@ -254,7 +254,7 @@ img.item-photo {
       <h1 id="businessName" class="business-name">Loading business...</h1>
       <div class="business-subtitle">Stock Inventory · Products & Materials</div>
     </div>
-    <button class="header-button" id="recordsButton" type="button">Inventory Records ↗</button>
+    <button class="header-button" id="recordsButton" type="button">Stocks History  ↗</button>
   </div>
 </header>
 
@@ -983,7 +983,7 @@ $("stockList").addEventListener("click",event=>{
   if(materialButton){clearNotice();openAddMaterialStock(materialButton.dataset.addMaterialStock)}
 });
 $("recordsButton").addEventListener("click",()=>{
-  window.location.href="inventory-record/index.html";
+  window.location.href="stock-history/index.html";
 });
 document.querySelectorAll("[data-close]").forEach(button=>{
   button.addEventListener("click",()=>closeModal(button.dataset.close));
