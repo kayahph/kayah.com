@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +34,62 @@
 >
 
 <style>
+    
+    .product-search-bar {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.product-search-bar input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #d7e2dc;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+}
+
+.product-search-bar input:focus {
+    border-color: #16805C;
+    box-shadow: 0 0 0 2px rgba(22, 128, 92, 0.12);
+}
+
+.product-search-bar button {
+    border: none;
+    border-radius: 9px;
+    padding: 0 14px;
+    background: #0B4F3A;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.product-search-bar button:active {
+    opacity: 0.85;
+}
+    
+    
+    
+    
+    .product-count-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8e5;
+    border-radius: 10px;
+    color: #0B4F3A;
+    font-size: 13px;
+    font-weight: 600;
+}
+    
+    
 
 *{
     margin:0;
@@ -888,7 +945,7 @@ body{
     <div class="loading-inner">
 
         <img
-            src="../kayah-logo.png"
+ducts           src="../kayah-logo.png"
             alt="Kayah"
         >
 
@@ -963,11 +1020,18 @@ body{
     </div>
 
 
+<!-- PRODUCT COUNT SUMMARY -->
+<div class="product-count-summary">
+    <span id="addedProductsCount">0 products added</span>
+    <span id="remainingProductsCount">30 remaining</span>
+</div>
+
+
     <!-- =================================================
          PLAN
     ================================================== -->
 
-    <section class="plan-card">
+    <section class="plan-card" style="display:none;">
 
         <div class="plan-top">
 
@@ -989,20 +1053,20 @@ body{
                     <div
                         class="plan-description"
                         id="planDescription"
-                    >
-                        Up to 100 products
+                    >Up to 30 products
                     </div>
 
                 </div>
 
             </div>
 
-            <div
-                class="plan-badge"
-                id="planBadge"
-            >
-                30-DAY TRIAL
-            </div>
+           <div
+    class="plan-badge"
+    id="planBadge"
+    style="display:none;"
+>
+    30-DAY TRIAL
+</div>
 
         </div>
 
@@ -1079,6 +1143,24 @@ body{
         </button>
 
     </div>
+
+
+<!-- SEARCH PRODUCTS -->
+<div class="product-search-bar">
+    <input
+        type="search"
+        id="productSearchInput"
+        placeholder="Search product name or SKU..."
+        autocomplete="off"
+    >
+
+    <button
+        type="button"
+        id="searchProductsButton"
+    >
+        🔍 Search
+    </button>
+</div>
 
 
     <!-- =================================================
@@ -2074,6 +2156,100 @@ const materialsEmptyMessage =
 
 
 /* =====================================================
+   SEARCH PRODUCTS — KAYAH
+===================================================== */
+
+const productSearchInput =
+    document.getElementById("productSearchInput");
+
+const searchProductsButton =
+    document.getElementById("searchProductsButton");
+
+let productSearchActive = false;
+let productSearchResults = [];
+
+function searchProducts(){
+
+    if(!productSearchInput){
+        console.error("Product search input not found.");
+        return;
+    }
+
+    const query =
+        productSearchInput.value
+            .trim()
+            .toLowerCase();
+
+    if(query === ""){
+
+        productSearchActive = false;
+        productSearchResults = [];
+
+        renderProducts();
+        return;
+    }
+
+    productSearchActive = true;
+
+    productSearchResults =
+        currentProducts.filter(function(product){
+
+            const name =
+                String(product.name || "")
+                    .toLowerCase();
+
+            const sku =
+                String(product.sku || "")
+                    .toLowerCase();
+
+            const category =
+                String(product.category || "")
+                    .toLowerCase();
+
+            return (
+                name.includes(query) ||
+                sku.includes(query) ||
+                category.includes(query)
+            );
+
+        });
+
+    renderProducts();
+}
+
+if(searchProductsButton){
+
+    searchProductsButton.addEventListener(
+        "click",
+        searchProducts
+    );
+
+}
+
+if(productSearchInput){
+
+    productSearchInput.addEventListener(
+        "input",
+        searchProducts
+    );
+
+    productSearchInput.addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+                event.preventDefault();
+                searchProducts();
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
    PAGE SECTIONS / BUTTONS
 ===================================================== */
 
@@ -2111,7 +2287,7 @@ let currentUser = null;
 
 let currentProducts = [];
 
-let currentLimit = 100;
+let currentLimit = 30;
 
 let currentMaterials = [];
 
@@ -2147,10 +2323,11 @@ function showAddProductView(){
     ){
 
         showError(
-            "You have reached your product limit of " +
-            currentLimit +
-            " products."
-        );
+    "You have reached your product limit of " +
+    currentLimit +
+    " products. Your existing products remain saved. " +
+    "Upgrade your plan to add more products."
+);
 
         return;
 
@@ -2742,71 +2919,40 @@ function showSuccess(message){
 
 function getProductLimit(data){
 
-    if(
-        Number.isFinite(
-            Number(data.productLimit)
-        )
-        &&
-        Number(data.productLimit) > 0
-    ){
-
-        return Number(
-            data.productLimit
-        );
-
-    }
-
-
     const plan =
         safeText(
             data.plan,
             "free"
         ).toLowerCase();
 
-
-    const trialActive =
-        data.trialActive === true;
-
-
-    if(trialActive){
-
-        return 100;
-
-    }
-
-
-    if(plan === "free"){
-
+    // Free trial: 30 products
+    if(data.trialActive === true){
         return 30;
-
     }
 
+    // Free plan: 30 products
+    if(plan === "free"){
+        return 30;
+    }
 
+    // Starter plan: 150 products
     if(plan === "starter"){
-
         return 150;
-
     }
 
-
+    // Business plan: 500 products
     if(plan === "business"){
-
         return 500;
-
     }
 
-
+    // Pro plan: 2,000 products
     if(plan === "pro"){
-
         return 2000;
-
     }
 
-
+    // Default limit
     return 30;
-
 }
-
 
 /* =====================================================
    UPDATE PLAN UI
@@ -2846,26 +2992,24 @@ function updatePlanUI(data){
         getProductLimit(data);
 
 
-    if(trialStillActive){
+   if(trialStillActive){
 
-        planName.textContent =
-            "30-Day Free Trial";
+    // Keep recognizing the active trial internally.
+    // Hide the trial name and badge from the page.
 
-        planDescription.textContent =
-            "Up to 100 products";
+    planName.style.display = "none";
 
-        planBadge.textContent =
-            "30-DAY TRIAL";
+    planDescription.style.display = "none";
 
-        planBadge.classList.remove(
-            "expired"
-        );
+    planBadge.style.display = "none";
 
-    }
+}
 
     else if(
         plan === "free"
     ){
+
+
 
         planName.textContent =
             "Free Plan";
@@ -2875,6 +3019,9 @@ function updatePlanUI(data){
 
         planBadge.textContent =
             "FREE PLAN";
+            
+            planBadge.style.display = "inline-block";
+            
 
         planBadge.classList.remove(
             "expired"
@@ -2910,6 +3057,8 @@ function updatePlanUI(data){
         planBadge.textContent =
             "ACTIVE";
 
+planBadge.style.display = "inline-block";
+
 
         planBadge.classList.remove(
             "expired"
@@ -2936,6 +3085,22 @@ function updateUsageUI(){
 
     const count =
         currentProducts.length;
+        
+        
+        const remaining = Math.max(
+    0,
+    currentLimit - count
+);
+
+document.getElementById(
+    "addedProductsCount"
+).textContent =
+    count + (count === 1 ? " product added" : " products added");
+
+document.getElementById(
+    "remainingProductsCount"
+).textContent =
+    remaining + (remaining === 1 ? " remaining" : " remaining");
 
 
     productCount.textContent =
@@ -3085,32 +3250,32 @@ function formatDate(value){
 
 function renderProducts(){
 
-    productsList.innerHTML =
-        "";
+    productsList.innerHTML = "";
+
+    const productsToDisplay =
+        productSearchActive
+            ? productSearchResults
+            : currentProducts;
+    if(productsToDisplay.length === 0){
+
+    productsList.innerHTML = `
+        <div class="empty-message">
+            ${
+                productSearchActive
+                    ? "No matching products found."
+                    : "📦<br><br>You haven't added any products yet.<br>Tap <strong>+ Add Product</strong> above to add your first product."
+            }
+        </div>
+    `;
+
+    updateUsageUI();
+    return;
+}
 
 
-    if(
-        currentProducts.length === 0
-    ){
-
-        productsList.innerHTML = `
-            <div class="empty-message">
-                📦<br><br>
-                You haven't added any products yet.<br>
-                Tap <strong>+ Add Product</strong> above to add your first product.
-            </div>
-        `;
-
-        updateUsageUI();
-
-        return;
-
-    }
-
-
-    currentProducts.forEach(
-        function(product){
-
+    productsToDisplay.forEach(
+    function(product){
+    
             const item =
                 document.createElement(
                     "div"
@@ -3588,27 +3753,44 @@ async function loadProducts(){
 
 
         currentProducts =
-            snapshot.docs.map(
-                function(productDoc){
+    snapshot.docs.map(
+        function(productDoc){
 
-                    const data =
-                        productDoc.data();
+            const data =
+                productDoc.data();
 
-                    return {
+            return {
+                id: productDoc.id,
+                ...data
+            };
 
-                        id:
-                            productDoc.id,
+        }
+    );
 
-                        ...data
+// Display newest products first.
+currentProducts.sort(function(a, b){
 
-                    };
+    function getTime(product){
 
-                }
-            );
+        const value = product.createdAt;
 
+        if(value && typeof value.toDate === "function"){
+            return value.toDate().getTime();
+        }
 
-        renderProducts();
+        if(value){
+            const date = new Date(value);
+            return isNaN(date.getTime()) ? 0 : date.getTime();
+        }
 
+        return 0;
+    }
+
+    return getTime(b) - getTime(a);
+
+});
+
+renderProducts();
     }
 
     catch(error){
