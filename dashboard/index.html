@@ -820,11 +820,12 @@ try {
                 <div class="tool-description">Manage staff and access permissions</div>
             </div>
 
-            <div class="tool-card tile-settings" onclick="openSettings()">
-                <div class="tool-icon">⚙️</div>
-                <div class="tool-name">Settings</div>
-                <div class="tool-description">Manage your account settings</div>
-            </div>
+            
+<div class="tool-card tile-settings" onclick="openActivityLog()">
+    <div class="tool-icon">📋</div>
+    <div class="tool-name">Activity Log</div>
+    <div class="tool-description">View business activity and change records</div>
+</div>
 
         </div>
 
@@ -1235,8 +1236,10 @@ window.openStaffManagement = function () {
     window.location.href = "../staff/";
 };
 
-window.openSettings = function () {
-    window.location.href = "../settings/";
+
+window.openActivityLog = function () {
+    window.location.href = "../inventory-record/index.html";
+
 };
 
 window.openMore = function () {
@@ -1449,4 +1452,4 @@ async function loadTodaySales(businessId) {
 </script>
 
 </body>
-</html>
+</html> 
