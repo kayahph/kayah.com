@@ -394,60 +394,178 @@ async function log(action,type,id,name,details={}){try{await addDoc(collection(d
 
 
 catch(e){console.warn("Activity log failed",e)}}
-function plan(){let p=String(ownerData.plan||"free").toLowerCase(),end=ownerData.trialEndsAt?.toDate?ownerData.trialEndsAt.toDate():ownerData.trialEndsAt?new Date(ownerData.trialEndsAt):null;if(ownerData.trialActive&&(!end||end>Date.now()))return{name:"30-Day Trial",limit:100};if(p.includes("pro"))return{name:"Pro",limit:2000};if(p.includes("business"))return{name:"Business",limit:500};if(p.includes("starter"))return{name:"Starter",limit:150};return{name:"Free",limit:30}}
+
+
+
+
+
+function plan() {
+    const p = String(ownerData.plan || "free").toLowerCase();
+
+    const end = ownerData.trialEndsAt?.toDate
+        ? ownerData.trialEndsAt.toDate()
+        : ownerData.trialEndsAt
+            ? new Date(ownerData.trialEndsAt)
+            : null;
+
+    const trialIsActive =
+        ownerData.trialActive === true &&
+        (!end || end.getTime() > Date.now());
+
+    if (trialIsActive) {
+        return { name: "30-Day Free Trial", limit: 30 };
+    }
+
+    if (p.includes("pro")) {
+        return { name: "Pro", limit: 2000 };
+    }
+
+    if (p.includes("business")) {
+        return { name: "Business", limit: 500 };
+    }
+
+    if (p.includes("starter")) {
+        return { name: "Starter", limit: 150 };
+    }
+
+    return { name: "Free", limit: 30 };
+}
+
+function getServiceLimit() {
+    const p = String(ownerData.plan || "free").toLowerCase();
+
+    const end = ownerData.trialEndsAt?.toDate
+        ? ownerData.trialEndsAt.toDate()
+        : ownerData.trialEndsAt
+            ? new Date(ownerData.trialEndsAt)
+            : null;
+
+    // Active 30-Day Free Trial
+    if (
+        ownerData.trialActive &&
+        (!end || end.getTime() > Date.now())
+    ) {
+        return 30;
+    }
+
+    // Pro plan
+    if (p.includes("pro")) {
+        return 2000;
+    }
+
+    // Business plan
+    if (p.includes("business")) {
+        return 500;
+    }
+
+    // Starter plan
+    if (p.includes("starter")) {
+        return 150;
+    }
+
+    // Free plan
+    return 30;
+}
+
+
+
+
 function items(){return tab==="products"?products:services}
-function render(){let a=items(),q=$("search").value.toLowerCase().trim();$("countLabel").textContent=tab==="products"?"Products":"Services";$("count").textContent=a.length;$("active").textContent=a.filter(x=>(x.status||"active")==="active").length;let p=plan();$("limit").textContent=tab==="products"?`${a.length} / ${p.limit}`:p.name;$("bar").style.width=tab==="products"?Math.min(100,a.length/p.limit*100)+"%":"0%";a=a.filter(x=>[x.name,x.category,x.sku,x.serviceCode,x.description].some(v=>String(v||"").toLowerCase().includes(q)));if(!a.length){$("list").innerHTML=`<div class="empty"><b>${q?"No matching items":"Nothing here yet"}</b>${q?"Try another search.":"Add your first "+(tab==="products"?"product":"service")+" to get started."}</div>`;return} $("list").innerHTML=a.map(x=>{let prod=tab==="products",code=prod?x.sku:x.serviceCode,price=prod?x.sellingPrice:x.price,stock=prod?(x.trackStock?`Stock: ${esc(x.stockQuantity??0)} ${esc(x.unit||"")}`:"Stock tracking off"):(x.duration?"Duration: "+esc(x.duration):"Service");return`<article class="item"><div>${x.photoUrl?`<img class="photo" src="${esc(x.photoUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">`:`<div class="photo">${prod?"▧":"✦"}</div>`}</div><div><h3>${esc(x.name||"Unnamed item")}</h3><div class="muted">${esc(x.category||"Uncategorized")}${code?" · "+esc(code):""}</div><div class="price">${cash(price)}</div><span class="tag">${esc(x.status||"active")}</span><span class="tag">${stock}</span>${x.trackStock&&Number(x.stockQuantity||0)<=Number(x.lowStockAlert||0)?'<span class="tag warn">Low stock</span>':""}</div><div class="actions"><button class="secondary" data-edit="${esc(x.id)}">Edit</button>${prod?`<button class="secondary" data-stock="${esc(x.id)}">＋ Stock</button>`:""}<button class="secondary danger" data-delete="${esc(x.id)}">Delete</button></div></article>`}).join("")}
+function render(){let a=items(),q=$("search").value.toLowerCase().trim();$("countLabel").textContent=tab==="products"?"Products":"Services";$("count").textContent=a.length;$("active").textContent=a.filter(x=>(x.status||"active")==="active").length;
+
+let p = plan();
+let serviceLimit = getServiceLimit();
+
+$("limit").textContent = tab === "products"
+    ? `Products: ${products.length} / ${p.limit}`
+    : `Services: ${services.length} / ${serviceLimit}`;
+
+$("bar").style.width = tab === "products"
+    ? Math.min(100, products.length / p.limit * 100) + "%"
+    : Math.min(100, services.length / serviceLimit * 100) + "%";
+a=a.filter(x=>[x.name,x.category,x.sku,x.serviceCode,x.description].some(v=>String(v||"").toLowerCase().includes(q)));if(!a.length){$("list").innerHTML=`<div class="empty"><b>${q?"No matching items":"Nothing here yet"}</b>${q?"Try another search.":"Add your first "+(tab==="products"?"product":"service")+" to get started."}</div>`;return} $("list").innerHTML=a.map(x=>{let prod=tab==="products",code=prod?x.sku:x.serviceCode,price=prod?x.sellingPrice:x.price,stock=prod?(x.trackStock?`Stock: ${esc(x.stockQuantity??0)} ${esc(x.unit||"")}`:"Stock tracking off"):(x.duration?"Duration: "+esc(x.duration):"Service");return`<article class="item"><div>${x.photoUrl?`<img class="photo" src="${esc(x.photoUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">`:`<div class="photo">${prod?"▧":"✦"}</div>`}</div><div><h3>${esc(x.name||"Unnamed item")}</h3><div class="muted">${esc(x.category||"Uncategorized")}${code?" · "+esc(code):""}</div><div class="price">${cash(price)}</div><span class="tag">${esc(x.status||"active")}</span><span class="tag">${stock}</span>${x.trackStock&&Number(x.stockQuantity||0)<=Number(x.lowStockAlert||0)?'<span class="tag warn">Low stock</span>':""}</div><div class="actions"><button class="secondary" data-edit="${esc(x.id)}">Edit</button>${prod?`<button class="secondary" data-stock="${esc(x.id)}">＋ Stock</button>`:""}<button class="secondary danger" data-delete="${esc(x.id)}">Delete</button></div></article>`}).join("")}
+
 
 
 
 
 async function load() {
-  try {
-    $("list").innerHTML =
-      '<div class="loading">Loading…</div>';
-
-    const [p, s] = await Promise.all([
-      getDocs(pref()),
-      getDocs(sref())
-    ]);
-
-    products = p.docs.map(d => ({
-      id: d.id,
-      ...d.data()
-    }));
-
-    services = s.docs.map(d => ({
-      id: d.id,
-      ...d.data()
-    }));
-
     try {
-      const materialSnapshot = await getDocs(materialsRef());
+        $("list").innerHTML =
+            '<div class="loading">Loading…</div>';
 
-      materials = materialSnapshot.docs.map(d => ({
-        id: d.id,
-        ...d.data()
-      }));
-    } catch (materialError) {
-      console.error("Materials loading failed:", materialError);
-      materials = [];
-      notice(
-        "Products loaded, but materials could not be loaded. Check Materials Firestore permissions.",
-        true
-      );
+        const [p, s] = await Promise.all([
+            getDocs(pref()),
+            getDocs(sref())
+        ]);
+
+        // Load products from Firebase.
+        products = p.docs.map(d => ({
+            id: d.id,
+            ...d.data()
+        }));
+
+        // Sort products alphabetically from A to Z.
+        products.sort((a, b) => {
+            const nameA = String(a.name || "").trim();
+            const nameB = String(b.name || "").trim();
+
+            return nameA.localeCompare(nameB, undefined, {
+                sensitivity: "base",
+                numeric: true
+            });
+        });
+
+        // Load services from Firebase.
+services = s.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+}));
+
+// Sort services alphabetically from A to Z.
+services.sort((a, b) => {
+    const nameA = String(a.name || "").trim();
+    const nameB = String(b.name || "").trim();
+
+    return nameA.localeCompare(nameB, undefined, {
+        sensitivity: "base",
+        numeric: true
+    });
+});
+        try {
+            const materialSnapshot = await getDocs(materialsRef());
+
+            materials = materialSnapshot.docs.map(d => ({
+                id: d.id,
+                ...d.data()
+            }));
+
+        } catch (materialError) {
+            console.error("Materials loading failed:", materialError);
+            materials = [];
+
+            notice(
+                "Products loaded, but materials could not be loaded. Check Materials Firestore permissions.",
+                true
+            );
+        }
+
+        // Render the alphabetically sorted products.
+        render();
+
+    } catch (e) {
+        console.error(e);
+
+        $("list").innerHTML =
+            '<div class="empty"><b>Unable to load items</b>' +
+            'Check Firestore rules and business collection access.</div>';
+
+        notice("Load error: " + (e.code || e.message), true);
     }
-
-    render();
-  } catch (e) {
-    console.error(e);
-
-    $("list").innerHTML =
-      '<div class="empty"><b>Unable to load items</b>' +
-      'Check Firestore rules and business collection access.</div>';
-
-    notice("Load error: " + (e.code || e.message), true);
-  }
 }
+
+
+
 
 function setTab(t){tab=t;$("ptab").classList.toggle("active",t==="products");$("stab").classList.toggle("active",t==="services");$("search").value="";render()}
 
@@ -462,11 +580,19 @@ let stockMode = modeArg === "stock";
 let service = modeArg === "service" || modeArg === "editService";
 let edit = modeArg.startsWith("edit");
 
+
+
+
+
 renderMaterialRows(
   !service && !stockMode && item
     ? (item.materialsUsed || [])
     : []
 );
+
+
+
+
 
 
 
