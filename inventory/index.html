@@ -5,848 +5,460 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0B4F3A">
-<title>Inventory - Kayah</title>
+<title>Stock Inventory - Kayah</title>
 
 <style>
-:root {
-  --green: #0B4F3A;
-  --green-light: #16805C;
-  --yellow: #F2B84B;
-  --cream: #F7F3E8;
-  --text: #18352C;
-  --muted: #788A82;
-  --border: #E3E9E3;
-  --white: #FFFFFF;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Arial, sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  min-height: 100vh;
-  padding-bottom: calc(76px + env(safe-area-inset-bottom));
-}
-
-/* HEADER */
-
-.header {
-  background: var(--green);
-  color: white;
-  padding: calc(12px + env(safe-area-inset-top)) 14px 13px;
-  border-radius: 0 0 17px 17px;
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.back-button {
-  width: 36px;
-  height: 36px;
-  flex: none;
-  border: 0;
-  border-radius: 11px;
-  background: rgba(255,255,255,.13);
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.header-title {
-  font-size: 19px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.header-subtitle {
-  margin-top: 3px;
-  color: rgba(255,255,255,.75);
-  font-size: 11px;
-}
-
-.header-icon {
-  width: 36px;
-  height: 36px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: var(--yellow);
-  font-size: 19px;
-}
-
-.records-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  margin-top: 11px;
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 10px;
-  background: rgba(255,255,255,.11);
-  color: white;
-  font-size: 12px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: background .2s;
-}
-
-.records-button:active {
-  background: rgba(255,255,255,.2);
-}
-
-/* PAGE */
-
-.page {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 12px 12px 22px;
-}
-
-.loading {
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.spinner {
-  width: 30px;
-  height: 30px;
-  border: 3px solid #DDE8E2;
-  border-top-color: var(--green-light);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.error-box {
-  display: none;
-  margin-bottom: 12px;
-  padding: 12px;
-  border: 1px solid #F1CACA;
-  border-radius: 11px;
-  background: #FFF0F0;
-  color: #A12B2B;
-  font-size: 12px;
-  overflow-wrap: anywhere;
-}
-
-/* COMPACT SUMMARY */
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.summary-card {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 11px 10px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  box-shadow: 0 2px 8px rgba(11,79,58,.035);
-}
-
-.summary-icon {
-  width: 34px;
-  height: 34px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  background: #EAF2ED;
-  font-size: 16px;
-}
-
-.summary-card:nth-child(3) .summary-icon {
-  background: #FFF3D8;
-}
-
-.summary-card:nth-child(4) .summary-icon {
-  background: #FFE9E9;
-}
-
-.summary-info { min-width: 0; }
-
-.summary-label {
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.summary-value {
-  margin-top: 3px;
-  color: var(--green);
-  font-size: 21px;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-/* SEARCH AND FILTERS */
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 9px;
-}
-
-.section-title {
-  color: var(--green);
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.result-count {
-  color: var(--muted);
-  font-size: 10px;
-  white-space: nowrap;
-}
-
-.search-box {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 15px;
-  pointer-events: none;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 11px 12px 11px 36px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  outline: none;
-  background: white;
-  color: var(--text);
-  font-size: 13px;
-}
-
-.search-box input:focus,
-.stock-input:focus,
-.reason-input:focus {
-  border-color: var(--green-light);
-}
-
-.filters {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  margin-bottom: 12px;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-}
-
-.filters::-webkit-scrollbar { display: none; }
-
-.filter-btn {
-  flex: none;
-  padding: 7px 11px;
-  border: 1px solid #DDE5DE;
-  border-radius: 18px;
-  background: white;
-  color: #557067;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.filter-btn.active {
-  background: var(--green);
-  border-color: var(--green);
-  color: white;
-}
-
-/* COMPACT PRODUCT LIST */
-
-.inventory-list {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.inventory-card {
-  padding: 10px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  box-shadow: 0 2px 7px rgba(11,79,58,.035);
-}
-
-.product-row {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-}
-
-.product-image {
-  width: 45px;
-  height: 45px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #EAF2ED;
-  color: var(--green);
-  font-size: 21px;
-}
-
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.product-info {
-  min-width: 0;
-  flex: 1;
-}
-
-.product-name {
-  overflow: hidden;
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 800;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.product-sku {
-  margin-top: 3px;
-  overflow: hidden;
-  color: #899991;
-  font-size: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.stock-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 5px;
-  padding: 3px 7px;
-  border-radius: 12px;
-  font-size: 9px;
-  font-weight: 800;
-}
-
-.status-in {
-  background: #E5F5EC;
-  color: #16805C;
-}
-
-.status-low {
-  background: #FFF4D9;
-  color: #A56A00;
-}
-
-.status-out {
-  background: #FFE8E8;
-  color: #B52B2B;
-}
-
-.stock-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 9px;
-  padding-top: 8px;
-  border-top: 1px solid #EEF1EE;
-}
-
-.stock-number {
-  min-width: 0;
-}
-
-.stock-label {
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.stock-value {
-  margin-top: 2px;
-  color: var(--green);
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
-.stock-unit {
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.adjust-button {
-  flex: none;
-  padding: 8px 11px;
-  border: 0;
-  border-radius: 9px;
-  background: var(--green-light);
-  color: white;
-  font-size: 11px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.adjust-button:active { transform: scale(.97); }
-
-/* EMPTY STATE */
-
-.empty {
-  padding: 25px 15px;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  background: white;
-  text-align: center;
-}
-
-.empty-icon { font-size: 30px; }
-
-.empty-title {
-  margin-top: 7px;
-  color: var(--green);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.empty-text {
-  margin-top: 5px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-/* STOCK MODAL */
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 12px;
-  background: rgba(0,0,0,.48);
-}
-
-.modal.show { display: flex; }
-
-.modal-box {
-  width: 100%;
-  max-width: 440px;
-  padding: 18px;
-  border-radius: 20px;
-  background: var(--cream);
-  box-shadow: 0 15px 45px rgba(0,0,0,.2);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 13px;
-}
-
-.modal-title {
-  color: var(--green);
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.close-button {
-  width: 32px;
-  height: 32px;
-  border: 0;
-  border-radius: 50%;
-  background: #E7ECE8;
-  color: #426057;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.modal-product {
-  margin-bottom: 14px;
-  padding: 11px;
-  border-radius: 11px;
-  background: white;
-}
-
-.modal-product-name {
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.modal-current {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 6px;
-  color: #50675E;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.stock-input,
-.reason-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #D8E0DA;
-  border-radius: 11px;
-  outline: none;
-  background: white;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.stock-input { font-weight: 700; }
-
-.reason-input {
-  margin-top: 12px;
-  resize: vertical;
-  font-family: inherit;
-  font-size: 12px;
-}
-
-.modal-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.cancel-button,
-.save-button {
-  padding: 12px;
-  border: 0;
-  border-radius: 11px;
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background: #E5EBE7;
-  color: #456158;
-}
-
-.save-button {
-  background: var(--green);
-  color: white;
-}
-
-.save-button:disabled {
-  opacity: .6;
-  cursor: wait;
-}
-
-/* TOAST */
-
-.toast {
-  position: fixed;
-  z-index: 200;
-  left: 50%;
-  bottom: calc(82px + env(safe-area-inset-bottom));
-  max-width: calc(100% - 30px);
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--green);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 10px);
-  transition: .2s ease;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-/* BOTTOM NAV */
-
-.bottom-nav {
-  position: fixed;
-  z-index: 50;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: calc(65px + env(safe-area-inset-bottom));
-  padding-bottom: env(safe-area-inset-bottom);
-  border-top: 1px solid #E3E8E4;
-  background: white;
-  box-shadow: 0 -3px 12px rgba(11,79,58,.05);
-}
-
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 700px;
-  height: 100%;
-  margin: 0 auto;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  min-width: 0;
-  padding: 6px 10px;
-  border-radius: 10px;
-  color: #7A8B84;
-  font-size: 9px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.nav-icon { font-size: 18px; }
-
-.nav-item.active { color: var(--green); }
-
-@media (min-width: 700px) {
-  .header { padding-left: max(18px, calc((100% - 860px)/2)); padding-right: max(18px, calc((100% - 860px)/2)); }
-  .records-button { width: auto; margin-left: auto; margin-top: 12px; padding: 9px 14px; }
-  .summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .modal { align-items: center; }
-  .page { padding-top: 16px; }
-  .inventory-list { gap: 8px; }
-}
-
-@media (max-width: 360px) {
-  .page { padding-right: 9px; padding-left: 9px; }
-  .summary-card { gap: 7px; padding: 9px 7px; }
-  .summary-icon { width: 29px; height: 29px; font-size: 14px; }
-  .summary-value { font-size: 19px; }
-  .product-image { width: 40px; height: 40px; }
-  .adjust-button { padding: 8px; font-size: 10px; }
+:root{
+  --green:#0B4F3A;
+  --green-light:#16805C;
+  --yellow:#F2B84B;
+  --cream:#F7F3E8;
+  --white:#fff;
+  --text:#26352d;
+  --muted:#718078;
+  --border:#e3e9e4;
+  --red:#c0392b;
+  --orange:#a85d00;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;font-size:14px;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
+
+.business-header{
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:white;padding:13px 15px;
+  box-shadow:0 3px 12px rgba(11,79,58,.16);
+}
+.business-header-inner{
+  max-width:950px;margin:auto;display:flex;
+  align-items:center;gap:11px;min-width:0;
+}
+.business-logo-wrap{
+  width:46px;height:46px;flex:0 0 46px;border-radius:11px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.business-logo{width:100%;height:100%;object-fit:contain;background:white;display:none}
+.logo-fallback{font-size:23px;font-weight:800;color:var(--yellow)}
+.business-heading{flex:1;min-width:0}
+.business-name{margin:0;font-size:17px;font-weight:800;overflow-wrap:anywhere}
+.business-subtitle{margin-top:4px;color:#e3eee7;font-size:11px}
+.header-button{
+  border:1px solid #ffffff55;background:#ffffff18;color:white;
+  border-radius:8px;padding:9px 10px;font-size:11px;font-weight:700;
+}
+.page{max-width:950px;margin:auto;padding:13px}
+.notice{
+  display:none;padding:11px 12px;border-radius:9px;margin-bottom:12px;
+  font-size:12px;line-height:1.5;overflow-wrap:anywhere;
+}
+.notice.success{display:block;background:#e8f6ec;color:#145a32;border:1px solid #c8e8d1}
+.notice.error{display:block;background:#fff0ed;color:#8d261d;border:1px solid #f0ccc6}
+.notice.info{display:block;background:#edf4ee;color:#365341;border:1px solid #d7e4d9}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.tab{
+  border:1px solid #d7e2d9;background:#fff;color:var(--green);
+  border-radius:10px;padding:12px 8px;font-weight:800;font-size:13px;
+}
+.tab.active{background:var(--green);color:white;border-color:var(--green)}
+.tab small{display:block;font-size:10px;font-weight:400;margin-top:4px;opacity:.85}
+
+.summary-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;margin-bottom:12px;
+}
+.summary-card{
+  min-width:0;background:white;border:1px solid var(--border);
+  border-radius:10px;padding:10px;
+}
+.summary-label{color:var(--muted);font-size:10px;line-height:1.3}
+.summary-number{font-size:20px;font-weight:800;color:var(--green);margin-top:5px}
+.summary-card.low .summary-number{color:var(--orange)}
+.summary-card.out .summary-number{color:var(--red)}
+
+.toolbar{display:flex;gap:7px;align-items:center;margin-bottom:9px}
+.search{flex:1;min-width:0}
+input,select,textarea{
+  width:100%;border:1px solid #d9e2db;border-radius:8px;
+  padding:10px;background:white;color:var(--text);outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--green-light)}
+.search input{padding:11px}
+.button{
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  border:0;border-radius:8px;padding:10px 12px;
+  font-size:12px;font-weight:700;white-space:nowrap;
+}
+.primary{background:var(--green);color:white}
+.secondary{background:#e6eee8;color:var(--green)}
+.yellow{background:var(--yellow);color:#342500}
+.small{padding:7px 9px;font-size:11px}
+
+.filters{display:flex;gap:6px;overflow-x:auto;padding:1px 0 8px;margin-bottom:5px}
+.filter{
+  flex:0 0 auto;border:1px solid #dce5de;border-radius:20px;
+  background:white;color:#52665a;padding:8px 12px;font-size:11px;font-weight:700;
+}
+.filter.active{background:#e0eee4;color:var(--green);border-color:#9fc8ad}
+.filter-count{opacity:.75;margin-left:3px}
+
+.list-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;margin:7px 2px 9px;
+}
+.list-heading h2{font-size:15px;color:var(--green);margin:0}
+.muted{font-size:11px;color:var(--muted)}
+.stock-list{display:flex;flex-direction:column;gap:7px}
+.stock-row{
+  display:flex;align-items:center;gap:9px;min-width:0;
+  background:white;border:1px solid var(--border);border-radius:10px;padding:9px;
+}
+
+
+
+
+/* FORCE LARGER PRODUCT AND MATERIAL PHOTOS */
+.item-photo,
+img.item-photo,
+.photo-placeholder {
+  width: 75px !important;
+  height: 75px !important;
+  min-width: 75px !important;
+  min-height: 75px !important;
+  max-width: 75px !important;
+  max-height: 75px !important;
+  flex: 0 0 75px !important;
+  border-radius: 10px !important;
+  box-sizing: border-box !important;
+}
+
+.item-photo,
+img.item-photo {
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.photo-placeholder {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 28px !important;
+}
+
+/* Keep item details visible beside the photo */
+.item-info {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+  .item-photo,
+  img.item-photo,
+  .photo-placeholder {
+    width: 65px !important;
+    height: 65px !important;
+    min-width: 65px !important;
+    min-height: 65px !important;
+    max-width: 65px !important;
+    max-height: 65px !important;
+    flex: 0 0 65px !important;
+  }
+}
+
+.item-info{flex:1;min-width:0}
+.item-name{font-size:13px;font-weight:800;color:var(--green);overflow-wrap:anywhere;margin-bottom:4px}
+.item-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
+.tag{padding:3px 6px;border-radius:5px;background:#f1f5f1;color:#52665a}
+.stock-status{
+  display:inline-flex;align-items:center;gap:4px;border-radius:20px;
+  padding:4px 7px;font-size:10px;font-weight:800;white-space:nowrap;
+}
+.status-in{background:#e4f6e9;color:#19703a}
+.status-low{background:#fff1d5;color:#955500}
+.status-out{background:#ffebe8;color:#b42318}
+.stock-right{min-width:63px;text-align:right}
+.stock-quantity{font-size:14px;font-weight:800;color:var(--green);white-space:nowrap}
+.stock-unit{font-size:10px;color:var(--muted);margin-top:3px}
+.row-actions{display:flex;flex-direction:column;gap:5px}
+.empty,.loading{
+  padding:27px 12px;text-align:center;background:white;
+  border:1px dashed #cbd7ce;border-radius:10px;color:var(--muted);line-height:1.6;
+}
+.hidden{display:none!important}
+
+.modal-backdrop{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:#0008;padding:12px;align-items:center;justify-content:center;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+  width:100%;max-width:470px;max-height:92vh;overflow-y:auto;
+  background:white;border-radius:14px;padding:16px;
+  box-shadow:0 10px 35px #0003;
+}
+.modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.modal-header h2{color:var(--green);font-size:17px;margin:0}
+.close-button{
+  border:0;background:#edf2ed;color:var(--green);
+  border-radius:7px;width:32px;height:32px;font-size:20px;
+}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#3d5145}
+.field small{display:block;margin-top:5px;font-size:11px;line-height:1.5;color:var(--muted)}
+.two-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal-actions button{flex:1}
+.photo-preview{display:none;width:75px;height:75px;object-fit:cover;border-radius:9px;margin-top:8px}
+.progress-text{font-size:11px;color:var(--muted);margin-top:7px;overflow-wrap:anywhere}
+
+@media(max-width:480px){
+  .page{padding:10px}
+  .business-name{font-size:15px}
+  .header-button{padding:8px;font-size:10px}
+  .summary-grid{gap:5px}
+  .summary-card{padding:8px 7px}
+  .summary-label{font-size:9px}
+  .summary-number{font-size:18px}
+  .stock-row{gap:7px;padding:8px}
+  .item-photo,.photo-placeholder{width:39px;height:39px;flex-basis:39px}
+  .stock-right{min-width:54px}
+  .stock-quantity{font-size:12px}
+  .row-actions .button{padding:7px;font-size:10px}
+}
+@media(max-width:350px){
+  .business-subtitle{display:none}
+  .summary-number{font-size:16px}
+  .item-meta{font-size:9px}
+  .stock-status{font-size:9px;padding:4px 5px}
 }
 </style>
 </head>
 
 <body>
-
-<header class="header">
-  <div class="header-top">
-    <div class="header-left">
-      <button class="back-button" type="button" onclick="goBack()" aria-label="Go back">‹</button>
-      <div>
-        <div class="header-title">Inventory</div>
-        <div class="header-subtitle">Manage your product stock</div>
-      </div>
+<header class="business-header">
+  <div class="business-header-inner">
+    <div class="business-logo-wrap">
+      <img id="businessLogo" class="business-logo" alt="Business logo">
+      <div id="logoFallback" class="logo-fallback">K</div>
     </div>
-    <div class="header-icon">📦</div>
+    <div class="business-heading">
+      <h1 id="businessName" class="business-name">Loading business...</h1>
+      <div class="business-subtitle">Stock Inventory · Products & Materials</div>
+    </div>
+    <button class="header-button" id="recordsButton" type="button">Inventory Records ↗</button>
   </div>
-
-  <a class="records-button" href="../inventory-record/index.html">
-    📋 &nbsp; Inventory Records &nbsp; →
-  </a>
 </header>
 
 <main class="page">
-  <div class="loading" id="loadingScreen">
-    <div class="spinner"></div>
-    <div>Loading inventory...</div>
+  <div id="notice" class="notice"></div>
+
+  <div class="tabs">
+    <button type="button" class="tab active" data-tab="products">
+      📦 Product Stock
+      <small id="productTabCount">Loading...</small>
+    </button>
+    <button type="button" class="tab" data-tab="materials">
+      🧱 Material Stock
+      <small id="materialTabCount">Loading...</small>
+    </button>
   </div>
 
-  <div class="error-box" id="errorBox"></div>
-
-  <div id="inventoryContent" style="display:none">
-
-    <div class="summary-grid">
-      <div class="summary-card">
-        <div class="summary-icon">📦</div>
-        <div class="summary-info">
-          <div class="summary-label">Tracked Products</div>
-          <div class="summary-value" id="totalCount">0</div>
-        </div>
-      </div>
-
-      <div class="summary-card">
-        <div class="summary-icon">🟢</div>
-        <div class="summary-info">
-          <div class="summary-label">In Stock</div>
-          <div class="summary-value" id="inStockCount">0</div>
-        </div>
-      </div>
-
-      <div class="summary-card">
-        <div class="summary-icon">🟠</div>
-        <div class="summary-info">
-          <div class="summary-label">Low Stock</div>
-          <div class="summary-value" id="lowStockCount">0</div>
-        </div>
-      </div>
-
-      <div class="summary-card">
-        <div class="summary-icon">🔴</div>
-        <div class="summary-info">
-          <div class="summary-label">Out of Stock</div>
-          <div class="summary-value" id="outStockCount">0</div>
-        </div>
-      </div>
+  <section class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label" id="totalLabel">Tracked Products</div>
+      <div class="summary-number" id="totalCount">—</div>
     </div>
-
-    <div class="section-heading">
-      <div class="section-title">Product Inventory</div>
-      <div class="result-count" id="resultCount">0 products</div>
+    <div class="summary-card">
+      <div class="summary-label">In Stock</div>
+      <div class="summary-number" id="inCount">—</div>
     </div>
-
-    <div class="search-box">
-      <span class="search-icon">🔎</span>
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search product or SKU..."
-        autocomplete="off"
-        aria-label="Search products">
+    <div class="summary-card low">
+      <div class="summary-label">Low Stock</div>
+      <div class="summary-number" id="lowCount">—</div>
     </div>
-
-    <div class="filters">
-      <button type="button" class="filter-btn active" data-filter="all">All</button>
-      <button type="button" class="filter-btn" data-filter="in">In Stock</button>
-      <button type="button" class="filter-btn" data-filter="low">Low Stock</button>
-      <button type="button" class="filter-btn" data-filter="out">Out of Stock</button>
+    <div class="summary-card out">
+      <div class="summary-label">Out of Stock</div>
+      <div class="summary-number" id="outCount">—</div>
     </div>
+  </section>
 
-    <div class="inventory-list" id="inventoryList"></div>
+  <section class="toolbar">
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search inventory">
+    </div>
+    <button type="button" class="button secondary" id="refreshButton" title="Refresh">↻</button>
+    <button type="button" class="button primary" id="primaryAction">+ Adjust</button>
+  </section>
+
+  <div class="filters" id="filters">
+    <button type="button" class="filter active" data-filter="all">All <span class="filter-count" id="filterAllCount"></span></button>
+    <button type="button" class="filter" data-filter="in">In Stock <span class="filter-count" id="filterInCount"></span></button>
+    <button type="button" class="filter" data-filter="low">Low Stock <span class="filter-count" id="filterLowCount"></span></button>
+    <button type="button" class="filter" data-filter="out">Out of Stock <span class="filter-count" id="filterOutCount"></span></button>
   </div>
+
+  <div class="list-heading">
+    <h2 id="listTitle">Product Stock</h2>
+    <span class="muted" id="listStatus">Loading...</span>
+  </div>
+
+  <section id="stockList" class="stock-list">
+    <div class="loading">Loading stock inventory...</div>
+  </section>
 </main>
 
-<!-- ADJUST STOCK MODAL -->
-<div class="modal" id="stockModal">
-  <div class="modal-box">
+<!-- PRODUCT STOCK ADJUSTMENT -->
+<div class="modal-backdrop" id="productModal">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
     <div class="modal-header">
-      <div class="modal-title">Add Stock</div>
-      <button class="close-button" type="button" onclick="closeStockModal()" aria-label="Close">×</button>
+      <h2 id="productModalTitle">Adjust Product Stock</h2>
+      <button class="close-button" type="button" data-close="productModal">×</button>
     </div>
-
-    <div class="modal-product">
-      <div class="modal-product-name" id="modalProductName">Product</div>
-      <div class="modal-current" id="modalCurrentStock">Current stock: 0</div>
-    </div>
-
-    <label class="form-label" for="stockQuantityInput">Quantity to Add</label>
-    <input
-      class="stock-input"
-      id="stockQuantityInput"
-      type="number"
-      min="0"
-      step="any"
-      inputmode="decimal"
-      placeholder="Enter quantity">
-
-    <label class="form-label" for="stockReasonInput" style="margin-top:13px">
-      Reason (optional)
-    </label>
-    <textarea
-      class="reason-input"
-      id="stockReasonInput"
-      rows="2"
-      placeholder="Example: New stock received"></textarea>
-
-    <div class="modal-buttons">
-      <button class="cancel-button" type="button" onclick="closeStockModal()">Cancel</button>
-      <button class="save-button" type="button" id="saveStockButton" onclick="saveStockAdjustment()">Add Stock</button>
-    </div>
-  </div>
+    <form id="productStockForm">
+      <div class="field">
+        <label>Product</label>
+        <div id="selectedProductName" style="font-weight:800;color:#0B4F3A"></div>
+        <small>Current quantity: <strong id="selectedProductStock">0</strong></small>
+      </div>
+      <div class="field">
+        <label for="productAdjustmentType">Adjustment Type</label>
+        <select id="productAdjustmentType">
+          <option value="in">Stock In — add quantity</option>
+          <option value="out">Stock Out — remove quantity</option>
+          <option value="set">Set Exact Quantity</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="productAdjustmentQuantity" id="productQuantityLabel">Quantity to Add *</label>
+        <input id="productAdjustmentQuantity" type="number" min="0" step="any" required>
+      </div>
+      <div class="field">
+        <label for="productAdjustmentReason">Reason / Notes</label>
+        <textarea id="productAdjustmentReason" rows="2" maxlength="500" placeholder="e.g. New delivery, damaged items, stock count"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="button secondary" type="button" data-close="productModal">Cancel</button>
+        <button class="button primary" type="submit" id="saveProductStock">Save Adjustment</button>
+      </div>
+    </form>
+  </section>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- ADD MATERIAL -->
+<div class="modal-backdrop" id="materialModal">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="materialModalTitle">
+    <div class="modal-header">
+      <h2 id="materialModalTitle">Add New Material</h2>
+      <button class="close-button" type="button" data-close="materialModal">×</button>
+    </div>
+    <form id="materialForm">
+      <div class="field">
+        <label for="materialName">Material Name *</label>
+        <input id="materialName" required maxlength="120" placeholder="Enter material name">
+      </div>
+      <div class="two-columns">
+        <div class="field">
+          <label for="materialCategory">Category</label>
+          <input id="materialCategory" maxlength="80" placeholder="Packaging">
+        </div>
+        <div class="field">
+          <label for="materialUnit">Unit *</label>
+          <input id="materialUnit" required maxlength="30" value="pcs" placeholder="pcs, kg, box">
+        </div>
+      </div>
+      <div class="field">
+        <label for="materialThreshold">Low Stock Alert At</label>
+        <input id="materialThreshold" type="number" min="0" step="any" value="5">
+        <small>Show Low Stock when quantity is above zero and at or below this value.</small>
+      </div>
+      <div class="two-columns">
+        <div class="field">
+          <label for="openingQuantity">Opening Stock</label>
+          <input id="openingQuantity" type="number" min="0" step="any" value="0">
+        </div>
+        <div class="field">
+          <label for="materialUnitCost">Unit Cost (₱)</label>
+          <input id="materialUnitCost" type="number" min="0" step="any" placeholder="0.00">
+        </div>
+      </div>
+      <div class="field">
+        <label for="materialSupplier">Supplier</label>
+        <input id="materialSupplier" maxlength="120" placeholder="Optional">
+      </div>
+      <div class="field">
+        <label for="materialPhoto">Material Photo</label>
+        <input id="materialPhoto" type="file" accept="image/*">
+        <small>Optional. Maximum size: 5 MB.</small>
+        <img id="materialPhotoPreview" class="photo-preview" alt="Material photo preview">
+        <div id="photoUploadStatus" class="progress-text"></div>
+      </div>
+      <div class="field">
+        <label for="materialNotes">Notes</label>
+        <textarea id="materialNotes" rows="2" maxlength="500"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="button secondary" type="button" data-close="materialModal">Cancel</button>
+        <button class="button primary" type="submit" id="saveMaterialButton">Save Material</button>
+      </div>
+    </form>
+  </section>
+</div>
 
-<nav class="bottom-nav">
-  <div class="nav-inner">
-    <a href="../dashboard/" class="nav-item">
-      <span class="nav-icon">🏠</span>Home
-    </a>
-    <a href="../products/" class="nav-item">
-      <span class="nav-icon">📦</span>Products
-    </a>
-    <a href="../inventory/" class="nav-item active">
-      <span class="nav-icon">📊</span>Inventory
-    </a>
-    <a href="../sales/" class="nav-item">
-      <span class="nav-icon">💰</span>Sales
-    </a>
-    <a href="../settings/" class="nav-item">
-      <span class="nav-icon">⚙️</span>Settings
-    </a>
-  </div>
-</nav>
+<!-- ADD MATERIAL STOCK -->
+<div class="modal-backdrop" id="materialStockModal">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="materialStockTitle">
+    <div class="modal-header">
+      <h2 id="materialStockTitle">Add Material Stock</h2>
+      <button class="close-button" type="button" data-close="materialStockModal">×</button>
+    </div>
+    <form id="materialStockForm">
+      <div class="field">
+        <label for="stockMaterialSelect">Material *</label>
+        <select id="stockMaterialSelect" required></select>
+      </div>
+      <div class="field">
+        <label for="materialStockQuantity">Quantity to Add *</label>
+        <input id="materialStockQuantity" type="number" min="0.000001" step="any" required>
+      </div>
+      <div class="field">
+        <label for="materialStockUnitCost">Unit Cost (₱)</label>
+        <input id="materialStockUnitCost" type="number" min="0" step="any" placeholder="Optional">
+      </div>
+      <div class="field">
+        <label for="materialStockSupplier">Supplier</label>
+        <input id="materialStockSupplier" maxlength="120" placeholder="Optional">
+      </div>
+      <div class="field">
+        <label for="materialStockNotes">Notes</label>
+        <textarea id="materialStockNotes" rows="2" maxlength="500" placeholder="Invoice number or other details"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="button secondary" type="button" data-close="materialStockModal">Cancel</button>
+        <button class="button primary" type="submit" id="saveMaterialStock">Save Stock</button>
+      </div>
+    </form>
+  </section>
+</div>
 
 <script type="module">
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeApp, getApps }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  updateDoc,
-  addDoc,
-  serverTimestamp
+  getFirestore, doc, getDoc, collection, getDocs,
+  runTransaction, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
   authDomain: "kayah-ecosystem.firebaseapp.com",
@@ -856,466 +468,581 @@ const firebaseConfig = {
   appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
 };
 
-/* INITIALIZE FIREBASE */
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* STATE */
+const CLOUDINARY_CLOUD_NAME = "tfzuiwcp";
+const CLOUDINARY_UPLOAD_PRESET = "kayah_products";
+const DEFAULT_LOW_STOCK_THRESHOLD = 5;
+
 let currentUser = null;
-let currentUserData = null;
-let currentUserRole = "owner";
+let businessId = null;
+let actorName = "Business Owner";
+let actorRole = "owner";
+let activeTab = "products";
+let activeFilter = "all";
 let products = [];
-let currentFilter = "all";
-let selectedProduct = null;
-let toastTimer = null;
+let materials = [];
+let selectedProductId = null;
+let saving = false;
+let previewObjectUrl = null;
 
-/* DOM */
-const loadingScreen = document.getElementById("loadingScreen");
-const inventoryContent = document.getElementById("inventoryContent");
-const errorBox = document.getElementById("errorBox");
-const inventoryList = document.getElementById("inventoryList");
-const searchInput = document.getElementById("searchInput");
-const stockModal = document.getElementById("stockModal");
-const saveStockButton = document.getElementById("saveStockButton");
+const $ = id => document.getElementById(id);
 
-/* HELPERS */
-function escapeHTML(value) {
-  if (value === null || value === undefined) return "";
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[char]);
+}
+function num(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+function fmt(value) {
+  return num(value).toLocaleString("en-PH",{maximumFractionDigits:3});
+}
+function showNotice(message,type="info") {
+  const el=$("notice");
+  el.textContent=message;
+  el.className="notice "+type;
+  el.style.display="block";
+  el.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function clearNotice() {
+  $("notice").textContent="";
+  $("notice").className="notice";
+  $("notice").style.display="none";
+}
+function openModal(id){$(id).classList.add("open")}
+function closeModal(id){$(id).classList.remove("open")}
+function setLoading(id,on,loadingText,normalText){
+  $(id).disabled=on;
+  $(id).textContent=on?loadingText:normalText;
+}
+function actorFields(){
+  return {
+    performedByUid:currentUser.uid,
+    performedByName:actorName,
+    performedByRole:actorRole,
+    actorUid:currentUser.uid,
+    actorName,
+    actorRole
+  };
+}
+function getProfileName(p){
+  return p.businessName||p.storeName||p.companyName||p.name||"My Business";
+}
+function getProfileLogo(p){
+  return p.businessLogoUrl||p.logoUrl||p.businessLogo||p.logoURL||p.logo||"";
+}
+function displayBrand(profile){
+  const name=getProfileName(profile);
+  $("businessName").textContent=name;
+  document.title="Stock Inventory - "+name;
+  const logo=$("businessLogo"),fallback=$("logoFallback"),url=getProfileLogo(profile);
+  fallback.textContent=name.trim().charAt(0).toUpperCase()||"B";
+  logo.style.display="none";logo.removeAttribute("src");fallback.style.display="block";
+  if(url){
+    logo.onload=()=>{logo.style.display="block";fallback.style.display="none"};
+    logo.onerror=()=>{logo.style.display="none";fallback.style.display="block"};
+    logo.src=url;
+  }
 }
 
-function formatNumber(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number)) return "0";
-  return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
+function productName(p){return p.name||p.productName||"Unnamed Product"}
+function productUnit(p){return p.unit||"pcs"}
+function productStock(p){return num(p.stockQuantity??p.quantity??p.stock??0)}
+function productPhoto(p){return p.photoUrl||p.photoURL||p.imageUrl||p.imageURL||p.image||""}
+function materialName(m){return m.name||m.materialName||"Unnamed Material"}
+function materialUnit(m){return m.unit||"pcs"}
+function materialStock(m){return num(m.quantity??m.stock??0)}
+function materialPhoto(m){return m.photoUrl||m.photoURL||m.imageUrl||m.imageURL||m.image||m.photo||""}
+
+function thresholdFor(item,isMaterial){
+  const raw = isMaterial
+    ? (item.lowStockAlert??item.lowStockThreshold??item.reorderLevel)
+    : (item.lowStockAlert??item.lowStockThreshold??item.reorderLevel);
+  return raw===undefined||raw===null||raw==="" ? DEFAULT_LOW_STOCK_THRESHOLD : Math.max(0,num(raw));
+}
+function statusFor(item,isMaterial){
+  const qty=isMaterial?materialStock(item):productStock(item);
+  if(qty<=0)return "out";
+  if(qty<=thresholdFor(item,isMaterial))return "low";
+  return "in";
+}
+function statusBadge(status){
+  if(status==="out")return '<span class="stock-status status-out">● Out of Stock</span>';
+  if(status==="low")return '<span class="stock-status status-low">● Low Stock</span>';
+  return '<span class="stock-status status-in">● In Stock</span>';
 }
 
-function getStockValue(product) {
-  if (
-    product.stockQuantity === null ||
-    product.stockQuantity === undefined ||
-    product.stockQuantity === ""
-  ) return 0;
-
-  const value = Number(product.stockQuantity);
-  return Number.isFinite(value) ? value : 0;
+async function loadProducts(){
+  const snap=await getDocs(collection(db,"users",businessId,"products"));
+  products=snap.docs.map(d=>({id:d.id,...d.data()}))
+    .filter(p=>p.trackStock===true)
+    .sort((a,b)=>productName(a).localeCompare(productName(b)));
+}
+async function loadMaterials(){
+  const snap=await getDocs(collection(db,"users",businessId,"materials"));
+  materials=snap.docs.map(d=>({id:d.id,...d.data()}))
+    .sort((a,b)=>materialName(a).localeCompare(materialName(b)));
+}
+async function loadInventory(){
+  if(!businessId)return;
+  $("stockList").innerHTML='<div class="loading">Loading stock inventory...</div>';
+  $("listStatus").textContent="Loading...";
+  try{
+    await Promise.all([loadProducts(),loadMaterials()]);
+    $("productTabCount").textContent=products.length+" tracked";
+    $("materialTabCount").textContent=materials.length+" materials";
+    renderInventory();
+  }catch(error){
+    console.error("Inventory loading error:",error);
+    $("stockList").innerHTML='<div class="empty">Unable to load inventory.<br>Check your connection and Firebase permissions.</div>';
+    $("listStatus").textContent="Load failed";
+    showNotice("Unable to load inventory: "+(error.message||"Please try again."),"error");
+  }
 }
 
-function getLowStockValue(product) {
-  if (
-    product.lowStockAlert === null ||
-    product.lowStockAlert === undefined ||
-    product.lowStockAlert === ""
-  ) return 0;
+function currentItems(){return activeTab==="products"?products:materials}
+function renderInventory(){
+  const isMaterial=activeTab==="materials";
+  const items=currentItems();
+  const counts={all:items.length,in:0,low:0,out:0};
+  items.forEach(item=>counts[statusFor(item,isMaterial)]++);
+  counts.all=items.length;
 
-  const value = Number(product.lowStockAlert);
-  return Number.isFinite(value) ? value : 0;
-}
+  $("totalLabel").textContent=isMaterial?"Total Materials":"Tracked Products";
+  $("totalCount").textContent=counts.all;
+  $("inCount").textContent=counts.in;
+  $("lowCount").textContent=counts.low;
+  $("outCount").textContent=counts.out;
+  $("filterAllCount").textContent="("+counts.all+")";
+  $("filterInCount").textContent="("+counts.in+")";
+  $("filterLowCount").textContent="("+counts.low+")";
+  $("filterOutCount").textContent="("+counts.out+")";
 
-/* STOCK STATUS */
-function getStockStatus(product) {
-  const stock = getStockValue(product);
-  const low = getLowStockValue(product);
+  $("listTitle").textContent=isMaterial?"Material Stock":"Product Stock";
+  $("searchInput").placeholder=isMaterial?"Search materials...":"Search products...";
+  $("primaryAction").textContent=isMaterial?"+ Add Material":"+ Adjust Stock";
 
-  if (stock <= 0) {
-    return { type: "out", label: "Out of Stock" };
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.tab===activeTab);
+  });
+  document.querySelectorAll(".filter").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.filter===activeFilter);
+  });
+
+  const search=$("searchInput").value.trim().toLowerCase();
+  const filtered=items.filter(item=>{
+    const name=isMaterial?materialName(item):productName(item);
+    const unit=isMaterial?materialUnit(item):productUnit(item);
+    const status=statusFor(item,isMaterial);
+    const text=[name,item.sku||"",item.category||"",unit,item.supplier||""].join(" ").toLowerCase();
+    return text.includes(search)&&(activeFilter==="all"||activeFilter===status);
+  });
+
+  $("listStatus").textContent=filtered.length+" shown";
+  if(!filtered.length){
+    const message=items.length
+      ?"No items match this search or stock filter."
+      :(isMaterial?"No materials added yet. Tap + Add Material to create one."
+                  :"No stock-tracked products found. Enable Track Stock on the Products page.");
+    $("stockList").innerHTML='<div class="empty">'+escapeHtml(message)+'</div>';
+    return;
   }
 
-  if (low > 0 && stock <= low) {
-    return { type: "low", label: "Low Stock" };
-  }
-
-  return { type: "in", label: "In Stock" };
+  $("stockList").innerHTML=filtered.map(item=>{
+    const name=isMaterial?materialName(item):productName(item);
+    const unit=isMaterial?materialUnit(item):productUnit(item);
+    const qty=isMaterial?materialStock(item):productStock(item);
+    const photo=isMaterial?materialPhoto(item):productPhoto(item);
+    const status=statusFor(item,isMaterial);
+    const category=item.category?'<span class="tag">'+escapeHtml(item.category)+'</span>':"";
+    const sku=item.sku?'<span>SKU: '+escapeHtml(item.sku)+'</span>':"";
+    const threshold=thresholdFor(item,isMaterial);
+    const thresholdText=threshold>0?'Low at ≤ '+fmt(threshold):'Low threshold: 0';
+    const photoHtml=photo
+      ?'<img class="item-photo" src="'+escapeHtml(photo)+'" alt="'+escapeHtml(name)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';"><div class="photo-placeholder" style="display:none">📦</div>'
+      :'<div class="photo-placeholder">📦</div>';
+    const action=isMaterial
+      ?'<button class="button yellow small" type="button" data-add-material-stock="'+escapeHtml(item.id)+'">+ Stock</button>'
+      :'<button class="button yellow small" type="button" data-adjust-product="'+escapeHtml(item.id)+'">Adjust</button>';
+    return '<article class="stock-row">'+photoHtml+
+      '<div class="item-info"><div class="item-name">'+escapeHtml(name)+'</div>'+
+      '<div class="item-meta">'+category+sku+'<span>'+escapeHtml(unit)+'</span></div>'+
+      '<div style="margin-top:6px">'+statusBadge(status)+'</div>'+
+      '<div class="muted" style="margin-top:4px">'+escapeHtml(thresholdText)+'</div></div>'+
+      '<div class="stock-right"><div class="stock-quantity">'+escapeHtml(fmt(qty))+'</div>'+
+      '<div class="stock-unit">'+escapeHtml(unit)+'</div></div>'+
+      '<div class="row-actions">'+action+'</div></article>';
+  }).join("");
 }
 
-/* ACTIVITY LOG */
-async function logActivity({
-  action,
-  description,
-  targetType,
-  targetId,
-  details = {}
-}) {
-  if (!currentUser) return;
+function openProductAdjustment(id){
+  const item=products.find(p=>p.id===id);
+  if(!item)return;
+  selectedProductId=id;
+  $("selectedProductName").textContent=productName(item);
+  $("selectedProductStock").textContent=fmt(productStock(item))+" "+productUnit(item);
+  $("productAdjustmentType").value="in";
+  $("productAdjustmentQuantity").value="";
+  $("productAdjustmentReason").value="";
+  updateProductAdjustmentLabel();
+  openModal("productModal");
+}
+function updateProductAdjustmentLabel(){
+  const type=$("productAdjustmentType").value;
+  $("productQuantityLabel").textContent=
+    type==="in"?"Quantity to Add *":type==="out"?"Quantity to Remove *":"New Exact Quantity *";
+  $("productAdjustmentQuantity").min=type==="set"?"0":"0.000001";
+}
+$("productAdjustmentType").addEventListener("change",updateProductAdjustmentLabel);
 
-  try {
-    const activityRef = collection(
-      db,
-      "users",
-      currentUser.uid,
-      "activityLogs"
-    );
-
-    await addDoc(activityRef, {
-      action,
-      description,
-      targetType,
-      targetId,
-      performedByUid: currentUser.uid,
-      performedByName:
-        currentUserData?.fullName ||
-        currentUserData?.name ||
-        currentUser.displayName ||
-        currentUser.email ||
-        "Unknown User",
-      performedByRole: currentUserRole,
-      details,
-      createdAt: serverTimestamp()
+$("productStockForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  if(saving||!currentUser||!businessId||!selectedProductId)return;
+  const type=$("productAdjustmentType").value;
+  const amount=Number($("productAdjustmentQuantity").value);
+  const reason=$("productAdjustmentReason").value.trim();
+  if(!Number.isFinite(amount)||amount<0||(type!=="set"&&amount<=0)){
+    showNotice("Enter a valid stock quantity.","error");return;
+  }
+  saving=true;
+  setLoading("saveProductStock",true,"Saving...","Save Adjustment");
+  try{
+    const productRef=doc(db,"users",businessId,"products",selectedProductId);
+    const activityRef=doc(collection(db,"users",businessId,"activityLogs"));
+    const actor=actorFields();
+    await runTransaction(db,async tx=>{
+      const snap=await tx.get(productRef);
+      if(!snap.exists())throw new Error("Product not found. Refresh the inventory.");
+      const p=snap.data();
+      const previous=productStock(p);
+      let next=type==="in"?previous+amount:type==="out"?previous-amount:amount;
+      if(next<0)throw new Error("You cannot remove more stock than is available.");
+      const delta=next-previous;
+      tx.update(productRef,{
+        stockQuantity:next,
+        updatedAt:serverTimestamp(),
+        updatedByUid:currentUser.uid,
+        updatedByName:actorName,
+        updatedByRole:actorRole
+      });
+      tx.set(activityRef,{
+        action:type==="in"?"product_stock_in":type==="out"?"product_stock_out":"product_stock_adjustment",
+        description:"Adjusted stock for "+productName(p),
+        targetType:"product_inventory",
+        targetId:selectedProductId,
+        ...actor,
+        details:{
+          productId:selectedProductId,
+          productName:productName(p),
+          previousStock:previous,
+          quantityChanged:delta,
+          newStock:next,
+          unit:productUnit(p),
+          adjustmentType:type,
+          reason
+        },
+        createdAt:serverTimestamp()
+      });
     });
-  } catch (error) {
-    // Keep the stock update from failing if logging fails.
-    console.error("ACTIVITY LOG ERROR:", error);
+    closeModal("productModal");
+    showNotice("Product stock updated successfully.","success");
+    await loadInventory();
+  }catch(error){
+    console.error(error);
+    showNotice("Unable to adjust product stock: "+(error.message||"Please try again."),"error");
+  }finally{
+    saving=false;
+    setLoading("saveProductStock",false,"Saving...","Save Adjustment");
   }
+});
+
+function openAddMaterial(){
+  $("materialForm").reset();
+  $("materialUnit").value="pcs";
+  $("openingQuantity").value="0";
+  $("materialThreshold").value=String(DEFAULT_LOW_STOCK_THRESHOLD);
+  $("materialPhotoPreview").style.display="none";
+  $("photoUploadStatus").textContent="";
+  if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null}
+  openModal("materialModal");
+}
+function openAddMaterialStock(id=""){
+  if(!materials.length){
+    showNotice("Add a material first.","info");return;
+  }
+  $("stockMaterialSelect").innerHTML=materials.map(m=>
+    '<option value="'+escapeHtml(m.id)+'">'+escapeHtml(materialName(m))+
+    ' ('+escapeHtml(fmt(materialStock(m)))+' '+escapeHtml(materialUnit(m))+')</option>'
+  ).join("");
+  if(id)$("stockMaterialSelect").value=id;
+  $("materialStockForm").reset();
+  if(id)$("stockMaterialSelect").value=id;
+  openModal("materialStockModal");
 }
 
-/* LOAD PRODUCTS */
-async function loadInventory() {
-  try {
-    const productsRef = collection(
-      db,
-      "users",
-      currentUser.uid,
-      "products"
-    );
+$("materialPhoto").addEventListener("change",event=>{
+  const file=event.target.files?.[0];
+  const preview=$("materialPhotoPreview");
+  $("photoUploadStatus").textContent="";
+  if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null}
+  if(!file){preview.style.display="none";preview.removeAttribute("src");return}
+  if(!file.type.startsWith("image/")){
+    event.target.value="";preview.style.display="none";
+    $("photoUploadStatus").textContent="Please choose an image file.";return;
+  }
+  if(file.size>5*1024*1024){
+    event.target.value="";preview.style.display="none";
+    $("photoUploadStatus").textContent="Choose an image under 5 MB.";return;
+  }
+  previewObjectUrl=URL.createObjectURL(file);
+  preview.src=previewObjectUrl;preview.style.display="block";
+});
 
-    const snapshot = await getDocs(productsRef);
-    products = [];
+async function uploadMaterialPhoto(file){
+  const formData=new FormData();
+  formData.append("file",file);
+  formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
+  formData.append("folder","kayah/materials");
+  $("photoUploadStatus").textContent="Uploading photo...";
+  const response=await fetch(
+    "https://api.cloudinary.com/v1_1/"+CLOUDINARY_CLOUD_NAME+"/image/upload",
+    {method:"POST",body:formData}
+  );
+  const result=await response.json();
+  if(!response.ok||!result.secure_url)
+    throw new Error(result.error?.message||"Unable to upload photo.");
+  $("photoUploadStatus").textContent="Photo uploaded.";
+  return result.secure_url;
+}
 
-    snapshot.forEach((productDoc) => {
-      const product = productDoc.data();
+$("materialForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  if(saving||!currentUser||!businessId)return;
+  const name=$("materialName").value.trim();
+  const category=$("materialCategory").value.trim();
+  const unit=$("materialUnit").value.trim();
+  const opening=num($("openingQuantity").value);
+  const threshold=num($("materialThreshold").value);
+  const costText=$("materialUnitCost").value.trim();
+  const unitCost=costText===""?null:Number(costText);
+  const supplier=$("materialSupplier").value.trim();
+  const notes=$("materialNotes").value.trim();
+  const photoFile=$("materialPhoto").files?.[0]||null;
 
-      if (product.trackStock === true) {
-        products.push({
-          id: productDoc.id,
-          ...product
+  if(!name||!unit){showNotice("Enter a material name and unit.","error");return}
+  if(opening<0||threshold<0){showNotice("Stock and threshold cannot be negative.","error");return}
+  if(unitCost!==null&&(!Number.isFinite(unitCost)||unitCost<0)){
+    showNotice("Unit cost must be zero or greater.","error");return;
+  }
+
+  saving=true;
+  setLoading("saveMaterialButton",true,"Saving...","Save Material");
+  try{
+    let photoUrl="";
+    if(photoFile)photoUrl=await uploadMaterialPhoto(photoFile);
+
+    const materialRef=doc(collection(db,"users",businessId,"materials"));
+    const activityRef=doc(collection(db,"users",businessId,"activityLogs"));
+    const movementRef=doc(collection(db,"users",businessId,"materialInventory"));
+    const actor=actorFields();
+
+    await runTransaction(db,async tx=>{
+      tx.set(materialRef,{
+        name,category,unit,quantity:opening,unitCost,supplier,notes,photoUrl,
+        lowStockAlert:threshold,
+        ownerUid:businessId,
+        createdAt:serverTimestamp(),updatedAt:serverTimestamp(),
+        createdByUid:currentUser.uid,createdByName:actorName,createdByRole:actorRole,
+        updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
+      });
+      tx.set(activityRef,{
+        action:"material_created",
+        description:"Created material: "+name,
+        targetType:"material",targetId:materialRef.id,...actor,
+        details:{materialId:materialRef.id,materialName:name,category,unit,
+          openingStock:opening,unitCost,supplier,lowStockAlert:threshold,hasPhoto:Boolean(photoUrl)},
+        createdAt:serverTimestamp()
+      });
+      if(opening>0){
+        tx.set(movementRef,{
+          materialId:materialRef.id,materialName:name,type:"stock-in",
+          quantity:opening,unit,unitCost,supplier,notes:notes||"Opening stock",
+          balanceAfter:opening,ownerUid:businessId,createdAt:serverTimestamp(),...actor
         });
       }
     });
-
-    updateSummary();
-    renderProducts();
-
-    loadingScreen.style.display = "none";
-    inventoryContent.style.display = "block";
-    errorBox.style.display = "none";
-  } catch (error) {
-    console.error("Inventory loading error:", error);
-
-    loadingScreen.style.display = "none";
-    errorBox.style.display = "block";
-    errorBox.innerHTML =
-      "<strong>Unable to load inventory.</strong><br>" +
-      escapeHTML(error.message || "Please try again.");
+    closeModal("materialModal");
+    showNotice("Material added successfully.","success");
+    await loadInventory();
+  }catch(error){
+    console.error(error);
+    showNotice("Unable to save material: "+(error.message||"Please try again."),"error");
+  }finally{
+    saving=false;
+    setLoading("saveMaterialButton",false,"Saving...","Save Material");
   }
-}
-
-/* SUMMARY */
-function updateSummary() {
-  let inStock = 0;
-  let lowStock = 0;
-  let outStock = 0;
-
-  products.forEach((product) => {
-    const status = getStockStatus(product);
-
-    if (status.type === "in") inStock++;
-    else if (status.type === "low") lowStock++;
-    else outStock++;
-  });
-
-  document.getElementById("totalCount").textContent = products.length;
-  document.getElementById("inStockCount").textContent = inStock;
-  document.getElementById("lowStockCount").textContent = lowStock;
-  document.getElementById("outStockCount").textContent = outStock;
-}
-
-/* FILTER PRODUCTS */
-function getFilteredProducts() {
-  const search = searchInput.value.trim().toLowerCase();
-
-  return products.filter((product) => {
-    const name = String(product.name || "").toLowerCase();
-    const sku = String(product.sku || "").toLowerCase();
-
-    const matchesSearch =
-      !search || name.includes(search) || sku.includes(search);
-
-    if (!matchesSearch) return false;
-    if (currentFilter === "all") return true;
-
-    return getStockStatus(product).type === currentFilter;
-  });
-}
-
-/* RENDER PRODUCTS */
-function renderProducts() {
-  const filtered = getFilteredProducts();
-
-  inventoryList.innerHTML = "";
-  document.getElementById("resultCount").textContent =
-    `${filtered.length} ${filtered.length === 1 ? "product" : "products"}`;
-
-  if (filtered.length === 0) {
-    const message = products.length === 0
-      ? "Products with Track Stock enabled will appear here."
-      : "No products match your search or filter.";
-
-    inventoryList.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">📦</div>
-        <div class="empty-title">No inventory found</div>
-        <div class="empty-text">${escapeHTML(message)}</div>
-      </div>
-    `;
-    return;
-  }
-
-  filtered.forEach((product) => {
-    const status = getStockStatus(product);
-    const stock = getStockValue(product);
-    const unit = product.unit || "units";
-    const name = product.name || "Unnamed Product";
-
-    const card = document.createElement("div");
-    card.className = "inventory-card";
-
-    const imageHTML = product.photoUrl
-      ? `<img src="${escapeHTML(product.photoUrl)}"
-          alt="${escapeHTML(name)}"
-          loading="lazy">`
-      : "📦";
-
-    card.innerHTML = `
-      <div class="product-row">
-        <div class="product-image">${imageHTML}</div>
-
-        <div class="product-info">
-          <div class="product-name" title="${escapeHTML(name)}">
-            ${escapeHTML(name)}
-          </div>
-
-          <div class="product-sku">
-            ${product.sku
-              ? `SKU: ${escapeHTML(product.sku)}`
-              : "No SKU"}
-          </div>
-
-          <div class="stock-status status-${status.type}">
-            ● ${status.label}
-          </div>
-        </div>
-      </div>
-
-      <div class="stock-summary">
-        <div class="stock-number">
-          <div class="stock-label">Current Stock</div>
-          <div class="stock-value">
-            ${formatNumber(stock)}
-            <span class="stock-unit">${escapeHTML(unit)}</span>
-          </div>
-        </div>
-
-        <button type="button" class="adjust-button">
-          + Add Stock
-        </button>
-      </div>
-    `;
-
-    const image = card.querySelector(".product-image img");
-    if (image) {
-      image.addEventListener("error", () => {
-        card.querySelector(".product-image").textContent = "📦";
-      }, { once: true });
-    }
-
-    card.querySelector(".adjust-button").addEventListener("click", () => {
-      openStockModal(product.id);
-    });
-
-    inventoryList.appendChild(card);
-  });
-}
-
-/* OPEN STOCK MODAL */
-window.openStockModal = function(productId) {
-  const product = products.find((item) => item.id === productId);
-  if (!product) return;
-
-  selectedProduct = product;
-
-  document.getElementById("modalProductName").textContent =
-    product.name || "Product";
-
-  document.getElementById("modalCurrentStock").textContent =
-    `Current stock: ${formatNumber(getStockValue(product))} ${product.unit || "units"}`;
-
-  document.getElementById("stockQuantityInput").value = "";
-  document.getElementById("stockReasonInput").value = "";
-  saveStockButton.disabled = false;
-  saveStockButton.textContent = "Add Stock";
-
-  stockModal.classList.add("show");
-
-  setTimeout(() => {
-    document.getElementById("stockQuantityInput").focus();
-  }, 100);
-};
-
-/* CLOSE MODAL */
-window.closeStockModal = function() {
-  stockModal.classList.remove("show");
-  selectedProduct = null;
-};
-
-stockModal.addEventListener("click", (event) => {
-  if (event.target === stockModal) closeStockModal();
 });
 
-/* SAVE STOCK */
-window.saveStockAdjustment = async function() {
-  if (!selectedProduct || !currentUser) return;
+$("materialStockForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  if(saving||!currentUser||!businessId)return;
+  const materialId=$("stockMaterialSelect").value;
+  const added=Number($("materialStockQuantity").value);
+  const costText=$("materialStockUnitCost").value.trim();
+  const unitCost=costText===""?null:Number(costText);
+  const supplier=$("materialStockSupplier").value.trim();
+  const notes=$("materialStockNotes").value.trim();
 
-  const input = document.getElementById("stockQuantityInput");
-  const reason = document.getElementById("stockReasonInput").value.trim();
-  const quantityToAdd = Number(input.value);
-
-  if (
-    input.value.trim() === "" ||
-    !Number.isFinite(quantityToAdd) ||
-    quantityToAdd <= 0
-  ) {
-    showToast("Please enter a quantity greater than zero.");
-    input.focus();
-    return;
+  if(!materialId){showNotice("Select a material.","error");return}
+  if(!Number.isFinite(added)||added<=0){showNotice("Enter a quantity greater than zero.","error");return}
+  if(unitCost!==null&&(!Number.isFinite(unitCost)||unitCost<0)){
+    showNotice("Unit cost must be zero or greater.","error");return;
   }
 
-  const productBeingUpdated = selectedProduct;
-  const previousStock = getStockValue(productBeingUpdated);
-  const newStock = previousStock + quantityToAdd;
+  saving=true;
+  setLoading("saveMaterialStock",true,"Saving...","Save Stock");
+  try{
+    const materialRef=doc(db,"users",businessId,"materials",materialId);
+    const movementRef=doc(collection(db,"users",businessId,"materialInventory"));
+    const activityRef=doc(collection(db,"users",businessId,"activityLogs"));
+    const actor=actorFields();
 
-  saveStockButton.disabled = true;
-  saveStockButton.textContent = "Saving...";
-
-  try {
-    const productRef = doc(
-      db,
-      "users",
-      currentUser.uid,
-      "products",
-      productBeingUpdated.id
-    );
-
-    await updateDoc(productRef, {
-      stockQuantity: newStock,
-      updatedAt: new Date()
+    await runTransaction(db,async tx=>{
+      const snap=await tx.get(materialRef);
+      if(!snap.exists())throw new Error("Material not found. Refresh the list.");
+      const m=snap.data();
+      const previous=materialStock(m);
+      const next=previous+added;
+      const name=materialName(m);
+      const unit=materialUnit(m);
+      tx.update(materialRef,{
+        quantity:next,updatedAt:serverTimestamp(),
+        updatedByUid:currentUser.uid,updatedByName:actorName,updatedByRole:actorRole
+      });
+      tx.set(movementRef,{
+        materialId,materialName:name,type:"stock-in",quantity:added,unit,
+        unitCost,supplier,notes,balanceAfter:next,ownerUid:businessId,
+        createdAt:serverTimestamp(),...actor
+      });
+      tx.set(activityRef,{
+        action:"material_stock_in",
+        description:"Added "+fmt(added)+" "+unit+" of "+name,
+        targetType:"material",targetId:materialId,...actor,
+        details:{materialId,materialName:name,previousStock:previous,
+          addedStock:added,newStock:next,unit,unitCost,supplier,notes},
+        createdAt:serverTimestamp()
+      });
     });
-
-    await logActivity({
-      action: "stock_in",
-      description: "Added stock for " +
-        (productBeingUpdated.name || "Unnamed Product"),
-      targetType: "product_inventory",
-      targetId: productBeingUpdated.id,
-      details: {
-        productName: productBeingUpdated.name || "Unnamed Product",
-        previousStock,
-        newStock,
-        quantityChanged: quantityToAdd,
-        unit: productBeingUpdated.unit || "units",
-        reason
-      }
-    });
-
-    productBeingUpdated.stockQuantity = newStock;
-
-    updateSummary();
-    renderProducts();
-    closeStockModal();
-    showToast("Stock added successfully.");
-  } catch (error) {
-    console.error("Stock update error:", error);
-    showToast("Unable to add stock. Please try again.");
-  } finally {
-    saveStockButton.disabled = false;
-    saveStockButton.textContent = "Add Stock";
+    closeModal("materialStockModal");
+    showNotice("Material stock added and recorded successfully.","success");
+    await loadInventory();
+  }catch(error){
+    console.error(error);
+    showNotice("Unable to add material stock: "+(error.message||"Please try again."),"error");
+  }finally{
+    saving=false;
+    setLoading("saveMaterialStock",false,"Saving...","Save Stock");
   }
-};
-
-/* SEARCH */
-searchInput.addEventListener("input", renderProducts);
-
-/* FILTER BUTTONS */
-document.querySelectorAll(".filter-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach((item) => {
-      item.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    currentFilter = button.dataset.filter;
-    renderProducts();
-  });
 });
 
-/* TOAST */
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2500);
-}
-
-/* BACK BUTTON */
-window.goBack = function() {
-  if (
-    document.referrer &&
-    document.referrer.includes(window.location.origin)
-  ) {
-    window.history.back();
-  } else {
-    window.location.href = "../dashboard/";
+/* TAB, FILTER, SEARCH AND ACTIONS */
+document.querySelectorAll(".tab").forEach(button=>{
+  button.addEventListener("click",()=>{
+    activeTab=button.dataset.tab;
+    activeFilter="all";
+    $("searchInput").value="";
+    renderInventory();
+  });
+});
+document.querySelectorAll(".filter").forEach(button=>{
+  button.addEventListener("click",()=>{
+    activeFilter=button.dataset.filter;
+    renderInventory();
+  });
+});
+$("searchInput").addEventListener("input",renderInventory);
+$("refreshButton").addEventListener("click",async()=>{clearNotice();await loadInventory()});
+$("primaryAction").addEventListener("click",()=>{
+  clearNotice();
+  if(activeTab==="materials")openAddMaterial();
+  else{
+    const eligible=products.filter(p=>p.trackStock===true);
+    if(!eligible.length){showNotice("No stock-tracked products found. Enable Track Stock on the Products page.","info");return}
+    showNotice("Tap Adjust beside the product you want to update.","info");
   }
-};
-
-/* AUTH STATE */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "../login/";
-    return;
+});
+$("stockList").addEventListener("click",event=>{
+  const productButton=event.target.closest("[data-adjust-product]");
+  if(productButton){clearNotice();openProductAdjustment(productButton.dataset.adjustProduct);return}
+  const materialButton=event.target.closest("[data-add-material-stock]");
+  if(materialButton){clearNotice();openAddMaterialStock(materialButton.dataset.addMaterialStock)}
+});
+$("recordsButton").addEventListener("click",()=>{
+  window.location.href="inventory-record/index.html";
+});
+document.querySelectorAll("[data-close]").forEach(button=>{
+  button.addEventListener("click",()=>closeModal(button.dataset.close));
+});
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+  backdrop.addEventListener("click",event=>{
+    if(event.target===backdrop)closeModal(backdrop.id);
+  });
+});
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape"){
+    document.querySelectorAll(".modal-backdrop.open").forEach(modal=>closeModal(modal.id));
   }
+});
 
-  currentUser = user;
-
-  try {
-    const userRef = doc(db, "users", user.uid);
-    const userSnapshot = await getDoc(userRef);
-
-    if (userSnapshot.exists()) {
-      currentUserData = userSnapshot.data();
-      currentUserRole = String(currentUserData.role || "owner").toLowerCase();
-    } else {
-      currentUserData = null;
-      currentUserRole = "owner";
+/* AUTHENTICATION AND BUSINESS OWNER LOOKUP */
+onAuthStateChanged(auth,async user=>{
+  if(!user){window.location.href="../login/";return}
+  currentUser=user;
+  try{
+    const userSnap=await getDoc(doc(db,"users",user.uid));
+    if(!userSnap.exists()){
+      showNotice("Your Kayah user profile could not be found.","error");
+      $("stockList").innerHTML='<div class="empty">User profile not found.</div>';
+      return;
     }
-  } catch (error) {
-    console.error("USER PROFILE LOAD ERROR:", error);
-    currentUserData = null;
-    currentUserRole = "owner";
-  }
+    const profile=userSnap.data();
+    const role=String(profile.role||"owner").toLowerCase();
+    const isStaff=role==="staff";
+    if(profile.isActive===false||String(profile.status||"").toLowerCase()==="inactive"){
+      showNotice("This account is inactive. Please contact the business owner.","error");
+      return;
+    }
 
-  await loadInventory();
+    businessId=isStaff
+      ?(profile.ownerUid||profile.businessOwnerUid||profile.businessId)
+      :user.uid;
+
+    if(!businessId){
+      showNotice("The business owner account could not be identified.","error");
+      return;
+    }
+
+    actorRole=isStaff?"staff":"owner";
+    actorName=profile.fullName||profile.name||profile.displayName||
+      user.displayName||user.email||(isStaff?"Staff Member":"Business Owner");
+
+    let businessProfile=profile;
+    if(isStaff){
+      const ownerSnap=await getDoc(doc(db,"users",businessId));
+      if(ownerSnap.exists())businessProfile=ownerSnap.data();
+    }
+    displayBrand(businessProfile);
+    await loadInventory();
+  }catch(error){
+    console.error("Initialization error:",error);
+    showNotice("Unable to initialize inventory: "+(error.message||"Please try again."),"error");
+  }
 });
 </script>
-
 </body>
 </html>
