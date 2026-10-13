@@ -1333,15 +1333,13 @@ onAuthStateChanged(auth, async (user) => {
         updateGreeting(userData);
         updateRoleInterface();
 
-        await loadProductStats(currentBusinessId);
+        
+await loadProductStats(currentBusinessId);
 
-        /*
-         * The sales figure remains at its default until the correct
-         * sales collection and amount field are confirmed for your POS.
-         * This avoids displaying an incorrect sales total.
-         */
+// Load today's sales from Firebase
+await loadTodaySales(currentBusinessId);
 
-        hideLoadingScreen();
+hideLoadingScreen();
 
     } catch (error) {
         console.error("Dashboard error:", error);
@@ -1367,6 +1365,87 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
+async function loadTodaySales(businessId) {
+    const salesElement = document.getElementById("todaySales");
+    const noteElement = document.getElementById("todaySalesNote");
+
+    if (!salesElement || !businessId) return;
+
+    try {
+        const salesRef = collection(
+            db,
+            "users",
+            businessId,
+            "sales"
+        );
+
+        const salesSnapshot = await getDocs(salesRef);
+
+        // Use Philippine local date
+        const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Manila",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date());
+
+        let totalSales = 0;
+        let salesCount = 0;
+
+        salesSnapshot.forEach((saleDoc) => {
+            const sale = saleDoc.data();
+
+            if (!sale.createdAt) return;
+
+            let saleDate;
+
+            if (typeof sale.createdAt.toDate === "function") {
+                saleDate = sale.createdAt.toDate();
+            } else {
+                saleDate = new Date(sale.createdAt);
+            }
+
+            if (isNaN(saleDate.getTime())) return;
+
+            const saleDay = new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Asia/Manila",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            }).format(saleDate);
+
+            if (saleDay === today) {
+                totalSales += Number(sale.total) || 0;
+                salesCount++;
+            }
+        });
+
+        salesElement.textContent = totalSales.toLocaleString(
+            "en-PH",
+            {
+                style: "currency",
+                currency: "PHP",
+                minimumFractionDigits: 2
+            }
+        );
+
+        if (noteElement) {
+            noteElement.textContent =
+                salesCount === 1
+                    ? "1 sale today"
+                    : `${salesCount} sales today`;
+        }
+
+    } catch (error) {
+        console.error("Error loading today's sales:", error);
+
+        if (noteElement) {
+            noteElement.textContent = "Unable to load sales";
+        }
+    }
+}
+
+
 </script>
 
 </body>
