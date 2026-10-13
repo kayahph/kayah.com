@@ -1,0 +1,1073 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>Stock History - Kayah</title>
+
+<style>
+:root {
+  --green:#0B4F3A;
+  --green2:#16805C;
+  --gold:#F2B84B;
+  --cream:#F7F3E8;
+  --bg:#F4F7F4;
+  --white:#FFFFFF;
+  --text:#23342A;
+  --muted:#758078;
+  --border:#E3EAE4;
+  --red:#C93D3D;
+  --orange:#B86A12;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;font-size:13px;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.business-header{
+  background:linear-gradient(135deg,var(--green),#126847);
+  color:white;padding:16px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 3px 12px #0b4f3a20;
+}
+.business-logo{
+  width:44px;height:44px;border-radius:12px;
+  background:#ffffff20;border:1px solid #ffffff45;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;flex-shrink:0;font-weight:900;font-size:20px;
+}
+.business-logo img{width:100%;height:100%;object-fit:cover}
+.business-heading{min-width:0;flex:1}
+.business-heading h1{margin:0;font-size:18px;font-weight:800}
+.business-heading p{margin:5px 0 0;font-size:11px;color:#d9eee3}
+.header-label{
+  background:#ffffff1c;border:1px solid #ffffff35;
+  padding:6px 8px;border-radius:8px;font-size:10px;
+}
+.container{max-width:1100px;margin:auto;padding:15px}
+.page-title{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;flex-wrap:wrap;margin:5px 0 15px;
+}
+.page-title h2{margin:0;color:var(--green);font-size:21px}
+.page-title p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.btn{
+  border:0;border-radius:9px;padding:10px 13px;
+  font-weight:800;display:inline-flex;align-items:center;
+  justify-content:center;gap:6px;
+}
+.btn-primary{background:var(--green);color:white}
+.btn-light{background:white;color:var(--green);border:1px solid var(--border)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;margin-bottom:15px;
+}
+.stat{
+  background:white;border:1px solid var(--border);
+  border-radius:13px;padding:13px;min-width:0;
+}
+.stat-top{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}
+.stat-icon{
+  width:30px;height:30px;display:flex;align-items:center;
+  justify-content:center;background:#eaf4ed;border-radius:9px;font-size:16px;
+}
+.stat-number{font-size:22px;font-weight:900;color:var(--green);margin-top:10px}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:4px}
+.panel{
+  background:white;border:1px solid var(--border);
+  border-radius:14px;margin-bottom:14px;overflow:hidden;
+}
+.panel-head{
+  padding:14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.panel-head h3{margin:0;color:var(--green);font-size:14px}
+.panel-head p{margin:4px 0 0;font-size:11px;color:var(--muted)}
+.filters{
+  padding:13px;display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;gap:9px;
+}
+.field{min-width:0}
+.field label{
+  display:block;color:#5e6c62;font-weight:700;
+  font-size:10px;margin-bottom:6px;
+}
+.field input,.field select{
+  width:100%;min-width:0;border:1px solid #dce5dd;
+  border-radius:8px;background:white;padding:10px;color:var(--text);
+  outline:none;
+}
+.field input:focus,.field select:focus{border-color:var(--green)}
+.filter-actions{
+  display:flex;gap:8px;flex-wrap:wrap;padding:0 13px 13px;
+}
+.result-line{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;padding:11px 14px;border-top:1px solid var(--border);
+  color:var(--muted);font-size:11px;
+}
+.history-list{padding:0 12px}
+.history-card{
+  padding:13px 2px;border-bottom:1px solid #edf1ed;
+  display:flex;align-items:flex-start;gap:11px;
+}
+.history-card:last-child{border-bottom:0}
+.item-image,.item-placeholder{
+  width:47px;height:47px;flex:0 0 47px;border-radius:10px;
+  background:#edf3ed;object-fit:cover;border:1px solid var(--border);
+}
+.item-placeholder{
+  display:flex;align-items:center;justify-content:center;font-size:21px;
+}
+.history-content{flex:1;min-width:0}
+.history-title{
+  color:var(--green);font-size:13px;font-weight:800;
+  overflow-wrap:anywhere;margin-bottom:5px;
+}
+.history-meta{
+  display:flex;flex-wrap:wrap;gap:5px;
+  align-items:center;color:var(--muted);font-size:10px;
+}
+.pill{
+  padding:4px 7px;border-radius:20px;font-size:10px;
+  font-weight:800;display:inline-flex;align-items:center;gap:4px;
+}
+.pill-in{background:#e5f5e9;color:#18713d}
+.pill-out{background:#ffeded;color:#b82c2c}
+.pill-sale{background:#e8efff;color:#315ab5}
+.pill-adjust{background:#fff2d8;color:#8b5a00}
+.pill-other{background:#edf0ed;color:#59645c}
+.pill-material{background:#e7f5ef;color:#176b4b}
+.pill-product{background:#e9efff;color:#3657a7}
+.change-number{font-size:14px;font-weight:900;white-space:nowrap}
+.change-in{color:#16804b}
+.change-out{color:#c03939}
+.change-neutral{color:#7a650d}
+.change-caption{text-align:right;font-size:10px;color:var(--muted);margin-top:4px}
+.history-right{text-align:right;min-width:75px}
+.detail-line{font-size:11px;color:#536158;margin-top:7px;line-height:1.6;overflow-wrap:anywhere}
+.detail-line strong{color:#34463a}
+.empty{
+  padding:36px 15px;text-align:center;color:var(--muted);
+}
+.empty-icon{font-size:32px;margin-bottom:10px}
+.empty h3{font-size:14px;color:var(--green);margin:0 0 6px}
+.empty p{font-size:12px;line-height:1.6;margin:0}
+.status-message{
+  padding:12px;border-radius:9px;margin-bottom:12px;
+  background:#e8f4eb;color:var(--green);font-size:12px;
+}
+.status-message.error{background:#fff0ef;color:#ad2929}
+.loading{text-align:center;padding:30px;color:var(--muted)}
+.spinner{
+  display:inline-block;width:20px;height:20px;
+  border:3px solid #dce8de;border-top-color:var(--green);
+  border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;
+  margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pagination{
+  padding:12px;display:flex;align-items:center;
+  justify-content:center;gap:12px;border-top:1px solid var(--border);
+}
+.pagination span{font-size:11px;color:var(--muted)}
+.footer-note{
+  color:var(--muted);font-size:10px;line-height:1.6;
+  padding:2px 3px 16px;
+}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filters{grid-template-columns:1fr 1fr}
+  .field-search{grid-column:1/-1}
+}
+@media(max-width:390px){
+  .container{padding:10px}
+  .business-header{padding:12px}
+  .business-heading h1{font-size:16px}
+  .header-label{display:none}
+  .filters{grid-template-columns:1fr}
+  .field-search{grid-column:auto}
+  .history-card{gap:8px}
+  .item-image,.item-placeholder{width:40px;height:40px;flex-basis:40px}
+  .history-right{min-width:63px}
+  .change-number{font-size:12px}
+}
+</style>
+</head>
+
+<body>
+<header class="business-header">
+  <div class="business-logo" id="businessLogo">K</div>
+  <div class="business-heading">
+    <h1 id="businessName">Kayah</h1>
+    <p>Business Management System</p>
+  </div>
+  <div class="header-label">STOCK HISTORY</div>
+</header>
+
+<main class="container">
+  <div class="page-title">
+    <div>
+      <h2>Stock History</h2>
+      <p>Track stock movements, sales, and inventory adjustments.</p>
+    </div>
+    <button class="btn btn-primary" id="refreshBtn" type="button">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <div id="message" hidden></div>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-top"><span class="stat-icon">📋</span>Records Found</div>
+      <div class="stat-number" id="statRecords">—</div>
+      <div class="stat-sub">Matching your filters</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top"><span class="stat-icon">📥</span>Stock In</div>
+      <div class="stat-number" id="statIn">—</div>
+      <div class="stat-sub">Recorded quantity added</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top"><span class="stat-icon">📤</span>Stock Out</div>
+      <div class="stat-number" id="statOut">—</div>
+      <div class="stat-sub">Recorded quantity removed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top"><span class="stat-icon">🛒</span>Sold Units</div>
+      <div class="stat-number" id="statSold">—</div>
+      <div class="stat-sub">From recorded sales</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Find Stock Records</h3>
+        <p>Search, filter, and review stock activity.</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      <div class="field field-search">
+        <label for="searchInput">SEARCH ITEM OR PERSON</label>
+        <input id="searchInput" type="search"
+          placeholder="Item name, staff name, reference...">
+      </div>
+      <div class="field">
+        <label for="typeFilter">MOVEMENT TYPE</label>
+        <select id="typeFilter">
+          <option value="all">All movements</option>
+          <option value="stock_in">Stock In</option>
+          <option value="stock_out">Stock Out</option>
+          <option value="sold">Sold</option>
+          <option value="adjustment">Adjustments</option>
+          <option value="return">Returns</option>
+          <option value="waste">Damaged / Wastage</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="categoryFilter">ITEM TYPE</label>
+        <select id="categoryFilter">
+          <option value="all">All items</option>
+          <option value="product">Products</option>
+          <option value="material">Materials</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="dateFilter">DATE RANGE</label>
+        <select id="dateFilter">
+          <option value="all">All dates</option>
+          <option value="today">Today</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="custom">Custom dates</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filters" id="customDates" hidden
+      style="grid-template-columns:1fr 1fr">
+      <div class="field">
+        <label for="startDate">FROM</label>
+        <input type="date" id="startDate">
+      </div>
+      <div class="field">
+        <label for="endDate">TO</label>
+        <input type="date" id="endDate">
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button class="btn btn-light" id="clearBtn" type="button">Clear filters</button>
+    </div>
+
+    <div class="result-line">
+      <span id="resultCount">Loading records...</span>
+      <span>Newest first</span>
+    </div>
+
+    <div id="historyList" class="history-list">
+      <div class="loading"><span class="spinner"></span>Loading stock history...</div>
+    </div>
+
+    <div class="pagination" id="pagination" hidden>
+      <button class="btn btn-light" id="prevBtn" type="button">← Previous</button>
+      <span id="pageLabel">Page 1</span>
+      <button class="btn btn-light" id="nextBtn" type="button">Next →</button>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Stock History displays movements that have been saved in Firebase.
+    Sales are shown from recorded sales items; a sale does not necessarily
+    mean a stock deduction was recorded. Missing quantities or staff details
+    are shown as unavailable rather than guessed.
+  </div>
+</main>
+
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const $ = id => document.getElementById(id);
+
+let allRecords = [];
+let filteredRecords = [];
+let currentPage = 1;
+const PAGE_SIZE = 25;
+let businessId = null;
+let businessData = {};
+let loading = false;
+
+const asText = value =>
+  value === null || value === undefined ? "" : String(value);
+
+function firstValue(...values) {
+  return values.find(v => v !== undefined && v !== null && v !== "");
+}
+
+function asNumber(value) {
+  if (value === undefined || value === null || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function getDate(value) {
+  if (!value) return null;
+  if (value.toDate && typeof value.toDate === "function") {
+    return value.toDate();
+  }
+  if (typeof value === "number") {
+    return new Date(value < 1000000000000 ? value * 1000 : value);
+  }
+  if (typeof value === "string") {
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
+  if (value.seconds) return new Date(value.seconds * 1000);
+  return null;
+}
+
+function formatDate(value) {
+  const date = getDate(value);
+  if (!date) return "Date unavailable";
+  return date.toLocaleString("en-PH", {
+    year:"numeric",month:"short",day:"numeric",
+    hour:"numeric",minute:"2-digit"
+  });
+}
+
+function escapeHtml(value) {
+  return asText(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  }[char]));
+}
+
+function formatQuantity(value) {
+  if (value === null || value === undefined || value === "") return "—";
+  return Number(value).toLocaleString("en-PH", {
+    maximumFractionDigits: 3
+  });
+}
+
+function normalizeType(raw) {
+  const value = asText(raw).toLowerCase().replace(/[\s-]+/g, "_");
+
+  if (/sold|sale|pos_sale|product_sold/.test(value)) return "sold";
+  if (/return|refund/.test(value)) return "return";
+  if (/waste|damag|spoil|discard/.test(value)) return "waste";
+  if (/adjust|correction|set_stock|stock_set/.test(value)) return "adjustment";
+  if (/stock_in|stock_added|add_stock|stock_add|received|restock|purchase/.test(value)) {
+    return "stock_in";
+  }
+  if (/stock_out|stock_removed|deduct|consume|used|usage|issued|sold_out/.test(value)) {
+    return "stock_out";
+  }
+  return "other";
+}
+
+function displayType(type) {
+  return ({
+    stock_in:"Stock In",
+    stock_out:"Stock Out",
+    sold:"Sold",
+    adjustment:"Adjustment",
+    return:"Return",
+    waste:"Damaged / Wastage",
+    other:"Other"
+  })[type] || "Other";
+}
+
+function typePill(type) {
+  if (type === "stock_in" || type === "return") return "pill-in";
+  if (type === "stock_out" || type === "waste") return "pill-out";
+  if (type === "sold") return "pill-sale";
+  if (type === "adjustment") return "pill-adjust";
+  return "pill-other";
+}
+
+function normalizeActor(data) {
+  const details = data.details || data.metadata || {};
+  const actor = data.actor || data.performedBy || {};
+  const user = data.user || {};
+
+  const name = firstValue(
+    data.actorName, data.performedByName, data.staffName,
+    data.userName, actor.name, actor.displayName,
+    user.name, user.displayName, data.createdByName,
+    details.actorName, details.performedByName
+  );
+
+  const role = firstValue(
+    data.actorRole, data.performedByRole, data.userRole,
+    actor.role, user.role, details.actorRole
+  );
+
+  const uid = firstValue(
+    data.actorUid, data.performedByUid, data.userId,
+    data.createdBy, actor.uid, actor.userId, user.uid,
+    details.actorUid
+  );
+
+  if (name && role) return `${name} (${role})`;
+  if (name) return name;
+  if (role) return `Unknown person (${role})`;
+  if (uid) return `User ID: ${uid}`;
+  return "Not recorded";
+}
+
+function extractQuantities(data) {
+  const details = data.details || data.metadata || {};
+
+  const previous = asNumber(firstValue(
+    data.previousQuantity, data.previousStock,
+    data.oldQuantity, data.oldStock,
+    details.previousQuantity, details.previousStock
+  ));
+
+  const next = asNumber(firstValue(
+    data.newQuantity, data.newStock,
+    data.nextQuantity, data.nextStock,
+    details.newQuantity, details.newStock
+  ));
+
+  let quantity = asNumber(firstValue(
+    data.quantityChanged, data.quantityAdded,
+    data.quantityRemoved, data.quantityUsed,
+    data.quantity, data.stockChange,
+    details.quantityChanged, details.quantityAdded,
+    details.quantityRemoved, details.quantityUsed,
+    details.quantity
+  ));
+
+  if (quantity === null && previous !== null && next !== null) {
+    quantity = Math.abs(next - previous);
+  }
+
+  return { previous, next, quantity };
+}
+
+function normalizeLog(docId, data, source, category) {
+  const details = data.details || data.metadata || {};
+  const action = firstValue(
+    data.movementType, data.action, data.type,
+    data.eventType, data.transactionType, data.activity,
+    details.movementType, details.action, details.type, ""
+  );
+
+  const targetType = asText(firstValue(
+    data.targetType, data.itemType, data.entityType,
+    details.targetType, details.itemType, ""
+  )).toLowerCase();
+
+  const itemName = firstValue(
+    data.materialName, data.productName, data.itemName,
+    data.name, data.targetName, data.description,
+    details.materialName, details.productName,
+    details.itemName, details.name, details.description,
+    "Unnamed item"
+  );
+
+  const {previous,next,quantity} = extractQuantities(data);
+  const type = normalizeType(action);
+  const unit = firstValue(data.unit, details.unit, "");
+  const image = firstValue(
+    data.imageUrl, data.photoUrl, data.image,
+    details.imageUrl, details.photoUrl, ""
+  );
+
+  return {
+    id:source + "_" + docId,
+    source,
+    category,
+    rawAction:asText(action),
+    type,
+    itemName:asText(itemName),
+    image:asText(image),
+    unit:asText(unit),
+    quantity,
+    previous,
+    next,
+    actor:normalizeActor(data),
+    date:firstValue(
+      data.createdAt, data.timestamp, data.date,
+      data.updatedAt, data.transactionDate,
+      data.created_at, details.createdAt
+    ) || null,
+    reason:asText(firstValue(
+      data.reason, data.notes, data.note, data.description,
+      details.reason, details.notes, details.note, ""
+    )),
+    reference:asText(firstValue(
+      data.reference, data.referenceNumber, data.transactionId,
+      data.saleId, data.invoiceNumber, data.orderId,
+      details.reference, details.transactionId, ""
+    )),
+    amount:asNumber(firstValue(
+      data.total, data.totalAmount, data.amount,
+      details.total, details.amount
+    )),
+    previousRaw:previous,
+    nextRaw:next,
+    targetType
+  };
+}
+
+function normalizeSaleItem(saleId, sale, item, index) {
+  const quantity = asNumber(firstValue(item.quantity, item.qty, item.soldQuantity));
+  const price = asNumber(firstValue(item.price, item.unitPrice, item.sellingPrice));
+  const subtotal = asNumber(firstValue(
+    item.subtotal, item.total, item.lineTotal,
+    quantity !== null && price !== null ? quantity * price : null
+  ));
+
+  const itemTypeText = asText(firstValue(
+    item.itemType, item.type, item.category, "product"
+  )).toLowerCase();
+
+  const category = /material/.test(itemTypeText) ? "material" : "product";
+  const image = firstValue(
+    item.image, item.imageUrl, item.photoUrl, item.photo,
+    item.productImage, ""
+  );
+
+  return {
+    id:"sale_" + saleId + "_" + index,
+    source:"sales",
+    category,
+    rawAction:"sold",
+    type:"sold",
+    itemName:asText(firstValue(
+      item.name, item.productName, item.itemName, "Unnamed sold item"
+    )),
+    image:asText(image),
+    unit:asText(firstValue(item.unit, item.unitName, "")),
+    quantity,
+    previous:null,
+    next:null,
+    actor:normalizeActor(sale),
+    date:firstValue(
+      sale.createdAt, sale.timestamp, sale.date,
+      sale.saleDate, sale.completedAt, sale.updatedAt
+    ) || null,
+    reason:"POS sale",
+    reference:asText(firstValue(
+      sale.invoiceNumber, sale.receiptNumber,
+      sale.reference, sale.transactionId, sale.id, saleId
+    )),
+    amount:subtotal,
+    price,
+    saleStatus:asText(firstValue(sale.status, sale.paymentStatus, "")),
+    stockTracked:item.stockTracked === true || item.trackStock === true,
+    targetType:"sale"
+  };
+}
+
+function showMessage(text, isError=false) {
+  const el = $("message");
+  el.hidden = !text;
+  el.className = "status-message" + (isError ? " error" : "");
+  el.textContent = text;
+}
+
+function isCompletedSale(data) {
+  const status = asText(firstValue(
+    data.status, data.paymentStatus, data.saleStatus, ""
+  )).toLowerCase();
+
+  if (!status) return true;
+  return !/cancel|void|failed|rejected|pending|draft|unpaid/.test(status);
+}
+
+function isStockRelatedLog(data) {
+  const details = data.details || data.metadata || {};
+  const text = [
+    data.action, data.type, data.movementType, data.targetType,
+    data.entityType, data.description, details.action,
+    details.targetType, details.description
+  ].map(asText).join(" ").toLowerCase();
+
+  return /stock|inventory|material|product_sold|quantity_changed|deduct|consum|wastage|damag/.test(text);
+}
+
+async function readCollection(name) {
+  const snapshot = await getDocs(collection(db, "users", businessId, name));
+  return snapshot.docs.map(d => ({id:d.id, data:d.data()}));
+}
+
+async function loadBusiness() {
+  const snapshot = await getDoc(doc(db, "users", auth.currentUser.uid));
+  businessData = snapshot.exists() ? snapshot.data() : {};
+
+  businessId = firstValue(
+    businessData.ownerUid,
+    businessData.businessOwnerUid,
+    businessData.businessId,
+    auth.currentUser.uid
+  );
+
+  $("businessName").textContent = firstValue(
+    businessData.businessName,
+    businessData.name,
+    businessData.storeName,
+    "Kayah"
+  );
+
+  const logo = firstValue(
+    businessData.businessLogo,
+    businessData.logoUrl,
+    businessData.logo,
+    businessData.logoURL
+  );
+
+  if (logo) {
+    $("businessLogo").innerHTML =
+      `<img src="${escapeHtml(logo)}" alt="Business logo">`;
+  } else {
+    $("businessLogo").textContent =
+      asText($("businessName").textContent).trim().charAt(0).toUpperCase() || "K";
+  }
+}
+
+async function loadHistory() {
+  if (loading) return;
+  loading = true;
+  $("refreshBtn").disabled = true;
+  $("historyList").innerHTML =
+    '<div class="loading"><span class="spinner"></span>Loading Firebase records...</div>';
+  showMessage("");
+
+  try {
+    if (!businessId) await loadBusiness();
+
+    const results = await Promise.allSettled([
+      readCollection("materialInventory"),
+      readCollection("activityLogs"),
+      readCollection("sales")
+    ]);
+
+    const collectionNames = ["materialInventory","activityLogs","sales"];
+    const failures = [];
+    const records = [];
+
+    results.forEach((result, index) => {
+      if (result.status === "rejected") {
+        failures.push(collectionNames[index]);
+      }
+    });
+
+    // Material movement records.
+    if (results[0].status === "fulfilled") {
+      for (const row of results[0].value) {
+        records.push(normalizeLog(
+          row.id, row.data, "materialInventory", "material"
+        ));
+      }
+    }
+
+    // Activity logs: include stock-related actions, not every business activity.
+    if (results[1].status === "fulfilled") {
+      for (const row of results[1].value) {
+        if (!isStockRelatedLog(row.data)) continue;
+
+        const record = normalizeLog(
+          row.id, row.data, "activityLogs", "product"
+        );
+
+        const target = record.targetType;
+        if (/material/.test(target)) record.category = "material";
+        if (/product/.test(target)) record.category = "product";
+
+        // Avoid displaying a material stock-add activity twice when its
+        // corresponding movement is already stored in materialInventory.
+        const isMaterialAdd =
+          record.category === "material" &&
+          /stock_added|stock_in|add_stock|add stock/i.test(record.rawAction);
+
+        if (isMaterialAdd) continue;
+        records.push(record);
+      }
+    }
+
+    // Sales: represent each sold item as its own history entry.
+    if (results[2].status === "fulfilled") {
+      for (const row of results[2].value) {
+        if (!isCompletedSale(row.data)) continue;
+
+        const sale = row.data;
+        const items = Array.isArray(sale.items) ? sale.items :
+          Array.isArray(sale.cartItems) ? sale.cartItems :
+          Array.isArray(sale.products) ? sale.products : [];
+
+        items.forEach((item, index) => {
+          records.push(normalizeSaleItem(row.id, sale, item, index));
+        });
+      }
+    }
+
+    allRecords = records.map((record, index) => ({
+      ...record,
+      _index:index,
+      _date:getDate(record.date)
+    }));
+
+    allRecords.sort((a,b) =>
+      (b._date?.getTime() || 0) - (a._date?.getTime() || 0)
+    );
+
+    if (failures.length) {
+      showMessage(
+        "Some records could not be loaded (" + failures.join(", ") +
+        "). Check Firebase permissions for this business account. Other available records are shown.",
+        true
+      );
+    }
+
+    applyFilters();
+  } catch (error) {
+    console.error("Stock history loading error:", error);
+    $("historyList").innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">⚠️</div>
+        <h3>Unable to load stock history</h3>
+        <p>${escapeHtml(error.message || "Please check your connection and Firebase permissions.")}</p>
+      </div>`;
+    showMessage(
+      "Could not load records. Verify your sign-in and Firestore security rules.",
+      true
+    );
+  } finally {
+    loading = false;
+    $("refreshBtn").disabled = false;
+  }
+}
+
+function localDayStart(date) {
+  const copy = new Date(date);
+  copy.setHours(0,0,0,0);
+  return copy;
+}
+
+function matchesDate(record) {
+  const mode = $("dateFilter").value;
+  if (mode === "all") return true;
+  if (!record._date) return false;
+
+  const now = new Date();
+  const startToday = localDayStart(now);
+
+  if (mode === "today") return record._date >= startToday;
+
+  if (mode === "7" || mode === "30") {
+    const start = new Date(startToday);
+    start.setDate(start.getDate() - (Number(mode) - 1));
+    return record._date >= start && record._date <= now;
+  }
+
+  if (mode === "custom") {
+    const from = $("startDate").value;
+    const to = $("endDate").value;
+
+    if (from) {
+      const fromDate = new Date(from + "T00:00:00");
+      if (record._date < fromDate) return false;
+    }
+
+    if (to) {
+      const toDate = new Date(to + "T23:59:59.999");
+      if (record._date > toDate) return false;
+    }
+  }
+
+  return true;
+}
+
+function applyFilters() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const type = $("typeFilter").value;
+  const category = $("categoryFilter").value;
+
+  filteredRecords = allRecords.filter(record => {
+    if (type !== "all" && record.type !== type) return false;
+    if (category !== "all" && record.category !== category) return false;
+    if (!matchesDate(record)) return false;
+
+    const searchable = [
+      record.itemName, record.actor, record.reason,
+      record.reference, record.rawAction, record.source,
+      record.category, record.unit
+    ].join(" ").toLowerCase();
+
+    return !query || searchable.includes(query);
+  });
+
+  currentPage = 1;
+  updateStats();
+  renderPage();
+}
+
+function updateStats() {
+  $("statRecords").textContent = filteredRecords.length.toLocaleString();
+
+  let stockIn = 0;
+  let stockOut = 0;
+  let sold = 0;
+
+  for (const record of filteredRecords) {
+    const quantity = Math.abs(record.quantity || 0);
+    if (record.type === "stock_in" || record.type === "return") stockIn += quantity;
+    if (record.type === "stock_out" || record.type === "waste") stockOut += quantity;
+    if (record.type === "sold") sold += quantity;
+  }
+
+  $("statIn").textContent = formatQuantity(stockIn);
+  $("statOut").textContent = formatQuantity(stockOut);
+  $("statSold").textContent = formatQuantity(sold);
+}
+
+function quantityChange(record) {
+  if (record.type === "sold") return {
+    label: "Sold",
+    sign: "−",
+    value: record.quantity,
+    cls: "change-out"
+  };
+
+  if (record.type === "stock_in" || record.type === "return") return {
+    label: "Added",
+    sign: "+",
+    value: record.quantity,
+    cls: "change-in"
+  };
+
+  if (record.type === "stock_out" || record.type === "waste") return {
+    label: "Removed",
+    sign: "−",
+    value: record.quantity,
+    cls: "change-out"
+  };
+
+  if (record.type === "adjustment") return {
+    label: "Change",
+    sign: record.previous !== null && record.next !== null &&
+      record.next >= record.previous ? "+" : "−",
+    value: record.previous !== null && record.next !== null
+      ? Math.abs(record.next - record.previous) : record.quantity,
+    cls: "change-neutral"
+  };
+
+  return {label:"Quantity",sign:"",value:record.quantity,cls:"change-neutral"};
+}
+
+function renderRecord(record) {
+  const change = quantityChange(record);
+  const unit = record.unit ? " " + escapeHtml(record.unit) : "";
+  const imageHtml = record.image
+    ? `<img class="item-image" src="${escapeHtml(record.image)}" alt=""
+         loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'item-placeholder',textContent:'📦'}))">`
+    : `<div class="item-placeholder">${record.category === "material" ? "🧱" : "📦"}</div>`;
+
+  const categoryLabel = record.category === "material" ? "Material" : "Product";
+  const categoryPill = record.category === "material" ? "pill-material" : "pill-product";
+
+  let stockLine = "";
+  if (record.previous !== null || record.next !== null) {
+    stockLine = `<div class="detail-line">
+      ${record.previous !== null ? `<strong>Before:</strong> ${formatQuantity(record.previous)}${unit}` : ""}
+      ${record.previous !== null && record.next !== null ? " &nbsp;→&nbsp; " : ""}
+      ${record.next !== null ? `<strong>After:</strong> ${formatQuantity(record.next)}${unit}` : ""}
+    </div>`;
+  }
+
+  let reasonLine = record.reason
+    ? `<div class="detail-line"><strong>Reason:</strong> ${escapeHtml(record.reason)}</div>` : "";
+
+  let refLine = record.reference
+    ? `<div class="detail-line"><strong>Reference:</strong> ${escapeHtml(record.reference)}</div>` : "";
+
+  let amountLine = record.amount !== null && record.amount !== undefined
+    ? `<div class="detail-line"><strong>Line total:</strong> ₱${Number(record.amount).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>` : "";
+
+  return `
+    <article class="history-card">
+      ${imageHtml}
+      <div class="history-content">
+        <div class="history-title">${escapeHtml(record.itemName)}</div>
+        <div class="history-meta">
+          <span class="pill ${typePill(record.type)}">${escapeHtml(displayType(record.type))}</span>
+          <span class="pill ${categoryPill}">${categoryLabel}</span>
+          <span>${escapeHtml(formatDate(record.date))}</span>
+        </div>
+        <div class="detail-line"><strong>By:</strong> ${escapeHtml(record.actor)}</div>
+        ${stockLine}
+        ${reasonLine}
+        ${refLine}
+        ${amountLine}
+      </div>
+      <div class="history-right">
+        <div class="change-number ${change.cls}">
+          ${change.sign}${change.value === null || change.value === undefined
+            ? "—" : formatQuantity(change.value) + unit}
+        </div>
+        <div class="change-caption">${escapeHtml(change.label)}</div>
+      </div>
+    </article>`;
+}
+
+function renderPage() {
+  const total = filteredRecords.length;
+  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  currentPage = Math.min(currentPage, pages);
+
+  $("resultCount").textContent =
+    `${total.toLocaleString()} record${total === 1 ? "" : "s"} found`;
+
+  if (!total) {
+    $("historyList").innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📦</div>
+        <h3>No stock history found</h3>
+        <p>No records match your filters, or stock movements have not yet been saved in the connected Firebase collections.</p>
+      </div>`;
+    $("pagination").hidden = true;
+    return;
+  }
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageRecords = filteredRecords.slice(start, start + PAGE_SIZE);
+
+  $("historyList").innerHTML = pageRecords.map(renderRecord).join("");
+  $("pagination").hidden = total <= PAGE_SIZE;
+  $("pageLabel").textContent = `Page ${currentPage} of ${pages}`;
+  $("prevBtn").disabled = currentPage <= 1;
+  $("nextBtn").disabled = currentPage >= pages;
+}
+
+$("refreshBtn").addEventListener("click", loadHistory);
+
+["searchInput","typeFilter","categoryFilter","dateFilter",
+ "startDate","endDate"].forEach(id => {
+  $(id).addEventListener(id === "searchInput" ? "input" : "change", () => {
+    $("customDates").hidden = $("dateFilter").value !== "custom";
+    applyFilters();
+  });
+});
+
+$("clearBtn").addEventListener("click", () => {
+  $("searchInput").value = "";
+  $("typeFilter").value = "all";
+  $("categoryFilter").value = "all";
+  $("dateFilter").value = "all";
+  $("startDate").value = "";
+  $("endDate").value = "";
+  $("customDates").hidden = true;
+  applyFilters();
+});
+
+$("prevBtn").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPage();
+  }
+});
+
+$("nextBtn").addEventListener("click", () => {
+  const pages = Math.ceil(filteredRecords.length / PAGE_SIZE);
+  if (currentPage < pages) {
+    currentPage++;
+    renderPage();
+  }
+});
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    $("historyList").innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🔐</div>
+        <h3>Sign in required</h3>
+        <p>Please sign in to your Kayah business account to view stock history.</p>
+      </div>`;
+    showMessage("Your session is not signed in.", true);
+    return;
+  }
+
+  businessId = null;
+  await loadHistory();
+});
+</script>
+</body>
+</html>
