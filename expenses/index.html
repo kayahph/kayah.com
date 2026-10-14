@@ -8,6 +8,51 @@
 <title>Expenses - Kayah</title>
 
 <style>
+    
+    .summary-period {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #FFFFFF;
+  border: 1px solid #DFE8E1;
+  border-radius: 11px;
+  padding: 11px 13px;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 12px rgba(11,79,58,.055);
+}
+
+.summary-period label {
+  margin: 0;
+  color: #0B4F3A;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.summary-period input {
+  width: auto;
+  min-width: 155px;
+  min-height: 38px;
+  padding: 7px 9px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.summary-period-note {
+  width: 100%;
+  color: #65766D;
+  font-size: 11px;
+  margin-top: -3px;
+}
+
+@media(max-width: 480px) {
+  .summary-period input {
+    width: 100%;
+  }
+}
+    
+    
 :root {
   --g:#0B4F3A;
   --g2:#16805C;
@@ -259,7 +304,14 @@ tbody tr.clickable:hover{background:#F2F8F3}
     </div>
   </header>
 
+    <div class="summary-period">
+    <label for="summaryMonth">Expense Summary Period</label>
+    <input type="month" id="summaryMonth">
+    <div class="summary-period-note">Showing expenses for the selected month.</div>
+  </div>
+
   
+
 
   <section class="summary-grid">
     <div class="summary-card">
@@ -887,13 +939,113 @@ $("historySearch").addEventListener("input",renderHistory);
 $("historyTypeFilter").addEventListener("change",renderHistory);
 
 function renderSummary() {
-  const pTotal = purchases.reduce((s,p)=>s+purchaseTotal(p),0);
-  const eTotal = expenses.reduce((s,e)=>s+num(e.amount??e.totalAmount),0);
-  const balance = purchases.reduce((s,p)=>s+purchaseBalance(p),0);
+  const monthInput = $("summaryMonth");
+  const selectedMonth = monthInput.value;
+
+  // Use the selected month, defaulting to the current month.
+  const month = selectedMonth || today().slice(0, 7);
+
+  // Get the date belonging to the actual transaction.
+  function recordDateKey(record, keys) {
+    for (const key of keys) {
+      const value = record?.[key];
+
+      if (value === undefined || value === null || value === "") {
+        continue;
+      }
+
+      // Firestore Timestamp
+      if (value?.toDate) {
+        const d = value.toDate();
+        return [
+          d.getFullYear(),
+          String(d.getMonth() + 1).padStart(2, "0")
+        ].join("-");
+      }
+
+      // Date strings such as YYYY-MM-DD
+      const str = String(value);
+
+      if (/^\d{4}-\d{2}/.test(str)) {
+        return str.slice(0, 7);
+      }
+
+      // Other date formats
+      const d = new Date(value);
+
+      if (!Number.isNaN(d.getTime())) {
+        return [
+          d.getFullYear(),
+          String(d.getMonth() + 1).padStart(2, "0")
+        ].join("-");
+      }
+    }
+
+    return "";
+  }
+
+  // Purchases are counted by their purchase date.
+  const monthPurchases = purchases.filter(p =>
+    recordDateKey(p, [
+      "purchaseDate",
+      "date",
+      "expenseDate",
+      "createdAt"
+    ]) === month
+  );
+
+  // Expenses are counted by their expense date.
+  const monthExpenses = expenses.filter(e =>
+    recordDateKey(e, [
+      "expenseDate",
+      "date",
+      "createdAt"
+    ]) === month
+  );
+
+  const pTotal = monthPurchases.reduce(
+    (sum, p) => sum + purchaseTotal(p),
+    0
+  );
+
+  const eTotal = monthExpenses.reduce(
+    (sum, e) => sum + num(e.amount ?? e.totalAmount),
+    0
+  );
+
+  // Outstanding balances for purchases made in the selected month.
+  const balance = monthPurchases.reduce(
+    (sum, p) => sum + purchaseBalance(p),
+    0
+  );
+
   $("sumPurchases").textContent = money(pTotal);
   $("sumOperating").textContent = money(eTotal);
-  $("sumExpenses").textContent = money(pTotal+eTotal);
+  $("sumExpenses").textContent = money(pTotal + eTotal);
   $("sumBalance").textContent = money(balance);
+
+  // Show the selected period in the summary notes.
+  const monthLabel = new Date(
+    Number(month.slice(0, 4)),
+    Number(month.slice(5, 7)) - 1,
+    1
+  ).toLocaleDateString("en-PH", {
+    month: "long",
+    year: "numeric"
+  });
+
+  document.querySelectorAll(".summary-note").forEach((note, index) => {
+    const notes = [
+      "Purchases + operating costs · " + monthLabel,
+      "Purchase invoices · " + monthLabel,
+      "Operating costs and invoice-only expenses · " + monthLabel,
+      "Unpaid balances from this month's purchases"
+    ];
+
+    if (notes[index]) {
+      note.textContent = notes[index];
+    }
+  });
 }
 
 function renderPaymentPurchaseOptions() {
@@ -1325,10 +1477,17 @@ $("paymentForm").addEventListener("submit",async event => {
   }
 });
 
+$("summaryMonth").value = today().slice(0, 7);
+
+$("summaryMonth").addEventListener("change", () => {
+  renderSummary();
+});
+
 $("purchaseDate").value = today();
 $("expenseOnlyDate").value = today();
 $("operatingDate").value = today();
 $("paymentDate").value = today();
+
 addPurchaseItem();
 
 onAuthStateChanged(auth,async user => {
