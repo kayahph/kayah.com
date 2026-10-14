@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,137 +19,806 @@
   --muted:#718078;
   --border:#E1E9E3;
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);font-size:14px}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.business-header{display:flex;align-items:center;gap:12px;padding:15px;color:white;background:linear-gradient(135deg,var(--green),var(--green2));box-shadow:0 4px 14px #0B4F3A20}
-.business-logo,.logo-fallback{width:46px;height:46px;border-radius:12px;flex-shrink:0}
-.business-logo{display:none;object-fit:cover;background:white}
-.logo-fallback{display:flex;align-items:center;justify-content:center;color:var(--green);background:var(--gold);font-size:22px;font-weight:900}
-.header-text{min-width:0;flex:1}
-.header-text h1{margin:0 0 4px;font-size:19px;font-weight:900;overflow-wrap:anywhere}
-.header-text p{margin:0;font-size:12px;color:#E0F2E7}
-.header-badge{padding:7px 10px;border-radius:20px;background:#FFFFFF20;border:1px solid #FFFFFF50;font-size:10px;font-weight:900}
-.page{max-width:1250px;margin:auto;padding:16px}
-.page-heading{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:17px}
-.page-heading h2{color:var(--green);margin:0 0 5px;font-size:22px;font-weight:900}
-.page-heading p{margin:0;color:var(--muted);font-size:12px}
-.primary-btn,.secondary-btn{border-radius:9px;padding:10px 13px;font-weight:800}
-.primary-btn{color:white;background:var(--green);border:0}
-.primary-btn:hover{background:var(--green2)}
-.secondary-btn{color:var(--green);background:white;border:1px solid var(--border)}
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:21px 0 11px}
-.section-title h3{margin:0;color:var(--green);font-size:16px;font-weight:900}
-.section-title small{color:var(--muted);font-size:11px}
-.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
-.summary-card{color:white;border-radius:14px;padding:15px;min-width:0;box-shadow:0 5px 15px #173B2A12}
-.summary-card.sales{background:linear-gradient(135deg,#0B4F3A,#16805C)}
-.summary-card.transactions{background:linear-gradient(135deg,#174EA6,#3B82F6)}
-.summary-card.cost{background:linear-gradient(135deg,#854D0E,#D99A24)}
-.summary-card.profit{background:linear-gradient(135deg,#5B21B6,#8B5CF6)}
-.summary-label{font-size:11px;font-weight:900;margin-bottom:11px}
-.summary-value{font-size:clamp(19px,2.5vw,27px);font-weight:900;overflow-wrap:anywhere}
-.summary-note{font-size:10px;font-weight:700;opacity:.9;margin-top:8px}
-.payment-tabs{display:flex;flex-wrap:wrap;gap:8px;padding:5px;background:white;border:1px solid var(--border);border-radius:12px}
-.payment-tab{flex:1;min-width:115px;padding:12px 10px;border:1px solid var(--border);border-radius:8px;background:#FAFCFA;color:var(--text);text-align:left}
-.payment-tab:hover{background:#F0F6F1;border-color:#B9D0BF}
-.payment-tab .tab-name{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
-.payment-tab .tab-amount{display:block;font-size:18px;font-weight:900;color:var(--green);overflow-wrap:anywhere}
-.payment-tab .tab-count{display:block;margin-top:4px;font-size:10px;color:var(--muted)}
-.filters-toggle{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:13px 14px;background:white;border:1px solid var(--border);border-radius:11px;color:var(--green);font-weight:900;text-align:left}
-.filters-toggle:hover{background:#F8FBF8}
-.toggle-arrow{transition:transform .2s;font-size:16px}
-.filters-toggle[aria-expanded="true"] .toggle-arrow{transform:rotate(180deg)}
-.filters-panel{display:none;grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(120px,1fr));gap:10px;margin-top:10px;padding:14px;background:white;border:1px solid var(--border);border-radius:12px}
-.filters-panel.open{display:grid}
-.filter-field{min-width:0}
-.filter-field label{display:block;margin-bottom:6px;font-size:11px;font-weight:900;color:#42564A}
-.filter-field input,.filter-field select{width:100%;min-width:0;padding:10px;border:1px solid #DCE5DE;border-radius:8px;background:#FBFDFC;color:var(--text);outline:none}
-.filter-field input:focus,.filter-field select:focus{border-color:var(--green2);box-shadow:0 0 0 3px #16805C15}
-.history-panel{background:white;border:1px solid var(--border);border-radius:13px;overflow:hidden}
-.history-top{padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
-.history-top strong{color:var(--green);font-weight:900}
-.history-count{color:var(--muted);font-size:11px;margin-top:4px}
-.table-wrap{overflow-x:auto}
-table{width:100%;min-width:850px;border-collapse:collapse}
-th{padding:12px 10px;text-align:left;background:#EAF3ED;color:#315744;font-size:11px;font-weight:900;white-space:nowrap}
-td{padding:12px 10px;border-bottom:1px solid #EDF1EE;font-size:12px;vertical-align:middle}
-tbody tr:hover{background:#FAFCFA}
-tbody tr:last-child td{border-bottom:0}
-.cell-main{color:#263D30;font-weight:800;overflow-wrap:anywhere}
-.cell-sub{color:var(--muted);font-size:10px;margin-top:4px}
-.money{font-weight:900;white-space:nowrap}
-.payment-pill{display:inline-block;padding:6px 8px;border-radius:7px;background:#EAF3ED;color:var(--green);font-size:10px;font-weight:900;white-space:nowrap}
-.payment-pill.credit{background:#FEF3C7;color:#92400E}
-.payment-pill.gcash{background:#DBEAFE;color:#1D4ED8}
-.payment-pill.maya{background:#EDE9FE;color:#6D28D9}
-.payment-pill.unknown{background:#F1F5F9;color:#475569}
-.view-btn{padding:8px 10px;background:#EAF3ED;color:var(--green);border:0;border-radius:7px;font-size:11px;font-weight:900;white-space:nowrap}
-.notice{display:none;padding:12px;border-radius:9px;margin:12px 0;font-size:12px;font-weight:700}
-.notice.error{display:block;background:#FEE2E2;color:#991B1B}
-.notice.info{display:block;background:#DBEAFE;color:#1E40AF}
-.notice.success{display:block;background:#DCFCE7;color:#166534}
-.empty-state,.loading{padding:30px 15px;text-align:center;color:var(--muted)}
-.empty-state strong{display:block;margin-bottom:6px;color:var(--green)}
-.modal{display:none;position:fixed;inset:0;z-index:1000;padding:15px;background:#071C12A8;align-items:center;justify-content:center}
-.modal.open{display:flex}
-.modal-card{width:100%;max-width:560px;max-height:90vh;overflow:auto;background:white;border-radius:14px}
-.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;background:var(--green);color:white}
-.modal-head strong{font-size:16px;font-weight:900}
-.close-btn{padding:7px 10px;border:0;border-radius:7px;color:white;background:#FFFFFF25;font-weight:800}
-.receipt{padding:20px}
-.receipt-brand{text-align:center;padding-bottom:14px;border-bottom:1px dashed #CBD5CC}
-.receipt-logo{width:55px;height:55px;object-fit:cover;border-radius:10px;margin-bottom:8px}
-.receipt-brand h2{color:var(--green);font-size:19px;margin:0 0 5px;font-weight:900;overflow-wrap:anywhere}
-.receipt-brand p{color:var(--muted);font-size:11px;margin:4px 0}
-.receipt-meta{padding:12px 0;border-bottom:1px dashed #CBD5CC}
-.receipt-meta div,.receipt-totals div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:12px}
-.receipt-meta span:first-child{color:var(--muted)}
-.receipt-meta span:last-child{font-weight:800;text-align:right;overflow-wrap:anywhere}
-.receipt-items{width:100%;min-width:0;margin:12px 0}
-.receipt-items th,.receipt-items td{padding:8px 5px;font-size:10px}
-.receipt-items th{white-space:normal}
-.receipt-totals{border-top:1px dashed #CBD5CC;padding-top:10px}
-.receipt-totals .grand{margin-top:5px;padding-top:12px;border-top:1px solid var(--border);color:var(--green);font-size:17px;font-weight:900}
-.receipt-thanks{text-align:center;padding-top:18px;color:var(--green);font-weight:900}
-.cost-unavailable{color:#9A3412;font-weight:800}
-.modal-actions{display:flex;gap:9px;padding:0 20px 20px}
-.modal-actions button{flex:1}
-.footer-note{padding:18px 0 5px;color:var(--muted);text-align:center;font-size:10px}
-@media(max-width:850px){
- .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .filters-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
- .search-field{grid-column:1/-1}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
 }
-@media(max-width:480px){
- .page{padding:12px}
- .business-header{padding:12px}
- .header-text h1{font-size:17px}
- .header-badge{display:none}
- .page-heading h2{font-size:20px}
- .summary-grid{gap:8px}
- .summary-card{padding:12px}
- .summary-value{font-size:20px}
- .payment-tabs{gap:6px}
- .payment-tab{min-width:calc(50% - 6px);padding:10px}
- .payment-tab .tab-amount{font-size:17px}
- .filters-panel{gap:9px;padding:10px}
- .filter-field input,.filter-field select{padding:9px 7px;font-size:12px}
- .receipt{padding:12px}
- .receipt-items th,.receipt-items td{padding:7px 3px;font-size:9px}
+
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+
+.business-header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px;
+  color:white;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  box-shadow:0 4px 14px #0B4F3A20;
 }
-@media print{
- body *{visibility:hidden!important}
- #receiptModal,#receiptModal *{visibility:visible!important}
- #receiptModal{display:block!important;position:absolute;inset:0;padding:0;background:white}
- #receiptModal .modal-card{max-width:none;max-height:none;overflow:visible;border-radius:0}
- #receiptModal .modal-head,#receiptModal .modal-actions{display:none!important}
+
+.business-logo,.logo-fallback {
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  flex-shrink:0;
+}
+
+.business-logo {
+  display:none;
+  object-fit:cover;
+  background:white;
+}
+
+.logo-fallback {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--green);
+  background:var(--gold);
+  font-size:22px;
+  font-weight:900;
+}
+
+.header-text { min-width:0; flex:1; }
+
+.header-text h1 {
+  margin:0 0 4px;
+  font-size:19px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.header-text p {
+  margin:0;
+  font-size:12px;
+  color:#E0F2E7;
+}
+
+.header-badge {
+  padding:7px 10px;
+  border-radius:20px;
+  background:#FFFFFF20;
+  border:1px solid #FFFFFF50;
+  font-size:10px;
+  font-weight:900;
+}
+
+.page {
+  max-width:1250px;
+  margin:auto;
+  padding:16px;
+}
+
+.page-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:17px;
+}
+
+.page-heading h2 {
+  color:var(--green);
+  margin:0 0 5px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.page-heading p {
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.primary-btn,.secondary-btn {
+  border-radius:9px;
+  padding:10px 13px;
+  font-weight:800;
+}
+
+.primary-btn {
+  color:white;
+  background:var(--green);
+  border:0;
+}
+
+.primary-btn:hover { background:var(--green2); }
+.primary-btn:disabled { opacity:.65; cursor:wait; }
+
+.secondary-btn {
+  color:var(--green);
+  background:white;
+  border:1px solid var(--border);
+}
+
+.section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:21px 0 11px;
+}
+
+.section-title h3 {
+  margin:0;
+  color:var(--green);
+  font-size:16px;
+  font-weight:900;
+}
+
+.section-title small {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:11px;
+}
+
+.summary-card {
+  color:white;
+  border-radius:14px;
+  padding:15px;
+  min-width:0;
+  box-shadow:0 5px 15px #173B2A12;
+}
+
+.summary-card.sales {
+  background:linear-gradient(135deg,#0B4F3A,#16805C);
+}
+
+.summary-card.transactions {
+  background:linear-gradient(135deg,#174EA6,#3B82F6);
+}
+
+.summary-card.cost {
+  background:linear-gradient(135deg,#854D0E,#D99A24);
+}
+
+.summary-card.profit {
+  background:linear-gradient(135deg,#5B21B6,#8B5CF6);
+}
+
+.summary-label {
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:11px;
+}
+
+.summary-value {
+  font-size:clamp(19px,2.5vw,27px);
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.summary-note {
+  font-size:10px;
+  font-weight:700;
+  opacity:.9;
+  margin-top:8px;
+}
+
+.payment-tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:5px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.payment-tab {
+  flex:1;
+  min-width:115px;
+  padding:12px 10px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#FAFCFA;
+  color:var(--text);
+  text-align:left;
+}
+
+.payment-tab .tab-name {
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.payment-tab .tab-amount {
+  display:block;
+  font-size:18px;
+  font-weight:900;
+  color:var(--green);
+  overflow-wrap:anywhere;
+}
+
+.payment-tab .tab-count {
+  display:block;
+  margin-top:4px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.filters-toggle {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px 14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:11px;
+  color:var(--green);
+  font-weight:900;
+  text-align:left;
+}
+
+.toggle-arrow {
+  transition:transform .2s;
+  font-size:16px;
+}
+
+.filters-toggle[aria-expanded="true"] .toggle-arrow {
+  transform:rotate(180deg);
+}
+
+.filters-panel {
+  display:none;
+  grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(120px,1fr));
+  gap:10px;
+  margin-top:10px;
+  padding:14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.filters-panel.open { display:grid; }
+.filter-field { min-width:0; }
+
+.filter-field label {
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:900;
+  color:#42564A;
+}
+
+.filter-field input,.filter-field select {
+  width:100%;
+  min-width:0;
+  padding:10px;
+  border:1px solid #DCE5DE;
+  border-radius:8px;
+  background:#FBFDFC;
+  color:var(--text);
+  outline:none;
+}
+
+.filter-field input:focus,.filter-field select:focus {
+  border-color:var(--green2);
+  box-shadow:0 0 0 3px #16805C15;
+}
+
+.history-panel {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:13px;
+  overflow:hidden;
+}
+
+.history-top {
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+
+.history-top strong {
+  color:var(--green);
+  font-weight:900;
+}
+
+.history-count {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.table-wrap {
+  width:100%;
+  overflow-x:auto;
+}
+
+.sales-table {
+  width:100%;
+  min-width:1050px;
+  border-collapse:collapse;
+  table-layout:auto;
+}
+
+.sales-table th {
+  padding:9px 8px;
+  text-align:left;
+  background:#EAF3ED;
+  color:#315744;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.sales-table td {
+  padding:7px 8px;
+  border-bottom:1px solid #EDF1EE;
+  font-size:11px;
+  vertical-align:middle;
+  white-space:nowrap;
+}
+
+.sales-table tbody tr:hover { background:#FAFCFA; }
+.sales-table tbody tr:last-child td { border-bottom:0; }
+
+.cell-main {
+  color:#263D30;
+  font-weight:800;
+}
+
+.cell-muted {
+  color:var(--muted);
+  font-size:10px;
+}
+
+.money {
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.payment-pill {
+  display:inline-block;
+  padding:5px 7px;
+  border-radius:7px;
+  background:#EAF3ED;
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.payment-pill.credit { background:#FEF3C7; color:#92400E; }
+.payment-pill.gcash { background:#DBEAFE; color:#1D4ED8; }
+.payment-pill.maya { background:#EDE9FE; color:#6D28D9; }
+.payment-pill.unknown { background:#F1F5F9; color:#475569; }
+
+.identifier-inline {
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:5px;
+  white-space:nowrap;
+}
+
+.id-chip {
+  display:inline-block;
+  padding:5px 7px;
+  max-width:190px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:#FBFDFC;
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+.id-chip.muted { color:#89958D; }
+
+.view-btn {
+  padding:7px 9px;
+  background:#EAF3ED;
+  color:var(--green);
+  border:0;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.notice {
+  display:none;
+  padding:12px;
+  border-radius:9px;
+  margin:12px 0;
+  font-size:12px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+
+.notice.error { display:block; background:#FEE2E2; color:#991B1B; }
+.notice.info { display:block; background:#DBEAFE; color:#1E40AF; }
+.notice.success { display:block; background:#DCFCE7; color:#166534; }
+
+.empty-state,.loading {
+  padding:30px 15px!important;
+  text-align:center;
+  color:var(--muted);
+  white-space:normal!important;
+}
+
+.empty-state strong {
+  display:block;
+  margin-bottom:6px;
+  color:var(--green);
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  padding:15px;
+  background:#071C12A8;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal.open { display:flex; }
+
+.modal-card {
+  width:100%;
+  max-width:650px;
+  max-height:92vh;
+  overflow:auto;
+  background:white;
+  border-radius:14px;
+}
+
+.modal-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:14px;
+  background:var(--green);
+  color:white;
+}
+
+.modal-head strong {
+  font-size:16px;
+  font-weight:900;
+}
+
+.close-btn {
+  padding:7px 10px;
+  border:0;
+  border-radius:7px;
+  color:white;
+  background:#FFFFFF25;
+  font-weight:800;
+}
+
+.receipt {
+  max-width:560px;
+  margin:auto;
+  padding:24px;
+  background:white;
+  color:#25362B;
+}
+
+.invoice-topline {
+  height:5px;
+  margin-bottom:17px;
+  border-radius:5px;
+  background:linear-gradient(90deg,var(--green),var(--green2),var(--gold));
+}
+
+.receipt-brand {
+  text-align:center;
+  padding-bottom:15px;
+  border-bottom:1px solid #E4EAE5;
+}
+
+.receipt-logo {
+  width:62px;
+  height:62px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:9px;
+}
+
+.receipt-brand h2 {
+  color:var(--green);
+  font-size:23px;
+  margin:0 0 5px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.receipt-brand p {
+  color:var(--muted);
+  font-size:11px;
+  margin:4px 0;
+}
+
+.invoice-title {
+  margin-top:15px;
+  color:var(--green);
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.invoice-identifiers {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  padding:14px 0;
+}
+
+.invoice-id-box {
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:#F8FBF8;
+  min-width:0;
+}
+
+.invoice-id-label {
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.8px;
+  margin-bottom:6px;
+}
+
+.invoice-id-value {
+  display:block;
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.invoice-meta {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:12px 0;
+  border-top:1px dashed #CBD5CC;
+  border-bottom:1px dashed #CBD5CC;
+}
+
+.invoice-meta-item { min-width:0; }
+
+.invoice-meta-label {
+  display:block;
+  margin-bottom:5px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.invoice-meta-value {
+  display:block;
+  color:#263D30;
+  font-size:11px;
+  font-weight:800;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.invoice-items-wrap { width:100%; }
+
+.invoice-items {
+  width:100%;
+  min-width:0;
+  margin:14px 0;
+  border-collapse:collapse;
+}
+
+.invoice-items th {
+  padding:9px 5px;
+  text-align:left;
+  background:#EAF3ED;
+  color:#315744;
+  font-size:10px;
+}
+
+.invoice-items td {
+  padding:10px 5px;
+  border-bottom:1px solid #EDF1EE;
+  font-size:11px;
+  overflow-wrap:anywhere;
+}
+
+.invoice-items th:nth-child(2),
+.invoice-items td:nth-child(2) {
+  text-align:center;
+  width:45px;
+}
+
+.invoice-items th:nth-child(3),
+.invoice-items td:nth-child(3),
+.invoice-items th:nth-child(4),
+.invoice-items td:nth-child(4) {
+  text-align:right;
+}
+
+.invoice-item-name { font-weight:800; }
+
+.invoice-totals {
+  width:100%;
+  max-width:280px;
+  margin-left:auto;
+  padding-top:8px;
+}
+
+.invoice-total-row {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:6px 0;
+  font-size:12px;
+}
+
+.invoice-total-row span:first-child { color:var(--muted); }
+
+.invoice-total-row strong {
+  text-align:right;
+  overflow-wrap:anywhere;
+}
+
+.invoice-grand {
+  margin-top:7px;
+  padding:13px 11px;
+  border-radius:8px;
+  background:var(--green);
+  color:white;
+  font-size:16px;
+  font-weight:900;
+}
+
+.invoice-grand span:first-child { color:white; }
+.invoice-grand span:last-child { color:#FFE2A1; }
+
+.invoice-payment {
+  margin-top:14px;
+  padding:11px;
+  border-radius:8px;
+  background:#F4F8F4;
+  font-size:11px;
+}
+
+.invoice-payment strong { color:var(--green); }
+
+.receipt-thanks {
+  text-align:center;
+  padding-top:22px;
+  color:var(--green);
+  font-size:12px;
+  font-weight:900;
+}
+
+.receipt-thanks small {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:400;
+}
+
+.modal-actions {
+  display:flex;
+  gap:9px;
+  padding:0 20px 20px;
+}
+
+.modal-actions button { flex:1; }
+
+.footer-note {
+  padding:18px 0 5px;
+  color:var(--muted);
+  text-align:center;
+  font-size:10px;
+}
+
+@media(max-width:850px) {
+  .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .filters-panel { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .search-field { grid-column:1/-1; }
+}
+
+@media(max-width:480px) {
+  .page { padding:12px; }
+  .business-header { padding:12px; }
+  .header-text h1 { font-size:17px; }
+  .header-badge { display:none; }
+  .page-heading h2 { font-size:20px; }
+  .summary-grid { gap:8px; }
+  .summary-card { padding:12px; }
+  .summary-value { font-size:20px; }
+  .payment-tabs { gap:6px; }
+  .payment-tab { min-width:calc(50% - 6px); padding:10px; }
+  .payment-tab .tab-amount { font-size:17px; }
+  .filters-panel { gap:9px; padding:10px; }
+  .filter-field input,.filter-field select {
+    padding:9px 7px;
+    font-size:12px;
+  }
+  .receipt { padding:15px; }
+  .receipt-brand h2 { font-size:20px; }
+  .invoice-identifiers { gap:6px; }
+  .invoice-id-box { padding:8px; }
+  .modal-actions { padding:0 12px 12px; }
+}
+
+@media print {
+  @page { size:auto; margin:10mm; }
+
+  body * { visibility:hidden!important; }
+
+  #receiptModal,#receiptModal * {
+    visibility:visible!important;
+  }
+
+  #receiptModal {
+    display:block!important;
+    position:absolute;
+    inset:0;
+    padding:0;
+    background:white;
+    overflow:visible;
+  }
+
+  #receiptModal .modal-card {
+    max-width:none;
+    max-height:none;
+    overflow:visible;
+    border-radius:0;
+    box-shadow:none;
+  }
+
+  #receiptModal .modal-head,
+  #receiptModal .modal-actions {
+    display:none!important;
+  }
+
+  #receiptModal .receipt {
+    max-width:none;
+    padding:0;
+    margin:0;
+  }
+
+  #receiptModal .invoice-items {
+    min-width:0;
+  }
+
+  #receiptModal .table-wrap {
+    overflow:visible;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <header class="business-header">
   <img id="businessLogo" class="business-logo" alt="Business logo">
   <div id="logoFallback" class="logo-fallback">K</div>
@@ -160,6 +830,7 @@ tbody tr:last-child td{border-bottom:0}
 </header>
 
 <main class="page">
+
   <div class="page-heading">
     <div>
       <h2>Sales Overview</h2>
@@ -172,7 +843,7 @@ tbody tr:last-child td{border-bottom:0}
 
   <div class="section-title">
     <h3>📊 Sales Summary</h3>
-    <small id="summaryPeriod">Today</small>
+    <small id="summaryPeriod">Filtered period</small>
   </div>
 
   <section class="summary-grid">
@@ -181,16 +852,19 @@ tbody tr:last-child td{border-bottom:0}
       <div class="summary-value" id="totalSales">₱0.00</div>
       <div class="summary-note">Matching sales transactions</div>
     </div>
+
     <div class="summary-card transactions">
       <div class="summary-label">TRANSACTIONS</div>
       <div class="summary-value" id="totalTransactions">0</div>
       <div class="summary-note">Number of sales</div>
     </div>
+
     <div class="summary-card cost">
       <div class="summary-label">TOTAL COST</div>
       <div class="summary-value" id="totalCost">₱0.00</div>
       <div class="summary-note" id="costNote">Recorded cost data</div>
     </div>
+
     <div class="summary-card profit">
       <div class="summary-label">GROSS PROFIT</div>
       <div class="summary-value" id="totalProfit">₱0.00</div>
@@ -209,16 +883,19 @@ tbody tr:last-child td{border-bottom:0}
       <span class="tab-amount" id="cashAmount">₱0.00</span>
       <span class="tab-count" id="cashCount">0 transactions</span>
     </div>
+
     <div class="payment-tab">
       <span class="tab-name">Credit</span>
       <span class="tab-amount" id="creditAmount">₱0.00</span>
       <span class="tab-count" id="creditCount">0 transactions</span>
     </div>
+
     <div class="payment-tab">
       <span class="tab-name">QR · GCash</span>
       <span class="tab-amount" id="gcashAmount">₱0.00</span>
       <span class="tab-count" id="gcashCount">0 transactions</span>
     </div>
+
     <div class="payment-tab">
       <span class="tab-name">QR · Maya</span>
       <span class="tab-amount" id="mayaAmount">₱0.00</span>
@@ -240,20 +917,25 @@ tbody tr:last-child td{border-bottom:0}
   <section class="filters-panel" id="filtersPanel">
     <div class="filter-field search-field">
       <label for="searchInput">Search sales</label>
-      <input id="searchInput" type="search" placeholder="Receipt, customer, product...">
+      <input id="searchInput" type="search"
+        placeholder="Invoice, transaction ID, customer, product...">
     </div>
+
     <div class="filter-field">
       <label for="fromDate">From date</label>
       <input id="fromDate" type="date">
     </div>
+
     <div class="filter-field">
       <label for="toDate">To date</label>
       <input id="toDate" type="date">
     </div>
+
     <div class="filter-field">
       <label for="productFilter">Product</label>
       <input id="productFilter" type="search" placeholder="Product name">
     </div>
+
     <div class="filter-field">
       <label for="paymentFilter">Payment method</label>
       <select id="paymentFilter">
@@ -265,14 +947,17 @@ tbody tr:last-child td{border-bottom:0}
         <option value="unknown">Unrecognized</option>
       </select>
     </div>
+
     <div style="grid-column:1/-1">
-      <button type="button" id="clearFiltersBtn" class="secondary-btn">Clear Filters</button>
+      <button type="button" id="clearFiltersBtn" class="secondary-btn">
+        Clear Filters
+      </button>
     </div>
   </section>
 
   <div class="section-title">
     <h3>Sales History</h3>
-    <small>Existing transactions only</small>
+    <small>Compact transaction records</small>
   </div>
 
   <section class="history-panel">
@@ -283,52 +968,56 @@ tbody tr:last-child td{border-bottom:0}
       </div>
       <strong id="historyTotal">₱0.00</strong>
     </div>
+
     <div class="table-wrap">
-      <table>
+      <table class="sales-table">
         <thead>
           <tr>
             <th>Date &amp; Time</th>
-            <th>Receipt</th>
-            <th>Customer</th>
-            <th>Payment</th>
             <th>Sale Total</th>
+            <th>Payment</th>
             <th>Total Cost</th>
-            <th>Profit</th>
+            <th>Total Profit</th>
+            <th>Customer</th>
+            <th>Invoice / Transaction ID</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody id="salesTableBody">
-          <tr><td colspan="8" class="loading">Loading sales records...</td></tr>
+          <tr>
+            <td colspan="8" class="loading">Loading sales records...</td>
+          </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <div class="footer-note">Kayah Business Management · Sales records are read-only.</div>
+  <div class="footer-note">
+    Kayah Business Management · Sales records are read-only.
+  </div>
 </main>
 
-<div class="modal" id="receiptModal" role="dialog" aria-modal="true" aria-label="Sales receipt">
+<div class="modal" id="receiptModal" role="dialog"
+  aria-modal="true" aria-label="Customer invoice">
   <div class="modal-card">
     <div class="modal-head">
-      <strong>Sales Receipt</strong>
+      <strong>Customer Invoice</strong>
       <button type="button" class="close-btn" id="closeReceiptBtn">✕ Close</button>
     </div>
+
     <div class="receipt" id="receiptContent"></div>
+
     <div class="modal-actions">
       <button type="button" class="secondary-btn" id="closeReceiptBtn2">Close</button>
-      <button type="button" class="primary-btn" id="printReceiptBtn">Print Receipt</button>
+      <button type="button" class="primary-btn" id="printReceiptBtn">Print Invoice</button>
     </div>
   </div>
 </div>
 
 <script type="module">
-import { initializeApp, getApps }
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged }
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getFirestore, doc, getDoc, collection, getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const SALES_SUBCOLLECTION = "sales";
 const PRODUCTS_SUBCOLLECTION = "products";
@@ -357,8 +1046,11 @@ const $ = id => document.getElementById(id);
 
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#039;"
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
   })[c]);
 }
 
@@ -372,36 +1064,53 @@ function peso(value) {
 
 function num(value) {
   if (typeof value === "number" && Number.isFinite(value)) return value;
+
   if (typeof value === "string") {
     const cleaned = value.replace(/[₱,\s]/g, "");
-    if (cleaned !== "" && Number.isFinite(Number(cleaned))) return Number(cleaned);
+    if (cleaned !== "" && Number.isFinite(Number(cleaned))) {
+      return Number(cleaned);
+    }
   }
+
   return null;
 }
 
 function first(object, keys) {
   for (const key of keys) {
     const value = object?.[key];
-    if (value !== undefined && value !== null && value !== "") return value;
+    if (value !== undefined && value !== null && value !== "") {
+      return value;
+    }
   }
   return null;
 }
 
 function getDateValue(sale) {
   return first(sale, [
-    "createdAt","timestamp","date","saleDate","completedAt","created_at"
+    "createdAt",
+    "timestamp",
+    "date",
+    "saleDate",
+    "completedAt",
+    "created_at"
   ]);
 }
 
 function toDate(value) {
   if (!value) return null;
-  if (typeof value.toDate === "function") return value.toDate();
+
+  if (typeof value.toDate === "function") {
+    return value.toDate();
+  }
+
   if (typeof value === "object" && value.seconds != null) {
     return new Date(value.seconds * 1000);
   }
+
   if (typeof value === "number") {
     return new Date(value < 100000000000 ? value * 1000 : value);
   }
+
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
 }
@@ -413,20 +1122,27 @@ function dateString(date = new Date()) {
 function formatDate(value) {
   const date = toDate(value);
   if (!date) return "Date unavailable";
+
   return date.toLocaleString("en-PH", {
-    year:"numeric", month:"short", day:"2-digit",
-    hour:"2-digit", minute:"2-digit"
+    year:"numeric",
+    month:"short",
+    day:"2-digit",
+    hour:"2-digit",
+    minute:"2-digit"
   });
 }
 
 function rawItems(sale) {
   const items = first(sale, ["items","cart","products","orderItems"]);
+
   if (Array.isArray(items)) return items;
   if (items && typeof items === "object") return Object.values(items);
+
   return [];
 }
 
-/* Build a lookup of current product costs from the owner's products collection. */
+/* PRODUCT COST LOOKUP */
+
 function buildProductCostIndex(productDocs) {
   productCostById = new Map();
   productCostByName = new Map();
@@ -435,7 +1151,12 @@ function buildProductCostIndex(productDocs) {
     const product = productDoc.data();
 
     const cost = num(first(product, [
-      "costPrice","unitCost","purchasePrice","cost","buyingPrice","purchaseCost"
+      "costPrice",
+      "unitCost",
+      "purchasePrice",
+      "cost",
+      "buyingPrice",
+      "purchaseCost"
     ]));
 
     if (cost === null) return;
@@ -443,15 +1164,20 @@ function buildProductCostIndex(productDocs) {
     productCostById.set(productDoc.id, cost);
 
     const name = String(first(product, [
-      "name","productName","title"
+      "name",
+      "productName",
+      "title"
     ]) ?? "").trim().toLowerCase();
 
     if (name && !productCostByName.has(name)) {
       productCostByName.set(name, cost);
     }
 
-    const sku = String(first(product, ["sku","SKU","productCode"]) ?? "")
-      .trim().toLowerCase();
+    const sku = String(first(product, [
+      "sku",
+      "SKU",
+      "productCode"
+    ]) ?? "").trim().toLowerCase();
 
     if (sku) productCostById.set(sku, cost);
   });
@@ -459,18 +1185,30 @@ function buildProductCostIndex(productDocs) {
 
 function findProductCost(item) {
   const possibleIds = [
-    item.productId, item.productID, item.product_id,
-    item.itemId, item.sku, item.SKU, item.productCode
+    item.productId,
+    item.productID,
+    item.product_id,
+    item.itemId,
+    item.sku,
+    item.SKU,
+    item.productCode
   ].filter(value => value !== undefined && value !== null && value !== "");
 
   for (const id of possibleIds) {
     if (productCostById.has(String(id))) {
       return productCostById.get(String(id));
     }
+
+    if (productCostById.has(String(id).toLowerCase())) {
+      return productCostById.get(String(id).toLowerCase());
+    }
   }
 
   const name = String(first(item, [
-    "name","productName","title","description"
+    "name",
+    "productName",
+    "title",
+    "description"
   ]) ?? "").trim().toLowerCase();
 
   if (name && productCostByName.has(name)) {
@@ -483,18 +1221,34 @@ function findProductCost(item) {
 function normalizeItems(sale) {
   return rawItems(sale).map(item => {
     const quantity = num(first(item, ["quantity","qty","count"])) ?? 1;
-    const price = num(first(item, ["price","unitPrice","sellingPrice","rate"])) ?? 0;
-    const lineTotal = num(first(item, ["subtotal","lineTotal","total"]));
+
+    const price = num(first(item, [
+      "price",
+      "unitPrice",
+      "sellingPrice",
+      "rate"
+    ])) ?? 0;
+
+    const lineTotal = num(first(item, [
+      "subtotal",
+      "lineTotal",
+      "total"
+    ]));
 
     const savedUnitCost = num(first(item, [
-      "costPrice","unitCost","cost","purchasePrice","buyingPrice"
+      "costPrice",
+      "unitCost",
+      "cost",
+      "purchasePrice",
+      "buyingPrice"
     ]));
 
     const savedCostTotal = num(first(item, [
-      "costTotal","totalCost","lineCost"
+      "costTotal",
+      "totalCost",
+      "lineCost"
     ]));
 
-    // Priority: saved item cost, then current product record, then saved line cost.
     const matchedProductCost = findProductCost(item);
 
     const unitCost = savedUnitCost !== null
@@ -512,28 +1266,52 @@ function normalizeItems(sale) {
         : null;
 
     return {
-      name:String(first(item, ["name","productName","title","description"]) ?? "Item"),
+      name:String(first(item, [
+        "name",
+        "productName",
+        "title",
+        "description"
+      ]) ?? "Item"),
       quantity,
       price,
       total:lineTotal ?? price * quantity,
       unitCost,
       costTotal,
       productId:String(first(item, [
-        "productId","productID","product_id","itemId","sku","SKU"
+        "productId",
+        "productID",
+        "product_id",
+        "itemId",
+        "sku",
+        "SKU"
       ]) ?? "")
     };
   });
 }
 
+/* SALES TOTALS */
+
 function getTotal(sale, items) {
   const saved = num(first(sale, [
-    "total","totalAmount","grandTotal","amount","finalTotal","totalDue","netAmount"
+    "total",
+    "totalAmount",
+    "grandTotal",
+    "amount",
+    "finalTotal",
+    "totalDue",
+    "netAmount"
   ]));
+
   return saved ?? items.reduce((sum,item) => sum + item.total,0);
 }
 
 function getCost(sale, items) {
-  const saved = num(first(sale, ["costTotal","totalCost","costAmount"]));
+  const saved = num(first(sale, [
+    "costTotal",
+    "totalCost",
+    "costAmount"
+  ]));
+
   if (saved !== null) return saved;
 
   if (items.length && items.every(item => item.costTotal !== null)) {
@@ -544,18 +1322,34 @@ function getCost(sale, items) {
 }
 
 function getProfit(sale,total,cost) {
-  const saved = num(first(sale, ["grossProfit","profit","profitAmount"]));
+  const saved = num(first(sale, [
+    "grossProfit",
+    "profit",
+    "profitAmount"
+  ]));
+
   return saved ?? (cost === null ? null : total - cost);
 }
 
+/* PAYMENT METHOD */
+
 function getPayment(sale) {
   const rawMethod = String(
-    sale.paymentMethod || sale.payment || sale.method || sale.paymentType || ""
+    sale.paymentMethod ||
+    sale.payment ||
+    sale.method ||
+    sale.paymentType ||
+    ""
   ).trim().toLowerCase();
 
   const rawProvider = String(
-    sale.qrMethod || sale.selectedQrMethod || sale.paymentProvider ||
-    sale.qrProvider || sale.qrPaymentProvider || sale.provider || ""
+    sale.qrMethod ||
+    sale.selectedQrMethod ||
+    sale.paymentProvider ||
+    sale.qrProvider ||
+    sale.qrPaymentProvider ||
+    sale.provider ||
+    ""
   ).trim().toLowerCase();
 
   const provider = rawProvider.replace(/[-_]/g, " ");
@@ -564,8 +1358,23 @@ function getPayment(sale) {
 
   if (combined.includes("gcash") || combined.includes("g cash")) return "gcash";
   if (combined.includes("maya") || combined.includes("paymaya")) return "maya";
-  if (method.includes("credit") || method.includes("utang") || method.includes("on account")) return "credit";
-  if (method === "qr" || method.includes("qr code") || method.includes("qr payment")) return "unknown";
+
+  if (
+    method.includes("credit") ||
+    method.includes("utang") ||
+    method.includes("on account")
+  ) {
+    return "credit";
+  }
+
+  if (
+    method === "qr" ||
+    method.includes("qr code") ||
+    method.includes("qr payment")
+  ) {
+    return "unknown";
+  }
+
   if (method.includes("cash")) return "cash";
 
   return "unknown";
@@ -573,48 +1382,154 @@ function getPayment(sale) {
 
 function paymentName(method) {
   return {
-    cash:"Cash", credit:"Credit", gcash:"QR · GCash",
-    maya:"QR · Maya", unknown:"Unrecognized"
+    cash:"Cash",
+    credit:"Credit",
+    gcash:"QR · GCash",
+    maya:"QR · Maya",
+    unknown:"Unrecognized"
   }[method] || "Unrecognized";
 }
+
+/* CUSTOMER */
 
 function getCustomer(sale) {
   const customer = sale.customer;
 
-  if (typeof customer === "string" && customer.trim()) return customer;
+  if (typeof customer === "string" && customer.trim()) {
+    return customer;
+  }
 
   if (customer && typeof customer === "object") {
     const name = first(customer, ["name","fullName","customerName"]);
     if (name) return String(name);
   }
 
-  return String(first(sale, ["customerName","fullName"]) ?? "Walk-in Customer");
+  return String(first(sale, [
+    "customerName",
+    "fullName"
+  ]) ?? "Walk-in Customer");
 }
 
-function getReceipt(sale,id) {
-  return String(first(sale, [
-    "receiptNumber","receiptNo","transactionNumber","transactionId",
-    "invoiceNumber","reference"
-  ]) ?? id);
+/* INVOICE AND TRANSACTION IDENTIFIERS */
+
+function getSavedInvoiceNumber(sale) {
+  const value = first(sale.raw || sale, [
+    "invoiceNumber",
+    "invoiceNo",
+    "invoice",
+    "amrNumber",
+    "amrNo",
+    "receiptNumber",
+    "receiptNo",
+    "reference"
+  ]);
+
+  return value === null ? "" : String(value);
+}
+
+function getSavedTransactionNumber(sale) {
+  const value = first(sale.raw || sale, [
+    "transactionNumber",
+    "transactionId",
+    "transactionID",
+    "txnNumber",
+    "txnId",
+    "posTransactionId"
+  ]);
+
+  return value === null ? "" : String(value);
+}
+
+/*
+  These fallback numbers are display-only.
+  They are not written to Firestore.
+  Both use the local calendar date and a stable daily sequence
+  based on the currently loaded sale records.
+*/
+
+function getDailySequence(sale) {
+  if (!sale.date) return null;
+
+  const sameDaySales = allSales
+    .filter(item => {
+      if (!item.date) return false;
+
+      return (
+        item.date.getFullYear() === sale.date.getFullYear() &&
+        item.date.getMonth() === sale.date.getMonth() &&
+        item.date.getDate() === sale.date.getDate()
+      );
+    })
+    .sort((a,b) => {
+      const timeA = a.date?.getTime() || 0;
+      const timeB = b.date?.getTime() || 0;
+
+      return timeA - timeB ||
+        String(a.id).localeCompare(String(b.id));
+    });
+
+  const index = sameDaySales.findIndex(
+    item => String(item.id) === String(sale.id)
+  );
+
+  return index >= 0 ? index + 1 : 1;
+}
+
+function getIdentifierDatePart(sale) {
+  if (!sale.date) {
+    return "UNKNOWN-" + String(sale.id).slice(0,6).toUpperCase();
+  }
+
+  return (
+    sale.date.getFullYear().toString() +
+    String(sale.date.getMonth()+1).padStart(2,"0") +
+    String(sale.date.getDate()).padStart(2,"0")
+  );
+}
+
+function getInvoiceNumber(sale) {
+  const saved = getSavedInvoiceNumber(sale);
+  if (saved) return saved;
+
+  const sequence = getDailySequence(sale);
+  const datePart = getIdentifierDatePart(sale);
+
+  return `INV-${datePart}-${String(sequence ?? 1).padStart(3,"0")}`;
+}
+
+function getTransactionNumber(sale) {
+  const saved = getSavedTransactionNumber(sale);
+  if (saved) return saved;
+
+  const sequence = getDailySequence(sale);
+  const datePart = getIdentifierDatePart(sale);
+
+  return `TXN-${datePart}-${String(sequence ?? 1).padStart(3,"0")}`;
 }
 
 function normalizeSale(id,raw) {
   const items = normalizeItems(raw);
   const total = getTotal(raw,items);
   const cost = getCost(raw,items);
+  const dateValue = getDateValue(raw);
 
   return {
-    id, raw, items, total, cost,
+    id,
+    raw,
+    items,
+    total,
+    cost,
     profit:getProfit(raw,total,cost),
-    dateValue:getDateValue(raw),
-    date:toDate(getDateValue(raw)),
+    dateValue,
+    date:toDate(dateValue),
     payment:getPayment(raw),
     customer:getCustomer(raw),
-    receipt:getReceipt(raw,id),
-    discount:num(first(raw, ["discount","discountAmount"])) ?? 0,
-    notes:String(first(raw, ["notes","remarks","description"]) ?? "")
+    discount:num(first(raw,["discount","discountAmount"])) ?? 0,
+    notes:String(first(raw,["notes","remarks","description"]) ?? "")
   };
 }
+
+/* NOTICE AND BUSINESS BRANDING */
 
 function showNotice(message,type="info") {
   $("notice").textContent = message;
@@ -630,15 +1545,23 @@ function setBrand(profile) {
   businessInfo = profile || {};
 
   const name = String(first(profile, [
-    "businessName","storeName","companyName"
+    "businessName",
+    "storeName",
+    "companyName"
   ]) ?? "Kayah");
 
   $("businessName").textContent = name;
-  $("businessSubtitle").textContent =
-    String(first(profile, ["businessType"]) ?? "Sales Management");
+
+  $("businessSubtitle").textContent = String(
+    first(profile,["businessType"]) ?? "Sales Management"
+  );
 
   const logo = first(profile, [
-    "businessLogoUrl","logoURL","logoUrl","logo","businessLogo"
+    "businessLogoUrl",
+    "logoURL",
+    "logoUrl",
+    "logo",
+    "businessLogo"
   ]);
 
   if (typeof logo === "string" && /^https?:\/\//i.test(logo)) {
@@ -657,6 +1580,8 @@ function setBrand(profile) {
   }
 }
 
+/* LOAD SALES FROM FIREBASE */
+
 async function loadSales() {
   if (loading) return;
 
@@ -668,7 +1593,10 @@ async function loadSales() {
     const user = auth.currentUser;
 
     if (!user) {
-      showNotice("Firebase has not restored a signed-in user for this page.", "error");
+      showNotice(
+        "Firebase has not restored a signed-in user for this page.",
+        "error"
+      );
       return;
     }
 
@@ -684,24 +1612,26 @@ async function loadSales() {
 
     if (role === "staff") {
       ownerUid = userData.ownerUid || userData.businessId || "";
-      if (!ownerUid) throw new Error("Staff profile is missing ownerUid/businessId.");
+
+      if (!ownerUid) {
+        throw new Error("Staff profile is missing ownerUid/businessId.");
+      }
     }
 
     let ownerProfile = userData;
 
     if (ownerUid !== user.uid) {
       const ownerSnap = await getDoc(doc(db,"users",ownerUid));
-      if (!ownerSnap.exists()) throw new Error("Business owner profile was not found.");
+
+      if (!ownerSnap.exists()) {
+        throw new Error("Business owner profile was not found.");
+      }
+
       ownerProfile = ownerSnap.data();
     }
 
     setBrand(ownerProfile);
 
-    /*
-      Load product costs first so older sale records can display a cost
-      when their product can be matched to the owner's current product list.
-      Expected product path: users/{ownerUid}/products/{productId}
-    */
     productCostById = new Map();
     productCostByName = new Map();
 
@@ -709,10 +1639,10 @@ async function loadSales() {
       const productsSnap = await getDocs(
         collection(db,"users",ownerUid,PRODUCTS_SUBCOLLECTION)
       );
+
       buildProductCostIndex(productsSnap.docs);
     } catch (productError) {
-      console.warn("Unable to load product costs:", productError);
-      // Existing saved costs on the sale records can still be displayed.
+      console.warn("Unable to load product costs:",productError);
     }
 
     const salesSnap = await getDocs(
@@ -720,6 +1650,7 @@ async function loadSales() {
     );
 
     allSales = salesSnap.docs.map(d => normalizeSale(d.id,d.data()));
+
     allSales.sort((a,b) =>
       (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0)
     );
@@ -734,6 +1665,7 @@ async function loadSales() {
     }
 
     applyFilters();
+
   } catch (error) {
     console.error("Sales loading error:",error);
 
@@ -744,14 +1676,23 @@ async function loadSales() {
       "error"
     );
 
-    $("salesTableBody").innerHTML =
-      '<tr><td colspan="8" class="empty-state"><strong>Unable to load sales</strong>Check the message above.</td></tr>';
+    $("salesTableBody").innerHTML = `
+      <tr>
+        <td colspan="8" class="empty-state">
+          <strong>Unable to load sales</strong>
+          Check the message above.
+        </td>
+      </tr>
+    `;
+
   } finally {
     loading = false;
     $("refreshBtn").disabled = false;
     $("refreshBtn").textContent = "↻ Refresh";
   }
 }
+
+/* FILTERS */
 
 function matchesFilters(sale) {
   const search = $("searchInput").value.trim().toLowerCase();
@@ -760,18 +1701,37 @@ function matchesFilters(sale) {
   const from = $("fromDate").value;
   const to = $("toDate").value;
 
+  const invoiceNumber = getInvoiceNumber(sale);
+  const transactionNumber = getTransactionNumber(sale);
+
   const searchable = [
-    sale.id,sale.receipt,sale.customer,sale.notes,
-    paymentName(sale.payment),...sale.items.map(i => i.name)
+    sale.id,
+    invoiceNumber,
+    transactionNumber,
+    getSavedInvoiceNumber(sale),
+    getSavedTransactionNumber(sale),
+    sale.customer,
+    sale.notes,
+    paymentName(sale.payment),
+    ...sale.items.map(i => i.name)
   ].join(" ").toLowerCase();
 
   if (search && !searchable.includes(search)) return false;
-  if (product && !sale.items.some(i => i.name.toLowerCase().includes(product))) return false;
+
+  if (
+    product &&
+    !sale.items.some(i => i.name.toLowerCase().includes(product))
+  ) {
+    return false;
+  }
+
   if (payment && sale.payment !== payment) return false;
 
   if (from || to) {
     if (!sale.date) return false;
+
     const day = dateString(sale.date);
+
     if (from && day < from) return false;
     if (to && day > to) return false;
   }
@@ -781,161 +1741,330 @@ function matchesFilters(sale) {
 
 function applyFilters() {
   visibleSales = allSales.filter(matchesFilters);
+
   renderSummary();
   renderHistory();
+
+  const from = $("fromDate").value;
+  const to = $("toDate").value;
+
+  $("summaryPeriod").textContent =
+    from && to ? `${from} to ${to}` :
+    from ? `From ${from}` :
+    to ? `Until ${to}` :
+    "All matching dates";
 }
 
-
+/* SUMMARY */
 
 function renderSummary() {
-    const totalSales = visibleSales.reduce(
-        (sum, sale) => sum + (Number(sale.total) || 0),
-        0
-    );
+  const totalSales = visibleSales.reduce(
+    (sum,sale) => sum + (Number(sale.total) || 0),0
+  );
 
-    const totalCost = visibleSales.reduce(
-        (sum, sale) => sum + (Number(sale.cost) || 0),
-        0
-    );
+  const knownCostSales = visibleSales.filter(
+    sale => sale.cost !== null
+  );
 
-    const grossProfit = visibleSales.reduce(
-        (sum, sale) => sum + (Number(sale.profit) || 0),
-        0
-    );
+  const totalCost = knownCostSales.reduce(
+    (sum,sale) => sum + (Number(sale.cost) || 0),0
+  );
 
-    document.getElementById("totalSales").textContent =
-        peso(totalSales);
+  const knownProfitSales = visibleSales.filter(
+    sale => sale.profit !== null
+  );
 
-    document.getElementById("totalCost").textContent =
-        peso(totalCost);
+  const grossProfit = knownProfitSales.reduce(
+    (sum,sale) => sum + (Number(sale.profit) || 0),0
+  );
 
-    document.getElementById("totalProfit").textContent =
-        peso(grossProfit);
+  $("totalSales").textContent = peso(totalSales);
+  $("totalTransactions").textContent = visibleSales.length;
 
-    document.getElementById("totalTransactions").textContent =
-        visibleSales.length;
+  $("totalCost").textContent =
+    visibleSales.length && knownCostSales.length !== visibleSales.length
+      ? `${peso(totalCost)}*`
+      : peso(totalCost);
 
-    const costNote = document.getElementById("totalCostNote");
-    if (costNote) {
-        costNote.textContent = "Total cost of products sold";
+  $("totalProfit").textContent =
+    visibleSales.length && knownProfitSales.length !== visibleSales.length
+      ? `${peso(grossProfit)}*`
+      : peso(grossProfit);
+
+  $("costNote").textContent =
+    knownCostSales.length === visibleSales.length
+      ? "Total cost of products sold"
+      : `${knownCostSales.length} of ${visibleSales.length} sales have cost data`;
+
+  $("profitNote").textContent =
+    knownProfitSales.length === visibleSales.length
+      ? "Sales minus total product cost"
+      : `${knownProfitSales.length} of ${visibleSales.length} sales have profit data`;
+
+  const paymentTotals = {
+    cash:{amount:0,count:0},
+    credit:{amount:0,count:0},
+    gcash:{amount:0,count:0},
+    maya:{amount:0,count:0}
+  };
+
+  visibleSales.forEach(sale => {
+    const method = sale.payment;
+
+    if (Object.prototype.hasOwnProperty.call(paymentTotals,method)) {
+      paymentTotals[method].amount += Number(sale.total) || 0;
+      paymentTotals[method].count++;
     }
+  });
 
-    const profitNote = document.getElementById("totalProfitNote");
-    if (profitNote) {
-        profitNote.textContent = "Sales minus total product cost";
-    }
+  ["cash","credit","gcash","maya"].forEach(method => {
+    $(method + "Amount").textContent = peso(paymentTotals[method].amount);
+
+    const count = paymentTotals[method].count;
+
+    $(method + "Count").textContent =
+      `${count} transaction${count === 1 ? "" : "s"}`;
+  });
 }
+
+/* COMPACT SALES HISTORY */
 
 function renderHistory() {
   $("historyCount").textContent =
     `${visibleSales.length} transaction${visibleSales.length === 1 ? "" : "s"} shown`;
 
-  $("historyTotal").textContent =
-    peso(visibleSales.reduce((s,x) => s+x.total,0));
+  $("historyTotal").textContent = peso(
+    visibleSales.reduce((sum,sale) => sum + sale.total,0)
+  );
 
   if (!visibleSales.length) {
     $("salesTableBody").innerHTML = `
-      <tr><td colspan="8" class="empty-state">
-        <strong>No matching sales</strong>Try changing your search or filters.
-      </td></tr>`;
+      <tr>
+        <td colspan="8" class="empty-state">
+          <strong>No matching sales</strong>
+          Try changing your search or filters.
+        </td>
+      </tr>
+    `;
     return;
   }
 
-  $("salesTableBody").innerHTML = visibleSales.map(sale => `
-    <tr>
-      <td><div class="cell-main">${escapeHTML(formatDate(sale.dateValue))}</div></td>
-      <td>
-        <div class="cell-main">${escapeHTML(sale.receipt)}</div>
-        <div class="cell-sub">ID: ${escapeHTML(sale.id)}</div>
-      </td>
-      <td><div class="cell-main">${escapeHTML(sale.customer)}</div></td>
-      <td><span class="payment-pill ${sale.payment}">
-        ${escapeHTML(paymentName(sale.payment))}
-      </span></td>
-      <td class="money">${peso(sale.total)}</td>
-      <td class="money">${sale.cost === null ? "—" : peso(sale.cost)}</td>
-      <td class="money">${sale.profit === null ? "—" : peso(sale.profit)}</td>
-      <td><button type="button" class="view-btn"
-        data-view-sale="${escapeHTML(sale.id)}">View Receipt</button></td>
-    </tr>`).join("");
+  $("salesTableBody").innerHTML = visibleSales.map(sale => {
+    const invoiceNumber = getInvoiceNumber(sale);
+    const transactionNumber = getTransactionNumber(sale);
+
+    return `
+      <tr>
+        <td>
+          <span class="cell-main">${escapeHTML(formatDate(sale.dateValue))}</span>
+        </td>
+
+        <td class="money">${peso(sale.total)}</td>
+
+        <td>
+          <span class="payment-pill ${sale.payment}">
+            ${escapeHTML(paymentName(sale.payment))}
+          </span>
+        </td>
+
+        <td class="money">
+          ${sale.cost === null ? "—" : peso(sale.cost)}
+        </td>
+
+        <td class="money">
+          ${sale.profit === null ? "—" : peso(sale.profit)}
+        </td>
+
+        <td>
+          <span class="cell-main">${escapeHTML(sale.customer)}</span>
+        </td>
+
+        <td>
+          <div class="identifier-inline">
+            <span class="id-chip" title="Invoice number">${escapeHTML(invoiceNumber)}</span>
+            <span class="cell-muted">/</span>
+            <span class="id-chip" title="Transaction ID">${escapeHTML(transactionNumber)}</span>
+          </div>
+        </td>
+
+        <td>
+          <button type="button" class="view-btn"
+            data-view-sale="${escapeHTML(sale.id)}">
+            View Invoice
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
+
+/* CUSTOMER INVOICE
+   Deliberately excludes cost prices, total cost, gross profit,
+   and internal Firebase document IDs.
+*/
 
 function receiptMarkup(sale) {
   const logo = first(businessInfo, [
-    "businessLogoUrl","logoURL","logoUrl","logo","businessLogo"
+    "businessLogoUrl",
+    "logoURL",
+    "logoUrl",
+    "logo",
+    "businessLogo"
   ]);
 
-  /*
-    The receipt now shows the per-unit Cost Price beside the Selling Price.
-    Total Cost is also shown for each line item.
-  */
-  const items = sale.items.length ? sale.items.map(item => `
-    <tr>
-      <td>${escapeHTML(item.name)}</td>
-      <td style="text-align:center">${escapeHTML(item.quantity)}</td>
-      <td style="text-align:right">${item.unitCost === null
-        ? '<span class="cost-unavailable">N/A</span>'
-        : peso(item.unitCost)}</td>
-      <td style="text-align:right">${peso(item.price)}</td>
-      <td style="text-align:right">${item.costTotal === null
-        ? '<span class="cost-unavailable">N/A</span>'
-        : peso(item.costTotal)}</td>
-      <td style="text-align:right;font-weight:800">${peso(item.total)}</td>
-    </tr>`).join("") :
-    '<tr><td colspan="6" style="text-align:center">No item details saved</td></tr>';
+  const invoiceNumber = getInvoiceNumber(sale);
+  const transactionNumber = getTransactionNumber(sale);
+
+  const address = first(businessInfo, [
+    "businessAddress",
+    "address",
+    "storeAddress"
+  ]);
+
+  const phone = first(businessInfo, [
+    "businessPhone",
+    "phone",
+    "phoneNumber",
+    "contactNumber"
+  ]);
+
+  const email = first(businessInfo, [
+    "businessEmail",
+    "email"
+  ]);
+
+  const items = sale.items.length
+    ? sale.items.map(item => `
+      <tr>
+        <td>
+          <span class="invoice-item-name">${escapeHTML(item.name)}</span>
+        </td>
+        <td>${escapeHTML(item.quantity)}</td>
+        <td>${peso(item.price)}</td>
+        <td><strong>${peso(item.total)}</strong></td>
+      </tr>
+    `).join("")
+    : `
+      <tr>
+        <td colspan="4" style="text-align:center">
+          No item details saved
+        </td>
+      </tr>
+    `;
+
+  const totalQuantity = sale.items.reduce(
+    (sum,item) => sum + (Number(item.quantity) || 0),0
+  );
 
   return `
+    <div class="invoice-topline"></div>
+
     <div class="receipt-brand">
       ${typeof logo === "string" && /^https?:\/\//i.test(logo)
-        ? `<img class="receipt-logo" src="${escapeHTML(logo)}" alt="Business logo">` : ""}
-      <h2>${escapeHTML(businessInfo.businessName || "Kayah")}</h2>
-      <p>${escapeHTML(businessInfo.businessType || "Sales Receipt")}</p>
-      <p>SALES RECEIPT</p>
+        ? `<img class="receipt-logo"
+             src="${escapeHTML(logo)}"
+             alt="Business logo">`
+        : ""}
+
+      <h2>${escapeHTML(businessInfo.businessName || businessInfo.storeName || "Kayah")}</h2>
+      <p>${escapeHTML(businessInfo.businessType || "Business Invoice")}</p>
+
+      ${address ? `<p>${escapeHTML(address)}</p>` : ""}
+      ${phone ? `<p>${escapeHTML(phone)}</p>` : ""}
+      ${email ? `<p>${escapeHTML(email)}</p>` : ""}
+
+      <div class="invoice-title">SALES INVOICE</div>
     </div>
 
-    <div class="receipt-meta">
-      <div><span>Receipt No.</span><span>${escapeHTML(sale.receipt)}</span></div>
-      <div><span>Transaction ID</span><span>${escapeHTML(sale.id)}</span></div>
-      <div><span>Date &amp; Time</span><span>${escapeHTML(formatDate(sale.dateValue))}</span></div>
-      <div><span>Customer</span><span>${escapeHTML(sale.customer)}</span></div>
-      <div><span>Payment</span><span>${escapeHTML(paymentName(sale.payment))}</span></div>
+    <div class="invoice-identifiers">
+      <div class="invoice-id-box">
+        <span class="invoice-id-label">INVOICE NO.</span>
+        <span class="invoice-id-value">${escapeHTML(invoiceNumber)}</span>
+      </div>
+
+      <div class="invoice-id-box">
+        <span class="invoice-id-label">TRANSACTION ID</span>
+        <span class="invoice-id-value">${escapeHTML(transactionNumber)}</span>
+      </div>
     </div>
 
-    <div class="table-wrap">
-      <table class="receipt-items">
+    <div class="invoice-meta">
+      <div class="invoice-meta-item">
+        <span class="invoice-meta-label">DATE &amp; TIME</span>
+        <span class="invoice-meta-value">${escapeHTML(formatDate(sale.dateValue))}</span>
+      </div>
+
+      <div class="invoice-meta-item">
+        <span class="invoice-meta-label">CUSTOMER</span>
+        <span class="invoice-meta-value">${escapeHTML(sale.customer)}</span>
+      </div>
+
+      <div class="invoice-meta-item">
+        <span class="invoice-meta-label">PAYMENT METHOD</span>
+        <span class="invoice-meta-value">${escapeHTML(paymentName(sale.payment))}</span>
+      </div>
+
+      <div class="invoice-meta-item">
+        <span class="invoice-meta-label">ITEMS</span>
+        <span class="invoice-meta-value">${totalQuantity} item${totalQuantity === 1 ? "" : "s"}</span>
+      </div>
+    </div>
+
+    <div class="invoice-items-wrap">
+      <table class="invoice-items">
         <thead>
           <tr>
-            <th>Item</th>
-            <th style="text-align:center">Qty</th>
-            <th style="text-align:right">Cost Price</th>
-            <th style="text-align:right">Selling Price</th>
-            <th style="text-align:right">Total Cost</th>
-            <th style="text-align:right">Sale Total</th>
+            <th>Item Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
           </tr>
         </thead>
         <tbody>${items}</tbody>
       </table>
     </div>
 
-    <div class="receipt-totals">
-      <div><span>Discount</span><strong>${peso(sale.discount)}</strong></div>
-      ${sale.cost === null
-        ? `<div><span>Total Cost</span><strong class="cost-unavailable">Incomplete cost data</strong></div>`
-        : `<div><span>Total Cost</span><strong>${peso(sale.cost)}</strong></div>`}
-      ${sale.profit === null
-        ? ""
-        : `<div><span>Gross Profit</span><strong>${peso(sale.profit)}</strong></div>`}
-      <div class="grand"><span>TOTAL</span><span>${peso(sale.total)}</span></div>
+    <div class="invoice-totals">
+      <div class="invoice-total-row">
+        <span>Subtotal</span>
+        <strong>${peso(sale.items.reduce((sum,item) => sum + item.total,0))}</strong>
+      </div>
+
+      <div class="invoice-total-row">
+        <span>Discount</span>
+        <strong>${peso(sale.discount)}</strong>
+      </div>
+
+      <div class="invoice-total-row invoice-grand">
+        <span>TOTAL</span>
+        <span>${peso(sale.total)}</span>
+      </div>
+    </div>
+
+    <div class="invoice-payment">
+      Payment method: <strong>${escapeHTML(paymentName(sale.payment))}</strong>
+      <br>
+      Please keep this invoice for your records.
     </div>
 
     ${sale.notes
-      ? `<div class="receipt-meta"><div><span>Notes</span><span>${escapeHTML(sale.notes)}</span></div></div>`
+      ? `<div class="invoice-payment">
+           <strong>Notes:</strong> ${escapeHTML(sale.notes)}
+         </div>`
       : ""}
-    <div class="receipt-thanks">Thank you for your business!</div>`;
+
+    <div class="receipt-thanks">
+      Thank you for your business!
+      <small>We appreciate your trust and support.</small>
+    </div>
+  `;
 }
 
 function openReceipt(id) {
-  const sale = visibleSales.find(x => x.id === id) || allSales.find(x => x.id === id);
+  const sale =
+    visibleSales.find(x => String(x.id) === String(id)) ||
+    allSales.find(x => String(x.id) === String(id));
+
   if (!sale) return;
 
   $("receiptContent").innerHTML = receiptMarkup(sale);
@@ -948,36 +2077,42 @@ function closeReceipt() {
   document.body.style.overflow = "";
 }
 
-function clearFilters() {
+/* EVENT LISTENERS */
+
+$("filtersToggle").addEventListener("click",() => {
+  const panel = $("filtersPanel");
+  const isOpen = panel.classList.toggle("open");
+
+  $("filtersToggle").setAttribute("aria-expanded",String(isOpen));
+});
+
+["searchInput","productFilter","paymentFilter","fromDate","toDate"]
+  .forEach(id => {
+    $(id).addEventListener("input",applyFilters);
+    $(id).addEventListener("change",applyFilters);
+  });
+
+$("clearFiltersBtn").addEventListener("click",() => {
   $("searchInput").value = "";
   $("productFilter").value = "";
   $("paymentFilter").value = "";
   $("fromDate").value = "";
   $("toDate").value = "";
+
   applyFilters();
-}
-
-$("filtersToggle").addEventListener("click",() => {
-  const panel = $("filtersPanel");
-  const isOpen = panel.classList.toggle("open");
-  $("filtersToggle").setAttribute("aria-expanded",String(isOpen));
 });
 
-["searchInput","productFilter","paymentFilter","fromDate","toDate"].forEach(id => {
-  $(id).addEventListener("input",applyFilters);
-  $(id).addEventListener("change",applyFilters);
-});
-
-$("clearFiltersBtn").addEventListener("click",clearFilters);
 $("refreshBtn").addEventListener("click",loadSales);
 
 $("salesTableBody").addEventListener("click",event => {
   const button = event.target.closest("[data-view-sale]");
+
   if (button) openReceipt(button.dataset.viewSale);
 });
 
 $("closeReceiptBtn").addEventListener("click",closeReceipt);
 $("closeReceiptBtn2").addEventListener("click",closeReceipt);
+
 $("printReceiptBtn").addEventListener("click",() => window.print());
 
 $("receiptModal").addEventListener("click",event => {
@@ -991,6 +2126,8 @@ document.addEventListener("keydown",event => {
 $("fromDate").value = dateString();
 $("toDate").value = dateString();
 
+/* AUTHENTICATION */
+
 onAuthStateChanged(auth,user => {
   if (user) {
     loadSales();
@@ -1003,13 +2140,20 @@ onAuthStateChanged(auth,user => {
       "error"
     );
 
-    $("salesTableBody").innerHTML =
-      '<tr><td colspan="8" class="empty-state"><strong>Sales are not loaded</strong>The existing Firebase session was not detected.</td></tr>';
+    $("salesTableBody").innerHTML = `
+      <tr>
+        <td colspan="8" class="empty-state">
+          <strong>Sales are not loaded</strong>
+          The existing Firebase session was not detected.
+        </td>
+      </tr>
+    `;
 
     renderSummary();
     renderHistory();
   }
 });
 </script>
+
 </body>
 </html>
