@@ -9,647 +9,299 @@
 
 <style>
 :root {
-  --green:#0B4F3A;
-  --green2:#16805C;
+  --g:#0B4F3A;
+  --g2:#16805C;
   --gold:#F2B84B;
   --bg:#F4F7F4;
-  --white:#FFFFFF;
   --text:#1B2D22;
   --muted:#59685E;
   --border:#D9E4DB;
-  --red:#B92F36;
 }
-
-* { box-sizing:border-box; }
-[hidden] { display:none !important; }
-
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:14px;
-  font-weight:500;
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;font-size:14px
 }
-
-button,input,select { font:inherit; }
-button { cursor:pointer; }
-
-button:disabled {
-  opacity:.45;
-  cursor:not-allowed;
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{
+  background:linear-gradient(135deg,var(--g),#126847);
+  color:white;padding:12px 15px;display:flex;
+  align-items:center;gap:10px
 }
-
-.business-header {
-  background:linear-gradient(135deg,var(--green),#126847);
-  color:white;
-  padding:12px 15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  box-shadow:0 3px 12px #0b4f3a20;
+.logo{
+  width:42px;height:42px;border-radius:10px;
+  background:#ffffff20;display:flex;align-items:center;
+  justify-content:center;font-size:20px;font-weight:900;
+  overflow:hidden;flex-shrink:0
 }
-
-.business-logo {
-  width:42px;
-  height:42px;
-  border-radius:11px;
-  background:#ffffff20;
-  border:1px solid #ffffff55;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  flex-shrink:0;
-  font-weight:900;
-  font-size:20px;
+.logo img{width:100%;height:100%;object-fit:cover}
+.brand{flex:1;min-width:0}
+.brand h1{margin:0;font-size:18px;font-weight:900}
+.brand p{margin:4px 0 0;font-size:11px;color:#e2f3e8}
+.header-label{
+  font-size:10px;font-weight:800;border:1px solid #ffffff45;
+  border-radius:8px;padding:7px
 }
-
-.business-logo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
+main{max-width:1050px;margin:auto;padding:12px}
+.page-title{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:10px;margin:3px 0 12px
 }
-
-.business-heading { min-width:0; flex:1; }
-
-.business-heading h1 {
-  margin:0;
-  font-size:18px;
-  font-weight:900;
-  overflow-wrap:anywhere;
+h2{font-size:21px;color:var(--g);margin:0;font-weight:900}
+.page-title p{
+  font-size:12px;color:var(--muted);margin:5px 0 0;line-height:1.4
 }
-
-.business-heading p {
-  margin:4px 0 0;
-  font-size:11px;
-  font-weight:600;
-  color:#e2f3e8;
+.btn{
+  border:0;border-radius:9px;padding:10px 12px;
+  font-weight:800
 }
+.primary{background:var(--g);color:white}
+.light{background:white;color:var(--g);border:1px solid #CAD9CD}
+button:disabled{opacity:.45;cursor:not-allowed}
 
-.header-label {
-  background:#ffffff1c;
-  border:1px solid #ffffff45;
-  padding:7px 9px;
-  border-radius:8px;
-  font-size:10px;
-  font-weight:800;
-  white-space:nowrap;
+.stats{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;margin-bottom:12px
 }
-
-.container {
-  max-width:1050px;
-  margin:auto;
-  padding:12px;
+.stat{
+  background:white;border:1px solid var(--border);
+  border-radius:11px;padding:10px;min-width:0
 }
-
-.page-title {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:9px;
-  margin:3px 0 12px;
+.stat-label{font-size:11px;font-weight:800;color:#45564A;line-height:1.4}
+.stat-num{
+  font-size:19px;font-weight:900;color:var(--g);
+  margin-top:7px;overflow-wrap:anywhere
 }
+.stat-sub{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.35}
+.stat-value{background:#EAF5ED;border-color:#BBDAC3}
 
-.page-title h2 {
-  margin:0;
-  color:var(--green);
-  font-size:21px;
-  font-weight:900;
+.panel{
+  background:white;border:1px solid var(--border);
+  border-radius:12px;margin-bottom:12px;overflow:hidden
 }
-
-.page-title p {
-  margin:5px 0 0;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:600;
-  line-height:1.45;
+.panel-head{
+  padding:12px;display:flex;justify-content:space-between;
+  align-items:center;gap:8px
 }
+.panel-head h3{margin:0;color:var(--g);font-size:15px}
+.panel-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
 
-.btn {
-  border:0;
-  border-radius:9px;
-  padding:10px 12px;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  white-space:nowrap;
-}
-
-.btn-primary {
-  background:var(--green);
-  color:white;
-}
-
-.btn-light {
-  background:white;
-  color:var(--green);
-  border:1px solid #CAD9CD;
-}
-
-.btn-primary:active,.btn-light:active {
-  transform:scale(.98);
-}
-
-/* Summary cards */
-.stats {
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:8px;
-  margin-bottom:12px;
-}
-
-.stat {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:10px;
-  min-width:0;
-  box-shadow:0 2px 5px #173c2510;
-}
-
-.stat-top {
-  display:flex;
-  align-items:center;
-  gap:5px;
-  color:#45564A;
-  font-size:11px;
-  font-weight:800;
-  line-height:1.3;
-}
-
-.stat-icon { font-size:14px; }
-
-.stat-number {
-  font-size:19px;
-  font-weight:900;
-  color:var(--green);
-  margin-top:7px;
-  overflow-wrap:anywhere;
-}
-
-.stat-sub {
-  font-size:10px;
-  font-weight:600;
-  color:var(--muted);
-  margin-top:4px;
-  line-height:1.35;
-}
-
-.stat-value {
-  background:#EAF5ED;
-  border-color:#BBDAC3;
-}
-
-.stat-value .stat-number {
-  font-size:16px;
-}
-
-/* History panel */
-.panel {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  margin-bottom:12px;
-  overflow:hidden;
-  box-shadow:0 2px 7px #173c2508;
-}
-
-.panel-head {
-  padding:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-}
-
-.panel-head h3 {
-  margin:0;
-  color:var(--green);
-  font-size:15px;
-  font-weight:900;
-}
-
-.panel-head p {
-  margin:4px 0 0;
-  font-size:11px;
-  font-weight:600;
-  color:var(--muted);
-  line-height:1.4;
-}
-
-.search-toggle {
-  flex-shrink:0;
-  padding:9px 11px;
-}
-
-.search-toggle.active {
-  background:#EAF4ED;
-  border-color:#BBD9C3;
-}
-
-/* Search hidden until tapped */
-.filter-body {
+.tabs{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  padding:8px;background:#F0F5F0;
   border-top:1px solid var(--border);
-  background:#F9FCF9;
+  border-bottom:1px solid var(--border)
+}
+.tab{
+  border:1px solid transparent;border-radius:8px;
+  background:transparent;color:#536458;padding:11px 8px;
+  font-size:12px;font-weight:900
+}
+.tab.active{
+  background:var(--g);color:white;
+  box-shadow:0 2px 5px #00000012
 }
 
-.filters {
-  padding:11px;
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:9px;
+.filters{
+  padding:11px;display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;gap:9px;
+  background:#F9FCF9;border-top:1px solid var(--border)
 }
-
-.field { min-width:0; }
-
-.field label {
-  display:block;
-  color:#374B3D;
-  font-weight:900;
-  font-size:10px;
-  margin-bottom:6px;
+.filters label{
+  display:block;font-size:10px;font-weight:900;margin-bottom:6px
 }
-
-.field input,.field select {
-  width:100%;
-  min-width:0;
-  border:1px solid #CCDACE;
-  border-radius:8px;
-  background:white;
-  padding:10px;
-  color:var(--text);
-  outline:none;
-  font-size:13px;
-  font-weight:600;
+.filters input,.filters select{
+  width:100%;min-width:0;padding:10px;
+  border:1px solid #CCDACE;border-radius:8px;background:white
 }
-
-.field input:focus,.field select:focus {
-  border-color:var(--green2);
-  box-shadow:0 0 0 2px #16805C18;
+.actions{padding:0 11px 11px;display:flex;gap:8px;background:#F9FCF9}
+.result-line{
+  padding:10px 12px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;gap:8px;
+  font-size:11px;font-weight:800;color:#45564A
 }
-
-.filter-actions {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  padding:0 11px 11px;
+.list{padding:0 11px}
+.card{
+  padding:12px 1px;border-bottom:1px solid #E5ECE6;
+  display:flex;align-items:flex-start;gap:9px
 }
-
-.result-line {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  padding:10px 12px;
-  border-top:1px solid var(--border);
-  color:#45564A;
-  font-size:11px;
-  font-weight:800;
+.card:last-child{border-bottom:0}
+.photo,.placeholder{
+  width:42px;height:42px;flex:0 0 42px;
+  border-radius:9px;background:#EDF3ED;
+  border:1px solid var(--border);object-fit:cover
 }
-
-/* History records */
-.history-list { padding:0 11px; }
-
-.history-card {
-  padding:12px 1px;
-  border-bottom:1px solid #E5ECE6;
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
+.placeholder{
+  display:flex;align-items:center;justify-content:center;font-size:20px
 }
-
-.history-card:last-child { border-bottom:0; }
-
-.item-image,.item-placeholder {
-  width:45px;
-  height:45px;
-  flex:0 0 45px;
-  border-radius:9px;
-  background:#EDF3ED;
-  object-fit:cover;
-  border:1px solid var(--border);
+.content{flex:1;min-width:0}
+.item-title{
+  font-size:14px;font-weight:900;color:var(--g);
+  overflow-wrap:anywhere;margin-bottom:5px
 }
-
-.item-placeholder {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
+.meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:10px;color:#46574B}
+.pill{
+  padding:4px 7px;border-radius:20px;
+  font-size:10px;font-weight:900;background:#EDF0ED
 }
-
-.history-content { flex:1; min-width:0; }
-
-.history-title {
-  color:var(--green);
-  font-size:14px;
-  font-weight:900;
-  overflow-wrap:anywhere;
-  margin-bottom:5px;
-  line-height:1.35;
+.in{background:#E1F4E6;color:#126833}
+.out{background:#FFE8E8;color:#A6232A}
+.sale{background:#E7EEFF;color:#294DA7}
+.detail{
+  font-size:12px;line-height:1.5;margin-top:6px;
+  overflow-wrap:anywhere;color:#394B3E
 }
-
-.history-meta {
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  align-items:center;
-  color:#46574B;
-  font-size:10px;
-  font-weight:700;
-  line-height:1.5;
+.detail strong{color:#203B2A}
+.stock-summary{
+  padding:8px;background:#F0F7F1;border-radius:7px;
+  color:var(--g);font-size:11px;font-weight:700;line-height:1.8;
+  margin-top:7px
 }
-
-.pill {
-  padding:4px 7px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:900;
-  display:inline-flex;
-  align-items:center;
-  gap:3px;
+.stock-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;margin-top:8px
 }
-
-.pill-in { background:#E1F4E6; color:#126833; }
-.pill-out { background:#FFE8E8; color:#A6232A; }
-.pill-sale { background:#E7EEFF; color:#294DA7; }
-.pill-adjust { background:#FFF0D0; color:#7C5000; }
-.pill-other { background:#EDF0ED; color:#48544B; }
-.pill-material { background:#E2F4EB; color:#176747; }
-.pill-product { background:#E9EFFF; color:#304FA0; }
-
-.change-number {
-  font-size:13px;
-  font-weight:900;
-  white-space:nowrap;
+.stock-cell{
+  padding:8px;background:#F6F9F6;border:1px solid #E3EBE4;
+  border-radius:7px;min-width:0
 }
-
-.change-in { color:#14763D; }
-.change-out { color:#B92F36; }
-.change-neutral { color:#806000; }
-
-.change-caption {
-  text-align:right;
-  font-size:10px;
-  font-weight:800;
-  color:#526257;
-  margin-top:4px;
+.stock-cell span{
+  display:block;font-size:10px;color:#526257;font-weight:800
 }
-
-.history-right {
-  text-align:right;
-  min-width:60px;
-  max-width:105px;
+.stock-cell strong{
+  display:block;margin-top:4px;font-size:14px;
+  color:var(--g);overflow-wrap:anywhere
 }
-
-.detail-line {
-  font-size:12px;
-  font-weight:600;
-  color:#394B3E;
-  margin-top:6px;
-  line-height:1.5;
-  overflow-wrap:anywhere;
+.stock-cell.sold strong{color:#294DA7}
+.stock-cell.out-cell strong{color:#B92F36}
+.stock-cell.left-cell{background:#EAF5ED;border-color:#BBDAC3}
+.stock-cell.total-in-cell{background:#E1F4E6;border-color:#BBDAC3}
+.right{text-align:right;min-width:62px;max-width:115px}
+.change{font-size:12px;font-weight:900;overflow-wrap:anywhere}
+.green{color:#14763D}
+.red{color:#B92F36}
+.caption{font-size:10px;font-weight:800;color:#526257;margin-top:4px}
+.empty,.loading{padding:26px 12px;text-align:center;color:var(--muted);line-height:1.6}
+.message{
+  padding:11px;margin-bottom:11px;border-radius:9px;
+  background:#E8F4EB;color:var(--g);font-size:12px;overflow-wrap:anywhere
 }
-
-.detail-line strong {
-  color:#203B2A;
-  font-weight:900;
+.error{background:#FFF0EF;color:#A6232A}
+.pagination{
+  padding:11px;display:flex;justify-content:center;
+  align-items:center;gap:10px;border-top:1px solid var(--border)
 }
+.footer{font-size:11px;color:var(--muted);line-height:1.6;padding:0 2px 15px}
+[hidden]{display:none!important}
 
-.price-line {
-  color:var(--green);
-  background:#F0F7F1;
-  border-radius:6px;
-  padding:5px 7px;
-  display:inline-block;
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat{padding:9px}
+  .stat-num{font-size:17px}
+  .filters{grid-template-columns:1fr 1fr}
+  .search-field{grid-column:1/-1}
 }
-
-.price-line strong { color:var(--green); }
-
-.total-value {
-  font-size:13px;
-  font-weight:900;
-  color:var(--green);
-}
-
-.empty {
-  padding:28px 14px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.empty-icon { font-size:29px; margin-bottom:8px; }
-
-.empty h3 {
-  font-size:15px;
-  font-weight:900;
-  color:var(--green);
-  margin:0 0 6px;
-}
-
-.empty p {
-  font-size:12px;
-  font-weight:600;
-  line-height:1.55;
-  margin:0;
-}
-
-.status-message {
-  padding:11px;
-  border-radius:9px;
-  margin-bottom:11px;
-  background:#E8F4EB;
-  color:var(--green);
-  font-size:12px;
-  font-weight:700;
-  line-height:1.5;
-  overflow-wrap:anywhere;
-}
-
-.status-message.error {
-  background:#FFF0EF;
-  color:#A6232A;
-}
-
-.loading {
-  text-align:center;
-  padding:27px;
-  color:#45564A;
-  font-size:12px;
-  font-weight:700;
-}
-
-.spinner {
-  display:inline-block;
-  width:18px;
-  height:18px;
-  border:3px solid #DCE8DE;
-  border-top-color:var(--green);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  vertical-align:middle;
-  margin-right:7px;
-}
-
-@keyframes spin { to { transform:rotate(360deg); } }
-
-.pagination {
-  padding:11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  border-top:1px solid var(--border);
-}
-
-.pagination span {
-  font-size:11px;
-  font-weight:800;
-  color:#45564A;
-}
-
-.footer-note {
-  color:#526257;
-  font-size:11px;
-  font-weight:600;
-  line-height:1.6;
-  padding:0 2px 15px;
-}
-
-@media(max-width:700px) {
-  .stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .stat { padding:9px; }
-  .stat-number { font-size:17px; }
-  .stat-value .stat-number { font-size:14px; }
-  .filters { grid-template-columns:1fr 1fr; }
-  .field-search { grid-column:1/-1; }
-}
-
-@media(max-width:390px) {
-  body { font-size:13px; }
-  .container { padding:8px; }
-  .business-header { padding:10px; }
-  .business-heading h1 { font-size:16px; }
-  .header-label { display:none; }
-  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .filters { grid-template-columns:1fr 1fr; }
-  .field-search { grid-column:1/-1; }
-  .history-card { gap:7px; }
-  .item-image,.item-placeholder {
-    width:38px;
-    height:38px;
-    flex-basis:38px;
-  }
-  .history-right { min-width:50px; }
-  .change-number { font-size:12px; }
-  .panel-head { padding:10px; }
-  .page-title h2 { font-size:19px; }
+@media(max-width:390px){
+  main{padding:8px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .header-label{display:none}
+  .brand h1{font-size:16px}
+  .right{min-width:50px}
+  .page-title h2{font-size:19px}
+  .stock-cell strong{font-size:13px}
 }
 </style>
 </head>
 
 <body>
-
-<header class="business-header">
-  <div class="business-logo" id="businessLogo">K</div>
-  <div class="business-heading">
+<header>
+  <div class="logo" id="businessLogo">K</div>
+  <div class="brand">
     <h1 id="businessName">Kayah</h1>
     <p>Business Management System</p>
   </div>
   <div class="header-label">STOCK HISTORY</div>
 </header>
 
-<main class="container">
-
+<main>
   <div class="page-title">
     <div>
-      <h2>Stock History</h2>
-      <p>Review stock movements, sales and responsible users.</p>
+      <h2 id="pageHeading">Stock History</h2>
+      <p id="pageDescription">Review stock movements, recorded sales and remaining quantities.</p>
     </div>
-    <button class="btn btn-primary" id="refreshBtn" type="button">
-      ↻ Refresh
-    </button>
+    <button class="btn primary" id="refreshBtn">↻ Refresh</button>
   </div>
 
-  <div id="message" hidden></div>
+  <div id="message" class="message" hidden></div>
 
   <section class="stats">
     <div class="stat">
-      <div class="stat-top"><span class="stat-icon">📋</span>Records</div>
-      <div class="stat-number" id="statRecords">—</div>
+      <div class="stat-label">📋 Records</div>
+      <div class="stat-num" id="statRecords">—</div>
       <div class="stat-sub">Filtered records</div>
     </div>
-
     <div class="stat">
-      <div class="stat-top"><span class="stat-icon">📥</span>Stock In</div>
-      <div class="stat-number" id="statIn">—</div>
-      <div class="stat-sub">Added / returned</div>
+      <div class="stat-label">📥 Stock In</div>
+      <div class="stat-num" id="statIn">—</div>
+      <div class="stat-sub">Sold + Out + Left</div>
     </div>
-
     <div class="stat">
-      <div class="stat-top"><span class="stat-icon">📤</span>Stock Out</div>
-      <div class="stat-number" id="statOut">—</div>
-      <div class="stat-sub">Removed / damaged</div>
+      <div class="stat-label">📤 Stock Out</div>
+      <div class="stat-num" id="statOut">—</div>
+      <div class="stat-sub">Removed or damaged</div>
     </div>
-
     <div class="stat">
-      <div class="stat-top"><span class="stat-icon">🛒</span>Sold Units</div>
-      <div class="stat-number" id="statSold">—</div>
+      <div class="stat-label">🛒 Sold Units</div>
+      <div class="stat-num" id="statSold">—</div>
       <div class="stat-sub">Recorded sales</div>
     </div>
-
+    <div class="stat">
+      <div class="stat-label">📦 Stock Left</div>
+      <div class="stat-num" id="statLeft">—</div>
+      <div class="stat-sub">Current quantity</div>
+    </div>
     <div class="stat stat-value">
-      <div class="stat-top"><span class="stat-icon">₱</span>Sold Value</div>
-      <div class="stat-number" id="statValue">—</div>
+      <div class="stat-label">₱ Sold Value</div>
+      <div class="stat-num" id="statValue">—</div>
       <div class="stat-sub">Recorded sales value</div>
     </div>
   </section>
 
   <section class="panel">
-
     <div class="panel-head">
       <div>
-        <h3>Stock Records</h3>
-        <p>View quantities, prices and responsible users.</p>
+        <h3 id="sectionHeading">Stock Records</h3>
+        <p id="sectionDescription">Quantities, prices and responsible users.</p>
       </div>
-
-      <button
-        class="btn btn-light search-toggle"
-        id="searchToggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="filterBody">
-        🔍 Search
-      </button>
+      <button class="btn light" id="searchToggle">🔍 Search</button>
     </div>
 
-    <div class="filter-body" id="filterBody" hidden>
-      <div class="filters">
-        <div class="field field-search">
-          <label for="searchInput">SEARCH ITEM OR PERSON</label>
-          <input
-            id="searchInput"
-            type="search"
-            placeholder="Item, staff, reference...">
-        </div>
+    <div class="tabs">
+      <button class="tab active" id="historyTab" type="button">📋 Stock History</button>
+      <button class="tab" id="stockLeftTab" type="button">📦 Stock Left</button>
+    </div>
 
-        <div class="field">
+    <div id="filterArea" hidden>
+      <div class="filters">
+        <div class="search-field">
+          <label for="searchInput">SEARCH ITEM OR PERSON</label>
+          <input id="searchInput" type="search" placeholder="Item, staff, reference...">
+        </div>
+        <div>
           <label for="typeFilter">MOVEMENT TYPE</label>
           <select id="typeFilter">
             <option value="all">All movements</option>
             <option value="stock_in">Stock In</option>
             <option value="stock_out">Stock Out</option>
             <option value="sold">Sold</option>
-            <option value="adjustment">Adjustments</option>
+            <option value="adjustment">Adjustment</option>
             <option value="return">Returns</option>
             <option value="waste">Damaged / Wastage</option>
             <option value="other">Other</option>
           </select>
         </div>
-
-        <div class="field">
+        <div>
           <label for="categoryFilter">ITEM TYPE</label>
           <select id="categoryFilter">
             <option value="all">All items</option>
@@ -657,8 +309,7 @@ button:disabled {
             <option value="material">Materials</option>
           </select>
         </div>
-
-        <div class="field">
+        <div>
           <label for="dateFilter">DATE RANGE</label>
           <select id="dateFilter">
             <option value="all">All dates</option>
@@ -670,77 +321,48 @@ button:disabled {
         </div>
       </div>
 
-      <div class="filters" id="customDates" hidden
-           style="grid-template-columns:1fr 1fr">
-        <div class="field">
+      <div class="filters" id="customDates" hidden style="grid-template-columns:1fr 1fr">
+        <div>
           <label for="startDate">FROM</label>
-          <input type="date" id="startDate">
+          <input id="startDate" type="date">
         </div>
-        <div class="field">
+        <div>
           <label for="endDate">TO</label>
-          <input type="date" id="endDate">
+          <input id="endDate" type="date">
         </div>
       </div>
 
-      <div class="filter-actions">
-        <button class="btn btn-light" id="clearBtn" type="button">
-          Clear filters
-        </button>
-        <button class="btn btn-primary" id="hideSearchBtn" type="button">
-          Done
-        </button>
+      <div class="actions">
+        <button class="btn light" id="clearBtn">Clear filters</button>
+        <button class="btn primary" id="doneBtn">Done</button>
       </div>
     </div>
 
     <div class="result-line">
       <span id="resultCount">Loading records...</span>
-      <span>Newest first</span>
+      <span id="resultOrder">Newest first</span>
     </div>
 
-    <div id="historyList" class="history-list">
-      <div class="loading">
-        <span class="spinner"></span>Loading stock history...
-      </div>
+    <div id="historyList" class="list">
+      <div class="loading">Loading stock history...</div>
     </div>
 
     <div class="pagination" id="pagination" hidden>
-      <button class="btn btn-light" id="prevBtn" type="button">
-        ← Previous
-      </button>
+      <button class="btn light" id="prevBtn">← Previous</button>
       <span id="pageLabel">Page 1</span>
-      <button class="btn btn-light" id="nextBtn" type="button">
-        Next →
-      </button>
+      <button class="btn light" id="nextBtn">Next →</button>
     </div>
   </section>
 
-  <div class="footer-note">
-    Sold Value is calculated from completed sales using each item's saved
-    subtotal or quantity multiplied by its selling price. Sales without
-    saved item-level prices cannot be included accurately. This figure
-    represents recorded sales value, not profit.
+  <div class="footer" id="footerText">
+    Stock In is calculated as Stock Sold + Stock Out + Stock Left. Stock Left uses current quantities saved in Firebase whenever available.
   </div>
-
 </main>
 
 <script type="module">
-import { initializeApp } from
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getAuth,
-  onAuthStateChanged
-} from
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  getDocs
-} from
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,collection,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
@@ -754,129 +376,719 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 const $ = id => document.getElementById(id);
 
-let allRecords = [];
-let filteredRecords = [];
-let currentPage = 1;
-const PAGE_SIZE = 25;
 let businessId = null;
 let businessData = {};
+let allRecords = [];
+let filteredRecords = [];
+let stockItems = [];
+let filteredStockItems = [];
+let currentPage = 1;
+let currentTab = "history";
 let loading = false;
 
-const asText = value =>
-  value === null || value === undefined ? "" : String(value);
+const PAGE_SIZE = 25;
 
-function firstValue(...values) {
-  return values.find(v =>
-    v !== undefined && v !== null && v !== ""
-  );
+const txt = v => v === null || v === undefined ? "" : String(v);
+
+function first(...values) {
+  return values.find(v => v !== undefined && v !== null && v !== "");
 }
 
-function asNumber(value) {
-  if (value === undefined || value === null || value === "") {
-    return null;
-  }
-
-  if (typeof value === "string") {
-    value = value.replace(/[₱,\s]/g, "");
-  }
-
-  const number = Number(value);
-  return Number.isFinite(number) ? number : null;
+function num(v) {
+  if (v === null || v === undefined || v === "") return null;
+  if (typeof v === "string") v = v.replace(/[₱,\s]/g, "");
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
 }
 
-function money(value) {
-  if (value === null || value === undefined || !Number.isFinite(value)) {
-    return "—";
-  }
-
-  return "₱" + value.toLocaleString("en-PH", {
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  });
+function money(v) {
+  return v === null || v === undefined
+    ? "—"
+    : "₱" + Number(v).toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
 }
 
-function getDate(value) {
-  if (!value) return null;
-
-  if (value.toDate && typeof value.toDate === "function") {
-    return value.toDate();
-  }
-
-  if (typeof value === "number") {
-    return new Date(value < 1000000000000 ? value * 1000 : value);
-  }
-
-  if (typeof value === "string") {
-    const parsed = new Date(value);
-    return Number.isNaN(parsed.getTime()) ? null : parsed;
-  }
-
-  if (value.seconds) {
-    return new Date(value.seconds * 1000);
-  }
-
-  return null;
+function dateOf(v) {
+  if (!v) return null;
+  if (v.toDate) return v.toDate();
+  if (typeof v === "number") return new Date(v < 1e12 ? v * 1000 : v);
+  if (v.seconds) return new Date(v.seconds * 1000);
+  const d = new Date(v);
+  return isNaN(d) ? null : d;
 }
 
-function formatDate(value) {
-  const date = getDate(value);
-  if (!date) return "Date unavailable";
-
-  return date.toLocaleString("en-PH", {
-    year:"numeric",
-    month:"short",
-    day:"numeric",
-    hour:"numeric",
-    minute:"2-digit"
-  });
+function dateText(v) {
+  const d = dateOf(v);
+  return d ? d.toLocaleString("en-PH", {
+    year:"numeric",month:"short",day:"numeric",
+    hour:"numeric",minute:"2-digit"
+  }) : "Date unavailable";
 }
 
-function escapeHtml(value) {
-  return asText(value).replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  }[char]));
+function esc(v) {
+  return txt(v).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
 }
 
-function formatQuantity(value) {
-  if (value === null || value === undefined || value === "") {
-    return "—";
-  }
-
-  return Number(value).toLocaleString("en-PH", {
-    maximumFractionDigits:3
-  });
+function qty(v) {
+  return v === null || v === undefined
+    ? "—"
+    : Number(v).toLocaleString("en-PH",{maximumFractionDigits:3});
 }
 
-function normalizeType(raw) {
-  const value = asText(raw).toLowerCase().replace(/[\s-]+/g, "_");
+function normalizeType(v) {
+  v = txt(v).toLowerCase().replace(/[\s-]+/g, "_");
 
-  if (/sold|sale|pos_sale|product_sold/.test(value)) return "sold";
-  if (/return|refund/.test(value)) return "return";
-  if (/waste|damag|spoil|discard/.test(value)) return "waste";
-
-  if (/adjust|correction|set_stock|stock_set/.test(value)) {
-    return "adjustment";
-  }
-
-  if (/stock_in|stock_added|add_stock|stock_add|received|restock|purchase/.test(value)) {
-    return "stock_in";
-  }
-
-  if (/stock_out|stock_removed|deduct|consume|used|usage|issued|sold_out/.test(value)) {
-    return "stock_out";
-  }
+  if (/sold|sale|pos_sale|product_sold/.test(v)) return "sold";
+  if (/return|refund/.test(v)) return "return";
+  if (/waste|damag|spoil|discard/.test(v)) return "waste";
+  if (/adjust|correction|set_stock|stock_set/.test(v)) return "adjustment";
+  if (/stock_in|stock_added|add_stock|stock_add|received|restock|purchase/.test(v)) return "stock_in";
+  if (/stock_out|stock_removed|deduct|consume|used|usage|issued|sold_out/.test(v)) return "stock_out";
 
   return "other";
 }
 
-function displayType(type) {
+function actorName(d) {
+  const a = d.actor || d.performedBy || {};
+  const u = d.user || {};
+  const m = d.details || d.metadata || {};
+
+  const name = first(
+    d.actorName,d.performedByName,d.staffName,d.userName,
+    a.name,a.displayName,u.name,u.displayName,d.createdByName,m.actorName
+  );
+  const role = first(d.actorRole,d.performedByRole,d.userRole,a.role,u.role,m.actorRole);
+  const uid = first(d.actorUid,d.performedByUid,d.userId,d.createdBy,a.uid,a.userId,u.uid,m.actorUid);
+
+  if (name) return role ? name + " (" + role + ")" : name;
+  if (role) return "Unknown person (" + role + ")";
+  if (uid) return "User ID: " + uid;
+  return "Not recorded";
+}
+
+function normalize(id, d, source, defaultCategory) {
+  const m = d.details || d.metadata || {};
+
+  const action = first(
+    d.movementType,d.action,d.type,d.eventType,d.transactionType,d.activity,
+    m.movementType,m.action,m.type,""
+  );
+
+  const target = txt(first(
+    d.targetType,d.itemType,d.entityType,m.targetType,m.itemType,""
+  )).toLowerCase();
+
+  const category = /material/.test(target)
+    ? "material"
+    : /product/.test(target) ? "product" : defaultCategory;
+
+  const item = first(
+    d.materialName,d.productName,d.itemName,d.name,d.targetName,
+    m.materialName,m.productName,m.itemName,m.name,d.description,"Unnamed item"
+  );
+
+  const previous = num(first(
+    d.previousQuantity,d.previousStock,d.oldQuantity,d.oldStock,
+    m.previousQuantity,m.previousStock
+  ));
+
+  const next = num(first(
+    d.newQuantity,d.newStock,d.nextQuantity,d.nextStock,
+    m.newQuantity,m.newStock
+  ));
+
+  let quantity = num(first(
+    d.quantityChanged,d.quantityAdded,d.quantityRemoved,d.quantityUsed,
+    d.quantity,d.stockChange,m.quantityChanged,m.quantityAdded,
+    m.quantityRemoved,m.quantityUsed,m.quantity
+  ));
+
+  if (quantity === null && previous !== null && next !== null) {
+    quantity = Math.abs(next - previous);
+  }
+
+  const unitPrice = num(first(
+    d.unitPrice,d.costPrice,d.purchasePrice,d.pricePerUnit,
+    d.materialUnitPrice,d.itemUnitPrice,m.unitPrice,m.costPrice,
+    m.purchasePrice,m.pricePerUnit
+  ));
+
+  let total = num(first(
+    d.lineTotal,d.totalCost,d.totalAmount,d.totalPrice,d.stockValue,d.amount,
+    m.lineTotal,m.totalCost,m.totalAmount,m.totalPrice,m.stockValue,m.amount
+  ));
+
+  if (total === null && quantity !== null && unitPrice !== null) {
+    total = Math.abs(quantity) * unitPrice;
+  }
+
+  const date = first(
+    d.createdAt,d.timestamp,d.date,d.updatedAt,d.transactionDate,d.created_at,m.createdAt
+  );
+
+  return {
+    id:source + "_" + id,
+    source,
+    category,
+    targetType:target,
+    itemName:txt(item),
+    type:normalizeType(action),
+    rawAction:txt(action),
+    unit:txt(first(d.unit,m.unit,"")),
+    quantity:quantity === null ? 0 : quantity,
+    previous,
+    next,
+    unitPrice,
+    lineTotal:total,
+    actor:actorName(d),
+    date:date || null,
+    _date:dateOf(date),
+    image:txt(first(
+      d.imageUrl,d.photoUrl,d.image,d.photo,d.materialImage,d.productImage,
+      m.imageUrl,m.photoUrl,""
+    )),
+    reason:txt(first(d.reason,d.notes,d.note,m.reason,m.notes,m.note,"")),
+    reference:txt(first(
+      d.reference,d.referenceNumber,d.transactionId,d.saleId,
+      d.invoiceNumber,d.orderId,m.reference,m.transactionId,""
+    )),
+    stockTracked:d.stockTracked === true || d.trackStock === true
+  };
+}
+
+function normalizeSale(saleId, sale, item, i) {
+  const q = num(first(item.quantity,item.qty,item.soldQuantity)) || 0;
+  const price = num(first(item.price,item.unitPrice,item.sellingPrice,item.salePrice,item.selling_price));
+  const total = num(first(item.subtotal,item.lineTotal,item.total,item.totalPrice,item.amount));
+  const target = txt(first(item.itemType,item.type,item.category,"product")).toLowerCase();
+
+  const date = first(
+    sale.createdAt,sale.timestamp,sale.date,sale.saleDate,sale.completedAt,sale.updatedAt
+  );
+
+  return {
+    id:"sale_" + saleId + "_" + i,
+    source:"sales",
+    category:/material/.test(target) ? "material" : "product",
+    type:"sold",
+    rawAction:"sold",
+    itemName:txt(first(
+      item.name,item.productName,item.itemName,item.materialName,"Unnamed sold item"
+    )),
+    unit:txt(first(item.unit,item.unitName,"")),
+    quantity:q,
+    previous:null,
+    next:null,
+    unitPrice:price,
+    lineTotal:total !== null ? total : price !== null ? q * price : null,
+    actor:actorName(sale),
+    date:date || null,
+    _date:dateOf(date),
+    image:txt(first(
+      item.image,item.imageUrl,item.photoUrl,item.photo,item.productImage,item.materialImage,""
+    )),
+    reason:"POS sale",
+    reference:txt(first(
+      sale.invoiceNumber,sale.receiptNumber,sale.reference,sale.transactionId,sale.id,saleId
+    )),
+    stockTracked:item.stockTracked === true || item.trackStock === true
+  };
+}
+
+function stockKey(r) {
+  return [
+    r.category || "",
+    txt(r.itemName).trim().toLowerCase(),
+    txt(r.unit).trim().toLowerCase()
+  ].join("|");
+}
+
+function buildStockSummary(records) {
+  const groups = new Map();
+
+  for (const r of records) {
+    const key = stockKey(r);
+
+    if (!groups.has(key)) {
+      groups.set(key,{
+        category:r.category,
+        itemName:r.itemName,
+        unit:r.unit,
+        image:r.image || "",
+        recordedIn:0,
+        totalOut:0,
+        sold:0,
+        soldValue:0,
+        hasSoldLog:false,
+        movements:[],
+        balance:0,
+        actualStock:null
+      });
+    }
+
+    const g = groups.get(key);
+    if (!g.image && r.image) g.image = r.image;
+
+    const q = Math.abs(Number(r.quantity) || 0);
+
+    if (r.type === "stock_in" || r.type === "return") {
+      g.recordedIn += q;
+    }
+
+    if (r.type === "stock_out" || r.type === "waste") {
+      g.totalOut += q;
+    }
+
+    if (r.type === "sold" && r.source !== "sales") {
+      g.hasSoldLog = true;
+    }
+
+    if (r.type === "sold" && r.source === "sales" && r.lineTotal !== null) {
+      g.soldValue += Math.abs(Number(r.lineTotal) || 0);
+    }
+
+    g.movements.push(r);
+  }
+
+  for (const [key,g] of groups.entries()) {
+    const ordered = [...g.movements].sort(
+      (a,b) => (a._date?.getTime() || 0) - (b._date?.getTime() || 0)
+    );
+
+    let balance = 0;
+
+    for (const r of ordered) {
+      const q = Math.abs(Number(r.quantity) || 0);
+
+      if (r.next !== null && r.next !== undefined && Number.isFinite(Number(r.next))) {
+        balance = Number(r.next);
+        continue;
+      }
+
+      if (r.type === "stock_in" || r.type === "return") {
+        balance += q;
+      } else if (r.type === "stock_out" || r.type === "waste") {
+        balance -= q;
+      } else if (r.type === "sold") {
+        if (r.source !== "sales" || !g.hasSoldLog) balance -= q;
+      } else if (r.type === "adjustment") {
+        if (r.previous !== null && r.next !== null) {
+          balance = Number(r.next);
+        } else {
+          balance += Number(r.quantity) || 0;
+        }
+      }
+    }
+
+    g.balance = Math.max(0,balance);
+
+    const salesRecords = g.movements.filter(
+      r => r.type === "sold" && r.source === "sales"
+    );
+    const loggedSoldRecords = g.movements.filter(
+      r => r.type === "sold" && r.source !== "sales"
+    );
+
+    const salesSold = salesRecords.reduce(
+      (sum,r) => sum + Math.abs(Number(r.quantity) || 0),0
+    );
+    const loggedSold = loggedSoldRecords.reduce(
+      (sum,r) => sum + Math.abs(Number(r.quantity) || 0),0
+    );
+
+    g.sold = Math.max(salesSold,loggedSold);
+
+    // Match current stock from Firebase when available.
+    const matchingItem = stockItems.find(item => {
+      const itemKey = [
+        item.category || "",
+        txt(item.itemName).trim().toLowerCase(),
+        txt(item.unit).trim().toLowerCase()
+      ].join("|");
+      return itemKey === key;
+    });
+
+    g.actualStock = matchingItem
+      ? Number(matchingItem.actualStock) || 0
+      : g.balance;
+
+    // REQUIRED FORMULA:
+    // Stock In = Stock Sold + Stock Out + Stock Left.
+    g.totalIn = g.sold + g.totalOut + g.actualStock;
+  }
+
+  return groups;
+}
+
+function showMessage(message, error=false) {
+  $("message").hidden = !message;
+  $("message").className = "message" + (error ? " error" : "");
+  $("message").textContent = message;
+}
+
+async function readCollection(name) {
+  const snap = await getDocs(collection(db,"users",businessId,name));
+  return snap.docs.map(d => ({id:d.id,data:d.data()}));
+}
+
+async function loadBusiness() {
+  const snap = await getDoc(doc(db,"users",auth.currentUser.uid));
+  businessData = snap.exists() ? snap.data() : {};
+
+  businessId = first(
+    businessData.ownerUid,
+    businessData.businessOwnerUid,
+    businessData.businessId,
+    auth.currentUser.uid
+  );
+
+  $("businessName").textContent = first(
+    businessData.businessName,businessData.name,businessData.storeName,"Kayah"
+  );
+
+  const logo = first(
+    businessData.businessLogo,businessData.logoUrl,
+    businessData.logo,businessData.logoURL
+  );
+
+  if (logo) {
+    $("businessLogo").innerHTML = `<img src="${esc(logo)}" alt="Business logo">`;
+  } else {
+    $("businessLogo").textContent =
+      $("businessName").textContent.trim().charAt(0).toUpperCase() || "K";
+  }
+}
+
+async function loadActualStock() {
+  const collections = [
+    {name:"products",category:"product"},
+    {name:"materials",category:"material"}
+  ];
+
+  const results = await Promise.allSettled(
+    collections.map(x => readCollection(x.name))
+  );
+
+  const items = [];
+  const errors = [];
+
+  results.forEach((result,index) => {
+    const config = collections[index];
+
+    if (result.status === "rejected") {
+      errors.push(config.name);
+      console.error("Could not load " + config.name,result.reason);
+      return;
+    }
+
+    for (const row of result.value) {
+      const d = row.data;
+
+      // Products are included only when stock tracking is enabled.
+      if (config.category === "product" && d.trackStock !== true) continue;
+
+      const itemName = txt(first(
+        d.name,d.productName,d.materialName,d.itemName,d.title,"Unnamed item"
+      ));
+
+      const unit = txt(first(d.unit,d.unitName,d.stockUnit,""));
+      const current = num(first(
+        d.stockQuantity,d.quantity,d.stock,d.currentStock,d.balance
+      ));
+
+      items.push({
+        id:config.category + "_" + row.id,
+        source:config.name,
+        documentId:row.id,
+        category:config.category,
+        itemName,
+        unit,
+        actualStock:current === null ? 0 : current,
+        image:txt(first(
+          d.imageUrl,d.photoUrl,d.image,d.photo,d.productImage,d.materialImage,""
+        )),
+        trackStock:d.trackStock === true
+      });
+    }
+  });
+
+  return {items,errors};
+}
+
+async function loadHistory() {
+  if (loading) return;
+
+  loading = true;
+  $("refreshBtn").disabled = true;
+  $("historyList").innerHTML = '<div class="loading">Loading Firebase records...</div>';
+  showMessage("");
+
+  try {
+    if (!businessId) await loadBusiness();
+
+    const names = ["materialInventory","activityLogs","sales"];
+    const results = await Promise.allSettled(names.map(readCollection));
+    const records = [];
+    const failed = [];
+
+    results.forEach((result,index) => {
+      if (result.status === "rejected") {
+        failed.push(names[index]);
+        console.error(names[index],result.reason);
+        return;
+      }
+
+      for (const row of result.value) {
+        const d = row.data;
+
+        if (names[index] === "sales") {
+          const status = txt(first(
+            d.status,d.paymentStatus,d.saleStatus,""
+          )).toLowerCase();
+
+          if (/cancel|void|failed|rejected|pending|draft|unpaid/.test(status)) {
+            continue;
+          }
+
+          const items = Array.isArray(d.items) ? d.items
+            : Array.isArray(d.cartItems) ? d.cartItems
+            : Array.isArray(d.products) ? d.products
+            : [];
+
+          items.forEach((item,j) => {
+            records.push(normalizeSale(row.id,d,item,j));
+          });
+        } else {
+          if (names[index] === "activityLogs") {
+            const details = d.details || d.metadata || {};
+            const hay = [
+              d.action,d.type,d.movementType,d.targetType,d.entityType,
+              d.description,details.action,details.targetType,details.description
+            ].join(" ").toLowerCase();
+
+            if (!/stock|inventory|material|product_sold|quantity_changed|deduct|consum|wastage|damag/.test(hay)) {
+              continue;
+            }
+          }
+
+          const r = normalize(
+            row.id,d,names[index],
+            names[index] === "materialInventory" ? "material" : "product"
+          );
+
+          // Avoid displaying the same material stock-in twice if it is
+          // already represented in materialInventory.
+          if (
+            names[index] === "activityLogs" &&
+            r.category === "material" &&
+            /stock_added|stock_in|add_stock|add stock/i.test(r.rawAction)
+          ) {
+            continue;
+          }
+
+          records.push(r);
+        }
+      }
+    });
+
+    allRecords = records.sort(
+      (a,b) => (b._date?.getTime() || 0) - (a._date?.getTime() || 0)
+    );
+
+    const actual = await loadActualStock();
+    stockItems = actual.items;
+
+    if (failed.length || actual.errors.length) {
+      const allFailed = [...new Set([...failed,...actual.errors])];
+      showMessage(
+        "Some records could not be loaded: " + allFailed.join(", ") +
+        ". Check Firestore permissions.",
+        true
+      );
+    }
+
+    applyFilters();
+  } catch (error) {
+    console.error(error);
+    showMessage(
+      "Could not load stock history. " +
+      (error.message || "Check your connection and Firebase permissions."),
+      true
+    );
+    $("historyList").innerHTML =
+      '<div class="empty">Unable to load stock history.</div>';
+  } finally {
+    loading = false;
+    $("refreshBtn").disabled = false;
+  }
+}
+
+function dateMatches(r) {
+  const mode = $("dateFilter").value;
+  if (mode === "all") return true;
+  if (!r._date) return false;
+
+  const now = new Date();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  if (mode === "today") return r._date >= today && r._date <= now;
+
+  if (mode === "7" || mode === "30") {
+    const start = new Date(today);
+    start.setDate(start.getDate() - (Number(mode)-1));
+    return r._date >= start && r._date <= now;
+  }
+
+  if (mode === "custom") {
+    const from = $("startDate").value;
+    const to = $("endDate").value;
+
+    if (from && r._date < new Date(from + "T00:00:00")) return false;
+    if (to && r._date > new Date(to + "T23:59:59.999")) return false;
+  }
+
+  return true;
+}
+
+function matchesSearch(item,query) {
+  if (!query) return true;
+
+  return [
+    item.itemName,item.category,item.unit,item.actor,
+    item.reason,item.reference,item.source
+  ].join(" ").toLowerCase().includes(query);
+}
+
+function applyFilters() {
+  const q = $("searchInput").value.trim().toLowerCase();
+  const type = $("typeFilter").value;
+  const category = $("categoryFilter").value;
+
+  filteredRecords = allRecords.filter(r =>
+    (type === "all" || r.type === type) &&
+    (category === "all" || r.category === category) &&
+    dateMatches(r) &&
+    matchesSearch(r,q)
+  );
+
+  filteredStockItems = stockItems.filter(item =>
+    (category === "all" || item.category === category) &&
+    matchesSearch(item,q)
+  );
+
+  currentPage = 1;
+  updateStats();
+  renderPage();
+}
+
+function getSoldQuantity(key) {
+  const salesRecords = allRecords.filter(r =>
+    r.type === "sold" &&
+    r.source === "sales" &&
+    stockKey(r) === key
+  );
+
+  const loggedSoldRecords = allRecords.filter(r =>
+    r.type === "sold" &&
+    r.source !== "sales" &&
+    stockKey(r) === key
+  );
+
+  const salesSold = salesRecords.reduce(
+    (sum,r) => sum + Math.abs(Number(r.quantity) || 0),0
+  );
+
+  const loggedSold = loggedSoldRecords.reduce(
+    (sum,r) => sum + Math.abs(Number(r.quantity) || 0),0
+  );
+
+  // Prevent duplicate counting when both sales and movement logs exist.
+  return Math.max(salesSold,loggedSold);
+}
+
+function getOutQuantity(key) {
+  return allRecords
+    .filter(r =>
+      (r.type === "stock_out" || r.type === "waste") &&
+      stockKey(r) === key
+    )
+    .reduce((sum,r) => sum + Math.abs(Number(r.quantity) || 0),0);
+}
+
+function getCurrentStock(key,fallback=0) {
+  const item = stockItems.find(item => {
+    const itemKey = [
+      item.category || "",
+      txt(item.itemName).trim().toLowerCase(),
+      txt(item.unit).trim().toLowerCase()
+    ].join("|");
+    return itemKey === key;
+  });
+
+  return item ? Number(item.actualStock) || 0 : Number(fallback) || 0;
+}
+
+function updateStats() {
+  $("statRecords").textContent = filteredRecords.length.toLocaleString();
+
+  let totalOut = 0;
+  let totalSold = 0;
+  let soldValue = 0;
+  let salesCount = 0;
+
+  // Stock Out and Sold Units follow the currently filtered history.
+  for (const r of filteredRecords) {
+    const q = Math.abs(Number(r.quantity) || 0);
+
+    if (r.type === "stock_out" || r.type === "waste") {
+      totalOut += q;
+    }
+
+    if (r.type === "sold") {
+      totalSold += q;
+
+      if (r.source === "sales" && r.lineTotal !== null) {
+        soldValue += Math.abs(r.lineTotal);
+        salesCount++;
+      }
+    }
+  }
+
+  let totalLeft = 0;
+
+  for (const item of filteredStockItems) {
+    totalLeft += Number(item.actualStock) || 0;
+  }
+
+  // If no current stock records could be loaded, estimate Stock Left
+  // from the movements available in the history.
+  if (stockItems.length === 0) {
+    const summary = buildStockSummary(allRecords);
+    totalLeft = 0;
+    for (const g of summary.values()) {
+      totalLeft += Number(g.balance) || 0;
+    }
+  }
+
+  // REQUIRED FORMULA FOR THE STOCK IN SUMMARY:
+  // Stock In = Stock Sold + Stock Out + Stock Left.
+  const totalIn = totalSold + totalOut + totalLeft;
+
+  $("statIn").textContent = qty(totalIn);
+  $("statOut").textContent = qty(totalOut);
+  $("statSold").textContent = qty(totalSold);
+  $("statLeft").textContent = qty(totalLeft);
+  $("statValue").textContent = salesCount ? money(soldValue) : "—";
+}
+
+function typeLabel(type) {
   return ({
     stock_in:"Stock In",
     stock_out:"Stock Out",
@@ -888,902 +1100,161 @@ function displayType(type) {
   })[type] || "Other";
 }
 
-function typePill(type) {
-  if (type === "stock_in" || type === "return") return "pill-in";
-  if (type === "stock_out" || type === "waste") return "pill-out";
-  if (type === "sold") return "pill-sale";
-  if (type === "adjustment") return "pill-adjust";
-  return "pill-other";
-}
-
-function normalizeActor(data) {
-  const details = data.details || data.metadata || {};
-  const actor = data.actor || data.performedBy || {};
-  const user = data.user || {};
-
-  const name = firstValue(
-    data.actorName,
-    data.performedByName,
-    data.staffName,
-    data.userName,
-    actor.name,
-    actor.displayName,
-    user.name,
-    user.displayName,
-    data.createdByName,
-    details.actorName,
-    details.performedByName
-  );
-
-  const role = firstValue(
-    data.actorRole,
-    data.performedByRole,
-    data.userRole,
-    actor.role,
-    user.role,
-    details.actorRole
-  );
-
-  const uid = firstValue(
-    data.actorUid,
-    data.performedByUid,
-    data.userId,
-    data.createdBy,
-    actor.uid,
-    actor.userId,
-    user.uid,
-    details.actorUid
-  );
-
-  if (name && role) return `${name} (${role})`;
-  if (name) return name;
-  if (role) return `Unknown person (${role})`;
-  if (uid) return `User ID: ${uid}`;
-
-  return "Not recorded";
-}
-
-function extractQuantities(data) {
-  const details = data.details || data.metadata || {};
-
-  const previous = asNumber(firstValue(
-    data.previousQuantity,
-    data.previousStock,
-    data.oldQuantity,
-    data.oldStock,
-    details.previousQuantity,
-    details.previousStock
-  ));
-
-  const next = asNumber(firstValue(
-    data.newQuantity,
-    data.newStock,
-    data.nextQuantity,
-    data.nextStock,
-    details.newQuantity,
-    details.newStock
-  ));
-
-  let quantity = asNumber(firstValue(
-    data.quantityChanged,
-    data.quantityAdded,
-    data.quantityRemoved,
-    data.quantityUsed,
-    data.quantity,
-    data.stockChange,
-    details.quantityChanged,
-    details.quantityAdded,
-    details.quantityRemoved,
-    details.quantityUsed,
-    details.quantity
-  ));
-
-  if (quantity === null && previous !== null && next !== null) {
-    quantity = Math.abs(next - previous);
-  }
-
-  return {previous,next,quantity};
-}
-
-function extractPricing(data, quantity) {
-  const details = data.details || data.metadata || {};
-
-  const unitPrice = asNumber(firstValue(
-    data.unitPrice,
-    data.costPrice,
-    data.purchasePrice,
-    data.pricePerUnit,
-    data.materialUnitPrice,
-    data.itemUnitPrice,
-    details.unitPrice,
-    details.costPrice,
-    details.purchasePrice,
-    details.pricePerUnit,
-    details.materialUnitPrice,
-    details.itemUnitPrice
-  ));
-
-  const explicitTotal = asNumber(firstValue(
-    data.lineTotal,
-    data.totalCost,
-    data.totalAmount,
-    data.totalPrice,
-    data.stockValue,
-    data.amount,
-    details.lineTotal,
-    details.totalCost,
-    details.totalAmount,
-    details.totalPrice,
-    details.stockValue,
-    details.amount
-  ));
-
-  const lineTotal = explicitTotal !== null
-    ? explicitTotal
-    : (
-        quantity !== null && unitPrice !== null
-          ? Math.abs(quantity) * unitPrice
-          : null
-      );
-
-  return {unitPrice,lineTotal};
-}
-
-function normalizeLog(docId, data, source, category) {
-  const details = data.details || data.metadata || {};
-
-  const action = firstValue(
-    data.movementType,
-    data.action,
-    data.type,
-    data.eventType,
-    data.transactionType,
-    data.activity,
-    details.movementType,
-    details.action,
-    details.type,
-    ""
-  );
-
-  const targetType = asText(firstValue(
-    data.targetType,
-    data.itemType,
-    data.entityType,
-    details.targetType,
-    details.itemType,
-    ""
-  )).toLowerCase();
-
-  const itemName = firstValue(
-    data.materialName,
-    data.productName,
-    data.itemName,
-    data.name,
-    data.targetName,
-    data.description,
-    details.materialName,
-    details.productName,
-    details.itemName,
-    details.name,
-    details.description,
-    "Unnamed item"
-  );
-
-  const {previous,next,quantity} = extractQuantities(data);
-  const {unitPrice,lineTotal} = extractPricing(data,quantity);
-  const type = normalizeType(action);
-
-  const unit = firstValue(data.unit,details.unit,"");
-
-  const image = firstValue(
-    data.imageUrl,
-    data.photoUrl,
-    data.image,
-    data.photo,
-    data.materialImage,
-    data.productImage,
-    details.imageUrl,
-    details.photoUrl,
-    ""
-  );
-
-  return {
-    id:source + "_" + docId,
-    source,
-    category,
-    rawAction:asText(action),
-    type,
-    itemName:asText(itemName),
-    image:asText(image),
-    unit:asText(unit),
-    quantity,
-    previous,
-    next,
-    unitPrice,
-    lineTotal,
-    actor:normalizeActor(data),
-    date:firstValue(
-      data.createdAt,
-      data.timestamp,
-      data.date,
-      data.updatedAt,
-      data.transactionDate,
-      data.created_at,
-      details.createdAt
-    ) || null,
-    reason:asText(firstValue(
-      data.reason,
-      data.notes,
-      data.note,
-      data.description,
-      details.reason,
-      details.notes,
-      details.note,
-      ""
-    )),
-    reference:asText(firstValue(
-      data.reference,
-      data.referenceNumber,
-      data.transactionId,
-      data.saleId,
-      data.invoiceNumber,
-      data.orderId,
-      details.reference,
-      details.transactionId,
-      ""
-    )),
-    amount:lineTotal,
-    targetType
-  };
-}
-
-function normalizeSaleItem(saleId, sale, item, index) {
-  const quantity = asNumber(firstValue(
-    item.quantity,
-    item.qty,
-    item.soldQuantity
-  ));
-
-  const price = asNumber(firstValue(
-    item.price,
-    item.unitPrice,
-    item.sellingPrice,
-    item.salePrice,
-    item.selling_price
-  ));
-
-  const explicitSubtotal = asNumber(firstValue(
-    item.subtotal,
-    item.lineTotal,
-    item.total,
-    item.totalPrice,
-    item.amount
-  ));
-
-  const subtotal = explicitSubtotal !== null
-    ? explicitSubtotal
-    : (
-        quantity !== null && price !== null
-          ? Math.abs(quantity) * price
-          : null
-      );
-
-  const itemTypeText = asText(firstValue(
-    item.itemType,
-    item.type,
-    item.category,
-    "product"
-  )).toLowerCase();
-
-  const category = /material/.test(itemTypeText)
-    ? "material"
-    : "product";
-
-  const image = firstValue(
-    item.image,
-    item.imageUrl,
-    item.photoUrl,
-    item.photo,
-    item.productImage,
-    item.materialImage,
-    ""
-  );
-
-  return {
-    id:"sale_" + saleId + "_" + index,
-    source:"sales",
-    category,
-    rawAction:"sold",
-    type:"sold",
-    itemName:asText(firstValue(
-      item.name,
-      item.productName,
-      item.itemName,
-      item.materialName,
-      "Unnamed sold item"
-    )),
-    image:asText(image),
-    unit:asText(firstValue(item.unit,item.unitName,"")),
-    quantity,
-    previous:null,
-    next:null,
-    unitPrice:price,
-    lineTotal:subtotal,
-    amount:subtotal,
-    actor:normalizeActor(sale),
-    date:firstValue(
-      sale.createdAt,
-      sale.timestamp,
-      sale.date,
-      sale.saleDate,
-      sale.completedAt,
-      sale.updatedAt
-    ) || null,
-    reason:"POS sale",
-    reference:asText(firstValue(
-      sale.invoiceNumber,
-      sale.receiptNumber,
-      sale.reference,
-      sale.transactionId,
-      sale.id,
-      saleId
-    )),
-    saleStatus:asText(firstValue(
-      sale.status,
-      sale.paymentStatus,
-      sale.saleStatus,
-      ""
-    )),
-    stockTracked:item.stockTracked === true ||
-      item.trackStock === true,
-    targetType:"sale"
-  };
-}
-
-function showMessage(message,isError=false) {
-  const el = $("message");
-  el.hidden = !message;
-  el.className = "status-message" + (isError ? " error" : "");
-  el.textContent = message;
-}
-
-function isCompletedSale(data) {
-  const status = asText(firstValue(
-    data.status,
-    data.paymentStatus,
-    data.saleStatus,
-    ""
-  )).toLowerCase();
-
-  if (!status) return true;
-
-  return !/cancel|void|failed|rejected|pending|draft|unpaid/.test(status);
-}
-
-function isStockRelatedLog(data) {
-  const details = data.details || data.metadata || {};
-
-  const text = [
-    data.action,
-    data.type,
-    data.movementType,
-    data.targetType,
-    data.entityType,
-    data.description,
-    details.action,
-    details.targetType,
-    details.description
-  ].map(asText).join(" ").toLowerCase();
-
-  return /stock|inventory|material|product_sold|quantity_changed|deduct|consum|wastage|damag/.test(text);
-}
-
-async function readCollection(name) {
-  const snapshot = await getDocs(
-    collection(db,"users",businessId,name)
-  );
-
-  return snapshot.docs.map(d => ({
-    id:d.id,
-    data:d.data()
-  }));
-}
-
-async function loadBusiness() {
-  const snapshot = await getDoc(
-    doc(db,"users",auth.currentUser.uid)
-  );
-
-  businessData = snapshot.exists() ? snapshot.data() : {};
-
-  businessId = firstValue(
-    businessData.ownerUid,
-    businessData.businessOwnerUid,
-    businessData.businessId,
-    auth.currentUser.uid
-  );
-
-  $("businessName").textContent = firstValue(
-    businessData.businessName,
-    businessData.name,
-    businessData.storeName,
-    "Kayah"
-  );
-
-  const logo = firstValue(
-    businessData.businessLogo,
-    businessData.logoUrl,
-    businessData.logo,
-    businessData.logoURL
-  );
-
-  if (logo) {
-    $("businessLogo").innerHTML =
-      `<img src="${escapeHtml(logo)}" alt="Business logo">`;
-  } else {
-    $("businessLogo").textContent =
-      asText($("businessName").textContent).trim().charAt(0).toUpperCase() || "K";
-  }
-}
-
-async function loadHistory() {
-  if (loading) return;
-
-  loading = true;
-  $("refreshBtn").disabled = true;
-
-  $("historyList").innerHTML =
-    '<div class="loading"><span class="spinner"></span>Loading Firebase records...</div>';
-
-  showMessage("");
-
-  try {
-    if (!businessId) await loadBusiness();
-
-    const results = await Promise.allSettled([
-      readCollection("materialInventory"),
-      readCollection("activityLogs"),
-      readCollection("sales")
-    ]);
-
-    const collectionNames = [
-      "materialInventory",
-      "activityLogs",
-      "sales"
-    ];
-
-    const failures = [];
-    const records = [];
-
-    results.forEach((result,index) => {
-      if (result.status === "rejected") {
-        failures.push(collectionNames[index]);
-        console.error(
-          "Could not read " + collectionNames[index],
-          result.reason
-        );
-      }
-    });
-
-    // Material inventory records.
-    if (results[0].status === "fulfilled") {
-      for (const row of results[0].value) {
-        const record = normalizeLog(
-          row.id,
-          row.data,
-          "materialInventory",
-          "material"
-        );
-
-        const target = record.targetType;
-
-        if (/product/.test(target)) record.category = "product";
-        if (/material/.test(target)) record.category = "material";
-
-        records.push(record);
-      }
-    }
-
-    // Stock-related activity logs.
-    if (results[1].status === "fulfilled") {
-      for (const row of results[1].value) {
-        if (!isStockRelatedLog(row.data)) continue;
-
-        const record = normalizeLog(
-          row.id,
-          row.data,
-          "activityLogs",
-          "product"
-        );
-
-        const target = record.targetType;
-
-        if (/material/.test(target)) record.category = "material";
-        if (/product/.test(target)) record.category = "product";
-
-        // Avoid duplicating material-add events.
-        const isMaterialAdd =
-          record.category === "material" &&
-          /stock_added|stock_in|add_stock|add stock/i.test(record.rawAction);
-
-        if (isMaterialAdd) continue;
-
-        records.push(record);
-      }
-    }
-
-    // Add each item from completed sales as a history record.
-    if (results[2].status === "fulfilled") {
-      for (const row of results[2].value) {
-        if (!isCompletedSale(row.data)) continue;
-
-        const sale = row.data;
-
-        const items = Array.isArray(sale.items)
-          ? sale.items
-          : Array.isArray(sale.cartItems)
-            ? sale.cartItems
-            : Array.isArray(sale.products)
-              ? sale.products
-              : [];
-
-        items.forEach((item,index) => {
-          records.push(
-            normalizeSaleItem(row.id,sale,item,index)
-          );
-        });
-      }
-    }
-
-    allRecords = records.map((record,index) => ({
-      ...record,
-      _index:index,
-      _date:getDate(record.date)
-    }));
-
-    allRecords.sort((a,b) =>
-      (b._date?.getTime() || 0) -
-      (a._date?.getTime() || 0)
-    );
-
-    if (failures.length) {
-      showMessage(
-        "Some records could not be loaded (" +
-        failures.join(", ") +
-        "). Check Firestore permissions. Other available records are shown.",
-        true
-      );
-    }
-
-    applyFilters();
-
-  } catch (error) {
-    console.error("Stock history loading error:",error);
-
-    $("historyList").innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">⚠️</div>
-        <h3>Unable to load stock history</h3>
-        <p>${escapeHtml(
-          error.message ||
-          "Please check your connection and Firebase permissions."
-        )}</p>
-      </div>`;
-
-    showMessage(
-      "Could not load records. Verify your sign-in and Firestore security rules.",
-      true
-    );
-
-  } finally {
-    loading = false;
-    $("refreshBtn").disabled = false;
-  }
-}
-
-function localDayStart(date) {
-  const copy = new Date(date);
-  copy.setHours(0,0,0,0);
-  return copy;
-}
-
-function matchesDate(record) {
-  const mode = $("dateFilter").value;
-
-  if (mode === "all") return true;
-  if (!record._date) return false;
-
-  const now = new Date();
-  const startToday = localDayStart(now);
-
-  if (mode === "today") {
-    return record._date >= startToday && record._date <= now;
-  }
-
-  if (mode === "7" || mode === "30") {
-    const start = new Date(startToday);
-    start.setDate(start.getDate() - (Number(mode)-1));
-
-    return record._date >= start && record._date <= now;
-  }
-
-  if (mode === "custom") {
-    const from = $("startDate").value;
-    const to = $("endDate").value;
-
-    if (from) {
-      const fromDate = new Date(from + "T00:00:00");
-      if (record._date < fromDate) return false;
-    }
-
-    if (to) {
-      const toDate = new Date(to + "T23:59:59.999");
-      if (record._date > toDate) return false;
-    }
-  }
-
-  return true;
-}
-
-function applyFilters() {
-  const query = $("searchInput").value.trim().toLowerCase();
-  const type = $("typeFilter").value;
-  const category = $("categoryFilter").value;
-
-  filteredRecords = allRecords.filter(record => {
-    if (type !== "all" && record.type !== type) return false;
-    if (category !== "all" && record.category !== category) return false;
-    if (!matchesDate(record)) return false;
-
-    const searchable = [
-      record.itemName,
-      record.actor,
-      record.reason,
-      record.reference,
-      record.rawAction,
-      record.source,
-      record.category,
-      record.unit
-    ].join(" ").toLowerCase();
-
-    return !query || searchable.includes(query);
-  });
-
-  currentPage = 1;
-  updateStats();
-  renderPage();
-}
-
-function updateStats() {
-  $("statRecords").textContent =
-    filteredRecords.length.toLocaleString();
-
-  let stockIn = 0;
-  let stockOut = 0;
-  let sold = 0;
-  let soldValue = 0;
-  let pricedSalesCount = 0;
-
-  for (const record of filteredRecords) {
-    const quantity = Math.abs(record.quantity || 0);
-
-    if (record.type === "stock_in" || record.type === "return") {
-      stockIn += quantity;
-    }
-
-    if (record.type === "stock_out" || record.type === "waste") {
-      stockOut += quantity;
-    }
-
-    if (record.type === "sold") {
-      sold += quantity;
-
-      /*
-       * Sold Value is taken from actual sales collection items only.
-       * Activity logs that also say "sold" are excluded here to avoid
-       * counting the same sale twice.
-       */
-      if (
-        record.source === "sales" &&
-        record.lineTotal !== null &&
-        record.lineTotal !== undefined
-      ) {
-        soldValue += Math.abs(record.lineTotal);
-        pricedSalesCount++;
-      }
-    }
-  }
-
-  $("statIn").textContent = formatQuantity(stockIn);
-  $("statOut").textContent = formatQuantity(stockOut);
-  $("statSold").textContent = formatQuantity(sold);
-
-  $("statValue").textContent = pricedSalesCount
-    ? money(soldValue)
-    : "—";
-
-  $("statValue").title = pricedSalesCount
-    ? "Total from " + pricedSalesCount +
-      " sold item records with a saved subtotal or calculable price."
-    : "No item-level sales prices or subtotals were found in the loaded sales records.";
-}
-
-function quantityChange(record) {
-  if (record.type === "sold") {
-    return {
-      label:"Sold",
-      sign:"−",
-      value:record.quantity,
-      cls:"change-out"
-    };
-  }
-
-  if (record.type === "stock_in" || record.type === "return") {
-    return {
-      label:"Added",
-      sign:"+",
-      value:record.quantity,
-      cls:"change-in"
-    };
-  }
-
-  if (record.type === "stock_out" || record.type === "waste") {
-    return {
-      label:"Removed",
-      sign:"−",
-      value:record.quantity,
-      cls:"change-out"
-    };
-  }
-
-  if (record.type === "adjustment") {
-    const increased =
-      record.previous !== null &&
-      record.next !== null &&
-      record.next >= record.previous;
-
-    return {
-      label:"Change",
-      sign:increased ? "+" : "−",
-      value:record.previous !== null && record.next !== null
-        ? Math.abs(record.next-record.previous)
-        : record.quantity,
-      cls:"change-neutral"
-    };
-  }
-
-  return {
-    label:"Quantity",
-    sign:"",
-    value:record.quantity,
-    cls:"change-neutral"
-  };
-}
-
-function renderRecord(record) {
-  const change = quantityChange(record);
-  const unit = record.unit
-    ? " " + escapeHtml(record.unit)
-    : "";
-
-  const imageHtml = record.image
-    ? `<img class="item-image"
-         src="${escapeHtml(record.image)}"
-         alt=""
-         loading="lazy"
-         onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'item-placeholder',textContent:'📦'}))">`
-    : `<div class="item-placeholder">${
-        record.category === "material" ? "🧱" : "📦"
-      }</div>`;
-
-  const categoryLabel =
-    record.category === "material" ? "Material" : "Product";
-
-  const categoryPill =
-    record.category === "material" ? "pill-material" : "pill-product";
-
-  let stockLine = "";
-
-  if (record.previous !== null || record.next !== null) {
-    stockLine = `
-      <div class="detail-line">
-        ${record.previous !== null
-          ? `<strong>Before:</strong> ${formatQuantity(record.previous)}${unit}`
-          : ""}
-        ${record.previous !== null && record.next !== null ? " → " : ""}
-        ${record.next !== null
-          ? `<strong>After:</strong> ${formatQuantity(record.next)}${unit}`
-          : ""}
-      </div>`;
-  }
-
-  const reasonLine = record.reason
-    ? `<div class="detail-line"><strong>Reason:</strong> ${escapeHtml(record.reason)}</div>`
-    : "";
-
-  const refLine = record.reference
-    ? `<div class="detail-line"><strong>Reference:</strong> ${escapeHtml(record.reference)}</div>`
-    : "";
-
-  const priceLine = record.unitPrice !== null &&
-                    record.unitPrice !== undefined
-    ? `<div class="detail-line price-line">
-         <strong>Unit price:</strong> ${money(record.unitPrice)}${unit ? " /" + unit : ""}
-       </div>`
-    : "";
-
-  const totalLine = record.lineTotal !== null &&
-                    record.lineTotal !== undefined
-    ? `<div class="detail-line total-value">
-         ${record.type === "sold" ? "Sale total" : "Line total"}: ${money(Math.abs(record.lineTotal))}
-       </div>`
-    : `<div class="detail-line">
-         <strong>Line total:</strong> Not available
-       </div>`;
+function renderRecord(r) {
+  const key = stockKey(r);
+  const summary = buildStockSummary(allRecords).get(key) ||
+    {totalIn:0,totalOut:0,balance:0,sold:0};
+
+  const isIn = r.type === "stock_in" || r.type === "return";
+  const isOut = r.type === "stock_out" || r.type === "waste" || r.type === "sold";
+  const q = Math.abs(Number(r.quantity) || 0);
+
+  const rightValue = isIn ? summary.totalIn : q;
+  const rightLabel = isIn ? "Total Stock In"
+    : r.type === "stock_out" || r.type === "waste" ? "Removed"
+    : r.type === "sold" ? "Sold"
+    : r.type === "adjustment" ? "Change" : "Quantity";
+
+  const sign = isIn ? "" : isOut ? "−" : "";
+
+  const img = r.image
+    ? `<img class="photo" src="${esc(r.image)}" alt="" onerror="this.style.display='none'">`
+    : `<div class="placeholder">${r.category === "material" ? "🧱" : "📦"}</div>`;
+
+  const pillClass = isIn ? "in" : r.type === "sold" ? "sale" : isOut ? "out" : "";
+
+  const currentLeft = getCurrentStock(key,summary.balance);
+  const sold = getSoldQuantity(key);
+  const stockOut = getOutQuantity(key);
+  const calculatedIn = sold + stockOut + currentLeft;
 
   return `
-    <article class="history-card">
-      ${imageHtml}
-
-      <div class="history-content">
-        <div class="history-title">${escapeHtml(record.itemName)}</div>
-
-        <div class="history-meta">
-          <span class="pill ${typePill(record.type)}">${escapeHtml(displayType(record.type))}</span>
-          <span class="pill ${categoryPill}">${categoryLabel}</span>
-          <span>${escapeHtml(formatDate(record.date))}</span>
+    <article class="card">
+      ${img}
+      <div class="content">
+        <div class="item-title">${esc(r.itemName)}</div>
+        <div class="meta">
+          <span class="pill ${pillClass}">${esc(typeLabel(r.type))}</span>
+          <span class="pill">${r.category === "material" ? "Material" : "Product"}</span>
+          <span>${esc(dateText(r.date))}</span>
         </div>
-
-        <div class="detail-line">
-          <strong>By:</strong> ${escapeHtml(record.actor)}
+        <div class="detail"><strong>By:</strong> ${esc(r.actor)}</div>
+        ${r.previous !== null || r.next !== null ? `
+          <div class="detail">
+            ${r.previous !== null ? `<strong>Before:</strong> ${qty(r.previous)} ${esc(r.unit)}` : ""}
+            ${r.previous !== null && r.next !== null ? " → " : ""}
+            ${r.next !== null ? `<strong>After:</strong> ${qty(r.next)} ${esc(r.unit)}` : ""}
+          </div>` : ""}
+        <div class="stock-summary">
+          <strong>Total Stock In:</strong> ${qty(calculatedIn)} ${esc(r.unit)}
+          &nbsp; • &nbsp;
+          <strong>Stock Left:</strong> ${qty(currentLeft)} ${esc(r.unit)}
+          <br>
+          <strong>Formula:</strong> Sold ${qty(sold)} + Out ${qty(stockOut)} + Left ${qty(currentLeft)}
         </div>
-
-        ${stockLine}
-        ${priceLine}
-        ${totalLine}
-        ${reasonLine}
-        ${refLine}
+        ${r.unitPrice !== null ? `<div class="detail"><strong>Unit price:</strong> ${money(r.unitPrice)}</div>` : ""}
+        ${r.lineTotal !== null ? `<div class="detail"><strong>${r.type === "sold" ? "Sale total" : "Line total"}:</strong> ${money(Math.abs(r.lineTotal))}</div>` : ""}
+        ${r.reason ? `<div class="detail"><strong>Reason:</strong> ${esc(r.reason)}</div>` : ""}
+        ${r.reference ? `<div class="detail"><strong>Reference:</strong> ${esc(r.reference)}</div>` : ""}
       </div>
+      <div class="right">
+        <div class="change ${isIn ? "green" : isOut ? "red" : ""}">${sign}${qty(rightValue)} ${esc(r.unit)}</div>
+        <div class="caption">${rightLabel}</div>
+      </div>
+    </article>`;
+}
 
-      <div class="history-right">
-        <div class="change-number ${change.cls}">
-          ${change.sign}${
-            change.value === null || change.value === undefined
-              ? "—"
-              : formatQuantity(change.value) + unit
-          }
+function renderStockLeftItem(item) {
+  const key = [
+    item.category || "",
+    txt(item.itemName).trim().toLowerCase(),
+    txt(item.unit).trim().toLowerCase()
+  ].join("|");
+
+  const sold = getSoldQuantity(key);
+  const stockOut = getOutQuantity(key);
+  const stockLeft = Number(item.actualStock) || 0;
+
+  // REQUIRED FORMULA FOR EACH ITEM:
+  // Stock In = Stock Sold + Stock Out + Stock Left.
+  const calculatedIn = sold + stockOut + stockLeft;
+
+  const img = item.image
+    ? `<img class="photo" src="${esc(item.image)}" alt="" onerror="this.style.display='none'">`
+    : `<div class="placeholder">${item.category === "material" ? "🧱" : "📦"}</div>`;
+
+  const low = stockLeft <= 0;
+
+  return `
+    <article class="card">
+      ${img}
+      <div class="content">
+        <div class="item-title">${esc(item.itemName)}</div>
+        <div class="meta">
+          <span class="pill">${item.category === "material" ? "Material" : "Product"}</span>
+          <span class="pill ${low ? "out" : "in"}">${low ? "Out of stock" : "Available"}</span>
         </div>
-        <div class="change-caption">${escapeHtml(change.label)}</div>
+
+        <div class="stock-grid">
+          <div class="stock-cell total-in-cell">
+            <span>📥 TOTAL STOCK IN</span>
+            <strong>${qty(calculatedIn)} ${esc(item.unit)}</strong>
+          </div>
+          <div class="stock-cell out-cell">
+            <span>📤 TOTAL STOCK OUT</span>
+            <strong>${qty(stockOut)} ${esc(item.unit)}</strong>
+          </div>
+          <div class="stock-cell sold">
+            <span>🛒 TOTAL STOCK SOLD</span>
+            <strong>${qty(sold)} ${esc(item.unit)}</strong>
+          </div>
+          <div class="stock-cell left-cell">
+            <span>📦 STOCK LEFT NOW</span>
+            <strong>${qty(stockLeft)} ${esc(item.unit)}</strong>
+          </div>
+        </div>
       </div>
     </article>`;
 }
 
 function renderPage() {
-  const total = filteredRecords.length;
-  const pages = Math.max(1,Math.ceil(total/PAGE_SIZE));
+  const total = currentTab === "history"
+    ? filteredRecords.length
+    : filteredStockItems.length;
 
+  const pages = Math.max(1,Math.ceil(total / PAGE_SIZE));
   currentPage = Math.min(currentPage,pages);
 
   $("resultCount").textContent =
-    `${total.toLocaleString()} record${total === 1 ? "" : "s"} found`;
+    total.toLocaleString() + (currentTab === "history"
+      ? " record" + (total === 1 ? "" : "s") + " found"
+      : " tracked item" + (total === 1 ? "" : "s") + " found");
 
   if (!total) {
-    $("historyList").innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">📦</div>
-        <h3>No stock history found</h3>
-        <p>No records match your filters, or stock movements have not yet been saved in the connected Firebase collections.</p>
-      </div>`;
+    $("historyList").innerHTML = currentTab === "history"
+      ? '<div class="empty">No stock history found for these filters.</div>'
+      : '<div class="empty">No tracked stock items found. Add a tracked product or material to see its remaining quantity here.</div>';
 
     $("pagination").hidden = true;
     return;
   }
 
-  const start = (currentPage-1)*PAGE_SIZE;
-  const pageRecords = filteredRecords.slice(start,start+PAGE_SIZE);
+  const start = (currentPage - 1) * PAGE_SIZE;
 
-  $("historyList").innerHTML =
-    pageRecords.map(renderRecord).join("");
+  if (currentTab === "history") {
+    $("historyList").innerHTML = filteredRecords
+      .slice(start,start + PAGE_SIZE)
+      .map(renderRecord)
+      .join("");
+    $("resultOrder").textContent = "Newest first";
+  } else {
+    $("historyList").innerHTML = filteredStockItems
+      .slice(start,start + PAGE_SIZE)
+      .map(renderStockLeftItem)
+      .join("");
+
+    $("resultOrder").textContent = "Current quantities";
+  }
 
   $("pagination").hidden = total <= PAGE_SIZE;
   $("pageLabel").textContent = `Page ${currentPage} of ${pages}`;
@@ -1791,46 +1262,57 @@ function renderPage() {
   $("nextBtn").disabled = currentPage >= pages;
 }
 
-function setSearchVisible(visible) {
-  $("filterBody").hidden = !visible;
+function switchTab(tab) {
+  currentTab = tab;
+  currentPage = 1;
 
-  $("searchToggle").classList.toggle("active",visible);
-  $("searchToggle").setAttribute("aria-expanded",String(visible));
-  $("searchToggle").innerHTML = visible
-    ? "✕ Hide search"
-    : "🔍 Search";
+  const history = tab === "history";
 
-  if (visible) $("searchInput").focus();
+  $("historyTab").classList.toggle("active",history);
+  $("stockLeftTab").classList.toggle("active",!history);
+
+  $("pageHeading").textContent = history ? "Stock History" : "Stock Left";
+  $("pageDescription").textContent = history
+    ? "Review stock movements, recorded sales and remaining quantities."
+    : "See calculated Stock In, Stock Out, Sold and remaining quantities for each item.";
+
+  $("sectionHeading").textContent = history ? "Stock Records" : "Remaining Stock by Item";
+  $("sectionDescription").textContent = history
+    ? "Quantities, prices and responsible users."
+    : "Stock In = Stock Sold + Stock Out + Stock Left.";
+
+  $("typeFilter").disabled = !history;
+  $("dateFilter").disabled = !history;
+  $("startDate").disabled = !history;
+  $("endDate").disabled = !history;
+
+  $("footerText").textContent = history
+    ? "Stock In is calculated as Stock Sold + Stock Out + Stock Left. Stock Left uses current quantities saved in Firebase whenever available."
+    : "For each item, Stock In = Stock Sold + Stock Out + Stock Left. Stock Sold and Stock Out are based on available recorded movements. Stock Left is read from current Firebase quantities when available.";
+
+  applyFilters();
 }
-
-$("searchToggle").addEventListener("click",() => {
-  setSearchVisible($("filterBody").hidden);
-});
-
-$("hideSearchBtn").addEventListener("click",() => {
-  setSearchVisible(false);
-});
 
 $("refreshBtn").addEventListener("click",loadHistory);
 
-[
-  "searchInput",
-  "typeFilter",
-  "categoryFilter",
-  "dateFilter",
-  "startDate",
-  "endDate"
-].forEach(id => {
-  $(id).addEventListener(
-    id === "searchInput" ? "input" : "change",
-    () => {
-      $("customDates").hidden =
-        $("dateFilter").value !== "custom";
+$("historyTab").addEventListener("click",() => switchTab("history"));
+$("stockLeftTab").addEventListener("click",() => switchTab("left"));
 
-      applyFilters();
-    }
-  );
+$("searchToggle").addEventListener("click",() => {
+  $("filterArea").hidden = !$("filterArea").hidden;
 });
+
+$("doneBtn").addEventListener("click",() => {
+  $("filterArea").hidden = true;
+});
+
+["searchInput","typeFilter","categoryFilter","dateFilter","startDate","endDate"]
+  .forEach(id => {
+    $(id).addEventListener(id === "searchInput" ? "input" : "change",() => {
+      $("customDates").hidden = $("dateFilter").value !== "custom";
+      applyFilters();
+    });
+  });
 
 $("clearBtn").addEventListener("click",() => {
   $("searchInput").value = "";
@@ -1840,7 +1322,6 @@ $("clearBtn").addEventListener("click",() => {
   $("startDate").value = "";
   $("endDate").value = "";
   $("customDates").hidden = true;
-
   applyFilters();
 });
 
@@ -1852,9 +1333,11 @@ $("prevBtn").addEventListener("click",() => {
 });
 
 $("nextBtn").addEventListener("click",() => {
-  const pages = Math.ceil(filteredRecords.length/PAGE_SIZE);
+  const total = currentTab === "history"
+    ? filteredRecords.length
+    : filteredStockItems.length;
 
-  if (currentPage < pages) {
+  if (currentPage < Math.ceil(total / PAGE_SIZE)) {
     currentPage++;
     renderPage();
   }
@@ -1862,13 +1345,8 @@ $("nextBtn").addEventListener("click",() => {
 
 onAuthStateChanged(auth,async user => {
   if (!user) {
-    $("historyList").innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">🔐</div>
-        <h3>Sign in required</h3>
-        <p>Please sign in to your Kayah business account to view stock history.</p>
-      </div>`;
-
+    $("historyList").innerHTML =
+      '<div class="empty">Please sign in to your Kayah business account to view stock history.</div>';
     showMessage("Your session is not signed in.",true);
     return;
   }
@@ -1877,6 +1355,5 @@ onAuthStateChanged(auth,async user => {
   await loadHistory();
 });
 </script>
-
 </body>
 </html>
