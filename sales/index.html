@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0B4F3A">
 <title>Sales - Kayah</title>
+
+<!-- PDF libraries used only for Download PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 
 <style>
 :root {
@@ -339,6 +342,17 @@ button { cursor:pointer; }
   color:var(--muted);
   font-size:11px;
   margin-top:4px;
+}
+
+.history-actions {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.history-actions button {
+  white-space:nowrap;
 }
 
 .table-wrap {
@@ -767,6 +781,16 @@ button { cursor:pointer; }
   .invoice-identifiers { gap:6px; }
   .invoice-id-box { padding:8px; }
   .modal-actions { padding:0 12px 12px; }
+
+  .history-actions {
+    width:100%;
+  }
+
+  .history-actions button {
+    flex:1;
+    padding:9px 8px;
+    font-size:11px;
+  }
 }
 
 @media print {
@@ -966,7 +990,16 @@ button { cursor:pointer; }
         <strong>Transaction Records</strong>
         <div class="history-count" id="historyCount">Loading sales...</div>
       </div>
-      <strong id="historyTotal">₱0.00</strong>
+
+      <div class="history-actions">
+        <strong id="historyTotal">₱0.00</strong>
+        <button type="button" class="secondary-btn" id="printSalesHistoryBtn">
+          🖨️ Print History
+        </button>
+        <button type="button" class="primary-btn" id="downloadSalesPdfBtn">
+          ↓ Download PDF
+        </button>
+      </div>
     </div>
 
     <div class="table-wrap">
@@ -1898,6 +1931,498 @@ function renderHistory() {
   }).join("");
 }
 
+/* SALES HISTORY PRINT AND PDF REPORTS
+   Uses visibleSales, so search, dates, product and payment filters apply.
+   Does not change or write any Firebase records.
+*/
+
+function getSalesReportTotals(sales) {
+  const totalSales = sales.reduce(
+    (sum,sale) => sum + (Number(sale.total) || 0),0
+  );
+
+  const costSales = sales.filter(sale => sale.cost !== null);
+  const profitSales = sales.filter(sale => sale.profit !== null);
+
+  return {
+    totalSales,
+    transactionCount:sales.length,
+    totalCost:costSales.reduce(
+      (sum,sale) => sum + (Number(sale.cost) || 0),0
+    ),
+    grossProfit:profitSales.reduce(
+      (sum,sale) => sum + (Number(sale.profit) || 0),0
+    ),
+    costRecords:costSales.length,
+    profitRecords:profitSales.length
+  };
+}
+
+function getSalesReportPeriod() {
+  const from = $("fromDate").value;
+  const to = $("toDate").value;
+
+  if (from && to) return `${from} to ${to}`;
+  if (from) return `From ${from}`;
+  if (to) return `Until ${to}`;
+
+  return "All matching dates";
+}
+
+function getSalesReportRows() {
+  return visibleSales.map(sale => ({
+    date:formatDate(sale.dateValue),
+    invoice:getInvoiceNumber(sale),
+    transaction:getTransactionNumber(sale),
+    customer:sale.customer || "Walk-in Customer",
+    payment:paymentName(sale.payment),
+    total:peso(sale.total),
+    cost:sale.cost === null ? "Not recorded" : peso(sale.cost),
+    profit:sale.profit === null ? "Not recorded" : peso(sale.profit)
+  }));
+}
+
+function getSalesReportHTML() {
+  const totals = getSalesReportTotals(visibleSales);
+  const rows = getSalesReportRows();
+  const businessName = String(
+    businessInfo.businessName || businessInfo.storeName || "Kayah"
+  );
+  const generatedAt = new Date().toLocaleString("en-PH");
+
+  const tableRows = rows.map(row => `
+    <tr>
+      <td>${escapeHTML(row.date)}</td>
+      <td>${escapeHTML(row.invoice)}</td>
+      <td>${escapeHTML(row.transaction)}</td>
+      <td>${escapeHTML(row.customer)}</td>
+      <td>${escapeHTML(row.payment)}</td>
+      <td class="number">${escapeHTML(row.total)}</td>
+      <td class="number">${escapeHTML(row.cost)}</td>
+      <td class="number">${escapeHTML(row.profit)}</td>
+    </tr>
+  `).join("");
+
+  const costMissing = totals.transactionCount - totals.costRecords;
+  const profitMissing = totals.transactionCount - totals.profitRecords;
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales History - ${escapeHTML(businessName)}</title>
+<style>
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    padding:24px;
+    color:#20352B;
+    background:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+  }
+  .report-header {
+    padding:0 0 15px;
+    border-bottom:3px solid #0B4F3A;
+    margin-bottom:17px;
+  }
+  h1 {
+    margin:0 0 5px;
+    color:#0B4F3A;
+    font-size:23px;
+  }
+  h2 {
+    margin:0 0 8px;
+    font-size:16px;
+  }
+  .muted { color:#718078; }
+  .meta {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 22px;
+    margin-top:10px;
+  }
+  .summary {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:9px;
+    margin:17px 0;
+  }
+  .summary-card {
+    padding:11px;
+    border:1px solid #DCE5DE;
+    border-radius:7px;
+    page-break-inside:avoid;
+  }
+  .summary-card span {
+    display:block;
+    margin-bottom:7px;
+    color:#718078;
+    font-size:9px;
+    font-weight:bold;
+  }
+  .summary-card strong {
+    color:#0B4F3A;
+    font-size:15px;
+    overflow-wrap:anywhere;
+  }
+  table {
+    width:100%;
+    border-collapse:collapse;
+    table-layout:auto;
+  }
+  thead { display:table-header-group; }
+  th {
+    padding:8px 6px;
+    background:#EAF3ED;
+    color:#315744;
+    border:1px solid #DCE5DE;
+    text-align:left;
+    font-size:9px;
+  }
+  td {
+    padding:7px 6px;
+    border:1px solid #E1E9E3;
+    vertical-align:top;
+    overflow-wrap:anywhere;
+  }
+  tbody tr { page-break-inside:avoid; }
+  .number { text-align:right; white-space:nowrap; }
+  .report-notes {
+    margin-top:14px;
+    padding:10px;
+    background:#F7F3E8;
+    border-radius:6px;
+    line-height:1.6;
+  }
+  .footer {
+    margin-top:20px;
+    padding-top:10px;
+    border-top:1px solid #E1E9E3;
+    color:#718078;
+    text-align:center;
+    font-size:9px;
+  }
+  @page { size:landscape; margin:10mm; }
+  @media print {
+    body { padding:0; }
+    .summary-card { border-radius:0; }
+  }
+  @media screen and (max-width:700px) {
+    body { padding:12px; }
+    .summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .table-container { overflow-x:auto; }
+    table { min-width:1000px; }
+  }
+</style>
+</head>
+<body>
+  <div class="report-header">
+    <h1>${escapeHTML(businessName)}</h1>
+    <h2>Sales History Report</h2>
+    <div class="muted">Filtered sales records from Kayah Business Management</div>
+    <div class="meta">
+      <span><strong>Period:</strong> ${escapeHTML(getSalesReportPeriod())}</span>
+      <span><strong>Transactions:</strong> ${totals.transactionCount}</span>
+      <span><strong>Generated:</strong> ${escapeHTML(generatedAt)}</span>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="summary-card">
+      <span>TOTAL SALES</span>
+      <strong>${escapeHTML(peso(totals.totalSales))}</strong>
+    </div>
+    <div class="summary-card">
+      <span>TRANSACTIONS</span>
+      <strong>${totals.transactionCount}</strong>
+    </div>
+    <div class="summary-card">
+      <span>TOTAL RECORDED COST</span>
+      <strong>${escapeHTML(peso(totals.totalCost))}</strong>
+    </div>
+    <div class="summary-card">
+      <span>GROSS PROFIT FROM RECORDED DATA</span>
+      <strong>${escapeHTML(peso(totals.grossProfit))}</strong>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date &amp; Time</th>
+          <th>Invoice No.</th>
+          <th>Transaction ID</th>
+          <th>Customer</th>
+          <th>Payment</th>
+          <th class="number">Sale Total</th>
+          <th class="number">Total Cost</th>
+          <th class="number">Gross Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${tableRows || '<tr><td colspan="8">No matching sales records.</td></tr>'}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="report-notes">
+    <strong>Report notes</strong><br>
+    Total cost is calculated from available recorded cost data.
+    Gross profit is shown only when a sale has recorded or calculable profit data.<br>
+    Sales without recorded cost: ${costMissing}.<br>
+    Sales without recorded profit: ${profitMissing}.<br>
+    Report totals include only the records with available cost/profit data.
+  </div>
+
+  <div class="footer">
+    ${escapeHTML(businessName)} · Kayah Business Management · Sales records are read-only.
+  </div>
+</body>
+</html>`;
+}
+
+function printSalesHistory() {
+  if (loading) {
+    showNotice("Please wait until the sales records finish loading.", "info");
+    return;
+  }
+
+  if (!visibleSales.length) {
+    showNotice("There are no matching sales records to print.", "info");
+    return;
+  }
+
+  const reportWindow = window.open("", "_blank");
+
+  if (!reportWindow) {
+    showNotice(
+      "Your browser blocked the print report. Allow pop-ups for this page, then try again.",
+      "error"
+    );
+    return;
+  }
+
+  reportWindow.document.open();
+  reportWindow.document.write(getSalesReportHTML());
+  reportWindow.document.close();
+
+  reportWindow.onload = () => {
+    reportWindow.focus();
+    reportWindow.print();
+  };
+}
+
+function downloadSalesHistoryPDF() {
+  if (loading) {
+    showNotice("Please wait until the sales records finish loading.", "info");
+    return;
+  }
+
+  if (!visibleSales.length) {
+    showNotice("There are no matching sales records to download.", "info");
+    return;
+  }
+
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    showNotice(
+      "The PDF library could not load. Check your internet connection and reload the page.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation:"landscape",
+      unit:"mm",
+      format:"a4"
+    });
+
+    if (typeof doc.autoTable !== "function") {
+      showNotice(
+        "The PDF table library could not load. Check your internet connection and reload the page.",
+        "error"
+      );
+      return;
+    }
+
+    const totals = getSalesReportTotals(visibleSales);
+    const rows = getSalesReportRows();
+    const businessName = String(
+      businessInfo.businessName || businessInfo.storeName || "Kayah"
+    );
+    const generatedAt = new Date().toLocaleString("en-PH");
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 10;
+
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(19);
+    doc.setTextColor(11,79,58);
+    doc.text(businessName, margin, 15);
+
+    doc.setFontSize(13);
+    doc.setTextColor(32,53,43);
+    doc.text("Sales History Report", margin, 23);
+
+    doc.setFont("helvetica","normal");
+    doc.setFontSize(9);
+    doc.setTextColor(90,105,95);
+    doc.text(`Period: ${getSalesReportPeriod()}`, margin, 30);
+    doc.text(`Generated: ${generatedAt}`, margin, 35);
+    doc.text(`Transactions: ${totals.transactionCount}`, pageWidth - margin, 30, {
+      align:"right"
+    });
+
+    const summaryY = 42;
+    const summaryGap = 4;
+    const summaryWidth = (pageWidth - margin * 2 - summaryGap * 3) / 4;
+    const summaries = [
+      ["TOTAL SALES",peso(totals.totalSales)],
+      ["TRANSACTIONS",String(totals.transactionCount)],
+      ["TOTAL RECORDED COST",peso(totals.totalCost)],
+      ["RECORDED GROSS PROFIT",peso(totals.grossProfit)]
+    ];
+
+    summaries.forEach((item,index) => {
+      const x = margin + index * (summaryWidth + summaryGap);
+
+      doc.setDrawColor(220,229,222);
+      doc.setFillColor(247,250,247);
+      doc.roundedRect(x,summaryY,summaryWidth,15,2,2,"FD");
+
+      doc.setFont("helvetica","bold");
+      doc.setFontSize(7);
+      doc.setTextColor(90,105,95);
+      doc.text(item[0],x+3,summaryY+5);
+
+      doc.setFontSize(10);
+      doc.setTextColor(11,79,58);
+      doc.text(item[1],x+3,summaryY+11);
+    });
+
+    doc.autoTable({
+      startY:61,
+      head:[[
+        "Date & Time",
+        "Invoice No.",
+        "Transaction ID",
+        "Customer",
+        "Payment",
+        "Sale Total",
+        "Total Cost",
+        "Gross Profit"
+      ]],
+      body:rows.map(row => [
+        row.date,
+        row.invoice,
+        row.transaction,
+        row.customer,
+        row.payment,
+        row.total,
+        row.cost,
+        row.profit
+      ]),
+      theme:"grid",
+      margin:{left:margin,right:margin},
+      styles:{
+        font:"helvetica",
+        fontSize:7,
+        cellPadding:2.2,
+        overflow:"linebreak",
+        textColor:[32,53,43],
+        lineColor:[225,233,227],
+        lineWidth:0.15
+      },
+      headStyles:{
+        fillColor:[234,243,237],
+        textColor:[49,87,68],
+        fontStyle:"bold"
+      },
+      alternateRowStyles:{
+        fillColor:[250,252,250]
+      },
+      columnStyles:{
+        0:{cellWidth:31},
+        1:{cellWidth:29},
+        2:{cellWidth:32},
+        3:{cellWidth:35},
+        4:{cellWidth:24},
+        5:{cellWidth:25,halign:"right"},
+        6:{cellWidth:25,halign:"right"},
+        7:{cellWidth:25,halign:"right"}
+      },
+      didDrawPage:function() {
+        const pageCount = doc.internal.getNumberOfPages();
+        const currentPage = doc.internal.getCurrentPageInfo().pageNumber;
+
+        doc.setFontSize(7);
+        doc.setTextColor(110,125,115);
+        doc.text(
+          `${businessName} · Kayah Sales Report`,
+          margin,
+          doc.internal.pageSize.getHeight() - 5
+        );
+        doc.text(
+          `Page ${currentPage} of ${pageCount}`,
+          pageWidth - margin,
+          doc.internal.pageSize.getHeight() - 5,
+          {align:"right"}
+        );
+      }
+    });
+
+    let finalY = doc.lastAutoTable.finalY + 8;
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    if (finalY > pageHeight - 25) {
+      doc.addPage();
+      finalY = 18;
+    }
+
+    const costMissing = totals.transactionCount - totals.costRecords;
+    const profitMissing = totals.transactionCount - totals.profitRecords;
+
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(9);
+    doc.setTextColor(11,79,58);
+    doc.text("Report notes",margin,finalY);
+
+    doc.setFont("helvetica","normal");
+    doc.setFontSize(8);
+    doc.setTextColor(65,80,70);
+    doc.text(
+      `Sales without recorded cost: ${costMissing}. Sales without recorded profit: ${profitMissing}.`,
+      margin,
+      finalY + 5
+    );
+    doc.text(
+      "Cost and gross profit totals include only records with available cost/profit data.",
+      margin,
+      finalY + 10
+    );
+
+    const safeName = businessName
+      .replace(/[^a-z0-9_-]+/gi,"_")
+      .replace(/^_+|_+$/g,"") || "Kayah";
+
+    doc.save(`${safeName}_Sales_History_${dateString()}.pdf`);
+
+    showNotice("Sales History PDF downloaded successfully.", "success");
+
+  } catch (error) {
+    console.error("Sales PDF error:",error);
+    showNotice(
+      "Unable to generate the PDF. Please reload the page and try again.",
+      "error"
+    );
+  }
+}
+
 /* CUSTOMER INVOICE
    Deliberately excludes cost prices, total cost, gross profit,
    and internal Firebase document IDs.
@@ -2049,8 +2574,8 @@ function receiptMarkup(sale) {
 
     ${sale.notes
       ? `<div class="invoice-payment">
-           <strong>Notes:</strong> ${escapeHTML(sale.notes)}
-         </div>`
+          <strong>Notes:</strong> ${escapeHTML(sale.notes)}
+        </div>`
       : ""}
 
     <div class="receipt-thanks">
@@ -2103,6 +2628,10 @@ $("clearFiltersBtn").addEventListener("click",() => {
 });
 
 $("refreshBtn").addEventListener("click",loadSales);
+
+/* Added report buttons; existing invoice buttons are unchanged. */
+$("printSalesHistoryBtn").addEventListener("click",printSalesHistory);
+$("downloadSalesPdfBtn").addEventListener("click",downloadSalesHistoryPDF);
 
 $("salesTableBody").addEventListener("click",event => {
   const button = event.target.closest("[data-view-sale]");
