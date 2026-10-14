@@ -3,1020 +3,1350 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B4F3A">
 <title>Expenses - Kayah</title>
 
 <style>
-    
-    
-/* ===== IMPROVED READABILITY ===== */
-
-body {
-  font-size: 16px;
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-/* Main page headings */
-h1 {
-  font-size: 25px;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: 21px;
-  font-weight: 800;
-}
-
-h3 {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-/* Business name and header */
-.business-name {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-/* Summary cards */
-.summary-label,
-.stat-label {
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.summary-value,
-.stat-value {
-  font-size: 22px;
-  font-weight: 800;
-}
-
-/* Colored tabs */
-.tab {
-  font-size: 14px;
-  font-weight: 800;
-  padding: 13px 16px;
-  min-height: 46px;
-}
-
-/* Form labels */
-label {
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.5;
-}
-
-/* Input fields and dropdowns */
-input,
-select,
-textarea {
-  font-size: 16px;
-  font-weight: 600;
-  min-height: 46px;
-  padding: 12px;
-}
-
-/* Buttons */
-button {
-  font-weight: 800;
-}
-
-.primary-btn,
-.submit-btn,
-.action-btn {
-  font-size: 16px;
-  min-height: 46px;
-}
-
-/* Table headings and records */
-th {
-  font-size: 13px;
-  font-weight: 800;
-}
-
-td {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-}
-
-/* Helper text and dates */
-small,
-.muted,
-.helper-text {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* Mobile readability */
-@media (max-width: 600px) {
-  body {
-    font-size: 16px;
-  }
-
-  h1 {
-    font-size: 23px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  .tab {
-    font-size: 14px;
-    padding: 13px 14px;
-  }
-
-  .summary-value,
-  .stat-value {
-    font-size: 20px;
-  }
-
-  input,
-  select,
-  textarea {
-    font-size: 16px;
-  }
-
-  th {
-    font-size: 13px;
-  }
-
-  td {
-    font-size: 14px;
-  }
-}
-    
-    
-    
-    
-:root{
-  --g:#0B4F3A;--g2:#16805C;--gold:#F2B84B;
-  --cream:#F7F3E8;--text:#20352D;--muted:#65766D;
-  --border:#DFE8E1;--red:#C53F45;--blue:#316BC1;
-  --shadow:0 7px 22px rgba(11,79,58,.075);
+:root {
+  --g:#0B4F3A;
+  --g2:#16805C;
+  --gold:#F2B84B;
+  --cream:#F7F3E8;
+  --text:#20352D;
+  --muted:#65766D;
+  --border:#DFE8E1;
+  --red:#C53F45;
+  --blue:#316BC1;
+  --purple:#6941A5;
+  --shadow:0 3px 12px rgba(11,79,58,.055);
 }
 *{box-sizing:border-box}
-
-
-body{margin:0;background:#F3F6F3;color:var(--text);
-font:600 14px/1.5 Arial,Helvetica,sans-serif}
+body{
+  margin:0;background:#F2F5F2;color:var(--text);
+  font:500 15px/1.45 Arial,Helvetica,sans-serif
+}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.page{max-width:1150px;margin:auto;padding:15px}
-.header{background:linear-gradient(120deg,#fff,#F5FAF6);
-border:1px solid var(--border);border-radius:18px;padding:15px;
-display:flex;align-items:center;justify-content:space-between;gap:12px;
-box-shadow:var(--shadow);margin-bottom:20px}
-.brand,.profile{display:flex;align-items:center;gap:10px;min-width:0}
-.brand-logo,.brand-fallback{width:45px;height:45px;border-radius:13px;
-object-fit:cover;background:var(--cream);flex-shrink:0}
-.brand-fallback{display:flex;align-items:center;justify-content:center;
-background:var(--g);color:#fff;font-size:21px;font-weight:900}
-.brand-name{color:var(--g);font-weight:900;font-size:17px;overflow-wrap:anywhere}
-.brand-sub,.profile-role{font-size:10px;color:var(--muted);margin-top:3px}
+.page{max-width:1150px;margin:auto;padding:10px}
+.header{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:10px 12px;box-shadow:var(--shadow);margin-bottom:12px
+}
+.brand,.profile{display:flex;align-items:center;gap:9px;min-width:0}
+.brand-logo,.brand-fallback{
+  width:39px;height:39px;border-radius:10px;object-fit:cover;
+  background:var(--g);color:#fff;flex-shrink:0
+}
+.brand-fallback{
+  display:flex;align-items:center;justify-content:center;
+  font-size:21px;font-weight:900
+}
+.brand-name{color:var(--g);font-size:16px;font-weight:900}
+.brand-sub,.profile-role{font-size:11px;color:var(--muted)}
 .profile{text-align:right}
-.profile-avatar,.profile-initial{width:37px;height:37px;border-radius:50%;
-object-fit:cover;background:#E5F0E9;flex-shrink:0}
-.profile-initial{display:flex;align-items:center;justify-content:center;color:var(--g)}
-.profile-name{font-size:12px;font-weight:900;max-width:140px;overflow:hidden;
-text-overflow:ellipsis;white-space:nowrap}
-.page-heading{display:flex;justify-content:space-between;align-items:flex-end;
-gap:12px;flex-wrap:wrap;margin:0 2px 16px}
-.page-title{margin:0;color:var(--g);font-size:25px;font-weight:900}
-.page-description{margin:5px 0 0;color:var(--muted);font-size:12px}
-.page-tag{background:#E4F3EA;color:var(--g);border:1px solid #CDE6D5;
-border-radius:25px;padding:7px 11px;font-size:10px;font-weight:900}
-.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-gap:12px;margin-bottom:19px}
-.summary-card{position:relative;background:white;border:1px solid var(--border);
-border-radius:15px;padding:14px;overflow:hidden;box-shadow:0 4px 13px #0B4F3A0B}
-.summary-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--g2)}
+.profile-name{
+  font-size:12px;font-weight:800;max-width:135px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.profile-initial{
+  width:33px;height:33px;border-radius:50%;background:#E5F0E9;color:var(--g);
+  display:flex;align-items:center;justify-content:center;font-weight:900
+}
+.page-heading{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:8px;flex-wrap:wrap;margin:3px 0 12px
+}
+.page-title{margin:0;color:var(--g);font-size:23px;font-weight:900}
+.page-description{margin:3px 0 0;color:var(--muted);font-size:13px}
+.page-tag{
+  background:#E4F3EA;color:var(--g);border:1px solid #CDE6D5;
+  border-radius:20px;padding:5px 9px;font-size:11px;font-weight:900
+}
+.summary-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;margin-bottom:12px
+}
+.summary-card{
+  position:relative;background:#fff;border:1px solid var(--border);
+  border-radius:11px;padding:10px 10px 9px 13px;overflow:hidden;
+  box-shadow:var(--shadow);min-width:0
+}
+.summary-card:before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g2)
+}
 .summary-card.gold:before{background:var(--gold)}
 .summary-card.blue:before{background:var(--blue)}
 .summary-card.red:before{background:var(--red)}
-.summary-label{font-size:10px;color:#596B60;font-weight:900;text-transform:uppercase}
-.summary-value{font-size:clamp(16px,2vw,21px);font-weight:900;color:var(--g);
-margin-top:9px;overflow-wrap:anywhere}
-.summary-note{font-size:10px;color:var(--muted);margin-top:4px}
-.tabs-shell{background:#E9EFEB;border:1px solid #DCE6DE;border-radius:14px;
-padding:7px;margin-bottom:13px}
-.tabs{display:flex;gap:7px;overflow-x:auto;padding:1px 1px 4px}
-.tab{border:1px solid transparent;border-radius:10px;padding:10px 12px;
-white-space:nowrap;font-size:11px;font-weight:900;flex-shrink:0}
-.tab[data-tab="purchasePanel"]{background:#DCEFE3;color:#0B4F3A;border-color:#B9DCC5}
-.tab[data-tab="recentPanel"]{background:#D9F2E6;color:#13734E;border-color:#B7E3CE}
-.tab[data-tab="expenseOnlyPanel"]{background:#F0E7FF;color:#6941A5;border-color:#D8C7F5}
-.tab[data-tab="operatingPanel"]{background:#E4EDFF;color:#2859A4;border-color:#C8D9FC}
-.tab[data-tab="paymentPanel"]{background:#FFF0C8;color:#805B0D;border-color:#F1D88D}
-.tab[data-tab="historyPanel"]{background:#E7EAEF;color:#48576A;border-color:#D4DAE2}
+.summary-label{
+  font-size:10px;color:#596B60;font-weight:900;text-transform:uppercase;
+  letter-spacing:.25px
+}
+.summary-value{
+  font-size:20px;font-weight:900;color:var(--g);margin-top:4px;
+  overflow-wrap:anywhere;line-height:1.25
+}
+.summary-note{font-size:10px;color:var(--muted);margin-top:3px}
+.tabs-shell{
+  background:#E7ECE8;border:1px solid #DCE6DE;border-radius:12px;
+  padding:6px;margin-bottom:10px
+}
+.tabs{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px
+}
+.tab{
+  border:1px solid transparent;border-radius:8px;padding:9px 6px;
+  white-space:normal;text-align:center;font-size:12px;font-weight:900;
+  line-height:1.25;min-height:39px;overflow-wrap:anywhere
+}
+.tab[data-tab="purchasePanel"]{background:#DCEFE3;color:var(--g)}
+.tab[data-tab="recentPanel"]{background:#D9F2E6;color:#13734E}
+.tab[data-tab="expenseOnlyPanel"]{background:#F0E7FF;color:var(--purple)}
+.tab[data-tab="operatingPanel"]{background:#E4EDFF;color:#2859A4}
+.tab[data-tab="paymentPanel"]{background:#FFF0C8;color:#805B0D}
+.tab[data-tab="historyPanel"]{background:#E7EAEF;color:#48576A}
 .tab[data-tab="purchasePanel"].active{background:var(--g);color:#fff}
 .tab[data-tab="recentPanel"].active{background:var(--g2);color:#fff}
-.tab[data-tab="expenseOnlyPanel"].active{background:#6941A5;color:#fff}
+.tab[data-tab="expenseOnlyPanel"].active{background:var(--purple);color:#fff}
 .tab[data-tab="operatingPanel"].active{background:var(--blue);color:#fff}
 .tab[data-tab="paymentPanel"].active{background:#DDAA35;color:#382A0B}
 .tab[data-tab="historyPanel"].active{background:#526579;color:#fff}
-.panel{display:none;background:white;border:1px solid var(--border);
-border-radius:17px;padding:20px;box-shadow:var(--shadow);margin-bottom:15px}
+.panel{
+  display:none;background:#fff;border:1px solid var(--border);
+  border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-bottom:12px
+}
 .panel.active{display:block}
-.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;
-gap:10px;flex-wrap:wrap;margin-bottom:17px}
-.panel-heading h2{margin:0;color:var(--g);font-size:17px;font-weight:900}
-.panel-heading p{margin:5px 0 0;font-size:11px;color:var(--muted);line-height:1.6}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.field{min-width:0}.field.full{grid-column:1/-1}
-label{display:block;font-size:12px;font-weight:900;color:#344A3E;margin-bottom:7px}
-input,select,textarea{width:100%;padding:11px;border:1px solid #D7E2D9;
-border-radius:10px;background:#fff;color:var(--text);outline:none;
-min-height:43px;font-size:13px;font-weight:600}
-input:focus,select:focus,textarea:focus{border-color:var(--g2);
-box-shadow:0 0 0 3px #16805C18}
-input::placeholder,textarea::placeholder{color:#98A49C}
-textarea{min-height:80px;resize:vertical}
-.help{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.5}
-.btn{border:0;border-radius:10px;padding:12px 15px;font-size:12px;
-font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-.btn-primary{background:var(--g);color:white}
+.panel-heading{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:8px;flex-wrap:wrap;margin-bottom:11px
+}
+.panel-heading h2{margin:0;color:var(--g);font-size:18px;font-weight:900}
+.panel-heading p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.form-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px
+}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+label{
+  display:block;font-size:13px;font-weight:800;color:#344A3E;margin-bottom:5px
+}
+input,select,textarea{
+  width:100%;padding:10px;border:1px solid #D7E2D9;border-radius:8px;
+  background:#fff;color:var(--text);outline:none;min-height:42px;
+  font-size:15px;font-weight:500
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--g2);box-shadow:0 0 0 2px #16805C18
+}
+textarea{min-height:68px;resize:vertical}
+.help{font-size:11px;color:var(--muted);margin-top:4px}
+.btn{
+  border:0;border-radius:8px;padding:10px 13px;font-size:13px;
+  font-weight:900;display:inline-flex;align-items:center;justify-content:center;
+  gap:6px;min-height:41px
+}
+.btn-primary{background:var(--g);color:#fff}
 .btn-primary:hover{background:var(--g2)}
 .btn-gold{background:var(--gold);color:#392B0C}
 .btn-light{background:#EAF2EC;color:var(--g);border:1px solid #D9E7DC}
 .btn-danger{background:#FCEBEC;color:var(--red)}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
-.status-message{font-size:12px;margin-top:11px;line-height:1.6;font-weight:800}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.form-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.status-message{
+  font-size:13px;margin-top:9px;line-height:1.5;font-weight:700;
+  overflow-wrap:anywhere
+}
+.status-message:empty{display:none}
 .status-message.error{color:var(--red)}
 .status-message.success{color:var(--g)}
-.notice{background:#FFF8E6;border:1px solid #F1DEAA;color:#765817;
-padding:12px;border-radius:11px;font-size:11px;line-height:1.6;margin-bottom:15px}
-.notice.purple{background:#F5F0FF;border-color:#E2D4FC;color:#6941A5}
-.item-line{display:grid;grid-template-columns:minmax(0,2fr) minmax(65px,.8fr)
-minmax(80px,1fr) 38px;gap:8px;align-items:end;margin-bottom:10px;
-padding:11px;background:#F8FAF8;border:1px solid #E7EEE8;border-radius:12px}
-.remove-item{width:37px;height:43px;border:0;border-radius:10px;
-background:#FDEBEC;color:var(--red);font-size:20px;font-weight:900}
-.small-total{display:flex;justify-content:space-between;gap:10px;
-background:#EAF4ED;padding:14px;border-radius:11px;margin-top:12px;
-font-size:12px;font-weight:900}
-.small-total strong{font-size:17px;color:var(--g)}
-.table-tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:13px}
-.table-tools input{flex:1;min-width:150px}
-.table-tools select{max-width:190px}
-.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
-table{width:100%;border-collapse:collapse;min-width:650px;background:white}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #EAF0EB;
-font-size:12px;vertical-align:middle}
-th{background:#F0F5F1;color:#40574A;font-weight:900;white-space:nowrap;
-text-transform:uppercase;letter-spacing:.2px;font-size:10px}
-td{font-weight:600}
+.notice{
+  background:#FFF8E6;border:1px solid #F1DEAA;color:#765817;
+  padding:9px 11px;border-radius:8px;font-size:12px;line-height:1.5;margin-bottom:11px
+}
+.notice.purple{background:#F5F0FF;border-color:#E2D4FC;color:var(--purple)}
+.item-line{
+  display:grid;grid-template-columns:minmax(0,2fr) minmax(65px,.7fr)
+  minmax(85px,1fr) 35px;gap:6px;align-items:end;margin-bottom:8px;
+  padding:8px;background:#F7F9F7;border:1px solid #E7EEE8;border-radius:9px
+}
+.remove-item{
+  width:35px;height:42px;border:0;border-radius:8px;background:#FDEBEC;
+  color:var(--red);font-size:21px;font-weight:900
+}
+.small-total{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  background:#EAF4ED;padding:10px 12px;border-radius:8px;margin-top:8px;
+  font-size:13px;font-weight:900
+}
+.small-total strong{font-size:17px;color:var(--g);text-align:right}
+.table-tools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.table-tools input{flex:1;min-width:130px}
+.table-tools select{max-width:220px}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:9px}
+table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}
+th,td{
+  padding:9px;text-align:left;border-bottom:1px solid #EAF0EB;
+  font-size:12px;vertical-align:middle
+}
+th{
+  background:#F0F5F1;color:#40574A;font-weight:900;white-space:nowrap;
+  text-transform:uppercase;font-size:10px;letter-spacing:.2px
+}
 tbody tr:last-child td{border-bottom:0}
 tbody tr.clickable{cursor:pointer}
 tbody tr.clickable:hover{background:#F2F8F3}
 .amount{font-weight:900;color:var(--g);white-space:nowrap}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;
-font-size:10px;font-weight:900;white-space:nowrap}
+.badge{
+  display:inline-block;padding:4px 7px;border-radius:16px;
+  font-size:10px;font-weight:900;white-space:nowrap
+}
 .badge-paid{background:#E0F4E7;color:#17653B}
 .badge-pending{background:#FFF2D3;color:#8A6310}
 .badge-unpaid{background:#FDE8E8;color:#AC3038}
 .badge-info{background:#E9F0FF;color:#315DA5}
 .badge-purple{background:#F0E7FF;color:#6941A5}
-.empty,.loading{padding:25px;text-align:center;color:var(--muted);font-size:12px}
-.modal-overlay{display:none;position:fixed;inset:0;background:#0D231DA8;
-z-index:9999;align-items:center;justify-content:center;padding:14px;overflow:auto}
-.modal-overlay.show{display:flex}
-.invoice-modal{width:100%;max-width:720px;max-height:92vh;overflow:auto;
-background:white;border-radius:17px;box-shadow:0 20px 70px #0003}
-.modal-head{display:flex;justify-content:space-between;align-items:center;
-padding:15px 17px;background:var(--g);color:white;position:sticky;top:0;z-index:2}
-.modal-head h2{margin:0;font-size:16px}
-.close-modal{width:34px;height:34px;border:0;border-radius:9px;
-background:#FFFFFF25;color:white;font-size:22px}
-.invoice-content{padding:22px}
-.invoice-brand{display:flex;align-items:center;gap:12px;padding-bottom:15px;
-border-bottom:2px solid var(--g);margin-bottom:16px}
-.invoice-logo{width:50px;height:50px;border-radius:12px;object-fit:cover}
-.invoice-brand h3{margin:0;color:var(--g);font-size:19px}
-.invoice-title-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
-.invoice-title-row h2{margin:0;color:var(--g);font-size:21px}
-.invoice-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:15px}
-.invoice-info-card{background:#F2F7F3;border:1px solid #E3ECE5;border-radius:10px;padding:12px}
-.invoice-info-card .label{font-size:10px;color:var(--muted);margin-bottom:5px}
-.invoice-info-card .value{font-size:12px;font-weight:900;overflow-wrap:anywhere}
-.invoice-table{min-width:0}
-.invoice-totals{width:100%;max-width:310px;margin:16px 0 0 auto}
-.invoice-total-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;
-border-bottom:1px solid #EDF1ED;font-size:12px}
-.invoice-total-row.grand{border-top:2px solid var(--g);border-bottom:0;
-margin-top:5px;padding-top:12px;font-size:15px;font-weight:900;color:var(--g)}
-.invoice-notes{margin-top:17px;padding:12px;background:#FFF9E9;border-radius:9px;
-font-size:11px;line-height:1.6;overflow-wrap:anywhere}
-.invoice-footer{text-align:center;color:var(--muted);font-size:10px;margin-top:20px}
-.modal-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;
-padding:13px 17px;border-top:1px solid var(--border);position:sticky;bottom:0;background:white}
+.empty,.loading{padding:20px;text-align:center;color:var(--muted);font-size:12px}
 @media(max-width:700px){
-.page{padding:10px}.header{padding:11px;border-radius:14px}
-.brand-logo,.brand-fallback{width:39px;height:39px}.brand-name{font-size:14px}
-.profile-name{max-width:85px;font-size:11px}.profile-avatar,.profile-initial{width:33px;height:33px}
-.page-title{font-size:22px}.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.summary-card{padding:12px}.summary-value{font-size:17px}
-.tab{padding:10px;font-size:10px}.panel{padding:13px}
-.form-grid{grid-template-columns:1fr;gap:12px}.field.full{grid-column:auto}
-.item-line{grid-template-columns:minmax(0,1.6fr) minmax(50px,.7fr) minmax(70px,1fr) 30px;gap:5px;padding:8px}
-.item-line label{font-size:10px}.item-line input,.item-line select{padding:8px 5px;font-size:11px}
-.remove-item{width:29px}.invoice-content{padding:14px}
+  .page{padding:8px}
+  .header{padding:9px;margin-bottom:10px}
+  .brand-logo,.brand-fallback{width:35px;height:35px}
+  .brand-name{font-size:14px}
+  .profile-name{max-width:90px;font-size:11px}
+  .page-title{font-size:21px}
+  .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .summary-card{padding:9px 8px 8px 11px}
+  .summary-value{font-size:18px}
+  .summary-note{font-size:10px}
+  .tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+  .tab{min-height:38px;font-size:12px;padding:8px 5px}
+  .panel{padding:11px}
+  .form-grid{grid-template-columns:1fr;gap:9px}
+  .field.full{grid-column:auto}
+  .item-line{
+    grid-template-columns:minmax(0,1.5fr) minmax(54px,.7fr)
+    minmax(70px,1fr) 30px;gap:4px;padding:6px
+  }
+  .item-line label{font-size:10px}
+  .item-line input,.item-line select{padding:7px 4px;font-size:13px;min-height:39px}
+  .remove-item{width:30px;height:39px}
+  .table-tools select{max-width:none;width:100%}
+  .form-actions .btn{flex:1}
 }
-@media print{
-body *{visibility:hidden!important}
-#invoiceContent,#invoiceContent *{visibility:visible!important}
-#invoiceContent{position:absolute;left:0;top:0;width:100%;padding:10px;color:#000;background:white}
-.invoice-content{padding:0}
-@page{size:auto;margin:12mm}
+@media(min-width:701px){
+  .tabs{grid-template-columns:repeat(6,minmax(0,1fr))}
 }
 </style>
 </head>
 
 <body>
 <div class="page">
-<header class="header">
-  <div class="brand">
-    <img id="businessLogo" class="brand-logo" alt="Business logo" hidden>
-    <div id="businessLogoFallback" class="brand-fallback">K</div>
-    <div>
-      <div id="businessName" class="brand-name">Kayah Business</div>
-      <div class="brand-sub">Business management</div>
-    </div>
-  </div>
-  <div class="profile">
-    <img id="profileAvatar" class="profile-avatar" alt="Profile photo" hidden>
-    <div id="profileInitial" class="profile-initial">U</div>
-    <div>
-      <div id="profileName" class="profile-name">Loading profile...</div>
-      <div id="profileRole" class="profile-role">Business account</div>
-    </div>
-  </div>
-</header>
-
-<div class="page-heading">
-  <div>
-    <h1 class="page-title">Expenses</h1>
-    <p class="page-description">Manage purchases, invoices, operating costs and supplier payments.</p>
-  </div>
-  <div class="page-tag">● FINANCIAL RECORDS</div>
-</div>
-
-<section class="summary-grid">
-  <div class="summary-card">
-    <div class="summary-label">Total Expenses</div>
-    <div class="summary-value" id="sumExpenses">₱0.00</div>
-    <div class="summary-note">Purchases + operating costs</div>
-  </div>
-  <div class="summary-card gold">
-    <div class="summary-label">Stock Purchases</div>
-    <div class="summary-value" id="sumPurchases">₱0.00</div>
-    <div class="summary-note">Recorded purchase invoices</div>
-  </div>
-  <div class="summary-card blue">
-    <div class="summary-label">Operating Costs</div>
-    <div class="summary-value" id="sumOperating">₱0.00</div>
-    <div class="summary-note">Day-to-day expenses</div>
-  </div>
-  <div class="summary-card red">
-    <div class="summary-label">Supplier Balance</div>
-    <div class="summary-value" id="sumBalance">₱0.00</div>
-    <div class="summary-note">Outstanding purchases</div>
-  </div>
-</section>
-
-<div class="tabs-shell">
-  <div class="tabs" role="tablist">
-    <button class="tab active" data-tab="purchasePanel">＋ Stock Purchase</button>
-    <button class="tab" data-tab="recentPanel">📦 Recent Purchases</button>
-    <button class="tab" data-tab="expenseOnlyPanel">🧾 Record Expense Only</button>
-    <button class="tab" data-tab="operatingPanel">🔧 Operating Expense</button>
-    <button class="tab" data-tab="paymentPanel">💳 Supplier Payment</button>
-    <button class="tab" data-tab="historyPanel">📋 Expense History</button>
-  </div>
-</div>
-
-<section id="purchasePanel" class="panel active">
-  <div class="panel-heading">
-    <div>
-      <h2>Record Stock Purchase</h2>
-      <p>Use this only when the purchased quantity still needs to be added to inventory.</p>
-    </div>
-  </div>
-  <div class="notice">Saving a stock purchase increases inventory. If you already entered the same stock manually in POS, use Record Expense Only instead.</div>
-
-  <form id="purchaseForm">
-    <div class="form-grid">
-      <div class="field">
-        <label for="purchaseDate">Purchase Date</label>
-        <input id="purchaseDate" type="date" required>
-      </div>
-      <div class="field">
-        <label for="purchaseInvoice">Invoice / Reference Number</label>
-        <input id="purchaseInvoice" placeholder="Enter invoice number">
-      </div>
-      <div class="field">
-        <label for="purchaseSupplier">Supplier</label>
-        <select id="purchaseSupplier"><option value="">Select supplier (optional)</option></select>
-      </div>
-      <div class="field">
-        <label for="supplierNameManual">Supplier Name (if not listed)</label>
-        <input id="supplierNameManual" placeholder="Enter supplier name">
+  <header class="header">
+    <div class="brand">
+      <img id="businessLogo" class="brand-logo" alt="Business logo" hidden>
+      <div id="businessLogoFallback" class="brand-fallback">K</div>
+      <div>
+        <div id="businessName" class="brand-name">Kayah Business</div>
+        <div class="brand-sub">Expenses &amp; supplier accounts</div>
       </div>
     </div>
-
-    <div style="margin-top:20px">
-      <div class="panel-heading">
-        <div><h2 style="font-size:14px">Purchased Items</h2><p>Choose an existing product or material.</p></div>
-        <button class="btn btn-light" type="button" id="addItemBtn">＋ Add Item</button>
+    <div class="profile">
+      <div>
+        <div id="profileName" class="profile-name">Loading profile...</div>
+        <div id="profileRole" class="profile-role">Business account</div>
       </div>
-      <div id="purchaseItems"></div>
+      <div id="profileInitial" class="profile-initial">U</div>
     </div>
+  </header>
 
-    <div class="form-grid" style="margin-top:16px">
-      <div class="field">
-        <label for="purchasePaymentMethod">Payment Method</label>
-        <select id="purchasePaymentMethod">
-          <option>Cash</option><option>GCash</option><option>Maya</option>
-          <option>Bank Transfer</option><option>Credit</option><option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="purchaseAmountPaid">Amount Paid (₱)</label>
-        <input id="purchaseAmountPaid" type="number" min="0" step="0.01" value="0">
-      </div>
-      <div class="field full">
-        <label for="purchaseNotes">Notes</label>
-        <textarea id="purchaseNotes" placeholder="Optional purchase notes"></textarea>
-      </div>
+  
+
+  <section class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label">Total Expenses</div>
+      <div class="summary-value" id="sumExpenses">₱0.00</div>
+      <div class="summary-note">Purchases + operating costs</div>
     </div>
-
-    <div class="small-total"><span>Purchase Total</span><strong id="purchaseTotalDisplay">₱0.00</strong></div>
-    <div class="small-total" style="background:#FFF8E6"><span>Outstanding Balance</span><strong id="purchaseBalanceDisplay">₱0.00</strong></div>
-    <div class="form-actions">
-      <button id="savePurchaseBtn" class="btn btn-primary" type="submit">Save Purchase &amp; Update Stock</button>
-      <button class="btn btn-light" type="reset">Clear Form</button>
+    <div class="summary-card gold">
+      <div class="summary-label">Stock Purchases</div>
+      <div class="summary-value" id="sumPurchases">₱0.00</div>
+      <div class="summary-note">Purchase invoices</div>
     </div>
-    <div id="purchaseMessage" class="status-message"></div>
-  </form>
-</section>
+    <div class="summary-card blue">
+      <div class="summary-label">Operating Costs</div>
+      <div class="summary-value" id="sumOperating">₱0.00</div>
+      <div class="summary-note">Day-to-day expenses</div>
+    </div>
+    <div class="summary-card red">
+      <div class="summary-label">Supplier Balance</div>
+      <div class="summary-value" id="sumBalance">₱0.00</div>
+      <div class="summary-note">Outstanding purchases</div>
+    </div>
+  </section>
 
-<section id="recentPanel" class="panel">
-  <div class="panel-heading"><div><h2>Recent Purchases</h2><p>Open a saved purchase to view and print its invoice record.</p></div></div>
-  <div class="table-tools"><input id="purchaseSearch" placeholder="Search invoice, supplier or item..."></div>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Invoice / Date</th><th>Supplier</th><th>Items</th><th>Total</th><th>Balance</th><th>Status</th></tr></thead>
-    <tbody id="recentPurchaseRows"><tr><td colspan="6" class="empty">Loading purchases...</td></tr></tbody>
-  </table></div>
-  <p class="help">Viewing an invoice never changes inventory.</p>
-</section>
+  <div id="pageMessage" class="status-message"></div>
 
-<section id="expenseOnlyPanel" class="panel">
-  <div class="panel-heading">
-    <div>
-      <h2>Record Expense Only</h2>
-      <p>Use this when stock is already in your POS, or when recording a cost that must not change inventory.</p>
+  <div class="tabs-shell">
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="purchasePanel">＋ Stock Purchase</button>
+      <button type="button" class="tab" data-tab="recentPanel">📦 Recent Purchases</button>
+      <button type="button" class="tab" data-tab="expenseOnlyPanel">+ Record Invoice Only</button>
+      <button type="button" class="tab" data-tab="operatingPanel">🔧 Operating Expense</button>
+      <button type="button" class="tab" data-tab="paymentPanel">💳 Supplier Payment</button>
+      <button type="button" class="tab" data-tab="historyPanel">📋 Expense History</button>
     </div>
   </div>
-  <div class="notice purple"><strong>No stock will be added or changed.</strong> This form saves an expense and its invoice details only. Use it for purchases already entered in POS.</div>
 
-  <form id="expenseOnlyForm">
-    <div class="form-grid">
-      <div class="field">
-        <label for="expenseOnlyDate">Invoice / Expense Date *</label>
-        <input id="expenseOnlyDate" type="date" required>
-      </div>
-      <div class="field">
-        <label for="expenseOnlyInvoice">Invoice / Receipt Number *</label>
-        <input id="expenseOnlyInvoice" placeholder="Enter invoice or receipt number" required>
-        <div class="help">Use the supplier's actual invoice number where available.</div>
-      </div>
-      <div class="field">
-        <label for="expenseOnlySupplier">Supplier Name *</label>
-        <input id="expenseOnlySupplier" placeholder="Supplier or store name" required>
-      </div>
-      <div class="field">
-        <label for="expenseOnlyAmount">Total Amount (₱) *</label>
-        <input id="expenseOnlyAmount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
-      </div>
-      <div class="field">
-        <label for="expenseOnlyMethod">Payment Method</label>
-        <select id="expenseOnlyMethod">
-          <option>Cash</option><option>GCash</option><option>Maya</option>
-          <option>Bank Transfer</option><option>Credit</option><option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="expenseOnlyPaid">Amount Paid (₱)</label>
-        <input id="expenseOnlyPaid" type="number" min="0" step="0.01" value="0" required>
-        <div class="help">Enter 0 if fully unpaid. The balance is calculated automatically.</div>
-      </div>
-      <div class="field full">
-        <label for="expenseOnlyItems">Items on Invoice *</label>
-        <textarea id="expenseOnlyItems" required placeholder="Example: Sugar 1 kg — ₱80&#10;Soft drinks 10 bottles — ₱200"></textarea>
-        <div class="help">Enter item names and quantities for your reference. This does not change inventory.</div>
-      </div>
-      <div class="field full">
-        <label for="expenseOnlyReceipt">Invoice / Receipt Photo (optional)</label>
-        <input id="expenseOnlyReceipt" type="file" accept="image/*,application/pdf">
-        <div class="help">You can attach a receipt photo or PDF. Image and PDF uploads require Firebase Storage access.</div>
-      </div>
-      <div class="field full">
-        <label for="expenseOnlyNotes">Notes (optional)</label>
-        <textarea id="expenseOnlyNotes" placeholder="Additional purchase details"></textarea>
+  <section id="purchasePanel" class="panel active">
+    <div class="panel-heading">
+      <div>
+        <h2>Record Stock Purchase</h2>
+        <p>Add purchased stock to your inventory.</p>
       </div>
     </div>
-    <div class="small-total"><span>Invoice Total</span><strong id="expenseOnlyTotal">₱0.00</strong></div>
-    <div class="small-total" style="background:#FFF8E6"><span>Outstanding Balance</span><strong id="expenseOnlyBalance">₱0.00</strong></div>
-    <div class="form-actions">
-      <button id="saveExpenseOnlyBtn" class="btn btn-primary" type="submit">Save Expense &amp; Invoice Only</button>
-      <button class="btn btn-light" type="reset">Clear Form</button>
-    </div>
-    <div id="expenseOnlyMessage" class="status-message"></div>
-  </form>
-</section>
-
-<section id="operatingPanel" class="panel">
-  <div class="panel-heading"><div><h2>Record Operating Expense</h2><p>Record rent, electricity, transportation and other business costs.</p></div></div>
-  <form id="operatingForm">
-    <div class="form-grid">
-      <div class="field"><label for="operatingDate">Expense Date</label><input id="operatingDate" type="date" required></div>
-      <div class="field"><label for="operatingCategory">Category</label>
-        <select id="operatingCategory" required>
-          <option value="">Select category</option>
-          <option>Rent</option><option>Electricity</option><option>Water</option><option>Internet</option>
-          <option>Transportation</option><option>Packaging</option><option>Cleaning Supplies</option>
-          <option>Repairs &amp; Maintenance</option><option>Staff Expenses</option><option>Marketing</option>
-          <option>Office Supplies</option><option>Government Fees</option><option>Other</option>
-        </select>
+    <div class="notice">Saving a stock purchase increases inventory. If the stock is already recorded in POS, use Record Expense Only.</div>
+    <form id="purchaseForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="purchaseDate">Purchase Date</label>
+          <input id="purchaseDate" type="date" required>
+        </div>
+        <div class="field">
+          <label for="purchaseInvoice">Invoice / Reference Number</label>
+          <input id="purchaseInvoice" placeholder="Enter invoice number">
+        </div>
+        <div class="field">
+          <label for="purchaseSupplier">Supplier</label>
+          <select id="purchaseSupplier"><option value="">Select supplier (optional)</option></select>
+        </div>
+        <div class="field">
+          <label for="supplierNameManual">Supplier Name (if not listed)</label>
+          <input id="supplierNameManual" placeholder="Enter supplier name">
+        </div>
       </div>
-      <div class="field"><label for="operatingDescription">Description</label><input id="operatingDescription" required placeholder="What was the expense for?"></div>
-      <div class="field"><label for="operatingAmount">Amount (₱)</label><input id="operatingAmount" type="number" min="0.01" step="0.01" required></div>
-      <div class="field"><label for="operatingMethod">Payment Method</label>
-        <select id="operatingMethod"><option>Cash</option><option>GCash</option><option>Maya</option><option>Bank Transfer</option><option>Other</option></select>
+
+      <div style="margin-top:14px">
+        <div class="panel-heading">
+          <div>
+            <h2 style="font-size:16px">Purchased Items</h2>
+            <p>Choose an existing product or material.</p>
+          </div>
+          <button class="btn btn-light" type="button" id="addItemBtn">＋ Add Item</button>
+        </div>
+        <div id="purchaseItems"></div>
       </div>
-      <div class="field"><label for="operatingReference">Reference Number</label><input id="operatingReference" placeholder="Optional receipt reference"></div>
-      <div class="field full"><label for="operatingNotes">Notes</label><textarea id="operatingNotes" placeholder="Additional details"></textarea></div>
+
+      <div class="form-grid" style="margin-top:12px">
+        <div class="field">
+          <label for="purchasePaymentMethod">Payment Method</label>
+          <select id="purchasePaymentMethod">
+            <option>Cash</option><option>GCash</option><option>Maya</option>
+            <option>Bank Transfer</option><option>Credit</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="purchaseAmountPaid">Amount Paid (₱)</label>
+          <input id="purchaseAmountPaid" type="number" min="0" step="0.01" value="0">
+        </div>
+        <div class="field full">
+          <label for="purchaseNotes">Notes</label>
+          <textarea id="purchaseNotes" placeholder="Optional purchase notes"></textarea>
+        </div>
+      </div>
+
+      <div class="small-total"><span>Purchase Total</span><strong id="purchaseTotalDisplay">₱0.00</strong></div>
+      <div class="small-total" style="background:#FFF8E6"><span>Outstanding Balance</span><strong id="purchaseBalanceDisplay">₱0.00</strong></div>
+      <div class="form-actions">
+        <button id="savePurchaseBtn" class="btn btn-primary" type="submit">Save Purchase &amp; Update Stock</button>
+        <button class="btn btn-light" type="reset">Clear Form</button>
+      </div>
+      <div id="purchaseMessage" class="status-message"></div>
+    </form>
+  </section>
+
+  <section id="recentPanel" class="panel">
+    <div class="panel-heading">
+      <div><h2>Recent Purchases</h2><p>View saved supplier purchases.</p></div>
     </div>
-    <div class="form-actions"><button id="saveOperatingBtn" class="btn btn-primary" type="submit">Save Expense</button><button class="btn btn-light" type="reset">Clear Form</button></div>
-    <div id="operatingMessage" class="status-message"></div>
-  </form>
-</section>
-
-<section id="paymentPanel" class="panel">
-  <div class="panel-heading"><div><h2>Supplier Payment</h2><p>Record a payment toward an existing Stock Purchase invoice.</p></div></div>
-  <form id="paymentForm">
-    <div class="form-grid">
-      <div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" type="date" required></div>
-      <div class="field"><label for="paymentPurchase">Purchase / Invoice</label><select id="paymentPurchase" required><option value="">Select an unpaid purchase</option></select></div>
-      <div class="field"><label for="paymentAmount">Payment Amount (₱)</label><input id="paymentAmount" type="number" min="0.01" step="0.01" required></div>
-      <div class="field"><label for="paymentMethod">Payment Method</label><select id="paymentMethod"><option>Cash</option><option>GCash</option><option>Maya</option><option>Bank Transfer</option><option>Other</option></select></div>
-      <div class="field full"><label for="paymentNotes">Notes</label><textarea id="paymentNotes" placeholder="Payment reference or remarks"></textarea></div>
+    <div class="table-tools"><input id="purchaseSearch" placeholder="Search invoice, supplier or item..."></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Invoice / Date</th><th>Supplier</th><th>Items</th><th>Total</th><th>Balance</th><th>Status</th></tr></thead>
+        <tbody id="recentPurchaseRows"><tr><td colspan="6" class="empty">Loading purchases...</td></tr></tbody>
+      </table>
     </div>
-    <div id="paymentBalanceInfo" class="notice" style="margin-top:14px">Choose a purchase to view its outstanding balance.</div>
-    <div class="form-actions"><button id="savePaymentBtn" class="btn btn-primary" type="submit">Save Supplier Payment</button></div>
-    <div id="paymentMessage" class="status-message"></div>
-  </form>
-</section>
+  </section>
 
-<section id="historyPanel" class="panel">
-  <div class="panel-heading"><div><h2>Expense History</h2><p>Review saved purchases, invoice-only expenses and operating costs.</p></div></div>
-  <div class="table-tools">
-    <input id="historySearch" placeholder="Search description, supplier or invoice...">
-    <select id="historyTypeFilter">
-      <option value="all">All expense types</option>
-      <option value="purchase">Stock purchases</option>
-      <option value="invoice">Invoice-only expenses</option>
-      <option value="operating">Operating expenses</option>
-    </select>
-  </div>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th><th>Details</th></tr></thead>
-    <tbody id="historyRows"><tr><td colspan="5" class="empty">Loading history...</td></tr></tbody>
-  </table></div>
-</section>
-<div id="pageMessage" class="status-message"></div>
-</div>
+  <section id="expenseOnlyPanel" class="panel">
+    <div class="panel-heading">
+      <div><h2>Record Expense Only</h2><p>Save an invoice without changing inventory.</p></div>
+    </div>
+    <div class="notice purple"><strong>No stock will be added or changed.</strong> Use this when stock is already in POS or when recording an invoice for reference.</div>
+    <form id="expenseOnlyForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="expenseOnlyDate">Invoice / Expense Date *</label>
+          <input id="expenseOnlyDate" type="date" required>
+        </div>
+        <div class="field">
+          <label for="expenseOnlyInvoice">Invoice / Receipt Number *</label>
+          <input id="expenseOnlyInvoice" placeholder="Invoice or receipt number" required>
+        </div>
+        <div class="field">
+          <label for="expenseOnlySupplier">Supplier Name *</label>
+          <input id="expenseOnlySupplier" placeholder="Supplier or store name" required>
+        </div>
+        <div class="field">
+          <label for="expenseOnlyAmount">Total Amount (₱) *</label>
+          <input id="expenseOnlyAmount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+        </div>
+        <div class="field">
+          <label for="expenseOnlyMethod">Payment Method</label>
+          <select id="expenseOnlyMethod">
+            <option>Cash</option><option>GCash</option><option>Maya</option>
+            <option>Bank Transfer</option><option>Credit</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="expenseOnlyPaid">Amount Paid (₱)</label>
+          <input id="expenseOnlyPaid" type="number" min="0" step="0.01" value="0" required>
+        </div>
+        <div class="field full">
+          <label for="expenseOnlyItems">Items on Invoice *</label>
+          <textarea id="expenseOnlyItems" required placeholder="Example: Sugar 1 kg — ₱80&#10;Soft drinks 10 bottles — ₱200"></textarea>
+          <div class="help">For reference only. This does not change inventory.</div>
+        </div>
+        <div class="field full">
+          <label for="expenseOnlyReceipt">Receipt Photo or PDF (optional)</label>
+          <input id="expenseOnlyReceipt" type="file" accept="image/*,application/pdf">
+          <div class="help">Uploading a receipt requires Firebase Storage permissions.</div>
+        </div>
+        <div class="field full">
+          <label for="expenseOnlyNotes">Notes (optional)</label>
+          <textarea id="expenseOnlyNotes" placeholder="Additional purchase details"></textarea>
+        </div>
+      </div>
+      <div class="small-total"><span>Invoice Total</span><strong id="expenseOnlyTotal">₱0.00</strong></div>
+      <div class="small-total" style="background:#FFF8E6"><span>Outstanding Balance</span><strong id="expenseOnlyBalance">₱0.00</strong></div>
+      <div class="form-actions">
+        <button id="saveExpenseOnlyBtn" class="btn btn-primary" type="submit">Save Expense &amp; Invoice Only</button>
+        <button class="btn btn-light" type="reset">Clear Form</button>
+      </div>
+      <div id="expenseOnlyMessage" class="status-message"></div>
+    </form>
+  </section>
 
-<div id="invoiceOverlay" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="invoice-modal">
-    <div class="modal-head"><h2 id="invoiceHeading">Purchase / Expense Invoice</h2><button class="close-modal" type="button" id="closeInvoiceBtn">×</button></div>
-    <div id="invoiceContent" class="invoice-content"><div class="loading">Loading invoice...</div></div>
-    <div class="modal-actions"><button class="btn btn-light" type="button" id="closeInvoiceBottom">Close</button><button class="btn btn-primary" type="button" id="printInvoiceBtn">🖨 Print Invoice</button></div>
-  </div>
+  <section id="operatingPanel" class="panel">
+    <div class="panel-heading">
+      <div><h2>Record Operating Expense</h2><p>Record rent, electricity, transportation and other business costs.</p></div>
+    </div>
+    <form id="operatingForm">
+      <div class="form-grid">
+        <div class="field"><label for="operatingDate">Expense Date</label><input id="operatingDate" type="date" required></div>
+        <div class="field">
+          <label for="operatingCategory">Category</label>
+          <select id="operatingCategory" required>
+            <option value="">Select category</option>
+            <option>Rent</option><option>Electricity</option><option>Water</option><option>Internet</option>
+            <option>Transportation</option><option>Packaging</option><option>Cleaning Supplies</option>
+            <option>Repairs &amp; Maintenance</option><option>Staff Expenses</option><option>Marketing</option>
+            <option>Office Supplies</option><option>Government Fees</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="operatingDescription">Description</label><input id="operatingDescription" required placeholder="What was the expense for?"></div>
+        <div class="field"><label for="operatingAmount">Amount (₱)</label><input id="operatingAmount" type="number" min="0.01" step="0.01" required></div>
+        <div class="field">
+          <label for="operatingMethod">Payment Method</label>
+          <select id="operatingMethod"><option>Cash</option><option>GCash</option><option>Maya</option><option>Bank Transfer</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="operatingReference">Reference Number</label><input id="operatingReference" placeholder="Optional receipt reference"></div>
+        <div class="field full"><label for="operatingNotes">Notes</label><textarea id="operatingNotes" placeholder="Additional details"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button id="saveOperatingBtn" class="btn btn-primary" type="submit">Save Expense</button>
+        <button class="btn btn-light" type="reset">Clear Form</button>
+      </div>
+      <div id="operatingMessage" class="status-message"></div>
+    </form>
+  </section>
+
+  <section id="paymentPanel" class="panel">
+    <div class="panel-heading">
+      <div><h2>Supplier Payment</h2><p>Record a payment toward an existing Stock Purchase invoice.</p></div>
+    </div>
+    <form id="paymentForm">
+      <div class="form-grid">
+        <div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" type="date" required></div>
+        <div class="field"><label for="paymentPurchase">Purchase / Invoice</label><select id="paymentPurchase" required><option value="">Select an unpaid purchase</option></select></div>
+        <div class="field"><label for="paymentAmount">Payment Amount (₱)</label><input id="paymentAmount" type="number" min="0.01" step="0.01" required></div>
+        <div class="field">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod"><option>Cash</option><option>GCash</option><option>Maya</option><option>Bank Transfer</option><option>Other</option></select>
+        </div>
+        <div class="field full"><label for="paymentNotes">Notes</label><textarea id="paymentNotes" placeholder="Payment reference or remarks"></textarea></div>
+      </div>
+      <div id="paymentBalanceInfo" class="notice" style="margin-top:10px">Choose a purchase to view its outstanding balance.</div>
+      <div class="form-actions"><button id="savePaymentBtn" class="btn btn-primary" type="submit">Save Supplier Payment</button></div>
+      <div id="paymentMessage" class="status-message"></div>
+    </form>
+  </section>
+
+  <section id="historyPanel" class="panel">
+    <div class="panel-heading">
+      <div><h2>Expense History</h2><p>Review saved purchases, invoice-only expenses and operating costs.</p></div>
+    </div>
+    <div class="table-tools">
+      <input id="historySearch" placeholder="Search description, supplier or invoice...">
+      <select id="historyTypeFilter">
+        <option value="all">All expense types</option>
+        <option value="purchase">Stock purchases</option>
+        <option value="invoice">Invoice-only expenses</option>
+        <option value="operating">Operating expenses</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th><th>Details</th></tr></thead>
+        <tbody id="historyRows"><tr><td colspan="5" class="empty">Loading history...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
 </div>
 
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
- getFirestore,collection,doc,getDoc,getDocs,addDoc,
- runTransaction,serverTimestamp
+  getFirestore, collection, doc, getDoc, getDocs, addDoc,
+  runTransaction, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
- getStorage,ref as storageRef,uploadBytes,getDownloadURL
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-const firebaseConfig={
- apiKey:"AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
- authDomain:"kayah-ecosystem.firebaseapp.com",
- projectId:"kayah-ecosystem",
- storageBucket:"kayah-ecosystem.firebasestorage.app",
- messagingSenderId:"49853785143",
- appId:"1:49853785143:web:23182e6e11696ac03dcbb2"
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const storage=getStorage(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-let currentUser=null,currentProfile={},businessProfile={},businessId=null;
-let products=[],materials=[],suppliers=[],purchases=[],expenses=[],supplierPayments=[];
-let currentInvoice=null,itemCounter=0;
+let currentUser = null;
+let currentProfile = {};
+let businessProfile = {};
+let businessId = null;
+let products = [], materials = [], suppliers = [], purchases = [], expenses = [];
+let supplierPayments = [];
+let itemCounter = 0;
 
-const $=id=>document.getElementById(id);
-const money=v=>"₱"+Number(v||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
-const num=v=>Number(v||0);
-const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
-const path=name=>collection(db,"users",businessId,name);
-const docPath=(name,id)=>doc(db,"users",businessId,name,id);
+const $ = id => document.getElementById(id);
+const money = v => "₱" + Number(v || 0).toLocaleString("en-PH", {
+  minimumFractionDigits: 2, maximumFractionDigits: 2
+});
+const num = v => Number(v || 0);
+const safe = v => String(v ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+};
+const path = name => collection(db, "users", businessId, name);
+const docPath = (name,id) => doc(db, "users", businessId, name, id);
 
-function firstValue(obj,keys,fallback=""){
- for(const k of keys){const v=obj?.[k];if(v!==undefined&&v!==null&&String(v).trim()!=="")return v}
- return fallback;
+function firstValue(obj, keys, fallback="") {
+  for (const k of keys) {
+    const v = obj?.[k];
+    if (v !== undefined && v !== null && String(v).trim() !== "") return v;
+  }
+  return fallback;
 }
-function showMessage(id,message,type="success"){
- const el=$(id);if(!el)return;el.textContent=message;el.className="status-message "+type;
+function showMessage(id, message, type="success") {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = message;
+  el.className = "status-message " + type;
 }
-function getDateMillis(v){
- if(v?.toDate)return v.toDate().getTime();
- const d=new Date(v||0);return Number.isNaN(d.getTime())?0:d.getTime();
+function getDateMillis(v) {
+  if (v?.toDate) return v.toDate().getTime();
+  const d = new Date(v || 0);
+  return Number.isNaN(d.getTime()) ? 0 : d.getTime();
 }
-function formatDate(v){
- if(!v)return "—";
- const d=v?.toDate?v.toDate():new Date(v);
- return Number.isNaN(d.getTime())?String(v):d.toLocaleDateString("en-PH",{year:"numeric",month:"short",day:"numeric"});
+function formatDate(v) {
+  if (!v) return "—";
+  const d = v?.toDate ? v.toDate() : new Date(v);
+  return Number.isNaN(d.getTime()) ? String(v) :
+    d.toLocaleDateString("en-PH",{year:"numeric",month:"short",day:"numeric"});
 }
-function applyBusinessHeader(){
- const name=firstValue(businessProfile,["businessName","business_name","storeName","companyName","shopName","name"],"Kayah Business");
- const logo=firstValue(businessProfile,["businessLogo","businessLogoUrl","logoUrl","logoURL","logo","businessPhoto"],"");
- const userName=firstValue(currentProfile,["fullName","ownerName","displayName","name","businessOwnerName"],currentUser?.displayName||currentUser?.email||"Business User");
- $("businessName").textContent=name;$("profileName").textContent=userName;
- $("profileRole").textContent=firstValue(currentProfile,["role","accountRole","userRole"],"Business account");
- $("businessLogoFallback").textContent=name.trim().charAt(0).toUpperCase()||"K";
- $("profileInitial").textContent=userName.trim().charAt(0).toUpperCase()||"U";
- if(logo&&/^https?:\/\//i.test(String(logo))){
-  $("businessLogo").src=logo;$("businessLogo").hidden=false;$("businessLogoFallback").style.display="none";
-  $("businessLogo").onerror=()=>{$("businessLogo").hidden=true;$("businessLogoFallback").style.display="flex"};
- }else{$("businessLogo").hidden=true;$("businessLogoFallback").style.display="flex"}
- const avatar=firstValue(currentProfile,["photoURL","profileImage","profileImageUrl","avatarUrl"],currentUser?.photoURL||"");
- if(avatar&&/^https?:\/\//i.test(String(avatar))){
-  $("profileAvatar").src=avatar;$("profileAvatar").hidden=false;$("profileInitial").style.display="none";
-  $("profileAvatar").onerror=()=>{$("profileAvatar").hidden=true;$("profileInitial").style.display="flex"};
- }else{$("profileAvatar").hidden=true;$("profileInitial").style.display="flex"}
+function activateTab(id) {
+  document.querySelectorAll(".tab").forEach(b =>
+    b.classList.toggle("active", b.dataset.tab === id)
+  );
+  document.querySelectorAll(".panel").forEach(p =>
+    p.classList.toggle("active", p.id === id)
+  );
 }
-function activateTab(id){
- document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
- document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
-}
-document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>activateTab(b.dataset.tab)));
+document.querySelectorAll(".tab").forEach(b =>
+  b.addEventListener("click", () => activateTab(b.dataset.tab))
+);
 
-async function loadProfile(user){
- const snap=await getDoc(doc(db,"users",user.uid));
- currentProfile=snap.exists()?snap.data():{};
- businessId=firstValue(currentProfile,["businessId","ownerUid","businessOwnerUid","businessUid"],user.uid);
- const owner=await getDoc(doc(db,"users",businessId));
- businessProfile=owner.exists()?owner.data():{};
- applyBusinessHeader();
+function applyBusinessHeader() {
+  const name = firstValue(businessProfile,
+    ["businessName","business_name","storeName","companyName","shopName","name"],
+    "Kayah Business");
+  const logo = firstValue(businessProfile,
+    ["businessLogo","businessLogoUrl","logoUrl","logoURL","logo","businessPhoto"], "");
+  const userName = firstValue(currentProfile,
+    ["fullName","ownerName","displayName","name","businessOwnerName"],
+    currentUser?.displayName || currentUser?.email || "Business User");
+
+  $("businessName").textContent = name;
+  $("profileName").textContent = userName;
+  $("profileRole").textContent = firstValue(currentProfile,
+    ["role","accountRole","userRole"], "Business account");
+  $("businessLogoFallback").textContent = name.trim().charAt(0).toUpperCase() || "K";
+  $("profileInitial").textContent = userName.trim().charAt(0).toUpperCase() || "U";
+
+  if (logo && /^https?:\/\//i.test(String(logo))) {
+    $("businessLogo").src = logo;
+    $("businessLogo").hidden = false;
+    $("businessLogoFallback").style.display = "none";
+    $("businessLogo").onerror = () => {
+      $("businessLogo").hidden = true;
+      $("businessLogoFallback").style.display = "flex";
+    };
+  } else {
+    $("businessLogo").hidden = true;
+    $("businessLogoFallback").style.display = "flex";
+  }
 }
-async function loadAllData(){
- const results=await Promise.all([
-  getDocs(path("products")),getDocs(path("materials")),getDocs(path("suppliers")),
-  getDocs(path("purchases")),getDocs(path("expenses")),getDocs(path("supplierPayments"))
- ]);
- [products,materials,suppliers,purchases,expenses,supplierPayments]=results.map(s=>s.docs.map(d=>({id:d.id,...d.data()})));
- purchases.sort((a,b)=>getDateMillis(b.createdAt||b.purchaseDate)-getDateMillis(a.createdAt||a.purchaseDate));
- expenses.sort((a,b)=>getDateMillis(b.createdAt||b.date||b.expenseDate)-getDateMillis(a.createdAt||a.date||a.expenseDate));
- renderSupplierOptions();renderPaymentPurchaseOptions();renderRecentPurchases();renderHistory();renderSummary();updatePurchaseTotals();updateExpenseOnlyTotals();
+
+async function loadProfile(user) {
+  const snap = await getDoc(doc(db,"users",user.uid));
+  currentProfile = snap.exists() ? snap.data() : {};
+  businessId = firstValue(currentProfile,
+    ["businessId","ownerUid","businessOwnerUid","businessUid"], user.uid);
+  const owner = await getDoc(doc(db,"users",businessId));
+  businessProfile = owner.exists() ? owner.data() : {};
+  applyBusinessHeader();
 }
-function renderSupplierOptions(){
- const el=$("purchaseSupplier"),old=el.value;
- el.innerHTML='<option value="">Select supplier (optional)</option>'+suppliers.map(s=>
- `<option value="${safe(s.id)}">${safe(firstValue(s,["supplierName","name","businessName","companyName"],"Unnamed supplier"))}</option>`).join("");
- if(old)el.value=old;
+
+async function loadAllData() {
+  const results = await Promise.all([
+    getDocs(path("products")),
+    getDocs(path("materials")),
+    getDocs(path("suppliers")),
+    getDocs(path("purchases")),
+    getDocs(path("expenses")),
+    getDocs(path("supplierPayments"))
+  ]);
+  [products,materials,suppliers,purchases,expenses,supplierPayments] =
+    results.map(s => s.docs.map(d => ({id:d.id,...d.data()})));
+
+  purchases.sort((a,b) =>
+    getDateMillis(b.createdAt || b.purchaseDate) -
+    getDateMillis(a.createdAt || a.purchaseDate)
+  );
+  expenses.sort((a,b) =>
+    getDateMillis(b.createdAt || b.date || b.expenseDate) -
+    getDateMillis(a.createdAt || a.date || a.expenseDate)
+  );
+
+  renderSupplierOptions();
+  renderPaymentPurchaseOptions();
+  renderRecentPurchases();
+  renderHistory();
+  renderSummary();
+  updatePurchaseTotals();
+  updateExpenseOnlyTotals();
 }
-function itemOptions(selected=""){
- return '<option value="">Choose product/material</option>'+
- '<optgroup label="Products">'+products.map(p=>`<option value="product:${safe(p.id)}" ${selected==="product:"+p.id?"selected":""}>${safe(firstValue(p,["name","productName","title"],"Unnamed product"))}</option>`).join("")+'</optgroup>'+
- '<optgroup label="Materials / Stock">'+materials.map(m=>`<option value="material:${safe(m.id)}" ${selected==="material:"+m.id?"selected":""}>${safe(firstValue(m,["name","materialName","itemName","title"],"Unnamed material"))}</option>`).join("")+'</optgroup>';
+
+function renderSupplierOptions() {
+  const el = $("purchaseSupplier");
+  const old = el.value;
+  el.innerHTML = '<option value="">Select supplier (optional)</option>' +
+    suppliers.map(s => `<option value="${safe(s.id)}">${
+      safe(firstValue(s,["supplierName","name","businessName","companyName"],"Unnamed supplier"))
+    }</option>`).join("");
+  if (old) el.value = old;
 }
-function addPurchaseItem(){
- const wrap=document.createElement("div");wrap.className="item-line";wrap.dataset.line=String(++itemCounter);
- wrap.innerHTML=`<div class="field"><label>Product / Material</label><select class="item-select" required>${itemOptions()}</select></div>
- <div class="field"><label>Quantity</label><input class="item-qty" type="number" min="0.001" step="0.001" value="1" required></div>
- <div class="field"><label>Unit Cost (₱)</label><input class="item-cost" type="number" min="0" step="0.01" value="0" required></div>
- <button type="button" class="remove-item" aria-label="Remove item">×</button>`;
- $("purchaseItems").appendChild(wrap);
- wrap.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",updatePurchaseTotals));
- wrap.querySelector(".remove-item").addEventListener("click",()=>{wrap.remove();updatePurchaseTotals()});
+
+function itemOptions(selected="") {
+  return '<option value="">Choose product/material</option>' +
+    '<optgroup label="Products">' +
+    products.map(p => `<option value="product:${safe(p.id)}" ${
+      selected === "product:"+p.id ? "selected" : ""
+    }>${safe(firstValue(p,["name","productName","title"],"Unnamed product"))}</option>`).join("") +
+    '</optgroup><optgroup label="Materials / Stock">' +
+    materials.map(m => `<option value="material:${safe(m.id)}" ${
+      selected === "material:"+m.id ? "selected" : ""
+    }>${safe(firstValue(m,["name","materialName","itemName","title"],"Unnamed material"))}</option>`).join("") +
+    '</optgroup>';
+}
+
+function addPurchaseItem() {
+  const wrap = document.createElement("div");
+  wrap.className = "item-line";
+  wrap.dataset.line = String(++itemCounter);
+  wrap.innerHTML = `
+    <div class="field"><label>Product / Material</label>
+      <select class="item-select" required>${itemOptions()}</select></div>
+    <div class="field"><label>Quantity</label>
+      <input class="item-qty" type="number" min="0.001" step="0.001" value="1" required></div>
+    <div class="field"><label>Unit Cost (₱)</label>
+      <input class="item-cost" type="number" min="0" step="0.01" value="0" required></div>
+    <button type="button" class="remove-item" aria-label="Remove item">×</button>`;
+  $("purchaseItems").appendChild(wrap);
+  wrap.querySelectorAll("input,select").forEach(e =>
+    e.addEventListener("input", updatePurchaseTotals)
+  );
+  wrap.querySelector(".remove-item").addEventListener("click", () => {
+    wrap.remove();
+    updatePurchaseTotals();
+  });
 }
 $("addItemBtn").addEventListener("click",addPurchaseItem);
 
-function readPurchaseItems(){
- return [...$("purchaseItems").querySelectorAll(".item-line")].map(line=>{
-  const [itemType,itemId]=line.querySelector(".item-select").value.split(":");
-  const quantity=num(line.querySelector(".item-qty").value),unitCost=num(line.querySelector(".item-cost").value);
-  const source=itemType==="product"?products:materials;
-  const item=source.find(x=>x.id===itemId);
-  return {itemType,itemId,itemName:item?firstValue(item,["name","productName","materialName","itemName","title"],"Unnamed item"):"",
-   quantity,unitCost,lineTotal:quantity*unitCost};
- });
+function readPurchaseItems() {
+  return [...$("purchaseItems").querySelectorAll(".item-line")].map(line => {
+    const [itemType,itemId] = line.querySelector(".item-select").value.split(":");
+    const quantity = num(line.querySelector(".item-qty").value);
+    const unitCost = num(line.querySelector(".item-cost").value);
+    const source = itemType === "product" ? products : materials;
+    const item = source.find(x => x.id === itemId);
+    return {
+      itemType,itemId,
+      itemName:item ? firstValue(item,["name","productName","materialName","itemName","title"],"Unnamed item") : "",
+      quantity,unitCost,lineTotal:quantity*unitCost
+    };
+  });
 }
-function updatePurchaseTotals(){
- const total=readPurchaseItems().reduce((s,i)=>s+i.lineTotal,0),paid=num($("purchaseAmountPaid").value);
- $("purchaseTotalDisplay").textContent=money(total);$("purchaseBalanceDisplay").textContent=money(Math.max(0,total-paid));
+function updatePurchaseTotals() {
+  const total = readPurchaseItems().reduce((s,i) => s+i.lineTotal,0);
+  const paid = num($("purchaseAmountPaid").value);
+  $("purchaseTotalDisplay").textContent = money(total);
+  $("purchaseBalanceDisplay").textContent = money(Math.max(0,total-paid));
 }
 $("purchaseAmountPaid").addEventListener("input",updatePurchaseTotals);
 $("expenseOnlyAmount").addEventListener("input",updateExpenseOnlyTotals);
 $("expenseOnlyPaid").addEventListener("input",updateExpenseOnlyTotals);
-function updateExpenseOnlyTotals(){
- const total=num($("expenseOnlyAmount").value),paid=num($("expenseOnlyPaid").value);
- $("expenseOnlyTotal").textContent=money(total);
- $("expenseOnlyBalance").textContent=money(Math.max(0,total-paid));
+
+function updateExpenseOnlyTotals() {
+  const total = num($("expenseOnlyAmount").value);
+  const paid = num($("expenseOnlyPaid").value);
+  $("expenseOnlyTotal").textContent = money(total);
+  $("expenseOnlyBalance").textContent = money(Math.max(0,total-paid));
 }
-function supplierNameForPurchase(){
- const s=suppliers.find(x=>x.id===$("purchaseSupplier").value);
- return $("supplierNameManual").value.trim()||(s?firstValue(s,["supplierName","name","businessName","companyName"],""):"");
+function supplierNameForPurchase() {
+  const s = suppliers.find(x => x.id === $("purchaseSupplier").value);
+  return $("supplierNameManual").value.trim() ||
+    (s ? firstValue(s,["supplierName","name","businessName","companyName"],"") : "");
 }
-function getPurchaseStatus(total,paid){
- if(paid>=total&&total>0)return "Paid";if(paid>0)return "Partially Paid";return "Unpaid";
+function getPurchaseStatus(total,paid) {
+  if (paid >= total && total > 0) return "Paid";
+  if (paid > 0) return "Partially Paid";
+  return "Unpaid";
 }
-function purchaseTotal(p){
- if(p.totalAmount!=null)return num(p.totalAmount);
- if(p.total!=null)return num(p.total);
- return purchaseItems(p).reduce((s,i)=>s+num(i.lineTotal??num(i.quantity)*(i.unitCost??i.unitPrice??i.price)),0);
+function purchaseItems(p) {
+  if (Array.isArray(p.items)) return p.items;
+  if (Array.isArray(p.products)) return p.products;
+  if (p.itemName || p.productName || p.materialName) {
+    return [{
+      itemName:p.itemName||p.productName||p.materialName,
+      quantity:p.quantity||p.qty||0,
+      unitCost:p.unitCost||p.unitPrice||p.price||0,
+      lineTotal:p.lineTotal||p.amount||0
+    }];
+  }
+  return [];
 }
-function purchasePaid(p){return num(p.amountPaid??p.paidAmount??p.paid)}
-function purchaseBalance(p){return p.balance!=null?Math.max(0,num(p.balance)):Math.max(0,purchaseTotal(p)-purchasePaid(p))}
-function purchaseSupplier(p){return firstValue(p,["supplierName","supplier","vendorName"],"No supplier specified")}
-function purchaseNumber(p){return firstValue(p,["invoiceNumber","invoiceNo","referenceNumber","purchaseNumber"],p.id||"—")}
-function purchaseDate(p){return formatDate(p.purchaseDate||p.date||p.expenseDate||p.createdAt)}
-function purchaseItems(p){
- if(Array.isArray(p.items))return p.items;
- if(Array.isArray(p.products))return p.products;
- if(p.itemName||p.productName||p.materialName)return [{itemName:p.itemName||p.productName||p.materialName,quantity:p.quantity||p.qty||0,unitCost:p.unitCost||p.unitPrice||p.price||0,lineTotal:p.lineTotal||p.amount||0}];
- return [];
+function purchaseTotal(p) {
+  if (p.totalAmount != null) return num(p.totalAmount);
+  if (p.total != null) return num(p.total);
+  return purchaseItems(p).reduce((s,i) =>
+    s + num(i.lineTotal ?? num(i.quantity)*(i.unitCost ?? i.unitPrice ?? i.price)),0);
 }
-function purchaseStatus(p){
- const total=purchaseTotal(p),balance=purchaseBalance(p);
- if(balance<=0&&total>0)return "Paid";if(purchasePaid(p)>0)return "Partially Paid";return "Unpaid";
+function purchasePaid(p) {
+  return num(p.amountPaid ?? p.paidAmount ?? p.paid);
 }
-function statusBadge(status){
- const cls=status==="Paid"?"badge-paid":status==="Partially Paid"?"badge-pending":"badge-unpaid";
- return `<span class="badge ${cls}">${safe(status)}</span>`;
+function purchaseBalance(p) {
+  return p.balance != null ? Math.max(0,num(p.balance)) :
+    Math.max(0,purchaseTotal(p)-purchasePaid(p));
 }
-function renderRecentPurchases(){
- const search=$("purchaseSearch").value.toLowerCase();
- const rows=purchases.filter(p=>[purchaseNumber(p),purchaseSupplier(p),purchaseItems(p).map(i=>i.itemName||i.name||"").join(" ")].join(" ").toLowerCase().includes(search));
- $("recentPurchaseRows").innerHTML=rows.length?rows.map(p=>`<tr class="clickable" data-purchase-id="${safe(p.id)}" tabindex="0">
- <td><strong>${safe(purchaseNumber(p))}</strong><br><span>${safe(purchaseDate(p))}</span></td>
- <td>${safe(purchaseSupplier(p))}</td><td>${purchaseItems(p).length} item(s)</td>
- <td class="amount">${money(purchaseTotal(p))}</td><td>${money(purchaseBalance(p))}</td><td>${statusBadge(purchaseStatus(p))}</td></tr>`).join(""):'<tr><td colspan="6" class="empty">No purchase records found.</td></tr>';
- $("recentPurchaseRows").querySelectorAll("[data-purchase-id]").forEach(r=>{
-  const open=()=>openPurchaseInvoice(purchases.find(p=>p.id===r.dataset.purchaseId));
-  r.addEventListener("click",open);r.addEventListener("keydown",e=>{if(e.key==="Enter")open()});
- });
+function purchaseSupplier(p) {
+  return firstValue(p,["supplierName","supplier","vendorName"],"No supplier specified");
+}
+function purchaseNumber(p) {
+  return firstValue(p,["invoiceNumber","invoiceNo","referenceNumber","purchaseNumber"],p.id||"—");
+}
+function purchaseDate(p) {
+  return formatDate(p.purchaseDate||p.date||p.expenseDate||p.createdAt);
+}
+function purchaseStatus(p) {
+  const total = purchaseTotal(p);
+  const balance = purchaseBalance(p);
+  if (balance <= 0 && total > 0) return "Paid";
+  if (purchasePaid(p) > 0) return "Partially Paid";
+  return "Unpaid";
+}
+function statusBadge(status) {
+  const cls = status === "Paid" ? "badge-paid" :
+    status === "Partially Paid" ? "badge-pending" : "badge-unpaid";
+  return `<span class="badge ${cls}">${safe(status)}</span>`;
+}
+
+function renderRecentPurchases() {
+  const search = $("purchaseSearch").value.toLowerCase();
+  const rows = purchases.filter(p =>
+    [purchaseNumber(p),purchaseSupplier(p),
+      purchaseItems(p).map(i=>i.itemName||i.name||"").join(" ")]
+      .join(" ").toLowerCase().includes(search)
+  );
+  $("recentPurchaseRows").innerHTML = rows.length ? rows.map(p => `
+    <tr>
+      <td><strong>${safe(purchaseNumber(p))}</strong><br>${safe(purchaseDate(p))}</td>
+      <td>${safe(purchaseSupplier(p))}</td>
+      <td>${purchaseItems(p).length} item(s)</td>
+      <td class="amount">${money(purchaseTotal(p))}</td>
+      <td>${money(purchaseBalance(p))}</td>
+      <td>${statusBadge(purchaseStatus(p))}</td>
+    </tr>`).join("") :
+    '<tr><td colspan="6" class="empty">No purchase records found.</td></tr>';
 }
 $("purchaseSearch").addEventListener("input",renderRecentPurchases);
 
-function renderHistory(){
- const search=$("historySearch").value.toLowerCase(),filter=$("historyTypeFilter").value,entries=[];
- if(filter==="all"||filter==="purchase")purchases.forEach(p=>entries.push({id:p.id,type:"purchase",date:p.purchaseDate||p.date||p.createdAt,description:`${purchaseNumber(p)} — ${purchaseSupplier(p)}`,amount:purchaseTotal(p),record:p}));
- if(filter==="all"||filter==="invoice")expenses.filter(e=>e.expenseType==="invoice_only").forEach(e=>entries.push({id:e.id,type:"invoice",date:e.expenseDate||e.date||e.createdAt,description:`${e.invoiceNumber||"Invoice"} — ${e.supplierName||"Supplier"}`,amount:num(e.amount),record:e}));
- if(filter==="all"||filter==="operating")expenses.filter(e=>e.expenseType!=="invoice_only").forEach(e=>entries.push({id:e.id,type:"operating",date:e.expenseDate||e.date||e.createdAt,description:firstValue(e,["description","category","name"],"Operating expense"),amount:num(e.amount??e.totalAmount),record:e}));
- entries.sort((a,b)=>getDateMillis(b.date)-getDateMillis(a.date));
- const filtered=entries.filter(e=>`${e.description} ${e.type} ${e.record.invoiceNumber||""}`.toLowerCase().includes(search));
- $("historyRows").innerHTML=filtered.length?filtered.map(e=>{
-  const label=e.type==="purchase"?"Stock Purchase":e.type==="invoice"?"Invoice-only Expense":"Operating Expense";
-  const cls=e.type==="purchase"?"badge-info":e.type==="invoice"?"badge-purple":"badge-pending";
-  const details=e.type==="purchase"?"View invoice ↗":e.type==="invoice"?(e.receiptUrl?`<a href="${safe(e.receiptUrl)}" target="_blank" rel="noopener">View receipt ↗</a>`:"Expense record"):(e.category||e.paymentMethod||"—");
-  return `<tr ${e.type==="purchase"?'class="clickable" data-purchase-id="'+safe(e.id)+'"':e.type==="invoice"?'class="clickable" data-expense-id="'+safe(e.id)+'"':""}>
-  <td>${safe(formatDate(e.date))}</td><td><span class="badge ${cls}">${label}</span></td>
-  <td>${safe(e.description)}</td><td class="amount">${money(e.amount)}</td><td>${details}</td></tr>`;
- }).join(""):'<tr><td colspan="5" class="empty">No expense history found.</td></tr>';
- $("historyRows").querySelectorAll("[data-purchase-id]").forEach(r=>r.addEventListener("click",()=>openPurchaseInvoice(purchases.find(p=>p.id===r.dataset.purchaseId))));
- $("historyRows").querySelectorAll("[data-expense-id]").forEach(r=>r.addEventListener("click",()=>openExpenseInvoice(expenses.find(e=>e.id===r.dataset.expenseId))));
+function renderHistory() {
+  const search = $("historySearch").value.toLowerCase();
+  const filter = $("historyTypeFilter").value;
+  const entries = [];
+
+  if (filter==="all" || filter==="purchase") purchases.forEach(p =>
+    entries.push({
+      type:"purchase",
+      date:p.purchaseDate||p.date||p.createdAt,
+      description:`${purchaseNumber(p)} — ${purchaseSupplier(p)}`,
+      amount:purchaseTotal(p),
+      record:p
+    })
+  );
+
+  if (filter==="all" || filter==="invoice") expenses
+    .filter(e=>e.expenseType==="invoice_only").forEach(e =>
+      entries.push({
+        type:"invoice",
+        date:e.expenseDate||e.date||e.createdAt,
+        description:`${e.invoiceNumber||"Invoice"} — ${e.supplierName||"Supplier"}`,
+        amount:num(e.amount),
+        record:e
+      })
+    );
+
+  if (filter==="all" || filter==="operating") expenses
+    .filter(e=>e.expenseType!=="invoice_only").forEach(e =>
+      entries.push({
+        type:"operating",
+        date:e.expenseDate||e.date||e.createdAt,
+        description:firstValue(e,["description","category","name"],"Operating expense"),
+        amount:num(e.amount??e.totalAmount),
+        record:e
+      })
+    );
+
+  entries.sort((a,b)=>getDateMillis(b.date)-getDateMillis(a.date));
+  const filtered = entries.filter(e =>
+    `${e.description} ${e.type} ${e.record.invoiceNumber||""}`
+      .toLowerCase().includes(search)
+  );
+
+  $("historyRows").innerHTML = filtered.length ? filtered.map(e => {
+    const label = e.type==="purchase" ? "Stock Purchase" :
+      e.type==="invoice" ? "Invoice-only Expense" : "Operating Expense";
+    const cls = e.type==="purchase" ? "badge-info" :
+      e.type==="invoice" ? "badge-purple" : "badge-pending";
+    const details = e.type==="purchase" ? "Saved purchase" :
+      e.type==="invoice" ? "Invoice-only record" :
+      (e.record.category||e.record.paymentMethod||"—");
+    return `<tr>
+      <td>${safe(formatDate(e.date))}</td>
+      <td><span class="badge ${cls}">${label}</span></td>
+      <td>${safe(e.description)}</td>
+      <td class="amount">${money(e.amount)}</td>
+      <td>${safe(details)}</td>
+    </tr>`;
+  }).join("") :
+    '<tr><td colspan="5" class="empty">No expense history found.</td></tr>';
 }
 $("historySearch").addEventListener("input",renderHistory);
 $("historyTypeFilter").addEventListener("change",renderHistory);
 
-function renderSummary(){
- const pTotal=purchases.reduce((s,p)=>s+purchaseTotal(p),0);
- const eTotal=expenses.reduce((s,e)=>s+num(e.amount??e.totalAmount),0);
- const balance=purchases.reduce((s,p)=>s+purchaseBalance(p),0);
- $("sumPurchases").textContent=money(pTotal);$("sumOperating").textContent=money(eTotal);
- $("sumExpenses").textContent=money(pTotal+eTotal);$("sumBalance").textContent=money(balance);
+function renderSummary() {
+  const pTotal = purchases.reduce((s,p)=>s+purchaseTotal(p),0);
+  const eTotal = expenses.reduce((s,e)=>s+num(e.amount??e.totalAmount),0);
+  const balance = purchases.reduce((s,p)=>s+purchaseBalance(p),0);
+  $("sumPurchases").textContent = money(pTotal);
+  $("sumOperating").textContent = money(eTotal);
+  $("sumExpenses").textContent = money(pTotal+eTotal);
+  $("sumBalance").textContent = money(balance);
 }
-function renderPaymentPurchaseOptions(){
- const select=$("paymentPurchase"),old=select.value,open=purchases.filter(p=>purchaseBalance(p)>0);
- select.innerHTML='<option value="">Select an unpaid purchase</option>'+open.map(p=>`<option value="${safe(p.id)}">${safe(purchaseNumber(p))} — ${safe(purchaseSupplier(p))} — ${money(purchaseBalance(p))}</option>`).join("");
- if(open.some(p=>p.id===old))select.value=old;
- updatePaymentBalanceInfo();
+
+function renderPaymentPurchaseOptions() {
+  const select = $("paymentPurchase");
+  const old = select.value;
+  const open = purchases.filter(p=>purchaseBalance(p)>0);
+  select.innerHTML = '<option value="">Select an unpaid purchase</option>' +
+    open.map(p=>`<option value="${safe(p.id)}">${
+      safe(purchaseNumber(p))} — ${safe(purchaseSupplier(p))} — ${
+      money(purchaseBalance(p))}</option>`).join("");
+  if (open.some(p=>p.id===old)) select.value = old;
+  updatePaymentBalanceInfo();
 }
-function updatePaymentBalanceInfo(){
- const p=purchases.find(x=>x.id===$("paymentPurchase").value);
- if(!p){$("paymentBalanceInfo").textContent="Choose a purchase to view its outstanding balance.";$("paymentAmount").removeAttribute("max");return}
- $("paymentBalanceInfo").textContent=`Invoice ${purchaseNumber(p)} has an outstanding balance of ${money(purchaseBalance(p))}.`;
- $("paymentAmount").max=String(purchaseBalance(p));
+function updatePaymentBalanceInfo() {
+  const p = purchases.find(x=>x.id===$("paymentPurchase").value);
+  if (!p) {
+    $("paymentBalanceInfo").textContent = "Choose a purchase to view its outstanding balance.";
+    $("paymentAmount").removeAttribute("max");
+    return;
+  }
+  $("paymentBalanceInfo").textContent =
+    `Invoice ${purchaseNumber(p)} has an outstanding balance of ${money(purchaseBalance(p))}.`;
+  $("paymentAmount").max = String(purchaseBalance(p));
 }
 $("paymentPurchase").addEventListener("change",updatePaymentBalanceInfo);
 
-function invoiceShell(title,number,date,supplier,method,items,total,paid,balance,notes,receiptUrl=""){
- const businessName=firstValue(businessProfile,["businessName","business_name","storeName","companyName","shopName","name"],"Kayah Business");
- const logo=firstValue(businessProfile,["businessLogo","businessLogoUrl","logoUrl","logoURL","logo"],"");
- $("invoiceContent").innerHTML=`
- <div class="invoice-brand">${logo&&/^https?:\/\//i.test(String(logo))?`<img class="invoice-logo" src="${safe(logo)}" alt="Logo">`:`<div class="brand-fallback">${safe(businessName.charAt(0)||"K")}</div>`}
- <div><h3>${safe(businessName)}</h3><p>Business financial record</p></div></div>
- <div class="invoice-title-row"><div><h2>${safe(title)}</h2><strong>Invoice / Reference: ${safe(number)}</strong></div><div><strong>Date:</strong> ${safe(date)}</div></div>
- <div class="invoice-info"><div class="invoice-info-card"><div class="label">SUPPLIER</div><div class="value">${safe(supplier||"—")}</div></div>
- <div class="invoice-info-card"><div class="label">PAYMENT METHOD</div><div class="value">${safe(method||"—")}</div></div></div>
- ${items?`<div class="table-wrap"><table class="invoice-table"><thead><tr><th>#</th><th>Item</th><th>Quantity</th><th>Unit Cost</th><th>Amount</th></tr></thead><tbody>${items}</tbody></table></div>`:""}
- <div class="invoice-totals"><div class="invoice-total-row"><span>Total</span><strong>${money(total)}</strong></div><div class="invoice-total-row"><span>Amount Paid</span><strong>${money(paid)}</strong></div><div class="invoice-total-row grand"><span>Balance Due</span><strong>${money(balance)}</strong></div></div>
- <div class="invoice-notes"><strong>Notes / Items on Invoice</strong><br>${safe(notes||"No notes recorded.")}</div>
- ${receiptUrl?`<p><a href="${safe(receiptUrl)}" target="_blank" rel="noopener">Open attached receipt / invoice ↗</a></p>`:""}
- <div class="invoice-footer">Record saved in Kayah. Viewing this record does not update inventory.</div>`;
- $("invoiceOverlay").classList.add("show");document.body.style.overflow="hidden";
-}
-function openPurchaseInvoice(p){
- if(!p)return;currentInvoice={kind:"purchase",record:p};
- const items=purchaseItems(p).map((i,n)=>`<tr><td>${n+1}</td><td>${safe(i.itemName||i.name||i.productName||i.materialName||"Item")}</td><td>${num(i.quantity??i.qty)}</td><td>${money(i.unitCost??i.unitPrice??i.price)}</td><td>${money(i.lineTotal??num(i.quantity)*(i.unitCost??i.unitPrice??i.price))}</td></tr>`).join("");
- invoiceShell("Purchase Invoice",purchaseNumber(p),purchaseDate(p),purchaseSupplier(p),p.paymentMethod||"—",items,purchaseTotal(p),purchasePaid(p),purchaseBalance(p),p.notes||"");
-}
-function openExpenseInvoice(e){
- if(!e)return;currentInvoice={kind:"expense",record:e};
- invoiceShell("Expense Invoice",e.invoiceNumber||"Expense",formatDate(e.expenseDate||e.date||e.createdAt),e.supplierName,e.paymentMethod,"",num(e.amount),num(e.amountPaid),Math.max(0,num(e.amount)-num(e.amountPaid)),e.itemsDescription||e.notes,e.receiptUrl||"");
-}
-function closeInvoice(){$("invoiceOverlay").classList.remove("show");document.body.style.overflow=""}
-$("closeInvoiceBtn").addEventListener("click",closeInvoice);
-$("closeInvoiceBottom").addEventListener("click",closeInvoice);
-$("invoiceOverlay").addEventListener("click",e=>{if(e.target===$("invoiceOverlay"))closeInvoice()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeInvoice()});
-$("printInvoiceBtn").addEventListener("click",()=>{if(currentInvoice)window.print()});
-
-$("purchaseForm").addEventListener("reset",()=>{
- setTimeout(()=>{$("purchaseDate").value=today();$("purchaseItems").innerHTML="";addPurchaseItem();updatePurchaseTotals();showMessage("purchaseMessage","")},0);
-});
-$("purchaseForm").addEventListener("submit",async event=>{
- event.preventDefault();
- if(!businessId||!currentUser)return showMessage("purchaseMessage","Your account is not ready. Reload the page.","error");
- const items=readPurchaseItems();
- if(!items.length||items.some(i=>!i.itemId||!i.itemName||i.quantity<=0||i.unitCost<0))return showMessage("purchaseMessage","Choose an item and enter a valid quantity and cost for each line.","error");
- const total=items.reduce((s,i)=>s+i.lineTotal,0),paid=num($("purchaseAmountPaid").value);
- if(paid<0||paid>total)return showMessage("purchaseMessage","Amount paid cannot exceed the purchase total.","error");
- const supplierId=$("purchaseSupplier").value||"",supplier=suppliers.find(s=>s.id===supplierId);
- const invoiceNumber=$("purchaseInvoice").value.trim()||`PUR-${Date.now()}`;
- if(purchases.some(p=>purchaseNumber(p).toLowerCase()===invoiceNumber.toLowerCase()))return showMessage("purchaseMessage","This invoice number already exists in Stock Purchases. Check Recent Purchases before saving.","error");
- const date=$("purchaseDate").value||today(),supplierName=supplierNameForPurchase()||"No supplier specified";
- const record={invoiceNumber,purchaseDate:date,date,supplierId,supplierName,
- supplierContact:firstValue(supplier,["phone","phoneNumber","contactNumber","email"],""),
- items,totalAmount:total,amountPaid:paid,balance:Math.max(0,total-paid),
- paymentMethod:$("purchasePaymentMethod").value,status:getPurchaseStatus(total,paid),
- notes:$("purchaseNotes").value.trim(),createdBy:currentUser.uid,
- createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),createdAt:serverTimestamp()};
- const btn=$("savePurchaseBtn");btn.disabled=true;btn.textContent="Saving purchase...";
- try{
-  const purchaseRef=doc(path("purchases"));
-  await runTransaction(db,async tx=>{
-   const refs=items.map(item=>({item,ref:doc(db,"users",businessId,item.itemType==="product"?"products":"materials",item.itemId)}));
-   const snaps=[];for(const r of refs)snaps.push(await tx.get(r.ref));
-   snaps.forEach((s,i)=>{if(!s.exists())throw new Error(`Item "${refs[i].item.itemName}" no longer exists. Refresh and try again.`)});
-   tx.set(purchaseRef,record);
-   snaps.forEach((snap,i)=>{
-    const {item,ref}=refs[i],data=snap.data();
-    const oldStock=item.itemType==="product"?num(data.stockQuantity??data.stock??data.quantity):num(data.quantity??data.stockQuantity??data.stock);
-    const newStock=oldStock+item.quantity;
-    const stockField=item.itemType==="product"?(data.stockQuantity!==undefined?"stockQuantity":data.stock!==undefined?"stock":"quantity"):(data.quantity!==undefined?"quantity":data.stockQuantity!==undefined?"stockQuantity":"stock");
-    tx.update(ref,{[stockField]:newStock,updatedAt:serverTimestamp()});
-    const hist=doc(path(item.itemType==="product"?"productStockHistory":"materialStockHistory"));
-    tx.set(hist,{itemId:item.itemId,itemName:item.itemName,itemType:item.itemType,movementType:"stock_in",type:"purchase",quantity:item.quantity,previousStock:oldStock,newStock,unitCost:item.unitCost,totalCost:item.lineTotal,purchaseId:purchaseRef.id,invoiceNumber,supplierName,date,createdBy:currentUser.uid,createdAt:serverTimestamp(),notes:"Stock added through Expenses purchase"});
-   });
-   if(supplierId&&supplier)tx.update(doc(db,"users",businessId,"suppliers",supplierId),{updatedAt:serverTimestamp(),lastPurchaseDate:date});
-  });
-  showMessage("purchaseMessage","Purchase saved and stock updated successfully.");
-  $("purchaseForm").reset();await loadAllData();activateTab("recentPanel");
-  const saved=purchases.find(p=>p.id===purchaseRef.id);if(saved)openPurchaseInvoice(saved);
- }catch(e){console.error(e);showMessage("purchaseMessage",e.message||"Unable to save purchase. Check Firebase access rules.","error")}
- finally{btn.disabled=false;btn.textContent="Save Purchase & Update Stock"}
+$("purchaseForm").addEventListener("reset",() => {
+  setTimeout(() => {
+    $("purchaseDate").value = today();
+    $("purchaseItems").innerHTML = "";
+    addPurchaseItem();
+    updatePurchaseTotals();
+    showMessage("purchaseMessage","");
+  },0);
 });
 
-$("expenseOnlyForm").addEventListener("reset",()=>{
- setTimeout(()=>{$("expenseOnlyDate").value=today();$("expenseOnlyPaid").value="0";updateExpenseOnlyTotals();showMessage("expenseOnlyMessage","")},0);
-});
-$("expenseOnlyForm").addEventListener("submit",async event=>{
- event.preventDefault();
- if(!businessId||!currentUser)return showMessage("expenseOnlyMessage","Your account is not ready. Reload the page.","error");
- const invoiceNumber=$("expenseOnlyInvoice").value.trim(),supplierName=$("expenseOnlySupplier").value.trim();
- const amount=num($("expenseOnlyAmount").value),paid=num($("expenseOnlyPaid").value);
- if(!invoiceNumber||!supplierName||!$("expenseOnlyItems").value.trim()||amount<=0)return showMessage("expenseOnlyMessage","Complete the invoice number, supplier, item details and total amount.","error");
- if(paid<0||paid>amount)return showMessage("expenseOnlyMessage","Amount paid cannot be negative or greater than the total.","error");
-
- // Duplicate check against currently loaded purchase and expense records.
- const duplicatePurchase=purchases.some(p=>purchaseNumber(p).trim().toLowerCase()===invoiceNumber.toLowerCase());
- const duplicateExpense=expenses.some(e=>String(e.invoiceNumber||"").trim().toLowerCase()===invoiceNumber.toLowerCase()&&String(e.supplierName||"").trim().toLowerCase()===supplierName.toLowerCase());
- if(duplicatePurchase||duplicateExpense)return showMessage("expenseOnlyMessage","This invoice number may already be recorded. Check Recent Purchases and Expense History before saving.","error");
-
- const btn=$("saveExpenseOnlyBtn");btn.disabled=true;btn.textContent="Saving invoice...";
- try{
-  let receiptUrl="",receiptName="";
-  const file=$("expenseOnlyReceipt").files[0];
-  if(file){
-   if(file.size>10*1024*1024)throw new Error("The receipt file must be 10 MB or smaller.");
-   const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-   const fileRef=storageRef(storage,`users/${businessId}/expenseReceipts/${Date.now()}_${safeName}`);
-   const uploaded=await uploadBytes(fileRef,file,{contentType:file.type||"application/octet-stream"});
-   receiptUrl=await getDownloadURL(uploaded.ref);receiptName=file.name;
+$("purchaseForm").addEventListener("submit",async event => {
+  event.preventDefault();
+  if (!businessId || !currentUser) {
+    showMessage("purchaseMessage","Your account is not ready. Reload the page.","error");
+    return;
   }
-  const date=$("expenseOnlyDate").value||today();
-  const record={
-   expenseType:"invoice_only",category:"Stock Purchase (Expense Only)",
-   description:`Invoice ${invoiceNumber} — ${supplierName}`,
-   invoiceNumber,supplierName,expenseDate:date,date,
-   itemsDescription:$("expenseOnlyItems").value.trim(),
-   amount,amountPaid:paid,balance:Math.max(0,amount-paid),
-   paymentMethod:$("expenseOnlyMethod").value,
-   status:getPurchaseStatus(amount,paid),
-   receiptUrl,receiptName,
-   notes:$("expenseOnlyNotes").value.trim(),
-   inventoryUpdated:false,createdBy:currentUser.uid,
-   createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),
-   createdAt:serverTimestamp()
+
+  const items = readPurchaseItems();
+  if (!items.length || items.some(i=>!i.itemId||!i.itemName||i.quantity<=0||i.unitCost<0)) {
+    showMessage("purchaseMessage","Choose an item and enter a valid quantity and cost for each line.","error");
+    return;
+  }
+
+  const total = items.reduce((s,i)=>s+i.lineTotal,0);
+  const paid = num($("purchaseAmountPaid").value);
+  if (paid<0 || paid>total) {
+    showMessage("purchaseMessage","Amount paid cannot exceed the purchase total.","error");
+    return;
+  }
+
+  const supplierId = $("purchaseSupplier").value || "";
+  const supplier = suppliers.find(s=>s.id===supplierId);
+  const invoiceNumber = $("purchaseInvoice").value.trim() || `PUR-${Date.now()}`;
+
+  if (purchases.some(p=>purchaseNumber(p).toLowerCase()===invoiceNumber.toLowerCase())) {
+    showMessage("purchaseMessage","This invoice number already exists. Check Recent Purchases.","error");
+    return;
+  }
+
+  const date = $("purchaseDate").value || today();
+  const supplierName = supplierNameForPurchase() || "No supplier specified";
+  const record = {
+    invoiceNumber,purchaseDate:date,date,supplierId,supplierName,
+    supplierContact:firstValue(supplier,["phone","phoneNumber","contactNumber","email"],""),
+    items,totalAmount:total,amountPaid:paid,balance:Math.max(0,total-paid),
+    paymentMethod:$("purchasePaymentMethod").value,
+    status:getPurchaseStatus(total,paid),
+    notes:$("purchaseNotes").value.trim(),
+    createdBy:currentUser.uid,
+    createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),
+    createdAt:serverTimestamp()
   };
-  const savedRef=await addDoc(path("expenses"),record);
-  showMessage("expenseOnlyMessage","Invoice and expense saved. Inventory was not changed.");
-  $("expenseOnlyForm").reset();await loadAllData();activateTab("historyPanel");
-  const saved=expenses.find(e=>e.id===savedRef.id);if(saved)openExpenseInvoice(saved);
- }catch(e){console.error("Expense-only save error:",e);showMessage("expenseOnlyMessage",e.message||"Unable to save the invoice. Check your Firebase Storage and Firestore rules.","error")}
- finally{btn.disabled=false;btn.textContent="Save Expense & Invoice Only"}
+
+  const btn = $("savePurchaseBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving purchase...";
+  showMessage("purchaseMessage","Saving purchase...");
+
+  try {
+    const purchaseRef = doc(path("purchases"));
+
+    await runTransaction(db,async tx => {
+      const refs = items.map(item => ({
+        item,
+        ref:doc(db,"users",businessId,
+          item.itemType==="product" ? "products" : "materials",item.itemId)
+      }));
+
+      const snaps = [];
+      for (const r of refs) snaps.push(await tx.get(r.ref));
+      snaps.forEach((s,i) => {
+        if (!s.exists()) throw new Error(`Item "${refs[i].item.itemName}" no longer exists. Refresh and try again.`);
+      });
+
+      tx.set(purchaseRef,record);
+
+      snaps.forEach((snap,i) => {
+        const {item,ref} = refs[i];
+        const data = snap.data();
+        const oldStock = item.itemType==="product"
+          ? num(data.stockQuantity??data.stock??data.quantity)
+          : num(data.quantity??data.stockQuantity??data.stock);
+        const newStock = oldStock + item.quantity;
+        const stockField = item.itemType==="product"
+          ? (data.stockQuantity!==undefined ? "stockQuantity" : data.stock!==undefined ? "stock" : "quantity")
+          : (data.quantity!==undefined ? "quantity" : data.stockQuantity!==undefined ? "stockQuantity" : "stock");
+
+        tx.update(ref,{[stockField]:newStock,updatedAt:serverTimestamp()});
+
+        const hist = doc(path(item.itemType==="product" ? "productStockHistory" : "materialStockHistory"));
+        tx.set(hist,{
+          itemId:item.itemId,itemName:item.itemName,itemType:item.itemType,
+          movementType:"stock_in",type:"purchase",quantity:item.quantity,
+          previousStock:oldStock,newStock,unitCost:item.unitCost,totalCost:item.lineTotal,
+          purchaseId:purchaseRef.id,invoiceNumber,supplierName,date,
+          createdBy:currentUser.uid,createdAt:serverTimestamp(),
+          notes:"Stock added through Expenses purchase"
+        });
+      });
+
+      if (supplierId && supplier) {
+        tx.update(doc(db,"users",businessId,"suppliers",supplierId),{
+          updatedAt:serverTimestamp(),lastPurchaseDate:date
+        });
+      }
+    });
+
+    showMessage("purchaseMessage","Purchase saved and stock updated successfully.","success");
+    $("purchaseForm").reset();
+    btn.disabled = false;
+    btn.textContent = "Save Purchase & Update Stock";
+
+    try {
+      await loadAllData();
+      activateTab("recentPanel");
+    } catch (refreshError) {
+      console.error("Purchase saved, refresh failed:",refreshError);
+      showMessage("purchaseMessage","Purchase was saved, but the page could not refresh. Reload to check the record.","success");
+    }
+  } catch (e) {
+    console.error("Purchase save error:",e);
+    showMessage("purchaseMessage",e.message||"Unable to save purchase. Check Firebase access rules.","error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Purchase & Update Stock";
+  }
 });
 
-$("operatingForm").addEventListener("reset",()=>setTimeout(()=>{$("operatingDate").value=today();showMessage("operatingMessage","")},0));
-$("operatingForm").addEventListener("submit",async event=>{
- event.preventDefault();
- if(!businessId||!currentUser)return showMessage("operatingMessage","Your account is not ready. Reload the page.","error");
- const amount=num($("operatingAmount").value);
- if(amount<=0)return showMessage("operatingMessage","Enter an amount greater than zero.","error");
- const btn=$("saveOperatingBtn");btn.disabled=true;btn.textContent="Saving...";
- try{
-  await addDoc(path("expenses"),{
-   expenseType:"operating",expenseDate:$("operatingDate").value||today(),date:$("operatingDate").value||today(),
-   category:$("operatingCategory").value,description:$("operatingDescription").value.trim(),amount,
-   paymentMethod:$("operatingMethod").value,referenceNumber:$("operatingReference").value.trim(),
-   notes:$("operatingNotes").value.trim(),createdBy:currentUser.uid,
-   createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),createdAt:serverTimestamp()
-  });
-  showMessage("operatingMessage","Operating expense saved successfully.");$("operatingForm").reset();await loadAllData();
- }catch(e){console.error(e);showMessage("operatingMessage",e.message||"Unable to save expense.","error")}
- finally{btn.disabled=false;btn.textContent="Save Expense"}
+$("expenseOnlyForm").addEventListener("reset",() => {
+  setTimeout(() => {
+    $("expenseOnlyDate").value = today();
+    $("expenseOnlyPaid").value = "0";
+    updateExpenseOnlyTotals();
+    showMessage("expenseOnlyMessage","");
+  },0);
 });
 
-$("paymentForm").addEventListener("reset",()=>setTimeout(()=>{$("paymentDate").value=today();updatePaymentBalanceInfo()},0));
-$("paymentForm").addEventListener("submit",async event=>{
- event.preventDefault();
- if(!businessId||!currentUser)return showMessage("paymentMessage","Your account is not ready. Reload the page.","error");
- const id=$("paymentPurchase").value,amount=num($("paymentAmount").value),p=purchases.find(x=>x.id===id);
- if(!p)return showMessage("paymentMessage","Choose a purchase.","error");
- if(amount<=0||amount>purchaseBalance(p)+0.001)return showMessage("paymentMessage","Enter a payment within the outstanding balance.","error");
- const btn=$("savePaymentBtn");btn.disabled=true;btn.textContent="Saving payment...";
- try{
-  const purchaseRef=docPath("purchases",id),paymentRef=doc(path("supplierPayments"));
-  await runTransaction(db,async tx=>{
-   const snap=await tx.get(purchaseRef);if(!snap.exists())throw new Error("Purchase record not found.");
-   const current=snap.data(),total=purchaseTotal(current),oldPaid=purchasePaid(current),oldBalance=purchaseBalance(current);
-   if(amount>oldBalance+0.001)throw new Error("The outstanding balance changed. Refresh and try again.");
-   const newPaid=oldPaid+amount,newBalance=Math.max(0,total-newPaid);
-   tx.update(purchaseRef,{amountPaid:newPaid,balance:newBalance,status:getPurchaseStatus(total,newPaid),updatedAt:serverTimestamp()});
-   tx.set(paymentRef,{purchaseId:id,invoiceNumber:purchaseNumber(current),supplierId:current.supplierId||"",supplierName:purchaseSupplier(current),paymentDate:$("paymentDate").value||today(),amount,paymentMethod:$("paymentMethod").value,notes:$("paymentNotes").value.trim(),createdBy:currentUser.uid,createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),createdAt:serverTimestamp()});
-  });
-  showMessage("paymentMessage","Supplier payment saved successfully.");$("paymentForm").reset();await loadAllData();
- }catch(e){console.error(e);showMessage("paymentMessage",e.message||"Unable to save supplier payment.","error")}
- finally{btn.disabled=false;btn.textContent="Save Supplier Payment"}
+$("expenseOnlyForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  if (!businessId || !currentUser) {
+    showMessage("expenseOnlyMessage","Your account is not ready. Please reload the page.","error");
+    return;
+  }
+
+  const invoiceNumber = $("expenseOnlyInvoice").value.trim();
+  const supplierName = $("expenseOnlySupplier").value.trim();
+  const amount = num($("expenseOnlyAmount").value);
+  const paid = num($("expenseOnlyPaid").value);
+  const itemsDescription = $("expenseOnlyItems").value.trim();
+
+  if (!invoiceNumber || !supplierName || !itemsDescription || amount<=0) {
+    showMessage("expenseOnlyMessage","Complete the invoice number, supplier, item details and total amount.","error");
+    return;
+  }
+  if (paid<0 || paid>amount) {
+    showMessage("expenseOnlyMessage","Amount paid cannot be negative or greater than the total.","error");
+    return;
+  }
+
+  const duplicatePurchase = purchases.some(p =>
+    purchaseNumber(p).trim().toLowerCase()===invoiceNumber.toLowerCase()
+  );
+  const duplicateExpense = expenses.some(e =>
+    String(e.invoiceNumber||"").trim().toLowerCase()===invoiceNumber.toLowerCase() &&
+    String(e.supplierName||"").trim().toLowerCase()===supplierName.toLowerCase()
+  );
+  if (duplicatePurchase || duplicateExpense) {
+    showMessage("expenseOnlyMessage","This invoice may already be recorded. Check Expense History before saving again.","error");
+    return;
+  }
+
+  const btn = $("saveExpenseOnlyBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving invoice...";
+  showMessage("expenseOnlyMessage","Saving your expense...");
+
+  try {
+    let receiptUrl = "";
+    let receiptName = "";
+    const file = $("expenseOnlyReceipt").files[0];
+
+    if (file) {
+      if (file.size>10*1024*1024) throw new Error("The receipt file must be 10 MB or smaller.");
+
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+      const fileRef = storageRef(storage,
+        `users/${businessId}/expenseReceipts/${Date.now()}_${safeName}`);
+      const uploaded = await uploadBytes(fileRef,file,{
+        contentType:file.type||"application/octet-stream"
+      });
+      receiptUrl = await getDownloadURL(uploaded.ref);
+      receiptName = file.name;
+    }
+
+    const date = $("expenseOnlyDate").value || today();
+    const record = {
+      expenseType:"invoice_only",
+      category:"Stock Purchase (Expense Only)",
+      description:`Invoice ${invoiceNumber} — ${supplierName}`,
+      invoiceNumber,supplierName,expenseDate:date,date,itemsDescription,
+      amount,amountPaid:paid,balance:Math.max(0,amount-paid),
+      paymentMethod:$("expenseOnlyMethod").value,
+      status:getPurchaseStatus(amount,paid),
+      receiptUrl,receiptName,
+      notes:$("expenseOnlyNotes").value.trim(),
+      inventoryUpdated:false,
+      createdBy:currentUser.uid,
+      createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),
+      createdAt:serverTimestamp()
+    };
+
+    await addDoc(path("expenses"),record);
+
+    showMessage("expenseOnlyMessage","Expense saved successfully. Inventory was not changed.","success");
+    $("expenseOnlyForm").reset();
+    btn.disabled = false;
+    btn.textContent = "Save Expense & Invoice Only";
+
+    try {
+      await loadAllData();
+      activateTab("historyPanel");
+    } catch (refreshError) {
+      console.error("Invoice saved, but refresh failed:",refreshError);
+      showMessage("expenseOnlyMessage","Expense was saved to Firebase, but history could not refresh. Reload the page to check the record.","success");
+    }
+  } catch (e) {
+    console.error("Expense-only save error:",e);
+    let message = e.message || "Unable to save the invoice.";
+    if (e.code==="permission-denied") {
+      message = "Firebase denied permission to save this expense. Check your Firestore rules.";
+    } else if (!navigator.onLine) {
+      message = "You appear to be offline. Reconnect and try again.";
+    }
+    showMessage("expenseOnlyMessage",message,"error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Expense & Invoice Only";
+  }
 });
 
-$("purchaseDate").value=today();$("expenseOnlyDate").value=today();
-$("operatingDate").value=today();$("paymentDate").value=today();
+$("operatingForm").addEventListener("reset",() => {
+  setTimeout(() => {
+    $("operatingDate").value = today();
+    showMessage("operatingMessage","");
+  },0);
+});
+
+$("operatingForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  if (!businessId || !currentUser) {
+    showMessage("operatingMessage","Your account is not ready. Please reload the page.","error");
+    return;
+  }
+
+  const amount = num($("operatingAmount").value);
+  const description = $("operatingDescription").value.trim();
+  const category = $("operatingCategory").value;
+
+  if (amount<=0 || !description || !category) {
+    showMessage("operatingMessage","Enter a category, description and amount greater than zero.","error");
+    return;
+  }
+
+  const btn = $("saveOperatingBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving...";
+  showMessage("operatingMessage","Saving your expense...");
+
+  try {
+    const date = $("operatingDate").value || today();
+    await addDoc(path("expenses"),{
+      expenseType:"operating",
+      expenseDate:date,date,category,description,amount,
+      paymentMethod:$("operatingMethod").value,
+      referenceNumber:$("operatingReference").value.trim(),
+      notes:$("operatingNotes").value.trim(),
+      createdBy:currentUser.uid,
+      createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),
+      createdAt:serverTimestamp()
+    });
+
+    showMessage("operatingMessage","Operating expense saved successfully.","success");
+    $("operatingForm").reset();
+    btn.disabled = false;
+    btn.textContent = "Save Expense";
+
+    try {
+      await loadAllData();
+    } catch (refreshError) {
+      console.error("Operating expense saved, refresh failed:",refreshError);
+      showMessage("operatingMessage","Expense was saved, but the page could not refresh. Reload to check the record.","success");
+    }
+  } catch (e) {
+    console.error("Operating expense save error:",e);
+    let message = e.message || "Unable to save expense.";
+    if (e.code==="permission-denied") {
+      message = "Firebase denied permission to save this expense. Check your Firestore rules.";
+    } else if (!navigator.onLine) {
+      message = "You appear to be offline. Reconnect and try again.";
+    }
+    showMessage("operatingMessage",message,"error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Expense";
+  }
+});
+
+$("paymentForm").addEventListener("reset",() => {
+  setTimeout(() => {
+    $("paymentDate").value = today();
+    updatePaymentBalanceInfo();
+    showMessage("paymentMessage","");
+  },0);
+});
+
+$("paymentForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  if (!businessId || !currentUser) {
+    showMessage("paymentMessage","Your account is not ready. Please reload the page.","error");
+    return;
+  }
+
+  const id = $("paymentPurchase").value;
+  const amount = num($("paymentAmount").value);
+  const p = purchases.find(x=>x.id===id);
+
+  if (!p) {
+    showMessage("paymentMessage","Choose a purchase.","error");
+    return;
+  }
+  if (amount<=0 || amount>purchaseBalance(p)+0.001) {
+    showMessage("paymentMessage","Enter a payment within the outstanding balance.","error");
+    return;
+  }
+
+  const btn = $("savePaymentBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving payment...";
+  showMessage("paymentMessage","Saving supplier payment...");
+
+  try {
+    const purchaseRef = docPath("purchases",id);
+    const paymentRef = doc(path("supplierPayments"));
+
+    await runTransaction(db,async tx => {
+      const snap = await tx.get(purchaseRef);
+      if (!snap.exists()) throw new Error("Purchase record not found.");
+
+      const current = snap.data();
+      const total = purchaseTotal(current);
+      const oldPaid = purchasePaid(current);
+      const oldBalance = purchaseBalance(current);
+      if (amount>oldBalance+0.001) throw new Error("The outstanding balance changed. Refresh and try again.");
+
+      const newPaid = oldPaid+amount;
+      const newBalance = Math.max(0,total-newPaid);
+
+      tx.update(purchaseRef,{
+        amountPaid:newPaid,balance:newBalance,
+        status:getPurchaseStatus(total,newPaid),
+        updatedAt:serverTimestamp()
+      });
+
+      tx.set(paymentRef,{
+        purchaseId:id,
+        invoiceNumber:purchaseNumber(current),
+        supplierId:current.supplierId||"",
+        supplierName:purchaseSupplier(current),
+        paymentDate:$("paymentDate").value||today(),
+        amount,
+        paymentMethod:$("paymentMethod").value,
+        notes:$("paymentNotes").value.trim(),
+        createdBy:currentUser.uid,
+        createdByName:firstValue(currentProfile,["fullName","name","displayName"],currentUser.email||"User"),
+        createdAt:serverTimestamp()
+      });
+    });
+
+    showMessage("paymentMessage","Supplier payment saved successfully.","success");
+    $("paymentForm").reset();
+    btn.disabled = false;
+    btn.textContent = "Save Supplier Payment";
+
+    try {
+      await loadAllData();
+    } catch (refreshError) {
+      console.error("Payment saved, refresh failed:",refreshError);
+      showMessage("paymentMessage","Payment was saved, but the page could not refresh. Reload to check the balance.","success");
+    }
+  } catch (e) {
+    console.error("Supplier payment save error:",e);
+    let message = e.message || "Unable to save supplier payment.";
+    if (e.code==="permission-denied") {
+      message = "Firebase denied permission to save this payment. Check your Firestore rules.";
+    }
+    showMessage("paymentMessage",message,"error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Supplier Payment";
+  }
+});
+
+$("purchaseDate").value = today();
+$("expenseOnlyDate").value = today();
+$("operatingDate").value = today();
+$("paymentDate").value = today();
 addPurchaseItem();
 
-onAuthStateChanged(auth,async user=>{
- if(!user){$("pageMessage").textContent="Please sign in to access Expenses.";return}
- currentUser=user;
- try{await loadProfile(user);await loadAllData()}
- catch(e){console.error("Expenses loading error:",e);$("pageMessage").textContent="Unable to load Expenses. Check your internet connection and Firebase access rules."}
+onAuthStateChanged(auth,async user => {
+  if (!user) {
+    $("pageMessage").textContent = "Please sign in to access Expenses.";
+    return;
+  }
+
+  currentUser = user;
+
+  try {
+    await loadProfile(user);
+    await loadAllData();
+  } catch (e) {
+    console.error("Expenses loading error:",e);
+    $("pageMessage").textContent =
+      "Unable to load Expenses. Check your internet connection and Firebase access rules.";
+  }
 });
 </script>
 </body>
