@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -4682,6 +4681,8 @@ window.confirmPayment = async function () {
           console.warn("Material not found:", materialId);
           continue;
         }
+        
+        
 
         const materialData = materialSnap.data();
 
@@ -4695,11 +4696,14 @@ window.confirmPayment = async function () {
           0,
           currentMaterialQuantity - materialUsed
         );
+        
+        
 
-        await updateDoc(materialRef, {
-          quantity: newMaterialQuantity
-        });
+        await updateDoc(materialRef, { quantity: newMaterialQuantity }); 
+      
+      /* RECORD MATERIAL STOCK SOLD IN STOCK HISTORY */ try { const materialUnitCost = Number( materialData.unitCost ?? materialData.costPrice ?? materialData.purchasePrice ?? materialData.buyingPrice ?? materialData.cost ?? 0 ) || 0; await addDoc( collection( db, "users", currentBusinessId, "materialInventory" ), { materialId: materialId, materialName: materialData.name || materialData.materialName || material.name || "Material", type: "sold", adjustmentType: "sold", reason: "recipe_consumption", reasonLabel: "Used in product sales", quantity: materialUsed, quantityChanged: -materialUsed, previousStock: currentMaterialQuantity, balanceAfter: newMaterialQuantity, unit: materialData.unit || materialData.stockUnit || material.unit || "", unitCost: materialUnitCost, totalCost: materialUsed * materialUnitCost, saleProductName: productData.name || productData.productName || item.name || "", soldQuantity: soldQuantity, ownerUid: currentBusinessId, actorUid: currentUser?.uid || "", actorName: currentUserData?.name || currentUserData?.fullName || currentUser?.displayName || "", actorRole: currentRole || "owner", createdAt: serverTimestamp() } ); } catch (historyError) { console.error( "Failed to record material Stock Sold:", historyError ); } 
       }
+      
     }
 
     /* SUCCESS MESSAGE */
