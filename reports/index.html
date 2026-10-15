@@ -42,7 +42,16 @@
     <article class="stat"><div class="stat-label">TOTAL SALES</div><div class="stat-value" id="statSales">₱0.00</div><div class="stat-note" id="statSalesNote">0 transactions</div></article>
     <article class="stat"><div class="stat-label">RECORDED COST OF GOODS</div><div class="stat-value" id="statCost">₱0.00</div><div class="stat-note" id="statCostNote">Based on saved item costs</div></article>
     <article class="stat"><div class="stat-label">GROSS PROFIT</div><div class="stat-value" id="statProfit">₱0.00</div><div class="stat-note" id="statProfitNote">Sales minus recorded item costs</div></article>
-    <article class="stat"><div class="stat-label">OPERATING EXPENSES</div><div class="stat-value" id="statExpenses">₱0.00</div><div class="stat-note" id="statExpenseNote">Recorded expenses only</div></article>
+    
+    
+    
+<article class="stat">
+  <div class="stat-label">TOTAL EXPENSES</div>
+  <div class="stat-value" id="statExpenses">₱0.00</div>
+  <div class="stat-note" id="statExpenseNote">All recorded expenses</div>
+</article>
+
+
   </div>
   <nav class="tabs no-print" id="reportTabs">
     <button class="active" data-report="overview">Overview</button><button data-report="sales">Sales</button><button data-report="profit">Profit</button><button data-report="expenses">Expenses</button><button data-report="products">Products</button><button data-report="services">Services</button><button data-report="materials">Materials</button><button data-report="stock">Stock Movement</button><button data-report="suppliers">Suppliers</button><button data-report="activity">Activity Log</button>
@@ -109,12 +118,45 @@ function purchaseTotal(p){return num(p.total??p.totalAmount??p.amount??(Array.is
 function purchaseBalance(p){if(p.balance!==undefined)return Math.max(0,num(p.balance));return Math.max(0,purchaseTotal(p)-num(p.amountPaid??p.paidAmount))}
 function isOperatingExpense(e){return !["invoice_only","purchase","supplier_purchase"].includes(String(e.expenseType||e.type||"").toLowerCase())}
 function expAmount(e){return num(e.amount??e.totalAmount??e.total)}
+
 function selectedSales(){return docRows("sales").filter(s=>inRange(saleDate(s)))}
 function selectedPurchases(){return docRows("purchases").filter(p=>inRange(purchaseDate(p)))}
-function selectedExpenses(){return docRows("expenses").filter(e=>inRange(expenseDate(e))&&isOperatingExpense(e))}
+
+
+
+
+function isInvoiceExpense(e){
+  return String(e.expenseType || e.type || "").toLowerCase() === "invoice_only";
+}
+
+function selectedOperatingExpenses(){
+  return docRows("expenses").filter(e =>
+    inRange(expenseDate(e)) && isOperatingExpense(e)
+  );
+}
+
+function selectedInvoiceExpenses(){
+  return docRows("expenses").filter(e =>
+    inRange(expenseDate(e)) && isInvoiceExpense(e)
+  );
+}
+
+// Includes invoice-only and operating expenses.
+function selectedExpenses(){
+  return docRows("expenses").filter(e =>
+    inRange(expenseDate(e))
+  );
+}
+
+
 function selectedHistory(){return ["productStockHistory","materialStockHistory","materialInventory"].flatMap(k=>docRows(k).map(x=>({...x,_collection:k}))).filter(x=>inRange(dateKey(x,["date","movementDate","createdAt","timestamp"])))}
+
 function selectedActivity(){return docRows("activityLogs").filter(x=>inRange(dateKey(x,["date","createdAt","timestamp"])))}
+
+
 function currentRangeLabel(){return `${dateLabel($("dateFrom").value)} – ${dateLabel($("dateTo").value)}`}
+
+
 function getRangePreset(preset){
   const now=new Date(),today=localDate(now);let from=today,to=today;
   if(preset==="yesterday"){const d=new Date(now);d.setDate(d.getDate()-1);from=to=localDate(d)}
@@ -124,6 +166,8 @@ function getRangePreset(preset){
   else if(preset==="year"){from=`${now.getFullYear()}-01-01`}
   return {from,to};
 }
+
+
 function setPreset(preset){if(preset==="custom")return;const r=getRangePreset(preset);$("dateFrom").value=r.from;$("dateTo").value=r.to;refreshReports()}
 async function loadCollection(name){
   try{const snap=await getDocs(collection(db,"users",businessId,name));data[name]=snap.docs.map(d=>({id:d.id,...d.data()}))}
@@ -152,27 +196,304 @@ function getTrend(){
   expenses.forEach(e=>{const k=bucket(expenseDate(e)),x=days.find(d=>d.key===k);if(x)x.expenses+=expAmount(e)});
   return days;
 }
+
+
 function renderOverview(){
-  const sales=selectedSales(),purchases=selectedPurchases(),expenses=selectedExpenses(),salesTotal=sales.reduce((s,x)=>s+num(x.total??x.amount??x.grandTotal),0),cost=sales.reduce((s,x)=>s+saleCost(x).total,0),complete=sales.every(s=>saleCost(s).complete),operating=expenses.reduce((s,e)=>s+expAmount(e),0),purchaseSpend=purchases.reduce((s,p)=>s+purchaseTotal(p),0),outstanding=docRows("purchases").reduce((s,p)=>s+purchaseBalance(p),0);
-  $("statSales").textContent=peso(salesTotal);$("statSalesNote").textContent=`${sales.length} transaction${sales.length===1?"":"s"}`;
-  $("statCost").textContent=peso(cost);$("statCostNote").textContent=complete?"Cost fields found for all sale items":"Some item cost records are missing";
-  $("statProfit").textContent=peso(salesTotal-cost);$("statProfitNote").textContent=complete?"Sales less recorded item costs":"Estimate only — incomplete cost data";
-  $("statExpenses").textContent=peso(operating);$("statExpenseNote").textContent=`${expenses.length} operating expense record${expenses.length===1?"":"s"}`;
-  $("periodLabel").textContent=$("preset").selectedOptions[0]?.textContent||"Selected period";
-  const maxItems=12;const trend=getTrend();drawBars("comparisonChart",[{label:"Period",sales:salesTotal,expenses:operating}], [{key:"sales",color:"#16805C"},{key:"expenses",color:"#D97706"}]);drawBars("trendChart",trend.slice(-maxItems),[{key:"sales",color:"#16805C"}]);
-  const pay={Cash:0,Credit:0,GCash:0,Maya:0,Other:0};sales.forEach(s=>{let k=String(s.qrMethod||s.paymentMethod||"Other").toLowerCase();if(k.includes("cash"))pay.Cash+=num(s.total);else if(k.includes("credit"))pay.Credit+=num(s.total);else if(k.includes("gcash"))pay.GCash+=num(s.total);else if(k.includes("maya"))pay.Maya+=num(s.total);else pay.Other+=num(s.total)});
-  $("paymentBreakdown").innerHTML=Object.entries(pay).filter(([k,v])=>v||k!=="Other").map(([k,v])=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px"><span>${safe(k)}</span><strong>${peso(v)}</strong></div>`).join("")||'<div class="empty">No payment data for this period.</div>';
-  $("snapshot").innerHTML=`<div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px"><span>Stock purchases recorded</span><strong>${peso(purchaseSpend)}</strong></div><div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px"><span>Outstanding supplier balances (all dates)</span><strong>${peso(outstanding)}</strong></div><div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px"><span>Products</span><strong>${docRows("products").length}</strong></div><div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;font-size:12px"><span>Services</span><strong>${docRows("services").length}</strong></div>`;
-  const recent=[...sales].sort((a,b)=>(parseDate(saleDate(b))?.getTime()||0)-(parseDate(saleDate(a))?.getTime()||0)).slice(0,6);
-  $("recentSales").innerHTML=recent.length?`<div class="table-wrap"><table><thead><tr><th>Date</th><th>Cashier</th><th>Payment</th><th class="right">Total</th></tr></thead><tbody>${recent.map(s=>`<tr><td>${safe(dateLabel(saleDate(s)))}</td><td>${safe(s.performedByName||s.cashierName||"—")}</td><td>${safe(s.qrMethod||s.paymentMethod||"—")}</td><td class="right"><strong>${peso(s.total??s.amount)}</strong></td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No sales found in this period.</div>';
+  const sales = selectedSales();
+  const purchases = selectedPurchases();
+  const expenses = selectedExpenses();
+
+  const salesTotal = sales.reduce(
+    (s, x) => s + num(x.total ?? x.amount ?? x.grandTotal), 0
+  );
+
+  const cost = sales.reduce(
+    (s, x) => s + saleCost(x).total, 0
+  );
+
+  const complete = sales.every(s => saleCost(s).complete);
+
+  // All expenses: stock purchases + invoices + operating expenses.
+  const stockPurchaseTotal = purchases.reduce(
+    (s, p) => s + purchaseTotal(p), 0
+  );
+
+  const invoiceExpenses = expenses.filter(isInvoiceExpense);
+
+  const operatingExpenses = expenses.filter(
+    e => !isInvoiceExpense(e) && isOperatingExpense(e)
+  );
+
+  const invoiceTotal = invoiceExpenses.reduce(
+    (s, e) => s + expAmount(e), 0
+  );
+
+  const operatingTotal = operatingExpenses.reduce(
+    (s, e) => s + expAmount(e), 0
+  );
+
+  const totalExpenses =
+    stockPurchaseTotal + invoiceTotal + operatingTotal;
+
+  const outstanding = docRows("purchases").reduce(
+    (s, p) => s + purchaseBalance(p), 0
+  );
+
+  // Sales summary
+  $("statSales").textContent = peso(salesTotal);
+  $("statSalesNote").textContent =
+    `${sales.length} transaction${sales.length === 1 ? "" : "s"}`;
+
+  // Cost summary
+  $("statCost").textContent = peso(cost);
+  $("statCostNote").textContent = complete
+    ? "Cost fields found for all sale items"
+    : "Some item cost records are missing";
+
+  // Gross profit summary
+  $("statProfit").textContent = peso(salesTotal - cost);
+  $("statProfitNote").textContent = complete
+    ? "Sales less recorded item costs"
+    : "Estimate only — incomplete cost data";
+
+  // Total expenses summary
+  $("statExpenses").textContent = peso(totalExpenses);
+  $("statExpenseNote").textContent =
+    `${purchases.length} stock purchases · ` +
+    `${invoiceExpenses.length} invoices · ` +
+    `${operatingExpenses.length} operating expenses`;
+
+  $("periodLabel").textContent =
+    $("preset").selectedOptions[0]?.textContent || "Selected period";
+
+  // Charts
+  const maxItems = 12;
+  const trend = getTrend();
+
+  drawBars(
+    "comparisonChart",
+    [{
+      label: "Period",
+      sales: salesTotal,
+      expenses: totalExpenses
+    }],
+    [
+      { key: "sales", color: "#16805C" },
+      { key: "expenses", color: "#D97706" }
+    ]
+  );
+
+  drawBars(
+    "trendChart",
+    trend.slice(-maxItems),
+    [{ key: "sales", color: "#16805C" }]
+  );
+
+  // Payment breakdown
+  const pay = {
+    Cash: 0,
+    Credit: 0,
+    GCash: 0,
+    Maya: 0,
+    Other: 0
+  };
+
+  sales.forEach(s => {
+    const k = String(
+      s.qrMethod || s.paymentMethod || "Other"
+    ).toLowerCase();
+
+    const amount = num(s.total ?? s.amount ?? s.grandTotal);
+
+    if (k.includes("cash")) pay.Cash += amount;
+    else if (k.includes("credit")) pay.Credit += amount;
+    else if (k.includes("gcash")) pay.GCash += amount;
+    else if (k.includes("maya")) pay.Maya += amount;
+    else pay.Other += amount;
+  });
+
+  $("paymentBreakdown").innerHTML =
+    Object.entries(pay)
+      .filter(([k, v]) => v || k !== "Other")
+      .map(([k, v]) => `
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px">
+          <span>${safe(k)}</span>
+          <strong>${peso(v)}</strong>
+        </div>
+      `).join("") ||
+    '<div class="empty">No payment data for this period.</div>';
+
+  // Business snapshot
+  $("snapshot").innerHTML = `
+    <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px">
+      <span>Stock purchases recorded</span>
+      <strong>${peso(stockPurchaseTotal)}</strong>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px">
+      <span>Outstanding supplier balances (all dates)</span>
+      <strong>${peso(outstanding)}</strong>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:12px">
+      <span>Products</span>
+      <strong>${docRows("products").length}</strong>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;font-size:12px">
+      <span>Services</span>
+      <strong>${docRows("services").length}</strong>
+    </div>
+  `;
+
+  // Recent sales
+  const recent = [...sales]
+    .sort((a, b) =>
+      (parseDate(saleDate(b))?.getTime() || 0) -
+      (parseDate(saleDate(a))?.getTime() || 0)
+    )
+    .slice(0, 6);
+
+  $("recentSales").innerHTML = recent.length
+    ? `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Cashier</th>
+              <th>Payment</th>
+              <th class="right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recent.map(s => `
+              <tr>
+                <td>${safe(dateLabel(saleDate(s)))}</td>
+                <td>${safe(s.performedByName || s.cashierName || "—")}</td>
+                <td>${safe(s.qrMethod || s.paymentMethod || "—")}</td>
+                <td class="right">
+                  <strong>${peso(s.total ?? s.amount ?? s.grandTotal)}</strong>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `
+    : '<div class="empty">No sales found in this period.</div>';
 }
+
 function table(headers,rows){if(!rows.length)return '<div class="empty">No records found for this report and date range.</div>';return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(v=>`<td>${v??"—"}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`}
+
+
+
 function reportRows(kind){
+
+
   if(kind==="sales")return selectedSales().map(s=>({search:[saleDate(s),s.performedByName,s.paymentMethod,s.qrMethod,s.id].join(" ").toLowerCase(),status:"",cells:[safe(dateLabel(saleDate(s))),safe(s.performedByName||s.cashierName||"—"),safe(s.transactionType||"Sale"),safe(s.qrMethod||s.paymentMethod||"—"),peso(s.total??s.amount??s.grandTotal)]}));
+  
   if(kind==="profit")return selectedSales().map(s=>{const c=saleCost(s),total=num(s.total??s.amount??s.grandTotal);return {search:[saleDate(s),s.performedByName,s.id].join(" ").toLowerCase(),status:c.complete?"complete":"incomplete",cells:[safe(dateLabel(saleDate(s))),safe(s.performedByName||"—"),peso(total),peso(c.total),`<strong>${peso(total-c.total)}</strong>`,c.complete?'<span class="pill">Recorded cost</span>':'<span class="pill warn">Cost incomplete</span>']}})
-  if(kind==="expenses")return selectedExpenses().map(e=>({search:[expenseDate(e),e.category,e.description,e.paymentMethod,e.status].join(" ").toLowerCase(),status:String(e.status||"").toLowerCase(),cells:[safe(dateLabel(expenseDate(e))),safe(e.category||"—"),safe(e.description||e.notes||"—"),safe(e.paymentMethod||e.paidBy||"—"),peso(expAmount(e)),safe(e.status||"Recorded")]}));
+  
+  
+  
+if(kind==="expenses"){
+  const purchaseRows = selectedPurchases().map(p => {
+    const total = purchaseTotal(p);
+    const balance = purchaseBalance(p);
+
+    const status = balance <= 0
+      ? "paid"
+      : balance < total
+        ? "partial"
+        : "unpaid";
+
+    const supplier = p.supplierName || p.supplier || "—";
+    const itemNames = Array.isArray(p.items)
+      ? p.items.map(i =>
+          i.itemName || i.productName || i.materialName || i.name || ""
+        ).filter(Boolean).join(", ")
+      : "";
+
+    return {
+      search: [
+        purchaseDate(p),
+        supplier,
+        itemNames,
+        "stock purchase",
+        p.paymentMethod,
+        status
+      ].join(" ").toLowerCase(),
+
+      status,
+
+      cells: [
+        safe(dateLabel(purchaseDate(p))),
+        '<span class="pill">Stock Purchase</span>',
+        safe(supplier + (itemNames ? " — " + itemNames : "")),
+        safe(p.paymentMethod || p.paymentStatus || status),
+        peso(total),
+        safe(status === "paid" ? "Paid" :
+             status === "partial" ? "Partially paid" : "Unpaid")
+      ]
+    };
+  });
+
+  const expenseRows = selectedExpenses().map(e => {
+    const invoice = isInvoiceExpense(e);
+    const category = invoice
+      ? "Invoice Expense"
+      : (e.category || "Operating Expense");
+
+    const rawStatus = String(e.status || "").toLowerCase();
+
+    const status = ["unpaid", "outstanding"].includes(rawStatus)
+      ? "unpaid"
+      : ["partial", "partially paid"].includes(rawStatus)
+        ? "partial"
+        : rawStatus === "paid"
+          ? "paid"
+          : "";
+
+    return {
+      search: [
+        expenseDate(e),
+        category,
+        e.description,
+        e.notes,
+        e.supplierName,
+        e.paymentMethod,
+        rawStatus
+      ].join(" ").toLowerCase(),
+
+      status,
+
+      cells: [
+        safe(dateLabel(expenseDate(e))),
+        `<span class="pill ${invoice ? "warn" : ""}">${
+          safe(invoice ? "Invoice Expense" : "Operating Expense")
+        }</span>`,
+        safe(
+          (e.category ? e.category + " — " : "") +
+          (e.description || e.notes || e.supplierName || "—")
+        ),
+        safe(e.paymentMethod || e.paidBy || "—"),
+        peso(expAmount(e)),
+        safe(e.status || "Recorded")
+      ]
+    };
+  });
+
+  return [...purchaseRows, ...expenseRows].sort((a, b) =>
+    String(b.cells[0]).localeCompare(String(a.cells[0]))
+  );
+}
+
+
+  
   if(kind==="products")return docRows("products").map(p=>({search:[p.name,p.category,p.sku,p.barcode].join(" ").toLowerCase(),status:"",cells:[safe(p.name||"Unnamed product"),safe(p.category||"—"),safe(p.sku||p.barcode||"—"),num(p.stockQuantity??p.quantity??p.stock),peso(p.costPrice??p.unitCost),peso(p.sellingPrice??p.price)]}));
+  
+  
   if(kind==="services")return docRows("services").map(s=>({search:[s.name,s.category,s.description].join(" ").toLowerCase(),status:"",cells:[safe(s.name||"Unnamed service"),safe(s.category||"—"),peso(s.costPrice??s.unitCost),peso(s.sellingPrice??s.price),safe(s.status||"Active")]}));
+  
+  
   if(kind==="materials")return docRows("materials").map(m=>({search:[m.name,m.category,m.supplier,m.unit].join(" ").toLowerCase(),status:"",cells:[safe(m.name||"Unnamed material"),safe(m.category||"—"),safe(m.unit||"—"),num(m.quantity??m.stockQuantity),peso(m.unitCost??m.costPrice),safe(m.supplier||"—")]}));
   if(kind==="stock")return selectedHistory().map(h=>({search:[h.itemName,h.productName,h.materialName,h.type,h.source,h.supplier,h._collection].join(" ").toLowerCase(),status:"",cells:[safe(dateLabel(dateKey(h,["date","movementDate","createdAt","timestamp"]))),safe(h.itemName||h.productName||h.materialName||"Inventory item"),safe(h.type||h.movementType||h.action||h._collection),num(h.quantity??h.qty),safe(h.unit||"—"),safe(h.source||"—"),safe(h.performedByName||h.actorName||h.createdByName||"—")]}));
   if(kind==="suppliers"){
@@ -182,10 +503,28 @@ function reportRows(kind){
   if(kind==="activity")return selectedActivity().map(a=>({search:[a.action,a.description,a.actorName,a.performedByName,a.actorRole,a.targetType].join(" ").toLowerCase(),status:"",cells:[safe(dateLabel(dateKey(a,["date","createdAt","timestamp"]))),safe(a.actorName||a.performedByName||a.createdByName||"—"),safe(a.actorRole||a.performedByRole||a.createdByRole||"—"),safe(a.action||a.targetType||"Activity"),safe(a.description||"—")]}));
   return [];
 }
+
+
 const definitions={
  sales:{title:"Sales Report",description:"Sales transactions recorded during the selected period.",headers:["Date","Cashier","Type","Payment Method","Total"]},
  profit:{title:"Profit Report",description:"Gross profit is calculated from sale totals minus cost data found on saved sale items and product/service records.",headers:["Date","Cashier","Sales","Recorded Cost","Gross Profit","Cost Status"]},
- expenses:{title:"Operating Expenses",description:"Excludes supplier purchase invoices and supplier payments to avoid counting purchase costs twice.",headers:["Date","Category","Description","Paid Via","Amount","Status"]},
+ 
+ 
+
+expenses: {
+  title: "All Expenses",
+  description: "Stock purchases, invoice expenses and operating expenses for the selected period. Supplier payments are excluded to prevent double-counting.",
+  headers: [
+    "Date",
+    "Expense Type",
+    "Description / Supplier",
+    "Paid Via",
+    "Amount",
+    "Status"
+  ]
+},
+ 
+ 
  products:{title:"Products Report",description:"Current product and stock information. This list reflects current inventory, not historical stock levels.",headers:["Product","Category","SKU / Barcode","Stock","Unit Cost","Selling Price"]},
  services:{title:"Services Report",description:"Current service list and recorded price/cost fields.",headers:["Service","Category","Recorded Cost","Selling Price","Status"]},
  materials:{title:"Materials Report",description:"Current materials inventory and recorded unit costs.",headers:["Material","Category","Unit","Stock Left","Unit Cost","Supplier"]},
@@ -193,12 +532,65 @@ const definitions={
  suppliers:{title:"Supplier Balances",description:"Outstanding balances are calculated from purchase records across all dates; payments are not counted as new expenses.",headers:["Supplier","Contact","Purchases","Purchase Total","Payments","Balance Due","Status"]},
  activity:{title:"Activity Log",description:"Audit activity records found in activityLogs for the selected period.",headers:["Date","User","Role","Action","Details"]}
 };
+
+
+
 function renderDetail(){
   const def=definitions[activeReport];$("detailTitle").textContent=def.title;$("detailDescription").textContent=def.description;
   const rows=reportRows(activeReport);rowsForSearch=rows;
   const query=$("searchRows").value.trim().toLowerCase(),status=$("statusFilter").value;
   const filtered=rows.filter(r=>(!query||r.search.includes(query))&&(!status||r.status===status));
-  $("detailContent").innerHTML=table(def.headers,filtered.map(r=>r.cells));
+  
+if (activeReport === "expenses") {
+  const purchases = selectedPurchases();
+  const expenses = selectedExpenses();
+
+  const stockTotal = purchases.reduce(
+    (sum, p) => sum + purchaseTotal(p), 0
+  );
+
+  const invoiceTotal = expenses
+    .filter(isInvoiceExpense)
+    .reduce((sum, e) => sum + expAmount(e), 0);
+
+  const operatingTotal = expenses
+    .filter(e => !isInvoiceExpense(e) && isOperatingExpense(e))
+    .reduce((sum, e) => sum + expAmount(e), 0);
+
+  const totalExpenses = stockTotal + invoiceTotal + operatingTotal;
+
+  $("detailContent").innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px;margin-bottom:14px">
+
+      <div style="background:#E8F3EC;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#0B4F3A;font-weight:800">Stock Purchases</div>
+        <div style="font-size:19px;font-weight:900;color:#0B4F3A;margin-top:6px">${peso(stockTotal)}</div>
+      </div>
+
+      <div style="background:#FFF3D9;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#805600;font-weight:800">Invoice Expenses</div>
+        <div style="font-size:19px;font-weight:900;color:#805600;margin-top:6px">${peso(invoiceTotal)}</div>
+      </div>
+
+      <div style="background:#E8F0FF;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#2457A7;font-weight:800">Operating Expenses</div>
+        <div style="font-size:19px;font-weight:900;color:#2457A7;margin-top:6px">${peso(operatingTotal)}</div>
+      </div>
+
+      <div style="background:#0B4F3A;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:white;font-weight:800">TOTAL EXPENSES</div>
+        <div style="font-size:19px;font-weight:900;color:white;margin-top:6px">${peso(totalExpenses)}</div>
+      </div>
+
+    </div>
+    ${table(def.headers, filtered.map(r => r.cells))}
+  `;
+} else {
+  $("detailContent").innerHTML = table(
+    def.headers,
+    filtered.map(r => r.cells)
+  );
+}
 }
 function refreshReports(){
   clearMessage();$("periodLabel").textContent=$("preset").selectedOptions[0]?.textContent||"Custom Range";
