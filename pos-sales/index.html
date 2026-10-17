@@ -14,6 +14,26 @@
 
 <style>
     
+    
+    
+    
+.cash-register-btn {
+  background: #0B4F3A;
+  color: #FFFFFF;
+  border: 1px solid #F2B84B;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(11, 79, 58, 0.18);
+}
+
+.cash-register-btn:hover {
+  background: #16805C;
+}
+    
+    
     .download-report-btn{
     width:100%;
     margin:0 0 16px;
@@ -1533,11 +1553,23 @@ body{
     </section>
 
 
+
+
+
+
+
 <!-- =====================================================
      DAILY SALES REPORT
 ===================================================== -->
 
 <div class="daily-report-action">
+
+<button type="button" class="cash-register-btn"
+  onclick="window.location.href='../pos-cashr/index.html'">
+  💵 Cash Register
+</button>
+
+
 
     <button
         type="button"
@@ -1557,6 +1589,10 @@ body{
             ›
         </span>
     </button>
+
+
+
+
 
 </div>
 
