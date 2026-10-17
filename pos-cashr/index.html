@@ -1,0 +1,2064 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B4F3A">
+<title>Cash Register - Kayah</title>
+
+
+<style>
+
+:root {
+  --green: #0B4F3A;
+  --green2: #16805C;
+  --gold: #F2B84B;
+  --bg: #F2F5F3;
+  --ink: #1C3026;
+  --muted: #687970;
+  --line: #DFE7E1;
+  --red: #B42318;
+  --blue: #2864C5;
+  --purple: #7754B8;
+  --teal: #168A88;
+  --white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* BUSINESS HEADER */
+header {
+  background: linear-gradient(120deg, #073B2B, #0B4F3A 65%, #16805C);
+  color: white;
+  padding: 12px 14px;
+  box-shadow: 0 3px 12px rgba(11,79,58,.15);
+}
+
+.header {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo, .placeholder {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex-shrink: 0;
+}
+
+.logo {
+  object-fit: contain;
+  background: white;
+  padding: 3px;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--gold);
+  color: var(--green);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.brand {
+  flex: 1;
+  min-width: 0;
+}
+
+.brand h1 {
+  margin: 0 0 3px;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.brand p {
+  margin: 0;
+  color: #DCEBE3;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.header-date {
+  text-align: right;
+  color: #E3F0E9;
+  font-size: 11px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+/* PAGE */
+main {
+  max-width: 1150px;
+  margin: auto;
+  padding: 12px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -.35px;
+}
+
+h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 900;
+}
+
+.muted {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.card, .panel {
+  min-width: 0;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 2px 7px rgba(24,48,36,.035);
+}
+
+main > .panel {
+  margin-bottom: 10px !important;
+}
+
+/* COMPACT BALANCE CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cards .card {
+  position: relative;
+  overflow: hidden;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(140deg, #0B4F3A, #16805C);
+}
+
+.cards .card:nth-child(2) {
+  background: linear-gradient(140deg, #2059A7, #3989DE);
+}
+
+.cards .card:nth-child(3) {
+  background: linear-gradient(140deg, #6440A1, #9270D5);
+}
+
+.cards .label {
+  margin-bottom: 7px;
+  color: rgba(255,255,255,.9);
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+.cards .value {
+  color: white;
+  font-size: clamp(15px, 2.5vw, 24px);
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -.4px;
+  overflow-wrap: anywhere;
+}
+
+.cards .sub {
+  margin-top: 5px;
+  color: rgba(255,255,255,.8);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+/* REGISTER STATUS */
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status.open {
+  background: #DDF5E5;
+  color: #116B38;
+  border: 1px solid #B8E6C7;
+}
+
+.status.closed {
+  background: #E9EEEB;
+  color: #46564D;
+  border: 1px solid #D9E1DC;
+}
+
+.btnrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.btn {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.2;
+  transition: transform .15s, filter .15s;
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(.96);
+}
+
+.primary {
+  background: var(--green);
+  color: white;
+}
+
+.secondary {
+  background: #E6F1EA;
+  color: var(--green);
+  border: 1px solid #D3E5D9;
+}
+
+.goldbtn {
+  background: var(--gold);
+  color: #493600;
+}
+
+.danger {
+  background: #FBE9E7;
+  color: var(--red);
+}
+
+/* FULL-COLOR NAVIGATION TABS */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 7px;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.tab {
+  min-width: 0;
+  min-height: 48px;
+  padding: 9px 5px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(20,40,30,.09);
+  opacity: .86;
+  transition: opacity .15s, transform .15s, box-shadow .15s;
+}
+
+.tab:active {
+  transform: scale(.98);
+}
+
+.tab[data-tab="summary"] {
+  background: #0B704B;
+}
+
+.tab[data-tab="movement"] {
+  background: #B9800D;
+}
+
+.tab[data-tab="transfer"] {
+  background: #2864C5;
+}
+
+.tab[data-tab="history"] {
+  background: #7754B8;
+}
+
+.tab.active {
+  opacity: 1;
+  border-color: white;
+  box-shadow: 0 0 0 2px rgba(11,79,58,.2), 0 4px 9px rgba(20,40,30,.13);
+  transform: translateY(-1px);
+}
+
+/* CONTENT SECTIONS */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+  animation: fadeIn .16s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: .65; }
+  to { opacity: 1; }
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 9px;
+}
+
+.grid2 > .panel {
+  align-self: start;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  color: #34483C;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 10px;
+  border: 1px solid #D5E0D8;
+  border-radius: 8px;
+  background: #FCFDFC;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--green2);
+  box-shadow: 0 0 0 3px rgba(22,128,92,.1);
+  background: white;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9AA69F;
+  font-weight: 500;
+}
+
+textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+/* SUMMARY ROWS */
+.line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #EDF1EE;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.line:last-child {
+  border-bottom: 0;
+  padding-bottom: 1px;
+}
+
+.line span {
+  min-width: 0;
+  color: #596A60;
+  font-weight: 600;
+}
+
+.line strong {
+  color: #20392B;
+  text-align: right;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.smallnote {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.notice {
+  margin-bottom: 10px;
+  padding: 9px 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.info {
+  background: #EAF3ED;
+  color: #22543B;
+  border-color: #D8E9DD;
+}
+
+.warn {
+  background: #FFF4D9;
+  color: #75540B;
+  border-color: #F2E3B7;
+}
+
+.error {
+  background: #FCEAE8;
+  color: #A3231B;
+  border-color: #F3D2CE;
+}
+
+/* TABLES */
+.tablewrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 11px;
+}
+
+th, td {
+  padding: 9px;
+  border-bottom: 1px solid #E8EEE9;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+th {
+  background: #EAF2ED;
+  color: #365345;
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: .25px;
+}
+
+td {
+  color: #34463B;
+  font-weight: 600;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover td {
+  background: #FAFCFA;
+}
+
+.amount {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 900;
+}
+
+.empty {
+  padding: 20px 10px;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none !important;
+}
+
+footer {
+  padding: 12px 10px 18px;
+  color: #7A8980;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* TRANSACTION POPUP */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(13,35,25,.58);
+  backdrop-filter: blur(3px);
+}
+
+.popup-overlay[hidden] {
+  display: none !important;
+}
+
+.popup-box {
+  width: 100%;
+  max-width: 360px;
+  padding: 23px 20px 19px;
+  border-radius: 17px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 18px 55px rgba(0,0,0,.25);
+  animation: popupAppear .2s ease-out;
+}
+
+@keyframes popupAppear {
+  from { opacity: 0; transform: translateY(12px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.popup-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #E2F5E8;
+  color: #0B7A3B;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.popup-box.popup-error .popup-icon {
+  background: #FCE8E6;
+  color: #B42318;
+}
+
+.popup-box.popup-warn .popup-icon {
+  background: #FFF2D2;
+  color: #946200;
+}
+
+.popup-box.popup-info .popup-icon {
+  background: #E7F0FF;
+  color: #2864C5;
+}
+
+.popup-title {
+  margin: 0 0 8px;
+  color: #173D2B;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.popup-box.popup-error .popup-title {
+  color: #B42318;
+}
+
+.popup-box.popup-warn .popup-title {
+  color: #805900;
+}
+
+.popup-message {
+  margin: 0 0 18px;
+  color: #52645A;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.popup-close {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--green);
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.popup-box.popup-error .popup-close {
+  background: #B42318;
+}
+
+.popup-box.popup-warn .popup-close {
+  background: #946200;
+}
+
+/* TABLET */
+@media (max-width: 700px) {
+  header {
+    padding: 11px 12px;
+  }
+
+  .header-date {
+    display: none;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .cards {
+    gap: 6px;
+  }
+
+  .cards .card {
+    padding: 10px 8px;
+    border-radius: 10px;
+  }
+
+  .cards .label {
+    font-size: 10px;
+  }
+
+  .cards .value {
+    font-size: clamp(14px, 3.5vw, 20px);
+  }
+
+  .cards .sub {
+    font-size: 9px;
+  }
+
+  .panel {
+    padding: 11px;
+  }
+
+  .toolbar {
+    gap: 7px;
+  }
+
+  .btn {
+    min-height: 38px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}
+
+/* SMALL PHONES */
+@media (max-width: 420px) {
+  main {
+    padding: 8px;
+  }
+
+  .brand h1 {
+    font-size: 15px;
+  }
+
+  .brand p {
+    font-size: 10px;
+  }
+
+  .logo, .placeholder {
+    width: 38px;
+    height: 38px;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  h3 {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .cards {
+    gap: 5px;
+  }
+
+  .cards .card {
+    padding: 9px 6px;
+  }
+
+  .cards .label {
+    font-size: 9px;
+    min-height: 24px;
+  }
+
+  .cards .value {
+    font-size: 13px;
+    letter-spacing: -.3px;
+  }
+
+  .cards .sub {
+    font-size: 8px;
+  }
+
+  .tabs {
+    gap: 5px;
+  }
+
+  .tab {
+    min-height: 45px;
+    padding: 8px 3px;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .line {
+    font-size: 11px;
+  }
+
+  .toolbar .btn {
+    padding: 9px;
+  }
+
+  .btnrow .btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+</style>
+
+</head>
+
+<body>
+<header>
+  <div class="header">
+    <div id="logoPlaceholder" class="placeholder">K</div>
+    <img id="businessLogo" class="logo" alt="Business logo" hidden>
+    <div class="brand">
+      <h1 id="businessName">Kayah Business</h1>
+      <p>Cash Register &amp; Money Management</p>
+    </div>
+    <div class="header-date">
+      <div id="todayLabel"></div>
+      <div id="headerStatus">Connecting...</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="toolbar">
+    <div>
+      <h2>Daily Cash Register</h2>
+      <div class="muted">Track opening balances, money movements and closing balances.</div>
+    </div>
+    <button class="btn secondary" id="refreshBtn" type="button">Refresh</button>
+  </div>
+
+  <div id="message" aria-live="polite"></div>
+  
+  
+  
+<div id="popupOverlay" class="popup-overlay" hidden>
+  <div
+    id="popupBox"
+    class="popup-box popup-info"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="popupTitle"
+    aria-describedby="popupMessage"
+  >
+    <div id="popupIcon" class="popup-icon">i</div>
+    <h3 id="popupTitle" class="popup-title">Notification</h3>
+    <p id="popupMessage" class="popup-message"></p>
+    <button id="popupClose" class="popup-close" type="button">
+      Okay, Got It
+    </button>
+  </div>
+</div>
+
+  
+  <div class="cards">
+    <div class="card">
+      <div class="label">Cash Drawer Available</div>
+      <div class="value" id="cashBalance">₱0.00</div>
+      <div class="sub">Expected physical cash</div>
+    </div>
+    <div class="card">
+      <div class="label">GCash Available</div>
+      <div class="value" id="gcashBalance">₱0.00</div>
+      <div class="sub">Expected GCash balance</div>
+    </div>
+    <div class="card">
+      <div class="label">Maya Available</div>
+      <div class="value" id="mayaBalance">₱0.00</div>
+      <div class="sub">Expected Maya balance</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:14px">
+    <div class="toolbar" style="margin-bottom:0">
+      <div>
+        <h3 style="margin-bottom:5px">Today's Register</h3>
+        <div class="muted" id="registerDate"></div>
+      </div>
+      <span id="registerStatus" class="status closed">Not Opened</span>
+    </div>
+    <div class="btnrow">
+      <button class="btn primary" id="openRegisterBtn" type="button">Open Register</button>
+      <button class="btn goldbtn" id="closeRegisterBtn" type="button">Close Register</button>
+    </div>
+    <div class="smallnote">
+      Open the register once at the beginning of the business day. Closing records the actual balances and compares them with expected balances.
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="summary" type="button">Summary</button>
+    <button class="tab" data-tab="movement" type="button">Money In / Out</button>
+    <button class="tab" data-tab="transfer" type="button">Transfers</button>
+    <button class="tab" data-tab="history" type="button">Register History</button>
+  </div>
+
+  <section class="section active" id="section-summary">
+    <div class="grid2">
+      <div class="panel">
+        <h3>Opening Balances</h3>
+        <div class="line"><span>Cash</span><strong id="openingCash">₱0.00</strong></div>
+        <div class="line"><span>GCash</span><strong id="openingGcash">₱0.00</strong></div>
+        <div class="line"><span>Maya</span><strong id="openingMaya">₱0.00</strong></div>
+        <div class="line"><span>Total Opening</span><strong id="openingTotal">₱0.00</strong></div>
+      </div>
+
+      <div class="panel">
+        <h3>Recorded Payment Summary</h3>
+        <div class="line"><span>Cash Sales Recorded</span><strong id="salesCash">₱0.00</strong></div>
+        <div class="line"><span>GCash Sales Recorded</span><strong id="salesGcash">₱0.00</strong></div>
+        <div class="line"><span>Maya Sales Recorded</span><strong id="salesMaya">₱0.00</strong></div>
+        <div class="line"><span>Credit Sales Recorded</span><strong id="salesCredit">₱0.00</strong></div>
+        <div class="smallnote">These totals include only transactions recorded here with the category “Sale”. They are not a live total from the POS.</div>
+      </div>
+
+      <div class="panel">
+        <h3>Money Movement Summary</h3>
+        <div class="line"><span>Money In</span><strong id="totalIn">₱0.00</strong></div>
+        <div class="line"><span>Money Out</span><strong id="totalOut">₱0.00</strong></div>
+        <div class="line"><span>Transfers</span><strong id="totalTransfers">₱0.00</strong></div>
+        <div class="line"><span>Credit Sales</span><strong id="totalCredit">₱0.00</strong></div>
+      </div>
+
+      <div class="panel">
+        <h3>Closing Balances</h3>
+        <div class="line"><span>Actual Cash</span><strong id="actualCash">Not closed</strong></div>
+        <div class="line"><span>Cash Difference</span><strong id="differenceCash">—</strong></div>
+        <div class="line"><span>Actual GCash</span><strong id="actualGcash">Not closed</strong></div>
+        <div class="line"><span>GCash Difference</span><strong id="differenceGcash">—</strong></div>
+        <div class="line"><span>Actual Maya</span><strong id="actualMaya">Not closed</strong></div>
+        <div class="line"><span>Maya Difference</span><strong id="differenceMaya">—</strong></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <h3>Recent Money Movements</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Account</th>
+              <th>Category / Details</th>
+              <th class="amount">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="recentMovements">
+            <tr><td colspan="5" class="empty">No movements recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="section-movement">
+    <div class="grid2">
+      <div class="panel">
+        <h3>Record Money In / Out</h3>
+        <form id="movementForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="movementType">Movement Type</label>
+              <select id="movementType" required>
+                <option value="in">Money In</option>
+                <option value="out">Money Out</option>
+                <option value="credit">Credit Sale (Unpaid)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="movementAccount">Account</label>
+              <select id="movementAccount" required>
+                <option value="cash">Cash</option>
+                <option value="gcash">GCash</option>
+                <option value="maya">Maya</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="movementCategory">Category</label>
+              <select id="movementCategory" required>
+                <option value="Sale">Sale</option>
+                <option value="Other Income">Other Income</option>
+                <option value="Supplier Payment">Supplier Payment</option>
+                <option value="Operating Expense">Operating Expense</option>
+                <option value="Owner Withdrawal">Owner Withdrawal</option>
+                <option value="Cash Float">Cash Float</option>
+                <option value="Refund">Refund</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="movementAmount">Amount (₱)</label>
+              <input id="movementAmount" type="number" min="0.01" step="0.01" required placeholder="0.00">
+            </div>
+            <div class="field full">
+              <label for="movementNote">Description / Reference</label>
+              <textarea id="movementNote" placeholder="Enter details or reference number"></textarea>
+            </div>
+          </div>
+          <div class="btnrow">
+            <button class="btn primary" type="submit">Save Movement</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+        <div class="smallnote">
+          Record a Sale as Money In only when the payment was actually received. Choose Credit Sale for an unpaid sale; it will not increase account balances.
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Expected Balances</h3>
+        <div class="line"><span>Cash Drawer</span><strong id="movementCashBalance">₱0.00</strong></div>
+        <div class="line"><span>GCash</span><strong id="movementGcashBalance">₱0.00</strong></div>
+        <div class="line"><span>Maya</span><strong id="movementMayaBalance">₱0.00</strong></div>
+        <div class="notice warn" style="margin-top:12px;margin-bottom:0">
+          Money Out reduces the selected account. To move money between your own accounts, use the Transfers tab instead.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="section-transfer">
+    <div class="grid2">
+      <div class="panel">
+        <h3>Transfer Between Accounts</h3>
+        <form id="transferForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="fromAccount">Transfer From</label>
+              <select id="fromAccount" required>
+                <option value="cash">Cash</option>
+                <option value="gcash">GCash</option>
+                <option value="maya">Maya</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="toAccount">Transfer To</label>
+              <select id="toAccount" required>
+                <option value="gcash">GCash</option>
+                <option value="cash">Cash</option>
+                <option value="maya">Maya</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="transferAmount">Amount (₱)</label>
+              <input id="transferAmount" type="number" min="0.01" step="0.01" required placeholder="0.00">
+            </div>
+            <div class="field full">
+              <label for="transferNote">Description / Reference</label>
+              <textarea id="transferNote" placeholder="Example: Deposited cash into GCash"></textarea>
+            </div>
+          </div>
+          <div class="btnrow">
+            <button class="btn primary" type="submit">Save Transfer</button>
+          </div>
+        </form>
+        <div class="smallnote">Transfers reduce one account and increase the other by the same amount. They do not count as sales or expenses.</div>
+      </div>
+
+      <div class="panel">
+        <h3>Account Balances Before Transfer</h3>
+        <div class="line"><span>Cash</span><strong id="transferCashBalance">₱0.00</strong></div>
+        <div class="line"><span>GCash</span><strong id="transferGcashBalance">₱0.00</strong></div>
+        <div class="line"><span>Maya</span><strong id="transferMayaBalance">₱0.00</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="section-history">
+    <div class="panel">
+      <div class="toolbar">
+        <div>
+          <h3 style="margin-bottom:5px">Register History</h3>
+          <div class="muted">Previous opening and closing balances saved for this business.</div>
+        </div>
+        <button class="btn secondary" id="historyRefreshBtn" type="button">Reload History</button>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Business Date</th>
+              <th>Status</th>
+              <th class="amount">Opening Cash</th>
+              <th class="amount">Opening GCash</th>
+              
+              <th class="amount">Opening Maya</th>
+      
+
+              <th class="amount">Closing Cash</th>
+              <th class="amount">Closing GCash</th>
+              <th class="amount">Closing Maya</th>
+            </tr>
+          </thead>
+          <tbody id="historyRows">
+            <tr><td colspan="8" class="empty">No register history loaded.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Kayah — Business, Made Possible.</footer>
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, addDoc, collection,
+getDocs, query, where, orderBy, limit, serverTimestamp, Timestamp,
+writeBatch
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let businessId = null;
+let register = null;
+let movements = [];
+let history = [];
+let posSales = [];
+let busy = false;
+
+function localDateKey(date = new Date()) {
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, "0") + "-" +
+    String(date.getDate()).padStart(2, "0");
+}
+
+function dayBounds() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  return { start, end };
+}
+
+function money(value) {
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP"
+  }).format(Number(value) || 0);
+}
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[c]);
+}
+
+function accountName(key) {
+  return ({ cash: "Cash", gcash: "GCash", maya: "Maya" })[key] || key || "—";
+}
+
+
+let popupTimer = null;
+
+function showMessage(message, type = "info") {
+  if (!message) return;
+
+  const overlay = $("popupOverlay");
+  const box = $("popupBox");
+  const title = $("popupTitle");
+  const text = $("popupMessage");
+  const icon = $("popupIcon");
+
+  clearTimeout(popupTimer);
+
+  const style = ["success", "error", "warn", "info"].includes(type)
+    ? type
+    : "info";
+
+  box.className = "popup-box popup-" + style;
+  text.textContent = message;
+
+  if (style === "success") {
+    title.textContent = "Successful!";
+    icon.textContent = "✓";
+  } else if (style === "error") {
+    title.textContent = "Transaction Blocked";
+    icon.textContent = "!";
+  } else if (style === "warn") {
+    title.textContent = "Attention";
+    icon.textContent = "!";
+  } else {
+    title.textContent = "Notification";
+    icon.textContent = "i";
+  }
+
+  overlay.hidden = false;
+
+  popupTimer = setTimeout(() => {
+    overlay.hidden = true;
+  }, 5000);
+}
+
+function closePopup() {
+  clearTimeout(popupTimer);
+  $("popupOverlay").hidden = true;
+}
+
+$("popupClose").addEventListener("click", closePopup);
+
+$("popupOverlay").addEventListener("click", event => {
+  if (event.target === $("popupOverlay")) {
+    closePopup();
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !$("popupOverlay").hidden) {
+    closePopup();
+  }
+});
+
+function setBusy(value) {
+  busy = value;
+  $("refreshBtn").disabled = value;
+  $("historyRefreshBtn").disabled = value;
+}
+
+function registerRef(dateKey = localDateKey()) {
+  return doc(db, "users", businessId, "cashRegisters", dateKey);
+}
+
+function cashManagementRef(dateKey = localDateKey()) {
+  return doc(
+    db,
+    "users",
+    businessId,
+    "cashManagement",
+    dateKey
+  );
+}
+
+
+function movementsRef() {
+  return collection(db, "users", businessId, "cashMovements");
+}
+
+function salesRef() {
+  return collection(db, "users", businessId, "sales");
+}
+
+// Load today's existing POS sales. This reads sales only;
+// it does not create or modify any sale records.
+async function loadSales() {
+  const { start, end } = dayBounds();
+
+  const q = query(
+    salesRef(),
+    where("createdAt", ">=", Timestamp.fromDate(start)),
+    where("createdAt", "<", Timestamp.fromDate(end))
+  );
+
+  const snapshot = await getDocs(q);
+  posSales = snapshot.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+  }));
+}
+
+function getSalesSummary() {
+  const totals = {
+    cash: 0,
+    gcash: 0,
+    maya: 0,
+    credit: 0
+  };
+
+  posSales.forEach(sale => {
+    const amount = Number(sale.total) || 0;
+    const method = String(sale.paymentMethod || "").toLowerCase();
+    const qrMethod = String(sale.qrMethod || "").toLowerCase();
+
+    if (method === "cash") {
+      totals.cash += amount;
+    } else if (method === "credit") {
+      totals.credit += amount;
+    } else if (method === "qr" && qrMethod === "gcash") {
+      totals.gcash += amount;
+    } else if (method === "qr" && qrMethod === "maya") {
+      totals.maya += amount;
+    }
+  });
+
+  return totals;
+}
+
+function expectedBalances() {
+  const sales = getSalesSummary();
+
+  const balances = {
+    cash: (Number(register?.openingCash) || 0) + sales.cash,
+    gcash: (Number(register?.openingGcash) || 0) + sales.gcash,
+    maya: (Number(register?.openingMaya) || 0) + sales.maya
+  };
+
+  movements.forEach(m => {
+    const amount = Number(m.amount) || 0;
+
+    if (m.type === "in" && balances[m.account] !== undefined) {
+      balances[m.account] += amount;
+    }
+
+    if (m.type === "out" && balances[m.account] !== undefined) {
+      balances[m.account] -= amount;
+    }
+
+    if (m.type === "transfer") {
+      if (balances[m.fromAccount] !== undefined) {
+        balances[m.fromAccount] -= amount;
+      }
+      if (balances[m.toAccount] !== undefined) {
+        balances[m.toAccount] += amount;
+      }
+    }
+  });
+
+  Object.keys(balances).forEach(key => {
+    balances[key] = Math.round(balances[key] * 100) / 100;
+  });
+
+  return balances;
+}
+
+function renderMovements() {
+  const sorted = [...movements].sort((a, b) => {
+    const ta = a.createdAt?.toMillis?.() || 0;
+    const tb = b.createdAt?.toMillis?.() || 0;
+    return tb - ta;
+  });
+
+  $("recentMovements").innerHTML = sorted.slice(0, 8).map(m => {
+    const type = m.type === "in" ? "Money In"
+      : m.type === "out" ? "Money Out"
+      : m.type === "credit" ? "Credit Sale" : "Transfer";
+
+    const account = m.type === "transfer"
+      ? accountName(m.fromAccount) + " → " + accountName(m.toAccount)
+      : accountName(m.account);
+
+    const details = m.type === "transfer"
+      ? (m.note || "Account transfer")
+      : (m.category || "Other") + (m.note ? " — " + m.note : "");
+
+    let time = "—";
+
+    if (m.createdAt) {
+      const date = m.createdAt.toDate
+        ? m.createdAt.toDate()
+        : new Date(m.createdAt);
+
+      if (!isNaN(date.getTime())) {
+        time = date.toLocaleTimeString("en-PH", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      }
+    }
+
+    return `<tr>
+      <td>${esc(time)}</td>
+      <td>${esc(type)}</td>
+      <td>${esc(account)}</td>
+      <td>${esc(details)}</td>
+      <td class="amount">${money(m.amount)}</td>
+    </tr>`;
+  }).join("") ||
+    '<tr><td colspan="5" class="empty">No manual movements recorded yet.</td></tr>';
+}
+
+function renderBalances() {
+  const balances = expectedBalances();
+  const sales = getSalesSummary();
+
+  $("cashBalance").textContent = money(balances.cash);
+  $("gcashBalance").textContent = money(balances.gcash);
+  $("mayaBalance").textContent = money(balances.maya);
+
+  $("movementCashBalance").textContent = money(balances.cash);
+  $("movementGcashBalance").textContent = money(balances.gcash);
+  $("movementMayaBalance").textContent = money(balances.maya);
+
+  $("transferCashBalance").textContent = money(balances.cash);
+  $("transferGcashBalance").textContent = money(balances.gcash);
+  $("transferMayaBalance").textContent = money(balances.maya);
+
+  $("openingCash").textContent = money(register?.openingCash);
+  $("openingGcash").textContent = money(register?.openingGcash);
+  $("openingMaya").textContent = money(register?.openingMaya);
+
+  $("openingTotal").textContent = money(
+    (Number(register?.openingCash) || 0) +
+    (Number(register?.openingGcash) || 0) +
+    (Number(register?.openingMaya) || 0)
+  );
+
+  // These totals come directly from existing POS sales.
+  $("salesCash").textContent = money(sales.cash);
+  $("salesGcash").textContent = money(sales.gcash);
+  $("salesMaya").textContent = money(sales.maya);
+  $("salesCredit").textContent = money(sales.credit);
+
+  $("totalIn").textContent = money(
+    movements
+      .filter(m => m.type === "in")
+      .reduce((sum, m) => sum + (Number(m.amount) || 0), 0)
+  );
+
+  $("totalOut").textContent = money(
+    movements
+      .filter(m => m.type === "out")
+      .reduce((sum, m) => sum + (Number(m.amount) || 0), 0)
+  );
+
+  $("totalTransfers").textContent = money(
+    movements
+      .filter(m => m.type === "transfer")
+      .reduce((sum, m) => sum + (Number(m.amount) || 0), 0)
+  );
+
+  $("totalCredit").textContent = money(sales.credit);
+
+  if (register?.closed) {
+    $("actualCash").textContent = money(register.closingCash);
+    $("actualGcash").textContent = money(register.closingGcash);
+    $("actualMaya").textContent = money(register.closingMaya);
+    $("differenceCash").textContent = money(register.differenceCash);
+    $("differenceGcash").textContent = money(register.differenceGcash);
+    $("differenceMaya").textContent = money(register.differenceMaya);
+  } else {
+    ["actualCash", "actualGcash", "actualMaya"].forEach(id => {
+      $(id).textContent = "Not closed";
+    });
+
+    ["differenceCash", "differenceGcash", "differenceMaya"].forEach(id => {
+      $(id).textContent = "—";
+    });
+  }
+
+  const opened = !!register && !register.closed;
+
+  $("registerStatus").textContent = opened
+    ? "Open"
+    : register?.closed ? "Closed" : "Not Opened";
+
+  $("registerStatus").className = "status " + (opened ? "open" : "closed");
+
+  $("headerStatus").textContent = opened
+    ? "Register Open"
+    : register?.closed ? "Register Closed" : "Register Not Opened";
+
+  $("openRegisterBtn").disabled = busy || !!register;
+  $("closeRegisterBtn").disabled = busy || !opened;
+
+  renderMovements();
+}
+
+async function loadRegister() {
+  const snapshot = await getDoc(registerRef());
+  register = snapshot.exists()
+    ? { id: snapshot.id, ...snapshot.data() }
+    : null;
+}
+
+async function loadMovements() {
+  const q = query(
+    movementsRef(),
+    where("registerId", "==", localDateKey())
+  );
+
+  const snapshot = await getDocs(q);
+  movements = snapshot.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+  }));
+}
+
+async function loadHistory() {
+  const q = query(
+    collection(db, "users", businessId, "cashRegisters"),
+    orderBy("dateKey", "desc"),
+    limit(60)
+  );
+
+  const snapshot = await getDocs(q);
+
+  history = snapshot.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+  }));
+
+  $("historyRows").innerHTML = history.map(r => `
+    <tr>
+      <td>${esc(r.dateKey || r.id)}</td>
+      <td><span class="status ${r.closed ? "closed" : "open"}">
+        ${r.closed ? "Closed" : "Open"}
+      </span></td>
+      <td class="amount">${money(r.openingCash)}</td>
+      <td class="amount">${money(r.openingGcash)}</td>
+      <td class="amount">${money(r.openingMaya)}</td>
+      <td class="amount">${r.closed ? money(r.closingCash) : "—"}</td>
+      <td class="amount">${r.closed ? money(r.closingGcash) : "—"}</td>
+      <td class="amount">${r.closed ? money(r.closingMaya) : "—"}</td>
+    </tr>
+  `).join("") ||
+    '<tr><td colspan="8" class="empty">No register history found.</td></tr>';
+}
+
+async function refreshAll() {
+  if (!businessId) return;
+
+  setBusy(true);
+
+  try {
+    await Promise.all([
+      loadRegister(),
+      loadMovements(),
+      loadSales()
+    ]);
+
+    renderBalances();
+    await loadHistory();
+    showMessage("");
+  } catch (error) {
+    console.error("Cash Register load error:", error);
+    showMessage(
+      "Unable to load register data: " + error.message +
+      ". Check Firestore permissions and your sales records.",
+      "error"
+    );
+  } finally {
+    setBusy(false);
+    renderBalances();
+  }
+}
+
+async function loadBusinessProfile(user) {
+  const snapshot = await getDoc(doc(db, "users", user.uid));
+  if (!snapshot.exists()) return {};
+
+  const data = snapshot.data();
+
+  $("businessName").textContent =
+    data.businessName || data.business || data.name || "Kayah Business";
+
+  const logo =
+    data.businessLogo || data.logoUrl || data.logo || data.businessLogoUrl;
+
+  if (logo) {
+    $("businessLogo").src = logo;
+    $("businessLogo").hidden = false;
+    $("logoPlaceholder").style.display = "none";
+
+    $("businessLogo").onerror = () => {
+      $("businessLogo").hidden = true;
+      $("logoPlaceholder").style.display = "grid";
+    };
+  }
+
+  return data;
+}
+
+async function openRegister() {
+  if (!businessId || busy) return;
+
+  if (register) {
+    return showMessage("A register record already exists for today.", "warn");
+  }
+
+  const c = prompt("Opening physical cash in drawer (₱):", "0");
+  if (c === null) return;
+
+  const g = prompt("Opening GCash balance (₱):", "0");
+  if (g === null) return;
+
+  const m = prompt("Opening Maya balance (₱):", "0");
+  if (m === null) return;
+
+  const cash = Number(c);
+  const gcash = Number(g);
+  const maya = Number(m);
+
+  if (![cash, gcash, maya].every(v => Number.isFinite(v) && v >= 0)) {
+    return showMessage("Enter valid non-negative opening balances.", "error");
+  }
+
+  setBusy(true);
+
+  try {
+    await setDoc(registerRef(), {
+      dateKey: localDateKey(),
+      opened: true,
+      closed: false,
+      openingCash: cash,
+      openingGcash: gcash,
+      openingMaya: maya,
+      openedAt: serverTimestamp(),
+      openedBy: currentUser.uid
+    });
+
+    showMessage("Register opened successfully.");
+    await refreshAll();
+  } catch (error) {
+    showMessage("Could not open register: " + error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+}
+
+
+async function closeRegister() {
+  if (!register || register.closed || busy) return;
+
+  const balances = expectedBalances();
+
+  const c = prompt(
+    "Count actual physical cash (₱):",
+    String(balances.cash)
+  );
+  if (c === null) return;
+
+  const g = prompt(
+    "Enter actual GCash balance (₱):",
+    String(balances.gcash)
+  );
+  if (g === null) return;
+
+  const m = prompt(
+    "Enter actual Maya balance (₱):",
+    String(balances.maya)
+  );
+  if (m === null) return;
+
+  const cash = Number(c);
+  const gcash = Number(g);
+  const maya = Number(m);
+
+  if (![cash, gcash, maya].every(
+    v => Number.isFinite(v) && v >= 0
+  )) {
+    return showMessage(
+      "Enter valid non-negative closing balances.",
+      "error"
+    );
+  }
+
+  if (!confirm(
+    "Close today's register?\n\n" +
+    "A matching Cash Management closing record will also be saved."
+  )) {
+    return;
+  }
+
+  setBusy(true);
+
+  try {
+    const dateKey = register.dateKey || localDateKey();
+    const registerDocument = registerRef(dateKey);
+    const managementDocument = cashManagementRef(dateKey);
+
+    // Prevent duplicate closing records.
+    // If a management record already exists, stop instead of overwriting it.
+    const managementSnapshot = await getDoc(managementDocument);
+
+    if (managementSnapshot.exists()) {
+      throw new Error(
+        "A Cash Management record already exists for " +
+        dateKey +
+        ". No new closing record was created. Please check the records."
+      );
+    }
+
+    const differenceCash =
+      Math.round((cash - balances.cash) * 100) / 100;
+    const differenceGcash =
+      Math.round((gcash - balances.gcash) * 100) / 100;
+    const differenceMaya =
+      Math.round((maya - balances.maya) * 100) / 100;
+
+    const closingData = {
+      dateKey,
+      registerId: dateKey,
+      recordType: "registerClose",
+
+      opened: true,
+      closed: true,
+
+      openingCash: Number(register.openingCash) || 0,
+      openingGcash: Number(register.openingGcash) || 0,
+      openingMaya: Number(register.openingMaya) || 0,
+
+      closingCash: cash,
+      closingGcash: gcash,
+      closingMaya: maya,
+
+      differenceCash,
+      differenceGcash,
+      differenceMaya,
+
+      closedAt: serverTimestamp(),
+      closedBy: currentUser.uid
+    };
+
+    // Both records are saved together.
+    // Either both writes succeed, or neither write succeeds.
+    const batch = writeBatch(db);
+
+    batch.set(registerDocument, {
+      closed: true,
+      closingCash: cash,
+      closingGcash: gcash,
+      closingMaya: maya,
+      differenceCash,
+      differenceGcash,
+      differenceMaya,
+      closedAt: serverTimestamp(),
+      closedBy: currentUser.uid
+    }, { merge: true });
+
+    batch.set(managementDocument, {
+      ...closingData,
+      createdAt: serverTimestamp(),
+      createdBy: currentUser.uid
+    });
+
+    await batch.commit();
+
+    await refreshAll();
+
+    showMessage(
+      "Register closed successfully!\n\n" +
+      "Your closing record was saved to Register History " +
+      "and Cash Management.\n\n" +
+      "Cash: " + money(cash) +
+      "\nGCash: " + money(gcash) +
+      "\nMaya: " + money(maya),
+      "success"
+    );
+
+  } catch (error) {
+    console.error("Register closing error:", error);
+
+    showMessage(
+      "Could not close the register: " + error.message,
+      "error"
+    );
+  } finally {
+    setBusy(false);
+    renderBalances();
+  }
+}
+
+async function saveMovement(event) {
+  event.preventDefault();
+
+  if (busy) return;
+
+  if (!register) {
+    return showMessage("Open today's register first.", "warn");
+  }
+
+  if (register.closed) {
+    return showMessage("Today's register is already closed.", "warn");
+  }
+
+  const type = $("movementType").value;
+  const account = $("movementAccount").value;
+  const category = $("movementCategory").value;
+  const amount = Number($("movementAmount").value);
+  const note = $("movementNote").value.trim();
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return showMessage("Enter an amount greater than zero.", "error");
+  }
+
+  if (type === "credit") {
+    return showMessage(
+      "Credit sales are already summarized from POS. Do not enter a POS credit sale again here.",
+      "warn"
+    );
+  }
+
+  if (type === "in" && category === "Sale") {
+    return showMessage(
+      "For POS sales, do not record the sale again here. Existing POS sales are imported automatically.",
+      "warn"
+    );
+  }
+
+  // BLOCK MONEY OUT when the selected account has insufficient funds.
+  if (type === "out") {
+    const balances = expectedBalances();
+    const availableBalance = Math.round(
+      (Number(balances[account]) || 0) * 100
+    ) / 100;
+    const requestedAmount = Math.round(amount * 100) / 100;
+
+    if (availableBalance <= 0) {
+      return showMessage(
+        "Money Out blocked. Your " + accountName(account) +
+        " balance is ₱0.00 or below. Record money received first.",
+        "error"
+      );
+    }
+
+    if (requestedAmount > availableBalance) {
+      return showMessage(
+        "Insufficient balance. Available " + accountName(account) +
+        ": " + money(availableBalance) +
+        ". You cannot withdraw " + money(requestedAmount) + ".",
+        "error"
+      );
+    }
+  }
+
+  setBusy(true);
+
+  try {
+    await addDoc(movementsRef(), {
+      registerId: localDateKey(),
+      dateKey: localDateKey(),
+      type,
+      account,
+      category,
+      amount: Math.round(amount * 100) / 100,
+      note,
+      createdAt: serverTimestamp(),
+      createdBy: currentUser.uid
+    });
+
+    
+$("movementForm").reset();
+await refreshAll();
+
+showMessage(
+  (type === "in" ? "Money In" : "Money Out") +
+  " recorded successfully!\n\n" +
+  "Account: " + accountName(account) +
+  "\nAmount: " + money(amount),
+  "success"
+);
+
+  } catch (error) {
+    showMessage("Could not save movement: " + error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+}
+
+
+
+async function saveTransfer(event) {
+  event.preventDefault();
+
+  if (busy) return;
+
+  if (!register) {
+    return showMessage("Open today's register first.", "warn");
+  }
+
+  if (register.closed) {
+    return showMessage("Today's register is already closed.", "warn");
+  }
+
+  const from = $("fromAccount").value;
+  const to = $("toAccount").value;
+  const amount = Number($("transferAmount").value);
+  const note = $("transferNote").value.trim();
+
+  if (from === to) {
+    return showMessage("Choose two different accounts.", "error");
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return showMessage("Enter a valid transfer amount.", "error");
+  }
+
+  // Check the latest balance calculated by the current page.
+  const balances = expectedBalances();
+  const availableBalance = Math.round(
+    (Number(balances[from]) || 0) * 100
+  ) / 100;
+  const requestedAmount = Math.round(amount * 100) / 100;
+
+  // BLOCK transfers when the source account has no available funds.
+  if (availableBalance <= 0) {
+    return showMessage(
+      "Transfer blocked. Your " + accountName(from) +
+      " balance is ₱0.00 or below. You cannot transfer money from this account.",
+      "error"
+    );
+  }
+
+  if (requestedAmount > availableBalance) {
+    return showMessage(
+      "Insufficient balance. Available " + accountName(from) +
+      ": " + money(availableBalance) +
+      ". You cannot transfer " + money(requestedAmount) + ".",
+      "error"
+    );
+  }
+
+  setBusy(true);
+
+  try {
+    await addDoc(movementsRef(), {
+      registerId: localDateKey(),
+      dateKey: localDateKey(),
+      type: "transfer",
+      fromAccount: from,
+      toAccount: to,
+      amount: requestedAmount,
+      note,
+      createdAt: serverTimestamp(),
+      createdBy: currentUser.uid
+    });
+
+   
+$("transferForm").reset();
+await refreshAll();
+
+showMessage(
+  "Transfer recorded successfully!\n\n" +
+  "From: " + accountName(from) +
+  "\nTo: " + accountName(to) +
+  "\nAmount: " + money(requestedAmount),
+  "success"
+);
+
+  } catch (error) {
+    showMessage("Could not save transfer: " + error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+}
+
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+
+    button.classList.add("active");
+    $("section-" + button.dataset.tab).classList.add("active");
+  });
+});
+
+$("todayLabel").textContent = new Date().toLocaleDateString("en-PH", {
+  year: "numeric",
+  month: "short",
+  day: "numeric"
+});
+
+$("registerDate").textContent = "Business date: " + localDateKey();
+
+$("refreshBtn").addEventListener("click", refreshAll);
+$("historyRefreshBtn").addEventListener("click", async () => {
+  try {
+    await loadHistory();
+    showMessage("History refreshed.");
+  } catch (error) {
+    showMessage("Could not load history: " + error.message, "error");
+  }
+});
+
+$("openRegisterBtn").addEventListener("click", openRegister);
+$("closeRegisterBtn").addEventListener("click", closeRegister);
+$("movementForm").addEventListener("submit", saveMovement);
+$("transferForm").addEventListener("submit", saveTransfer);
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    currentUser = null;
+    businessId = null;
+    $("headerStatus").textContent = "Not signed in";
+    showMessage("Please sign in to Kayah before using the Cash Register.", "error");
+    return;
+  }
+
+  currentUser = user;
+  $("headerStatus").textContent = "Loading...";
+
+  try {
+    // Resolve the business owner UID when a staff account signs in.
+    const profileSnapshot = await getDoc(doc(db, "users", user.uid));
+
+    if (!profileSnapshot.exists()) {
+      throw new Error("Your Kayah user profile was not found.");
+    }
+
+    const profile = profileSnapshot.data();
+
+    businessId = profile.role === "staff" && profile.ownerUid
+      ? profile.ownerUid
+      : user.uid;
+
+    // Load the actual business owner's logo and name.
+    if (businessId !== user.uid) {
+      const ownerSnapshot = await getDoc(doc(db, "users", businessId));
+
+      if (ownerSnapshot.exists()) {
+        const owner = ownerSnapshot.data();
+
+        $("businessName").textContent =
+          owner.businessName || owner.business || owner.name || "Kayah Business";
+
+        const logo =
+          owner.businessLogo || owner.logoUrl || owner.logo || owner.businessLogoUrl;
+
+        if (logo) {
+          $("businessLogo").src = logo;
+          $("businessLogo").hidden = false;
+          $("logoPlaceholder").style.display = "none";
+        }
+      }
+    } else {
+      await loadBusinessProfile(user);
+    }
+
+    await refreshAll();
+  } catch (error) {
+    console.error("Cash Register startup error:", error);
+    $("headerStatus").textContent = "Load failed";
+    showMessage("Cash Register could not load: " + error.message, "error");
+  }
+});
+</script>
+</body>
+</html>       
