@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -163,9 +164,9 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
 <main class="container">
   <div id="status" class="status">Connecting to Kayah...</div>
   <nav class="nav-tabs" aria-label="Cash management navigation">
-    <a class="nav-tab active" href="#overview">Summary</a>
-    <a class="nav-tab" href="#moneyManagement">Money In / Out</a>
-    <a class="nav-tab" href="#history">Closing History</a>
+    <a class="nav-tab active" data-view="overview" href="#overview">Summary</a>
+    <a class="nav-tab" data-view="moneyManagement" href="#moneyManagement">Money In / Out</a>
+    <a class="nav-tab" data-view="history" href="#history">Closing History</a>
   </nav>
 
   <section id="overview">
@@ -220,9 +221,23 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
         </div>
       </article>
     </div>
+
+    <div class="heading">
+      <div>
+        <h2>Business Account Current Balances</h2>
+        <div class="subheading">Current balances across your business accounts.</div>
+      </div>
+      <div class="heading-icon">₱</div>
+    </div>
+    <div class="panel">
+      <div id="summaryMoneyAccounts" class="money-account-grid">
+        <div class="loading">Loading account balances...</div>
+      </div>
+      <div id="summaryMoneyBalanceNote" class="money-history-meta"></div>
+    </div>
   </section>
 
-  <section id="moneyManagement">
+  <section id="moneyManagement" hidden>
     <div class="heading">
       <div>
         <h2>Business Accounts</h2>
@@ -285,7 +300,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
     <p class="note">Transfers move existing money between accounts. They are not treated as new income or expenses. Existing closing records are not edited by this section.</p>
   </section>
 
-  <section id="filters">
+  <section id="filters" hidden>
     <div class="heading">
       <div>
         <h2>Find Closing Records</h2>
@@ -309,7 +324,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
     </div>
   </section>
 
-  <section id="history">
+  <section id="history" hidden>
     <div class="heading">
       <div>
         <h2>Closing History</h2>
@@ -820,15 +835,20 @@ function calculateMoneyBalances() {
 function renderMoneyAccounts() {
   const { balances } = calculateMoneyBalances();
 
-  $("moneyAccounts").innerHTML = MONEY_ACCOUNTS.map(account => `
+  const accountCards = MONEY_ACCOUNTS.map(account => `
     <div class="money-account">
       <div class="money-account-name">${escapeHTML(account)}</div>
       <div class="money-account-balance">${money(balances[account])}</div>
     </div>
   `).join("");
 
-  $("moneyBalanceNote").textContent =
+  $("moneyAccounts").innerHTML = accountCards;
+  $("summaryMoneyAccounts").innerHTML = accountCards;
+
+  const balanceNote =
     "Balances start with the per-account totals shown in Total Records (all saved closings), plus all saved Cash In, Cash Out, and transfer transactions.";
+  $("moneyBalanceNote").textContent = balanceNote;
+  $("summaryMoneyBalanceNote").textContent = balanceNote;
 }
 
 function renderMoneyHistory() {
@@ -894,6 +914,8 @@ async function loadMoneyData() {
     console.error("Money transaction loading error:", error);
 
     $("moneyAccounts").innerHTML =
+      '<div class="empty">Account balances could not be loaded.</div>';
+    $("summaryMoneyAccounts").innerHTML =
       '<div class="empty">Account balances could not be loaded.</div>';
     $("moneyHistory").innerHTML =
       '<div class="empty"><strong>Unable to load money transactions</strong>Check Firestore permissions for cashMovements.</div>';
@@ -980,13 +1002,33 @@ async function saveMoneyMovement(event) {
   }
 }
 
-/* Navigation highlighting */
+/* Navigation: show one page section at a time. */
+const NAV_VIEWS = {
+  overview: ["overview"],
+  moneyManagement: ["moneyManagement"],
+  history: ["filters", "history"]
+};
+
+function showNavigationView(viewName) {
+  const visibleSections = NAV_VIEWS[viewName] || NAV_VIEWS.overview;
+  ["overview", "moneyManagement", "filters", "history"].forEach(id => {
+    $(id).hidden = !visibleSections.includes(id);
+  });
+  document.querySelectorAll(".nav-tab").forEach(tab => {
+    const active = tab.dataset.view === viewName;
+    tab.classList.toggle("active", active);
+    if (active) tab.setAttribute("aria-current", "page");
+    else tab.removeAttribute("aria-current");
+  });
+}
+
 document.querySelectorAll(".nav-tab").forEach(tab => {
-  tab.addEventListener("click", () => {
-    document.querySelectorAll(".nav-tab").forEach(item => item.classList.remove("active"));
-    tab.classList.add("active");
+  tab.addEventListener("click", event => {
+    event.preventDefault();
+    showNavigationView(tab.dataset.view || "overview");
   });
 });
+showNavigationView("overview");
 
 /* Existing controls */
 $("search").addEventListener("input", renderRecords);
@@ -1023,6 +1065,8 @@ onAuthStateChanged(auth, async user => {
     $("records").innerHTML =
       '<div class="empty"><strong>Sign-in required</strong>Please sign in to your Kayah account, then reopen this page.</div>';
     $("moneyAccounts").innerHTML =
+      '<div class="empty">Sign in to load business accounts.</div>';
+    $("summaryMoneyAccounts").innerHTML =
       '<div class="empty">Sign in to load business accounts.</div>';
     $("moneyHistory").innerHTML =
       '<div class="empty">Sign in to load money transactions.</div>';
