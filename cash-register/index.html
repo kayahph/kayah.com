@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0B4F3A">
 <title>Cash Management - Kayah</title>
-
 <style>
 :root{
-  --g:#0B4F3A;
-  --g2:#16805C;
-  --gold:#F2B84B;
-  --bg:#F3F6F3;
-  --white:#fff;
-  --text:#20342B;
-  --muted:#718078;
-  --border:#E3EAE5;
-  --red:#C24141;
-  --shadow:0 3px 10px #173b2508;
+  --g:#0B4F3A;--g2:#16805C;--gold:#F2B84B;--bg:#F3F6F3;
+  --white:#fff;--text:#20342B;--muted:#718078;
+  --border:#E3EAE5;--red:#C24141;--shadow:0 3px 10px #173b2508;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
@@ -39,22 +30,16 @@ header{background:linear-gradient(135deg,#0B4F3A,#16805C);color:white;padding:14
 .heading h2{font-size:14px;margin:0}
 .subheading{font-size:10px;color:var(--muted);line-height:1.45;margin-top:3px}
 .heading-icon{width:31px;height:31px;border-radius:9px;background:#e1f1e6;color:var(--g);display:grid;place-items:center;flex-shrink:0}
-
-/* Compact navigation */
 .nav-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:10px 0}
 .nav-tab{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;border:1px solid #D9E5DC;background:#fff;color:var(--g);padding:9px 4px;border-radius:9px;font-size:10px;font-weight:900;min-width:0}
 .nav-tab.active{background:var(--g);border-color:var(--g);color:#fff}
-
-/* Compact summary cards */
 .summary-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;margin-top:8px}
 .card{min-width:0;padding:11px 12px;border:1px solid var(--border);border-radius:11px;background:#fff;box-shadow:var(--shadow)}
 .card.previous{order:2;padding:9px 11px;background:#fff;border:1px solid #E0E5E1;border-left:4px solid #CBD5E1;box-shadow:none}
 .card.today{order:1;padding:12px;background:#E3F4E9;border:1px solid #9CCFB0;border-left:5px solid #087443}
 .card.total{order:3;padding:11px 12px;background:#FFF5DE;border:1px solid #E8CC83;border-left:5px solid #B77908}
 .card-label{font-size:10px;font-weight:900;line-height:1.4;letter-spacing:.2px}
-.previous .card-label{color:#64748B}
-.today .card-label{color:#286746}
-.total .card-label{color:#805B00}
+.previous .card-label{color:#64748B}.today .card-label{color:#286746}.total .card-label{color:#805B00}
 .card-total-row{display:flex;align-items:baseline;justify-content:space-between;gap:7px;margin-top:5px;min-width:0}
 .card-total{font-size:clamp(22px,5.5vw,29px);font-weight:900;line-height:1.2;letter-spacing:-.4px;margin:0;min-width:0;flex:1 1 auto;overflow-wrap:anywhere}
 .previous .card-total{color:#475569;font-size:clamp(19px,5vw,24px)}
@@ -77,8 +62,6 @@ header{background:linear-gradient(135deg,#0B4F3A,#16805C);color:white;padding:14
 .previous .payment-row strong{color:#475569}
 .today .payment-row strong{color:#087443}
 .total .payment-row strong{color:#A56700}
-
-/* Shared panels and form controls */
 .panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:9px;min-width:0}
 .toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px}
 label{display:block;font-size:10px;font-weight:800;margin-bottom:5px;color:#405449}
@@ -109,8 +92,6 @@ button:disabled{opacity:.6;cursor:wait}
 .green{color:var(--g2)}.gold{color:#9a6900}.red{color:var(--red)}
 .note{font-size:9px;line-height:1.5;color:var(--muted);margin-top:9px}
 footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
-
-/* Money accounts */
 .money-account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .money-account{background:#F4F8F4;border:1px solid #E0E9E1;border-radius:9px;padding:9px;min-width:0}
 .money-account-name{color:#64756B;font-size:9px;font-weight:900}
@@ -121,9 +102,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
 .money-history-item:last-child{border-bottom:0}
 .money-history-top{display:flex;justify-content:space-between;gap:9px;font-size:11px;font-weight:900}
 .money-history-meta{margin-top:3px;font-size:9px;color:#718078;line-height:1.45;overflow-wrap:anywhere}
-.money-positive{color:#087443}
-.money-negative{color:#B42318}
-.money-transfer{color:#3155A4}
+.money-positive{color:#087443}.money-negative{color:#B42318}.money-transfer{color:#3155A4}
 .money-section-title{font-size:12px;font-weight:900;margin:0 0 9px}
 .money-status{font-size:10px;line-height:1.5;margin-top:7px;overflow-wrap:anywhere}
 .type-chip{display:inline-block;font-size:8px;font-weight:900;border-radius:20px;padding:4px 6px;background:#EEF3EF;color:#43584B}
@@ -167,7 +146,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
 }
 </style>
 </head>
-
 <body>
 <header>
   <div class="header-inner">
@@ -184,7 +162,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
 
 <main class="container">
   <div id="status" class="status">Connecting to Kayah...</div>
-
   <nav class="nav-tabs" aria-label="Cash management navigation">
     <a class="nav-tab active" href="#overview">Summary</a>
     <a class="nav-tab" href="#moneyManagement">Money In / Out</a>
@@ -199,7 +176,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
       </div>
       <div class="heading-icon">▦</div>
     </div>
-
     <div class="summary-grid">
       <article class="card previous">
         <div class="card-label">PREVIOUS RECORDS</div>
@@ -215,7 +191,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
           <div class="payment-row"><span>📱 Maya</span><strong id="previousMaya">₱0.00</strong></div>
         </div>
       </article>
-
       <article class="card today">
         <div class="card-label">TODAY'S RECORDS</div>
         <div class="card-total-row">
@@ -230,7 +205,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
           <div class="payment-row"><span>📱 Maya</span><strong id="todayMaya">₱0.00</strong></div>
         </div>
       </article>
-
       <article class="card total">
         <div class="card-label">TOTAL RECORDS</div>
         <div class="card-total-row">
@@ -248,7 +222,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
     </div>
   </section>
 
-  <!-- BUSINESS ACCOUNTS AND MONEY TRANSACTIONS -->
   <section id="moneyManagement">
     <div class="heading">
       <div>
@@ -257,7 +230,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
       </div>
       <div class="heading-icon">₱</div>
     </div>
-
     <div class="panel">
       <h3 class="money-section-title">Current Account Balances</h3>
       <div id="moneyAccounts" class="money-account-grid">
@@ -277,32 +249,26 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
             <option value="transfer">Transfer Between Accounts</option>
           </select>
         </div>
-
         <div>
           <label id="moneyAccountLabel" for="moneyAccount">Deposit Into</label>
           <select id="moneyAccount" required></select>
         </div>
-
         <div id="transferFields" hidden>
           <label for="moneyToAccount">Transfer To</label>
           <select id="moneyToAccount"></select>
         </div>
-
         <div>
           <label for="moneyAmount">Amount (₱)</label>
           <input id="moneyAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Enter amount" required>
         </div>
-
         <div>
           <label for="moneyDate">Transaction Date</label>
           <input id="moneyDate" type="date" required>
         </div>
-
         <div class="full-width">
           <label for="moneyReason">Reason / Description</label>
           <input id="moneyReason" type="text" maxlength="180" placeholder="e.g. Additional capital, bills, bank deposit" required>
         </div>
-
         <div class="full-width">
           <button class="primary" id="moneySaveBtn" type="submit">Save Transaction</button>
           <div id="moneyStatus" class="money-status" role="status"></div>
@@ -316,7 +282,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
         <div class="loading">Loading transactions...</div>
       </div>
     </div>
-
     <p class="note">Transfers move existing money between accounts. They are not treated as new income or expenses. Existing closing records are not edited by this section.</p>
   </section>
 
@@ -378,13 +343,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  getDocs,
-  addDoc,
-  serverTimestamp
+  getFirestore, doc, getDoc, collection, getDocs, addDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -448,10 +407,8 @@ function recordDateKey(record, docId) {
 
 function dateLabel(key) {
   if (!key) return "Date not recorded";
-
   const m = String(key).match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!m) return String(key);
-
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
     .toLocaleDateString("en-PH", {
       year: "numeric",
@@ -467,21 +424,17 @@ function todayKey() {
     month: "2-digit",
     day: "2-digit"
   }).formatToParts(new Date());
-
   const p = type => parts.find(x => x.type === type)?.value || "";
   return `${p("year")}-${p("month")}-${p("day")}`;
 }
 
 function timestampLabel(value) {
   if (!value) return "Not recorded";
-
   let d;
   if (typeof value.toDate === "function") d = value.toDate();
   else if (value.seconds) d = new Date(value.seconds * 1000);
   else d = new Date(value);
-
   if (Number.isNaN(d.getTime())) return "Not recorded";
-
   return d.toLocaleString("en-PH", { timeZone: "Asia/Manila" });
 }
 
@@ -498,7 +451,6 @@ function differenceClass(n) {
 async function resolveBusiness(user) {
   const snap = await getDoc(doc(db, "users", user.uid));
   const profile = snap.exists() ? snap.data() : {};
-
   return profile.role === "staff" && profile.ownerUid
     ? profile.ownerUid
     : user.uid;
@@ -506,11 +458,9 @@ async function resolveBusiness(user) {
 
 async function loadBusinessBrand() {
   if (!businessId) return;
-
   try {
     const snap = await getDoc(doc(db, "users", businessId));
     if (!snap.exists()) return;
-
     const data = snap.data();
     const name = data.businessName || data.business_name ||
       data.storeName || data.shopName || data.name || "Kayah";
@@ -522,7 +472,6 @@ async function loadBusinessBrand() {
     const logo = data.businessLogoUrl || data.businessLogoURL ||
       data.logoUrl || data.logoURL || data.logo || data.businessLogo ||
       data.storeLogo || "";
-
     const box = $("businessLogo");
 
     if (typeof logo === "string" && /^https?:\/\//i.test(logo)) {
@@ -544,7 +493,6 @@ async function loadBusinessBrand() {
 /* Existing saved closing summaries */
 function renderOverviewSummary() {
   const today = todayKey();
-
   const dated = allRecords.map(record => ({
     record,
     dateKey: recordDateKey(record, record._docId)
@@ -585,7 +533,6 @@ function renderOverviewSummary() {
   $("todayMaya").textContent = money(now.maya);
   $("todayCount").textContent =
     todayRecords.length + " record" + (todayRecords.length === 1 ? "" : "s");
-
   $("todayDate").textContent = todayRecords.length
     ? dateLabel(today) + " · " + todayRecords.length + " saved"
     : "No records today";
@@ -600,7 +547,6 @@ function renderOverviewSummary() {
 
 async function loadRecords() {
   if (!businessId || loading) return;
-
   loading = true;
   $("refreshBtn").disabled = true;
   $("records").innerHTML = '<div class="loading">Loading closing records...</div>';
@@ -609,7 +555,6 @@ async function loadRecords() {
   try {
     const ref = collection(db, "users", businessId, "cashManagement");
     const snapshot = await getDocs(ref);
-
     allRecords = snapshot.docs.map(item => ({
       ...item.data(),
       _docId: item.id
@@ -618,7 +563,6 @@ async function loadRecords() {
     allRecords.sort((a, b) => {
       const dateA = recordDateKey(a, a._docId);
       const dateB = recordDateKey(b, b._docId);
-
       return dateB.localeCompare(dateA) ||
         (Number(b.closedAt?.seconds) || 0) -
         (Number(a.closedAt?.seconds) || 0);
@@ -635,15 +579,12 @@ async function loadRecords() {
     );
   } catch (error) {
     console.error("Cash Management refresh error:", error);
-
     showStatus(
       "Unable to load records: " + (error.message || "Unknown error"),
       "error"
     );
-
     $("records").innerHTML =
       '<div class="empty"><strong>Records could not be loaded</strong>Check your internet connection and Firestore rules, then tap Refresh Records.</div>';
-
     $("recordCount").textContent = "Unable to load records.";
   } finally {
     loading = false;
@@ -658,12 +599,8 @@ function getFilteredRecords() {
   return allRecords.filter(record => {
     const dateKey = recordDateKey(record, record._docId);
     const text = [
-      dateKey,
-      record._docId,
-      record.registerId,
-      record.closedBy,
-      record.createdBy,
-      record.recordType
+      dateKey, record._docId, record.registerId,
+      record.closedBy, record.createdBy, record.recordType
     ].join(" ").toLowerCase();
 
     return (!search || text.includes(search)) &&
@@ -673,7 +610,6 @@ function getFilteredRecords() {
 
 function renderRecords() {
   const records = getFilteredRecords();
-
   $("recordCount").textContent =
     records.length + " record" + (records.length === 1 ? "" : "s") + " displayed";
 
@@ -686,8 +622,7 @@ function renderRecords() {
   $("records").innerHTML = records.map((record, index) => {
     const dateKey = recordDateKey(record, record._docId);
     const diff = val(record, "differenceCash") +
-      val(record, "differenceGcash") +
-      val(record, "differenceMaya");
+      val(record, "differenceGcash") + val(record, "differenceMaya");
 
     return `
       <article class="record" tabindex="0" role="button"
@@ -712,7 +647,6 @@ function renderRecords() {
 
   $("records").querySelectorAll(".record").forEach(card => {
     const open = () => showDetails(records[Number(card.dataset.index)]);
-
     card.addEventListener("click", open);
     card.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
@@ -733,7 +667,6 @@ function moneyRow(label, value) {
 
 function showDetails(record) {
   if (!record) return;
-
   const dateKey = recordDateKey(record, record._docId);
   $("detailDate").textContent = dateLabel(dateKey);
 
@@ -803,19 +736,17 @@ function setupMoneyForm() {
   $("moneyAccount").innerHTML = options;
   $("moneyToAccount").innerHTML = options;
   $("moneyDate").value = todayKey();
-
   $("moneyType").addEventListener("change", updateMoneyForm);
   $("moneyAccount").addEventListener("change", updateMoneyForm);
   $("moneyForm").addEventListener("submit", saveMoneyMovement);
-
   updateMoneyForm();
 }
 
 function updateMoneyForm() {
   const type = $("moneyType").value;
   const isTransfer = type === "transfer";
-
   $("transferFields").hidden = !isTransfer;
+
   $("moneyAccountLabel").textContent =
     type === "cashIn" ? "Deposit Into" :
     type === "cashOut" ? "Pay From" :
@@ -829,16 +760,10 @@ function updateMoneyForm() {
   }
 }
 
-/*
-  Existing closings are used as a baseline for the accounts that
-  the closing records actually track. We do not add every historical
-  closing together, because that would count the same money repeatedly.
-*/
 function latestClosingRecord() {
   return [...allRecords].sort((a, b) => {
     const dateA = recordDateKey(a, a._docId);
     const dateB = recordDateKey(b, b._docId);
-
     return dateB.localeCompare(dateA) ||
       (Number(b.closedAt?.seconds) || 0) -
       (Number(a.closedAt?.seconds) || 0);
@@ -849,66 +774,51 @@ function movementDateKey(movement) {
   return String(movement.dateKey || movement.date || "");
 }
 
-function movementIsAfterBaseline(movement, baseline) {
-  if (!baseline) return true;
-
-  const baselineDate = recordDateKey(baseline, baseline._docId);
-  const baselineTime = baseline.closedAt?.seconds
-    ? baseline.closedAt.seconds * 1000
-    : 0;
-  const movementTime = movement.createdAt?.seconds
-    ? movement.createdAt.seconds * 1000
-    : 0;
-
-  if (baselineTime && movementTime) {
-    return movementTime > baselineTime;
-  }
-
-  return movementDateKey(movement) > baselineDate;
-}
-
+/*
+  Current Account Balances start from the same per-account totals
+  shown in the TOTAL RECORDS summary. Saved money transactions are
+  then applied to those totals.
+*/
 function calculateMoneyBalances() {
   const balances = Object.fromEntries(
     MONEY_ACCOUNTS.map(account => [account, 0])
   );
 
-  const baseline = latestClosingRecord();
+  // Match the Cash Drawer, GCash and Maya figures in Total Records.
+  allRecords.forEach(record => {
+    balances["Cash Drawer"] += val(record, "closingCash");
+    balances["GCash"] += val(record, "closingGcash");
+    balances["Maya"] += val(record, "closingMaya");
+  });
 
-  if (baseline) {
-    balances["Cash Drawer"] = val(baseline, "closingCash");
-    balances["GCash"] = val(baseline, "closingGcash");
-    balances["Maya"] = val(baseline, "closingMaya");
-  }
+  // Apply every saved Cash In, Cash Out and transfer.
+  moneyMovements.forEach(movement => {
+    const amount = Number(movement.amount) || 0;
+    const type = String(movement.type || "").toLowerCase();
 
-  moneyMovements
-    .filter(movement => movementIsAfterBaseline(movement, baseline))
-    .forEach(movement => {
-      const amount = Number(movement.amount) || 0;
-      const type = String(movement.type || "").toLowerCase();
-
-      if (type === "cashin" || type === "in") {
-        if (balances[movement.account] !== undefined) {
-          balances[movement.account] += amount;
-        }
-      } else if (type === "cashout" || type === "out") {
-        if (balances[movement.account] !== undefined) {
-          balances[movement.account] -= amount;
-        }
-      } else if (type === "transfer") {
-        if (balances[movement.fromAccount] !== undefined) {
-          balances[movement.fromAccount] -= amount;
-        }
-        if (balances[movement.toAccount] !== undefined) {
-          balances[movement.toAccount] += amount;
-        }
+    if (type === "cashin" || type === "in") {
+      if (balances[movement.account] !== undefined) {
+        balances[movement.account] += amount;
       }
-    });
+    } else if (type === "cashout" || type === "out") {
+      if (balances[movement.account] !== undefined) {
+        balances[movement.account] -= amount;
+      }
+    } else if (type === "transfer") {
+      if (balances[movement.fromAccount] !== undefined) {
+        balances[movement.fromAccount] -= amount;
+      }
+      if (balances[movement.toAccount] !== undefined) {
+        balances[movement.toAccount] += amount;
+      }
+    }
+  });
 
-  return { balances, baseline };
+  return { balances, baseline: latestClosingRecord() };
 }
 
 function renderMoneyAccounts() {
-  const { balances, baseline } = calculateMoneyBalances();
+  const { balances } = calculateMoneyBalances();
 
   $("moneyAccounts").innerHTML = MONEY_ACCOUNTS.map(account => `
     <div class="money-account">
@@ -917,11 +827,8 @@ function renderMoneyAccounts() {
     </div>
   `).join("");
 
-  $("moneyBalanceNote").textContent = baseline
-    ? "Baseline: latest saved closing dated " +
-      dateLabel(recordDateKey(baseline, baseline._docId)) +
-      ". Newer recorded transactions are applied after that closing."
-    : "No saved closing was found. Balances start at ₱0.00 and reflect recorded transactions.";
+  $("moneyBalanceNote").textContent =
+    "Balances start with the per-account totals shown in Total Records (all saved closings), plus all saved Cash In, Cash Out, and transfer transactions.";
 }
 
 function renderMoneyHistory() {
@@ -942,7 +849,6 @@ function renderMoneyHistory() {
     const amount = Number(movement.amount) || 0;
     const isTransfer = type === "transfer";
     const isIn = type === "cashin" || type === "in";
-
     const title = isTransfer ? "Transfer" : isIn ? "Cash In" : "Cash Out";
     const amountClass = isTransfer ? "money-transfer" :
       isIn ? "money-positive" : "money-negative";
@@ -989,7 +895,6 @@ async function loadMoneyData() {
 
     $("moneyAccounts").innerHTML =
       '<div class="empty">Account balances could not be loaded.</div>';
-
     $("moneyHistory").innerHTML =
       '<div class="empty"><strong>Unable to load money transactions</strong>Check Firestore permissions for cashMovements.</div>';
 
@@ -1060,12 +965,10 @@ async function saveMoneyMovement(event) {
 
     $("moneyAmount").value = "";
     $("moneyReason").value = "";
-
     moneyStatus("Transaction saved successfully.");
     await loadMoneyData();
   } catch (error) {
     console.error("Saving money transaction failed:", error);
-
     moneyStatus(
       "Unable to save transaction: " +
       (error.message || "Check your connection and Firebase permissions."),
@@ -1088,6 +991,7 @@ document.querySelectorAll(".nav-tab").forEach(tab => {
 /* Existing controls */
 $("search").addEventListener("input", renderRecords);
 $("dateFilter").addEventListener("change", renderRecords);
+
 $("refreshBtn").addEventListener("click", async () => {
   await loadRecords();
   await loadMoneyData();
@@ -1118,13 +1022,10 @@ onAuthStateChanged(auth, async user => {
 
     $("records").innerHTML =
       '<div class="empty"><strong>Sign-in required</strong>Please sign in to your Kayah account, then reopen this page.</div>';
-
     $("moneyAccounts").innerHTML =
       '<div class="empty">Sign in to load business accounts.</div>';
-
     $("moneyHistory").innerHTML =
       '<div class="empty">Sign in to load money transactions.</div>';
-
     return;
   }
 
