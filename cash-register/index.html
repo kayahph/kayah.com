@@ -8,1449 +8,383 @@
 <title>Cash Management - Kayah</title>
 
 <style>
-:root {
-  --green:#0B4F3A;
-  --green2:#16805C;
+:root{
+  --g:#0B4F3A;
+  --g2:#16805C;
   --gold:#F2B84B;
-  --cream:#F7F3E8;
-  --white:#FFFFFF;
+  --bg:#F3F6F3;
+  --white:#fff;
   --text:#20342B;
   --muted:#718078;
   --border:#E3EAE5;
   --red:#C24141;
-  --blue:#2463A8;
-  --purple:#7354B8;
-  --bg:#F3F6F3;
-  --shadow:0 5px 18px rgba(20,54,35,.06);
+  --shadow:0 3px 10px #173b2508;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}
+header{background:linear-gradient(135deg,#0B4F3A,#16805C);color:white;padding:14px 15px;border-radius:0 0 18px 18px}
+.header-inner,.container{max-width:950px;margin:auto}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;display:grid;place-items:center;overflow:hidden;background:var(--gold);color:var(--g);border:2px solid #ffffff55;border-radius:11px;font-size:20px;font-weight:900;flex-shrink:0}
+.logo img{width:100%;height:100%;object-fit:cover}
+.business-name{font-weight:900;font-size:16px;overflow-wrap:anywhere}
+.page-name{font-size:11px;color:#d9ebe0;margin-top:3px}
+.header-note{font-size:11px;color:#e1eee6;line-height:1.45;margin-top:9px}
+.container{padding:10px 10px 24px}
+.status{padding:9px 11px;border-radius:9px;background:#e6f5eb;color:var(--g);font-size:11px;line-height:1.5;margin-bottom:10px;overflow-wrap:anywhere}
+.status.error{background:#fceaea;color:var(--red)}
+.status.warning{background:#fff3d0;color:#795500}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:15px 1px 8px}
+.heading h2{font-size:14px;margin:0}
+.subheading{font-size:10px;color:var(--muted);line-height:1.45;margin-top:3px}
+.heading-icon{width:31px;height:31px;border-radius:9px;background:#e1f1e6;color:var(--g);display:grid;place-items:center;flex-shrink:0}
+
+/* Compact navigation */
+.nav-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:10px 0}
+.nav-tab{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;border:1px solid #D9E5DC;background:#fff;color:var(--g);padding:9px 4px;border-radius:9px;font-size:10px;font-weight:900;min-width:0}
+.nav-tab.active{background:var(--g);border-color:var(--g);color:#fff}
+
+/* Compact summary cards */
+.summary-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;margin-top:8px}
+.card{min-width:0;padding:11px 12px;border:1px solid var(--border);border-radius:11px;background:#fff;box-shadow:var(--shadow)}
+.card.previous{order:2;padding:9px 11px;background:#fff;border:1px solid #E0E5E1;border-left:4px solid #CBD5E1;box-shadow:none}
+.card.today{order:1;padding:12px;background:#E3F4E9;border:1px solid #9CCFB0;border-left:5px solid #087443}
+.card.total{order:3;padding:11px 12px;background:#FFF5DE;border:1px solid #E8CC83;border-left:5px solid #B77908}
+.card-label{font-size:10px;font-weight:900;line-height:1.4;letter-spacing:.2px}
+.previous .card-label{color:#64748B}
+.today .card-label{color:#286746}
+.total .card-label{color:#805B00}
+.card-total-row{display:flex;align-items:baseline;justify-content:space-between;gap:7px;margin-top:5px;min-width:0}
+.card-total{font-size:clamp(22px,5.5vw,29px);font-weight:900;line-height:1.2;letter-spacing:-.4px;margin:0;min-width:0;flex:1 1 auto;overflow-wrap:anywhere}
+.previous .card-total{color:#475569;font-size:clamp(19px,5vw,24px)}
+.today .card-total{color:#087443;font-size:clamp(25px,6.5vw,32px)}
+.total .card-total{color:#A56700}
+.card-date{font-size:9px;font-weight:700;line-height:1.3;margin:0;flex:0 1 43%;max-width:43%;text-align:right;overflow-wrap:anywhere}
+.previous .card-date,.previous .card-foot{color:#64748B}
+.today .card-date,.today .card-foot{color:#365D49}
+.total .card-date,.total .card-foot{color:#85621C}
+.card-foot{font-size:9px;font-weight:600;line-height:1.35;margin-top:3px}
+.count-pill{display:inline-block;font-size:9px;font-weight:800;border-radius:20px;padding:3px 7px;margin-top:5px;background:#E9EEF2;color:#475569}
+.today .count-pill{background:#D1EBDD;color:#17633F}
+.total .count-pill{background:#F8E4AF;color:#805B00}
+.payment-list{display:grid;gap:4px;border-top:1px solid #DCE6DE;margin-top:7px;padding-top:6px}
+.payment-row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;font-weight:700;line-height:1.35}
+.payment-row span{flex:1}
+.payment-row strong{font-size:10px;font-weight:900;text-align:right;overflow-wrap:anywhere}
+.previous .payment-list{border-color:#E2E8F0;margin-top:5px;padding-top:5px;gap:3px}
+.previous .payment-row,.previous .payment-row strong{font-size:9px}
+.previous .payment-row strong{color:#475569}
+.today .payment-row strong{color:#087443}
+.total .payment-row strong{color:#A56700}
+
+/* Shared panels and form controls */
+.panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:9px;min-width:0}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px}
+label{display:block;font-size:10px;font-weight:800;margin-bottom:5px;color:#405449}
+input,select{width:100%;min-height:39px;padding:9px;border:1px solid #d8e2da;border-radius:8px;background:#fff;color:var(--text);font-size:12px;outline:none}
+input:focus,select:focus{border-color:var(--g2);box-shadow:0 0 0 3px #16805c18}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+button{border:0;border-radius:8px;min-height:37px;padding:9px 11px;cursor:pointer;font-size:10px;font-weight:900}
+button:disabled{opacity:.6;cursor:wait}
+.primary{background:var(--g);color:#fff}
+.secondary{background:#e6f2e9;color:var(--g)}
+.danger-button{background:#FCEAEA;color:#A52B2B}
+.actions button{flex:1;min-width:110px}
+.count-bar{padding:8px 10px;border-radius:9px;background:#e8f1ea;border:1px solid #d8e7dc;color:#335b43;font-size:10px;font-weight:700;line-height:1.5;margin:8px 0}
+.records{display:grid;gap:8px}
+.record{background:#fff;border:1px solid var(--border);border-radius:11px;padding:10px;box-shadow:var(--shadow);cursor:pointer}
+.record:focus-visible{outline:3px solid #8bc7a0}
+.record-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.record-date{font-size:11px;font-weight:900;line-height:1.5}
+.record-id{font-size:9px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.pill{font-size:9px;font-weight:800;border-radius:20px;padding:5px 7px;background:#e4f5ea;color:var(--g);white-space:nowrap}
+.record-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:9px}
+.record-cell{background:#f6f8f6;border-radius:7px;padding:8px 5px;min-width:0}
+.mini-label{font-size:9px;color:var(--muted);margin-bottom:4px}
+.mini-value{font-size:10px;font-weight:900;overflow-wrap:anywhere}
+.record-bottom{border-top:1px solid var(--border);padding-top:7px;margin-top:8px;display:flex;justify-content:space-between;gap:8px;font-size:10px}
+.empty,.loading{padding:19px 12px;text-align:center;background:#fff;border:1px dashed #cbd8ce;border-radius:11px;color:var(--muted);font-size:10px;line-height:1.6}
+.empty strong{display:block;color:var(--text);font-size:12px;margin-bottom:4px}
+.green{color:var(--g2)}.gold{color:#9a6900}.red{color:var(--red)}
+.note{font-size:9px;line-height:1.5;color:var(--muted);margin-top:9px}
+footer{text-align:center;color:var(--muted);font-size:9px;padding:12px}
+
+/* Money accounts */
+.money-account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.money-account{background:#F4F8F4;border:1px solid #E0E9E1;border-radius:9px;padding:9px;min-width:0}
+.money-account-name{color:#64756B;font-size:9px;font-weight:900}
+.money-account-balance{margin-top:4px;font-size:16px;font-weight:900;color:#0B4F3A;overflow-wrap:anywhere}
+.money-form{display:grid;gap:9px}
+.money-form button{width:100%}
+.money-history-item{padding:9px 0;border-bottom:1px solid #E8EEE9}
+.money-history-item:last-child{border-bottom:0}
+.money-history-top{display:flex;justify-content:space-between;gap:9px;font-size:11px;font-weight:900}
+.money-history-meta{margin-top:3px;font-size:9px;color:#718078;line-height:1.45;overflow-wrap:anywhere}
+.money-positive{color:#087443}
+.money-negative{color:#B42318}
+.money-transfer{color:#3155A4}
+.money-section-title{font-size:12px;font-weight:900;margin:0 0 9px}
+.money-status{font-size:10px;line-height:1.5;margin-top:7px;overflow-wrap:anywhere}
+.type-chip{display:inline-block;font-size:8px;font-weight:900;border-radius:20px;padding:4px 6px;background:#EEF3EF;color:#43584B}
+.overlay{position:fixed;inset:0;background:#0c1e14b0;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:0}
+.overlay.show{display:flex}
+.modal{background:#f5f8f5;width:100%;max-width:650px;max-height:90vh;overflow:auto;overscroll-behavior:contain;border-radius:17px 17px 0 0;padding:13px 11px 22px}
+.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.modal-head h2{font-size:15px;margin:0}
+.close{width:36px;height:36px;min-height:36px;padding:0;font-size:21px;background:#e3ebe5;color:var(--text);flex-shrink:0}
+.detail-section{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px;margin-top:8px}
+.detail-title{font-weight:900;font-size:11px;margin-bottom:4px;color:var(--g)}
+.detail-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #edf1ed;font-size:10px;line-height:1.45}
+.detail-row:last-child{border-bottom:0}
+.detail-row span{color:var(--muted)}
+.detail-row strong{text-align:right;overflow-wrap:anywhere;max-width:60%}
+[hidden]{display:none!important}
+@media(min-width:540px){
+  .container{padding:16px 16px 30px}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .actions{grid-column:1/-1}
+  .overlay{align-items:center;padding:16px}
+  .modal{border-radius:16px}
+  .money-form{grid-template-columns:1fr 1fr}
+  .money-form .full-width{grid-column:1/-1}
+}
+@media(max-width:380px){
+  .container{padding-left:7px;padding-right:7px}
+  .summary-grid{gap:6px}
+  .card{padding:9px}
+  .card.previous{padding:8px 9px}
+  .card.today{padding:10px}
+  .card.total{padding:9px}
+  .card-label{font-size:9px}
+  .card-total{font-size:21px}
+  .today .card-total{font-size:24px}
+  .previous .card-total{font-size:18px}
+  .card-date{font-size:8px;flex-basis:42%;max-width:42%}
+  .payment-row,.payment-row strong{font-size:9px}
+  .money-account{padding:8px}
+  .money-account-balance{font-size:14px}
 }
-
-* { box-sizing:border-box; }
-
-html {
-  scroll-behavior:smooth;
-  scroll-padding-top:20px;
-}
-
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-
-button,input,select { font:inherit; }
-button { -webkit-tap-highlight-color:transparent; }
-
-header {
-  background:linear-gradient(135deg,#0B4F3A 0%,#12694B 70%,#16805C 100%);
-  color:white;
-  padding:20px 16px 25px;
-  border-radius:0 0 25px 25px;
-  position:relative;
-  overflow:hidden;
-}
-
-header:after {
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  border:30px solid rgba(255,255,255,.045);
-  right:-65px;
-  top:-75px;
-  pointer-events:none;
-}
-
-.header-inner,.container {
-  max-width:1100px;
-  margin:auto;
-  position:relative;
-  z-index:1;
-}
-
-.topline {
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand-logo {
-  width:53px;
-  height:53px;
-  flex-shrink:0;
-  border-radius:16px;
-  background:var(--gold);
-  color:var(--green);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  font-weight:900;
-  overflow:hidden;
-  border:2px solid rgba(255,255,255,.35);
-}
-
-.brand-logo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.brand-info { min-width:0; }
-
-.business-name {
-  font-size:18px;
-  font-weight:800;
-  line-height:1.3;
-  overflow-wrap:anywhere;
-}
-
-.page-name {
-  font-size:13px;
-  color:#D8E9DF;
-  margin-top:3px;
-}
-
-.header-note {
-  font-size:12px;
-  line-height:1.6;
-  color:#E0EFE5;
-  margin-top:18px;
-  max-width:600px;
-}
-
-.header-chip {
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.1);
-  padding:7px 10px;
-  border-radius:30px;
-  font-size:11px;
-  margin-top:13px;
-}
-
-.header-chip span {
-  width:7px;
-  height:7px;
-  background:#82E5A7;
-  border-radius:50%;
-}
-
-.container { padding:17px 13px 35px; }
-
-.status {
-  padding:12px 14px;
-  border-radius:12px;
-  background:#E6F5EB;
-  color:var(--green);
-  font-size:12px;
-  line-height:1.5;
-  margin-bottom:17px;
-  overflow-wrap:anywhere;
-}
-
-.status.error { background:#FCEAEA;color:var(--red); }
-.status.warning { background:#FFF3D0;color:#795500; }
-
-.section-heading {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin:23px 2px 12px;
-}
-
-.section-title {
-  font-size:16px;
-  font-weight:800;
-  margin:0;
-  color:var(--text);
-}
-
-.section-subtitle {
-  font-size:11px;
-  color:var(--muted);
-  margin-top:5px;
-  line-height:1.5;
-}
-
-.section-icon {
-  width:37px;
-  height:37px;
-  border-radius:12px;
-  background:#E1F1E6;
-  color:var(--green);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  font-size:17px;
-}
-
-.overview-grid {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:11px;
-}
-
-.summary-card {
-  border-radius:17px;
-  padding:17px;
-  background:white;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-  min-width:0;
-  position:relative;
-  overflow:hidden;
-}
-
-.summary-card.previous {
-  background:linear-gradient(135deg,#0B4F3A,#167650);
-  color:white;
-  border:0;
-}
-
-.summary-card.today {
-  background:linear-gradient(135deg,#E4F5E9,#F6FBF7);
-  border-color:#D3E9D9;
-}
-
-.summary-card.total {
-  background:linear-gradient(135deg,#FFF0C9,#FFF9E9);
-  border-color:#F0E1B9;
-}
-
-.summary-top {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.summary-label {
-  font-size:12px;
-  font-weight:700;
-  line-height:1.5;
-}
-
-.previous .summary-label { color:#DFEEE4; }
-.today .summary-label { color:#286746; }
-.total .summary-label { color:#805B00; }
-
-.summary-icon {
-  width:35px;
-  height:35px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:11px;
-  font-size:17px;
-  flex-shrink:0;
-  background:rgba(255,255,255,.15);
-}
-
-.today .summary-icon {
-  background:#D0EBD8;
-  color:#12623F;
-}
-
-.total .summary-icon {
-  background:#F9E2A4;
-  color:#805B00;
-}
-
-.summary-value {
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:-.5px;
-  margin-top:12px;
-  overflow-wrap:anywhere;
-}
-
-.previous .summary-value { color:#FFFFFF; }
-.today .summary-value { color:#0B4F3A; }
-.total .summary-value { color:#805B00; }
-
-.summary-foot {
-  font-size:11px;
-  margin-top:9px;
-  line-height:1.5;
-  overflow-wrap:anywhere;
-}
-
-.previous .summary-foot { color:#D6E9DE; }
-.today .summary-foot { color:#5A7965; }
-.total .summary-foot { color:#8B7138; }
-
-.summary-date {
-  font-size:11px;
-  font-weight:700;
-  margin-top:5px;
-  line-height:1.5;
-}
-
-.previous .summary-date { color:#FFFFFF; }
-.today .summary-date { color:#286746; }
-.total .summary-date { color:#805B00; }
-
-.summary-count {
-  display:inline-flex;
-  margin-top:10px;
-  border-radius:20px;
-  padding:6px 9px;
-  background:rgba(255,255,255,.16);
-  font-size:10px;
-  font-weight:700;
-}
-
-.today .summary-count { background:#D1EBDD;color:#17633F; }
-.total .summary-count { background:#F8E4AF;color:#805B00; }
-
-/* Existing closing balance breakdown */
-
-.breakdown-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-
-.breakdown-card {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:14px;
-  min-width:0;
-  box-shadow:var(--shadow);
-}
-
-.breakdown-label {
-  font-size:11px;
-  color:var(--muted);
-  font-weight:700;
-  margin-bottom:9px;
-}
-
-.breakdown-value {
-  font-size:19px;
-  font-weight:900;
-  overflow-wrap:anywhere;
-}
-
-.breakdown-foot {
-  font-size:10px;
-  color:var(--muted);
-  margin-top:7px;
-}
-
-.green { color:var(--green2); }
-.gold { color:#9A6900; }
-.red { color:var(--red); }
-
-/* Colored navigation tabs */
-
-.nav-tabs {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  margin:22px 0 5px;
-}
-
-.nav-tab {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-width:0;
-  min-height:76px;
-  padding:10px 4px;
-  border:1px solid transparent;
-  border-radius:14px;
-  text-decoration:none;
-  font-size:10px;
-  font-weight:800;
-  text-align:center;
-  line-height:1.3;
-  transition:transform .15s;
-}
-
-.nav-tab:active { transform:scale(.97); }
-
-.nav-tab .nav-icon { font-size:20px; }
-
-.tab-green { background:#DFF1E5;color:#0B5B3A;border-color:#D0E8D8; }
-.tab-blue { background:#E1EEFC;color:#245C9A;border-color:#D3E4F8; }
-.tab-gold { background:#FFF0C9;color:#805B00;border-color:#F4E3B1; }
-.tab-purple { background:#EFE7FC;color:#6741A1;border-color:#E2D5F5; }
-
-/* Search and filters */
-
-.toolbar {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:14px;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:13px;
-  box-shadow:var(--shadow);
-}
-
-label {
-  display:block;
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:7px;
-  color:#405449;
-}
-
-input,select {
-  width:100%;
-  min-height:46px;
-  padding:12px;
-  border:1px solid #D8E2DA;
-  border-radius:11px;
-  background:white;
-  font-size:14px;
-  color:var(--text);
-  outline:none;
-}
-
-input:focus,select:focus {
-  border-color:var(--green2);
-  box-shadow:0 0 0 3px rgba(22,128,92,.09);
-}
-
-button {
-  border:0;
-  border-radius:11px;
-  min-height:45px;
-  padding:12px 15px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:800;
-  transition:opacity .15s,transform .15s;
-}
-
-button:active { transform:scale(.98); }
-button:disabled { opacity:.6;cursor:wait; }
-
-.primary { background:var(--green);color:white; }
-.secondary { background:#E6F2E9;color:var(--green); }
-.toolbar-buttons {
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-}
-.toolbar-buttons button { flex:1;min-width:120px; }
-
-.count-bar {
-  margin:12px 0;
-  background:#E8F1EA;
-  border:1px solid #D8E7DC;
-  color:#335B43;
-  padding:12px 14px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:700;
-  line-height:1.5;
-}
-
-.records {
-  display:flex;
-  flex-direction:column;
-  gap:11px;
-}
-
-.record {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:15px;
-  cursor:pointer;
-  box-shadow:var(--shadow);
-  transition:border-color .15s,transform .15s;
-}
-
-.record:hover { border-color:#A9CCB4; }
-.record:active { transform:scale(.995); }
-.record:focus-visible { outline:3px solid #8BC7A0;outline-offset:2px; }
-
-.record-top {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-
-.record-date {
-  font-size:14px;
-  font-weight:800;
-  line-height:1.5;
-}
-
-.record-id {
-  font-size:11px;
-  color:var(--muted);
-  margin-top:5px;
-  overflow-wrap:anywhere;
-  line-height:1.5;
-}
-
-.pill {
-  font-size:10px;
-  font-weight:800;
-  border-radius:20px;
-  padding:7px 10px;
-  background:#E4F5EA;
-  color:var(--green);
-  white-space:nowrap;
-}
-
-.record-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
-  margin-top:16px;
-}
-
-.record-cell {
-  background:#F6F8F6;
-  border-radius:11px;
-  padding:10px 8px;
-  min-width:0;
-}
-
-.mini-label {
-  font-size:10px;
-  color:var(--muted);
-  margin-bottom:7px;
-}
-
-.mini-value {
-  font-size:12px;
-  font-weight:800;
-  overflow-wrap:anywhere;
-}
-
-.record-bottom {
-  border-top:1px solid var(--border);
-  padding-top:12px;
-  margin-top:13px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-}
-
-.empty {
-  padding:30px 18px;
-  text-align:center;
-  background:white;
-  border-radius:16px;
-  border:1px dashed #CBD8CE;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
-}
-
-.empty strong {
-  display:block;
-  color:var(--text);
-  font-size:15px;
-  margin-bottom:7px;
-}
-
-.loading {
-  text-align:center;
-  padding:28px;
-  color:var(--muted);
-  font-size:13px;
-  background:white;
-  border-radius:15px;
-}
-
-.note {
-  font-size:11px;
-  line-height:1.7;
-  color:var(--muted);
-  margin-top:15px;
-}
-
-footer {
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  padding:20px 12px 28px;
-}
-
-/* Details popup */
-
-.overlay {
-  position:fixed;
-  inset:0;
-  background:rgba(12,30,20,.68);
-  z-index:20;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:0;
-}
-
-.overlay.show { display:flex; }
-
-.modal {
-  background:#F5F8F5;
-  width:100%;
-  max-width:650px;
-  max-height:90vh;
-  overflow:auto;
-  overscroll-behavior:contain;
-  border-radius:23px 23px 0 0;
-  padding:20px 15px 30px;
-  padding-bottom:calc(25px + env(safe-area-inset-bottom));
-  animation:slideUp .2s ease-out;
-}
-
-@keyframes slideUp {
-  from { transform:translateY(25px);opacity:.6; }
-  to { transform:translateY(0);opacity:1; }
-}
-
-.modal-head {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
-}
-
-.modal-head h2 {
-  font-size:19px;
-  margin:0;
-}
-
-.close {
-  background:#E3EBE5;
-  color:var(--text);
-  font-size:23px;
-  width:42px;
-  height:42px;
-  min-height:42px;
-  padding:0;
-  flex-shrink:0;
-}
-
-.detail-section {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-top:12px;
-}
-
-.detail-title {
-  font-weight:800;
-  font-size:13px;
-  margin-bottom:8px;
-  color:var(--green);
-}
-
-.detail-row {
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  padding:11px 0;
-  border-bottom:1px solid #EDF1ED;
-  font-size:12px;
-  line-height:1.5;
-}
-
-.detail-row:last-child { border-bottom:0; }
-.detail-row span:first-child { color:var(--muted); }
-.detail-row strong {
-  text-align:right;
-  overflow-wrap:anywhere;
-  max-width:60%;
-}
-
-[hidden] { display:none!important; }
-
-@media(min-width:520px) {
-  .container { padding:22px 18px 40px; }
-
-  .overview-grid {
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-
-  .summary-card { padding:17px; }
-  .summary-value { font-size:23px; }
-
-  .breakdown-grid {
-    grid-template-columns:repeat(4,minmax(0,1fr));
-  }
-
-  .toolbar {
-    grid-template-columns:1fr 1fr;
-  }
-
-  .toolbar-buttons { grid-column:1/-1; }
-
-  .overlay {
-    align-items:center;
-    padding:18px;
-  }
-
-  .modal { border-radius:20px; }
-}
-
-@media(min-width:760px) {
-  header { padding:25px 22px 29px; }
-  .business-name { font-size:21px; }
-  .container { padding-top:25px; }
-  .nav-tabs { gap:12px; }
-  .nav-tab {
-    flex-direction:row;
-    min-height:58px;
-    gap:10px;
-    font-size:12px;
-    padding:12px;
-  }
-  .nav-tab .nav-icon { font-size:19px; }
-  .record { padding:18px; }
-}
-
-@media(max-width:370px) {
-  .container { padding-left:10px;padding-right:10px; }
-  .summary-card { padding:14px; }
-  .summary-value { font-size:22px; }
-  .nav-tabs { gap:5px; }
-  .nav-tab { font-size:9px;min-height:70px; }
-  .record { padding:12px; }
-  .mini-value { font-size:11px; }
-}
-
-
-
-/* ===== COMPACT CASH MANAGEMENT REDESIGN ===== */
-
-header {
-  padding: 13px 14px 15px;
-  border-radius: 0 0 17px 17px;
-}
-
-.header-inner,
-.container {
-  max-width: 1100px;
-}
-
-.brand-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 11px;
-  font-size: 18px;
-}
-
-.business-name {
-  font-size: 16px;
-}
-
-.page-name {
-  font-size: 11px;
-  margin-top: 2px;
-}
-
-.header-note {
-  font-size: 11px;
-  line-height: 1.45;
-  margin-top: 9px;
-}
-
-.header-chip {
-  margin-top: 8px;
-  padding: 5px 8px;
-  font-size: 10px;
-}
-
-.container {
-  padding: 12px 11px 24px;
-}
-
-.status {
-  padding: 9px 11px;
-  margin-bottom: 12px;
-  font-size: 11px;
-  border-radius: 9px;
-}
-
-.section-heading {
-  margin: 15px 1px 9px;
-  gap: 8px;
-}
-
-.section-title {
-  font-size: 14px;
-}
-
-.section-subtitle {
-  font-size: 10px;
-  margin-top: 3px;
-}
-
-.section-icon {
-  width: 31px;
-  height: 31px;
-  border-radius: 9px;
-  font-size: 14px;
-}
-
-.overview-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
-}
-
-.summary-card {
-  padding: 11px 9px;
-  border-radius: 12px;
-  box-shadow: 0 2px 7px #183b2508;
-}
-
-.summary-top {
-  align-items: flex-start;
-  gap: 4px;
-}
-
-.summary-label {
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-.summary-icon {
-  width: 25px;
-  height: 25px;
-  border-radius: 8px;
-  font-size: 12px;
-}
-
-.summary-value {
-  font-size: clamp(13px, 3.8vw, 20px);
-  letter-spacing: -.3px;
-  margin-top: 9px;
-  line-height: 1.3;
-}
-
-.summary-date {
-  font-size: 9px;
-  line-height: 1.4;
-  margin-top: 5px;
-  overflow-wrap: anywhere;
-}
-
-.summary-foot {
-  font-size: 9px;
-  line-height: 1.4;
-  margin-top: 5px;
-}
-
-.summary-count {
-  font-size: 9px;
-  padding: 4px 6px;
-  margin-top: 6px;
-}
-
-.nav-tabs {
-  gap: 6px;
-  margin: 13px 0 3px;
-}
-
-.nav-tab {
-  min-height: 49px;
-  padding: 7px 3px;
-  gap: 4px;
-  border-radius: 10px;
-  font-size: 9px;
-}
-
-.nav-tab .nav-icon {
-  font-size: 15px;
-}
-
-.breakdown-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px;
-}
-
-.breakdown-card {
-  padding: 11px;
-  border-radius: 11px;
-  box-shadow: none;
-}
-
-.breakdown-label {
-  font-size: 10px;
-  margin-bottom: 6px;
-}
-
-.breakdown-value {
-  font-size: 17px;
-}
-
-.breakdown-foot {
-  font-size: 9px;
-  margin-top: 4px;
-}
-
-.toolbar {
-  padding: 11px;
-  gap: 9px;
-  border-radius: 13px;
-  box-shadow: none;
-}
-
-label {
-  font-size: 11px;
-  margin-bottom: 5px;
-}
-
-input,
-select {
-  min-height: 41px;
-  padding: 9px 10px;
-  font-size: 13px;
-  border-radius: 9px;
-}
-
-.toolbar-buttons {
-  gap: 7px;
-}
-
-.toolbar-buttons button {
-  min-height: 39px;
-  padding: 9px 8px;
-  font-size: 11px;
-}
-
-.count-bar {
-  margin: 8px 0;
-  padding: 9px 11px;
-  font-size: 11px;
-  border-radius: 9px;
-}
-
-.records {
-  gap: 8px;
-}
-
-.record {
-  padding: 11px;
-  border-radius: 12px;
-  box-shadow: 0 2px 7px #183b2508;
-}
-
-.record-date {
-  font-size: 12px;
-}
-
-.record-id {
-  font-size: 10px;
-  margin-top: 3px;
-}
-
-.pill {
-  padding: 5px 7px;
-  font-size: 9px;
-}
-
-.record-grid {
-  gap: 6px;
-  margin-top: 10px;
-}
-
-.record-cell {
-  padding: 8px 6px;
-  border-radius: 8px;
-}
-
-.mini-label {
-  font-size: 9px;
-  margin-bottom: 4px;
-}
-
-.mini-value {
-  font-size: 11px;
-}
-
-.record-bottom {
-  padding-top: 8px;
-  margin-top: 9px;
-  font-size: 11px;
-}
-
-.empty {
-  padding: 22px 13px;
-  font-size: 11px;
-}
-
-.loading {
-  padding: 20px;
-  font-size: 12px;
-}
-
-.note {
-  font-size: 10px;
-  line-height: 1.5;
-  margin-top: 10px;
-}
-
-footer {
-  padding: 13px 10px 18px;
-  font-size: 10px;
-}
-
-.modal {
-  padding: 15px 12px 20px;
-  max-height: 88vh;
-}
-
-.modal-head h2 {
-  font-size: 16px;
-}
-
-.close {
-  width: 35px;
-  height: 35px;
-  min-height: 35px;
-  font-size: 20px;
-}
-
-.detail-section {
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 11px;
-}
-
-.detail-title {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.detail-row {
-  padding: 8px 0;
-  gap: 10px;
-  font-size: 11px;
-}
-
-/* Extra-small phones */
-@media (max-width: 370px) {
-  .container {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  .overview-grid {
-    gap: 5px;
-  }
-
-  .summary-card {
-    padding: 9px 7px;
-  }
-
-  .summary-label {
-    font-size: 9px;
-  }
-
-  .summary-value {
-    font-size: 12px;
-  }
-
-  .summary-icon {
-    width: 21px;
-    height: 21px;
-    font-size: 10px;
-  }
-
-  .nav-tabs {
-    gap: 4px;
-  }
-
-  .nav-tab {
-    font-size: 8px;
-  }
-}
-
-/* Wider screens */
-@media (min-width: 650px) {
-  header {
-    padding: 17px 20px 19px;
-  }
-
-  .container {
-    padding: 17px 18px 30px;
-  }
-
-  .overview-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .breakdown-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .summary-card {
-    padding: 14px;
-  }
-
-  .summary-value {
-    font-size: 22px;
-  }
-
-  .toolbar {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .toolbar-buttons {
-    grid-column: 1 / -1;
-  }
-}
-
-/* Cash, GCash and Maya inside each overview card */
-.summary-payments {
-  display: grid;
-  gap: 5px;
-  margin-top: 10px;
-  padding-top: 9px;
-  border-top: 1px solid rgba(128, 128, 128, .22);
-}
-
-.summary-payment-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-.summary-payment-label {
-  opacity: .85;
-}
-
-.summary-payment-value {
-  font-size: 10px;
-  font-weight: 800;
-  text-align: right;
-  overflow-wrap: anywhere;
-}
-
-.previous .summary-payments {
-  border-top-color: rgba(255, 255, 255, .22);
-}
-
-.previous .summary-payment-value {
-  color: #FFFFFF;
-}
-
-.today .summary-payment-value {
-  color: #0B4F3A;
-}
-
-.total .summary-payment-value {
-  color: #805B00;
-}
-
-@media (max-width: 370px) {
-  .summary-payment-row,
-  .summary-payment-value {
-    font-size: 9px;
-  }
-}
-
-
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="header-inner">
-    <div class="topline">
-      <div class="brand-logo" id="businessLogo">K</div>
-      <div class="brand-info">
+    <div class="brand">
+      <div class="logo" id="businessLogo">K</div>
+      <div>
         <div class="business-name" id="businessName">Kayah</div>
         <div class="page-name">Cash Management</div>
       </div>
     </div>
-
-    <div class="header-note">
-      Review your previous closing, today's cash position, and your saved closing history.
-      This page is read-only and does not change register transactions.
-    </div>
-
-    <div class="header-chip">
-      <span></span>
-      Cash closing records
-    </div>
+    <div class="header-note">Review cash closings and manage money across your business accounts.</div>
   </div>
 </header>
 
 <main class="container">
+  <div id="status" class="status">Connecting to Kayah...</div>
 
-  <div id="status" class="status">
-    Connecting to Kayah...
-  </div>
-
-  <!-- SUMMARY: PREVIOUS, TODAY AND ALL RECORDS -->
-  <section id="overview">
-    <div class="section-heading">
-      <div>
-        <h2 class="section-title">Cash Overview</h2>
-        <div class="section-subtitle">
-          Your latest saved closing balances at a glance.
-        </div>
-      </div>
-      <div class="section-icon">▦</div>
-    </div>
-
-    <div class="overview-grid">
-
-      <div class="summary-card previous">
-        <div class="summary-top">
-          <div class="summary-label">Previous Record</div>
-          <div class="summary-icon">↶</div>
-        </div>
-        <div class="summary-value" id="previousTotal">₱0.00</div>
-        <div class="summary-date" id="previousDate">No previous record</div>
-        
-        
-        <div class="summary-foot">Latest closing before today</div>
-
-<div class="summary-payments">
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">💵 Cash</span>
-    <strong class="summary-payment-value" id="previousCash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 GCash</span>
-    <strong class="summary-payment-value" id="previousGcash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 Maya</span>
-    <strong class="summary-payment-value" id="previousMaya">₱0.00</strong>
-  </div>
-</div>
-      </div>
-
-      <div class="summary-card today">
-        <div class="summary-top">
-          <div class="summary-label">Today's Record</div>
-          <div class="summary-icon">▣</div>
-        </div>
-        <div class="summary-value" id="todayTotal">₱0.00</div>
-        <div class="summary-date" id="todayDate">No closing recorded today</div>
-        <div class="summary-foot">Latest closing recorded today</div>
-
-<div class="summary-payments">
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">💵 Cash</span>
-    <strong class="summary-payment-value" id="todayCash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 GCash</span>
-    <strong class="summary-payment-value" id="todayGcash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 Maya</span>
-    <strong class="summary-payment-value" id="todayMaya">₱0.00</strong>
-  </div>
-</div>
-      </div>
-
-      <div class="summary-card total">
-        <div class="summary-top">
-          <div class="summary-label">Total Records</div>
-          <div class="summary-icon">▤</div>
-        </div>
-        <div class="summary-value" id="totalRecords">0</div>
-        <div class="summary-date">All saved closings</div>
-        <div class="summary-foot">All saved records; balances below are from the latest closing</div>
-
-<div class="summary-payments">
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">💵 Cash</span>
-    <strong class="summary-payment-value" id="allCash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 GCash</span>
-    <strong class="summary-payment-value" id="allGcash">₱0.00</strong>
-  </div>
-  <div class="summary-payment-row">
-    <span class="summary-payment-label">📱 Maya</span>
-    <strong class="summary-payment-value" id="allMaya">₱0.00</strong>
-  </div>
-</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- COLORFUL NAVIGATION -->
   <nav class="nav-tabs" aria-label="Cash management navigation">
-    <a class="nav-tab tab-green" href="#overview">
-      <span class="nav-icon">▦</span>
-      <span>Overview</span>
-    </a>
-    <a class="nav-tab tab-blue" href="#breakdown">
-      <span class="nav-icon">₱</span>
-      <span>Balances</span>
-    </a>
-    <a class="nav-tab tab-gold" href="#history">
-      <span class="nav-icon">◷</span>
-      <span>History</span>
-    </a>
-    <a class="nav-tab tab-purple" href="#filters">
-      <span class="nav-icon">⌕</span>
-      <span>Find Records</span>
-    </a>
+    <a class="nav-tab active" href="#overview">Summary</a>
+    <a class="nav-tab" href="#moneyManagement">Money In / Out</a>
+    <a class="nav-tab" href="#history">Closing History</a>
   </nav>
 
-  <!-- EXISTING LATEST CLOSING SUMMARY -->
-  <section id="breakdown">
-    <div class="section-heading">
+  <section id="overview">
+    <div class="heading">
       <div>
-        <h2 class="section-title">Latest Closing Breakdown</h2>
-        <div class="section-subtitle">
-          Cash, GCash and Maya from the latest record matching your filters.
-        </div>
+        <h2>Cash Management Summary</h2>
+        <div class="subheading">Previous records, today's records, and all saved closings.</div>
       </div>
-      <div class="section-icon">₱</div>
+      <div class="heading-icon">▦</div>
     </div>
 
-    <div class="breakdown-grid">
-      <div class="breakdown-card">
-        <div class="breakdown-label">Closing Cash</div>
-        <div class="breakdown-value green" id="sumCash">₱0.00</div>
-        <div class="breakdown-foot">Latest matching closing</div>
-      </div>
+    <div class="summary-grid">
+      <article class="card previous">
+        <div class="card-label">PREVIOUS RECORDS</div>
+        <div class="card-total-row">
+          <div class="card-total" id="previousTotal">₱0.00</div>
+          <div class="card-date" id="previousDate">No previous records</div>
+        </div>
+        <div class="card-foot">All records except today's records</div>
+        <div class="count-pill" id="previousCount">0 records</div>
+        <div class="payment-list">
+          <div class="payment-row"><span>💵 Cash</span><strong id="previousCash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 GCash</span><strong id="previousGcash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 Maya</span><strong id="previousMaya">₱0.00</strong></div>
+        </div>
+      </article>
 
-      <div class="breakdown-card">
-        <div class="breakdown-label">Closing GCash</div>
-        <div class="breakdown-value" id="sumGcash">₱0.00</div>
-        <div class="breakdown-foot">Latest matching closing</div>
-      </div>
+      <article class="card today">
+        <div class="card-label">TODAY'S RECORDS</div>
+        <div class="card-total-row">
+          <div class="card-total" id="todayTotal">₱0.00</div>
+          <div class="card-date" id="todayDate">No records today</div>
+        </div>
+        <div class="card-foot">Records dated today</div>
+        <div class="count-pill" id="todayCount">0 records</div>
+        <div class="payment-list">
+          <div class="payment-row"><span>💵 Cash</span><strong id="todayCash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 GCash</span><strong id="todayGcash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 Maya</span><strong id="todayMaya">₱0.00</strong></div>
+        </div>
+      </article>
 
-      <div class="breakdown-card">
-        <div class="breakdown-label">Closing Maya</div>
-        <div class="breakdown-value" id="sumMaya">₱0.00</div>
-        <div class="breakdown-foot">Latest matching closing</div>
-      </div>
-
-      <div class="breakdown-card">
-        <div class="breakdown-label">Records Found</div>
-        <div class="breakdown-value gold" id="sumRecords">0</div>
-        <div class="breakdown-foot">Based on current filters</div>
-      </div>
+      <article class="card total">
+        <div class="card-label">TOTAL RECORDS</div>
+        <div class="card-total-row">
+          <div class="card-total" id="totalRecords">₱0.00</div>
+          <div class="card-date">All saved records</div>
+        </div>
+        <div class="card-foot">Previous records plus today's records</div>
+        <div class="count-pill" id="allCount">0 records</div>
+        <div class="payment-list">
+          <div class="payment-row"><span>💵 Cash</span><strong id="allCash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 GCash</span><strong id="allGcash">₱0.00</strong></div>
+          <div class="payment-row"><span>📱 Maya</span><strong id="allMaya">₱0.00</strong></div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- EXISTING SEARCH AND FILTERS -->
-  <section id="filters">
-    <div class="section-heading">
+  <!-- BUSINESS ACCOUNTS AND MONEY TRANSACTIONS -->
+  <section id="moneyManagement">
+    <div class="heading">
       <div>
-        <h2 class="section-title">Find Closing Records</h2>
-        <div class="section-subtitle">
-          Search by date or record ID, or filter a specific date.
-        </div>
+        <h2>Business Accounts</h2>
+        <div class="subheading">Record incoming money, payments, and transfers.</div>
       </div>
-      <div class="section-icon">⌕</div>
+      <div class="heading-icon">₱</div>
     </div>
 
-    <section class="toolbar">
-      <div>
-        <label for="search">Search by date or record ID</label>
-        <input id="search" type="search" placeholder="Search records..." autocomplete="off">
+    <div class="panel">
+      <h3 class="money-section-title">Current Account Balances</h3>
+      <div id="moneyAccounts" class="money-account-grid">
+        <div class="loading">Loading account balances...</div>
       </div>
+      <div id="moneyBalanceNote" class="money-history-meta"></div>
+    </div>
 
+    <div class="panel">
+      <h3 class="money-section-title">Record a Transaction</h3>
+      <form id="moneyForm" class="money-form">
+        <div class="full-width">
+          <label for="moneyType">Transaction Type</label>
+          <select id="moneyType" required>
+            <option value="cashIn">Cash In — Receive Money</option>
+            <option value="cashOut">Cash Out — Pay Money</option>
+            <option value="transfer">Transfer Between Accounts</option>
+          </select>
+        </div>
+
+        <div>
+          <label id="moneyAccountLabel" for="moneyAccount">Deposit Into</label>
+          <select id="moneyAccount" required></select>
+        </div>
+
+        <div id="transferFields" hidden>
+          <label for="moneyToAccount">Transfer To</label>
+          <select id="moneyToAccount"></select>
+        </div>
+
+        <div>
+          <label for="moneyAmount">Amount (₱)</label>
+          <input id="moneyAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Enter amount" required>
+        </div>
+
+        <div>
+          <label for="moneyDate">Transaction Date</label>
+          <input id="moneyDate" type="date" required>
+        </div>
+
+        <div class="full-width">
+          <label for="moneyReason">Reason / Description</label>
+          <input id="moneyReason" type="text" maxlength="180" placeholder="e.g. Additional capital, bills, bank deposit" required>
+        </div>
+
+        <div class="full-width">
+          <button class="primary" id="moneySaveBtn" type="submit">Save Transaction</button>
+          <div id="moneyStatus" class="money-status" role="status"></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h3 class="money-section-title">Recent Money Transactions</h3>
+      <div id="moneyHistory">
+        <div class="loading">Loading transactions...</div>
+      </div>
+    </div>
+
+    <p class="note">Transfers move existing money between accounts. They are not treated as new income or expenses. Existing closing records are not edited by this section.</p>
+  </section>
+
+  <section id="filters">
+    <div class="heading">
+      <div>
+        <h2>Find Closing Records</h2>
+        <div class="subheading">Search by date or record ID, or select a date.</div>
+      </div>
+      <div class="heading-icon">⌕</div>
+    </div>
+    <div class="toolbar">
+      <div>
+        <label for="search">Search records</label>
+        <input id="search" type="search" placeholder="Search date, ID, or staff..." autocomplete="off">
+      </div>
       <div>
         <label for="dateFilter">Filter by date</label>
         <input id="dateFilter" type="date">
       </div>
-
-      <div class="toolbar-buttons">
-        <button class="primary" id="refreshBtn" type="button">
-          ↻ Refresh Records
-        </button>
-        <button class="secondary" id="clearBtn" type="button">
-          Clear Filters
-        </button>
+      <div class="actions">
+        <button class="primary" id="refreshBtn" type="button">↻ Refresh Records</button>
+        <button class="secondary" id="clearBtn" type="button">Clear Filters</button>
       </div>
-    </section>
+    </div>
   </section>
 
-  <!-- EXISTING RECORD LIST -->
   <section id="history">
-    <div class="section-heading">
+    <div class="heading">
       <div>
-        <h2 class="section-title">Closing History</h2>
-        <div class="section-subtitle">
-          Tap any saved record to view its complete details.
-        </div>
+        <h2>Closing History</h2>
+        <div class="subheading">Tap any saved record to view its complete details.</div>
       </div>
-      <div class="section-icon">◷</div>
+      <div class="heading-icon">◷</div>
     </div>
-
-    <div id="recordCount" class="count-bar">
-      Waiting for records...
-    </div>
-
-    <div id="records" class="records">
-      <div class="loading">Loading closing records...</div>
-    </div>
+    <div id="recordCount" class="count-bar">Waiting for records...</div>
+    <div id="records" class="records"><div class="loading">Loading closing records...</div></div>
   </section>
 
-  <p class="note">
-    Closing records are read from the Cash Management collection.
-    A register closed before the automatic-saving code was installed
-    may not have a matching record here. Viewing this page does not
-    create, edit, or delete saved records.
-  </p>
-
+  <p class="note">Closing records are read from your existing Firebase cashManagement collection. New money transactions are saved separately in cashMovements.</p>
 </main>
 
-<footer>
-  <strong id="footerBusinessName">Kayah</strong> — Business, Made Possible.
-</footer>
+<footer><strong id="footerBusinessName">Kayah</strong> — Business, Made Possible.</footer>
 
-<!-- EXISTING READ-ONLY DETAILS POPUP -->
-<div class="overlay" id="detailOverlay" role="dialog"
-     aria-modal="true" aria-labelledby="detailHeading">
+<div class="overlay" id="detailOverlay" role="dialog" aria-modal="true" aria-labelledby="detailHeading">
   <div class="modal">
     <div class="modal-head">
       <div>
         <h2 id="detailHeading">Closing Details</h2>
         <div id="detailDate" class="note"></div>
       </div>
-      <button class="close" id="closeDetails" type="button"
-              aria-label="Close details">×</button>
+      <button class="close" id="closeDetails" type="button" aria-label="Close details">×</button>
     </div>
-
     <div id="detailContent"></div>
   </div>
 </div>
 
 <script type="module">
-import { initializeApp, getApps } from
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import { getAuth, onAuthStateChanged } from
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, doc, getDoc, collection, getDocs
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1462,35 +396,45 @@ const firebaseConfig = {
   appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
 };
 
-const app = getApps().length
-  ? getApps()[0]
-  : initializeApp(firebaseConfig);
-
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 let businessId = null;
 let allRecords = [];
+let moneyMovements = [];
 let loading = false;
 
 const $ = id => document.getElementById(id);
 
+const MONEY_ACCOUNTS = [
+  "Cash on Hand",
+  "Cash Drawer",
+  "GCash",
+  "Maya",
+  "Bank Account"
+];
+
 function money(value) {
   const n = Number(value);
   return "₱" + (Number.isFinite(n) ? n : 0).toLocaleString("en-PH", {
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 }
 
+function val(record, key) {
+  return Number(record?.[key] ?? 0) || 0;
+}
+
 function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  })[char]);
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[c]));
 }
 
 function showStatus(message, type = "") {
@@ -1498,87 +442,68 @@ function showStatus(message, type = "") {
   $("status").className = "status" + (type ? " " + type : "");
 }
 
-function dateLabel(dateKey) {
-  if (!dateKey) return "Date not recorded";
+function recordDateKey(record, docId) {
+  return String(record.dateKey || record.registerId || docId || "");
+}
 
-  const parts = String(dateKey).split("-");
-  if (parts.length !== 3) return dateKey;
+function dateLabel(key) {
+  if (!key) return "Date not recorded";
 
-  const date = new Date(
-    Number(parts[0]),
-    Number(parts[1])-1,
-    Number(parts[2])
-  );
+  const m = String(key).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return String(key);
 
-  return Number.isNaN(date.getTime())
-    ? dateKey
-    : date.toLocaleDateString("en-PH", {
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-      });
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+    .toLocaleDateString("en-PH", {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+}
+
+function todayKey() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Manila",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+
+  const p = type => parts.find(x => x.type === type)?.value || "";
+  return `${p("year")}-${p("month")}-${p("day")}`;
 }
 
 function timestampLabel(value) {
   if (!value) return "Not recorded";
 
-  let date;
+  let d;
+  if (typeof value.toDate === "function") d = value.toDate();
+  else if (value.seconds) d = new Date(value.seconds * 1000);
+  else d = new Date(value);
 
-  if (typeof value.toDate === "function") {
-    date = value.toDate();
-  } else if (value.seconds) {
-    date = new Date(value.seconds * 1000);
-  } else {
-    date = new Date(value);
-  }
+  if (Number.isNaN(d.getTime())) return "Not recorded";
 
-  if (Number.isNaN(date.getTime())) return "Not recorded";
-
-  return date.toLocaleString("en-PH", {
-    timeZone:"Asia/Manila"
-  });
-}
-
-function val(record, key) {
-  return Number(record[key] ?? 0) || 0;
-}
-
-function differenceClass(value) {
-  if (value < 0) return "red";
-  if (value > 0) return "gold";
-  return "green";
-}
-
-function recordDateKey(record, docId) {
-  return String(record.dateKey || record.registerId || docId || "");
-}
-
-function recordTitle(record, docId) {
-  return recordDateKey(record, docId) || "Closing record";
-}
-
-/* Use the Philippines business date for today's summaries. */
-function todayKey() {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone:"Asia/Manila",
-    year:"numeric",
-    month:"2-digit",
-    day:"2-digit"
-  }).formatToParts(new Date());
-
-  const part = type => parts.find(item => item.type === type)?.value || "";
-
-  return `${part("year")}-${part("month")}-${part("day")}`;
+  return d.toLocaleString("en-PH", { timeZone: "Asia/Manila" });
 }
 
 function closingTotal(record) {
-  return val(record, "closingCash")
-       + val(record, "closingGcash")
-       + val(record, "closingMaya");
+  return val(record, "closingCash") +
+    val(record, "closingGcash") +
+    val(record, "closingMaya");
 }
 
-/* Business name and logo are loaded from the owner's user document.
-   Supports several common existing field names. */
+function differenceClass(n) {
+  return n < 0 ? "red" : n > 0 ? "gold" : "green";
+}
+
+async function resolveBusiness(user) {
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const profile = snap.exists() ? snap.data() : {};
+
+  return profile.role === "staff" && profile.ownerUid
+    ? profile.ownerUid
+    : user.uid;
+}
+
 async function loadBusinessBrand() {
   if (!businessId) return;
 
@@ -1587,152 +512,90 @@ async function loadBusinessBrand() {
     if (!snap.exists()) return;
 
     const data = snap.data();
-
-    const name =
-      data.businessName ||
-      data.business_name ||
-      data.storeName ||
-      data.shopName ||
-      data.name ||
-      "Kayah";
+    const name = data.businessName || data.business_name ||
+      data.storeName || data.shopName || data.name || "Kayah";
 
     $("businessName").textContent = name;
     $("footerBusinessName").textContent = name;
     document.title = "Cash Management - " + name;
 
-    const logoUrl =
-      data.businessLogoUrl ||
-      data.businessLogoURL ||
-      data.logoUrl ||
-      data.logoURL ||
-      data.logo ||
-      data.businessLogo ||
-      data.storeLogo ||
-      "";
+    const logo = data.businessLogoUrl || data.businessLogoURL ||
+      data.logoUrl || data.logoURL || data.logo || data.businessLogo ||
+      data.storeLogo || "";
 
-    const logoBox = $("businessLogo");
+    const box = $("businessLogo");
 
-    if (typeof logoUrl === "string" && /^https?:\/\//i.test(logoUrl)) {
+    if (typeof logo === "string" && /^https?:\/\//i.test(logo)) {
       const img = document.createElement("img");
       img.alt = name + " logo";
-      img.src = logoUrl;
+      img.src = logo;
       img.onerror = () => {
-        logoBox.textContent = String(name).trim().charAt(0).toUpperCase() || "K";
+        box.textContent = String(name).trim().charAt(0).toUpperCase() || "K";
       };
-
-      logoBox.replaceChildren(img);
+      box.replaceChildren(img);
     } else {
-      logoBox.textContent = String(name).trim().charAt(0).toUpperCase() || "K";
+      box.textContent = String(name).trim().charAt(0).toUpperCase() || "K";
     }
   } catch (error) {
-    /* Branding is optional; do not block the records page. */
     console.warn("Unable to load business branding:", error);
   }
 }
 
-async function resolveBusiness(user) {
-  const profileSnap = await getDoc(doc(db, "users", user.uid));
-  const profile = profileSnap.exists() ? profileSnap.data() : {};
-
-  if (profile.role === "staff" && profile.ownerUid) {
-    return profile.ownerUid;
-  }
-
-  return user.uid;
-}
-
-/* New overview summaries; existing saved records remain unchanged.
-
-
- */
+/* Existing saved closing summaries */
 function renderOverviewSummary() {
   const today = todayKey();
 
-  const datedRecords = allRecords.map(record => ({
+  const dated = allRecords.map(record => ({
     record,
     dateKey: recordDateKey(record, record._docId)
   }));
 
-  // Sort by closing timestamp, with date key as a fallback.
-  function latestFirst(a, b) {
-    const timeA = a.record.closedAt?.seconds || 0;
-    const timeB = b.record.closedAt?.seconds || 0;
+  const todayRecords = dated.filter(item => item.dateKey === today);
+  const previousRecords = dated.filter(item => item.dateKey !== today);
 
-    return timeB - timeA ||
-      b.dateKey.localeCompare(a.dateKey) ||
-      String(b.record._docId).localeCompare(
-        String(a.record._docId)
-      );
-  }
+  const sums = items => items.reduce((acc, item) => {
+    acc.cash += val(item.record, "closingCash");
+    acc.gcash += val(item.record, "closingGcash");
+    acc.maya += val(item.record, "closingMaya");
+    acc.total += closingTotal(item.record);
+    return acc;
+  }, { cash: 0, gcash: 0, maya: 0, total: 0 });
 
-  const todayRecords = datedRecords
-    .filter(item => item.dateKey === today)
-    .sort(latestFirst);
+  const previous = sums(previousRecords);
+  const now = sums(todayRecords);
+  const all = sums(dated);
 
-  const previousRecords = datedRecords
-    .filter(item => item.dateKey && item.dateKey < today)
-    .sort((a, b) => {
-      const dateCompare = b.dateKey.localeCompare(a.dateKey);
-      return dateCompare || latestFirst(a, b);
-    });
+  $("previousTotal").textContent = money(previous.total);
+  $("previousCash").textContent = money(previous.cash);
+  $("previousGcash").textContent = money(previous.gcash);
+  $("previousMaya").textContent = money(previous.maya);
+  $("previousCount").textContent =
+    previousRecords.length + " record" + (previousRecords.length === 1 ? "" : "s");
 
-  const todayRecord = todayRecords[0]?.record || null;
-  const previousRecord = previousRecords[0]?.record || null;
+  const previousDates = previousRecords.map(item => item.dateKey)
+    .filter(Boolean).sort();
 
-  // All-record balance display uses the latest saved closing.
-  const latestRecord = [...allRecords].sort((a, b) => {
-    const dateA = recordDateKey(a, a._docId);
-    const dateB = recordDateKey(b, b._docId);
+  $("previousDate").textContent = previousDates.length
+    ? "Through " + dateLabel(previousDates[previousDates.length - 1])
+    : "No previous records";
 
-    return dateB.localeCompare(dateA) ||
-      (b.closedAt?.seconds || 0) -
-      (a.closedAt?.seconds || 0);
-  })[0] || null;
+  $("todayTotal").textContent = money(now.total);
+  $("todayCash").textContent = money(now.cash);
+  $("todayGcash").textContent = money(now.gcash);
+  $("todayMaya").textContent = money(now.maya);
+  $("todayCount").textContent =
+    todayRecords.length + " record" + (todayRecords.length === 1 ? "" : "s");
 
-  function setPaymentBreakdown(prefix, record) {
-    $(prefix + "Cash").textContent =
-      money(record ? record.closingCash : 0);
+  $("todayDate").textContent = todayRecords.length
+    ? dateLabel(today) + " · " + todayRecords.length + " saved"
+    : "No records today";
 
-    $(prefix + "Gcash").textContent =
-      money(record ? record.closingGcash : 0);
-
-    $(prefix + "Maya").textContent =
-      money(record ? record.closingMaya : 0);
-  }
-
-  // Previous closing
-  $("previousTotal").textContent = previousRecord
-    ? money(closingTotal(previousRecord))
-    : money(0);
-
-  $("previousDate").textContent = previousRecord
-    ? dateLabel(recordDateKey(
-        previousRecord,
-        previousRecord._docId
-      ))
-    : "No previous record";
-
-  setPaymentBreakdown("previous", previousRecord);
-
-  // Today's latest closing
-  $("todayTotal").textContent = todayRecord
-    ? money(closingTotal(todayRecord))
-    : money(0);
-
-  $("todayDate").textContent = todayRecord
-    ? dateLabel(recordDateKey(
-        todayRecord,
-        todayRecord._docId
-      ))
-    : "No closing recorded today";
-
-  setPaymentBreakdown("today", todayRecord);
-
-  // All saved records count, plus latest closing breakdown
-  $("totalRecords").textContent =
-    allRecords.length.toLocaleString("en-PH");
-
-  setPaymentBreakdown("all", latestRecord);
+  $("totalRecords").textContent = money(all.total);
+  $("allCash").textContent = money(all.cash);
+  $("allGcash").textContent = money(all.gcash);
+  $("allMaya").textContent = money(all.maya);
+  $("allCount").textContent =
+    allRecords.length + " record" + (allRecords.length === 1 ? "" : "s");
 }
 
 async function loadRecords() {
@@ -1740,27 +603,29 @@ async function loadRecords() {
 
   loading = true;
   $("refreshBtn").disabled = true;
-  $("records").innerHTML =
-    '<div class="loading">Loading closing records...</div>';
-
+  $("records").innerHTML = '<div class="loading">Loading closing records...</div>';
   showStatus("Loading saved Cash Management records...");
 
   try {
     const ref = collection(db, "users", businessId, "cashManagement");
     const snapshot = await getDocs(ref);
 
-    allRecords = snapshot.docs.map(snap => ({
-      ...snap.data(),
-      _docId:snap.id
+    allRecords = snapshot.docs.map(item => ({
+      ...item.data(),
+      _docId: item.id
     }));
 
     allRecords.sort((a, b) => {
-      const da = recordDateKey(a, a._docId);
-      const dbKey = recordDateKey(b, b._docId);
-      return dbKey.localeCompare(da);
+      const dateA = recordDateKey(a, a._docId);
+      const dateB = recordDateKey(b, b._docId);
+
+      return dateB.localeCompare(dateA) ||
+        (Number(b.closedAt?.seconds) || 0) -
+        (Number(a.closedAt?.seconds) || 0);
     });
 
     renderOverviewSummary();
+    renderRecords();
 
     showStatus(
       allRecords.length
@@ -1768,8 +633,6 @@ async function loadRecords() {
         : "No Cash Management closing records were found.",
       allRecords.length ? "" : "warning"
     );
-
-    renderRecords();
   } catch (error) {
     console.error("Cash Management refresh error:", error);
 
@@ -1778,12 +641,8 @@ async function loadRecords() {
       "error"
     );
 
-    $("records").innerHTML = `
-      <div class="empty">
-        <strong>Records could not be loaded</strong>
-        Check your internet connection and Firestore rules.
-        Then tap Refresh Records.
-      </div>`;
+    $("records").innerHTML =
+      '<div class="empty"><strong>Records could not be loaded</strong>Check your internet connection and Firestore rules, then tap Refresh Records.</div>';
 
     $("recordCount").textContent = "Unable to load records.";
   } finally {
@@ -1798,7 +657,6 @@ function getFilteredRecords() {
 
   return allRecords.filter(record => {
     const dateKey = recordDateKey(record, record._docId);
-
     const text = [
       dateKey,
       record._docId,
@@ -1809,49 +667,25 @@ function getFilteredRecords() {
     ].join(" ").toLowerCase();
 
     return (!search || text.includes(search)) &&
-           (!selectedDate || dateKey === selectedDate);
+      (!selectedDate || dateKey === selectedDate);
   });
 }
 
 function renderRecords() {
   const records = getFilteredRecords();
 
-  $("sumRecords").textContent = records.length.toLocaleString("en-PH");
-
-  if (records.length) {
-    const latest = records[0];
-    $("sumCash").textContent = money(latest.closingCash);
-    $("sumGcash").textContent = money(latest.closingGcash);
-    $("sumMaya").textContent = money(latest.closingMaya);
-  } else {
-    $("sumCash").textContent = money(0);
-    $("sumGcash").textContent = money(0);
-    $("sumMaya").textContent = money(0);
-  }
-
   $("recordCount").textContent =
-    records.length +
-    (records.length === 1 ? " record displayed" : " records displayed");
+    records.length + " record" + (records.length === 1 ? "" : "s") + " displayed";
 
   if (!records.length) {
-    $("records").innerHTML = `
-      <div class="empty">
-        <strong>No closing records to display</strong>
-        Try clearing the filters. If the register was closed before
-        automatic saving was installed, that closing may not exist
-        in this collection yet.
-      </div>`;
+    $("records").innerHTML =
+      '<div class="empty"><strong>No closing records to display</strong>Try clearing the filters. Saved records are not changed by this page.</div>';
     return;
   }
 
   $("records").innerHTML = records.map((record, index) => {
     const dateKey = recordDateKey(record, record._docId);
-    const cash = val(record, "closingCash");
-    const gcash = val(record, "closingGcash");
-    const maya = val(record, "closingMaya");
-
-    const differences =
-      val(record, "differenceCash") +
+    const diff = val(record, "differenceCash") +
       val(record, "differenceGcash") +
       val(record, "differenceMaya");
 
@@ -1859,7 +693,6 @@ function renderRecords() {
       <article class="record" tabindex="0" role="button"
         data-index="${index}"
         aria-label="View closing details for ${escapeHTML(dateKey)}">
-
         <div class="record-top">
           <div>
             <div class="record-date">${escapeHTML(dateLabel(dateKey))}</div>
@@ -1867,30 +700,13 @@ function renderRecords() {
           </div>
           <span class="pill">CLOSED</span>
         </div>
-
         <div class="record-grid">
-          <div class="record-cell">
-            <div class="mini-label">Cash</div>
-            <div class="mini-value">${money(cash)}</div>
-          </div>
-
-          <div class="record-cell">
-            <div class="mini-label">GCash</div>
-            <div class="mini-value">${money(gcash)}</div>
-          </div>
-
-          <div class="record-cell">
-            <div class="mini-label">Maya</div>
-            <div class="mini-value">${money(maya)}</div>
-          </div>
+          <div class="record-cell"><div class="mini-label">Cash</div><div class="mini-value">${money(record.closingCash)}</div></div>
+          <div class="record-cell"><div class="mini-label">GCash</div><div class="mini-value">${money(record.closingGcash)}</div></div>
+          <div class="record-cell"><div class="mini-label">Maya</div><div class="mini-value">${money(record.closingMaya)}</div></div>
         </div>
-
-        <div class="record-bottom">
-          <span>Total difference</span>
-          <strong class="${differenceClass(differences)}">
-            ${money(differences)}
-          </strong>
-        </div>
+        <div class="record-bottom"><span>Total closing balance</span><strong>${money(closingTotal(record))}</strong></div>
+        <div class="record-bottom"><span>Total difference</span><strong class="${differenceClass(diff)}">${money(diff)}</strong></div>
       </article>`;
   }).join("");
 
@@ -1898,7 +714,6 @@ function renderRecords() {
     const open = () => showDetails(records[Number(card.dataset.index)]);
 
     card.addEventListener("click", open);
-
     card.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
@@ -1908,14 +723,11 @@ function renderRecords() {
   });
 }
 
-function detailRow(label, value, extraClass = "") {
-  return `<div class="detail-row">
-    <span>${escapeHTML(label)}</span>
-    <strong class="${extraClass}">${escapeHTML(value)}</strong>
-  </div>`;
+function detailRow(label, value, cls = "") {
+  return `<div class="detail-row"><span>${escapeHTML(label)}</span><strong class="${cls}">${escapeHTML(value)}</strong></div>`;
 }
 
-function detailMoneyRow(label, value) {
+function moneyRow(label, value) {
   return detailRow(label, money(value));
 }
 
@@ -1925,53 +737,38 @@ function showDetails(record) {
   const dateKey = recordDateKey(record, record._docId);
   $("detailDate").textContent = dateLabel(dateKey);
 
-  const openingTotal =
-    val(record, "openingCash") +
-    val(record, "openingGcash") +
-    val(record, "openingMaya");
-
-  const closingTotal =
-    val(record, "closingCash") +
-    val(record, "closingGcash") +
-    val(record, "closingMaya");
-
-  const differenceTotal =
-    val(record, "differenceCash") +
-    val(record, "differenceGcash") +
-    val(record, "differenceMaya");
+  const opening = val(record, "openingCash") +
+    val(record, "openingGcash") + val(record, "openingMaya");
+  const closing = closingTotal(record);
+  const diff = val(record, "differenceCash") +
+    val(record, "differenceGcash") + val(record, "differenceMaya");
 
   $("detailContent").innerHTML = `
     <div class="detail-section">
       <div class="detail-title">Opening Balances</div>
-      ${detailMoneyRow("Opening Cash", record.openingCash)}
-      ${detailMoneyRow("Opening GCash", record.openingGcash)}
-      ${detailMoneyRow("Opening Maya", record.openingMaya)}
-      ${detailMoneyRow("Total Opening Balance", openingTotal)}
+      ${moneyRow("Opening Cash", record.openingCash)}
+      ${moneyRow("Opening GCash", record.openingGcash)}
+      ${moneyRow("Opening Maya", record.openingMaya)}
+      ${moneyRow("Total Opening Balance", opening)}
     </div>
-
     <div class="detail-section">
       <div class="detail-title">Closing Balances</div>
-      ${detailMoneyRow("Closing Cash", record.closingCash)}
-      ${detailMoneyRow("Closing GCash", record.closingGcash)}
-      ${detailMoneyRow("Closing Maya", record.closingMaya)}
-      ${detailMoneyRow("Total Closing Balance", closingTotal)}
+      ${moneyRow("Closing Cash", record.closingCash)}
+      ${moneyRow("Closing GCash", record.closingGcash)}
+      ${moneyRow("Closing Maya", record.closingMaya)}
+      ${moneyRow("Total Closing Balance", closing)}
     </div>
-
     <div class="detail-section">
       <div class="detail-title">Over / Short Differences</div>
-      ${detailRow("Cash Difference", money(record.differenceCash),
-        differenceClass(val(record, "differenceCash")))}
-      ${detailRow("GCash Difference", money(record.differenceGcash),
-        differenceClass(val(record, "differenceGcash")))}
-      ${detailRow("Maya Difference", money(record.differenceMaya),
-        differenceClass(val(record, "differenceMaya")))}
-      ${detailRow("Combined Difference", money(differenceTotal),
-        differenceClass(differenceTotal))}
+      ${detailRow("Cash Difference", money(record.differenceCash), differenceClass(val(record, "differenceCash")))}
+      ${detailRow("GCash Difference", money(record.differenceGcash), differenceClass(val(record, "differenceGcash")))}
+      ${detailRow("Maya Difference", money(record.differenceMaya), differenceClass(val(record, "differenceMaya")))}
+      ${detailRow("Combined Difference", money(diff), differenceClass(diff))}
     </div>
-
     <div class="detail-section">
       <div class="detail-title">Record Information</div>
       ${detailRow("Date Key", dateKey)}
+      ${detailRow("Record ID", record._docId)}
       ${detailRow("Register ID", record.registerId || record._docId)}
       ${detailRow("Record Type", record.recordType || "Register closing")}
       ${detailRow("Closed At", timestampLabel(record.closedAt))}
@@ -1979,12 +776,7 @@ function showDetails(record) {
       ${detailRow("Created At", timestampLabel(record.createdAt))}
       ${detailRow("Created By", record.createdBy || "Not recorded")}
     </div>
-
-    <p class="note">
-      This is a read-only view. Opening or viewing this record
-      does not update your saved balances.
-    </p>
-  `;
+    <p class="note">This is a read-only view. Viewing this record does not update saved balances.</p>`;
 
   $("detailOverlay").classList.add("show");
   document.body.style.overflow = "hidden";
@@ -1996,9 +788,310 @@ function closeDetails() {
   document.body.style.overflow = "";
 }
 
+/* Business account money management */
+function moneyStatus(message, isError = false) {
+  const element = $("moneyStatus");
+  element.textContent = message;
+  element.style.color = isError ? "#B42318" : "#087443";
+}
+
+function setupMoneyForm() {
+  const options = MONEY_ACCOUNTS.map(account =>
+    `<option value="${escapeHTML(account)}">${escapeHTML(account)}</option>`
+  ).join("");
+
+  $("moneyAccount").innerHTML = options;
+  $("moneyToAccount").innerHTML = options;
+  $("moneyDate").value = todayKey();
+
+  $("moneyType").addEventListener("change", updateMoneyForm);
+  $("moneyAccount").addEventListener("change", updateMoneyForm);
+  $("moneyForm").addEventListener("submit", saveMoneyMovement);
+
+  updateMoneyForm();
+}
+
+function updateMoneyForm() {
+  const type = $("moneyType").value;
+  const isTransfer = type === "transfer";
+
+  $("transferFields").hidden = !isTransfer;
+  $("moneyAccountLabel").textContent =
+    type === "cashIn" ? "Deposit Into" :
+    type === "cashOut" ? "Pay From" :
+    "Transfer From";
+
+  $("moneyToAccount").required = isTransfer;
+
+  if (isTransfer && $("moneyToAccount").value === $("moneyAccount").value) {
+    const other = MONEY_ACCOUNTS.find(account => account !== $("moneyAccount").value);
+    if (other) $("moneyToAccount").value = other;
+  }
+}
+
+/*
+  Existing closings are used as a baseline for the accounts that
+  the closing records actually track. We do not add every historical
+  closing together, because that would count the same money repeatedly.
+*/
+function latestClosingRecord() {
+  return [...allRecords].sort((a, b) => {
+    const dateA = recordDateKey(a, a._docId);
+    const dateB = recordDateKey(b, b._docId);
+
+    return dateB.localeCompare(dateA) ||
+      (Number(b.closedAt?.seconds) || 0) -
+      (Number(a.closedAt?.seconds) || 0);
+  })[0] || null;
+}
+
+function movementDateKey(movement) {
+  return String(movement.dateKey || movement.date || "");
+}
+
+function movementIsAfterBaseline(movement, baseline) {
+  if (!baseline) return true;
+
+  const baselineDate = recordDateKey(baseline, baseline._docId);
+  const baselineTime = baseline.closedAt?.seconds
+    ? baseline.closedAt.seconds * 1000
+    : 0;
+  const movementTime = movement.createdAt?.seconds
+    ? movement.createdAt.seconds * 1000
+    : 0;
+
+  if (baselineTime && movementTime) {
+    return movementTime > baselineTime;
+  }
+
+  return movementDateKey(movement) > baselineDate;
+}
+
+function calculateMoneyBalances() {
+  const balances = Object.fromEntries(
+    MONEY_ACCOUNTS.map(account => [account, 0])
+  );
+
+  const baseline = latestClosingRecord();
+
+  if (baseline) {
+    balances["Cash Drawer"] = val(baseline, "closingCash");
+    balances["GCash"] = val(baseline, "closingGcash");
+    balances["Maya"] = val(baseline, "closingMaya");
+  }
+
+  moneyMovements
+    .filter(movement => movementIsAfterBaseline(movement, baseline))
+    .forEach(movement => {
+      const amount = Number(movement.amount) || 0;
+      const type = String(movement.type || "").toLowerCase();
+
+      if (type === "cashin" || type === "in") {
+        if (balances[movement.account] !== undefined) {
+          balances[movement.account] += amount;
+        }
+      } else if (type === "cashout" || type === "out") {
+        if (balances[movement.account] !== undefined) {
+          balances[movement.account] -= amount;
+        }
+      } else if (type === "transfer") {
+        if (balances[movement.fromAccount] !== undefined) {
+          balances[movement.fromAccount] -= amount;
+        }
+        if (balances[movement.toAccount] !== undefined) {
+          balances[movement.toAccount] += amount;
+        }
+      }
+    });
+
+  return { balances, baseline };
+}
+
+function renderMoneyAccounts() {
+  const { balances, baseline } = calculateMoneyBalances();
+
+  $("moneyAccounts").innerHTML = MONEY_ACCOUNTS.map(account => `
+    <div class="money-account">
+      <div class="money-account-name">${escapeHTML(account)}</div>
+      <div class="money-account-balance">${money(balances[account])}</div>
+    </div>
+  `).join("");
+
+  $("moneyBalanceNote").textContent = baseline
+    ? "Baseline: latest saved closing dated " +
+      dateLabel(recordDateKey(baseline, baseline._docId)) +
+      ". Newer recorded transactions are applied after that closing."
+    : "No saved closing was found. Balances start at ₱0.00 and reflect recorded transactions.";
+}
+
+function renderMoneyHistory() {
+  const recent = [...moneyMovements].sort((a, b) => {
+    return movementDateKey(b).localeCompare(movementDateKey(a)) ||
+      (Number(b.createdAt?.seconds) || 0) -
+      (Number(a.createdAt?.seconds) || 0);
+  }).slice(0, 50);
+
+  if (!recent.length) {
+    $("moneyHistory").innerHTML =
+      '<div class="empty"><strong>No money transactions yet</strong>Cash In, Cash Out, and transfers will appear here.</div>';
+    return;
+  }
+
+  $("moneyHistory").innerHTML = recent.map(movement => {
+    const type = String(movement.type || "").toLowerCase();
+    const amount = Number(movement.amount) || 0;
+    const isTransfer = type === "transfer";
+    const isIn = type === "cashin" || type === "in";
+
+    const title = isTransfer ? "Transfer" : isIn ? "Cash In" : "Cash Out";
+    const amountClass = isTransfer ? "money-transfer" :
+      isIn ? "money-positive" : "money-negative";
+
+    const accountText = isTransfer
+      ? `${movement.fromAccount || "Account"} → ${movement.toAccount || "Account"}`
+      : (movement.account || "Account");
+
+    const signedAmount = isTransfer
+      ? money(amount)
+      : (isIn ? "+" : "−") + money(amount);
+
+    return `
+      <div class="money-history-item">
+        <div class="money-history-top">
+          <span>${escapeHTML(title)}</span>
+          <strong class="${amountClass}">${escapeHTML(signedAmount)}</strong>
+        </div>
+        <div class="money-history-meta">
+          ${escapeHTML(accountText)} · ${escapeHTML(movementDateKey(movement) || "Date not recorded")}
+        </div>
+        <div class="money-history-meta">${escapeHTML(movement.description || "No description")}</div>
+        <div class="money-history-meta">Recorded: ${escapeHTML(timestampLabel(movement.createdAt))}</div>
+      </div>`;
+  }).join("");
+}
+
+async function loadMoneyData() {
+  if (!businessId) return;
+
+  try {
+    const ref = collection(db, "users", businessId, "cashMovements");
+    const snapshot = await getDocs(ref);
+
+    moneyMovements = snapshot.docs.map(item => ({
+      ...item.data(),
+      _docId: item.id
+    }));
+
+    renderMoneyAccounts();
+    renderMoneyHistory();
+  } catch (error) {
+    console.error("Money transaction loading error:", error);
+
+    $("moneyAccounts").innerHTML =
+      '<div class="empty">Account balances could not be loaded.</div>';
+
+    $("moneyHistory").innerHTML =
+      '<div class="empty"><strong>Unable to load money transactions</strong>Check Firestore permissions for cashMovements.</div>';
+
+    moneyStatus("Could not load money transactions. Check Firebase permissions.", true);
+  }
+}
+
+async function saveMoneyMovement(event) {
+  event.preventDefault();
+
+  if (!businessId) {
+    moneyStatus("Your business account is not ready.", true);
+    return;
+  }
+
+  const type = $("moneyType").value;
+  const account = $("moneyAccount").value;
+  const toAccount = $("moneyToAccount").value;
+  const amount = Number($("moneyAmount").value);
+  const dateKey = $("moneyDate").value;
+  const description = $("moneyReason").value.trim();
+
+  if (!MONEY_ACCOUNTS.includes(account)) {
+    moneyStatus("Please select a valid account.", true);
+    return;
+  }
+
+  if (type === "transfer" &&
+      (!MONEY_ACCOUNTS.includes(toAccount) || account === toAccount)) {
+    moneyStatus("Choose two different accounts for the transfer.", true);
+    return;
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    moneyStatus("Enter an amount greater than zero.", true);
+    return;
+  }
+
+  if (!dateKey || !description) {
+    moneyStatus("Enter the transaction date and description.", true);
+    return;
+  }
+
+  const button = $("moneySaveBtn");
+  button.disabled = true;
+  button.textContent = "Saving...";
+
+  try {
+    const movement = {
+      type,
+      amount,
+      dateKey,
+      description,
+      createdAt: serverTimestamp(),
+      createdBy: auth.currentUser?.uid || "",
+      account: type === "transfer" ? "" : account
+    };
+
+    if (type === "transfer") {
+      movement.fromAccount = account;
+      movement.toAccount = toAccount;
+    }
+
+    await addDoc(
+      collection(db, "users", businessId, "cashMovements"),
+      movement
+    );
+
+    $("moneyAmount").value = "";
+    $("moneyReason").value = "";
+
+    moneyStatus("Transaction saved successfully.");
+    await loadMoneyData();
+  } catch (error) {
+    console.error("Saving money transaction failed:", error);
+
+    moneyStatus(
+      "Unable to save transaction: " +
+      (error.message || "Check your connection and Firebase permissions."),
+      true
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent = "Save Transaction";
+  }
+}
+
+/* Navigation highlighting */
+document.querySelectorAll(".nav-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".nav-tab").forEach(item => item.classList.remove("active"));
+    tab.classList.add("active");
+  });
+});
+
+/* Existing controls */
 $("search").addEventListener("input", renderRecords);
 $("dateFilter").addEventListener("change", renderRecords);
-$("refreshBtn").addEventListener("click", loadRecords);
+$("refreshBtn").addEventListener("click", async () => {
+  await loadRecords();
+  await loadMoneyData();
+});
 
 $("clearBtn").addEventListener("click", () => {
   $("search").value = "";
@@ -2016,39 +1109,38 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeDetails();
 });
 
+setupMoneyForm();
+
 onAuthStateChanged(auth, async user => {
   if (!user) {
     businessId = null;
+    showStatus("Please sign in to view Cash Management records.", "warning");
 
-    showStatus(
-      "Please sign in to view Cash Management records.",
-      "warning"
-    );
+    $("records").innerHTML =
+      '<div class="empty"><strong>Sign-in required</strong>Please sign in to your Kayah account, then reopen this page.</div>';
 
-    $("records").innerHTML = `
-      <div class="empty">
-        <strong>Sign-in required</strong>
-        Please sign in to your Kayah account, then reopen this page.
-      </div>`;
+    $("moneyAccounts").innerHTML =
+      '<div class="empty">Sign in to load business accounts.</div>';
+
+    $("moneyHistory").innerHTML =
+      '<div class="empty">Sign in to load money transactions.</div>';
 
     return;
   }
 
   try {
     businessId = await resolveBusiness(user);
-
     await loadBusinessBrand();
     await loadRecords();
+    await loadMoneyData();
   } catch (error) {
     console.error("Business account resolution error:", error);
-
     showStatus(
-      "Unable to identify your business: " + error.message,
+      "Unable to identify your business: " + (error.message || "Unknown error"),
       "error"
     );
   }
 });
 </script>
-
 </body>
 </html>
