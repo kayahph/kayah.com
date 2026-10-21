@@ -419,7 +419,7 @@ a{text-decoration:none;color:inherit}
           </div>
 
           <div class="tool-list">
-            <a class="tool" href="plans/">
+            <a class="tool" href="../admin-plans/">
               <div class="tool-icon">◇</div>
               <div class="tool-copy">
                 <div class="tool-name">Plans &amp; Offers</div>
@@ -739,37 +739,26 @@ document.getElementById("menuButton").addEventListener("click", () => {
   sidebar.classList.toggle("open");
 });
 
+
 document.querySelectorAll(".nav-link").forEach((link) => {
   link.addEventListener("click", (event) => {
     const destination = link.getAttribute("href");
 
-    if (destination && destination !== "./" && destination !== "../") {
-      event.preventDefault();
-      showNotice(
-        "This section is not built yet. We will create and connect it next.",
-        "success"
-      );
-      sidebar.classList.remove("open");
-      return;
-    }
-
+    // Only the Dashboard Overview link stays on this page.
     if (destination === "./") {
       event.preventDefault();
       sidebar.classList.remove("open");
       window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
+
+    // Allow other links to navigate to their actual destinations.
+    sidebar.classList.remove("open");
   });
 });
 
-document.querySelectorAll(".tool").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    showNotice(
-      "This management page is not built yet. We will add it in the next step.",
-      "success"
-    );
-  });
-});
+
+
 
 /* -------------------------------------------------
    SERVICE WORKER
