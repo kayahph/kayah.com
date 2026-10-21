@@ -1,0 +1,787 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>Admin Dashboard — Kayah</title>
+
+<style>
+:root{
+  --g:#0B4F3A;
+  --g2:#16805C;
+  --gold:#F2B84B;
+  --cream:#F7F3E8;
+  --white:#FFFFFF;
+  --text:#25342C;
+  --muted:#78847D;
+  --line:#E5EBE6;
+  --red:#B9433B;
+  --shadow:0 8px 25px rgba(11,79,58,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  min-height:100vh;
+}
+button,a{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+[hidden]{display:none!important}
+
+/* Loading */
+.loading-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:13px;
+}
+.loader{
+  width:34px;height:34px;border:3px solid #D9E5DD;
+  border-top-color:var(--g2);border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-screen p{font-size:13px;color:var(--muted)}
+
+/* Layout */
+.app{min-height:100vh}
+.sidebar{
+  position:fixed;top:0;bottom:0;left:0;width:250px;
+  background:var(--g);color:white;padding:23px 15px;
+  display:flex;flex-direction:column;z-index:100;
+  overflow-y:auto;
+}
+.brand{display:flex;align-items:center;gap:11px;padding:0 9px 24px}
+.brand-mark{
+  width:43px;height:43px;background:white;color:var(--g);
+  border-radius:13px;display:grid;place-items:center;
+  font-weight:900;font-size:22px;flex-shrink:0;
+}
+.brand-name{font-size:19px;font-weight:800;letter-spacing:.2px}
+.brand-sub{font-size:10px;color:#C9DED3;margin-top:4px}
+.side-label{
+  color:#A8C8B7;font-size:10px;font-weight:800;
+  letter-spacing:1.3px;padding:12px 12px 9px;
+}
+.nav{display:grid;gap:5px}
+.nav-link{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;border-radius:11px;color:#D8E8DE;
+  font-size:13px;font-weight:600;transition:.2s;
+}
+.nav-link:hover,.nav-link.active{
+  background:rgba(255,255,255,.13);color:white;
+}
+.nav-icon{width:23px;text-align:center;font-size:17px}
+.nav-link.active{box-shadow:inset 3px 0 var(--gold)}
+.sidebar-bottom{margin-top:auto;padding-top:25px}
+.admin-profile{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 9px;border-top:1px solid #326B55;margin-top:15px;
+}
+.avatar{
+  width:37px;height:37px;border-radius:50%;
+  background:var(--gold);color:var(--g);
+  display:grid;place-items:center;font-weight:900;
+}
+.profile-name{font-size:12px;font-weight:800}
+.profile-role{font-size:10px;color:#C9DED3;margin-top:4px}
+.logout-side{
+  width:100%;border:1px solid #477763;color:white;
+  background:transparent;padding:11px;border-radius:10px;
+  font-size:12px;font-weight:700;
+}
+.logout-side:hover{background:#174F3C}
+
+.main{margin-left:250px;min-height:100vh}
+.topbar{
+  min-height:76px;background:white;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;padding:16px 30px;position:sticky;top:0;z-index:50;
+}
+.top-left{display:flex;align-items:center;gap:12px}
+.page-title{font-size:19px;font-weight:800;color:var(--g)}
+.page-subtitle{font-size:11px;color:var(--muted);margin-top:4px}
+.top-right{display:flex;align-items:center;gap:10px}
+.status-pill{
+  display:flex;align-items:center;gap:7px;background:#EAF5EE;
+  color:var(--g);border-radius:30px;padding:9px 12px;
+  font-size:11px;font-weight:800;
+}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#25A56C}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:white;
+  border-radius:10px;width:40px;height:40px;font-size:21px;color:var(--g);
+}
+.content{padding:27px 30px 40px;max-width:1500px;margin:auto}
+.welcome{
+  background:var(--g);color:white;border-radius:19px;padding:27px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;position:relative;overflow:hidden;margin-bottom:25px;
+}
+.welcome:after{
+  content:"";position:absolute;width:210px;height:210px;
+  border:35px solid rgba(255,255,255,.055);border-radius:50%;
+  right:50px;top:-105px;pointer-events:none;
+}
+.welcome-copy{position:relative;z-index:1}
+.eyebrow{
+  color:#F7D58C;font-size:10px;letter-spacing:1.5px;
+  font-weight:800;margin-bottom:10px;
+}
+.welcome h2{font-size:25px;line-height:1.25;margin-bottom:9px}
+.welcome p{font-size:12px;color:#D4E5DB;line-height:1.7;max-width:520px}
+.welcome-mark{
+  width:75px;height:75px;border-radius:20px;background:var(--gold);
+  color:var(--g);display:grid;place-items:center;font-size:34px;
+  font-weight:900;flex-shrink:0;position:relative;z-index:1;
+}
+.section-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin:26px 0 14px;
+}
+.section-heading h3{font-size:15px;color:var(--g);font-weight:800}
+.section-heading p{font-size:11px;color:var(--muted);margin-top:5px}
+.refresh-btn{
+  border:1px solid #D6E3DA;background:white;color:var(--g);
+  padding:9px 12px;border-radius:10px;font-size:11px;font-weight:800;
+}
+.refresh-btn:hover{background:#EFF6F1}
+.stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;
+}
+.stat-card{
+  background:white;border:1px solid #EAF0EB;border-radius:15px;
+  padding:19px;box-shadow:var(--shadow);min-width:0;
+}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stat-icon{
+  width:42px;height:42px;border-radius:13px;
+  display:grid;place-items:center;font-size:20px;
+}
+.icon-green{background:#E7F3EB;color:var(--g)}
+.icon-gold{background:#FFF3D8;color:#946500}
+.icon-red{background:#FCEAE7;color:var(--red)}
+.icon-blue{background:#E8F0FC;color:#315C9D}
+.stat-label{font-size:11px;color:var(--muted);margin-top:16px;line-height:1.5}
+.stat-value{
+  font-size:27px;font-weight:900;color:var(--g);
+  margin-top:7px;overflow-wrap:anywhere;
+}
+.stat-note{font-size:10px;color:var(--muted);margin-top:7px;line-height:1.5}
+.section-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:17px}
+.panel{
+  background:white;border:1px solid #EAF0EB;
+  border-radius:15px;padding:20px;box-shadow:var(--shadow);
+  min-width:0;
+}
+.panel-title{font-size:14px;color:var(--g);font-weight:800}
+.panel-description{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+.tool-list{display:grid;gap:10px;margin-top:17px}
+.tool{
+  display:flex;align-items:center;gap:12px;
+  border:1px solid var(--line);padding:13px;border-radius:12px;
+  transition:.2s;min-width:0;
+}
+.tool:hover{border-color:#B5D3C2;background:#FAFCFA}
+.tool-icon{
+  width:42px;height:42px;border-radius:12px;background:#E7F3EB;
+  display:grid;place-items:center;font-size:20px;flex-shrink:0;
+}
+.tool-copy{flex:1;min-width:0}
+.tool-name{font-size:12px;font-weight:800;color:var(--text)}
+.tool-desc{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.5}
+.tool-arrow{color:var(--g2);font-size:20px}
+.info-box{
+  margin-top:15px;border-radius:12px;padding:13px;
+  background:#FFF6E3;border:1px solid #F5E2B7;
+  color:#765619;font-size:11px;line-height:1.7;
+}
+.connection-box{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:14px;background:#F6F9F6;border-radius:12px;margin-top:16px;
+}
+.connection-box span{font-size:20px}
+.connection-box strong{font-size:11px;display:block;color:var(--g)}
+.connection-box p{font-size:10px;color:var(--muted);line-height:1.6;margin-top:5px}
+.footer{
+  padding:25px 0 0;text-align:center;color:#8A958E;
+  font-size:10px;line-height:1.8;
+}
+.footer strong{color:var(--g2)}
+.notice{
+  border-radius:12px;padding:13px 15px;font-size:12px;
+  line-height:1.6;margin-bottom:17px;display:none;
+}
+.notice.show{display:block}
+.notice.error{background:#FFF0EF;border:1px solid #F1C8C5;color:#9B3932}
+.notice.success{background:#EAF6EE;border:1px solid #C9E5D2;color:var(--g)}
+.access-denied{
+  max-width:480px;background:white;border-radius:20px;padding:30px;
+  margin:70px auto;text-align:center;box-shadow:var(--shadow);
+}
+.access-denied .denied-icon{font-size:42px;margin-bottom:15px}
+.access-denied h2{color:var(--g);font-size:22px;margin-bottom:10px}
+.access-denied p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.primary-btn{
+  display:inline-flex;justify-content:center;align-items:center;
+  border:0;border-radius:11px;padding:12px 17px;
+  background:var(--g);color:white;font-weight:800;font-size:12px;
+}
+.primary-btn:hover{background:var(--g2)}
+.muted-small{font-size:10px;color:var(--muted);line-height:1.7}
+
+@media(max-width:1100px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .section-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .sidebar{
+    transform:translateX(-100%);transition:transform .25s;
+    box-shadow:10px 0 35px rgba(0,0,0,.13);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .topbar{padding:13px 16px;min-height:68px}
+  .menu-btn{display:block}
+  .page-title{font-size:16px}
+  .page-subtitle{font-size:10px}
+  .content{padding:19px 15px 30px}
+  .welcome{padding:22px 19px}
+  .welcome h2{font-size:22px}
+  .welcome-mark{width:55px;height:55px;font-size:25px;border-radius:15px}
+  .stats{gap:10px}
+  .stat-card{padding:14px}
+  .stat-value{font-size:23px}
+  .stat-icon{width:36px;height:36px;font-size:17px}
+  .stat-label{font-size:10px}
+  .stat-note{font-size:9px}
+  .panel{padding:16px}
+}
+@media(max-width:380px){
+  .stats{grid-template-columns:1fr}
+  .welcome-mark{display:none}
+  .status-pill{font-size:0;padding:10px}
+  .status-dot{width:8px;height:8px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="loader"></div>
+  <strong style="color:#0B4F3A">Kayah Admin</strong>
+  <p id="loadingText">Checking your administrator account...</p>
+</div>
+
+<div class="app" id="app" hidden>
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="./">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-name">Kayah</div>
+        <div class="brand-sub">ADMINISTRATION PORTAL</div>
+      </div>
+    </a>
+
+    <div class="side-label">MAIN MENU</div>
+    <nav class="nav">
+      <a class="nav-link active" href="./" data-page="overview">
+        <span class="nav-icon">▦</span> Dashboard Overview
+      </a>
+      <a class="nav-link" href="plans/" data-page="plans">
+        <span class="nav-icon">◇</span> Plans &amp; Offers
+      </a>
+      <a class="nav-link" href="payments/" data-page="payments">
+        <span class="nav-icon">▣</span> Payment Approvals
+      </a>
+      <a class="nav-link" href="settings/" data-page="settings">
+        <span class="nav-icon">▧</span> GCash Settings
+      </a>
+      <a class="nav-link" href="businesses/" data-page="businesses">
+        <span class="nav-icon">♙</span> Business Accounts
+      </a>
+    </nav>
+
+    <div class="side-label" style="margin-top:17px">ACCOUNT</div>
+    <nav class="nav">
+      <a class="nav-link" href="../" id="homeLink">
+        <span class="nav-icon">⌂</span> Kayah Home
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="logout-side" id="logoutButton">↪ &nbsp; Sign Out</button>
+      <div class="admin-profile">
+        <div class="avatar">A</div>
+        <div>
+          <div class="profile-name" id="adminName">Administrator</div>
+          <div class="profile-role">Authorized Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="menu-btn" id="menuButton" aria-label="Open menu">☰</button>
+        <div>
+          <div class="page-title">Dashboard Overview</div>
+          <div class="page-subtitle">Manage the Kayah business platform</div>
+        </div>
+      </div>
+      <div class="top-right">
+        <div class="status-pill"><span class="status-dot"></span> Admin Portal</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="notice" id="notice"></div>
+
+      <section class="welcome">
+        <div class="welcome-copy">
+          <div class="eyebrow">KAYAH ADMINISTRATION</div>
+          <h2>Welcome to Kayah</h2>
+          <p>
+            Manage subscriptions, promotions, customer payments and
+            registered businesses from one organized workspace.
+          </p>
+        </div>
+        <div class="welcome-mark">K</div>
+      </section>
+
+      <div class="section-heading">
+        <div>
+          <h3>Platform Overview</h3>
+          <p>Figures are loaded from available Kayah account records.</p>
+        </div>
+        <button class="refresh-btn" id="refreshButton">↻ Refresh</button>
+      </div>
+
+      <section class="stats">
+        <article class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-green">♙</div>
+          </div>
+          <div class="stat-label">Registered Business Owners</div>
+          <div class="stat-value" id="businessCount">—</div>
+          <div class="stat-note" id="businessNote">Loading account records</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-blue">▣</div>
+          </div>
+          <div class="stat-label">Paid Plan Accounts</div>
+          <div class="stat-value" id="paidCount">—</div>
+          <div class="stat-note">Based on account plan fields</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-gold">◷</div>
+          </div>
+          <div class="stat-label">Pending Payments</div>
+          <div class="stat-value">—</div>
+          <div class="stat-note">Connect after payment records are defined</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-red">₱</div>
+          </div>
+          <div class="stat-label">Recorded Subscription Revenue</div>
+          <div class="stat-value">—</div>
+          <div class="stat-note">Connect after approved payments are defined</div>
+        </article>
+      </section>
+
+      <div class="section-heading">
+        <div>
+          <h3>Administration Tools</h3>
+          <p>Choose a section to manage Kayah.</p>
+        </div>
+      </div>
+
+      <section class="section-grid">
+        <div class="panel">
+          <div class="panel-title">Subscription Management</div>
+          <div class="panel-description">
+            Configure your subscription products and customer payment process.
+          </div>
+
+          <div class="tool-list">
+            <a class="tool" href="plans/">
+              <div class="tool-icon">◇</div>
+              <div class="tool-copy">
+                <div class="tool-name">Plans &amp; Offers</div>
+                <div class="tool-desc">
+                  Manage plan prices, discounts, promotion dates and availability.
+                </div>
+              </div>
+              <span class="tool-arrow">›</span>
+            </a>
+
+            <a class="tool" href="payments/">
+              <div class="tool-icon">▣</div>
+              <div class="tool-copy">
+                <div class="tool-name">Payment Approvals</div>
+                <div class="tool-desc">
+                  Review customer payment references and receipts.
+                </div>
+              </div>
+              <span class="tool-arrow">›</span>
+            </a>
+
+            <a class="tool" href="settings/">
+              <div class="tool-icon">▧</div>
+              <div class="tool-copy">
+                <div class="tool-name">GCash Payment Settings</div>
+                <div class="tool-desc">
+                  Manage the official payment QR image and instructions.
+                </div>
+              </div>
+              <span class="tool-arrow">›</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Business Accounts</div>
+          <div class="panel-description">
+            Review the businesses registered with the Kayah platform.
+          </div>
+
+          <div class="tool-list">
+            <a class="tool" href="businesses/">
+              <div class="tool-icon">♙</div>
+              <div class="tool-copy">
+                <div class="tool-name">Registered Businesses</div>
+                <div class="tool-desc">
+                  View account profiles and current plan information.
+                </div>
+              </div>
+              <span class="tool-arrow">›</span>
+            </a>
+          </div>
+
+          <div class="connection-box">
+            <span>🔒</span>
+            <div>
+              <strong>Administrator Security</strong>
+              <p>
+                Admin access must be assigned securely. Firebase Security Rules
+                must protect plan settings, payment records and approvals before
+                management actions are enabled.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>Setup status</strong><br>
+            This dashboard is the starting page. The Plans, Payments, Settings
+            and Businesses pages must be created and connected before those
+            tools can be used.
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <strong>Kayah</strong> — Business, Made Possible.<br>
+        Administration Portal
+      </footer>
+    </div>
+  </main>
+</div>
+
+<div id="accessDenied" hidden>
+  <div class="access-denied">
+    <div class="denied-icon">🔒</div>
+    <h2>Admin Access Required</h2>
+    <p id="deniedMessage">
+      This page is reserved for authorized Kayah administrators.
+    </p>
+    <a class="primary-btn" href="../login/">Return to Login</a>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* -------------------------------------------------
+   KAYAH FIREBASE CONFIGURATION
+------------------------------------------------- */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* -------------------------------------------------
+   ELEMENTS
+------------------------------------------------- */
+
+const loadingScreen = document.getElementById("loadingScreen");
+const loadingText = document.getElementById("loadingText");
+const appElement = document.getElementById("app");
+const accessDenied = document.getElementById("accessDenied");
+const deniedMessage = document.getElementById("deniedMessage");
+const notice = document.getElementById("notice");
+
+/* -------------------------------------------------
+   UI HELPERS
+------------------------------------------------- */
+
+function hideLoading() {
+  loadingScreen.hidden = true;
+}
+
+function showNotice(message, type = "error") {
+  notice.textContent = message;
+  notice.className = "notice show " + type;
+}
+
+function showDenied(message) {
+  hideLoading();
+  appElement.hidden = true;
+  accessDenied.hidden = false;
+  deniedMessage.textContent = message;
+}
+
+function formatNumber(value) {
+  return Number(value).toLocaleString("en-PH");
+}
+
+/* -------------------------------------------------
+   LOAD OVERVIEW COUNTS
+   Uses the existing users collection.
+------------------------------------------------- */
+
+async function loadOverview() {
+  const businessCount = document.getElementById("businessCount");
+  const paidCount = document.getElementById("paidCount");
+  const businessNote = document.getElementById("businessNote");
+
+  businessCount.textContent = "…";
+  paidCount.textContent = "…";
+
+  try {
+    const snapshot = await getDocs(collection(db, "users"));
+
+    let owners = 0;
+    let paidAccounts = 0;
+
+    snapshot.forEach((item) => {
+      const data = item.data();
+
+      if (data.role === "owner") {
+        owners++;
+
+        const plan = String(data.plan || "free").toLowerCase();
+        const subscriptionStatus =
+          String(data.subscriptionStatus || "").toLowerCase();
+        const planStatus = String(data.planStatus || "").toLowerCase();
+
+        const paidPlan = ["starter", "business", "pro"].includes(plan);
+        const activeStatus =
+          subscriptionStatus === "active" ||
+          planStatus === "active";
+
+        if (paidPlan && activeStatus) {
+          paidAccounts++;
+        }
+      }
+    });
+
+    businessCount.textContent = formatNumber(owners);
+    paidCount.textContent = formatNumber(paidAccounts);
+    businessNote.textContent = "Owner accounts in Firebase";
+
+  } catch (error) {
+    console.error("Unable to load dashboard counts:", error);
+    businessCount.textContent = "—";
+    paidCount.textContent = "—";
+    businessNote.textContent = "Unable to load account records";
+    showNotice(
+      "The account summary could not be loaded. Check your Firestore permissions and internet connection."
+    );
+  }
+}
+
+/* -------------------------------------------------
+   AUTHENTICATION AND ADMIN ROLE CHECK
+------------------------------------------------- */
+
+let initialAuthCheckComplete = false;
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    showDenied("Please sign in with your authorized Kayah admin account.");
+    return;
+  }
+
+  try {
+    loadingText.textContent = "Verifying administrator permissions...";
+
+    const profileRef = doc(db, "users", user.uid);
+    const profileSnap = await getDoc(profileRef);
+
+    if (!profileSnap.exists()) {
+      showDenied("Your Kayah user profile could not be found.");
+      return;
+    }
+
+    const profile = profileSnap.data();
+
+    if (profile.role !== "admin") {
+      showDenied(
+        "Your account does not have the administrator role. Please use an authorized admin account."
+      );
+      return;
+    }
+
+    if (
+      profile.accountStatus &&
+      profile.accountStatus !== "active"
+    ) {
+      showDenied("Your administrator account is inactive.");
+      return;
+    }
+
+    document.getElementById("adminName").textContent =
+      profile.fullName || profile.name || "Administrator";
+
+    accessDenied.hidden = true;
+    appElement.hidden = false;
+    hideLoading();
+
+    if (!initialAuthCheckComplete) {
+      initialAuthCheckComplete = true;
+      await loadOverview();
+    }
+
+  } catch (error) {
+    console.error("Admin verification failed:", error);
+
+    showDenied(
+      "Unable to verify your admin permissions. Check your internet connection and Firestore access rules."
+    );
+  }
+});
+
+/* -------------------------------------------------
+   REFRESH
+------------------------------------------------- */
+
+document.getElementById("refreshButton").addEventListener("click", async () => {
+  notice.className = "notice";
+  await loadOverview();
+});
+
+/* -------------------------------------------------
+   SIGN OUT
+------------------------------------------------- */
+
+document.getElementById("logoutButton").addEventListener("click", async () => {
+  const button = document.getElementById("logoutButton");
+  button.disabled = true;
+  button.textContent = "Signing out...";
+
+  try {
+    await signOut(auth);
+    window.location.replace("../login/");
+  } catch (error) {
+    console.error("Sign out failed:", error);
+    button.disabled = false;
+    button.textContent = "↪ Sign Out";
+    showNotice("Unable to sign out. Please try again.");
+  }
+});
+
+/* -------------------------------------------------
+   MOBILE MENU
+------------------------------------------------- */
+
+const sidebar = document.getElementById("sidebar");
+
+document.getElementById("menuButton").addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+});
+
+document.querySelectorAll(".nav-link").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const destination = link.getAttribute("href");
+
+    if (destination && destination !== "./" && destination !== "../") {
+      event.preventDefault();
+      showNotice(
+        "This section is not built yet. We will create and connect it next.",
+        "success"
+      );
+      sidebar.classList.remove("open");
+      return;
+    }
+
+    if (destination === "./") {
+      event.preventDefault();
+      sidebar.classList.remove("open");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+});
+
+document.querySelectorAll(".tool").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    showNotice(
+      "This management page is not built yet. We will add it in the next step.",
+      "success"
+    );
+  });
+});
+
+/* -------------------------------------------------
+   SERVICE WORKER
+------------------------------------------------- */
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("../sw.js").catch((error) => {
+      console.log("Service worker registration failed:", error);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
