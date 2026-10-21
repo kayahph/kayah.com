@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B4F3A">
+<title>Plans & Subscriptions - Kayah Admin</title>
+<style>
+:root{--g:#0B4F3A;--g2:#16805C;--gold:#F2B84B;--bg:#F7F3E8;--white:#fff;--ink:#18372c;--muted:#708078;--line:#e4eae5;--red:#b42318;--blue:#235fbc}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7f4;color:var(--ink)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--g);color:#fff;padding:25px 16px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:11px;margin:0 8px 34px}
+.logo{width:43px;height:43px;border-radius:13px;background:var(--gold);color:var(--g);display:grid;place-items:center;font-weight:900;font-size:23px}
+.brand strong{font-size:21px;display:block}
+.brand small{color:#d1e6d9;font-size:11px}
+.nav-label{font-size:10px;color:#a8c8b7;letter-spacing:1.5px;margin:22px 10px 9px}
+.nav a{display:flex;gap:11px;align-items:center;padding:12px 13px;margin:5px 0;border-radius:10px;text-decoration:none;color:#d9e9df;font-size:14px}
+.nav a:hover,.nav a.active{background:#ffffff20;color:#fff}
+.main{flex:1;min-width:0;padding:27px;max-width:1600px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px;flex-wrap:wrap}
+h1{font-size:27px;margin:0 0 7px;color:var(--g)}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.5}
+.top-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:700;font-size:13px}
+.btn-primary{background:var(--g);color:#fff}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--g)}
+.btn-danger{background:#fff0ef;color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px}
+.stat .label{color:var(--muted);font-size:12px;margin-bottom:12px}
+.stat .value{font-size:27px;font-weight:800;color:var(--g)}
+.stat .note{font-size:11px;color:var(--muted);margin-top:7px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:15px;padding:21px;margin-bottom:22px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:17px}
+.panel h2{font-size:17px;margin:0;color:var(--g)}
+.panel p{font-size:12px;color:var(--muted);line-height:1.6}
+.plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.plan-card{border:1px solid var(--line);border-radius:14px;padding:19px;min-width:0;position:relative}
+.plan-card.featured{border:2px solid var(--g2)}
+.plan-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:15px}
+.plan-title h3{margin:0;font-size:17px;color:var(--g)}
+.pill{display:inline-flex;align-items:center;border-radius:20px;padding:5px 9px;font-size:10px;font-weight:700;background:#e9f5ed;color:#176b43}
+.price-row{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+.currency{font-size:13px;color:var(--muted)}
+.price-input{width:100%;max-width:180px;font-size:24px;font-weight:800;color:var(--g);border:1px solid var(--line);border-radius:9px;padding:10px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;min-width:0}
+.field label{font-size:11px;font-weight:700;color:#5d7066}
+.field input,.field select{width:100%;min-width:0;border:1px solid #dce5de;border-radius:8px;padding:10px;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus{outline:2px solid #b5d7c2;border-color:var(--g2)}
+.plan-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.switch-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.switch-row input{accent-color:var(--g);width:16px;height:16px}
+.notice{padding:13px 15px;border-radius:10px;background:#fff8e8;border:1px solid #f2dfad;color:#765819;font-size:12px;line-height:1.6;margin-bottom:20px}
+.success{background:#eaf7ee;border-color:#c6e6d0;color:#176b43}
+.error{background:#fff0ef;border-color:#f3c8c5;color:#a12a21}
+.hidden{display:none!important}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:9px;padding:11px;background:#fff;min-width:0}
+.toolbar input{flex:1;min-width:160px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:750px}
+th,td{text-align:left;padding:13px 12px;border-bottom:1px solid #edf0ed;font-size:12px;white-space:nowrap}
+th{background:#f8faf8;color:#65776c;font-size:10px;text-transform:uppercase;letter-spacing:.6px}
+td strong{color:var(--g)}
+.status{display:inline-block;padding:5px 8px;border-radius:20px;font-size:10px;font-weight:700;background:#eef1ef;color:#53635a}
+.status.trial{background:#fff3d6;color:#876013}
+.status.paid{background:#e5f5e9;color:#176b43}
+.status.inactive{background:#ffedeb;color:#a12a21}
+.row-btn{border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--g);padding:7px 9px;font-weight:700;font-size:11px}
+.empty{text-align:center;padding:28px;color:var(--muted);font-size:13px}
+.footer-note{font-size:11px;color:var(--muted);line-height:1.7}
+.loading{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+.toast{position:fixed;right:20px;bottom:20px;z-index:20;background:var(--g);color:#fff;padding:14px 18px;border-radius:10px;box-shadow:0 8px 25px #0002;font-size:13px;max-width:calc(100% - 40px)}
+.modal-backdrop{position:fixed;inset:0;background:#10251c88;z-index:30;display:grid;place-items:center;padding:16px}
+.modal{background:#fff;width:min(480px,100%);border-radius:16px;padding:22px;max-height:90vh;overflow:auto}
+.modal h2{margin:0 0 8px;color:var(--g)}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px;flex-wrap:wrap}
+@media(min-width:1200px){.plan-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.sidebar{width:205px}.main{padding:20px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.layout{display:block}.sidebar{width:100%;padding:15px}.brand{margin:0 5px 14px}.nav{display:flex;overflow-x:auto;gap:5px}.nav-label{display:none}.nav a{white-space:nowrap;margin:0;padding:10px}.main{padding:16px}.topbar{align-items:flex-start}h1{font-size:23px}.stats{gap:9px}.stat{padding:14px}.stat .value{font-size:23px}.plan-grid{grid-template-columns:1fr}.panel{padding:15px}.field-grid{gap:9px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">K</div>
+      <div><strong>Kayah</strong><small>ADMINISTRATION</small></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">MAIN MENU</div>
+      <a href="../">▦ &nbsp; Dashboard</a>
+      <a href="./" class="active">◇ &nbsp; Plans & Subscriptions</a>
+      <a href="../payments/">⇄ &nbsp; Payments</a>
+      <a href="../businesses/">▣ &nbsp; Businesses</a>
+      <a href="../settings/">⚙ &nbsp; Settings</a>
+      <div class="nav-label">ACCOUNT</div>
+      <a href="#" id="logoutBtn">↪ &nbsp; Sign Out</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Plans & Subscriptions</h1>
+        <div class="subtitle">Configure plan pricing, feature limits and review owner subscriptions.</div>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn-light" id="refreshBtn">↻ Refresh</button>
+        <button class="btn btn-primary" id="saveAllBtn">Save Plan Settings</button>
+      </div>
+    </div>
+
+    <div id="notice" class="notice hidden"></div>
+
+    <section class="stats">
+      <div class="stat"><div class="label">Registered Owners</div><div class="value" id="ownerCount">—</div><div class="note">Owner profiles in Firebase</div></div>
+      <div class="stat"><div class="label">Paid Plan Owners</div><div class="value" id="paidCount">—</div><div class="note">Currently on a paid plan</div></div>
+      <div class="stat"><div class="label">Trial Accounts</div><div class="value" id="trialCount">—</div><div class="note">Trial status detected from profile</div></div>
+      <div class="stat"><div class="label">Active Subscriptions</div><div class="value" id="activeCount">—</div><div class="note">Active or trial subscriptions</div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Plan Configuration</h2>
+          <p>Edit prices, billing duration, product/service limits and staff limits. Use 0 for a free plan price. Use the unlimited checkbox for Pro staff.</p>
+        </div>
+      </div>
+      <div id="plansGrid" class="plan-grid">
+        <div class="loading">Loading plan configuration…</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:18px">
+        <button class="btn btn-primary" id="saveBottomBtn">Save Plan Settings</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Owner Subscriptions</h2>
+          <p>View the plan details saved in each owner's profile. Editing the plan configuration above does not change existing subscriptions.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input id="ownerSearch" placeholder="Search business, owner, email…">
+        <select id="statusFilter">
+          <option value="all">All subscription statuses</option>
+          <option value="free">Free</option>
+          <option value="trial">Trial</option>
+          <option value="paid">Paid plan</option>
+          <option value="inactive">Inactive / expired</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Business / Owner</th><th>Plan</th><th>Status</th><th>Price</th><th>Trial / Expiry</th><th>Action</th></tr></thead>
+          <tbody id="ownersBody"><tr><td colspan="6" class="empty">Loading owner accounts…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Important Notes</h2>
+      <p class="footer-note">
+        • Plan prices and limits are saved under <b>systemSettings/planConfiguration</b>.<br>
+        • Owner subscriptions are read from the existing <b>users/{uid}</b> documents.<br>
+        • This page does not automatically activate paid plans, process payments, or extend subscription dates.<br>
+        • Enforcing plan limits in the actual app pages must be implemented separately. Client-side plan checks alone are not secure access control.<br>
+        • Protect admin-only writes using Firestore Rules and, for stronger security, a trusted backend or Firebase Authentication custom claims.
+      </p>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<div id="editModal" class="modal-backdrop hidden">
+  <div class="modal">
+    <h2>Update Owner Subscription</h2>
+    <p class="subtitle" id="editOwnerName">Owner account</p>
+    <input type="hidden" id="editOwnerUid">
+    <div class="field">
+      <label for="editPlan">Plan</label>
+      <select id="editPlan">
+        <option value="free">Free</option>
+        <option value="trial">30-Day Free Trial</option>
+        <option value="starter">Starter</option>
+        <option value="business">Business</option>
+        <option value="pro">Pro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="editStatus">Subscription status</label>
+      <select id="editStatus">
+        <option value="active">Active</option>
+        <option value="trial">Trial</option>
+        <option value="pending">Pending payment</option>
+        <option value="expired">Expired</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="editStart">Subscription start date</label>
+      <input type="date" id="editStart">
+    </div>
+    <div class="field">
+      <label for="editEnd">Subscription end date</label>
+      <input type="date" id="editEnd">
+    </div>
+    <div class="notice">Only use Active for a paid plan after confirming the payment. This action changes the owner's subscription fields in Firestore.</div>
+    <div class="modal-actions">
+      <button class="btn btn-light" id="cancelEditBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveOwnerBtn">Save Subscription</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const SETTINGS_REF = doc(db, "systemSettings", "planConfiguration");
+const PLAN_DEFAULTS = {
+  free: {
+    name: "Free", price: 0, billingDays: 0,
+    productLimit: 30, staffLimit: 1, unlimitedStaff: false,
+    enabled: true, description: "Essential tools to get started"
+  },
+  trial: {
+    name: "30-Day Free Trial", price: 0, billingDays: 30,
+    productLimit: 30, staffLimit: 1, unlimitedStaff: false,
+    enabled: true, description: "Try Kayah before choosing a plan"
+  },
+  starter: {
+    name: "Starter", price: 0, billingDays: 30,
+    productLimit: 150, staffLimit: 3, unlimitedStaff: false,
+    enabled: true, description: "For growing small businesses"
+  },
+  business: {
+    name: "Business", price: 0, billingDays: 30,
+    productLimit: 500, staffLimit: 10, unlimitedStaff: false,
+    enabled: true, description: "For established businesses"
+  },
+  pro: {
+    name: "Pro", price: 0, billingDays: 30,
+    productLimit: 2000, staffLimit: 0, unlimitedStaff: true,
+    enabled: true, description: "Advanced capacity for larger teams"
+  }
+};
+
+let currentUser = null;
+let plans = structuredClone(PLAN_DEFAULTS);
+let owners = [];
+let editingOwner = null;
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+function showNotice(message, type="") {
+  const el = $("notice");
+  el.textContent = message;
+  el.className = "notice" + (type ? " " + type : "");
+}
+function hideNotice() {
+  $("notice").className = "notice hidden";
+}
+function toast(message) {
+  const el = $("toast");
+  el.textContent = message;
+  el.classList.remove("hidden");
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => el.classList.add("hidden"), 3500);
+}
+function money(value) {
+  return "₱" + Number(value || 0).toLocaleString("en-PH", {
+    minimumFractionDigits: 2, maximumFractionDigits: 2
+  });
+}
+function dateValue(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value.slice(0,10);
+  if (value.toDate) return value.toDate().toISOString().slice(0,10);
+  if (value.seconds) return new Date(value.seconds * 1000).toISOString().slice(0,10);
+  return "";
+}
+function displayDate(value) {
+  const v = dateValue(value);
+  if (!v) return "—";
+  const d = new Date(v + "T00:00:00");
+  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleDateString("en-PH", {
+    day:"2-digit",month:"short",year:"numeric"
+  });
+}
+function normalizedPlan(raw) {
+  const p = String(raw || "free").toLowerCase().replace(/[\s_-]/g,"");
+  if (p.includes("pro")) return "pro";
+  if (p.includes("business")) return "business";
+  if (p.includes("starter")) return "starter";
+  if (p.includes("trial")) return "trial";
+  return "free";
+}
+function ownerStatus(data, key) {
+  const rawStatus = String(data.subscriptionStatus || data.planStatus || "").toLowerCase();
+  const trialFlag = data.trialActive === true || rawStatus === "trial";
+  const end = dateValue(data.subscriptionEndsAt || data.subscriptionEndDate || data.planEndsAt || data.trialEndsAt || data.expiresAt);
+  const expired = end && end < new Date().toISOString().slice(0,10);
+  if (expired || rawStatus === "expired" || rawStatus === "inactive") return "inactive";
+  if (trialFlag || key === "trial") return "trial";
+  if (key !== "free" && (rawStatus === "active" || rawStatus === "paid" || rawStatus === "approved" || data.subscriptionActive === true)) return "paid";
+  if (rawStatus === "pending") return "inactive";
+  return "free";
+}
+function statusLabel(status) {
+  return ({free:"Free",trial:"Trial",paid:"Paid / Active",inactive:"Inactive / Expired"})[status] || status;
+}
+function ownerName(data) {
+  return data.businessName || data.storeName || data.companyName || data.fullName || data.name || "Unnamed business";
+}
+function ownerEmail(data) {
+  return data.businessEmail || data.email || "";
+}
+function ownerPlanName(key) {
+  return plans[key]?.name || PLAN_DEFAULTS[key]?.name || key;
+}
+
+function renderPlans() {
+  $("plansGrid").innerHTML = Object.entries(plans).map(([key,p]) => `
+    <article class="plan-card ${key==="business"?"featured":""}" data-plan="${key}">
+      <div class="plan-title">
+        <h3>${escapeHTML(p.name)}</h3>
+        <span class="pill">${key==="trial"?"30-DAY TRIAL":key==="free"?"FREE PLAN":key.toUpperCase()}</span>
+      </div>
+      <div class="field">
+        <label>Plan name</label>
+        <input data-field="name" value="${escapeHTML(p.name)}" maxlength="60">
+      </div>
+      <label class="currency">Monthly price (PHP)</label>
+      <div class="price-row">
+        <span class="currency">₱</span>
+        <input class="price-input" data-field="price" type="number" min="0" step="0.01" value="${Number(p.price)||0}" ${key==="free"||key==="trial"?"readonly title='Free plans have no charge'":""}>
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label>Billing duration (days)</label>
+          <input data-field="billingDays" type="number" min="0" step="1" value="${Number(p.billingDays)||0}" ${key==="free"||key==="trial"?"readonly":""}>
+        </div>
+        <div class="field">
+          <label>Products & services limit</label>
+          <input data-field="productLimit" type="number" min="1" step="1" value="${Number(p.productLimit)||30}">
+        </div>
+        <div class="field">
+          <label>Staff limit (excluding owner)</label>
+          <input data-field="staffLimit" type="number" min="1" step="1" value="${p.unlimitedStaff?"":Number(p.staffLimit)||1}" ${p.unlimitedStaff?"disabled":""}>
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <input data-field="description" value="${escapeHTML(p.description||"")}" maxlength="120">
+        </div>
+      </div>
+      <div class="plan-foot">
+        <label class="switch-row"><input data-field="unlimitedStaff" type="checkbox" ${p.unlimitedStaff?"checked":""}> Unlimited staff</label>
+        <label class="switch-row"><input data-field="enabled" type="checkbox" ${p.enabled!==false?"checked":""}> Available</label>
+      </div>
+    </article>
+  `).join("");
+
+  $("plansGrid").querySelectorAll(".plan-card").forEach(card => {
+    const checkbox = card.querySelector('[data-field="unlimitedStaff"]');
+    const staff = card.querySelector('[data-field="staffLimit"]');
+    checkbox.addEventListener("change", () => {
+      staff.disabled = checkbox.checked;
+      if (checkbox.checked) staff.value = "";
+      else if (!staff.value) staff.value = "1";
+    });
+  });
+}
+
+function readPlansFromForm() {
+  const result = {};
+  for (const card of $("plansGrid").querySelectorAll(".plan-card")) {
+    const key = card.dataset.plan;
+    const get = field => card.querySelector(`[data-field="${field}"]`);
+    const price = Number(get("price").value);
+    const days = Number(get("billingDays").value);
+    const productLimit = Number(get("productLimit").value);
+    const unlimitedStaff = get("unlimitedStaff").checked;
+    const staffLimit = unlimitedStaff ? 0 : Number(get("staffLimit").value);
+    if (!get("name").value.trim()) throw new Error(`Enter a name for the ${key} plan.`);
+    if (!Number.isFinite(price) || price < 0) throw new Error(`Enter a valid price for ${key}.`);
+    if (!Number.isInteger(days) || days < 0) throw new Error(`Enter a valid billing duration for ${key}.`);
+    if (!Number.isInteger(productLimit) || productLimit < 1) throw new Error(`Product/service limit for ${key} must be at least 1.`);
+    if (!unlimitedStaff && (!Number.isInteger(staffLimit) || staffLimit < 1)) throw new Error(`Staff limit for ${key} must be at least 1 or unlimited.`);
+    if ((key === "free" || key === "trial") && price !== 0) throw new Error(`${key} must remain free.`);
+    result[key] = {
+      name:get("name").value.trim(),
+      price:(key==="free"||key==="trial")?0:price,
+      billingDays:(key==="free")?0:(key==="trial"?30:days),
+      productLimit,
+      staffLimit,
+      unlimitedStaff,
+      enabled:get("enabled").checked,
+      description:get("description").value.trim()
+    };
+  }
+  return result;
+}
+
+async function loadPlanSettings() {
+  const snap = await getDoc(SETTINGS_REF);
+  if (snap.exists()) {
+    const saved = snap.data().plans || {};
+    plans = structuredClone(PLAN_DEFAULTS);
+    for (const key of Object.keys(PLAN_DEFAULTS)) {
+      if (saved[key]) plans[key] = {...PLAN_DEFAULTS[key], ...saved[key]};
+    }
+  } else {
+    plans = structuredClone(PLAN_DEFAULTS);
+  }
+  renderPlans();
+}
+
+async function savePlanSettings() {
+  const buttons = [$("saveAllBtn"),$("saveBottomBtn")];
+  buttons.forEach(b => {b.disabled=true;b.textContent="Saving…";});
+  try {
+    const newPlans = readPlansFromForm();
+    await setDoc(SETTINGS_REF, {
+      plans: newPlans,
+      updatedAt: serverTimestamp(),
+      updatedBy: currentUser.uid
+    }, {merge:true});
+    plans = newPlans;
+    renderPlans();
+    toast("Plan settings saved to Firebase.");
+    hideNotice();
+    renderOwners();
+  } catch (err) {
+    console.error(err);
+    showNotice(err.message || "Could not save plan settings. Check Firestore permissions.", "error");
+  } finally {
+    buttons.forEach((b,i) => {b.disabled=false;b.textContent="Save Plan Settings";});
+  }
+}
+
+async function loadOwners() {
+  $("ownersBody").innerHTML = '<tr><td colspan="6" class="empty">Loading owner accounts…</td></tr>';
+  const snap = await getDocs(collection(db,"users"));
+  owners = snap.docs.map(d => ({uid:d.id, ...d.data()}))
+    .filter(o => String(o.role || "").toLowerCase() === "owner");
+  $("ownerCount").textContent = owners.length;
+  $("paidCount").textContent = owners.filter(o => ownerStatus(o,normalizedPlan(o.plan))==="paid").length;
+  $("trialCount").textContent = owners.filter(o => ownerStatus(o,normalizedPlan(o.plan))==="trial").length;
+  $("activeCount").textContent = owners.filter(o => ["paid","trial","free"].includes(ownerStatus(o,normalizedPlan(o.plan))) && o.accountStatus !== "inactive").length;
+  renderOwners();
+}
+
+function renderOwners() {
+  const query = $("ownerSearch").value.trim().toLowerCase();
+  const filter = $("statusFilter").value;
+  const filtered = owners.filter(o => {
+    const name = ownerName(o).toLowerCase();
+    const email = ownerEmail(o).toLowerCase();
+    const status = ownerStatus(o,normalizedPlan(o.plan));
+    return (!query || name.includes(query) || email.includes(query) || String(o.fullName||"").toLowerCase().includes(query))
+      && (filter==="all" || filter===status);
+  });
+  if (!filtered.length) {
+    $("ownersBody").innerHTML = `<tr><td colspan="6" class="empty">${owners.length?"No accounts match your search.":"No owner accounts found."}</td></tr>`;
+    return;
+  }
+  $("ownersBody").innerHTML = filtered.map(o => {
+    const key = normalizedPlan(o.plan);
+    const status = ownerStatus(o,key);
+    const end = o.subscriptionEndsAt || o.subscriptionEndDate || o.planEndsAt || o.trialEndsAt || o.expiresAt;
+    const price = plans[key]?.price ?? 0;
+    return `<tr>
+      <td><strong>${escapeHTML(ownerName(o))}</strong><br><span style="color:#77857d">${escapeHTML(ownerEmail(o) || o.fullName || o.uid)}</span></td>
+      <td>${escapeHTML(ownerPlanName(key))}</td>
+      <td><span class="status ${status}">${escapeHTML(statusLabel(status))}</span></td>
+      <td>${money(price)}${price>0?"/mo":""}</td>
+      <td>${displayDate(end)}</td>
+      <td><button class="row-btn" data-edit="${escapeHTML(o.uid)}">Manage</button></td>
+    </tr>`;
+  }).join("");
+  $("ownersBody").querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => openEditOwner(btn.dataset.edit));
+  });
+}
+
+function openEditOwner(uid) {
+  const owner = owners.find(o=>o.uid===uid);
+  if (!owner) return;
+  editingOwner = owner;
+  const key = normalizedPlan(owner.plan);
+  $("editOwnerUid").value = uid;
+  $("editOwnerName").textContent = `${ownerName(owner)} · ${ownerEmail(owner) || uid}`;
+  $("editPlan").value = key;
+  const status = ownerStatus(owner,key);
+  $("editStatus").value = status==="paid"?"active":status==="trial"?"trial":status==="inactive"?"expired":"active";
+  $("editStart").value = dateValue(owner.subscriptionStartedAt || owner.subscriptionStartDate || owner.trialStartedAt);
+  $("editEnd").value = dateValue(owner.subscriptionEndsAt || owner.subscriptionEndDate || owner.planEndsAt || owner.trialEndsAt || owner.expiresAt);
+  $("editModal").classList.remove("hidden");
+}
+function closeEditOwner() {
+  $("editModal").classList.add("hidden");
+  editingOwner = null;
+}
+async function saveOwnerSubscription() {
+  if (!editingOwner) return;
+  const uid = $("editOwnerUid").value;
+  const key = $("editPlan").value;
+  const status = $("editStatus").value;
+  const start = $("editStart").value;
+  const end = $("editEnd").value;
+  const plan = plans[key] || PLAN_DEFAULTS[key];
+  if (end && start && end < start) {
+    toast("End date cannot be earlier than the start date.");
+    return;
+  }
+  if (key!=="free" && key!=="trial" && status==="active" && !(editingOwner.paymentStatus==="approved" || editingOwner.lastPaymentStatus==="approved" || editingOwner.subscriptionPaymentApproved===true)) {
+    const confirmed = confirm("No approved payment marker was found in this owner's profile. Only continue if you have independently verified the payment. Activate this paid subscription?");
+    if (!confirmed) return;
+  }
+  const btn = $("saveOwnerBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving…";
+  try {
+    const patch = {
+      plan: key==="trial" ? "free" : key,
+      planStatus: status==="trial" ? "active" : status,
+      subscriptionStatus: status==="trial" ? "trial" : status,
+      updatedAt: serverTimestamp(),
+      subscriptionPlanName: plan.name
+    };
+    if (start) {
+      patch.subscriptionStartedAt = start;
+      patch.subscriptionStartDate = start;
+    }
+    if (end) {
+      patch.subscriptionEndsAt = end;
+      patch.subscriptionEndDate = end;
+    } else {
+      patch.subscriptionEndsAt = null;
+      patch.subscriptionEndDate = null;
+    }
+    if (key==="trial") {
+      patch.trialActive = status==="trial";
+      if (start) patch.trialStartedAt = start;
+      if (end) patch.trialEndsAt = end;
+    } else {
+      patch.trialActive = false;
+    }
+    if (key==="free") {
+      patch.subscriptionStatus = status==="inactive" || status==="expired" ? status : "active";
+      patch.planStatus = patch.subscriptionStatus;
+    }
+    await updateDoc(doc(db,"users",uid),patch);
+    toast("Owner subscription updated.");
+    closeEditOwner();
+    await loadOwners();
+  } catch(err) {
+    console.error(err);
+    showNotice("Could not update this owner. Check Firestore update permissions. "+(err.message||""),"error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Subscription";
+  }
+}
+
+async function reloadAll() {
+  hideNotice();
+  $("refreshBtn").disabled = true;
+  $("refreshBtn").textContent = "Loading…";
+  try {
+    await loadPlanSettings();
+    await loadOwners();
+  } catch(err) {
+    console.error(err);
+    showNotice("Could not load data. Check internet access and Firestore permissions for the admin account. "+(err.message||""),"error");
+    $("ownersBody").innerHTML = '<tr><td colspan="6" class="empty">Unable to load owner accounts.</td></tr>';
+  } finally {
+    $("refreshBtn").disabled = false;
+    $("refreshBtn").textContent = "↻ Refresh";
+  }
+}
+
+$("saveAllBtn").addEventListener("click",savePlanSettings);
+$("saveBottomBtn").addEventListener("click",savePlanSettings);
+$("refreshBtn").addEventListener("click",reloadAll);
+$("ownerSearch").addEventListener("input",renderOwners);
+$("statusFilter").addEventListener("change",renderOwners);
+$("cancelEditBtn").addEventListener("click",closeEditOwner);
+$("saveOwnerBtn").addEventListener("click",saveOwnerSubscription);
+$("editModal").addEventListener("click",e=>{if(e.target===$("editModal"))closeEditOwner();});
+$("logoutBtn").addEventListener("click",async e=>{
+  e.preventDefault();
+  await signOut(auth);
+  window.location.replace("../login/");
+});
+
+onAuthStateChanged(auth,async user=>{
+  if(!user){
+    window.location.replace("../login/");
+    return;
+  }
+  try {
+    const profile = await getDoc(doc(db,"users",user.uid));
+    if(!profile.exists() || profile.data().role!=="admin" || profile.data().accountStatus==="inactive"){
+      await signOut(auth);
+      window.location.replace("../login/");
+      return;
+    }
+    currentUser = user;
+    await reloadAll();
+  } catch(err) {
+    console.error(err);
+    showNotice("Admin verification failed. Check your connection and Firestore rules.","error");
+  }
+});
+</script>
+</body>
+</html>
