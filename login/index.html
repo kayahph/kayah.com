@@ -952,6 +952,31 @@ async function routeUser(user){
             userSnap.data();
 
 
+
+/* ---------------------------------------------
+   ADMIN ACCOUNT
+--------------------------------------------- */
+
+if (userData.role === "admin") {
+
+    if (
+        userData.accountStatus &&
+        userData.accountStatus !== "active"
+    ) {
+        showError(
+            "Your admin account is inactive. Please contact support."
+        );
+
+        hideLoading();
+        await auth.signOut();
+        return;
+    }
+
+    window.location.replace("../admin/");
+    return;
+}
+
+
         /* ---------------------------------------------
            STAFF ACCOUNT
         --------------------------------------------- */
