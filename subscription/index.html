@@ -1,0 +1,784 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B4F3A">
+<title>Subscription - Kayah</title>
+
+<style>
+:root{
+  --g:#0B4F3A;
+  --g2:#16805C;
+  --gold:#F2B84B;
+  --cream:#F7F3E8;
+  --white:#fff;
+  --ink:#17251e;
+  --muted:#718078;
+  --line:#e3e9e4;
+  --red:#b42318;
+  --shadow:0 8px 28px rgba(11,79,58,.07);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7f5;
+  color:var(--ink);
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.topbar{
+  background:var(--g);
+  color:#fff;
+  padding:16px 20px;
+}
+.top-inner{
+  max-width:1150px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:43px;height:43px;border-radius:12px;
+  display:grid;place-items:center;
+  background:var(--gold);color:var(--g);
+  font-weight:900;font-size:21px;
+}
+.brand-name{font-size:20px;font-weight:800}
+.brand-sub{font-size:12px;color:#d4e5dc;margin-top:3px}
+.back-link{
+  color:#fff;text-decoration:none;
+  border:1px solid #ffffff55;
+  border-radius:9px;padding:10px 13px;
+  font-size:13px;font-weight:700;
+}
+main{max-width:1150px;margin:auto;padding:25px 18px 55px}
+.hero{
+  background:linear-gradient(120deg,#0B4F3A,#16805C);
+  color:white;border-radius:20px;padding:27px;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:20px;flex-wrap:wrap;
+  box-shadow:var(--shadow);
+}
+.hero h1{font-size:clamp(25px,4vw,36px);margin:0 0 9px}
+.hero p{margin:0;color:#e0eee7;line-height:1.6;max-width:620px}
+.hero-mark{
+  width:70px;height:70px;border-radius:20px;
+  background:#ffffff18;border:1px solid #ffffff35;
+  display:grid;place-items:center;font-size:34px;
+}
+.notice{
+  display:none;margin-top:17px;padding:13px 15px;
+  border-radius:10px;font-size:14px;line-height:1.5;
+}
+.notice.show{display:block}
+.notice.info{background:#e9f3ff;color:#174a7c}
+.notice.success{background:#e6f5ec;color:#155b35}
+.notice.error{background:#fff0ef;color:#9f2520}
+.section-title{
+  display:flex;justify-content:space-between;align-items:end;
+  gap:12px;flex-wrap:wrap;margin:28px 0 14px;
+}
+.section-title h2{font-size:22px;margin:0 0 5px;color:var(--g)}
+.section-title p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.current-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:21px;box-shadow:var(--shadow);
+}
+.current-top{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+}
+.current-label{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800}
+.current-plan{font-size:26px;font-weight:800;color:var(--g);margin-top:6px}
+.status{
+  display:inline-flex;align-items:center;gap:6px;
+  border-radius:30px;padding:7px 11px;
+  background:#e7f5eb;color:#17653a;
+  font-size:12px;font-weight:800;
+}
+.status.warn{background:#fff3d9;color:#815600}
+.status.neutral{background:#edf0ee;color:#526057}
+.current-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;margin-top:20px;
+}
+.mini-stat{background:#f7f9f7;border-radius:11px;padding:14px}
+.mini-stat .label{font-size:12px;color:var(--muted);margin-bottom:7px}
+.mini-stat .value{font-size:16px;font-weight:800;color:var(--g);overflow-wrap:anywhere}
+.trial-progress{margin-top:17px}
+.progress-head{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.progress{height:8px;background:#e7ece8;border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--g2);width:0%;transition:width .2s}
+.plans{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;
+  align-items:stretch;
+}
+.plan{
+  position:relative;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:20px 17px;
+  display:flex;flex-direction:column;box-shadow:var(--shadow);
+  min-width:0;
+}
+.plan.featured{border:2px solid var(--g2);padding:19px 16px}
+.plan-tag{
+  position:absolute;right:12px;top:12px;
+  background:#e4f3e9;color:var(--g);
+  padding:5px 8px;border-radius:20px;
+  font-size:10px;font-weight:800;
+}
+.plan h3{margin:0 0 9px;color:var(--g);font-size:20px}
+.plan-description{font-size:12px;color:var(--muted);line-height:1.5;min-height:36px}
+.price{font-size:31px;font-weight:900;letter-spacing:-1px;margin:15px 0 3px;color:var(--g)}
+.price small{font-size:12px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.billing-note{font-size:11px;color:var(--muted);min-height:15px}
+.plan-divider{height:1px;background:var(--line);margin:17px 0}
+.feature-heading{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;margin-bottom:10px}
+.features{list-style:none;padding:0;margin:0 0 22px;flex:1}
+.features li{
+  font-size:12px;line-height:1.45;margin:10px 0;
+  display:flex;gap:8px;align-items:flex-start;
+}
+.check{color:var(--g2);font-weight:900}
+.plan-btn{
+  width:100%;border:0;border-radius:10px;
+  padding:12px 10px;background:var(--g);color:#fff;
+  font-size:13px;font-weight:800;
+}
+.plan-btn:hover{background:var(--g2)}
+.plan-btn.secondary{background:#e8f1eb;color:var(--g)}
+.plan-btn:disabled{opacity:.55;cursor:not-allowed}
+.plan-footnote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+.bottom-info{
+  margin-top:22px;padding:17px;background:var(--cream);
+  border-radius:13px;color:#5e5846;font-size:13px;line-height:1.7;
+}
+.bottom-info strong{color:var(--g)}
+.history-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:15px;padding:20px;
+}
+.empty{color:var(--muted);font-size:13px;line-height:1.6}
+.loading{padding:25px;text-align:center;color:var(--muted)}
+.modal-backdrop{
+  display:none;position:fixed;inset:0;background:#10271dcc;
+  z-index:50;padding:18px;align-items:center;justify-content:center;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+  width:100%;max-width:480px;background:white;
+  border-radius:17px;padding:23px;max-height:90vh;overflow:auto;
+}
+.modal h2{margin:0 0 9px;color:var(--g);font-size:22px}
+.modal p{font-size:13px;color:var(--muted);line-height:1.6}
+.field{margin:15px 0}
+.field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
+.field input{
+  width:100%;padding:12px;border:1px solid #ccd7cf;
+  border-radius:9px;background:#fff;
+}
+.modal-actions{display:flex;gap:10px;margin-top:18px}
+.modal-actions button{flex:1}
+.btn-light{
+  background:#edf1ee;color:var(--g);border:0;
+  border-radius:9px;padding:12px;font-weight:800;
+}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:900px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  main{padding:17px 12px 35px}
+  .topbar{padding:13px}
+  .brand-name{font-size:18px}
+  .hero{padding:21px}
+  .hero-mark{display:none}
+  .current-grid{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .plan,.plan.featured{padding:19px}
+  .plan-description{min-height:0}
+  .back-link{padding:9px;font-size:12px}
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="logo">K</div>
+      <div>
+        <div class="brand-name">Kayah</div>
+        <div class="brand-sub">Business, Made Possible.</div>
+      </div>
+    </div>
+    <a class="back-link" href="../">← Back to Dashboard</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <h1>Plans that grow with your business</h1>
+      <p>Manage your Kayah subscription, check your current plan, and choose the tools and capacity your business needs.</p>
+    </div>
+    <div class="hero-mark">✦</div>
+  </section>
+
+  <div id="notice" class="notice" role="status" aria-live="polite"></div>
+
+  <section class="section-title">
+    <div>
+      <h2>Your subscription</h2>
+      <p>Your plan and trial information are loaded from your Kayah account.</p>
+    </div>
+  </section>
+
+  <section class="current-card">
+    <div id="currentLoading" class="loading">Loading your subscription...</div>
+    <div id="currentContent" hidden>
+      <div class="current-top">
+        <div>
+          <div class="current-label">Current plan</div>
+          <div id="currentPlan" class="current-plan">Free</div>
+        </div>
+        <span id="currentStatus" class="status neutral">Checking status</span>
+      </div>
+      <div class="current-grid">
+        <div class="mini-stat">
+          <div class="label">Subscription price</div>
+          <div class="value" id="currentPrice">₱0/month</div>
+        </div>
+        <div class="mini-stat">
+          <div class="label">Trial / renewal end date</div>
+          <div class="value" id="currentEndDate">Not available</div>
+        </div>
+        <div class="mini-stat">
+          <div class="label">Account email</div>
+          <div class="value" id="accountEmail">—</div>
+        </div>
+      </div>
+      <div id="trialProgressWrap" class="trial-progress" hidden>
+        <div class="progress-head">
+          <span id="trialProgressLabel">Free trial</span>
+          <strong id="trialDaysLabel">30 days remaining</strong>
+        </div>
+        <div class="progress"><div id="trialProgressFill" class="progress-fill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-title">
+    <div>
+      <h2>Choose your plan</h2>
+      <p>Prices and capacity are read from your Admin Plans &amp; Offers settings.</p>
+    </div>
+  </section>
+
+  <section id="plans" class="plans">
+    <div class="loading">Loading available plans...</div>
+  </section>
+
+  <div class="bottom-info">
+    <strong>About your free trial</strong><br>
+    When your 30-day trial ends, Kayah should move your account to the Free plan. Your existing business records should remain saved. If you exceed Free plan limits, you may need to reduce usage or upgrade before adding more items or staff.
+    <br><br>
+    <strong>Payments:</strong> Choosing a paid plan sends a request for review. It does not confirm payment or immediately activate paid access.
+  </div>
+
+  <section class="section-title">
+    <div>
+      <h2>Subscription activity</h2>
+      <p>Requests submitted from this page.</p>
+    </div>
+  </section>
+
+  <section class="history-card">
+    <div id="historyContent" class="empty">Subscription request history will appear here when available.</div>
+  </section>
+</main>
+
+<div id="requestModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <h2 id="modalTitle">Request a plan</h2>
+    <p id="modalDescription">Submit your plan request for review.</p>
+    <div id="paymentInstructions" class="bottom-info" hidden></div>
+    <div class="field">
+      <label for="paymentReference">Payment reference (optional)</label>
+      <input id="paymentReference" type="text" maxlength="120" placeholder="Reference number, if already paid">
+    </div>
+    <div class="field">
+      <label for="customerNote">Message (optional)</label>
+      <input id="customerNote" type="text" maxlength="300" placeholder="Add a note for the administrator">
+    </div>
+    <div class="modal-actions">
+      <button type="button" id="cancelRequest" class="btn-light">Cancel</button>
+      <button type="button" id="submitRequest" class="plan-btn">Submit request</button>
+    </div>
+  </div>
+</div>
+
+<footer>Kayah · Business, Made Possible.</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC_7nSwcfgoUXEEe2yo9TJw0cp7XiwGF6w",
+  authDomain: "kayah-ecosystem.firebaseapp.com",
+  projectId: "kayah-ecosystem",
+  storageBucket: "kayah-ecosystem.firebasestorage.app",
+  messagingSenderId: "49853785143",
+  appId: "1:49853785143:web:23182e6e11696ac03dcbb2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let userProfile = {};
+let planConfig = {};
+let selectedPlanKey = null;
+let requestBusy = false;
+
+const FALLBACK_PLANS = {
+  free: {
+    name: "Free",
+    price: 0,
+    billingDays: 0,
+    productLimit: 30,
+    staffLimit: 1,
+    unlimitedStaff: false,
+    enabled: true,
+    description: "Essential tools to get started"
+  },
+  starter: {
+    name: "Starter",
+    price: 149,
+    billingDays: 30,
+    productLimit: 150,
+    staffLimit: 3,
+    unlimitedStaff: false,
+    enabled: true,
+    description: "For small and growing businesses"
+  },
+  business: {
+    name: "Business",
+    price: 299,
+    billingDays: 30,
+    productLimit: 500,
+    staffLimit: 10,
+    unlimitedStaff: false,
+    enabled: true,
+    description: "For established businesses"
+  },
+  pro: {
+    name: "Pro",
+    price: 499,
+    billingDays: 30,
+    productLimit: 2000,
+    staffLimit: 0,
+    unlimitedStaff: true,
+    enabled: true,
+    description: "Advanced capacity for larger teams"
+  }
+};
+
+function showNotice(message, type = "info") {
+  const el = $("notice");
+  el.textContent = message;
+  el.className = "notice show " + type;
+  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
+}
+
+function money(value) {
+  const n = Number(value);
+  return "₱" + (Number.isFinite(n) ? n.toLocaleString("en-PH") : "0");
+}
+
+function asDate(value) {
+  if (!value) return null;
+  if (value.toDate && typeof value.toDate === "function") return value.toDate();
+  if (typeof value === "number") {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  if (typeof value === "string") {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  if (value.seconds) return new Date(value.seconds * 1000);
+  return null;
+}
+
+function formatDate(value) {
+  const d = asDate(value);
+  if (!d) return "Not available";
+  return d.toLocaleDateString("en-PH", {
+    year: "numeric", month: "short", day: "numeric"
+  });
+}
+
+function getTrialEnd(profile) {
+  return asDate(
+    profile.trialEndsAt ||
+    profile.trialEndDate ||
+    profile.trialExpiryDate ||
+    profile.subscriptionEndDate ||
+    profile.subscriptionExpiresAt
+  );
+}
+
+function getCurrentPlanKey(profile) {
+  const key = String(profile.plan || profile.planId || profile.subscriptionPlan || "free").toLowerCase();
+  if (key === "30-day free trial" || key === "30-day trial" || key === "trial") return "free";
+  return key;
+}
+
+function getStatus(profile) {
+  return String(profile.subscriptionStatus || profile.status || (profile.plan === "trial" ? "trial" : "active")).toLowerCase();
+}
+
+function isTrial(profile) {
+  const status = getStatus(profile);
+  return status === "trial" || status === "trialing" || !!profile.isTrial;
+}
+
+function trialIsExpired(profile) {
+  if (!isTrial(profile)) return false;
+  const end = getTrialEnd(profile);
+  return !!end && end.getTime() <= Date.now();
+}
+
+function normalizedPlans(raw) {
+  const source = raw && typeof raw === "object" ? raw : {};
+  const result = {};
+  for (const key of Object.keys(FALLBACK_PLANS)) {
+    result[key] = {
+      ...FALLBACK_PLANS[key],
+      ...(source[key] && typeof source[key] === "object" ? source[key] : {})
+    };
+  }
+  for (const [key, value] of Object.entries(source)) {
+    if (!result[key] && value && typeof value === "object") {
+      result[key] = {
+        name: value.name || key,
+        price: Number(value.price || 0),
+        billingDays: Number(value.billingDays || 30),
+        productLimit: Number(value.productLimit ?? 0),
+        staffLimit: Number(value.staffLimit ?? 0),
+        unlimitedStaff: !!value.unlimitedStaff,
+        enabled: value.enabled !== false,
+        description: value.description || ""
+      };
+    }
+  }
+  return result;
+}
+
+async function loadPlans() {
+  try {
+    const snap = await getDoc(doc(db, "systemSettings", "planConfiguration"));
+    if (snap.exists()) {
+      const data = snap.data();
+      planConfig = normalizedPlans(data.plans || {});
+    } else {
+      planConfig = normalizedPlans(FALLBACK_PLANS);
+      showNotice("Plan settings were not found. Default prices are being displayed. Check Admin → Plans & Offers.", "info");
+    }
+  } catch (error) {
+    console.error("Unable to load plan configuration:", error);
+    planConfig = normalizedPlans(FALLBACK_PLANS);
+    showNotice("Kayah could not read the latest plan settings. Showing default prices for now.", "error");
+  }
+  renderPlans();
+}
+
+async function loadUserProfile(user) {
+  const snap = await getDoc(doc(db, "users", user.uid));
+  if (!snap.exists()) {
+    throw new Error("Your Kayah user profile could not be found in Firestore.");
+  }
+  userProfile = snap.data();
+  renderCurrentSubscription();
+}
+
+function renderCurrentSubscription() {
+  const profile = userProfile || {};
+  const planKey = getCurrentPlanKey(profile);
+  const expiredTrial = trialIsExpired(profile);
+  const actualKey = expiredTrial ? "free" : planKey;
+  const plan = planConfig[actualKey] || planConfig.free || FALLBACK_PLANS.free;
+  const trial = isTrial(profile) && !expiredTrial;
+  const endDate = getTrialEnd(profile);
+
+  $("currentLoading").hidden = true;
+  $("currentContent").hidden = false;
+  $("currentPlan").textContent = expiredTrial ? "Free" : (plan.name || "Free");
+  $("currentPrice").textContent = money(plan.price) + "/month";
+  $("currentEndDate").textContent = endDate ? formatDate(endDate) : "Not available";
+  $("accountEmail").textContent = currentUser?.email || profile.email || "Not available";
+
+  const status = $("currentStatus");
+  status.className = "status";
+  if (expiredTrial) {
+    status.textContent = "Trial ended · Free plan";
+    status.classList.add("warn");
+    showNotice("Your free trial has ended. Kayah is displaying the Free plan. Secure automatic expiry and plan-limit enforcement must also be configured on the server.", "info");
+  } else if (trial) {
+    status.textContent = "Free trial active";
+  } else if (getStatus(profile) === "pending") {
+    status.textContent = "Plan pending approval";
+    status.classList.add("warn");
+  } else if (getStatus(profile) === "expired") {
+    status.textContent = "Subscription expired";
+    status.classList.add("warn");
+  } else {
+    status.textContent = "Current plan";
+  }
+
+  const progressWrap = $("trialProgressWrap");
+  if (trial && endDate) {
+    const start = asDate(profile.trialStartedAt || profile.trialStartDate || profile.createdAt);
+    const total = start ? Math.max(1, endDate.getTime() - start.getTime()) : 30 * 86400000;
+    const remainingMs = Math.max(0, endDate.getTime() - Date.now());
+    const days = Math.ceil(remainingMs / 86400000);
+    const elapsed = Math.min(100, Math.max(0, 100 - remainingMs / total * 100));
+    progressWrap.hidden = false;
+    $("trialProgressLabel").textContent = "30-day free trial";
+    $("trialDaysLabel").textContent = days + (days === 1 ? " day remaining" : " days remaining");
+    $("trialProgressFill").style.width = elapsed + "%";
+  } else {
+    progressWrap.hidden = true;
+  }
+}
+
+function featureList(plan) {
+  const productLimit = Number(plan.productLimit ?? 0);
+  const staffLimit = Number(plan.staffLimit ?? 0);
+  const staff = plan.unlimitedStaff ? "Unlimited staff members" :
+    `${staffLimit} staff member${staffLimit === 1 ? "" : "s"}`;
+  return [
+    productLimit > 0 ? `${productLimit.toLocaleString("en-PH")} products` : "Product capacity set by plan",
+    staff,
+    "Business records saved in your account",
+    "Access to enabled Kayah features"
+  ];
+}
+
+function renderPlans() {
+  const container = $("plans");
+  const order = ["free", "starter", "business", "pro"];
+  const keys = order.filter(key => planConfig[key]);
+  for (const key of Object.keys(planConfig)) {
+    if (!keys.includes(key)) keys.push(key);
+  }
+
+  const visible = keys.filter(key => planConfig[key].enabled !== false);
+  if (!visible.length) {
+    container.innerHTML = '<div class="loading">No plans are currently available. Please contact the administrator.</div>';
+    return;
+  }
+
+  const currentKey = trialIsExpired(userProfile) ? "free" : getCurrentPlanKey(userProfile);
+
+  container.innerHTML = visible.map(key => {
+    const plan = planConfig[key];
+    const current = key === currentKey;
+    const featured = key === "business";
+    const price = Number(plan.price || 0);
+    const features = featureList(plan);
+    const buttonLabel = current ? "Current plan" : (price === 0 ? "Request Free plan" : "Choose plan");
+
+    return `
+      <article class="plan ${featured ? "featured" : ""}">
+        ${featured ? '<span class="plan-tag">POPULAR</span>' : ""}
+        <h3>${escapeHtml(plan.name || key)}</h3>
+        <div class="plan-description">${escapeHtml(plan.description || "A plan for your business")}</div>
+        <div class="price">${money(price)}<small>/month</small></div>
+        <div class="billing-note">${price === 0 ? "No monthly fee" : "Billed monthly"}</div>
+        <div class="plan-divider"></div>
+        <div class="feature-heading">Plan includes</div>
+        <ul class="features">
+          ${features.map(item => `<li><span class="check">✓</span><span>${escapeHtml(item)}</span></li>`).join("")}
+        </ul>
+        <button class="plan-btn ${current ? "secondary" : ""}" data-plan="${escapeHtml(key)}" ${current ? "disabled" : ""}>
+          ${buttonLabel}
+        </button>
+        <div class="plan-footnote">${current ? "This is the plan currently shown for your account." : (price === 0 ? "A request may require approval." : "Paid access is not activated until payment is verified.")}</div>
+      </article>`;
+  }).join("");
+
+  container.querySelectorAll("[data-plan]").forEach(button => {
+    button.addEventListener("click", () => openRequest(button.dataset.plan));
+  });
+}
+
+function openRequest(planKey) {
+  const plan = planConfig[planKey];
+  if (!plan || plan.enabled === false) {
+    showNotice("This plan is not currently available.", "error");
+    return;
+  }
+  selectedPlanKey = planKey;
+  $("modalTitle").textContent = "Request " + plan.name;
+  $("modalDescription").textContent = plan.price > 0
+    ? `You are requesting ${plan.name} at ${money(plan.price)} per month. Submitting this request does not activate the paid plan.`
+    : "You are requesting the Free plan. Your account may need approval before the plan is changed.";
+  $("paymentReference").value = "";
+  $("customerNote").value = "";
+  $("paymentInstructions").hidden = true;
+  $("requestModal").classList.add("open");
+}
+
+function closeModal() {
+  $("requestModal").classList.remove("open");
+  selectedPlanKey = null;
+}
+
+async function submitPlanRequest() {
+  if (requestBusy || !currentUser || !selectedPlanKey) return;
+
+  const plan = planConfig[selectedPlanKey];
+  if (!plan) return;
+
+  requestBusy = true;
+  $("submitRequest").disabled = true;
+  $("submitRequest").textContent = "Submitting...";
+
+  try {
+    const requests = collection(db, "users", currentUser.uid, "subscriptionRequests");
+    await addDoc(requests, {
+      userId: currentUser.uid,
+      email: currentUser.email || "",
+      businessName: userProfile.businessName || userProfile.companyName || "",
+      requestedPlan: selectedPlanKey,
+      requestedPlanName: plan.name || selectedPlanKey,
+      requestedPrice: Number(plan.price || 0),
+      billingDays: Number(plan.billingDays || 30),
+      paymentReference: $("paymentReference").value.trim(),
+      customerNote: $("customerNote").value.trim(),
+      status: "pending",
+      createdAt: serverTimestamp()
+    });
+
+    closeModal();
+    showNotice("Your plan request was submitted. It has not activated a paid subscription. Please wait for the administrator to review it.", "success");
+    await loadRequestHistory();
+  } catch (error) {
+    console.error("Unable to submit subscription request:", error);
+    showNotice(
+      "Could not submit your request. Your Firestore rules may need permission for users/{uid}/subscriptionRequests. No plan has been changed.",
+      "error"
+    );
+  } finally {
+    requestBusy = false;
+    $("submitRequest").disabled = false;
+    $("submitRequest").textContent = "Submit request";
+  }
+}
+
+async function loadRequestHistory() {
+  if (!currentUser) return;
+  try {
+    const requests = collection(db, "users", currentUser.uid, "subscriptionRequests");
+    const q = query(requests, orderBy("createdAt", "desc"), limit(10));
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      $("historyContent").innerHTML = '<div class="empty">No subscription requests yet. Your requests will appear here after you submit one.</div>';
+      return;
+    }
+
+    $("historyContent").innerHTML = `
+      <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:420px">
+        <thead><tr style="text-align:left;color:#718078">
+          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Plan</th>
+          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Price</th>
+          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Status</th>
+          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Date</th>
+        </tr></thead>
+        <tbody>
+          ${snap.docs.map(d => {
+            const r = d.data();
+            const status = String(r.status || "pending");
+            const created = r.createdAt?.toDate ? r.createdAt.toDate().toLocaleDateString("en-PH") : "—";
+            return `<tr>
+              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee;font-weight:700">${escapeHtml(r.requestedPlanName || r.requestedPlan || "Plan")}</td>
+              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${money(r.requestedPrice)}/mo</td>
+              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${escapeHtml(status)}</td>
+              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${escapeHtml(created)}</td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table></div>`;
+  } catch (error) {
+    console.warn("Could not load subscription history:", error);
+    $("historyContent").innerHTML = '<div class="empty">Request history is not available yet. Firestore read permissions may need to be configured.</div>';
+  }
+}
+
+$("cancelRequest").addEventListener("click", closeModal);
+$("submitRequest").addEventListener("click", submitPlanRequest);
+$("requestModal").addEventListener("click", event => {
+  if (event.target === $("requestModal")) closeModal();
+});
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  if (!user) {
+    $("currentLoading").textContent = "Please sign in to view your subscription.";
+    $("plans").innerHTML = '<div class="loading">Sign in to your Kayah account to view and request a plan.</div>';
+    $("historyContent").textContent = "Sign in to view subscription request history.";
+    return;
+  }
+
+  try {
+    await loadPlans();
+    await loadUserProfile(user);
+    renderPlans();
+    await loadRequestHistory();
+  } catch (error) {
+    console.error(error);
+    $("currentLoading").textContent = error.message || "Unable to load your account.";
+    $("plans").innerHTML = '<div class="loading">We could not load your subscription. Please refresh or contact support.</div>';
+    showNotice("Unable to load your account information. Check your Firebase Authentication and Firestore rules.", "error");
+  }
+});
+</script>
+</body>
+</html>
