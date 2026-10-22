@@ -8,218 +8,74 @@
 <title>Subscription - Kayah</title>
 
 <style>
-:root {
-  --g:#0B4F3A;
-  --g2:#16805C;
-  --gold:#F2B84B;
-  --cream:#F7F3E8;
-  --white:#fff;
-  --text:#24332c;
-  --muted:#6b7770;
-  --line:#e2e8e3;
-  --red:#b42318;
-  --blue:#175cd3;
-  --shadow:0 8px 28px rgba(11,79,58,.08);
+:root{
+  --g:#0B4F3A;--g2:#16805C;--gold:#F2B84B;
+  --cream:#F7F3E8;--text:#24332c;--muted:#6b7770;
+  --line:#e2e8e3;--shadow:0 8px 28px rgba(11,79,58,.08)
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:#f5f7f5;
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-}
+body{margin:0;background:#f5f7f5;color:var(--text);font-family:Arial,Helvetica,sans-serif}
 button,input,textarea{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.6;cursor:not-allowed}
-.topbar{
-  background:var(--g);
-  color:#fff;
-  padding:17px 20px;
-}
-.top-inner{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:21px;
-  font-weight:800;
-}
-.brand-mark{
-  width:39px;height:39px;
-  display:grid;place-items:center;
-  background:var(--gold);
-  color:var(--g);
-  border-radius:11px;
-  font-weight:900;
-}
-.top-sub{font-size:12px;color:#d8e8df;margin-top:3px}
-.back-btn{
-  background:#ffffff18;
-  color:#fff;
-  border:1px solid #ffffff40;
-  padding:10px 13px;
-  border-radius:10px;
-  text-decoration:none;
-  white-space:nowrap;
-  font-size:13px;
-}
-.container{
-  width:min(1100px,100%);
-  margin:auto;
-  padding:24px 16px 45px;
-}
+.topbar{background:var(--g);color:#fff;padding:15px 20px}
+.top-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-logo{width:46px;height:46px;border-radius:12px;background:var(--gold);object-fit:contain;display:grid;place-items:center;flex-shrink:0;color:var(--g);font-size:24px;font-weight:900}
+.brand-copy{min-width:0}
+.brand-name{font-size:20px;font-weight:800;overflow-wrap:anywhere}
+.brand-tagline{font-size:11px;color:#d8e8df;margin-top:4px}
+.back-btn{background:#ffffff18;color:#fff;border:1px solid #ffffff40;padding:10px 12px;border-radius:10px;text-decoration:none;white-space:nowrap;font-size:12px}
+.container{width:min(1100px,100%);margin:auto;padding:24px 16px 45px}
 .page-heading{margin-bottom:22px}
 .page-heading h1{margin:0 0 8px;font-size:28px;color:var(--g)}
 .page-heading p{margin:0;color:var(--muted);line-height:1.6}
-.panel{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:20px;
-  box-shadow:var(--shadow);
-  margin-bottom:20px;
-}
+.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:var(--shadow);margin-bottom:20px}
 .panel h2{font-size:18px;margin:0 0 15px;color:var(--g)}
-.current-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-}
-.stat{
-  padding:15px;
-  border-radius:13px;
-  background:#f5f8f5;
-  border:1px solid var(--line);
-  min-width:0;
-}
+.current-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{padding:15px;border-radius:13px;background:#f5f8f5;border:1px solid var(--line);min-width:0}
 .stat-label{font-size:12px;color:var(--muted);margin-bottom:8px}
 .stat-value{font-size:20px;font-weight:800;color:var(--g);overflow-wrap:anywhere}
 .stat-sub{font-size:12px;color:var(--muted);margin-top:5px}
-.notice{
-  padding:13px 15px;
-  border-radius:11px;
-  line-height:1.55;
-  font-size:13px;
-  margin-top:14px;
-}
+.notice{padding:13px 15px;border-radius:11px;line-height:1.6;font-size:13px;margin-top:14px}
 .notice.info{background:#eff6ff;color:#1849a9;border:1px solid #c7d7fe}
 .notice.success{background:#ecfdf3;color:#067647;border:1px solid #abefc6}
 .notice.warning{background:#fffaeb;color:#93370d;border:1px solid #fedf89}
 .notice.error{background:#fef3f2;color:#b42318;border:1px solid #fecdca}
-.section-title{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:12px;margin:26px 0 14px;
-}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 14px}
 .section-title h2{margin:0;color:var(--g);font-size:22px}
 .section-title p{margin:5px 0 0;color:var(--muted);font-size:13px}
-.plan-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:14px;
-}
-.plan-card{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:19px 16px;
-  min-width:0;
-  box-shadow:var(--shadow);
-}
+.plan-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.plan-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px 16px;min-width:0;box-shadow:var(--shadow)}
 .plan-card.current{border:2px solid var(--g)}
 .plan-card.featured{border:2px solid var(--gold)}
-.plan-tag{
-  display:inline-block;
-  align-self:flex-start;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.5px;
-  background:var(--cream);
-  color:var(--g);
-  padding:5px 8px;
-  border-radius:20px;
-  margin-bottom:10px;
-}
+.plan-tag{display:inline-block;align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.5px;background:var(--cream);color:var(--g);padding:5px 8px;border-radius:20px;margin-bottom:10px}
 .plan-card h3{margin:0 0 8px;font-size:18px;color:var(--g)}
 .price{font-size:27px;font-weight:900;color:var(--g);margin:4px 0}
 .price small{font-size:12px;font-weight:500;color:var(--muted)}
 .plan-desc{font-size:12px;color:var(--muted);line-height:1.5;min-height:36px}
-.plan-features{
-  list-style:none;padding:0;margin:17px 0;
-  font-size:13px;line-height:1.8;flex:1;
-}
+.plan-features{list-style:none;padding:0;margin:17px 0;font-size:13px;line-height:1.8;flex:1}
 .plan-features li:before{content:"✓";color:var(--g2);font-weight:900;margin-right:7px}
-.btn{
-  border:0;border-radius:10px;
-  padding:12px 14px;font-weight:800;
-  transition:.15s;
-}
+.btn{border:0;border-radius:10px;padding:12px 14px;font-weight:800}
 .btn-primary{background:var(--g);color:#fff}
 .btn-primary:hover{background:var(--g2)}
 .btn-gold{background:var(--gold);color:#24332c}
 .btn-light{background:#edf3ef;color:var(--g)}
 .btn-block{width:100%}
-.btn-small{padding:8px 10px;font-size:12px}
-.btn-outline{background:#fff;border:1px solid var(--line);color:var(--g)}
-.payment-layout{
-  display:grid;
-  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
-  gap:22px;
-  align-items:start;
-}
-.qr-box{
-  background:var(--cream);
-  border:1px solid #e7dcc1;
-  border-radius:14px;
-  padding:16px;
-  text-align:center;
-}
-.qr-box img{
-  display:block;
-  width:100%;
-  max-width:300px;
-  max-height:350px;
-  object-fit:contain;
-  background:#fff;
-  border-radius:10px;
-  margin:14px auto;
-  border:1px solid #e2e2e2;
-}
+.payment-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+.qr-box{background:var(--cream);border:1px solid #e7dcc1;border-radius:14px;padding:16px;text-align:center}
+.qr-box img{display:block;width:100%;max-width:300px;max-height:350px;object-fit:contain;background:#fff;border-radius:10px;margin:14px auto;border:1px solid #e2e2e2}
 .qr-caption{font-size:12px;color:var(--muted);line-height:1.55}
 .step-list{padding-left:21px;margin:12px 0;line-height:1.8;font-size:13px}
 .field{margin-bottom:15px}
 .field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}
-.field input,.field textarea{
-  width:100%;padding:12px;
-  border:1px solid #cfd8d2;
-  border-radius:10px;background:#fff;
-  outline:none;color:var(--text);
-}
-.field input:focus,.field textarea:focus{
-  border-color:var(--g2);
-  box-shadow:0 0 0 3px #16805c18;
-}
+.field input,.field textarea{width:100%;padding:12px;border:1px solid #cfd8d2;border-radius:10px;background:#fff;outline:none;color:var(--text)}
+.field input:focus,.field textarea:focus{border-color:var(--g2);box-shadow:0 0 0 3px #16805c18}
 .field textarea{min-height:82px;resize:vertical}
 .help{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
-.payment-amount{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;background:#f3f8f4;border-radius:12px;
-  padding:14px;margin-bottom:17px;
-}
+.payment-amount{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#f3f8f4;border-radius:12px;padding:14px;margin-bottom:17px}
 .payment-amount strong{font-size:23px;color:var(--g)}
-.status-pill{
-  display:inline-block;padding:5px 9px;border-radius:20px;
-  background:#fff4d6;color:#854d0e;font-size:11px;font-weight:800;
-}
+.status-pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#fff4d6;color:#854d0e;font-size:11px;font-weight:800}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:590px}
 th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:12px}
@@ -230,23 +86,14 @@ td{line-height:1.5}
 .small{font-size:12px;color:var(--muted);line-height:1.6}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 .loading{color:var(--muted);font-size:13px;padding:12px 0}
-@media(max-width:850px){
-  .plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .payment-layout{grid-template-columns:1fr}
-}
+@media(max-width:850px){.plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.payment-layout{grid-template-columns:1fr}}
 @media(max-width:520px){
-  .container{padding:18px 12px 30px}
-  .topbar{padding:13px}
-  .brand{font-size:18px}
-  .brand-mark{width:34px;height:34px}
-  .top-sub{font-size:10px}
-  .back-btn{font-size:11px;padding:9px}
-  .page-heading h1{font-size:24px}
-  .panel{padding:15px}
-  .current-grid{grid-template-columns:1fr}
-  .plan-grid{grid-template-columns:1fr}
-  .plan-card{padding:18px}
-  .plan-desc{min-height:0}
+  .container{padding:18px 12px 30px}.topbar{padding:13px}
+  .brand-logo{width:38px;height:38px}.brand-name{font-size:16px}
+  .brand-tagline{font-size:10px}.back-btn{font-size:11px;padding:9px}
+  .page-heading h1{font-size:24px}.panel{padding:15px}
+  .current-grid,.plan-grid{grid-template-columns:1fr}
+  .plan-card{padding:18px}.plan-desc{min-height:0}
   .section-title h2{font-size:20px}
 }
 </style>
@@ -256,10 +103,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 <header class="topbar">
   <div class="top-inner">
     <div class="brand">
-      <div class="brand-mark">K</div>
-      <div>
-        <div>Kayah</div>
-        <div class="top-sub">Business, Made Possible.</div>
+      <img id="businessLogo" class="brand-logo hidden" alt="Business logo">
+      <div id="brandFallback" class="brand-logo">K</div>
+      <div class="brand-copy">
+        <div id="businessName" class="brand-name">Kayah</div>
+        <div id="businessTagline" class="brand-tagline">Business, Made Possible.</div>
       </div>
     </div>
     <a class="back-btn" href="../business-profile/">← Business Profile</a>
@@ -268,8 +116,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 
 <main class="container">
   <div class="page-heading">
-    <h1>Subscription & Plans</h1>
-    <p>Manage your Kayah plan, review your usage, and submit subscription payments securely.</p>
+    <h1>Subscription &amp; Plans</h1>
+    <p>Manage your subscription, review your plan, and submit payment for verification.</p>
   </div>
 
   <section class="panel">
@@ -307,7 +155,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 
   <section id="paymentSection" class="panel hidden" style="margin-top:24px">
     <h2>Pay with GCash</h2>
-    <p class="small">Follow the instructions below. Your subscription will not change until your payment has been verified and approved.</p>
+    <p class="small">Scan the QR code assigned to your selected plan. Pay the exact amount shown below.</p>
 
     <div class="payment-amount">
       <div>
@@ -324,53 +172,59 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
     <div class="payment-layout">
       <div>
         <div class="qr-box">
-          <strong>Scan this GCash QR code</strong>
-          <img src="../gcashqr.png"
-               alt="Kayah subscription GCash QR code"
-               id="gcashQrImage">
+          <strong id="qrHeading">Scan this GCash QR code</strong>
+          <img src="../gcashqr.png" alt="Subscription payment QR code" id="gcashQrImage">
+          <div id="qrFilename" class="small"></div>
           <div class="qr-caption">
-            Open your GCash app, scan the QR code, and check the recipient details before sending payment.
+            Open GCash, scan the QR code, and verify the recipient details before sending your payment.
           </div>
           <div id="qrError" class="notice error hidden">
-            The QR image could not be loaded. Please contact Kayah support before paying.
+            This plan's QR image could not be loaded. Please contact Kayah support before paying.
           </div>
         </div>
-
         <ol class="step-list">
           <li>Open your GCash app.</li>
-          <li>Scan the QR code shown here.</li>
-          <li>Check the recipient details and enter the exact amount displayed above.</li>
-          <li>Confirm your payment in GCash.</li>
-          <li>Return to Kayah and enter the transaction reference number from your receipt.</li>
+          <li>Scan the QR code displayed for your chosen plan.</li>
+          <li>Confirm the recipient and pay the exact amount shown above.</li>
+          <li>Wait for GCash to confirm the transaction.</li>
+          <li>Enter your mobile number and the reference number from your receipt below.</li>
         </ol>
       </div>
 
       <div>
         <div class="notice warning" style="margin-top:0">
           <strong>Payment Under Verification</strong><br>
-          After submitting your reference number, your request will be marked as pending verification. Your selected plan will not activate immediately.
+          Your subscription will remain pending until the Kayah administrator verifies and approves your payment.
         </div>
 
         <form id="paymentForm">
           <div class="field">
+            <label for="customerMobile">Mobile Number for SMS Notification *</label>
+            <input id="customerMobile" name="customerMobile" type="tel"
+              inputmode="tel" autocomplete="tel" maxlength="20" required
+              placeholder="09XXXXXXXXX or +639XXXXXXXXX">
+            <div class="help">Enter an active Philippine mobile number for your subscription notification.</div>
+          </div>
+
+          <div class="field">
             <label for="referenceNo">GCash Transaction Reference Number *</label>
-            <input id="referenceNo" name="referenceNo"
-                   type="text" required maxlength="100"
-                   autocomplete="off"
-                   placeholder="Enter the reference number from your receipt">
-            <div class="help">Enter the transaction reference number exactly as shown on your successful GCash payment receipt.</div>
+            <input id="referenceNo" name="referenceNo" type="text"
+              required maxlength="100" autocomplete="off"
+              placeholder="Enter the reference number from your receipt">
           </div>
 
           <div class="field">
             <label for="paymentNote">Additional Note (optional)</label>
-            <textarea id="paymentNote" name="paymentNote"
-                      maxlength="500"
-                      placeholder="Optional information about your payment"></textarea>
+            <textarea id="paymentNote" name="paymentNote" maxlength="500"
+              placeholder="Optional information about your payment"></textarea>
           </div>
 
           <div class="notice info">
             <strong>What happens next?</strong><br>
-            Kayah will save your payment request for administrator verification. Once the payment is verified and approved, your plan and subscription dates will be updated. Please do not submit another payment for the same request while it is pending.
+            Your request will be submitted for administrator verification. Once your payment is verified and approved, your subscription plan and dates will be updated automatically through the approval process.
+            <br><br>
+            <strong>SMS Notification</strong><br>
+            You will receive an SMS notification at the mobile number you provided once your payment is verified and approved, after Kayah's SMS notification service has been connected.
           </div>
 
           <button class="btn btn-primary btn-block" id="submitPaymentBtn" type="submit">
@@ -387,7 +241,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 
   <section class="panel" style="margin-top:24px">
     <h2>Subscription Request History</h2>
-    <p class="small">Check the status of your submitted subscription requests below.</p>
+    <p class="small">Review the status of your submitted subscription requests.</p>
     <div id="historyLoading" class="loading">Loading your request history...</div>
     <div class="table-wrap">
       <table>
@@ -406,27 +260,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
       </table>
     </div>
   </section>
-
-  <footer>Kayah — Business, Made Possible.</footer>
+  <footer id="pageFooter">Kayah — Business, Made Possible.</footer>
 </main>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getAuth,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  getDocs,
-  serverTimestamp
+  getFirestore, doc, getDoc, collection, addDoc,
+  query, orderBy, limit, getDocs, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -441,7 +283,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 const $ = id => document.getElementById(id);
 
 let currentUser = null;
@@ -452,31 +293,17 @@ let planConfigLoaded = false;
 let submitting = false;
 
 const fallbackPlans = [
-  {
-    id:"free", name:"Free", price:0, billingDays:0,
-    productLimit:30, staffLimit:1,
-    unlimitedStaff:false, enabled:true,
-    description:"For getting started with Kayah."
-  },
-  {
-    id:"starter", name:"Starter", price:149, billingDays:30,
-    productLimit:150, staffLimit:3,
-    unlimitedStaff:false, enabled:true,
-    description:"For growing small businesses."
-  },
-  {
-    id:"business", name:"Business", price:299, billingDays:30,
-    productLimit:500, staffLimit:10,
-    unlimitedStaff:false, enabled:true,
-    description:"For expanding businesses."
-  },
-  {
-    id:"pro", name:"Pro", price:499, billingDays:30,
-    productLimit:2000, staffLimit:0,
-    unlimitedStaff:true, enabled:true,
-    description:"For businesses that need more capacity."
-  }
+  {id:"free",name:"Free",price:0,billingDays:0,productLimit:30,staffLimit:1,unlimitedStaff:false,enabled:true,description:"For getting started with Kayah."},
+  {id:"starter",name:"Starter",price:149,billingDays:30,productLimit:150,staffLimit:3,unlimitedStaff:false,enabled:true,description:"For growing small businesses."},
+  {id:"business",name:"Business",price:299,billingDays:30,productLimit:500,staffLimit:10,unlimitedStaff:false,enabled:true,description:"For expanding businesses."},
+  {id:"pro",name:"Pro",price:499,billingDays:30,productLimit:2000,staffLimit:0,unlimitedStaff:true,enabled:true,description:"For businesses that need more capacity."}
 ];
+
+const qrFiles = {
+  starter: "../gcashqr.png",
+  business: "../planqr.png",
+  pro: "../proqr.png"
+};
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -485,14 +312,12 @@ function escapeHtml(value) {
 }
 
 function money(value) {
-  return "₱" + Number(value || 0).toLocaleString("en-PH", {
-    maximumFractionDigits:2
-  });
+  return "₱" + Number(value || 0).toLocaleString("en-PH",{maximumFractionDigits:2});
 }
 
 function dateValue(value) {
   if (!value) return null;
-  if (value.toDate && typeof value.toDate === "function") return value.toDate();
+  if (typeof value.toDate === "function") return value.toDate();
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
 }
@@ -500,37 +325,34 @@ function dateValue(value) {
 function formatDate(value) {
   const date = dateValue(value);
   if (!date) return "—";
-  return date.toLocaleDateString("en-PH", {
-    year:"numeric",month:"short",day:"numeric"
-  });
+  return date.toLocaleDateString("en-PH",{year:"numeric",month:"short",day:"numeric"});
 }
 
-function showMessage(id, message, type="info") {
-  const element = $(id);
-  element.className = "notice " + type;
-  element.textContent = message;
-  element.classList.remove("hidden");
+function showMessage(id,message,type="info") {
+  const el = $(id);
+  el.className = "notice " + type;
+  el.textContent = message;
+  el.classList.remove("hidden");
 }
 
 function hideMessage(id) {
   $(id).classList.add("hidden");
 }
 
-function normalizePlan(plan, index) {
-  const id = String(plan.id || plan.key || plan.planId ||
-    plan.name || ("plan-" + index)).toLowerCase().replace(/\s+/g,"-");
-
+function normalizePlan(plan,index) {
+  const rawId = plan.id || plan.key || plan.planId || plan.name || ("plan-" + index);
+  const id = String(rawId).toLowerCase().trim().replace(/\s+/g,"-");
   return {
     ...plan,
     id,
-    name: String(plan.name || plan.title || id),
-    price: Number(plan.price ?? plan.monthlyPrice ?? 0),
-    billingDays: Number(plan.billingDays ?? plan.durationDays ?? (id === "free" ? 0 : 30)),
-    productLimit: Number(plan.productLimit ?? plan.productsLimit ?? 30),
-    staffLimit: Number(plan.staffLimit ?? plan.employeeLimit ?? 1),
-    unlimitedStaff: Boolean(plan.unlimitedStaff || plan.staffUnlimited),
-    enabled: plan.enabled !== false && plan.active !== false,
-    description: String(plan.description || "Kayah business subscription plan.")
+    name:String(plan.name || plan.title || id),
+    price:Number(plan.price ?? plan.monthlyPrice ?? 0),
+    billingDays:Number(plan.billingDays ?? plan.durationDays ?? (id === "free" ? 0 : 30)),
+    productLimit:Number(plan.productLimit ?? plan.productsLimit ?? 30),
+    staffLimit:Number(plan.staffLimit ?? plan.employeeLimit ?? 1),
+    unlimitedStaff:Boolean(plan.unlimitedStaff || plan.staffUnlimited),
+    enabled:plan.enabled !== false && plan.active !== false,
+    description:String(plan.description || "Kayah business subscription plan.")
   };
 }
 
@@ -544,18 +366,54 @@ function getProfilePlanName() {
   );
 }
 
-function findPlanByName(name) {
-  const normalized = String(name || "").trim().toLowerCase();
-  return availablePlans.find(p =>
-    p.id === normalized ||
-    p.name.trim().toLowerCase() === normalized
-  );
+function applyBusinessBranding() {
+  const name = String(
+    userProfile.businessName ||
+    userProfile.business ||
+    userProfile.storeName ||
+    userProfile.companyName ||
+    "Kayah"
+  ).trim();
+
+  const logoUrl = String(
+    userProfile.businessLogoUrl ||
+    userProfile.businessLogo ||
+    userProfile.logoUrl ||
+    userProfile.logo ||
+    userProfile.storeLogo ||
+    ""
+  ).trim();
+
+  $("businessName").textContent = name || "Kayah";
+  $("businessTagline").textContent = name && name !== "Kayah"
+    ? "Powered by Kayah"
+    : "Business, Made Possible.";
+  $("pageFooter").textContent = (name || "Kayah") + " · Powered by Kayah";
+
+  const logo = $("businessLogo");
+  const fallback = $("brandFallback");
+
+  if (logoUrl) {
+    logo.onload = () => {
+      logo.classList.remove("hidden");
+      fallback.classList.add("hidden");
+    };
+    logo.onerror = () => {
+      logo.classList.add("hidden");
+      fallback.classList.remove("hidden");
+    };
+    logo.src = logoUrl;
+  } else {
+    logo.classList.add("hidden");
+    fallback.classList.remove("hidden");
+  }
 }
 
 function renderCurrentSubscription() {
   const now = new Date();
   let planName = getProfilePlanName();
   let status = String(userProfile.subscriptionStatus || userProfile.planStatus || "active");
+
   const trialEnd = dateValue(userProfile.trialEndAt || userProfile.trialEndsAt);
   const expiry = dateValue(
     userProfile.subscriptionEndAt ||
@@ -564,37 +422,35 @@ function renderCurrentSubscription() {
     userProfile.expiresAt
   );
 
-  let isExpiredTrial = false;
   const trialFlag = Boolean(
     userProfile.isTrial ||
     userProfile.trialActive ||
     String(userProfile.subscriptionStatus || "").toLowerCase() === "trial"
   );
 
+  let expiredTrial = false;
   if (trialFlag && trialEnd && trialEnd < now) {
     planName = "Free";
     status = "Trial ended";
-    isExpiredTrial = true;
+    expiredTrial = true;
   }
 
   $("currentPlan").textContent = planName;
   $("currentPlanSub").textContent = "Plan assigned to your account";
   $("currentStatus").textContent = status;
-  $("statusSub").textContent = "See the notes below for your account status";
+  $("statusSub").textContent = "Check the status before renewing";
   $("expiryDate").textContent = formatDate(expiry || (trialFlag ? trialEnd : null));
   $("expirySub").textContent = trialFlag ? "Trial end date, if available" : "Subscription end date, if available";
 
   const notice = $("trialNotice");
   notice.classList.add("hidden");
 
-  if (isExpiredTrial) {
-    notice.textContent =
-      "Your free trial appears to have ended. This page displays the Free plan, but your saved Firebase account has not been changed here. Server-side or trusted admin logic must update your plan and enforce its limits.";
+  if (expiredTrial) {
+    notice.textContent = "Your free trial appears to have ended. This page displays Free for information only; trusted backend or admin logic must update the saved plan and enforce limits.";
     notice.className = "notice warning";
   } else if (trialFlag && trialEnd) {
-    const days = Math.max(0, Math.ceil((trialEnd.getTime() - now.getTime()) / 86400000));
-    notice.textContent = "Your free trial has approximately " + days +
-      " day(s) remaining. Review your plan before the trial ends.";
+    const days = Math.max(0,Math.ceil((trialEnd.getTime()-now.getTime())/86400000));
+    notice.textContent = "Your free trial has approximately " + days + " day(s) remaining.";
     notice.className = "notice info";
   }
 }
@@ -604,18 +460,18 @@ function renderPlans() {
   const grid = $("plansGrid");
   grid.innerHTML = "";
 
-  const enabledPlans = availablePlans.filter(p => p.enabled);
-  const currentName = getProfilePlanName().toLowerCase();
+  const plans = availablePlans.filter(p => p.enabled);
+  const current = getProfilePlanName().toLowerCase();
 
-  if (!enabledPlans.length) {
+  if (!plans.length) {
     grid.innerHTML = '<div class="notice warning">No plans are currently available. Please contact Kayah support.</div>';
     return;
   }
 
-  enabledPlans.forEach(plan => {
-    const isCurrent = currentName === plan.id || currentName === plan.name.toLowerCase();
-    const isFeatured = plan.id === "business";
-    const limitText = plan.productLimit < 0 || plan.unlimitedProducts
+  plans.forEach(plan => {
+    const isCurrent = current === plan.id || current === plan.name.toLowerCase();
+    const featured = plan.id === "business";
+    const productText = plan.productLimit < 0 || plan.unlimitedProducts
       ? "Unlimited products"
       : Number(plan.productLimit).toLocaleString() + " products";
     const staffText = plan.unlimitedStaff || plan.staffLimit < 0
@@ -623,47 +479,43 @@ function renderPlans() {
       : Number(plan.staffLimit).toLocaleString() + " staff account(s)";
 
     const card = document.createElement("div");
-    card.className = "plan-card" + (isCurrent ? " current" : "") + (isFeatured ? " featured" : "");
+    card.className = "plan-card" + (isCurrent ? " current" : "") + (featured ? " featured" : "");
     card.innerHTML = `
-      ${isCurrent ? '<span class="plan-tag">CURRENT PLAN</span>' :
-        isFeatured ? '<span class="plan-tag">POPULAR PLAN</span>' :
-        '<span class="plan-tag">KAYAH PLAN</span>'}
+      <span class="plan-tag">${isCurrent ? "CURRENT PLAN" : featured ? "POPULAR PLAN" : "KAYAH PLAN"}</span>
       <h3>${escapeHtml(plan.name)}</h3>
-      <div class="price">${money(plan.price)}
-        <small>${plan.price > 0 ? "/ " + (plan.billingDays || 30) + " days" : "forever"}</small>
-      </div>
+      <div class="price">${money(plan.price)} <small>${plan.price > 0 ? "/ " + (plan.billingDays || 30) + " days" : "forever"}</small></div>
       <div class="plan-desc">${escapeHtml(plan.description)}</div>
       <ul class="plan-features">
-        <li>${escapeHtml(limitText)}</li>
+        <li>${escapeHtml(productText)}</li>
         <li>${escapeHtml(staffText)}</li>
         <li>Business management tools</li>
       </ul>
-      <button class="btn ${isCurrent ? "btn-light" : isFeatured ? "btn-gold" : "btn-primary"} btn-block"
-        ${isCurrent ? "disabled" : ""}>
+      <button class="btn ${isCurrent ? "btn-light" : featured ? "btn-gold" : "btn-primary"} btn-block" ${isCurrent ? "disabled" : ""}>
         ${isCurrent ? "Current Plan" : plan.price > 0 ? "Choose Plan" : "Request Free Plan"}
       </button>
     `;
 
-    const button = card.querySelector("button");
-    if (!isCurrent) {
-      button.addEventListener("click", () => choosePlan(plan));
-    }
+    if (!isCurrent) card.querySelector("button").addEventListener("click",() => choosePlan(plan));
     grid.appendChild(card);
   });
 }
 
 function choosePlan(plan) {
   if (!currentUser) {
-    showMessage("pageMessage", "Please sign in before choosing a subscription plan.", "warning");
+    showMessage("pageMessage","Please sign in before choosing a subscription plan.","warning");
     return;
   }
 
   if (plan.price <= 0) {
-    showMessage(
-      "pageMessage",
-      "To request the Free plan, please contact the Kayah administrator. This page does not change your plan automatically.",
-      "info"
-    );
+    showMessage("pageMessage","To request the Free plan, please contact the Kayah administrator. This page does not change your plan automatically.","info");
+    return;
+  }
+
+  const key = String(plan.id || plan.name).toLowerCase().trim();
+  const qrPath = qrFiles[key];
+
+  if (!qrPath) {
+    showMessage("pageMessage","A payment QR code is not configured for this plan. Please contact the administrator.","warning");
     return;
   }
 
@@ -671,30 +523,33 @@ function choosePlan(plan) {
   $("selectedPlanName").textContent = plan.name;
   $("selectedPlanPrice").textContent = money(plan.price);
   $("selectedPlanTerm").textContent = "For " + (plan.billingDays || 30) + " days";
+
+  $("gcashQrImage").src = qrPath;
+  $("qrFilename").textContent = "Payment QR: " + qrPath.split("/").pop();
+  $("qrHeading").textContent = "Scan to pay for " + plan.name;
+  $("qrError").classList.add("hidden");
+
+  $("customerMobile").value = "";
   $("referenceNo").value = "";
   $("paymentNote").value = "";
   hideMessage("paymentMessage");
+
   $("paymentSection").classList.remove("hidden");
   $("paymentSection").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-$("cancelPaymentBtn").addEventListener("click", () => {
+$("cancelPaymentBtn").addEventListener("click",() => {
   selectedPlan = null;
   $("paymentSection").classList.add("hidden");
   hideMessage("paymentMessage");
 });
 
-$("gcashQrImage").addEventListener("error", () => {
-  $("qrError").classList.remove("hidden");
-});
-
-$("gcashQrImage").addEventListener("load", () => {
-  $("qrError").classList.add("hidden");
-});
+$("gcashQrImage").addEventListener("error",() => $("qrError").classList.remove("hidden"));
+$("gcashQrImage").addEventListener("load",() => $("qrError").classList.add("hidden"));
 
 async function loadPlans() {
   try {
-    const snap = await getDoc(doc(db, "systemSettings", "planConfiguration"));
+    const snap = await getDoc(doc(db,"systemSettings","planConfiguration"));
     if (snap.exists()) {
       const data = snap.data();
       if (Array.isArray(data.plans) && data.plans.length) {
@@ -703,14 +558,14 @@ async function loadPlans() {
       }
     }
   } catch (error) {
-    console.error("Unable to read plan configuration:", error);
+    console.error("Unable to read plan configuration:",error);
   }
 
   if (!availablePlans.length) {
     availablePlans = fallbackPlans.map(normalizePlan);
     showMessage(
       "pageMessage",
-      "Kayah could not confirm the live plan configuration. Displayed prices are defaults and should be checked with the administrator before payment.",
+      "Kayah could not confirm the live plan configuration. Default prices are shown for reference only. Payment submission is disabled until the official plan configuration is available.",
       "warning"
     );
   }
@@ -720,37 +575,32 @@ async function loadPlans() {
 
 async function loadRequestHistory() {
   $("historyLoading").classList.remove("hidden");
-  const body = $("historyBody");
-  body.innerHTML = "";
+  $("historyBody").innerHTML = "";
 
   try {
-    const requestsRef = collection(db, "users", currentUser.uid, "subscriptionRequests");
-    let snapshot;
+    const ref = collection(db,"users",currentUser.uid,"subscriptionRequests");
+    let snap;
 
     try {
-      snapshot = await getDocs(query(requestsRef, orderBy("createdAt", "desc"), limit(20)));
-    } catch (orderError) {
-      snapshot = await getDocs(query(requestsRef, limit(20)));
+      snap = await getDocs(query(ref,orderBy("createdAt","desc"),limit(20)));
+    } catch {
+      snap = await getDocs(query(ref,limit(20)));
     }
 
     $("historyLoading").classList.add("hidden");
 
-    if (snapshot.empty) {
-      body.innerHTML = '<tr><td colspan="5" class="empty">No subscription requests yet.</td></tr>';
+    if (snap.empty) {
+      $("historyBody").innerHTML = '<tr><td colspan="5" class="empty">No subscription requests yet.</td></tr>';
       return;
     }
 
-    const items = snapshot.docs.map(d => ({id:d.id,...d.data()}));
-    items.sort((a,b) => {
-      const ad = dateValue(a.createdAt)?.getTime() || 0;
-      const bd = dateValue(b.createdAt)?.getTime() || 0;
-      return bd - ad;
-    });
+    const items = snap.docs.map(d => ({id:d.id,...d.data()}));
+    items.sort((a,b) => (dateValue(b.createdAt)?.getTime() || 0) - (dateValue(a.createdAt)?.getTime() || 0));
 
     items.forEach(item => {
       const tr = document.createElement("tr");
-      const status = String(item.status || "pending").toLowerCase();
-      const statusText = status.replace(/[_-]/g," ").replace(/\b\w/g,c => c.toUpperCase());
+      const status = String(item.status || "pending").replace(/[_-]/g," ");
+      const statusText = status.replace(/\b\w/g,c => c.toUpperCase());
       tr.innerHTML = `
         <td>${escapeHtml(formatDate(item.createdAt))}</td>
         <td>${escapeHtml(item.requestedPlanName || item.requestedPlan || "—")}</td>
@@ -758,93 +608,96 @@ async function loadRequestHistory() {
         <td>${escapeHtml(item.paymentReference || item.referenceNo || "—")}</td>
         <td><span class="status-pill">${escapeHtml(statusText)}</span></td>
       `;
-      body.appendChild(tr);
+      $("historyBody").appendChild(tr);
     });
   } catch (error) {
-    console.error("Unable to load subscription history:", error);
+    console.error("Unable to load subscription history:",error);
     $("historyLoading").classList.add("hidden");
-    body.innerHTML = '<tr><td colspan="5" class="empty">Unable to load request history. Check your Firestore rules.</td></tr>';
+    $("historyBody").innerHTML = '<tr><td colspan="5" class="empty">Unable to load request history. Check your Firestore rules.</td></tr>';
   }
 }
 
-$("paymentForm").addEventListener("submit", async event => {
+$("paymentForm").addEventListener("submit",async event => {
   event.preventDefault();
 
   if (!currentUser || !selectedPlan) {
-    showMessage("paymentMessage", "Please sign in and choose a plan first.", "error");
+    showMessage("paymentMessage","Please sign in and choose a plan first.","error");
     return;
   }
 
   if (!planConfigLoaded) {
-    showMessage(
-      "paymentMessage",
-      "The official plan configuration could not be confirmed. Please contact the administrator before submitting payment.",
-      "error"
-    );
+    showMessage("paymentMessage","The official plan configuration could not be confirmed. Please contact the administrator before submitting payment.","error");
     return;
   }
 
   const reference = $("referenceNo").value.trim();
   const note = $("paymentNote").value.trim();
+  const mobile = $("customerMobile").value.trim();
+
+  if (!mobile) {
+    showMessage("paymentMessage","Please enter your mobile number for the notification.","error");
+    $("customerMobile").focus();
+    return;
+  }
+
+  if (!/^(\+63|0)9\d{9}$/.test(mobile)) {
+    showMessage("paymentMessage","Enter a valid Philippine mobile number, such as 09XXXXXXXXX or +639XXXXXXXXX.","error");
+    $("customerMobile").focus();
+    return;
+  }
 
   if (!reference) {
-    showMessage("paymentMessage", "Enter your GCash transaction reference number.", "error");
+    showMessage("paymentMessage","Enter your GCash transaction reference number.","error");
     $("referenceNo").focus();
     return;
   }
 
   if (submitting) return;
-
   submitting = true;
   $("submitPaymentBtn").disabled = true;
   $("submitPaymentBtn").textContent = "Submitting...";
 
   try {
-    const requestsRef = collection(db, "users", currentUser.uid, "subscriptionRequests");
+    const requestsRef = collection(db,"users",currentUser.uid,"subscriptionRequests");
+    const existing = await getDocs(requestsRef);
 
-    // Prevent another pending request for the same plan from being submitted.
-    const existingSnap = await getDocs(requestsRef);
-    const duplicatePending = existingSnap.docs.some(d => {
+    const duplicate = existing.docs.some(d => {
       const data = d.data();
       const status = String(data.status || "").toLowerCase();
-      const sameReference = String(data.paymentReference || data.referenceNo || "")
-        .trim().toLowerCase() === reference.toLowerCase();
-      const samePlan = String(data.requestedPlan || "").toLowerCase() === selectedPlan.id;
-      return status === "pending" &&
-        (sameReference || samePlan);
+      const oldRef = String(data.paymentReference || data.referenceNo || "").trim().toLowerCase();
+      return status === "pending" && oldRef === reference.toLowerCase();
     });
 
-    if (duplicatePending) {
-      showMessage(
-        "paymentMessage",
-        "You already have a pending request using this reference number or for this plan. Please check your request history before submitting again.",
-        "warning"
-      );
+    if (duplicate) {
+      showMessage("paymentMessage","This reference number already appears in a pending request. Check your request history before submitting again.","warning");
       return;
     }
 
     const requestData = {
-      userId: currentUser.uid,
-      email: currentUser.email || "",
-      businessName: String(userProfile.businessName || userProfile.business || ""),
-      requestedPlan: selectedPlan.id,
-      requestedPlanName: selectedPlan.name,
-      requestedPrice: Number(selectedPlan.price),
-      billingDays: Number(selectedPlan.billingDays || 30),
-      paymentMethod: "GCash QR",
-      paymentReference: reference,
-      customerNote: note,
-      status: "pending",
-      verificationStatus: "pending",
-      activationStatus: "not_activated",
-      createdAt: serverTimestamp()
+      userId:currentUser.uid,
+      email:currentUser.email || "",
+      businessName:String(userProfile.businessName || userProfile.business || userProfile.storeName || ""),
+      requestedPlan:selectedPlan.id,
+      requestedPlanName:selectedPlan.name,
+      requestedPrice:Number(selectedPlan.price),
+      billingDays:Number(selectedPlan.billingDays || 30),
+      paymentMethod:"GCash QR",
+      paymentQrFile:qrFiles[selectedPlan.id],
+      customerMobile:mobile,
+      paymentReference:reference,
+      customerNote:note,
+      status:"pending",
+      verificationStatus:"pending",
+      activationStatus:"not_activated",
+      smsNotificationStatus:"pending_integration",
+      createdAt:serverTimestamp()
     };
 
-    await addDoc(requestsRef, requestData);
+    await addDoc(requestsRef,requestData);
 
     showMessage(
       "paymentMessage",
-      "Your payment reference has been submitted successfully. Payment Under Verification: your plan will change only after the Kayah administrator verifies and approves the payment.",
+      "Your payment request has been submitted. Status: Pending Verification. Your plan will change only after the Kayah administrator verifies and approves your payment. SMS notification delivery will be available after the SMS service is connected.",
       "success"
     );
 
@@ -854,14 +707,14 @@ $("paymentForm").addEventListener("submit", async event => {
     await loadRequestHistory();
 
   } catch (error) {
-    console.error("Subscription request error:", error);
+    console.error("Subscription request error:",error);
     let message = "Unable to submit your request. Please try again.";
     if (error.code === "permission-denied") {
-      message = "Firebase permission denied. Your Firestore rules must allow a signed-in customer to create their own subscription request.";
+      message = "Firebase permission denied. Your Firestore rules must allow signed-in customers to create their own subscription requests.";
     } else if (!navigator.onLine) {
       message = "You appear to be offline. Reconnect and try again.";
     }
-    showMessage("paymentMessage", message, "error");
+    showMessage("paymentMessage",message,"error");
   } finally {
     submitting = false;
     $("submitPaymentBtn").disabled = false;
@@ -869,20 +722,15 @@ $("paymentForm").addEventListener("submit", async event => {
   }
 });
 
-onAuthStateChanged(auth, async user => {
+onAuthStateChanged(auth,async user => {
   currentUser = user;
 
   if (!user) {
     $("currentPlan").textContent = "Not signed in";
     $("currentStatus").textContent = "Sign in required";
     $("expiryDate").textContent = "—";
-    showMessage(
-      "pageMessage",
-      "Please sign in to your Kayah account to view plans and submit a subscription payment.",
-      "warning"
-    );
+    showMessage("pageMessage","Please sign in to view plans and submit a subscription payment.","warning");
     $("plansLoading").textContent = "Sign in to continue.";
-    $("plansLoading").classList.remove("hidden");
     $("plansGrid").innerHTML = "";
     $("paymentSection").classList.add("hidden");
     $("historyLoading").textContent = "Sign in to view your requests.";
@@ -891,17 +739,15 @@ onAuthStateChanged(auth, async user => {
   }
 
   try {
-    const profileSnap = await getDoc(doc(db, "users", user.uid));
-    userProfile = profileSnap.exists() ? profileSnap.data() : {};
+    const profile = await getDoc(doc(db,"users",user.uid));
+    userProfile = profile.exists() ? profile.data() : {};
+    applyBusinessBranding();
     renderCurrentSubscription();
   } catch (error) {
-    console.error("Unable to load user profile:", error);
+    console.error("Unable to load user profile:",error);
     userProfile = {};
-    showMessage(
-      "pageMessage",
-      "Your account profile could not be loaded. Please check your connection and Firebase permissions.",
-      "warning"
-    );
+    applyBusinessBranding();
+    showMessage("pageMessage","Your business profile could not be loaded. Please check your connection and Firebase permissions.","warning");
   }
 
   await loadPlans();
