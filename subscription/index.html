@@ -3,204 +3,251 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B4F3A">
 <title>Subscription - Kayah</title>
 
 <style>
-:root{
+:root {
   --g:#0B4F3A;
   --g2:#16805C;
   --gold:#F2B84B;
   --cream:#F7F3E8;
   --white:#fff;
-  --ink:#17251e;
-  --muted:#718078;
-  --line:#e3e9e4;
+  --text:#24332c;
+  --muted:#6b7770;
+  --line:#e2e8e3;
   --red:#b42318;
-  --shadow:0 8px 28px rgba(11,79,58,.07);
+  --blue:#175cd3;
+  --shadow:0 8px 28px rgba(11,79,58,.08);
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
   background:#f5f7f5;
-  color:var(--ink);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-button,input{font:inherit}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 .topbar{
   background:var(--g);
   color:#fff;
-  padding:16px 20px;
+  padding:17px 20px;
 }
 .top-inner{
-  max-width:1150px;
+  max-width:1100px;
   margin:auto;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:14px;
 }
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
-  width:43px;height:43px;border-radius:12px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:21px;
+  font-weight:800;
+}
+.brand-mark{
+  width:39px;height:39px;
   display:grid;place-items:center;
-  background:var(--gold);color:var(--g);
-  font-weight:900;font-size:21px;
+  background:var(--gold);
+  color:var(--g);
+  border-radius:11px;
+  font-weight:900;
 }
-.brand-name{font-size:20px;font-weight:800}
-.brand-sub{font-size:12px;color:#d4e5dc;margin-top:3px}
-.back-link{
-  color:#fff;text-decoration:none;
-  border:1px solid #ffffff55;
-  border-radius:9px;padding:10px 13px;
-  font-size:13px;font-weight:700;
+.top-sub{font-size:12px;color:#d8e8df;margin-top:3px}
+.back-btn{
+  background:#ffffff18;
+  color:#fff;
+  border:1px solid #ffffff40;
+  padding:10px 13px;
+  border-radius:10px;
+  text-decoration:none;
+  white-space:nowrap;
+  font-size:13px;
 }
-main{max-width:1150px;margin:auto;padding:25px 18px 55px}
-.hero{
-  background:linear-gradient(120deg,#0B4F3A,#16805C);
-  color:white;border-radius:20px;padding:27px;
-  display:flex;justify-content:space-between;
-  align-items:center;gap:20px;flex-wrap:wrap;
+.container{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:24px 16px 45px;
+}
+.page-heading{margin-bottom:22px}
+.page-heading h1{margin:0 0 8px;font-size:28px;color:var(--g)}
+.page-heading p{margin:0;color:var(--muted);line-height:1.6}
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:20px;
   box-shadow:var(--shadow);
+  margin-bottom:20px;
 }
-.hero h1{font-size:clamp(25px,4vw,36px);margin:0 0 9px}
-.hero p{margin:0;color:#e0eee7;line-height:1.6;max-width:620px}
-.hero-mark{
-  width:70px;height:70px;border-radius:20px;
-  background:#ffffff18;border:1px solid #ffffff35;
-  display:grid;place-items:center;font-size:34px;
-}
-.notice{
-  display:none;margin-top:17px;padding:13px 15px;
-  border-radius:10px;font-size:14px;line-height:1.5;
-}
-.notice.show{display:block}
-.notice.info{background:#e9f3ff;color:#174a7c}
-.notice.success{background:#e6f5ec;color:#155b35}
-.notice.error{background:#fff0ef;color:#9f2520}
-.section-title{
-  display:flex;justify-content:space-between;align-items:end;
-  gap:12px;flex-wrap:wrap;margin:28px 0 14px;
-}
-.section-title h2{font-size:22px;margin:0 0 5px;color:var(--g)}
-.section-title p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.current-card{
-  background:#fff;border:1px solid var(--line);
-  border-radius:16px;padding:21px;box-shadow:var(--shadow);
-}
-.current-top{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:14px;flex-wrap:wrap;
-}
-.current-label{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800}
-.current-plan{font-size:26px;font-weight:800;color:var(--g);margin-top:6px}
-.status{
-  display:inline-flex;align-items:center;gap:6px;
-  border-radius:30px;padding:7px 11px;
-  background:#e7f5eb;color:#17653a;
-  font-size:12px;font-weight:800;
-}
-.status.warn{background:#fff3d9;color:#815600}
-.status.neutral{background:#edf0ee;color:#526057}
+.panel h2{font-size:18px;margin:0 0 15px;color:var(--g)}
 .current-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
 }
-.mini-stat{background:#f7f9f7;border-radius:11px;padding:14px}
-.mini-stat .label{font-size:12px;color:var(--muted);margin-bottom:7px}
-.mini-stat .value{font-size:16px;font-weight:800;color:var(--g);overflow-wrap:anywhere}
-.trial-progress{margin-top:17px}
-.progress-head{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
-.progress{height:8px;background:#e7ece8;border-radius:20px;overflow:hidden}
-.progress-fill{height:100%;background:var(--g2);width:0%;transition:width .2s}
-.plans{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;
-  align-items:stretch;
-}
-.plan{
-  position:relative;background:#fff;border:1px solid var(--line);
-  border-radius:16px;padding:20px 17px;
-  display:flex;flex-direction:column;box-shadow:var(--shadow);
+.stat{
+  padding:15px;
+  border-radius:13px;
+  background:#f5f8f5;
+  border:1px solid var(--line);
   min-width:0;
 }
-.plan.featured{border:2px solid var(--g2);padding:19px 16px}
+.stat-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.stat-value{font-size:20px;font-weight:800;color:var(--g);overflow-wrap:anywhere}
+.stat-sub{font-size:12px;color:var(--muted);margin-top:5px}
+.notice{
+  padding:13px 15px;
+  border-radius:11px;
+  line-height:1.55;
+  font-size:13px;
+  margin-top:14px;
+}
+.notice.info{background:#eff6ff;color:#1849a9;border:1px solid #c7d7fe}
+.notice.success{background:#ecfdf3;color:#067647;border:1px solid #abefc6}
+.notice.warning{background:#fffaeb;color:#93370d;border:1px solid #fedf89}
+.notice.error{background:#fef3f2;color:#b42318;border:1px solid #fecdca}
+.section-title{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:12px;margin:26px 0 14px;
+}
+.section-title h2{margin:0;color:var(--g);font-size:22px}
+.section-title p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.plan-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.plan-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:19px 16px;
+  min-width:0;
+  box-shadow:var(--shadow);
+}
+.plan-card.current{border:2px solid var(--g)}
+.plan-card.featured{border:2px solid var(--gold)}
 .plan-tag{
-  position:absolute;right:12px;top:12px;
-  background:#e4f3e9;color:var(--g);
-  padding:5px 8px;border-radius:20px;
-  font-size:10px;font-weight:800;
+  display:inline-block;
+  align-self:flex-start;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.5px;
+  background:var(--cream);
+  color:var(--g);
+  padding:5px 8px;
+  border-radius:20px;
+  margin-bottom:10px;
 }
-.plan h3{margin:0 0 9px;color:var(--g);font-size:20px}
-.plan-description{font-size:12px;color:var(--muted);line-height:1.5;min-height:36px}
-.price{font-size:31px;font-weight:900;letter-spacing:-1px;margin:15px 0 3px;color:var(--g)}
-.price small{font-size:12px;font-weight:500;letter-spacing:0;color:var(--muted)}
-.billing-note{font-size:11px;color:var(--muted);min-height:15px}
-.plan-divider{height:1px;background:var(--line);margin:17px 0}
-.feature-heading{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;margin-bottom:10px}
-.features{list-style:none;padding:0;margin:0 0 22px;flex:1}
-.features li{
-  font-size:12px;line-height:1.45;margin:10px 0;
-  display:flex;gap:8px;align-items:flex-start;
+.plan-card h3{margin:0 0 8px;font-size:18px;color:var(--g)}
+.price{font-size:27px;font-weight:900;color:var(--g);margin:4px 0}
+.price small{font-size:12px;font-weight:500;color:var(--muted)}
+.plan-desc{font-size:12px;color:var(--muted);line-height:1.5;min-height:36px}
+.plan-features{
+  list-style:none;padding:0;margin:17px 0;
+  font-size:13px;line-height:1.8;flex:1;
 }
-.check{color:var(--g2);font-weight:900}
-.plan-btn{
-  width:100%;border:0;border-radius:10px;
-  padding:12px 10px;background:var(--g);color:#fff;
-  font-size:13px;font-weight:800;
+.plan-features li:before{content:"✓";color:var(--g2);font-weight:900;margin-right:7px}
+.btn{
+  border:0;border-radius:10px;
+  padding:12px 14px;font-weight:800;
+  transition:.15s;
 }
-.plan-btn:hover{background:var(--g2)}
-.plan-btn.secondary{background:#e8f1eb;color:var(--g)}
-.plan-btn:disabled{opacity:.55;cursor:not-allowed}
-.plan-footnote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
-.bottom-info{
-  margin-top:22px;padding:17px;background:var(--cream);
-  border-radius:13px;color:#5e5846;font-size:13px;line-height:1.7;
+.btn-primary{background:var(--g);color:#fff}
+.btn-primary:hover{background:var(--g2)}
+.btn-gold{background:var(--gold);color:#24332c}
+.btn-light{background:#edf3ef;color:var(--g)}
+.btn-block{width:100%}
+.btn-small{padding:8px 10px;font-size:12px}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--g)}
+.payment-layout{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:22px;
+  align-items:start;
 }
-.bottom-info strong{color:var(--g)}
-.history-card{
-  background:#fff;border:1px solid var(--line);
-  border-radius:15px;padding:20px;
+.qr-box{
+  background:var(--cream);
+  border:1px solid #e7dcc1;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
 }
-.empty{color:var(--muted);font-size:13px;line-height:1.6}
-.loading{padding:25px;text-align:center;color:var(--muted)}
-.modal-backdrop{
-  display:none;position:fixed;inset:0;background:#10271dcc;
-  z-index:50;padding:18px;align-items:center;justify-content:center;
+.qr-box img{
+  display:block;
+  width:100%;
+  max-width:300px;
+  max-height:350px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:10px;
+  margin:14px auto;
+  border:1px solid #e2e2e2;
 }
-.modal-backdrop.open{display:flex}
-.modal{
-  width:100%;max-width:480px;background:white;
-  border-radius:17px;padding:23px;max-height:90vh;overflow:auto;
+.qr-caption{font-size:12px;color:var(--muted);line-height:1.55}
+.step-list{padding-left:21px;margin:12px 0;line-height:1.8;font-size:13px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}
+.field input,.field textarea{
+  width:100%;padding:12px;
+  border:1px solid #cfd8d2;
+  border-radius:10px;background:#fff;
+  outline:none;color:var(--text);
 }
-.modal h2{margin:0 0 9px;color:var(--g);font-size:22px}
-.modal p{font-size:13px;color:var(--muted);line-height:1.6}
-.field{margin:15px 0}
-.field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
-.field input{
-  width:100%;padding:12px;border:1px solid #ccd7cf;
-  border-radius:9px;background:#fff;
+.field input:focus,.field textarea:focus{
+  border-color:var(--g2);
+  box-shadow:0 0 0 3px #16805c18;
 }
-.modal-actions{display:flex;gap:10px;margin-top:18px}
-.modal-actions button{flex:1}
-.btn-light{
-  background:#edf1ee;color:var(--g);border:0;
-  border-radius:9px;padding:12px;font-weight:800;
+.field textarea{min-height:82px;resize:vertical}
+.help{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
+.payment-amount{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;background:#f3f8f4;border-radius:12px;
+  padding:14px;margin-bottom:17px;
 }
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(max-width:900px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){
-  main{padding:17px 12px 35px}
+.payment-amount strong{font-size:23px;color:var(--g)}
+.status-pill{
+  display:inline-block;padding:5px 9px;border-radius:20px;
+  background:#fff4d6;color:#854d0e;font-size:11px;font-weight:800;
+}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:590px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:12px}
+th{background:#f6f8f6;color:var(--muted);font-weight:800}
+td{line-height:1.5}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.hidden{display:none!important}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+.loading{color:var(--muted);font-size:13px;padding:12px 0}
+@media(max-width:850px){
+  .plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .payment-layout{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .container{padding:18px 12px 30px}
   .topbar{padding:13px}
-  .brand-name{font-size:18px}
-  .hero{padding:21px}
-  .hero-mark{display:none}
+  .brand{font-size:18px}
+  .brand-mark{width:34px;height:34px}
+  .top-sub{font-size:10px}
+  .back-btn{font-size:11px;padding:9px}
+  .page-heading h1{font-size:24px}
+  .panel{padding:15px}
   .current-grid{grid-template-columns:1fr}
-  .plans{grid-template-columns:1fr}
-  .plan,.plan.featured{padding:19px}
-  .plan-description{min-height:0}
-  .back-link{padding:9px;font-size:12px}
+  .plan-grid{grid-template-columns:1fr}
+  .plan-card{padding:18px}
+  .plan-desc{min-height:0}
+  .section-title h2{font-size:20px}
 }
 </style>
 </head>
@@ -209,119 +256,159 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <header class="topbar">
   <div class="top-inner">
     <div class="brand">
-      <div class="logo">K</div>
+      <div class="brand-mark">K</div>
       <div>
-        <div class="brand-name">Kayah</div>
-        <div class="brand-sub">Business, Made Possible.</div>
+        <div>Kayah</div>
+        <div class="top-sub">Business, Made Possible.</div>
       </div>
     </div>
-    <a class="back-link" href="../">← Back to Dashboard</a>
+    <a class="back-btn" href="../business-profile/">← Business Profile</a>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div>
-      <h1>Plans that grow with your business</h1>
-      <p>Manage your Kayah subscription, check your current plan, and choose the tools and capacity your business needs.</p>
-    </div>
-    <div class="hero-mark">✦</div>
-  </section>
-
-  <div id="notice" class="notice" role="status" aria-live="polite"></div>
-
-  <section class="section-title">
-    <div>
-      <h2>Your subscription</h2>
-      <p>Your plan and trial information are loaded from your Kayah account.</p>
-    </div>
-  </section>
-
-  <section class="current-card">
-    <div id="currentLoading" class="loading">Loading your subscription...</div>
-    <div id="currentContent" hidden>
-      <div class="current-top">
-        <div>
-          <div class="current-label">Current plan</div>
-          <div id="currentPlan" class="current-plan">Free</div>
-        </div>
-        <span id="currentStatus" class="status neutral">Checking status</span>
-      </div>
-      <div class="current-grid">
-        <div class="mini-stat">
-          <div class="label">Subscription price</div>
-          <div class="value" id="currentPrice">₱0/month</div>
-        </div>
-        <div class="mini-stat">
-          <div class="label">Trial / renewal end date</div>
-          <div class="value" id="currentEndDate">Not available</div>
-        </div>
-        <div class="mini-stat">
-          <div class="label">Account email</div>
-          <div class="value" id="accountEmail">—</div>
-        </div>
-      </div>
-      <div id="trialProgressWrap" class="trial-progress" hidden>
-        <div class="progress-head">
-          <span id="trialProgressLabel">Free trial</span>
-          <strong id="trialDaysLabel">30 days remaining</strong>
-        </div>
-        <div class="progress"><div id="trialProgressFill" class="progress-fill"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-title">
-    <div>
-      <h2>Choose your plan</h2>
-      <p>Prices and capacity are read from your Admin Plans &amp; Offers settings.</p>
-    </div>
-  </section>
-
-  <section id="plans" class="plans">
-    <div class="loading">Loading available plans...</div>
-  </section>
-
-  <div class="bottom-info">
-    <strong>About your free trial</strong><br>
-    When your 30-day trial ends, Kayah should move your account to the Free plan. Your existing business records should remain saved. If you exceed Free plan limits, you may need to reduce usage or upgrade before adding more items or staff.
-    <br><br>
-    <strong>Payments:</strong> Choosing a paid plan sends a request for review. It does not confirm payment or immediately activate paid access.
+<main class="container">
+  <div class="page-heading">
+    <h1>Subscription & Plans</h1>
+    <p>Manage your Kayah plan, review your usage, and submit subscription payments securely.</p>
   </div>
 
-  <section class="section-title">
+  <section class="panel">
+    <h2>Your Current Subscription</h2>
+    <div class="current-grid">
+      <div class="stat">
+        <div class="stat-label">Current Plan</div>
+        <div class="stat-value" id="currentPlan">Loading...</div>
+        <div class="stat-sub" id="currentPlanSub">Your active plan</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Subscription Status</div>
+        <div class="stat-value" id="currentStatus">Loading...</div>
+        <div class="stat-sub" id="statusSub">Checking account</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Renewal / Expiry Date</div>
+        <div class="stat-value" id="expiryDate">—</div>
+        <div class="stat-sub" id="expirySub">Based on your account data</div>
+      </div>
+    </div>
+    <div id="trialNotice" class="notice info hidden"></div>
+    <div id="pageMessage" class="notice info hidden"></div>
+  </section>
+
+  <div class="section-title">
     <div>
-      <h2>Subscription activity</h2>
-      <p>Requests submitted from this page.</p>
+      <h2>Choose Your Plan</h2>
+      <p>Choose the plan that suits your business.</p>
+    </div>
+  </div>
+
+  <div id="plansLoading" class="loading">Loading available plans...</div>
+  <div id="plansGrid" class="plan-grid"></div>
+
+  <section id="paymentSection" class="panel hidden" style="margin-top:24px">
+    <h2>Pay with GCash</h2>
+    <p class="small">Follow the instructions below. Your subscription will not change until your payment has been verified and approved.</p>
+
+    <div class="payment-amount">
+      <div>
+        <div class="small">Selected plan</div>
+        <strong id="selectedPlanName">Starter</strong>
+        <div class="small" id="selectedPlanTerm">Monthly subscription</div>
+      </div>
+      <div style="text-align:right">
+        <div class="small">Amount to pay</div>
+        <strong id="selectedPlanPrice">₱149</strong>
+      </div>
+    </div>
+
+    <div class="payment-layout">
+      <div>
+        <div class="qr-box">
+          <strong>Scan this GCash QR code</strong>
+          <img src="../gcashqr.png"
+               alt="Kayah subscription GCash QR code"
+               id="gcashQrImage">
+          <div class="qr-caption">
+            Open your GCash app, scan the QR code, and check the recipient details before sending payment.
+          </div>
+          <div id="qrError" class="notice error hidden">
+            The QR image could not be loaded. Please contact Kayah support before paying.
+          </div>
+        </div>
+
+        <ol class="step-list">
+          <li>Open your GCash app.</li>
+          <li>Scan the QR code shown here.</li>
+          <li>Check the recipient details and enter the exact amount displayed above.</li>
+          <li>Confirm your payment in GCash.</li>
+          <li>Return to Kayah and enter the transaction reference number from your receipt.</li>
+        </ol>
+      </div>
+
+      <div>
+        <div class="notice warning" style="margin-top:0">
+          <strong>Payment Under Verification</strong><br>
+          After submitting your reference number, your request will be marked as pending verification. Your selected plan will not activate immediately.
+        </div>
+
+        <form id="paymentForm">
+          <div class="field">
+            <label for="referenceNo">GCash Transaction Reference Number *</label>
+            <input id="referenceNo" name="referenceNo"
+                   type="text" required maxlength="100"
+                   autocomplete="off"
+                   placeholder="Enter the reference number from your receipt">
+            <div class="help">Enter the transaction reference number exactly as shown on your successful GCash payment receipt.</div>
+          </div>
+
+          <div class="field">
+            <label for="paymentNote">Additional Note (optional)</label>
+            <textarea id="paymentNote" name="paymentNote"
+                      maxlength="500"
+                      placeholder="Optional information about your payment"></textarea>
+          </div>
+
+          <div class="notice info">
+            <strong>What happens next?</strong><br>
+            Kayah will save your payment request for administrator verification. Once the payment is verified and approved, your plan and subscription dates will be updated. Please do not submit another payment for the same request while it is pending.
+          </div>
+
+          <button class="btn btn-primary btn-block" id="submitPaymentBtn" type="submit">
+            Submit Payment for Verification
+          </button>
+          <button class="btn btn-light btn-block" id="cancelPaymentBtn" type="button" style="margin-top:9px">
+            Cancel
+          </button>
+          <div id="paymentMessage" class="notice hidden"></div>
+        </form>
+      </div>
     </div>
   </section>
 
-  <section class="history-card">
-    <div id="historyContent" class="empty">Subscription request history will appear here when available.</div>
+  <section class="panel" style="margin-top:24px">
+    <h2>Subscription Request History</h2>
+    <p class="small">Check the status of your submitted subscription requests below.</p>
+    <div id="historyLoading" class="loading">Loading your request history...</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date Submitted</th>
+            <th>Plan</th>
+            <th>Amount</th>
+            <th>Reference No.</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody">
+          <tr><td colspan="5" class="empty">Loading requests...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
+
+  <footer>Kayah — Business, Made Possible.</footer>
 </main>
-
-<div id="requestModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal">
-    <h2 id="modalTitle">Request a plan</h2>
-    <p id="modalDescription">Submit your plan request for review.</p>
-    <div id="paymentInstructions" class="bottom-info" hidden></div>
-    <div class="field">
-      <label for="paymentReference">Payment reference (optional)</label>
-      <input id="paymentReference" type="text" maxlength="120" placeholder="Reference number, if already paid">
-    </div>
-    <div class="field">
-      <label for="customerNote">Message (optional)</label>
-      <input id="customerNote" type="text" maxlength="300" placeholder="Add a note for the administrator">
-    </div>
-    <div class="modal-actions">
-      <button type="button" id="cancelRequest" class="btn-light">Cancel</button>
-      <button type="button" id="submitRequest" class="plan-btn">Submit request</button>
-    </div>
-  </div>
-</div>
-
-<footer>Kayah · Business, Made Possible.</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -336,7 +423,6 @@ import {
   collection,
   addDoc,
   query,
-  where,
   orderBy,
   limit,
   getDocs,
@@ -360,424 +446,466 @@ const $ = id => document.getElementById(id);
 
 let currentUser = null;
 let userProfile = {};
-let planConfig = {};
-let selectedPlanKey = null;
-let requestBusy = false;
+let availablePlans = [];
+let selectedPlan = null;
+let planConfigLoaded = false;
+let submitting = false;
 
-const FALLBACK_PLANS = {
-  free: {
-    name: "Free",
-    price: 0,
-    billingDays: 0,
-    productLimit: 30,
-    staffLimit: 1,
-    unlimitedStaff: false,
-    enabled: true,
-    description: "Essential tools to get started"
+const fallbackPlans = [
+  {
+    id:"free", name:"Free", price:0, billingDays:0,
+    productLimit:30, staffLimit:1,
+    unlimitedStaff:false, enabled:true,
+    description:"For getting started with Kayah."
   },
-  starter: {
-    name: "Starter",
-    price: 149,
-    billingDays: 30,
-    productLimit: 150,
-    staffLimit: 3,
-    unlimitedStaff: false,
-    enabled: true,
-    description: "For small and growing businesses"
+  {
+    id:"starter", name:"Starter", price:149, billingDays:30,
+    productLimit:150, staffLimit:3,
+    unlimitedStaff:false, enabled:true,
+    description:"For growing small businesses."
   },
-  business: {
-    name: "Business",
-    price: 299,
-    billingDays: 30,
-    productLimit: 500,
-    staffLimit: 10,
-    unlimitedStaff: false,
-    enabled: true,
-    description: "For established businesses"
+  {
+    id:"business", name:"Business", price:299, billingDays:30,
+    productLimit:500, staffLimit:10,
+    unlimitedStaff:false, enabled:true,
+    description:"For expanding businesses."
   },
-  pro: {
-    name: "Pro",
-    price: 499,
-    billingDays: 30,
-    productLimit: 2000,
-    staffLimit: 0,
-    unlimitedStaff: true,
-    enabled: true,
-    description: "Advanced capacity for larger teams"
+  {
+    id:"pro", name:"Pro", price:499, billingDays:30,
+    productLimit:2000, staffLimit:0,
+    unlimitedStaff:true, enabled:true,
+    description:"For businesses that need more capacity."
   }
-};
-
-function showNotice(message, type = "info") {
-  const el = $("notice");
-  el.textContent = message;
-  el.className = "notice show " + type;
-  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-}
+];
 
 function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[char]));
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
 }
 
 function money(value) {
-  const n = Number(value);
-  return "₱" + (Number.isFinite(n) ? n.toLocaleString("en-PH") : "0");
-}
-
-function asDate(value) {
-  if (!value) return null;
-  if (value.toDate && typeof value.toDate === "function") return value.toDate();
-  if (typeof value === "number") {
-    const d = new Date(value);
-    return Number.isNaN(d.getTime()) ? null : d;
-  }
-  if (typeof value === "string") {
-    const d = new Date(value);
-    return Number.isNaN(d.getTime()) ? null : d;
-  }
-  if (value.seconds) return new Date(value.seconds * 1000);
-  return null;
-}
-
-function formatDate(value) {
-  const d = asDate(value);
-  if (!d) return "Not available";
-  return d.toLocaleDateString("en-PH", {
-    year: "numeric", month: "short", day: "numeric"
+  return "₱" + Number(value || 0).toLocaleString("en-PH", {
+    maximumFractionDigits:2
   });
 }
 
-function getTrialEnd(profile) {
-  return asDate(
-    profile.trialEndsAt ||
-    profile.trialEndDate ||
-    profile.trialExpiryDate ||
-    profile.subscriptionEndDate ||
-    profile.subscriptionExpiresAt
+function dateValue(value) {
+  if (!value) return null;
+  if (value.toDate && typeof value.toDate === "function") return value.toDate();
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatDate(value) {
+  const date = dateValue(value);
+  if (!date) return "—";
+  return date.toLocaleDateString("en-PH", {
+    year:"numeric",month:"short",day:"numeric"
+  });
+}
+
+function showMessage(id, message, type="info") {
+  const element = $(id);
+  element.className = "notice " + type;
+  element.textContent = message;
+  element.classList.remove("hidden");
+}
+
+function hideMessage(id) {
+  $(id).classList.add("hidden");
+}
+
+function normalizePlan(plan, index) {
+  const id = String(plan.id || plan.key || plan.planId ||
+    plan.name || ("plan-" + index)).toLowerCase().replace(/\s+/g,"-");
+
+  return {
+    ...plan,
+    id,
+    name: String(plan.name || plan.title || id),
+    price: Number(plan.price ?? plan.monthlyPrice ?? 0),
+    billingDays: Number(plan.billingDays ?? plan.durationDays ?? (id === "free" ? 0 : 30)),
+    productLimit: Number(plan.productLimit ?? plan.productsLimit ?? 30),
+    staffLimit: Number(plan.staffLimit ?? plan.employeeLimit ?? 1),
+    unlimitedStaff: Boolean(plan.unlimitedStaff || plan.staffUnlimited),
+    enabled: plan.enabled !== false && plan.active !== false,
+    description: String(plan.description || "Kayah business subscription plan.")
+  };
+}
+
+function getProfilePlanName() {
+  return String(
+    userProfile.planName ||
+    userProfile.subscriptionPlanName ||
+    userProfile.plan ||
+    userProfile.subscriptionPlan ||
+    "Free"
   );
 }
 
-function getCurrentPlanKey(profile) {
-  const key = String(profile.plan || profile.planId || profile.subscriptionPlan || "free").toLowerCase();
-  if (key === "30-day free trial" || key === "30-day trial" || key === "trial") return "free";
-  return key;
+function findPlanByName(name) {
+  const normalized = String(name || "").trim().toLowerCase();
+  return availablePlans.find(p =>
+    p.id === normalized ||
+    p.name.trim().toLowerCase() === normalized
+  );
 }
 
-function getStatus(profile) {
-  return String(profile.subscriptionStatus || profile.status || (profile.plan === "trial" ? "trial" : "active")).toLowerCase();
-}
+function renderCurrentSubscription() {
+  const now = new Date();
+  let planName = getProfilePlanName();
+  let status = String(userProfile.subscriptionStatus || userProfile.planStatus || "active");
+  const trialEnd = dateValue(userProfile.trialEndAt || userProfile.trialEndsAt);
+  const expiry = dateValue(
+    userProfile.subscriptionEndAt ||
+    userProfile.planEndAt ||
+    userProfile.currentPeriodEnd ||
+    userProfile.expiresAt
+  );
 
-function isTrial(profile) {
-  const status = getStatus(profile);
-  return status === "trial" || status === "trialing" || !!profile.isTrial;
-}
+  let isExpiredTrial = false;
+  const trialFlag = Boolean(
+    userProfile.isTrial ||
+    userProfile.trialActive ||
+    String(userProfile.subscriptionStatus || "").toLowerCase() === "trial"
+  );
 
-function trialIsExpired(profile) {
-  if (!isTrial(profile)) return false;
-  const end = getTrialEnd(profile);
-  return !!end && end.getTime() <= Date.now();
-}
-
-function normalizedPlans(raw) {
-  const source = raw && typeof raw === "object" ? raw : {};
-  const result = {};
-  for (const key of Object.keys(FALLBACK_PLANS)) {
-    result[key] = {
-      ...FALLBACK_PLANS[key],
-      ...(source[key] && typeof source[key] === "object" ? source[key] : {})
-    };
+  if (trialFlag && trialEnd && trialEnd < now) {
+    planName = "Free";
+    status = "Trial ended";
+    isExpiredTrial = true;
   }
-  for (const [key, value] of Object.entries(source)) {
-    if (!result[key] && value && typeof value === "object") {
-      result[key] = {
-        name: value.name || key,
-        price: Number(value.price || 0),
-        billingDays: Number(value.billingDays || 30),
-        productLimit: Number(value.productLimit ?? 0),
-        staffLimit: Number(value.staffLimit ?? 0),
-        unlimitedStaff: !!value.unlimitedStaff,
-        enabled: value.enabled !== false,
-        description: value.description || ""
-      };
+
+  $("currentPlan").textContent = planName;
+  $("currentPlanSub").textContent = "Plan assigned to your account";
+  $("currentStatus").textContent = status;
+  $("statusSub").textContent = "See the notes below for your account status";
+  $("expiryDate").textContent = formatDate(expiry || (trialFlag ? trialEnd : null));
+  $("expirySub").textContent = trialFlag ? "Trial end date, if available" : "Subscription end date, if available";
+
+  const notice = $("trialNotice");
+  notice.classList.add("hidden");
+
+  if (isExpiredTrial) {
+    notice.textContent =
+      "Your free trial appears to have ended. This page displays the Free plan, but your saved Firebase account has not been changed here. Server-side or trusted admin logic must update your plan and enforce its limits.";
+    notice.className = "notice warning";
+  } else if (trialFlag && trialEnd) {
+    const days = Math.max(0, Math.ceil((trialEnd.getTime() - now.getTime()) / 86400000));
+    notice.textContent = "Your free trial has approximately " + days +
+      " day(s) remaining. Review your plan before the trial ends.";
+    notice.className = "notice info";
+  }
+}
+
+function renderPlans() {
+  $("plansLoading").classList.add("hidden");
+  const grid = $("plansGrid");
+  grid.innerHTML = "";
+
+  const enabledPlans = availablePlans.filter(p => p.enabled);
+  const currentName = getProfilePlanName().toLowerCase();
+
+  if (!enabledPlans.length) {
+    grid.innerHTML = '<div class="notice warning">No plans are currently available. Please contact Kayah support.</div>';
+    return;
+  }
+
+  enabledPlans.forEach(plan => {
+    const isCurrent = currentName === plan.id || currentName === plan.name.toLowerCase();
+    const isFeatured = plan.id === "business";
+    const limitText = plan.productLimit < 0 || plan.unlimitedProducts
+      ? "Unlimited products"
+      : Number(plan.productLimit).toLocaleString() + " products";
+    const staffText = plan.unlimitedStaff || plan.staffLimit < 0
+      ? "Unlimited staff"
+      : Number(plan.staffLimit).toLocaleString() + " staff account(s)";
+
+    const card = document.createElement("div");
+    card.className = "plan-card" + (isCurrent ? " current" : "") + (isFeatured ? " featured" : "");
+    card.innerHTML = `
+      ${isCurrent ? '<span class="plan-tag">CURRENT PLAN</span>' :
+        isFeatured ? '<span class="plan-tag">POPULAR PLAN</span>' :
+        '<span class="plan-tag">KAYAH PLAN</span>'}
+      <h3>${escapeHtml(plan.name)}</h3>
+      <div class="price">${money(plan.price)}
+        <small>${plan.price > 0 ? "/ " + (plan.billingDays || 30) + " days" : "forever"}</small>
+      </div>
+      <div class="plan-desc">${escapeHtml(plan.description)}</div>
+      <ul class="plan-features">
+        <li>${escapeHtml(limitText)}</li>
+        <li>${escapeHtml(staffText)}</li>
+        <li>Business management tools</li>
+      </ul>
+      <button class="btn ${isCurrent ? "btn-light" : isFeatured ? "btn-gold" : "btn-primary"} btn-block"
+        ${isCurrent ? "disabled" : ""}>
+        ${isCurrent ? "Current Plan" : plan.price > 0 ? "Choose Plan" : "Request Free Plan"}
+      </button>
+    `;
+
+    const button = card.querySelector("button");
+    if (!isCurrent) {
+      button.addEventListener("click", () => choosePlan(plan));
     }
-  }
-  return result;
+    grid.appendChild(card);
+  });
 }
+
+function choosePlan(plan) {
+  if (!currentUser) {
+    showMessage("pageMessage", "Please sign in before choosing a subscription plan.", "warning");
+    return;
+  }
+
+  if (plan.price <= 0) {
+    showMessage(
+      "pageMessage",
+      "To request the Free plan, please contact the Kayah administrator. This page does not change your plan automatically.",
+      "info"
+    );
+    return;
+  }
+
+  selectedPlan = plan;
+  $("selectedPlanName").textContent = plan.name;
+  $("selectedPlanPrice").textContent = money(plan.price);
+  $("selectedPlanTerm").textContent = "For " + (plan.billingDays || 30) + " days";
+  $("referenceNo").value = "";
+  $("paymentNote").value = "";
+  hideMessage("paymentMessage");
+  $("paymentSection").classList.remove("hidden");
+  $("paymentSection").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+$("cancelPaymentBtn").addEventListener("click", () => {
+  selectedPlan = null;
+  $("paymentSection").classList.add("hidden");
+  hideMessage("paymentMessage");
+});
+
+$("gcashQrImage").addEventListener("error", () => {
+  $("qrError").classList.remove("hidden");
+});
+
+$("gcashQrImage").addEventListener("load", () => {
+  $("qrError").classList.add("hidden");
+});
 
 async function loadPlans() {
   try {
     const snap = await getDoc(doc(db, "systemSettings", "planConfiguration"));
     if (snap.exists()) {
       const data = snap.data();
-      planConfig = normalizedPlans(data.plans || {});
-    } else {
-      planConfig = normalizedPlans(FALLBACK_PLANS);
-      showNotice("Plan settings were not found. Default prices are being displayed. Check Admin → Plans & Offers.", "info");
+      if (Array.isArray(data.plans) && data.plans.length) {
+        availablePlans = data.plans.map(normalizePlan);
+        planConfigLoaded = true;
+      }
     }
   } catch (error) {
-    console.error("Unable to load plan configuration:", error);
-    planConfig = normalizedPlans(FALLBACK_PLANS);
-    showNotice("Kayah could not read the latest plan settings. Showing default prices for now.", "error");
+    console.error("Unable to read plan configuration:", error);
   }
+
+  if (!availablePlans.length) {
+    availablePlans = fallbackPlans.map(normalizePlan);
+    showMessage(
+      "pageMessage",
+      "Kayah could not confirm the live plan configuration. Displayed prices are defaults and should be checked with the administrator before payment.",
+      "warning"
+    );
+  }
+
   renderPlans();
 }
 
-async function loadUserProfile(user) {
-  const snap = await getDoc(doc(db, "users", user.uid));
-  if (!snap.exists()) {
-    throw new Error("Your Kayah user profile could not be found in Firestore.");
-  }
-  userProfile = snap.data();
-  renderCurrentSubscription();
-}
-
-function renderCurrentSubscription() {
-  const profile = userProfile || {};
-  const planKey = getCurrentPlanKey(profile);
-  const expiredTrial = trialIsExpired(profile);
-  const actualKey = expiredTrial ? "free" : planKey;
-  const plan = planConfig[actualKey] || planConfig.free || FALLBACK_PLANS.free;
-  const trial = isTrial(profile) && !expiredTrial;
-  const endDate = getTrialEnd(profile);
-
-  $("currentLoading").hidden = true;
-  $("currentContent").hidden = false;
-  $("currentPlan").textContent = expiredTrial ? "Free" : (plan.name || "Free");
-  $("currentPrice").textContent = money(plan.price) + "/month";
-  $("currentEndDate").textContent = endDate ? formatDate(endDate) : "Not available";
-  $("accountEmail").textContent = currentUser?.email || profile.email || "Not available";
-
-  const status = $("currentStatus");
-  status.className = "status";
-  if (expiredTrial) {
-    status.textContent = "Trial ended · Free plan";
-    status.classList.add("warn");
-    showNotice("Your free trial has ended. Kayah is displaying the Free plan. Secure automatic expiry and plan-limit enforcement must also be configured on the server.", "info");
-  } else if (trial) {
-    status.textContent = "Free trial active";
-  } else if (getStatus(profile) === "pending") {
-    status.textContent = "Plan pending approval";
-    status.classList.add("warn");
-  } else if (getStatus(profile) === "expired") {
-    status.textContent = "Subscription expired";
-    status.classList.add("warn");
-  } else {
-    status.textContent = "Current plan";
-  }
-
-  const progressWrap = $("trialProgressWrap");
-  if (trial && endDate) {
-    const start = asDate(profile.trialStartedAt || profile.trialStartDate || profile.createdAt);
-    const total = start ? Math.max(1, endDate.getTime() - start.getTime()) : 30 * 86400000;
-    const remainingMs = Math.max(0, endDate.getTime() - Date.now());
-    const days = Math.ceil(remainingMs / 86400000);
-    const elapsed = Math.min(100, Math.max(0, 100 - remainingMs / total * 100));
-    progressWrap.hidden = false;
-    $("trialProgressLabel").textContent = "30-day free trial";
-    $("trialDaysLabel").textContent = days + (days === 1 ? " day remaining" : " days remaining");
-    $("trialProgressFill").style.width = elapsed + "%";
-  } else {
-    progressWrap.hidden = true;
-  }
-}
-
-function featureList(plan) {
-  const productLimit = Number(plan.productLimit ?? 0);
-  const staffLimit = Number(plan.staffLimit ?? 0);
-  const staff = plan.unlimitedStaff ? "Unlimited staff members" :
-    `${staffLimit} staff member${staffLimit === 1 ? "" : "s"}`;
-  return [
-    productLimit > 0 ? `${productLimit.toLocaleString("en-PH")} products` : "Product capacity set by plan",
-    staff,
-    "Business records saved in your account",
-    "Access to enabled Kayah features"
-  ];
-}
-
-function renderPlans() {
-  const container = $("plans");
-  const order = ["free", "starter", "business", "pro"];
-  const keys = order.filter(key => planConfig[key]);
-  for (const key of Object.keys(planConfig)) {
-    if (!keys.includes(key)) keys.push(key);
-  }
-
-  const visible = keys.filter(key => planConfig[key].enabled !== false);
-  if (!visible.length) {
-    container.innerHTML = '<div class="loading">No plans are currently available. Please contact the administrator.</div>';
-    return;
-  }
-
-  const currentKey = trialIsExpired(userProfile) ? "free" : getCurrentPlanKey(userProfile);
-
-  container.innerHTML = visible.map(key => {
-    const plan = planConfig[key];
-    const current = key === currentKey;
-    const featured = key === "business";
-    const price = Number(plan.price || 0);
-    const features = featureList(plan);
-    const buttonLabel = current ? "Current plan" : (price === 0 ? "Request Free plan" : "Choose plan");
-
-    return `
-      <article class="plan ${featured ? "featured" : ""}">
-        ${featured ? '<span class="plan-tag">POPULAR</span>' : ""}
-        <h3>${escapeHtml(plan.name || key)}</h3>
-        <div class="plan-description">${escapeHtml(plan.description || "A plan for your business")}</div>
-        <div class="price">${money(price)}<small>/month</small></div>
-        <div class="billing-note">${price === 0 ? "No monthly fee" : "Billed monthly"}</div>
-        <div class="plan-divider"></div>
-        <div class="feature-heading">Plan includes</div>
-        <ul class="features">
-          ${features.map(item => `<li><span class="check">✓</span><span>${escapeHtml(item)}</span></li>`).join("")}
-        </ul>
-        <button class="plan-btn ${current ? "secondary" : ""}" data-plan="${escapeHtml(key)}" ${current ? "disabled" : ""}>
-          ${buttonLabel}
-        </button>
-        <div class="plan-footnote">${current ? "This is the plan currently shown for your account." : (price === 0 ? "A request may require approval." : "Paid access is not activated until payment is verified.")}</div>
-      </article>`;
-  }).join("");
-
-  container.querySelectorAll("[data-plan]").forEach(button => {
-    button.addEventListener("click", () => openRequest(button.dataset.plan));
-  });
-}
-
-function openRequest(planKey) {
-  const plan = planConfig[planKey];
-  if (!plan || plan.enabled === false) {
-    showNotice("This plan is not currently available.", "error");
-    return;
-  }
-  selectedPlanKey = planKey;
-  $("modalTitle").textContent = "Request " + plan.name;
-  $("modalDescription").textContent = plan.price > 0
-    ? `You are requesting ${plan.name} at ${money(plan.price)} per month. Submitting this request does not activate the paid plan.`
-    : "You are requesting the Free plan. Your account may need approval before the plan is changed.";
-  $("paymentReference").value = "";
-  $("customerNote").value = "";
-  $("paymentInstructions").hidden = true;
-  $("requestModal").classList.add("open");
-}
-
-function closeModal() {
-  $("requestModal").classList.remove("open");
-  selectedPlanKey = null;
-}
-
-async function submitPlanRequest() {
-  if (requestBusy || !currentUser || !selectedPlanKey) return;
-
-  const plan = planConfig[selectedPlanKey];
-  if (!plan) return;
-
-  requestBusy = true;
-  $("submitRequest").disabled = true;
-  $("submitRequest").textContent = "Submitting...";
-
-  try {
-    const requests = collection(db, "users", currentUser.uid, "subscriptionRequests");
-    await addDoc(requests, {
-      userId: currentUser.uid,
-      email: currentUser.email || "",
-      businessName: userProfile.businessName || userProfile.companyName || "",
-      requestedPlan: selectedPlanKey,
-      requestedPlanName: plan.name || selectedPlanKey,
-      requestedPrice: Number(plan.price || 0),
-      billingDays: Number(plan.billingDays || 30),
-      paymentReference: $("paymentReference").value.trim(),
-      customerNote: $("customerNote").value.trim(),
-      status: "pending",
-      createdAt: serverTimestamp()
-    });
-
-    closeModal();
-    showNotice("Your plan request was submitted. It has not activated a paid subscription. Please wait for the administrator to review it.", "success");
-    await loadRequestHistory();
-  } catch (error) {
-    console.error("Unable to submit subscription request:", error);
-    showNotice(
-      "Could not submit your request. Your Firestore rules may need permission for users/{uid}/subscriptionRequests. No plan has been changed.",
-      "error"
-    );
-  } finally {
-    requestBusy = false;
-    $("submitRequest").disabled = false;
-    $("submitRequest").textContent = "Submit request";
-  }
-}
-
 async function loadRequestHistory() {
-  if (!currentUser) return;
-  try {
-    const requests = collection(db, "users", currentUser.uid, "subscriptionRequests");
-    const q = query(requests, orderBy("createdAt", "desc"), limit(10));
-    const snap = await getDocs(q);
+  $("historyLoading").classList.remove("hidden");
+  const body = $("historyBody");
+  body.innerHTML = "";
 
-    if (snap.empty) {
-      $("historyContent").innerHTML = '<div class="empty">No subscription requests yet. Your requests will appear here after you submit one.</div>';
+  try {
+    const requestsRef = collection(db, "users", currentUser.uid, "subscriptionRequests");
+    let snapshot;
+
+    try {
+      snapshot = await getDocs(query(requestsRef, orderBy("createdAt", "desc"), limit(20)));
+    } catch (orderError) {
+      snapshot = await getDocs(query(requestsRef, limit(20)));
+    }
+
+    $("historyLoading").classList.add("hidden");
+
+    if (snapshot.empty) {
+      body.innerHTML = '<tr><td colspan="5" class="empty">No subscription requests yet.</td></tr>';
       return;
     }
 
-    $("historyContent").innerHTML = `
-      <div style="overflow-x:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:420px">
-        <thead><tr style="text-align:left;color:#718078">
-          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Plan</th>
-          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Price</th>
-          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Status</th>
-          <th style="padding:10px 6px;border-bottom:1px solid #e3e9e4">Date</th>
-        </tr></thead>
-        <tbody>
-          ${snap.docs.map(d => {
-            const r = d.data();
-            const status = String(r.status || "pending");
-            const created = r.createdAt?.toDate ? r.createdAt.toDate().toLocaleDateString("en-PH") : "—";
-            return `<tr>
-              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee;font-weight:700">${escapeHtml(r.requestedPlanName || r.requestedPlan || "Plan")}</td>
-              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${money(r.requestedPrice)}/mo</td>
-              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${escapeHtml(status)}</td>
-              <td style="padding:12px 6px;border-bottom:1px solid #eef1ee">${escapeHtml(created)}</td>
-            </tr>`;
-          }).join("")}
-        </tbody>
-      </table></div>`;
+    const items = snapshot.docs.map(d => ({id:d.id,...d.data()}));
+    items.sort((a,b) => {
+      const ad = dateValue(a.createdAt)?.getTime() || 0;
+      const bd = dateValue(b.createdAt)?.getTime() || 0;
+      return bd - ad;
+    });
+
+    items.forEach(item => {
+      const tr = document.createElement("tr");
+      const status = String(item.status || "pending").toLowerCase();
+      const statusText = status.replace(/[_-]/g," ").replace(/\b\w/g,c => c.toUpperCase());
+      tr.innerHTML = `
+        <td>${escapeHtml(formatDate(item.createdAt))}</td>
+        <td>${escapeHtml(item.requestedPlanName || item.requestedPlan || "—")}</td>
+        <td>${escapeHtml(money(item.requestedPrice))}</td>
+        <td>${escapeHtml(item.paymentReference || item.referenceNo || "—")}</td>
+        <td><span class="status-pill">${escapeHtml(statusText)}</span></td>
+      `;
+      body.appendChild(tr);
+    });
   } catch (error) {
-    console.warn("Could not load subscription history:", error);
-    $("historyContent").innerHTML = '<div class="empty">Request history is not available yet. Firestore read permissions may need to be configured.</div>';
+    console.error("Unable to load subscription history:", error);
+    $("historyLoading").classList.add("hidden");
+    body.innerHTML = '<tr><td colspan="5" class="empty">Unable to load request history. Check your Firestore rules.</td></tr>';
   }
 }
 
-$("cancelRequest").addEventListener("click", closeModal);
-$("submitRequest").addEventListener("click", submitPlanRequest);
-$("requestModal").addEventListener("click", event => {
-  if (event.target === $("requestModal")) closeModal();
+$("paymentForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser || !selectedPlan) {
+    showMessage("paymentMessage", "Please sign in and choose a plan first.", "error");
+    return;
+  }
+
+  if (!planConfigLoaded) {
+    showMessage(
+      "paymentMessage",
+      "The official plan configuration could not be confirmed. Please contact the administrator before submitting payment.",
+      "error"
+    );
+    return;
+  }
+
+  const reference = $("referenceNo").value.trim();
+  const note = $("paymentNote").value.trim();
+
+  if (!reference) {
+    showMessage("paymentMessage", "Enter your GCash transaction reference number.", "error");
+    $("referenceNo").focus();
+    return;
+  }
+
+  if (submitting) return;
+
+  submitting = true;
+  $("submitPaymentBtn").disabled = true;
+  $("submitPaymentBtn").textContent = "Submitting...";
+
+  try {
+    const requestsRef = collection(db, "users", currentUser.uid, "subscriptionRequests");
+
+    // Prevent another pending request for the same plan from being submitted.
+    const existingSnap = await getDocs(requestsRef);
+    const duplicatePending = existingSnap.docs.some(d => {
+      const data = d.data();
+      const status = String(data.status || "").toLowerCase();
+      const sameReference = String(data.paymentReference || data.referenceNo || "")
+        .trim().toLowerCase() === reference.toLowerCase();
+      const samePlan = String(data.requestedPlan || "").toLowerCase() === selectedPlan.id;
+      return status === "pending" &&
+        (sameReference || samePlan);
+    });
+
+    if (duplicatePending) {
+      showMessage(
+        "paymentMessage",
+        "You already have a pending request using this reference number or for this plan. Please check your request history before submitting again.",
+        "warning"
+      );
+      return;
+    }
+
+    const requestData = {
+      userId: currentUser.uid,
+      email: currentUser.email || "",
+      businessName: String(userProfile.businessName || userProfile.business || ""),
+      requestedPlan: selectedPlan.id,
+      requestedPlanName: selectedPlan.name,
+      requestedPrice: Number(selectedPlan.price),
+      billingDays: Number(selectedPlan.billingDays || 30),
+      paymentMethod: "GCash QR",
+      paymentReference: reference,
+      customerNote: note,
+      status: "pending",
+      verificationStatus: "pending",
+      activationStatus: "not_activated",
+      createdAt: serverTimestamp()
+    };
+
+    await addDoc(requestsRef, requestData);
+
+    showMessage(
+      "paymentMessage",
+      "Your payment reference has been submitted successfully. Payment Under Verification: your plan will change only after the Kayah administrator verifies and approves the payment.",
+      "success"
+    );
+
+    $("referenceNo").value = "";
+    $("paymentNote").value = "";
+    selectedPlan = null;
+    await loadRequestHistory();
+
+  } catch (error) {
+    console.error("Subscription request error:", error);
+    let message = "Unable to submit your request. Please try again.";
+    if (error.code === "permission-denied") {
+      message = "Firebase permission denied. Your Firestore rules must allow a signed-in customer to create their own subscription request.";
+    } else if (!navigator.onLine) {
+      message = "You appear to be offline. Reconnect and try again.";
+    }
+    showMessage("paymentMessage", message, "error");
+  } finally {
+    submitting = false;
+    $("submitPaymentBtn").disabled = false;
+    $("submitPaymentBtn").textContent = "Submit Payment for Verification";
+  }
 });
 
 onAuthStateChanged(auth, async user => {
   currentUser = user;
+
   if (!user) {
-    $("currentLoading").textContent = "Please sign in to view your subscription.";
-    $("plans").innerHTML = '<div class="loading">Sign in to your Kayah account to view and request a plan.</div>';
-    $("historyContent").textContent = "Sign in to view subscription request history.";
+    $("currentPlan").textContent = "Not signed in";
+    $("currentStatus").textContent = "Sign in required";
+    $("expiryDate").textContent = "—";
+    showMessage(
+      "pageMessage",
+      "Please sign in to your Kayah account to view plans and submit a subscription payment.",
+      "warning"
+    );
+    $("plansLoading").textContent = "Sign in to continue.";
+    $("plansLoading").classList.remove("hidden");
+    $("plansGrid").innerHTML = "";
+    $("paymentSection").classList.add("hidden");
+    $("historyLoading").textContent = "Sign in to view your requests.";
+    $("historyBody").innerHTML = "";
     return;
   }
 
   try {
-    await loadPlans();
-    await loadUserProfile(user);
-    renderPlans();
-    await loadRequestHistory();
+    const profileSnap = await getDoc(doc(db, "users", user.uid));
+    userProfile = profileSnap.exists() ? profileSnap.data() : {};
+    renderCurrentSubscription();
   } catch (error) {
-    console.error(error);
-    $("currentLoading").textContent = error.message || "Unable to load your account.";
-    $("plans").innerHTML = '<div class="loading">We could not load your subscription. Please refresh or contact support.</div>';
-    showNotice("Unable to load your account information. Check your Firebase Authentication and Firestore rules.", "error");
+    console.error("Unable to load user profile:", error);
+    userProfile = {};
+    showMessage(
+      "pageMessage",
+      "Your account profile could not be loaded. Please check your connection and Firebase permissions.",
+      "warning"
+    );
   }
+
+  await loadPlans();
+  await loadRequestHistory();
 });
 </script>
 </body>
