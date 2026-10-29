@@ -547,30 +547,92 @@ $("cancelPaymentBtn").addEventListener("click",() => {
 $("gcashQrImage").addEventListener("error",() => $("qrError").classList.remove("hidden"));
 $("gcashQrImage").addEventListener("load",() => $("qrError").classList.add("hidden"));
 
-async function loadPlans() {
-  try {
-    const snap = await getDoc(doc(db,"systemSettings","planConfiguration"));
-    if (snap.exists()) {
-      const data = snap.data();
-      if (Array.isArray(data.plans) && data.plans.length) {
-        availablePlans = data.plans.map(normalizePlan);
-        planConfigLoaded = true;
-      }
-    }
-  } catch (error) {
-    console.error("Unable to read plan configuration:",error);
-  }
 
-  if (!availablePlans.length) {
+async function loadPlans() {
+  availablePlans = [];
+  planConfigLoaded = false;
+
+  try {
+    const snap = await getDoc(
+      doc(db, "systemSettings", "planConfiguration")
+    );
+
+    if (!snap.exists()) {
+      throw new Error(
+        "Firestore document systemSettings/planConfiguration does not exist."
+      );
+    }
+
+    const data = snap.data();
+    const rawPlans = data.plans;
+
+    // Support both the existing Firestore map and an array.
+    let planEntries = [];
+
+    if (Array.isArray(rawPlans)) {
+      planEntries = rawPlans.map((plan, index) => [
+        plan.id || plan.key || plan.planId || plan.name || ("plan-" + index),
+        plan
+      ]);
+    } else if (
+      rawPlans &&
+      typeof rawPlans === "object"
+    ) {
+      planEntries = Object.entries(rawPlans);
+    }
+
+    if (!planEntries.length) {
+      throw new Error(
+        "The plans field is empty or is not a valid map or array."
+      );
+    }
+
+    availablePlans = planEntries
+      .filter(([, plan]) =>
+        plan && typeof plan === "object" && !Array.isArray(plan)
+      )
+      .map(([key, plan], index) =>
+        normalizePlan({
+          ...plan,
+          id: plan.id || plan.key || plan.planId || key
+        }, index)
+      );
+
+    if (!availablePlans.length) {
+      throw new Error("No valid plan entries were found.");
+    }
+
+    planConfigLoaded = true;
+
+    hideMessage("pageMessage");
+    renderPlans();
+
+    console.log(
+      "Kayah plans loaded successfully:",
+      availablePlans.map(plan => ({
+        id: plan.id,
+        name: plan.name,
+        price: plan.price,
+        enabled: plan.enabled
+      }))
+    );
+
+  } catch (error) {
+    console.error(
+      "Unable to load official Kayah plan configuration:",
+      error
+    );
+
     availablePlans = fallbackPlans.map(normalizePlan);
+
     showMessage(
       "pageMessage",
-      "Kayah could not confirm the live plan configuration. Default prices are shown for reference only. Payment submission is disabled until the official plan configuration is available.",
+      "Kayah could not load the official plan configuration. Displayed prices are for reference only, and payment submission is disabled. Please check the Firebase document and read permissions.",
       "warning"
     );
-  }
 
-  renderPlans();
+    renderPlans();
+  }
 }
 
 async function loadRequestHistory() {
